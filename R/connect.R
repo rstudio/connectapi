@@ -49,6 +49,7 @@ Connect <- R6::R6Class(
                httr::add_headers(Authorization = paste0('Key ', self$api_key)),
                writer)
       self$raise_error(res)
+      check_debug(req, res)
       httr::content(res, as = parser)
     },
 
@@ -59,6 +60,7 @@ Connect <- R6::R6Class(
               body = body,
               encode = encode)
       self$raise_error(res)
+      check_debug(req, res)
       httr::content(res, as = 'parsed')
     },
 
@@ -123,3 +125,12 @@ Connect <- R6::R6Class(
     }
   )
 )
+
+check_debug <- function(req, res) {
+  debug <- getOption('connect.debug')
+  if (!is.null(debug) && debug) {
+    message(req)
+    message(httr::content(res, as = 'text'))
+  }
+}
+
