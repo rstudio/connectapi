@@ -88,10 +88,24 @@ Connect <- R6::R6Class(
       if (!is.null(filter)) {
         query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = '&')
         path <- paste0('applications?filter=',query)
+        sep <- '&'
       } else {
         path <- 'applications'
+        sep <- '?'
       }
-      self$GET(path)$applications
+
+      # handle paging
+      res <- self$GET(path)
+      all <- res$applications
+      start <- 26
+      while (length(res$applications) > 0) {
+        res <- self$GET(sprintf('%s%sstart=%d&cont=%s',path, sep, start, res$continuation))
+        for (a in res$applications) {
+          all[[length(all) + 1]] <- a
+        }
+        start <- start + 25
+      }
+      all
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
