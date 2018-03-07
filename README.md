@@ -28,13 +28,15 @@ Once a client is created there are a handful of useful functions:
 - `get_apps(filter = list(name = app_name))` Filters the list of applications by the `key=value` pair supplied to `filter` as a named list, e.g: `list(tag = tag_id)`
 - `get_tags` Returns a data frame with columns `tag_id` and `tag_name`
 
-*More functions will be added.*
+To see all the functions, visit the documentation for the `Connect` class. **More functions will be added**.
 
 ## Utilities
 
 There are also a handful of higher-level utility functions that use the client API. For example:
 
 - `promote` Provides a method to programatically promote content from one Connect server to another, e.g. going from Dev to Prod.
+
+- `tag_page` Creates an html landing page for content given a `tag` based on a simple template. This html page can be deployed to Connect or hosted on a different CMS portal.
 
 *More utilities will be added.*
 
