@@ -2,3 +2,4 @@
 
 export(Connect)
 export(promote)
+export(tag_page)

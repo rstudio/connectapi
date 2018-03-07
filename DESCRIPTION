@@ -10,3 +10,8 @@ Encoding: UTF-8
 Imports: R6,
     httr
 RoxygenNote: 6.0.1
+Suggests: rmarkdown,
+    htmltools,
+    flexdashboard,
+    webshot
+Remotes: slopp/webshot
