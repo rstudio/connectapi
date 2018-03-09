@@ -83,7 +83,14 @@ Connect <- R6::R6Class(
       self$tag_map[which(self$tag_map$name == tagname), 'id']
     },
 
+    get_n_apps = function() {
+      path <- 'applications'
+      apps <- self$GET(path)
+      apps$total
+    },
+
     # filter is a named list, e.g. list(name = 'appname')
+    # this function supports pages
     get_apps = function(filter = NULL) {
       if (!is.null(filter)) {
         query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = '&')
@@ -93,6 +100,7 @@ Connect <- R6::R6Class(
         path <- 'applications'
         sep <- '?'
       }
+
 
       # handle paging
       res <- self$GET(path)
@@ -106,6 +114,11 @@ Connect <- R6::R6Class(
         start <- start + 25
       }
       all
+    },
+
+    get_schedule = function(schedule_id) {
+      path <- sprintf('schedules/%d', schedule_id)
+      self$GET(path)
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {

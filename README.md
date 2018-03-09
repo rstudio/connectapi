@@ -38,5 +38,10 @@ There are also a handful of higher-level utility functions that use the client A
 
 - `tag_page` Creates an html landing page for content given a `tag` based on a simple template. This html page can be deployed to Connect or hosted on a different CMS portal.
 
+- `audit_*` Functions for auditing different aspects of the
+Connect server including: content that has open permissions,
+what R versions are in use, what vanity urls are available, 
+and non-default RunAs settings.
+
 *More utilities will be added.*
 
