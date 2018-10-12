@@ -148,7 +148,7 @@ Connect <- R6::R6Class(
 
     create_app  = function(name) {
       path = sprintf('applications')
-      self$POST(path, list(name = name))
+      self$POST(path, list(name = tolower(gsub("\\s","",name)), title = name ))
     }
   )
 )
