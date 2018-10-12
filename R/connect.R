@@ -145,6 +145,11 @@ Connect <- R6::R6Class(
       path = sprintf('tasks/%s?first_status=%d', task_id, start)
       self$GET(path)
     },
+    
+    get_users = function(page_number = 1){
+      path = sprintf('v1/users?page_number=%d', page_number)
+      self$GET(path)
+    },
 
     create_app  = function(name) {
       path = sprintf('applications')
