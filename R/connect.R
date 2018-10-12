@@ -188,7 +188,12 @@ Connect <- R6::R6Class(
     create_app  = function(name) {
       path = sprintf('applications')
       self$POST(path, list(name = tolower(gsub("\\s","",name)), title = name ))
+    },
+    
+    get_docs = function(docs = "api") {
+      rstudioapi::viewer(paste0(self$host, '/__docs__/', docs))
     }
+    
   )
 )
 
