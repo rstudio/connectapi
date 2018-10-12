@@ -150,6 +150,24 @@ Connect <- R6::R6Class(
       path = sprintf('v1/users?page_number=%d', page_number)
       self$GET(path)
     },
+    
+    create_users = function(
+      email, first_name, last_name,
+      password, user_must_set_password, 
+      user_role, username
+      ) {
+      path = sprintf('v1/users')
+      self$POST(path = path,
+                body = list(
+                  email = email,
+                  first_name = first_name,
+                  last_name = last_name,
+                  password = password,
+                  user_must_set_password = user_must_set_password,
+                  user_role = user_role,
+                  username = username
+                ))
+    },
 
     create_app  = function(name) {
       path = sprintf('applications')
