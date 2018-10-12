@@ -168,6 +168,14 @@ Connect <- R6::R6Class(
                   username = username
                 ))
     },
+    
+    lock_user = function(user_guid) {
+      path = sprintf('users/%s/lock', user_guid)
+      message(path)
+      self$POST(path = path,
+                body = list(locked = TRUE)
+                )
+    },
 
     create_app  = function(name) {
       path = sprintf('applications')
