@@ -52,6 +52,19 @@ Connect <- R6::R6Class(
       check_debug(req, res)
       httr::content(res, as = parser)
     },
+    
+    PUT = function(path, body, encode = 'json') {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::PUT(
+        req,
+        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        body = body,
+        encode = encode
+      )
+      self$raise_error(res)
+      check_debug(req, res)
+      httr::content(res, as = 'parsed')
+    },
 
     POST = function(path, body, encode = 'json') {
       req <- paste0(self$host, '/__api__/', path)
