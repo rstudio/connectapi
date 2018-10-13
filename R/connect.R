@@ -183,7 +183,7 @@ Connect <- R6::R6Class(
     },
     
     lock_user = function(user_guid) {
-      path = sprintf('users/%s/lock', user_guid)
+      path = sprintf('v1/users/%s/lock', user_guid)
       message(path)
       self$POST(path = path,
                 body = list(locked = TRUE)
@@ -191,7 +191,7 @@ Connect <- R6::R6Class(
     },
     
     unlock_user = function(user_guid) {
-      path = sprintf('users/%s/lock', user_guid)
+      path = sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
         body = list(locked = FALSE)
