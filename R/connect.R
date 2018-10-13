@@ -197,6 +197,14 @@ Connect <- R6::R6Class(
         body = list(locked = FALSE)
       )
     },
+    
+    update_user = function(user_guid, email) {
+      path = sprintf('v1/users/%s', user_guid)
+      self$PUT(
+        path = path,
+        body = list(email = email)
+      )
+    },
 
     create_app  = function(name) {
       path = sprintf('applications')
