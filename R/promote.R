@@ -51,17 +51,27 @@ promote <- function(from,
     warning(sprintf('Updating EXISTING app %d with name %s on %s', to_app$id, app_name, to))
   }
 
+  to_app_url <- deploy_bundle(
+    connect = to_client,
+    bundle = bundle,
+    app = to_app
+  )
+  
+  return(to_app_url)
+}
+
+deploy_bundle <- function(connect, bundle, app){
   #upload bundle
-  new_bundle_id <- to_client$upload_bundle(bundle, to_app$id)
-
+  new_bundle_id <- connect$upload_bundle(bundle, app$id)
+  
   #activate bundle
-  task_id <- to_client$activate_bundle(to_app$id, new_bundle_id)
-
+  task_id <- connect$activate_bundle(app$id, new_bundle_id)
+  
   #poll task
   start <- 0
   while (task_id > 0) {
     Sys.sleep(2)
-    status <- to_client$get_task(task_id, start)
+    status <- connect$get_task(task_id, start)
     if (length(status$status) > 0) {
       lapply(status$status, print)
       start <- status$last_status
@@ -70,5 +80,5 @@ promote <- function(from,
       task_id = 0
     }
   }
-  return(to_app$url)
+  return(app$url)
 }
