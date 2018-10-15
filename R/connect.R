@@ -212,6 +212,7 @@ Connect <- R6::R6Class(
     },
     
     get_docs = function(docs = "api") {
+      stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
     }
     
