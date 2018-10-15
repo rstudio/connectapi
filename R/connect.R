@@ -212,7 +212,7 @@ Connect <- R6::R6Class(
     },
     
     get_docs = function(docs = "api") {
-      rstudioapi::viewer(paste0(self$host, '/__docs__/', docs))
+      utils::browseURL(paste0(self$host, '/__docs__/', docs))
     }
     
   )
