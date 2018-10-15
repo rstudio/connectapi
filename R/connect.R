@@ -164,6 +164,11 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    get_users_remote = function(prefix) {
+      path = sprintf('v1/users/remote?prefix=%s', prefix)
+      self$GET(path)
+    },
+    
     create_users = function(
       email, first_name, last_name,
       password, user_must_set_password, 
