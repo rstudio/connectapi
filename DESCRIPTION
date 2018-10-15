@@ -7,8 +7,10 @@ Maintainer: Sean Lopp <sean@rstudio.com>
 Description: Helpful class for interacting with Connect's API and some example utility functions.
 License: GPL-2
 Encoding: UTF-8
-Imports: R6,
-    httr
+Imports: 
+    R6,
+    httr,
+    rlang
 RoxygenNote: 6.0.1
 Suggests: rmarkdown,
     htmltools,

@@ -52,6 +52,19 @@ Connect <- R6::R6Class(
       check_debug(req, res)
       httr::content(res, as = parser)
     },
+    
+    PUT = function(path, body, encode = 'json') {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::PUT(
+        req,
+        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        body = body,
+        encode = encode
+      )
+      self$raise_error(res)
+      check_debug(req, res)
+      httr::content(res, as = 'parsed')
+    },
 
     POST = function(path, body, encode = 'json') {
       req <- paste0(self$host, '/__api__/', path)
@@ -145,11 +158,69 @@ Connect <- R6::R6Class(
       path = sprintf('tasks/%s?first_status=%d', task_id, start)
       self$GET(path)
     },
+    
+    get_users = function(page_number = 1){
+      path = sprintf('v1/users?page_number=%d', page_number)
+      self$GET(path)
+    },
+    
+    get_users_remote = function(prefix) {
+      path = sprintf('v1/users/remote?prefix=%s', prefix)
+      self$GET(path)
+    },
+    
+    create_users = function(
+      email, first_name, last_name,
+      password, user_must_set_password, 
+      user_role, username
+      ) {
+      path = sprintf('v1/users')
+      self$POST(path = path,
+                body = list(
+                  email = email,
+                  first_name = first_name,
+                  last_name = last_name,
+                  password = password,
+                  user_must_set_password = user_must_set_password,
+                  user_role = user_role,
+                  username = username
+                ))
+    },
+    
+    lock_user = function(user_guid) {
+      path = sprintf('v1/users/%s/lock', user_guid)
+      message(path)
+      self$POST(path = path,
+                body = list(locked = TRUE)
+                )
+    },
+    
+    unlock_user = function(user_guid) {
+      path = sprintf('v1/users/%s/lock', user_guid)
+      self$POST(
+        path = path,
+        body = list(locked = FALSE)
+      )
+    },
+    
+    update_user = function(user_guid, email, ...) {
+      path = sprintf('v1/users/%s', user_guid)
+      self$PUT(
+        path = path,
+        body = c(list(email = email), rlang::dots_list(...))
+      )
+    },
 
     create_app  = function(name) {
       path = sprintf('applications')
-      self$POST(path, list(name = name))
+      self$POST(path, list(name = tolower(gsub("\\s","",name)), title = name ))
+    },
+    
+    get_docs = function(docs = "api") {
+      stopifnot(docs %in% c("admin", "user", "api"))
+      utils::browseURL(paste0(self$host, '/__docs__/', docs))
     }
+    
   )
 )
 
