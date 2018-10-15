@@ -203,11 +203,11 @@ Connect <- R6::R6Class(
       )
     },
     
-    update_user = function(user_guid, email) {
+    update_user = function(user_guid, email, ...) {
       path = sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
-        body = list(email = email)
+        body = c(list(email = email), rlang::dots_list(...))
       )
     },
 
