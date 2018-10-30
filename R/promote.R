@@ -78,7 +78,7 @@ dir_bundle <- function(path = ".") {
 #' @export
 dir_manifest <- function(path = ".", ...) {
   if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("Package \"pkg\" needed for this function to work. Please install it.", call. = FALSE)
+    stop("Package \"rsconnect\" needed for this function to work. Please install it.", call. = FALSE)
   }
   rsconnect::writeManifest(
     appDir = path,
