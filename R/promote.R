@@ -67,7 +67,7 @@ promote <- function(from,
 #' @export
 dir_bundle <- function(path = ".") {
   before_wd <- getwd()
-  setwd(directory)
+  setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
   
   utils::tar(tarfile = "bundle.tar.gz", files = ".", compression = "gzip", tar = "internal")
@@ -77,14 +77,14 @@ dir_bundle <- function(path = ".") {
 
 #' @export
 dir_manifest <- function(path = ".", ...) {
-  if (!requireNamespace("rsconnect", quitely = TRUE)) {
+  if (!requireNamespace("rsconnect", quietly = TRUE)) {
     stop("Package \"pkg\" needed for this function to work. Please install it.", call. = FALSE)
   }
   rsconnect::writeManifest(
-    appDir = directory,
+    appDir = path,
     appFiles = fs::path_rel(
-      fs::dir_ls(directory, recursive = TRUE),
-      start = directory
+      fs::dir_ls(path, recursive = TRUE),
+      start = path
     ),
     ...
   )
