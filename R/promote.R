@@ -54,7 +54,7 @@ promote <- function(from,
   task_id <- deploy_bundle(
     connect = to_client,
     bundle = bundle,
-    app = to_app$id
+    app_id = to_app$id
   )
   
   poll_task(connect = to_client, task_id = task_id)
