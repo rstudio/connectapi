@@ -211,9 +211,16 @@ Connect <- R6::R6Class(
       )
     },
 
-    create_app  = function(name) {
-      path = sprintf('applications')
-      self$POST(path, list(name = tolower(gsub("\\s","",name)), title = name ))
+    create_app  = function(name, title = name, ...) {
+      path = sprintf('experimental/content')
+      other_params <- rlang::dots_list(...)
+      self$POST(
+        path, 
+        c(
+          list(name = tolower(gsub("\\s","",name)), title = title ),
+          other_params
+        )
+      )
     },
     
     get_docs = function(docs = "api") {
