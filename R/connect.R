@@ -166,6 +166,12 @@ Connect <- R6::R6Class(
       task_id <- res[["task_id"]]
       task_id
     },
+    
+    get_content = function(app_guid) {
+      path <- sprintf("experimental/content/%s", app_guid)
+      res <- self$GET(path)
+      return(res)
+    }
 
     get_task = function(task_id, start = 0, wait = 5) {
       path = sprintf('experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
