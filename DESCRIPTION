@@ -13,11 +13,13 @@ Imports:
     rlang,
     glue
 RoxygenNote: 6.0.1
-Suggests: rmarkdown,
+Suggests: 
+    rmarkdown,
     htmltools,
     flexdashboard,
     webshot,
     lubridate,
     ggplot2,
-    gridExtra
+    gridExtra,
+    testthat
 Remotes: slopp/webshot
