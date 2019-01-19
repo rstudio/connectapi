@@ -249,14 +249,14 @@ Connect <- R6::R6Class(
       path <- glue::glue(
         "v1/instrumentation/content/visits?",
         glue::glue(
-          "{safequery(content_guid, 'content_guid=')}",
-          "{safequery(min_data_version, 'content_guid=')}",
-          "{safequery(from, 'from=')}",
-          "{safequery(to, 'to=')}",
-          "{safequery(limit, 'limit=')}",
-          "{safequery(previous, 'previous=')}",
-          "{safequery(nxt, 'next=')}",
-          "{safequery(asc_order, 'asc_order=')}",
+          "{safe_query(content_guid, 'content_guid=')}",
+          "{safe_query(min_data_version, 'content_guid=')}",
+          "{safe_query(from, 'from=')}",
+          "{safe_query(to, 'to=')}",
+          "{safe_query(limit, 'limit=')}",
+          "{safe_query(previous, 'previous=')}",
+          "{safe_query(nxt, 'next=')}",
+          "{safe_query(asc_order, 'asc_order=')}",
           .sep = "&"
         )
       )
@@ -274,8 +274,8 @@ Connect <- R6::R6Class(
     get_audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
-        "{safequery(previous, '&previous=')}",
-        "{safequery(nxt, '&next=')}",
+        "{safe_query(previous, '&previous=')}",
+        "{safe_query(nxt, '&next=')}",
         "&ascOrder={asc_order}"
         )
       self$GET(
