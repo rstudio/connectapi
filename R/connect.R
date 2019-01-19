@@ -133,6 +133,18 @@ Connect <- R6::R6Class(
       path <- sprintf('schedules/%d', schedule_id)
       self$GET(path)
     },
+    
+    content_create  = function(name, title = name, ...) {
+      path = sprintf('experimental/content')
+      other_params <- rlang::dots_list(...)
+      self$POST(
+        path, 
+        c(
+          list(name = tolower(gsub("\\s","",name)), title = title ),
+          other_params
+        )
+      )
+    },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
       path <- sprintf('bundles/%d/download', bundle_id)
@@ -211,18 +223,6 @@ Connect <- R6::R6Class(
       )
     },
 
-    create_app  = function(name, title = name, ...) {
-      path = sprintf('experimental/content')
-      other_params <- rlang::dots_list(...)
-      self$POST(
-        path, 
-        c(
-          list(name = tolower(gsub("\\s","",name)), title = title ),
-          other_params
-        )
-      )
-    },
-    
     get_docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
