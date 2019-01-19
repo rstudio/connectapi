@@ -243,11 +243,11 @@ Connect <- R6::R6Class(
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
     },
     
-    get_audit_logs = function(limit = 20L, previous = NULL, next = NULL, asc_order = TRUE) {
+    get_audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
-        "{protect(previous, '&previous=')}",
-        "{protect(next, '&next=')}",
+        "{safequery(previous, '&previous=')}",
+        "{safequery(nxt, '&next=')}",
         "&ascOrder={asc_order}"
         )
       self$GET(
