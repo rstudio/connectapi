@@ -134,6 +134,8 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    # content ----------------------------------------------------------
+    
     content_create  = function(name, title = name, ...) {
       path <- sprintf('v1/experimental/content')
       other_params <- rlang::dots_list(...)
@@ -177,6 +179,8 @@ Connect <- R6::R6Class(
       path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
       self$GET(path)
     },
+    
+    # users -----------------------------------------------
     
     get_users = function(page_number = 1){
       path <- sprintf('v1/users?page_number=%d', page_number)
