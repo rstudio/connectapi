@@ -1,4 +1,4 @@
-protect <- function(expr, prefix) {
+safequery <- function(expr, prefix = "") {
   if (is.null(expr)) {
     return("")
   } else {
