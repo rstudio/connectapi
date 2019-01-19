@@ -229,7 +229,11 @@ Connect <- R6::R6Class(
         body = c(list(email = email), rlang::dots_list(...))
       )
     },
+    
+    # instrumentation --------------------------------------------
 
+    # misc utilities --------------------------------------------
+    
     get_docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
@@ -248,6 +252,7 @@ Connect <- R6::R6Class(
     }
     
     
+    # end --------------------------------------------------------
   )
 )
 
