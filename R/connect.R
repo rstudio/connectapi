@@ -147,10 +147,10 @@ Connect <- R6::R6Class(
       new_bundle_id
     },
 
-    activate_bundle = function(app_guid, bundle_id) {
+    deploy_bundle = function(app_guid, bundle_id) {
       path <- sprintf('experimental/content/%s/deploy', app_guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
-      task_id <- res$id
+      task_id <- res[["task_id"]]
       task_id
     },
 
