@@ -264,6 +264,35 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    inst_shiny_usage = function(
+      content_guid = NULL, 
+      min_data_version = NULL,
+      from = NULL,
+      to = NULL,
+      limit = 20,
+      previous = NULL,
+      nxt = NULL,
+      asc_order = TRUE
+    ) {
+      
+      path <- glue::glue(
+        "v1/instrumentation/shiny/usage?",
+        glue::glue(
+          "{safe_query(content_guid, 'content_guid=')}",
+          "{safe_query(min_data_version, 'content_guid=')}",
+          "{safe_query(from, 'from=')}",
+          "{safe_query(to, 'to=')}",
+          "{safe_query(limit, 'limit=')}",
+          "{safe_query(previous, 'previous=')}",
+          "{safe_query(nxt, 'next=')}",
+          "{safe_query(asc_order, 'asc_order=')}",
+          .sep = "&"
+        )
+      )
+      
+      self$GET(path)
+    },
+    
     # misc utilities --------------------------------------------
     
     get_docs = function(docs = "api") {
