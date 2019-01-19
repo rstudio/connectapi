@@ -135,7 +135,7 @@ Connect <- R6::R6Class(
     },
     
     content_create  = function(name, title = name, ...) {
-      path = sprintf('experimental/content')
+      path <- sprintf('experimental/content')
       other_params <- rlang::dots_list(...)
       self$POST(
         path, 
@@ -174,17 +174,17 @@ Connect <- R6::R6Class(
     }
 
     get_task = function(task_id, start = 0, wait = 5) {
-      path = sprintf('experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
+      path <- sprintf('experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
       self$GET(path)
     },
     
     get_users = function(page_number = 1){
-      path = sprintf('v1/users?page_number=%d', page_number)
+      path <- sprintf('v1/users?page_number=%d', page_number)
       self$GET(path)
     },
     
     get_users_remote = function(prefix) {
-      path = sprintf('v1/users/remote?prefix=%s', prefix)
+      path <- sprintf('v1/users/remote?prefix=%s', prefix)
       self$GET(path)
     },
     
@@ -193,7 +193,7 @@ Connect <- R6::R6Class(
       password, user_must_set_password, 
       user_role, username
       ) {
-      path = sprintf('v1/users')
+      path <- sprintf('v1/users')
       self$POST(path = path,
                 body = list(
                   email = email,
@@ -207,7 +207,7 @@ Connect <- R6::R6Class(
     },
     
     lock_user = function(user_guid) {
-      path = sprintf('v1/users/%s/lock', user_guid)
+      path <- sprintf('v1/users/%s/lock', user_guid)
       message(path)
       self$POST(path = path,
                 body = list(locked = TRUE)
@@ -215,7 +215,7 @@ Connect <- R6::R6Class(
     },
     
     unlock_user = function(user_guid) {
-      path = sprintf('v1/users/%s/lock', user_guid)
+      path <- sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
         body = list(locked = FALSE)
@@ -223,7 +223,7 @@ Connect <- R6::R6Class(
     },
     
     update_user = function(user_guid, email, ...) {
-      path = sprintf('v1/users/%s', user_guid)
+      path <- sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
         body = c(list(email = email), rlang::dots_list(...))
