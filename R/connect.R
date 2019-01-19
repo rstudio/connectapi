@@ -135,7 +135,7 @@ Connect <- R6::R6Class(
     },
     
     content_create  = function(name, title = name, ...) {
-      path <- sprintf('experimental/content')
+      path <- sprintf('v1/experimental/content')
       other_params <- rlang::dots_list(...)
       self$POST(
         path, 
@@ -154,27 +154,27 @@ Connect <- R6::R6Class(
 
     content_upload = function(bundle_path, app_guid) {
       # todo : add X-Content-Checksum
-      path <- sprintf('experimental/content/%d/upload', app_guid)
+      path <- sprintf('v1/experimental/content/%d/upload', app_guid)
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
       new_bundle_id <- res[["task_id"]]
       new_bundle_id
     },
 
     content_deploy = function(app_guid, bundle_id) {
-      path <- sprintf('experimental/content/%s/deploy', app_guid)
+      path <- sprintf('v1/experimental/content/%s/deploy', app_guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
       task_id <- res[["task_id"]]
       task_id
     },
     
     get_content = function(app_guid) {
-      path <- sprintf("experimental/content/%s", app_guid)
+      path <- sprintf("v1/experimental/content/%s", app_guid)
       res <- self$GET(path)
       return(res)
     }
 
     get_task = function(task_id, start = 0, wait = 5) {
-      path <- sprintf('experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
+      path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, start, wait)
       self$GET(path)
     },
     
