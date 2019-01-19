@@ -152,10 +152,11 @@ Connect <- R6::R6Class(
       to_path
     },
 
-    upload_bundle = function(bundle_path, app_id) {
-      path <- sprintf('applications/%d/upload', app_id)
+    content_upload = function(bundle_path, app_guid) {
+      # todo : add X-Content-Checksum
+      path <- sprintf('experimental/content/%d/upload', app_guid)
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
-      new_bundle_id <- res$id
+      new_bundle_id <- res[["task_id"]]
       new_bundle_id
     },
 
