@@ -235,6 +235,34 @@ Connect <- R6::R6Class(
     },
     
     # instrumentation --------------------------------------------
+    
+    inst_content_visits = function(
+      content_guid = NULL, 
+      min_data_version = NULL,
+      from = NULL,
+      to = NULL,
+      limit = 20,
+      previous = NULL,
+      nxt = NULL,
+      asc_order = TRUE
+      ) {
+      path <- glue::glue(
+        "v1/instrumentation/content/visits?",
+        glue::glue(
+          "{safequery(content_guid, 'content_guid=')}",
+          "{safequery(min_data_version, 'content_guid=')}",
+          "{safequery(from, 'from=')}",
+          "{safequery(to, 'to=')}",
+          "{safequery(limit, 'limit=')}",
+          "{safequery(previous, 'previous=')}",
+          "{safequery(nxt, 'next=')}",
+          "{safequery(asc_order, 'asc_order=')}",
+          .sep = "&"
+        )
+      )
+      
+      self$GET(path)
+    },
 
     # misc utilities --------------------------------------------
     
