@@ -233,7 +233,20 @@ Connect <- R6::R6Class(
     get_docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
+    },
+    
+    get_audit_logs = function(limit = 20L, previous = NULL, next = NULL, asc_order = TRUE) {
+      path <- glue::glue(
+        "v1/audit_logs?limit={limit}",
+        "{protect(previous, '&previous=')}",
+        "{protect(next, '&next=')}",
+        "&ascOrder={asc_order}"
+        )
+      self$GET(
+        path = path
+      )
     }
+    
     
   )
 )
