@@ -249,8 +249,14 @@ Connect <- R6::R6Class(
       self$GET(
         path = path
       )
-    }
+    },
     
+    get_server_settings_r = function() {
+      path <- "v1/server_settings/r"
+      self$GET(
+        path = path
+      )
+    }
     
     # end --------------------------------------------------------
   )
