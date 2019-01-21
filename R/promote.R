@@ -65,6 +65,31 @@ promote <- function(from,
 }
 
 #' @export
+content_ensure <- function(connect, name, title = name, ...) {
+  
+  content <- connect$get_apps(list(name = name))
+  if (length(content) > 1) {
+    stop(glue::glue("Found {length(to_content)} content items ",
+              "matching {content_name} on {connect$host}",
+              ", content must have a unique name."))
+  } else if (length(content) == 0) {
+    # create app
+    content <- connect$content_create(
+      name = name,
+      title = title,
+      ...
+    )
+    message(glue::glue("Creating NEW content {content$guid} ",
+                 "with name {name} on {connect$host}"))
+  } else {
+    content <- content[[1]]
+    message(glue::glue("Found EXISTING content {content$guid} with ",
+    "name {name} on {connect$host}"))
+  }
+  return(content)
+}
+
+#' @export
 dir_bundle <- function(path = ".") {
   before_wd <- getwd()
   setwd(path)
