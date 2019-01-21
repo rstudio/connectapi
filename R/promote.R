@@ -75,20 +75,6 @@ dir_bundle <- function(path = ".") {
   return(fs::path_abs("bundle.tar.gz"))
 }
 
-dir_manifest <- function(path = ".", ...) {
-  if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("Package \"rsconnect\" needed for this function to work. Please install it.", call. = FALSE)
-  }
-  rsconnect::writeManifest(
-    appDir = path,
-    appFiles = fs::path_rel(
-      fs::dir_ls(path, recursive = TRUE),
-      start = path
-    ),
-    ...
-  )
-}
-
 #' @export
 deploy_bundle <- function(connect, bundle, app_id){
   #upload bundle
