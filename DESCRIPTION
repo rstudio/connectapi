@@ -11,7 +11,8 @@ Imports:
     R6,
     httr,
     rlang,
-    glue
+    glue,
+    fs
 RoxygenNote: 6.0.1
 Suggests: 
     rmarkdown,
