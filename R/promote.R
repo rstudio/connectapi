@@ -51,23 +51,43 @@ promote <- function(from,
     warning(sprintf('Updating EXISTING app %d with name %s on %s', to_app$id, app_name, to))
   }
 
-  to_app_url <- deploy_bundle(
+  task_id <- deploy_bundle(
     connect = to_client,
     bundle = bundle,
-    app = to_app
+    app_id = to_app$id
   )
+  
+  poll_task(connect = to_client, task_id = task_id)
+  
+  to_app_url <- app$url
   
   return(to_app_url)
 }
 
-deploy_bundle <- function(connect, bundle, app){
+#' @export
+dir_bundle <- function(path = ".") {
+  before_wd <- getwd()
+  setwd(path)
+  on.exit(expr = setwd(before_wd), add = TRUE)
+  
+  utils::tar(tarfile = "bundle.tar.gz", files = ".", compression = "gzip", tar = "internal")
+  
+  return(fs::path_abs("bundle.tar.gz"))
+}
+
+#' @export
+deploy_bundle <- function(connect, bundle, app_id){
   #upload bundle
-  new_bundle_id <- connect$upload_bundle(bundle, app$id)
+  new_bundle_id <- connect$upload_bundle(bundle, app_id)
   
   #activate bundle
-  task_id <- connect$activate_bundle(app$id, new_bundle_id)
+  task_id <- connect$activate_bundle(app_id, new_bundle_id)
   
-  #poll task
+  return(task_id)
+}
+
+#' @export
+poll_task <- function(connect, task_id) {
   start <- 0
   while (task_id > 0) {
     Sys.sleep(2)
@@ -80,5 +100,5 @@ deploy_bundle <- function(connect, bundle, app){
       task_id = 0
     }
   }
-  return(app$url)
+  invisible()
 }
