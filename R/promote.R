@@ -89,6 +89,10 @@ content_ensure <- function(connect, name, title = name, ...) {
   return(content)
 }
 
+random_name <- function(length = 13) {
+  tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
+}
+
 #' @export
 dir_bundle <- function(path = ".") {
   before_wd <- getwd()
