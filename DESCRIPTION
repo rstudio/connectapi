@@ -20,6 +20,5 @@ Suggests:
     webshot,
     lubridate,
     ggplot2,
-    gridExtra,
-    rsconnect
+    gridExtra
 Remotes: slopp/webshot
