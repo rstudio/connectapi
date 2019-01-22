@@ -7,7 +7,7 @@ This package is an **experimental WIP**. The package is designed to provide an R
 To get started:
 
 ```r
-devtools::install_github('slopp/connectApiUtils')
+devtools::install_github('rstudio/connectapi')
 ```
 
 ## Client
@@ -15,7 +15,7 @@ devtools::install_github('slopp/connectApiUtils')
 To create a client:
 
 ```r
-library(connectApiUtils)
+library(connectapi)
 client <- Connect$new(
   host = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
