@@ -22,6 +22,8 @@ yaml_content_deploy <- function(
   image = NULL,
   ...
 ) {
+  orig_connect <- connect
+  connect <- connect_input(connect)
   bundle_path <- dir_bundle(path = path)
   
   c_obj <- rlang::exec(
