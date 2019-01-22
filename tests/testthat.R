@@ -1,4 +1,4 @@
 library(testthat)
-library(connectApiUtils)
+library(connectapi)
 
-test_check("connectApiUtils")
+test_check("connectapi")
