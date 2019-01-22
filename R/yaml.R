@@ -5,7 +5,7 @@ yaml_content <- function(filename = ".connect.yml") {
 
 yaml_content_deploy <- function(
   connect,
-  name,
+  name = random_name(),
   path = "./",
   description = NULL,
   tag = NULL,
@@ -19,7 +19,7 @@ yaml_content_deploy <- function(
     content_ensure,
     connect = connect,
     name = name,
-    description = description
+    description = description,
     ...
   )
   
@@ -30,8 +30,16 @@ yaml_content_deploy <- function(
     guid = c_guid
     )
   
-  # deploy
+  c_task <- connect$content_deploy(
+    guid = c_guid,
+    bundle_id = c_upload
+  )
   
+  # wait for task to complete
+  poll_task(
+    connect,
+    c_task
+  )
   
   # tag helper
   if (!is.null(tag)) {
