@@ -1,4 +1,4 @@
-# connectApiUtils 0.1.0.9000
+# connectapi 0.1.0.9000
 
 BREAKING: 
 * Rename a handful of functions:
@@ -7,6 +7,7 @@ BREAKING:
   - `connect$upload_bundle` to `connect$content_upload`
 * Switch endpoints from using `app_id` to `guid`
 * `get_task$start` renamed to `get_task$first`
+* rename the package to `connectapi`
   
 OTHER: 
 * Add some endpoints:
