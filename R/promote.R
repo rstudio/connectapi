@@ -65,7 +65,7 @@ promote <- function(from,
 }
 
 #' @export
-content_ensure <- function(connect, name, title = name, ...) {
+content_ensure <- function(connect, name = random_name(), title = name, ...) {
   
   content <- connect$get_apps(list(name = name))
   if (length(content) > 1) {
