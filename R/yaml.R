@@ -1,5 +1,14 @@
-yaml_content <- function(filename = ".connect.yml") {
+yaml_content <- function(connect, filename = ".connect.yml") {
   cfg <- config::get(value = "content", file = filename)
+  
+  res <- lapply(
+    cfg,
+    function(x, connect) {
+      rlang::exec(yaml_content_deploy, connect = connect, !!!x)
+    },
+    connect = connect
+  )
+  
   return(cfg)
 }
 
