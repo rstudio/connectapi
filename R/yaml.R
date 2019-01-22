@@ -52,16 +52,16 @@ yaml_content_deploy <- function(
   
   # tag helper
   if (!is.null(tag)) {
-    
+    # need public APIs
   }
   
   # set vanity URL
   if (!is.null(url)) {
-    
+    # need public APIs
   }
   
   # set image path
   if (!is.null(image)) {
-    
+    # need public APIs
   }
 }
