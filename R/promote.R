@@ -94,14 +94,14 @@ random_name <- function(length = 13) {
 }
 
 #' @export
-dir_bundle <- function(path = ".") {
+dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
   
-  utils::tar(tarfile = "bundle.tar.gz", files = ".", compression = "gzip", tar = "internal")
+  utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
   
-  return(fs::path_abs("bundle.tar.gz"))
+  return(fs::path_abs(filename))
 }
 
 #' @export
