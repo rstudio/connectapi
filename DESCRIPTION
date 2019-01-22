@@ -10,9 +10,11 @@ Encoding: UTF-8
 Imports: 
     R6,
     httr,
-    rlang
+    rlang,
+    fs
 RoxygenNote: 6.0.1
-Suggests: rmarkdown,
+Suggests: 
+    rmarkdown,
     htmltools,
     flexdashboard,
     webshot,
