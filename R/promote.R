@@ -116,18 +116,22 @@ deploy_bundle <- function(connect, bundle, app_id){
 }
 
 #' @export
-poll_task <- function(connect, task_id) {
-  start <- 0
-  while (task_id > 0) {
-    Sys.sleep(2)
-    status <- connect$get_task(task_id, start)
-    if (length(status$status) > 0) {
-      lapply(status$status, print)
-      start <- status$last_status
-    }
-    if (status$finished) {
-      task_id = 0
-    }
+poll_task <- function(connect, task_id, wait = 1) {
+  finished <- FALSE
+  code <- -1
+  first <- 0
+  while (!finished) {
+    task_data <- connect$get_task(task_id, wait = wait, first = first)
+    finished <- task_data[["finished"]]
+    code <- task_data[["code"]]
+    first <- task_data[["last"]]
+    
+    lapply(task_data[["output"]], message)
+  }
+  
+  if (code != 0) {
+    msg <- task_data[["error"]]
+    stop(msg)
   }
   invisible()
 }
