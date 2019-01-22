@@ -154,23 +154,23 @@ Connect <- R6::R6Class(
       to_path
     },
 
-    content_upload = function(bundle_path, app_guid) {
+    content_upload = function(bundle_path, guid) {
       # todo : add X-Content-Checksum
-      path <- sprintf('v1/experimental/content/%d/upload', app_guid)
+      path <- sprintf('v1/experimental/content/%d/upload', guid)
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
       new_bundle_id <- res[["task_id"]]
       new_bundle_id
     },
 
-    content_deploy = function(app_guid, bundle_id) {
-      path <- sprintf('v1/experimental/content/%s/deploy', app_guid)
+    content_deploy = function(guid, bundle_id) {
+      path <- sprintf('v1/experimental/content/%s/deploy', guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
       task_id <- res[["task_id"]]
       task_id
     },
     
-    get_content = function(app_guid) {
-      path <- sprintf("v1/experimental/content/%s", app_guid)
+    get_content = function(guid) {
+      path <- sprintf("v1/experimental/content/%s", guid)
       res <- self$GET(path)
       return(res)
     },
