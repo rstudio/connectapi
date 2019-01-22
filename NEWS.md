@@ -5,7 +5,8 @@ BREAKING:
   - `connect$activate_bundle` to `connect$content_deploy`
   - `connect$create_app` to `connect$content_create`
   - `connect$upload_bundle` to `connect$content_upload`
-* Switch endpoints from using `app_id` to `app_guid`
+* Switch endpoints from using `app_id` to `guid`
+* `get_task$start` renamed to `get_task$first`
   
 OTHER: 
 * Add some endpoints:
