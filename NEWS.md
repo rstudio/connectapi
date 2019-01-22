@@ -16,5 +16,7 @@ OTHER:
   - `get_server_settings_r`
   - `inst_shiny_usage`
   - `inst_content_visits`
+* Add some helper functions:
+  - `deploy_github`, `download_github`
 * Update `connect` R6 object to be compatible with Connect 1.7.0 APIs
 * Added a `NEWS.md` file to track changes to the package.
