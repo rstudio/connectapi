@@ -192,7 +192,7 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
-    create_users = function(
+    users_create = function(
       email, first_name, last_name,
       password, user_must_set_password, 
       user_role, username
@@ -210,7 +210,7 @@ Connect <- R6::R6Class(
                 ))
     },
     
-    lock_user = function(user_guid) {
+    users_lock = function(user_guid) {
       path <- sprintf('v1/users/%s/lock', user_guid)
       message(path)
       self$POST(path = path,
@@ -218,7 +218,7 @@ Connect <- R6::R6Class(
                 )
     },
     
-    unlock_user = function(user_guid) {
+    user_unlock = function(user_guid) {
       path <- sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
@@ -226,7 +226,7 @@ Connect <- R6::R6Class(
       )
     },
     
-    update_user = function(user_guid, email, ...) {
+    users_update = function(user_guid, email, ...) {
       path <- sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
