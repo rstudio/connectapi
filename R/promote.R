@@ -65,14 +65,43 @@ promote <- function(from,
 }
 
 #' @export
-dir_bundle <- function(path = ".") {
+content_ensure <- function(connect, name = random_name(), title = name, ...) {
+  
+  content <- connect$get_apps(list(name = name))
+  if (length(content) > 1) {
+    stop(glue::glue("Found {length(to_content)} content items ",
+              "matching {content_name} on {connect$host}",
+              ", content must have a unique name."))
+  } else if (length(content) == 0) {
+    # create app
+    content <- connect$content_create(
+      name = name,
+      title = title,
+      ...
+    )
+    message(glue::glue("Creating NEW content {content$guid} ",
+                 "with name {name} on {connect$host}"))
+  } else {
+    content <- content[[1]]
+    message(glue::glue("Found EXISTING content {content$guid} with ",
+    "name {name} on {connect$host}"))
+  }
+  return(content)
+}
+
+random_name <- function(length = 13) {
+  tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
+}
+
+#' @export
+dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
   
-  utils::tar(tarfile = "bundle.tar.gz", files = ".", compression = "gzip", tar = "internal")
+  utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
   
-  return(fs::path_abs("bundle.tar.gz"))
+  return(fs::path_abs(filename))
 }
 
 #' @export
@@ -87,18 +116,22 @@ deploy_bundle <- function(connect, bundle, app_id){
 }
 
 #' @export
-poll_task <- function(connect, task_id) {
-  start <- 0
-  while (task_id > 0) {
-    Sys.sleep(2)
-    status <- connect$get_task(task_id, start)
-    if (length(status$status) > 0) {
-      lapply(status$status, print)
-      start <- status$last_status
-    }
-    if (status$finished) {
-      task_id = 0
-    }
+poll_task <- function(connect, task_id, wait = 1) {
+  finished <- FALSE
+  code <- -1
+  first <- 0
+  while (!finished) {
+    task_data <- connect$get_task(task_id, wait = wait, first = first)
+    finished <- task_data[["finished"]]
+    code <- task_data[["code"]]
+    first <- task_data[["last"]]
+    
+    lapply(task_data[["output"]], message)
+  }
+  
+  if (code != 0) {
+    msg <- task_data[["error"]]
+    stop(msg)
   }
   invisible()
 }

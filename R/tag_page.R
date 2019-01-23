@@ -39,7 +39,7 @@ tag_page <- function(server,
     a
   })
 
-  template <- system.file('tag_page_template.Rmd', package = "connectApiUtils")
+  template <- system.file('tag_page_template.Rmd', package = "connectapi")
   out_file <- sprintf('%s.html', tag)
   out_dir <- getwd()
   rmarkdown::render(template,

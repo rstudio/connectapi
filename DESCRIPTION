@@ -1,18 +1,23 @@
-Package: connectApiUtils
+Package: connectapi
 Type: Package
-Title: Utilities for Interacting with RStudio Connect's API
-Version: 0.1.0
-Author: Sean Lopp
-Maintainer: Sean Lopp <sean@rstudio.com>
-Description: Helpful class for interacting with Connect's API and some example utility functions.
+Title: Utilities for Interacting with the RStudio Connect Server API
+Version: 0.1.0.9000
+Authors@R: c(
+  person("Sean", "Lopp", , "sean@rstudio.com", c("aut", "cre")),
+  person("Cole", "Arendt", , "cole@rstudio.com", c("aut")),
+  person("RStudio", role = c("cph", "fnd"))
+  )
+Description: Helpful R6 class for interacting with the RStudio Connect Server API and some example utility functions.
 License: GPL-2
 Encoding: UTF-8
 Imports: 
     R6,
     httr,
     rlang,
-    fs
-RoxygenNote: 6.0.1
+    glue,
+    fs,
+    config
+RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,
     htmltools,
@@ -20,5 +25,6 @@ Suggests:
     webshot,
     lubridate,
     ggplot2,
-    gridExtra
+    gridExtra,
+    testthat
 Remotes: slopp/webshot

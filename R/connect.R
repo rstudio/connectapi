@@ -133,6 +133,20 @@ Connect <- R6::R6Class(
       path <- sprintf('schedules/%d', schedule_id)
       self$GET(path)
     },
+    
+    # content ----------------------------------------------------------
+    
+    content_create  = function(name, title = name, ...) {
+      path <- sprintf('v1/experimental/content')
+      other_params <- rlang::dots_list(...)
+      self$POST(
+        path, 
+        c(
+          list(name = tolower(gsub("\\s","",name)), title = title ),
+          other_params
+        )
+      )
+    },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
       path <- sprintf('bundles/%d/download', bundle_id)
@@ -140,32 +154,41 @@ Connect <- R6::R6Class(
       to_path
     },
 
-    upload_bundle = function(bundle_path, app_id) {
-      path <- sprintf('applications/%d/upload', app_id)
+    content_upload = function(bundle_path, guid) {
+      # todo : add X-Content-Checksum
+      path <- glue::glue('v1/experimental/content/{guid}/upload')
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
-      new_bundle_id <- res$id
+      new_bundle_id <- res[["task_id"]]
       new_bundle_id
     },
 
-    activate_bundle = function(app_id, bundle_id) {
-      path <- sprintf('applications/%d/deploy', app_id)
-      res <- self$POST(path, list(bundle = bundle_id))
-      task_id <- res$id
+    content_deploy = function(guid, bundle_id) {
+      path <- sprintf('v1/experimental/content/%s/deploy', guid)
+      res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
+      task_id <- res[["task_id"]]
       task_id
     },
+    
+    get_content = function(guid) {
+      path <- sprintf("v1/experimental/content/%s", guid)
+      res <- self$GET(path)
+      return(res)
+    },
 
-    get_task = function(task_id, start = 0) {
-      path = sprintf('tasks/%s?first_status=%d', task_id, start)
+    get_task = function(task_id, first = 0, wait = 5) {
+      path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, first, wait)
       self$GET(path)
     },
     
+    # users -----------------------------------------------
+    
     get_users = function(page_number = 1){
-      path = sprintf('v1/users?page_number=%d', page_number)
+      path <- sprintf('v1/users?page_number=%d', page_number)
       self$GET(path)
     },
     
     get_users_remote = function(prefix) {
-      path = sprintf('v1/users/remote?prefix=%s', prefix)
+      path <- sprintf('v1/users/remote?prefix=%s', prefix)
       self$GET(path)
     },
     
@@ -174,7 +197,7 @@ Connect <- R6::R6Class(
       password, user_must_set_password, 
       user_role, username
       ) {
-      path = sprintf('v1/users')
+      path <- sprintf('v1/users')
       self$POST(path = path,
                 body = list(
                   email = email,
@@ -188,7 +211,7 @@ Connect <- R6::R6Class(
     },
     
     lock_user = function(user_guid) {
-      path = sprintf('v1/users/%s/lock', user_guid)
+      path <- sprintf('v1/users/%s/lock', user_guid)
       message(path)
       self$POST(path = path,
                 body = list(locked = TRUE)
@@ -196,7 +219,7 @@ Connect <- R6::R6Class(
     },
     
     unlock_user = function(user_guid) {
-      path = sprintf('v1/users/%s/lock', user_guid)
+      path <- sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
         body = list(locked = FALSE)
@@ -204,23 +227,106 @@ Connect <- R6::R6Class(
     },
     
     update_user = function(user_guid, email, ...) {
-      path = sprintf('v1/users/%s', user_guid)
+      path <- sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
         body = c(list(email = email), rlang::dots_list(...))
       )
     },
-
-    create_app  = function(name) {
-      path = sprintf('applications')
-      self$POST(path, list(name = tolower(gsub("\\s","",name)), title = name ))
+    
+    # instrumentation --------------------------------------------
+    
+    inst_content_visits = function(
+      content_guid = NULL, 
+      min_data_version = NULL,
+      from = NULL,
+      to = NULL,
+      limit = 20,
+      previous = NULL,
+      nxt = NULL,
+      asc_order = TRUE
+      ) {
+      path <- glue::glue(
+        "v1/instrumentation/content/visits?",
+        glue::glue(
+          "{safe_query(content_guid, 'content_guid=')}",
+          "{safe_query(min_data_version, 'content_guid=')}",
+          "{safe_query(from, 'from=')}",
+          "{safe_query(to, 'to=')}",
+          "{safe_query(limit, 'limit=')}",
+          "{safe_query(previous, 'previous=')}",
+          "{safe_query(nxt, 'next=')}",
+          "{safe_query(asc_order, 'asc_order=')}",
+          .sep = "&"
+        )
+      )
+      
+      self$GET(path)
     },
+
+    inst_shiny_usage = function(
+      content_guid = NULL, 
+      min_data_version = NULL,
+      from = NULL,
+      to = NULL,
+      limit = 20,
+      previous = NULL,
+      nxt = NULL,
+      asc_order = TRUE
+    ) {
+      
+      path <- glue::glue(
+        "v1/instrumentation/shiny/usage?",
+        glue::glue(
+          "{safe_query(content_guid, 'content_guid=')}",
+          "{safe_query(min_data_version, 'content_guid=')}",
+          "{safe_query(from, 'from=')}",
+          "{safe_query(to, 'to=')}",
+          "{safe_query(limit, 'limit=')}",
+          "{safe_query(previous, 'previous=')}",
+          "{safe_query(nxt, 'next=')}",
+          "{safe_query(asc_order, 'asc_order=')}",
+          .sep = "&"
+        )
+      )
+      
+      self$GET(path)
+    },
+    
+    # misc utilities --------------------------------------------
     
     get_docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
+    },
+    
+    get_audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+      path <- glue::glue(
+        "v1/audit_logs?limit={limit}",
+        "{safe_query(previous, '&previous=')}",
+        "{safe_query(nxt, '&next=')}",
+        "&ascOrder={asc_order}"
+        )
+      self$GET(
+        path = path
+      )
+    },
+    
+    get_server_settings_r = function() {
+      path <- "v1/server_settings/r"
+      self$GET(
+        path = path
+      )
+    },
+    
+    get_server_settings = function() {
+      path <- "server_settings"
+      self$GET(
+        path = path
+      )
     }
     
+    # end --------------------------------------------------------
   )
 )
 
@@ -232,3 +338,13 @@ check_debug <- function(req, res) {
   }
 }
 
+connect_input <- function(connect) {
+  if (R6::is.R6(connect)) {
+    # is an R6 object... we presume the right type
+    return(connect)
+  } else if (is.list(connect) && c("host","api_key") %in% names(connect)) {
+    return(Connect$new(host = connect[["host"]], api_key = connect[["api_key"]]))
+  } else {
+    stop("Input 'connect' is not an R6 object or a named list")
+  }
+}
