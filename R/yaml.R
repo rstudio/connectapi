@@ -1,3 +1,23 @@
+yaml_template <- function(file = NULL){
+  obj <- list(
+    "default" = list(
+      "content" = list(
+        list(
+          "title" = "Title of the Content",
+          "path" = "./",
+          "description" = "Content description"
+        )
+      )
+    )
+  )
+  
+  if (!is.null(file)) {
+    yaml::write_yaml(x = obj, file = file)
+  } else {
+    return(cat(yaml::as.yaml(obj)))
+  }
+}
+
 yaml_content <- function(connect, filename = ".connect.yml") {
   cfg <- config::get(value = "content", file = filename)
   
