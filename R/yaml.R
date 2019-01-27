@@ -18,6 +18,7 @@ yaml_template <- function(file = NULL){
   }
 }
 
+#' @export
 yaml_content <- function(connect, filename = ".connect.yml") {
   cfg <- config::get(value = "content", file = filename)
   
@@ -32,6 +33,7 @@ yaml_content <- function(connect, filename = ".connect.yml") {
   return(cfg)
 }
 
+#' @export
 yaml_content_deploy <- function(
   connect,
   name = random_name(),
@@ -42,8 +44,8 @@ yaml_content_deploy <- function(
   image = NULL,
   ...
 ) {
-  orig_connect <- connect
-  connect <- connect_input(connect)
+  #orig_connect <- connect
+  #connect <- connect_input(connect)
   bundle_path <- dir_bundle(path = path)
   
   c_obj <- rlang::exec(
