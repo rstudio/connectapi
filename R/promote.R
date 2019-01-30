@@ -39,23 +39,10 @@ promote <- function(from,
   bundle <- from_client$download_bundle(from_app[[1]]$bundle_id)
 
   # find or create app to update
-  to_app <- to_client$get_apps(list(name = app_name))
-  if (length(to_app) > 1) {
-    stop(sprintf('Found %d apps matching %s on %s, content must have a unique name.', length(to_app), app_name, to))
-  } else if (length(to_app) == 0) {
-    # create app
-    to_app <- to_client$create_app(app_name)
-    warning(sprintf('Creating NEW app %d with name %s on %s', to_app$id, app_name, to))
-  } else {
-    to_app <- to_app[[1]]
-    warning(sprintf('Updating EXISTING app %d with name %s on %s', to_app$id, app_name, to))
-  }
+  to_app <- content_ensure(connect = to_client, name = app_name)
 
-  task_id <- deploy_bundle(
-    connect = to_client,
-    bundle = bundle,
-    app_id = to_app$id
-  )
+  bundle_id <- connect$content_upload(bundle_path = bundle, guid = to_app[["guid"]])
+  task_id <- connect$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)
   
   poll_task(connect = to_client, task_id = task_id)
   
