@@ -1,3 +1,23 @@
+yaml_template <- function(file = NULL){
+  obj <- list(
+    "default" = list(
+      "content" = list(
+        list(
+          "title" = "Title of the Content",
+          "path" = "./",
+          "description" = "Content description"
+        )
+      )
+    )
+  )
+  
+  if (!is.null(file)) {
+    yaml::write_yaml(x = obj, file = file)
+  } else {
+    return(cat(yaml::as.yaml(obj)))
+  }
+}
+
 yaml_content <- function(connect, filename = ".connect.yml") {
   cfg <- config::get(value = "content", file = filename)
   
@@ -9,7 +29,7 @@ yaml_content <- function(connect, filename = ".connect.yml") {
     connect = connect
   )
   
-  return(cfg)
+  return(res)
 }
 
 yaml_content_deploy <- function(
@@ -20,10 +40,11 @@ yaml_content_deploy <- function(
   tag = NULL,
   url = NULL,
   image = NULL,
+  wait = TRUE,
   ...
 ) {
-  orig_connect <- connect
-  connect <- connect_input(connect)
+  #orig_connect <- connect
+  #connect <- connect_input(connect)
   bundle_path <- dir_bundle(path = path)
   
   c_obj <- rlang::exec(
@@ -43,14 +64,16 @@ yaml_content_deploy <- function(
   
   c_task <- connect$content_deploy(
     guid = c_guid,
-    bundle_id = c_upload
+    bundle_id = c_upload[["bundle_id"]]
   )
   
-  # wait for task to complete
-  poll_task(
-    connect,
-    c_task
-  )
+  if (wait) {
+    # wait for task to complete
+    poll_task(
+      connect,
+      c_task[["task_id"]]
+    )
+  }
   
   # tag helper
   if (!is.null(tag)) {
@@ -66,4 +89,7 @@ yaml_content_deploy <- function(
   if (!is.null(image)) {
     # need public APIs
   }
+  
+  # return the content info _and_ the task info
+  return(list(content = c_obj, task = c_task))
 }

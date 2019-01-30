@@ -29,7 +29,8 @@ Connect <- R6::R6Class(
     tags = NULL,
     tag_map = NULL,
 
-    initialize = function(host = NA, api_key = NA) {
+    initialize = function(host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA), api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA)) {
+      message(glue::glue("Defining Connect with host: {host}"))
       self$host = host
       self$api_key = api_key
     },
@@ -142,14 +143,14 @@ Connect <- R6::R6Class(
       self$POST(
         path, 
         c(
-          list(name = tolower(gsub("\\s","",name)), title = title ),
+          list(name = tolower(gsub("\\s","",name)), title = title),
           other_params
         )
       )
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
-      path <- sprintf('bundles/%d/download', bundle_id)
+      path <- glue::glue('bundles/{bundle_id}/download')
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
     },
@@ -158,15 +159,13 @@ Connect <- R6::R6Class(
       # todo : add X-Content-Checksum
       path <- glue::glue('v1/experimental/content/{guid}/upload')
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
-      new_bundle_id <- res[["task_id"]]
-      new_bundle_id
+      return(res)
     },
 
     content_deploy = function(guid, bundle_id) {
       path <- sprintf('v1/experimental/content/%s/deploy', guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
-      task_id <- res[["task_id"]]
-      task_id
+      return(res)
     },
     
     get_content = function(guid) {
@@ -338,13 +337,3 @@ check_debug <- function(req, res) {
   }
 }
 
-connect_input <- function(connect) {
-  if (R6::is.R6(connect)) {
-    # is an R6 object... we presume the right type
-    return(connect)
-  } else if (is.list(connect) && c("host","api_key") %in% names(connect)) {
-    return(Connect$new(host = connect[["host"]], api_key = connect[["api_key"]]))
-  } else {
-    stop("Input 'connect' is not an R6 object or a named list")
-  }
-}

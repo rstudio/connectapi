@@ -16,7 +16,8 @@ Imports:
     rlang,
     glue,
     fs,
-    config
+    config,
+    yaml
 RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,

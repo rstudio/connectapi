@@ -11,7 +11,7 @@
 #'   publisher priviliges.
 #' @param from_key An API key on the originating "from" server. The API key must
 #'   belong to a user with collaborator access to the content to be promoted.
-#' @param app_name The name of the content on the originating "from" server.
+#' @param name The name of the content on the originating "from" server.
 #'   If content with the same name is found on the destination server,
 #'   the content will be updated. If no content on the destination server
 #'   has a matching name, a new endpoint will be created.
@@ -21,7 +21,7 @@ promote <- function(from,
                     to,
                     to_key,
                     from_key,
-                    app_name) {
+                    name) {
 
   # TODO Validate Inputs
 
@@ -30,70 +30,73 @@ promote <- function(from,
   to_client <- Connect$new(host = to, api_key = to_key)
 
   # find app on "from" server
-  from_app <- from_client$get_apps(list(name = app_name))
+  from_app <- from_client$get_apps(list(name = name))
   if (length(from_app) != 1) {
-    stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), app_name, from))
+    stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), name, from))
   }
 
   # download bundle
   bundle <- from_client$download_bundle(from_app[[1]]$bundle_id)
 
   # find or create app to update
-  to_app <- to_client$get_apps(list(name = app_name))
-  if (length(to_app) > 1) {
-    stop(sprintf('Found %d apps matching %s on %s, content must have a unique name.', length(to_app), app_name, to))
-  } else if (length(to_app) == 0) {
-    # create app
-    to_app <- to_client$create_app(app_name)
-    warning(sprintf('Creating NEW app %d with name %s on %s', to_app$id, app_name, to))
-  } else {
-    to_app <- to_app[[1]]
-    warning(sprintf('Updating EXISTING app %d with name %s on %s', to_app$id, app_name, to))
-  }
+  to_app <- content_ensure(connect = to_client, name = name)
 
-  task_id <- deploy_bundle(
-    connect = to_client,
-    bundle = bundle,
-    app_id = to_app$id
-  )
+  bundle_id <- to_client$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
+  task_id <- to_client$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
   
   poll_task(connect = to_client, task_id = task_id)
   
-  to_app_url <- app$url
+  to_app_url <- to_app$url
   
   return(to_app_url)
 }
 
-#' @export
-content_ensure <- function(connect, name = random_name(), title = name, ...) {
+content_ensure <- function(connect, name = random_name(), title = name, guid = NULL, ...) {
   
-  content <- connect$get_apps(list(name = name))
-  if (length(content) > 1) {
-    stop(glue::glue("Found {length(to_content)} content items ",
-              "matching {content_name} on {connect$host}",
-              ", content must have a unique name."))
-  } else if (length(content) == 0) {
-    # create app
-    content <- connect$content_create(
-      name = name,
-      title = title,
-      ...
-    )
-    message(glue::glue("Creating NEW content {content$guid} ",
-                 "with name {name} on {connect$host}"))
+  if (!is.null(guid)) {
+    # guid-based deployment
+    # just in case we get a 404 back...
+    content <- tryCatch(connect$get_content(guid = guid), error = function(e){return(NULL)})
+    if (is.null(content)) {
+      warning(glue::glue(
+        "guid {guid} was not found on {connect$host}.",
+        "Creating new content with name {name}"))
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+    }
   } else {
-    content <- content[[1]]
-    message(glue::glue("Found EXISTING content {content$guid} with ",
-    "name {name} on {connect$host}"))
+    # name-based deployment
+    content <- connect$get_apps(list(name = name))
+    if (length(content) > 1) {
+      stop(glue::glue("Found {length(to_content)} content items ",
+                "matching {name} on {connect$host}",
+                ", content must have a unique name."))
+    } else if (length(content) == 0) {
+      # create app
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+      message(glue::glue("Creating NEW content {content$guid} ",
+                   "with name {name} on {connect$host}"))
+    } else {
+      content <- content[[1]]
+      message(glue::glue("Found EXISTING content {content$guid} with ",
+      "name {name} on {connect$host}"))
+      # update values...? need a PUT endpoint
+    }
   }
   return(content)
 }
 
-random_name <- function(length = 13) {
+random_name <- function(length = 25) {
   tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
 }
 
-#' @export
 dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   before_wd <- getwd()
   setwd(path)
@@ -104,18 +107,16 @@ dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   return(fs::path_abs(filename))
 }
 
-#' @export
-deploy_bundle <- function(connect, bundle, app_id){
+deploy_bundle <- function(connect, bundle_path, guid){
   #upload bundle
-  new_bundle_id <- connect$upload_bundle(bundle, app_id)
+  new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)[["bundle_id"]]
   
   #activate bundle
-  task_id <- connect$activate_bundle(app_id, new_bundle_id)
+  task_id <- connect$content_deploy(guid = guid, bundle_id = new_bundle_id)[["task_id"]]
   
   return(task_id)
 }
 
-#' @export
 poll_task <- function(connect, task_id, wait = 1) {
   finished <- FALSE
   code <- -1

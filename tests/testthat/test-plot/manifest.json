@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "locale": "en_US",
+  "platform": "3.4.3",
+  "metadata": {
+    "appmode": "static",
+    "primary_rmd": null,
+    "primary_html": "plot.png",
+    "content_category": null,
+    "has_parameters": false
+  },
+  "packages": null,
+  "files": {
+    "plot.png": {
+      "checksum": "fe381830d2434bbca940b6dc9c2251ce"
+    }
+  },
+  "users": null
+}

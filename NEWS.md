@@ -5,8 +5,12 @@ BREAKING:
   - `connect$activate_bundle` to `connect$content_deploy`
   - `connect$create_app` to `connect$content_create`
   - `connect$upload_bundle` to `connect$content_upload`
+* Change some return types to be consistent with the API
+  - `connect$content_upload` returns the response instead of `bundle_id`
+  - `connect$content_deploy` returns the response instead of `task_id`
 * Switch endpoints from using `app_id` to `guid`
 * `get_task$start` renamed to `get_task$first`
+* `promote$app_name` renamed to `promote$name`
 * rename the package to `connectapi`
   
 OTHER: 
