@@ -41,7 +41,7 @@ promote <- function(from,
   # find or create app to update
   to_app <- content_ensure(connect = to_client, name = name)
 
-  bundle_id <- connect$content_upload(bundle_path = bundle, guid = to_app[["guid"]])
+  bundle_id <- connect$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
   task_id <- connect$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)
   
   poll_task(connect = to_client, task_id = task_id)
@@ -111,7 +111,7 @@ dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
 #' @export
 deploy_bundle <- function(connect, bundle_path, guid){
   #upload bundle
-  new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)
+  new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)[["bundle_id"]]
   
   #activate bundle
   task_id <- connect$content_deploy(guid = guid, bundle_id = new_bundle_id)
