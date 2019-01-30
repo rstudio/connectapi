@@ -30,16 +30,16 @@ promote <- function(from,
   to_client <- Connect$new(host = to, api_key = to_key)
 
   # find app on "from" server
-  from_app <- from_client$get_apps(list(name = app_name))
+  from_app <- from_client$get_apps(list(name = name))
   if (length(from_app) != 1) {
-    stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), app_name, from))
+    stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), name, from))
   }
 
   # download bundle
   bundle <- from_client$download_bundle(from_app[[1]]$bundle_id)
 
   # find or create app to update
-  to_app <- content_ensure(connect = to_client, name = app_name)
+  to_app <- content_ensure(connect = to_client, name = name)
 
   bundle_id <- connect$content_upload(bundle_path = bundle, guid = to_app[["guid"]])
   task_id <- connect$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)
