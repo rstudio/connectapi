@@ -109,12 +109,12 @@ dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
 }
 
 #' @export
-deploy_bundle <- function(connect, bundle, app_id){
+deploy_bundle <- function(connect, bundle_path, guid){
   #upload bundle
-  new_bundle_id <- connect$upload_bundle(bundle, app_id)
+  new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)
   
   #activate bundle
-  task_id <- connect$activate_bundle(app_id, new_bundle_id)
+  task_id <- connect$content_deploy(guid = guid, bundle_id = new_bundle_id)
   
   return(task_id)
 }
