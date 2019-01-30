@@ -65,26 +65,43 @@ promote <- function(from,
 }
 
 #' @export
-content_ensure <- function(connect, name = random_name(), title = name, ...) {
+content_ensure <- function(connect, name = random_name(), title = name, guid = NULL, ...) {
   
-  content <- connect$get_apps(list(name = name))
-  if (length(content) > 1) {
-    stop(glue::glue("Found {length(to_content)} content items ",
-              "matching {content_name} on {connect$host}",
-              ", content must have a unique name."))
-  } else if (length(content) == 0) {
-    # create app
-    content <- connect$content_create(
-      name = name,
-      title = title,
-      ...
-    )
-    message(glue::glue("Creating NEW content {content$guid} ",
-                 "with name {name} on {connect$host}"))
+  if (!is.null(guid)) {
+    # guid-based deployment
+    # just in case we get a 404 back...
+    content <- tryCatch(connect$get_content(guid = guid), error = function(e){return(NULL)})
+    if (is.null(content)) {
+      warning(glue::glue(
+        "guid {guid} was not found on {connect$host}.",
+        "Creating new content with name {name}"))
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+    }
   } else {
-    content <- content[[1]]
-    message(glue::glue("Found EXISTING content {content$guid} with ",
-    "name {name} on {connect$host}"))
+    # name-based deployment
+    content <- connect$get_apps(list(name = name))
+    if (length(content) > 1) {
+      stop(glue::glue("Found {length(to_content)} content items ",
+                "matching {name} on {connect$host}",
+                ", content must have a unique name."))
+    } else if (length(content) == 0) {
+      # create app
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+      message(glue::glue("Creating NEW content {content$guid} ",
+                   "with name {name} on {connect$host}"))
+    } else {
+      content <- content[[1]]
+      message(glue::glue("Found EXISTING content {content$guid} with ",
+      "name {name} on {connect$host}"))
+    }
   }
   return(content)
 }
