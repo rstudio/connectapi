@@ -64,7 +64,7 @@ yaml_content_deploy <- function(
   
   c_task <- connect$content_deploy(
     guid = c_guid,
-    bundle_id = c_upload
+    bundle_id = c_upload[["bundle_id"]]
   )
   
   if (wait) {
