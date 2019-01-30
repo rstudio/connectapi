@@ -88,6 +88,7 @@ content_ensure <- function(connect, name = random_name(), title = name, guid = N
       content <- content[[1]]
       message(glue::glue("Found EXISTING content {content$guid} with ",
       "name {name} on {connect$host}"))
+      # update values...? need a PUT endpoint
     }
   }
   return(content)
