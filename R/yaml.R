@@ -42,6 +42,7 @@ yaml_content_deploy <- function(
   tag = NULL,
   url = NULL,
   image = NULL,
+  wait = TRUE,
   ...
 ) {
   #orig_connect <- connect
@@ -68,11 +69,13 @@ yaml_content_deploy <- function(
     bundle_id = c_upload
   )
   
-  # wait for task to complete
-  poll_task(
-    connect,
-    c_task
-  )
+  if (wait) {
+    # wait for task to complete
+    poll_task(
+      connect,
+      c_task
+    )
+  }
   
   # tag helper
   if (!is.null(tag)) {
