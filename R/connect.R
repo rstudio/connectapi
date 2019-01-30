@@ -159,8 +159,7 @@ Connect <- R6::R6Class(
       # todo : add X-Content-Checksum
       path <- glue::glue('v1/experimental/content/{guid}/upload')
       res <- self$POST(path, httr::upload_file(bundle_path), 'raw')
-      new_bundle_id <- res[["bundle_id"]]
-      new_bundle_id
+      return(res)
     },
 
     content_deploy = function(guid, bundle_id) {
