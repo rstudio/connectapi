@@ -143,7 +143,7 @@ Connect <- R6::R6Class(
       self$POST(
         path, 
         c(
-          list(name = tolower(gsub("\\s","",name)), title = title ),
+          list(name = tolower(gsub("\\s","",name)), title = title),
           other_params
         )
       )
