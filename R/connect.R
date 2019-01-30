@@ -15,6 +15,12 @@
 #'
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
+#' 
+#' It is possible to make `Connect$new()` pick up values from your environment
+#' automatically by defining environment variables:
+#' 
+#' RSTUDIO_CONNECT_SERVER=http://my.connect.exmaple.com:3939
+#' RSTUDIO_CONNECT_API_KEY=myapikey
 #'
 NULL
 
