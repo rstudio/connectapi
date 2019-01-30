@@ -11,7 +11,7 @@
 #'   publisher priviliges.
 #' @param from_key An API key on the originating "from" server. The API key must
 #'   belong to a user with collaborator access to the content to be promoted.
-#' @param app_name The name of the content on the originating "from" server.
+#' @param name The name of the content on the originating "from" server.
 #'   If content with the same name is found on the destination server,
 #'   the content will be updated. If no content on the destination server
 #'   has a matching name, a new endpoint will be created.
@@ -21,7 +21,7 @@ promote <- function(from,
                     to,
                     to_key,
                     from_key,
-                    app_name) {
+                    name) {
 
   # TODO Validate Inputs
 
