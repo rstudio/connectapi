@@ -42,7 +42,7 @@ promote <- function(from,
   to_app <- content_ensure(connect = to_client, name = name)
 
   bundle_id <- connect$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
-  task_id <- connect$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)
+  task_id <- connect$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
   
   poll_task(connect = to_client, task_id = task_id)
   
@@ -114,7 +114,7 @@ deploy_bundle <- function(connect, bundle_path, guid){
   new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)[["bundle_id"]]
   
   #activate bundle
-  task_id <- connect$content_deploy(guid = guid, bundle_id = new_bundle_id)
+  task_id <- connect$content_deploy(guid = guid, bundle_id = new_bundle_id)[["task_id"]]
   
   return(task_id)
 }
