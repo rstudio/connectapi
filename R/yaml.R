@@ -91,4 +91,7 @@ yaml_content_deploy <- function(
   if (!is.null(image)) {
     # need public APIs
   }
+  
+  # return the content info _and_ the task info
+  return(list(content = c_obj, task = c_task))
 }
