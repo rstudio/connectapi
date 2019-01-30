@@ -71,7 +71,7 @@ yaml_content_deploy <- function(
     # wait for task to complete
     poll_task(
       connect,
-      c_task
+      c_task[["task_id"]]
     )
   }
   
