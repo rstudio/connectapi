@@ -51,7 +51,6 @@ promote <- function(from,
   return(to_app_url)
 }
 
-#' @export
 content_ensure <- function(connect, name = random_name(), title = name, guid = NULL, ...) {
   
   if (!is.null(guid)) {
@@ -98,7 +97,6 @@ random_name <- function(length = 25) {
   tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
 }
 
-#' @export
 dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   before_wd <- getwd()
   setwd(path)
@@ -109,7 +107,6 @@ dir_bundle <- function(path = ".", filename = "bundle.tar.gz") {
   return(fs::path_abs(filename))
 }
 
-#' @export
 deploy_bundle <- function(connect, bundle_path, guid){
   #upload bundle
   new_bundle_id <- connect$content_upload(bundle_path = bundle_path, guid = guid)[["bundle_id"]]
@@ -120,7 +117,6 @@ deploy_bundle <- function(connect, bundle_path, guid){
   return(task_id)
 }
 
-#' @export
 poll_task <- function(connect, task_id, wait = 1) {
   finished <- FALSE
   code <- -1
