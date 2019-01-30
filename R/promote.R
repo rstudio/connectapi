@@ -93,7 +93,7 @@ content_ensure <- function(connect, name = random_name(), title = name, guid = N
   return(content)
 }
 
-random_name <- function(length = 13) {
+random_name <- function(length = 25) {
   tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
 }
 
