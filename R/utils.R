@@ -1,3 +1,4 @@
+# this function helps creating query parameters
 safe_query <- function(expr, prefix = "", collapse = "|") {
   if (is.null(expr)) {
     return("")
@@ -5,6 +6,9 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
     return(paste0(prefix, glue::glue_collapse(expr, sep = collapse)))
   }
 }
+
+
+# experimental functions
 
 check_connect_version <- function(connect) {
   settings <- connect$get_server_settings()
@@ -31,7 +35,13 @@ check_connect_version <- function(connect) {
 
 tested_version <- "1.7.0-11"
 
-
-page_results <- function(connect, endpoint) {
-  
+connect_input <- function(connect) {
+  if (R6::is.R6(connect)) {
+    # is an R6 object... we presume the right type
+    return(connect)
+  } else if (is.list(connect) && c("host","api_key") %in% names(connect)) {
+    return(Connect$new(host = connect[["host"]], api_key = connect[["api_key"]]))
+  } else {
+    stop("Input 'connect' is not an R6 object or a named list")
+  }
 }
