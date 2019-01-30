@@ -30,6 +30,7 @@ Connect <- R6::R6Class(
     tag_map = NULL,
 
     initialize = function(host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA), api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA)) {
+      message(glue::glue("Defining Connect with host: {host}"))
       self$host = host
       self$api_key = api_key
     },
