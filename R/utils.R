@@ -30,3 +30,8 @@ check_connect_version <- function(connect) {
 }
 
 tested_version <- "1.7.0-11"
+
+
+page_results <- function(connect, endpoint) {
+  
+}
