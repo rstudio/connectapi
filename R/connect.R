@@ -337,13 +337,3 @@ check_debug <- function(req, res) {
   }
 }
 
-connect_input <- function(connect) {
-  if (R6::is.R6(connect)) {
-    # is an R6 object... we presume the right type
-    return(connect)
-  } else if (is.list(connect) && c("host","api_key") %in% names(connect)) {
-    return(Connect$new(host = connect[["host"]], api_key = connect[["api_key"]]))
-  } else {
-    stop("Input 'connect' is not an R6 object or a named list")
-  }
-}
