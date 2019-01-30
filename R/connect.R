@@ -165,8 +165,7 @@ Connect <- R6::R6Class(
     content_deploy = function(guid, bundle_id) {
       path <- sprintf('v1/experimental/content/%s/deploy', guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
-      task_id <- res[["task_id"]]
-      task_id
+      return(res)
     },
     
     get_content = function(guid) {
