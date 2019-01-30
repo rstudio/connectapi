@@ -29,7 +29,7 @@ Connect <- R6::R6Class(
     tags = NULL,
     tag_map = NULL,
 
-    initialize = function(host = NA, api_key = NA) {
+    initialize = function(host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA), api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA)) {
       self$host = host
       self$api_key = api_key
     },
