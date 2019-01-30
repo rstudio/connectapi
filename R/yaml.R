@@ -18,7 +18,6 @@ yaml_template <- function(file = NULL){
   }
 }
 
-#' @export
 yaml_content <- function(connect, filename = ".connect.yml") {
   cfg <- config::get(value = "content", file = filename)
   
@@ -33,7 +32,6 @@ yaml_content <- function(connect, filename = ".connect.yml") {
   return(res)
 }
 
-#' @export
 yaml_content_deploy <- function(
   connect,
   name = random_name(),
