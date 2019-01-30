@@ -1,4 +1,3 @@
-#' @export
 download_github <- function(repo, ref = "master") {
   current_wd <- getwd()
   on.exit(setwd(current_wd), add = TRUE)
@@ -23,7 +22,6 @@ download_github <- function(repo, ref = "master") {
   return(final_loc)
 }
 
-#' @export
 deploy_github <- function(connect, repo, ref = "master", filename = ".connect.yml") {
   download_dir <- download_github(repo = repo, ref = ref)
   current_wd <- getwd()
