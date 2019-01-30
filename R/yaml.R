@@ -30,7 +30,7 @@ yaml_content <- function(connect, filename = ".connect.yml") {
     connect = connect
   )
   
-  return(cfg)
+  return(res)
 }
 
 #' @export
