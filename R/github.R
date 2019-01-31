@@ -34,6 +34,20 @@ download_github <- function(repo, ref = "master") {
   return(final_loc)
 }
 
+#' Deploy a GitHub repository
+#' 
+#' Downloads and deploys a GitHub repository, using a 
+#' standard YAML file for configuration.
+#' 
+#' @param connect A Connect client
+#' @param repo The GitHub repository to download
+#' @param ref optional. The reference to download. Defaults to "master"
+#' @param filename optional. The name of the YAML file to use for configuration 
+#' (inside the GitHub repository). Defaults to ".connect.yml"
+#' 
+#' @return A list. The result of the deployment process
+#' 
+#' @export
 deploy_github <- function(connect, repo, ref = "master", filename = ".connect.yml") {
   download_dir <- download_github(repo = repo, ref = ref)
   current_wd <- getwd()
