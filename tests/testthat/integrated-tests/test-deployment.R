@@ -109,3 +109,21 @@ test_that("download_github fails when it gets a bad HTTP response", {
     , regexp = "request failed with"
   )
 })
+
+test_that("deploy_github works", {
+  res <- deploy_github(
+    connect = test_conn_1,
+    repo = target_repo,
+    ref = target_ref,
+    filename = ".connect.yml"
+  )
+  expect_gt(length(res), 0)
+  expect_is(res[[1]][["content"]][["guid"]], "character")
+  expect_is(res[[1]][["content"]][["name"]], "character")
+  expect_is(res[[1]][["task"]][["task_id"]], "character")
+})
+
+test_that("deploy_github fails when the file does not exist", {
+  # need to mock the `download_github` function
+  skip("not currently implemented")
+})
