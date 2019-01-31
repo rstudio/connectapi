@@ -25,6 +25,8 @@ download_github <- function(repo, ref = "master") {
     httr::write_disk(tar_file)
   )
   
+  error_handler(req)
+  
   # un-tar and enter the repo
   untar("repo.tar.gz")
   setwd(fs::dir_ls(type = "directory"))
