@@ -4,6 +4,9 @@ context("test deployment pipelines")
 test_conn_1 <- Connect$new(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
 test_conn_2 <- Connect$new(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
 
+target_repo <- Sys.getenv("TEST_REPO")
+target_ref <- Sys.getenv("TEST_REF", "master")
+
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
@@ -90,4 +93,19 @@ test_that("content_ensure works with name", {
   expect_identical(c_title, c_diff[["title"]])
   expect_identical(c_desc, c_diff[["description"]])
   
+})
+
+test_that("download_github works", {
+  download_dir <- download_github(target_repo, target_ref)
+  expect_true(fs::dir_exists(download_dir))
+})
+
+test_that("download_github fails when it gets a bad HTTP response", {
+  expect_error(
+    download_dir_fail <- download_github(
+      paste0(target_repo, "-almost-definitely-does-not-exist..."),
+      target_ref
+    )
+    , regexp = "request failed with"
+  )
 })
