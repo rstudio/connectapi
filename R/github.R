@@ -1,3 +1,15 @@
+#' Download a GitHub repository
+#' 
+#' Downloads a GitHub repository into a temporary directory
+#' by downloading and extracting a tarball using a path like
+#' https://api.github.com/repos/{repo}/tarball/{ref}
+#' 
+#' @param repo The GitHub repository to download
+#' @param ref optional. The reference to download. Defaults to "master"
+#' 
+#' @return The path to the GitHub directory
+#' 
+#' @export
 download_github <- function(repo, ref = "master") {
   current_wd <- getwd()
   on.exit(setwd(current_wd), add = TRUE)
