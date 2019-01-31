@@ -42,12 +42,7 @@ Connect <- R6::R6Class(
     },
 
     raise_error = function(res) {
-      if (httr::http_error(res)) {
-        err <- sprintf('%s request failed with %s',
-                       res$request$url,
-                       httr::http_status(res)$message)
-        stop(err)
-      }
+      error_handler(res)
     },
 
     GET = function(path, writer = httr::write_memory(), parser = 'parsed') {
@@ -334,6 +329,15 @@ Connect <- R6::R6Class(
     # end --------------------------------------------------------
   )
 )
+
+error_handler <- function(res){
+  if (httr::http_error(res)) {
+    err <- sprintf('%s request failed with %s',
+                   res$request$url,
+                   httr::http_status(res)$message)
+    stop(err)
+  }
+}
 
 check_debug <- function(req, res) {
   debug <- getOption('connect.debug')
