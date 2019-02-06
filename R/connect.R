@@ -40,6 +40,7 @@ Connect <- R6::R6Class(
         err <- sprintf('%s request failed with %s',
                        res$request$url,
                        httr::http_status(res)$message)
+        message(capture.output(str(httr::content(res))))
         stop(err)
       }
     },
@@ -257,7 +258,9 @@ Connect <- R6::R6Class(
           "{safe_query(nxt, 'next=')}",
           "{safe_query(asc_order, 'asc_order=')}",
           .sep = "&"
-        )
+        ) %>%
+          gsub("^&+","",.) %>%
+          gsub("&+", "&", .)
       )
       
       self$GET(path)
@@ -286,7 +289,9 @@ Connect <- R6::R6Class(
           "{safe_query(nxt, 'next=')}",
           "{safe_query(asc_order, 'asc_order=')}",
           .sep = "&"
-        )
+        ) %>%
+          gsub("^&+","",.) %>%
+          gsub("&+", "&", .)
       )
       
       self$GET(path)
