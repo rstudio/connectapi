@@ -40,6 +40,7 @@ Connect <- R6::R6Class(
         err <- sprintf('%s request failed with %s',
                        res$request$url,
                        httr::http_status(res)$message)
+        message(capture.output(str(httr::content(res))))
         stop(err)
       }
     },
