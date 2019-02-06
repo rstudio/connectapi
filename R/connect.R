@@ -258,7 +258,9 @@ Connect <- R6::R6Class(
           "{safe_query(nxt, 'next=')}",
           "{safe_query(asc_order, 'asc_order=')}",
           .sep = "&"
-        )
+        ) %>%
+          gsub("^&+","",.) %>%
+          gsub("&+", "&", .)
       )
       
       self$GET(path)
@@ -287,7 +289,9 @@ Connect <- R6::R6Class(
           "{safe_query(nxt, 'next=')}",
           "{safe_query(asc_order, 'asc_order=')}",
           .sep = "&"
-        )
+        ) %>%
+          gsub("^&+","",.) %>%
+          gsub("&+", "&", .)
       )
       
       self$GET(path)
