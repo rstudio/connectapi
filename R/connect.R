@@ -371,7 +371,7 @@ connect <- function(
   } else if (nchar(srv$version) == 0) {
     message("Version information is not exposed by this RStudio Connect instance.")
   } else {
-    
+    check_connect_version(using_version = srv$version)
   }
   
   con
