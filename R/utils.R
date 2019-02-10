@@ -13,10 +13,11 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
 
 
 # experimental functions
+tested_connect_version <- function() {
+  "1.7.0-11"
+}
 
-check_connect_version <- function(connect) {
-  settings <- connect$get_server_settings()
-  using_version <- settings[["version"]]
+check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
   
   comp <- compareVersion(tested_version, using_version)
   
@@ -31,13 +32,11 @@ check_connect_version <- function(connect) {
     "-1" = warning(glue::glue(
       "You are using a newer version of RStudio Connect",
       "({using_version}) than was tested ({tested_version}).",
-      "Some APIs may not function as expected."
+      "Most APIs should function as expected."
     ))
   )
   invisible()
 }
-
-tested_version <- "1.7.0-11"
 
 connect_input <- function(connect) {
   if (R6::is.R6(connect)) {
