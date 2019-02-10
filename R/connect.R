@@ -1,7 +1,7 @@
 #'
 #' Class representing a Connect API client
 #'
-#' @name Connect
+#' @name RStudioConnect
 #'
 #' @section Usage:
 #' \preformatted{
@@ -16,10 +16,7 @@
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
 #'
-NULL
-
 #' @export
-
 Connect <- R6::R6Class(
   'Connect',
 
@@ -346,6 +343,7 @@ Connect <- R6::R6Class(
 #'   to environment variable RSTUDIO_CONNECT_API_KEY
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
+#' @rdname connect
 #' @export
 connect <- function(
   host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
