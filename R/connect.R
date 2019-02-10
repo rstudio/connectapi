@@ -344,6 +344,7 @@ Connect <- R6::R6Class(
 #'   variable RSTUDIO_CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable RSTUDIO_CONNECT_API_KEY
+#' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
 #' @export
 connect <- function(
@@ -354,16 +355,26 @@ connect <- function(
   con <- Connect$new(host = host, api_key = api_key)
   
   # check Connect is accessible
-  health <- tryCatch({
-    
+  srv <- tryCatch({
+    con$get_server_settings()
   }, 
   error = function(e){
+    message(
+      glue::glue("Problem talking to RStudio Connect at {host}/__api__/server_settings")
+      )
     stop(e)
   })
 
-  srv <- con$get_server_settings()
-  
   # validate version
+  if (is.null(srv$version)) {
+    message("Version information is not exposed by this RStudio Connect instance.")
+  } else if (nchar(srv$version) == 0) {
+    message("Version information is not exposed by this RStudio Connect instance.")
+  } else {
+    
+  }
+  
+  con
 }
 
 check_debug <- function(req, res) {
