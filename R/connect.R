@@ -334,6 +334,38 @@ Connect <- R6::R6Class(
   )
 )
 
+#' Create a connection to RStudio Connect
+#' 
+#' Creates a connection to RStudio Connect using the hostname and an api key.
+#' Validates the connection and checks that the version of the server is
+#' compatible with the current version of the package.
+#' 
+#' @param host The URL for accessing RStudio Connect. Defaults to environment
+#'   variable RSTUDIO_CONNECT_SERVER
+#' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
+#'   to environment variable RSTUDIO_CONNECT_API_KEY
+#' 
+#' @export
+connect <- function(
+  host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
+  api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
+) {
+  # deal with trailing slashes...?
+  con <- Connect$new(host = host, api_key = api_key)
+  
+  # check Connect is accessible
+  health <- tryCatch({
+    
+  }, 
+  error = function(e){
+    stop(e)
+  })
+
+  srv <- con$get_server_settings()
+  
+  # validate version
+}
+
 check_debug <- function(req, res) {
   debug <- getOption('connect.debug')
   if (!is.null(debug) && debug) {
