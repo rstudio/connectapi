@@ -16,3 +16,12 @@ test_that("connect fails for nonexistent server", {
     connect(host = "does-not-exist.example.com", api_key = "bogus")
   })
 })
+
+test_that("connect fails for good server, bad api key", {
+  expect_error({
+    connect(
+      host = Sys.getenv("TEST_SERVER_1"),
+      api_key = "bogus"
+    )
+  })
+})
