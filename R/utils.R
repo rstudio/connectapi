@@ -13,6 +13,9 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
 
 
 # experimental functions
+tested_connect_version <- function() {
+  current_connect_version
+}
 
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
   
