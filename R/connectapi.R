@@ -7,3 +7,7 @@ utils::globalVariables(
     "r_version"
   )
 )
+
+tested_connect_version <- function() {
+  "1.7.0-11"
+}
