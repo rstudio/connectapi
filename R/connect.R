@@ -28,7 +28,7 @@ Connect <- R6::R6Class(
 
     initialize = function(host, api_key) {
       message(glue::glue("Defining Connect with host: {host}"))
-      self$host = host
+      self$host = base::sub("^(.*)/$", "\\1", host)
       self$api_key = api_key
     },
 
@@ -349,7 +349,6 @@ connect <- function(
   host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
   api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
 ) {
-  # deal with trailing slashes...?
   con <- Connect$new(host = host, api_key = api_key)
   
   # check Connect is accessible
