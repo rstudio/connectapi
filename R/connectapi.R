@@ -8,6 +8,4 @@ utils::globalVariables(
   )
 )
 
-tested_connect_version <- function() {
-  "1.7.0-11"
-}
+current_connect_version <- "1.7.0-11"
