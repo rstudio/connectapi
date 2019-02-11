@@ -16,4 +16,9 @@ if (
   all(as.logical(lapply(health_checks, function(x){length(x) == 0})))
   ) {
   test_dir("integrated-tests")
-} 
+} else {
+  context("integrated tests")
+  test_that("all", {
+    skip("test environment not set up properly")
+  })
+}
