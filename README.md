@@ -1,6 +1,10 @@
-# Connect API Utils - **WIP**
+# connectapi - **WIP**
 
-This package is an **experimental WIP**. The package is designed to provide an R client for the RStudio Connect API as well as helpful functions that utilize the client. The client is based off a similar client in the `rsconnnect` package, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the `rsconnect` package for easier support and maintenance. 
+This package is an **experimental WIP**. The package is designed to provide an R
+client for the RStudio Connect API as well as helpful functions that utilize the
+client. The client is based off a similar client in the `rsconnnect` package,
+but is publicly exported to be easier to use, is extensible via an R6 class, and
+is separated from the `rsconnect` package for easier support and maintenance.
 
 ## Installation
 
@@ -16,7 +20,7 @@ To create a client:
 
 ```r
 library(connectapi)
-client <- Connect$new(
+client <- connect(
   host = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
 )
