@@ -69,3 +69,16 @@ deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...)
   
   return(Task$new(connect = con, content = content, task = task))
 }
+
+#' @export
+set_image_path <- function(content, path) {
+  guid <- content$content$guid
+  
+  con <- content$connect
+  
+  res <- con$POST(
+    path = glue::glue("/applications/{guid}/image"),
+    body = httr::upload_file(path)
+    )
+  return(content)
+}
