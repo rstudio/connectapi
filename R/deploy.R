@@ -82,3 +82,18 @@ set_image_path <- function(content, path) {
     )
   return(content)
 }
+
+#' @export
+set_vanity_url <- function(content, url) {
+  guid <- content$content$guid
+  
+  con <- content$connect
+  
+  con$POST(
+    path = "vanities",
+    body = list(
+      app_guid = guid,
+      path_prefix = url
+    )
+  )
+}
