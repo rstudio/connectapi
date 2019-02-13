@@ -42,6 +42,7 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
   
+  message("Bundling directory {path}")
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
   
   tar_path <- fs::path_abs(filename)
@@ -52,24 +53,58 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
 #' @export
 bundle_path <- function(connect, path) {
   tar_path <- fs::path_abs(path)
+  message(glue::gleu("Bundling path {path}"))
   
   return(Bundle$new(connect = connect, path = tar_path))
 }
 
 #' @export
+bundle_static <- function(connect, path) {
+  raw_json <- jsonlite::fromJSON(system.file("static.json", package = "connectapi"))
+  raw_json$metadata$primary_html <- path
+  
+  message(glue::glue("Bundling file {path}"))
+  tmp_dir <- fs::file_temp(pattern = "bundle")
+  fs::dir_create(tmp_dir)
+  tmp_file <- fs::file_copy(
+    path = fs::path_file(path), 
+    new_path = fs::path(tmp_dir, fs::path_file(path))
+    )
+  
+  output_json <- jsonlite::toJSON(
+    raw_json, 
+    auto_unbox = TRUE, 
+    pretty = TRUE
+  )
+  update_json <- gsub(
+    pattern = "\\{\\}",
+    replacement = "null",
+    output_json
+  )
+  writeLines(update_json, fs::path(tmp_dir, "manifest.json"))
+  
+  bundle_dir(connect = connect, path = tmp_dir)
+}
+
+#' @export
 deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...) {
   con <- bundle$connect
+  
+  message("Getting content endpoint")
   content <- content_ensure(connect = con, name = name, title = title, guid = guid, ...)
   
+  message("Uploading bundle")
   # upload
   new_bundle_id <- con$content_upload(bundle_path = bundle$path, guid = content$guid)[["bundle_id"]]
   
+  message("Deploying bundle")
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
   
   return(Task$new(connect = con, content = content, task = task))
 }
 
+# should this be content_image_path ? maybe?
 #' @export
 set_image_path <- function(content, path) {
   guid <- content$content$guid
