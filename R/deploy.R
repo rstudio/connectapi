@@ -37,7 +37,7 @@ Task <- R6::R6Class(
 
 # should this default to a temp file? Probably...?
 #' @export
-bundle_dir <- function(connect, path = ".", filename = "bundle.tar.gz") {
+bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
