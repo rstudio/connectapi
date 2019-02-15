@@ -58,7 +58,6 @@ bundle_path <- function(connect, path) {
   return(Bundle$new(connect = connect, path = tar_path))
 }
 
-#' @export
 bundle_static <- function(connect, path) {
   raw_json <- jsonlite::fromJSON(system.file("static.json", package = "connectapi"))
   raw_json$metadata$primary_html <- path
