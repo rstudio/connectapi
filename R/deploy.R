@@ -58,33 +58,6 @@ bundle_path <- function(connect, path) {
   return(Bundle$new(connect = connect, path = tar_path))
 }
 
-bundle_static <- function(connect, path) {
-  raw_json <- jsonlite::fromJSON(system.file("static.json", package = "connectapi"))
-  raw_json$metadata$primary_html <- path
-  
-  message(glue::glue("Bundling file {path}"))
-  tmp_dir <- fs::file_temp(pattern = "bundle")
-  fs::dir_create(tmp_dir)
-  tmp_file <- fs::file_copy(
-    path = fs::path_file(path), 
-    new_path = fs::path(tmp_dir, fs::path_file(path))
-    )
-  
-  output_json <- jsonlite::toJSON(
-    raw_json, 
-    auto_unbox = TRUE, 
-    pretty = TRUE
-  )
-  update_json <- gsub(
-    pattern = "\\{\\}",
-    replacement = "null",
-    output_json
-  )
-  writeLines(update_json, fs::path(tmp_dir, "manifest.json"))
-  
-  bundle_dir(connect = connect, path = tmp_dir)
-}
-
 #' @export
 deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...) {
   con <- bundle$connect
