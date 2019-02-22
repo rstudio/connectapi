@@ -86,7 +86,14 @@ deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...)
   return(Task$new(connect = con, content = content, task = task))
 }
 
-# should this be content_image_path ? maybe?
+#' Set the Image from a Path
+#' 
+#' @param content A content object
+#' @param path The path to an image on disk
+#' @param url The url for an image
+#' 
+#' @rdname set_image
+#' @family content
 #' @export
 set_image_path <- function(content, path) {
   guid <- content$content$guid
