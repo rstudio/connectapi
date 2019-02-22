@@ -45,7 +45,17 @@ Task <- R6::R6Class(
 )
 
 
-# should this default to a temp file? Probably...?
+#' Define a bundle from a Directory
+#' 
+#' Creates a bundle from a target directory. 
+#' 
+#' @param connect A Connect object
+#' @param path The path to the directory to be bundled
+#' @param filename The output bundle path
+#' 
+#' @return Bundle A bundle object
+#' 
+#' @family deploy
 #' @export
 bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   before_wd <- getwd()
@@ -60,14 +70,34 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
   return(Bundle$new(connect = connect, path = tar_path))
 }
 
+#' Define a bundle from a path (a tar.gz file)
+#' 
+#' @param connect A Connect object
+#' @param path The path to a .tar.gz file
+#' 
+#' @return Bundle A bundle object
+#' 
+#' @family deploy
 #' @export
 bundle_path <- function(connect, path) {
+  # need a check on filetype
   tar_path <- fs::path_abs(path)
-  message(glue::gleu("Bundling path {path}"))
+  message(glue::glue("Bundling path {path}"))
   
   return(Bundle$new(connect = connect, path = tar_path))
 }
 
+#' Deploy a bundle
+#' 
+#' @param bundle A bundle object
+#' @param name The unique name for the content on the server
+#' @param title optional The title to be used for the content on the server
+#' @param guid optional The GUID if the content already exists on the server
+#' @param ... Additional arguments passed along to the content creation
+#' 
+#' @return Task A task object
+#' 
+#' @family deploy
 #' @export
 deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...) {
   con <- bundle$connect
