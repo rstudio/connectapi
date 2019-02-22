@@ -107,6 +107,24 @@ set_image_path <- function(content, path) {
   return(content)
 }
 
+#' @rdname set_image
+#' @export
+set_image_url <- function(content, url) {
+  parsed_url <- httr::parse_url(url)
+  imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
+  httr::GET(url, httr::write_disk(imgfile))
+  
+  set_image_path(content = content, path = imgfile)
+}
+
+#' Set the Vanity URL
+#' 
+#' Sets the Vanity URL for a piece of content.
+#' 
+#' @param content A content object
+#' @param url The vanity URL to set
+#' 
+#' @family content
 #' @export
 set_vanity_url <- function(content, url) {
   guid <- content$content$guid
