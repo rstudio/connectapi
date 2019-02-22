@@ -1,3 +1,8 @@
+#' Bundle
+#' 
+#' An S6 class that represents a bundle
+#' 
+#' @family deploy
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -15,6 +20,11 @@ Bundle <- R6::R6Class(
   )
 )
 
+#' Task
+#' 
+#' An S6 class that represents a Task
+#' 
+#' @family deploy
 #' @export
 Task <- R6::R6Class(
   "Task",
