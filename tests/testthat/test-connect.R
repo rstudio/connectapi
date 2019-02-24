@@ -16,3 +16,10 @@ test_that("trailing slash removed from host", {
   
   expect_identical(con$host, con2$host)
 })
+
+
+context("connect")
+
+test_that("version is validated", {
+   skip("not implemented yet") 
+})
