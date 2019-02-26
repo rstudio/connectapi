@@ -121,6 +121,7 @@ deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...)
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
+#' @param ... Additional arguments passed on to methods
 #' 
 #' @rdname set_image
 #' @family content
@@ -143,6 +144,22 @@ set_image_url <- function(content, url) {
   parsed_url <- httr::parse_url(url)
   imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
   httr::GET(url, httr::write_disk(imgfile))
+  
+  set_image_path(content = content, path = imgfile)
+}
+
+#' @rdname set_image
+#' @export
+set_image_webshot <- function(content, ...) {
+  imgfile <- fs::file_temp(pattern = "image", ext = ".png")
+  webshot::webshot(content$content$url,
+            file = imgfile,
+            vwidth = 800,
+            vheight = 600,
+            cliprect = "viewport",
+            key = server_key, 
+            ...
+            )
   
   set_image_path(content = content, path = imgfile)
 }
