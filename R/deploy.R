@@ -11,12 +11,39 @@ Bundle <- R6::R6Class(
     path = NULL,
     
     initialize = function(connect, path) {
-      if (!R6::is.R6(connect) | class(con)[1] != "Connect") {
-        stop("connect must be an R6 Connect object")
-      }
+      validate_R6_class("Connect", connect)
       self$connect = connect
       self$path = path
-    }
+    },
+    
+    get_connect = function(){self$connect}
+  )
+)
+
+validate_R6_class <- function(class, instance) {
+  obj <- rlang::enquo(instance)
+  if (!R6::is.R6(instance) | !inherits(instance, class)) {
+    stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
+  }
+}
+
+#' Content
+#' 
+#' An S6 class that represents content
+Content <- R6::R6Class(
+  "Content",
+  public = list(
+    connect = NULL,
+    content = NULL,
+    
+    initialize = function(connect, content, task) {
+      validate_R6_class("Connect", connect)
+      self$connect = connect
+      self$content = content
+      self$task = task
+    },
+    get_connect = function(){self$connect},
+    get_content = function(){self$content}
   )
 )
 
@@ -28,19 +55,15 @@ Bundle <- R6::R6Class(
 #' @export
 Task <- R6::R6Class(
   "Task",
+  inherit = Content,
   public = list(
-    connect = NULL,
-    content = NULL,
-    task = NULL,
-    
     initialize = function(connect, content, task) {
-      if (!R6::is.R6(connect) | class(con)[1] != "Connect") {
-        stop("connect must be an R6 Connect object")
-      }
+      validate_R6_class("Connect", connect)
       self$connect = connect
       self$content = content
       self$task = task
-    }
+    },
+    get_task = function(){self$task}
   )
 )
 
@@ -100,7 +123,9 @@ bundle_path <- function(connect, path) {
 #' @family deploy
 #' @export
 deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...) {
-  con <- bundle$connect
+  validate_R6_class("Bundle", bundle)
+  
+  con <- bundle$get_connect()
   
   message("Getting content endpoint")
   content <- content_ensure(connect = con, name = name, title = title, guid = guid, ...)
@@ -127,20 +152,24 @@ deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...)
 #' @family content
 #' @export
 set_image_path <- function(content, path) {
-  guid <- content$content$guid
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
   
-  con <- content$connect
+  con <- content$get_connect()
   
   res <- con$POST(
     path = glue::glue("/applications/{guid}/image"),
     body = httr::upload_file(path)
     )
-  return(content)
+  
+  # return the input (in case it inherits more than just Content)
+  content
 }
 
 #' @rdname set_image
 #' @export
 set_image_url <- function(content, url) {
+  validate_R6_class("Content", content)
   parsed_url <- httr::parse_url(url)
   imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
   httr::GET(url, httr::write_disk(imgfile))
@@ -151,6 +180,7 @@ set_image_url <- function(content, url) {
 #' @rdname set_image
 #' @export
 set_image_webshot <- function(content, ...) {
+  validate_R6_class("Content", content)
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
   webshot::webshot(content$content$url,
             file = imgfile,
@@ -174,9 +204,10 @@ set_image_webshot <- function(content, ...) {
 #' @family content
 #' @export
 set_vanity_url <- function(content, url) {
-  guid <- content$content$guid
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
   
-  con <- content$connect
+  con <- content$get_connect()
   
   con$POST(
     path = "vanities",
@@ -185,4 +216,6 @@ set_vanity_url <- function(content, url) {
       path_prefix = url
     )
   )
+  
+  content
 }
