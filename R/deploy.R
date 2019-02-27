@@ -157,7 +157,7 @@ set_image_webshot <- function(content, ...) {
             vwidth = 800,
             vheight = 600,
             cliprect = "viewport",
-            key = server_key, 
+            key = content$connect$api_key, 
             ...
             )
   
