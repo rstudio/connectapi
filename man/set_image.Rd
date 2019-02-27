@@ -3,11 +3,14 @@
 \name{set_image_path}
 \alias{set_image_path}
 \alias{set_image_url}
+\alias{set_image_webshot}
 \title{Set the Image from a Path}
 \usage{
 set_image_path(content, path)
 
 set_image_url(content, url)
+
+set_image_webshot(content, ...)
 }
 \arguments{
 \item{content}{A content object}
@@ -15,6 +18,8 @@ set_image_url(content, url)
 \item{path}{The path to an image on disk}
 
 \item{url}{The url for an image}
+
+\item{...}{Additional arguments passed on to methods}
 }
 \description{
 Set the Image from a Path
