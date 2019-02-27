@@ -26,6 +26,8 @@ Connect <- R6::R6Class(
     tags = NULL,
     tag_map = NULL,
 
+    get_connect = function() {self},
+    
     initialize = function(host, api_key) {
       message(glue::glue("Defining Connect with host: {host}"))
       self$host = base::sub("^(.*)/$", "\\1", host)
