@@ -25,6 +25,7 @@ validate_R6_class <- function(class, instance) {
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
     stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
   }
+  invisible(TRUE)
 }
 
 #' Content
@@ -159,7 +160,7 @@ set_image_path <- function(content, path) {
   con <- content$get_connect()
   
   res <- con$POST(
-    path = glue::glue("/applications/{guid}/image"),
+    path = glue::glue("applications/{guid}/image"),
     body = httr::upload_file(path)
     )
   
@@ -210,7 +211,7 @@ set_vanity_url <- function(content, url) {
   
   con <- content$get_connect()
   
-  con$POST(
+  res <- con$POST(
     path = "vanities",
     body = list(
       app_guid = guid,
