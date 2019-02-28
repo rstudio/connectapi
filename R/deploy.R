@@ -2,7 +2,7 @@
 #' 
 #' An S6 class that represents a bundle
 #' 
-#' @family deploy
+#' @family deployR6
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -32,7 +32,7 @@ validate_R6_class <- function(class, instance) {
 #' 
 #' An S6 class that represents content
 #' 
-#' @family deploy
+#' @family deployR6
 #' @export
 Content <- R6::R6Class(
   "Content",
@@ -55,7 +55,7 @@ Content <- R6::R6Class(
 #' 
 #' An S6 class that represents a Task
 #' 
-#' @family deploy
+#' @family deployR6
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -95,7 +95,7 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
   
   tar_path <- fs::path_abs(filename)
   
-  return(Bundle$new(connect = connect, path = tar_path))
+  invisible(Bundle$new(connect = connect, path = tar_path))
 }
 
 #' Define a bundle from a path (a tar.gz file)
@@ -112,7 +112,7 @@ bundle_path <- function(connect, path) {
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
   
-  return(Bundle$new(connect = connect, path = tar_path))
+  invisible(Bundle$new(connect = connect, path = tar_path))
 }
 
 #' Deploy a bundle
@@ -143,7 +143,7 @@ deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...)
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
   
-  return(Task$new(connect = con, content = content, task = task))
+  invisible(Task$new(connect = con, content = content, task = task))
 }
 
 #' Set the Image from a Path
@@ -168,7 +168,7 @@ set_image_path <- function(content, path) {
     )
   
   # return the input (in case it inherits more than just Content)
-  content
+  invisible(content)
 }
 
 #' @rdname set_image
@@ -222,10 +222,17 @@ set_vanity_url <- function(content, url) {
     )
   )
   
-  content
+  invisible(content)
 }
 
 #' Poll Task
+#' 
+#' Polls a task, waiting for information about a deployment
+#' 
+#' @param task A Task object
+#' @param wait The interval to wait between polling
+#' 
+#' @return Task The Task object that was input
 #' 
 #' @family deploy
 #' @export
