@@ -41,6 +41,13 @@ test_that("bundle_path deploys", {
   expect_true(validate_R6_class("Content", tsk))
 })
 
+test_that("poll_task works and returns its input", {
+  expect_message(
+    res <- poll_task(cont1_content)
+  )
+  expect_equal(res, cont1_content)
+})
+
 test_that("set_image_path works", {
   img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
   
