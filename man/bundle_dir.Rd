@@ -21,7 +21,7 @@ Bundle A bundle object
 Creates a bundle from a target directory.
 }
 \seealso{
-Other deploy: \code{\link{Bundle}}, \code{\link{Task}},
-  \code{\link{bundle_path}}, \code{\link{deploy}}
+Other deploy: \code{\link{bundle_path}},
+  \code{\link{deploy}}, \code{\link{poll_task}}
 }
 \concept{deploy}

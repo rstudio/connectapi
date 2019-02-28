@@ -24,7 +24,7 @@ Task A task object
 Deploy a bundle
 }
 \seealso{
-Other deploy: \code{\link{Bundle}}, \code{\link{Task}},
-  \code{\link{bundle_dir}}, \code{\link{bundle_path}}
+Other deploy: \code{\link{bundle_dir}},
+  \code{\link{bundle_path}}, \code{\link{poll_task}}
 }
 \concept{deploy}

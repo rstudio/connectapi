@@ -12,8 +12,7 @@ Bundle
 An S6 class that represents a bundle
 }
 \seealso{
-Other deploy: \code{\link{Task}}, \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{deploy}}
+Other deployR6: \code{\link{Content}}, \code{\link{Task}}
 }
-\concept{deploy}
+\concept{deployR6}
 \keyword{datasets}
