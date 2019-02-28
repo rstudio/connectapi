@@ -44,7 +44,7 @@ promote <- function(from,
   bundle_id <- to_client$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
   task_id <- to_client$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
   
-  poll_task(connect = to_client, task_id = task_id)
+  poll_task_old(connect = to_client, task_id = task_id)
   
   to_app_url <- to_app$url
   
@@ -117,7 +117,7 @@ deploy_bundle <- function(connect, bundle_path, guid){
   return(task_id)
 }
 
-poll_task <- function(connect, task_id, wait = 1) {
+poll_task_old <- function(connect, task_id, wait = 1) {
   finished <- FALSE
   code <- -1
   first <- 0
