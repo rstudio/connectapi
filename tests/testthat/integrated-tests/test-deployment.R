@@ -32,9 +32,6 @@ test_that("can upload and deploy content", {
   
   task <- test_conn_1$content_deploy(guid = cont1_guid, bundle_id = res[["bundle_id"]])
   expect_is(task[["task_id"]], "character")
-  
-  res <- poll_task(test_conn_1, task_id = task[["task_id"]])
-  expect_null(res)
 })
 
 test_that("can promote content to another server", {
@@ -91,3 +88,4 @@ test_that("content_ensure works with name", {
   expect_identical(c_desc, c_diff[["description"]])
   
 })
+
