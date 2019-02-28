@@ -68,7 +68,7 @@ test_that("set_image_webshot works", {
 })
 
 test_that("set_vanity_url works", {
-  res <- set_vanity_url(cont1_content, "/test-vanity-url")
+  res <- set_vanity_url(cont1_content, cont1_name)
   
   expect_true(validate_R6_class("Content", res))
 })
