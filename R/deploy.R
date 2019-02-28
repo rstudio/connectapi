@@ -31,6 +31,9 @@ validate_R6_class <- function(class, instance) {
 #' Content
 #' 
 #' An S6 class that represents content
+#' 
+#' @family deploy
+#' @export
 Content <- R6::R6Class(
   "Content",
   public = list(
@@ -220,4 +223,31 @@ set_vanity_url <- function(content, url) {
   )
   
   content
+}
+
+#' Poll Task
+#' 
+#' @family deploy
+#' @export
+poll_task <- function(task, wait = 1) {
+  validate_R6_class("Task", task)
+  con <- task$get_connect()
+  
+  finished <- FALSE
+  code <- -1
+  first <- 0
+  while (!finished) {
+    task_data <- con$get_task(task$get_task()$task_id, wait = wait, first = first)
+    finished <- task_data[["finished"]]
+    code <- task_data[["code"]]
+    first <- task_data[["last"]]
+    
+    lapply(task_data[["output"]], message)
+  }
+  
+  if (code != 0) {
+    msg <- task_data[["error"]]
+    stop(msg)
+  }
+  invisible(task)
 }
