@@ -57,6 +57,7 @@ Task <- R6::R6Class(
   "Task",
   inherit = Content,
   public = list(
+    task = NULL,
     initialize = function(connect, content, task) {
       validate_R6_class("Connect", connect)
       self$connect = connect
@@ -85,7 +86,7 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
   
-  message("Bundling directory {path}")
+  message(glue::glue("Bundling directory {path}"))
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
   
   tar_path <- fs::path_abs(filename)
