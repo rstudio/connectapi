@@ -51,7 +51,7 @@ promote <- function(from,
   return(to_app_url)
 }
 
-content_ensure <- function(connect, name = random_name(), title = name, guid = NULL, ...) {
+content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
   
   if (!is.null(guid)) {
     # guid-based deployment
