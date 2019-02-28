@@ -8,6 +8,7 @@ cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
 cont1_bundle <- NULL
+cont1_content <- NULL
 
 test_that("bundle_dir deploys", {
   dir_path <- rprojroot::find_testthat_root_file("examples/static")
@@ -19,23 +20,48 @@ test_that("bundle_dir deploys", {
   tsk <- deploy(bundle = bund, name = cont1_name, title = cont1_title)
   
   cont1_guid <<- tsk$get_content()$guid
+  cont1_content <<- tsk
   
+  # how should we test that deployment happened?
+  expect_true(validate_R6_class("Content", tsk))
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
 })
 
 test_that("bundle_path deploys", {
-  skip("not implemented yet")
+  tar_path <- rprojroot::find_testthat_root_file("examples/static.tar.gz")
+  bund <- bundle_path(test_conn_1, path = tar_path)
+  
+  expect_equal(tar_path, as.character(bund$path))
+  
+  # deploy to a new endpoint
+  tsk <- deploy(bundle = bund)
+  
+  # how should we test that deployment happened?
+  expect_true(validate_R6_class("Content", tsk))
 })
 
 test_that("set_image_path works", {
-  skip("not implemented yet")
+  img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
+  
+  res <- set_image_path(cont1_content, img_path)
+  
+  expect_true(validate_R6_class("Content", res))
 })
 
 test_that("set_image_url works", {
+  # need to find a reliable image URL that is small
   skip("not implemented yet")
 })
 
+test_that("set_image_webshot works", {
+  res <- set_image_webshot(cont1_content, delay = 5)
+  
+  expect_true(validate_R6_class("Content", res))
+})
+
 test_that("set_vanity_url works", {
-  skip("not implemented yet")
+  res <- set_vanity_url(cont1_content, "/test-vanity-url")
+  
+  expect_true(validate_R6_class("Content", res))
 })
