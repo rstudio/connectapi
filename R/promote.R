@@ -117,3 +117,22 @@ deploy_bundle <- function(connect, bundle_path, guid){
   return(task_id)
 }
 
+poll_task <- function(connect, task_id, wait = 1) {
+  finished <- FALSE
+  code <- -1
+  first <- 0
+  while (!finished) {
+    task_data <- connect$get_task(task_id, wait = wait, first = first)
+    finished <- task_data[["finished"]]
+    code <- task_data[["code"]]
+    first <- task_data[["last"]]
+    
+    lapply(task_data[["output"]], message)
+  }
+  
+  if (code != 0) {
+    msg <- task_data[["error"]]
+    stop(msg)
+  }
+  invisible()
+}
