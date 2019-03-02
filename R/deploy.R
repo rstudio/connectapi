@@ -86,6 +86,10 @@ Task <- R6::R6Class(
 #' @family deploy
 #' @export
 bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+  validate_R6_class("Connect", connect)
+  
+  # TODO: check for manifest.json
+  
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
@@ -114,6 +118,34 @@ bundle_path <- function(connect, path) {
   
   invisible(Bundle$new(connect = connect, path = tar_path))
 }
+
+#' Define a Bundle from Deployed Connect Content
+#' 
+#' Downloads a Content item's active bundle, and specifies the
+#' Connect instance 
+#' 
+#' @param content A Content object
+#' @param to_connect A Connect object. The RStudio Connect server to deploy the bundle to
+#' @param filename The output bundle path
+#' 
+#' @return Bundle A bundle object
+#' 
+#' @family deploy
+#' @export
+bundle_content <- function(content, to_connect, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+  validate_R6_class("Content", content)
+  
+  from_connect <- content$get_connect()
+  from_content <- content$get_content()
+  
+  message("Downloading bundle")
+  from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
+  
+  invisible(Bundle$new(connect = to_connect, path = filename))
+}
+
+
+bundle_dir() %>% deploy(connect = connect())
 
 #' Deploy a bundle
 #' 
