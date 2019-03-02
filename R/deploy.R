@@ -257,6 +257,18 @@ set_vanity_url <- function(content, url) {
   invisible(content)
 }
 
+# if you want to update
+# need to get the vanities off of the private GET applications endpoint
+# then PUT that object to vanities/guid
+get_vanity_url <- function(content) {
+  con <- content$get_connect()
+  guid <- content$get_content()$id
+  
+  res <- con$GET(glue::glue("/applications/{guid}"))
+  
+  res
+}
+
 #' Poll Task
 #' 
 #' Polls a task, waiting for information about a deployment
