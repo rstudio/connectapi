@@ -17,7 +17,8 @@ Imports:
     glue,
     fs,
     config,
-    yaml
+    yaml,
+    magrittr
 RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,
