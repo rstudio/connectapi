@@ -144,9 +144,6 @@ bundle_content <- function(content, to_connect, filename = fs::file_temp(pattern
   invisible(Bundle$new(connect = to_connect, path = filename))
 }
 
-
-bundle_dir() %>% deploy(connect = connect())
-
 #' Deploy a bundle
 #' 
 #' @param bundle A bundle object
