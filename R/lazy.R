@@ -1,3 +1,9 @@
+# TODO
+# - trace through "n" to default to 10 or so (add a "head" op)
+# - implement "actual" collect / handle n, and reduce # of sample rows
+# - make operation dynamic (i.e. not just users)
+# - figure out filtering... and such...?
+# - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 tbl_connect <- function(src, from, ...) {
   vars <- "test"
   
