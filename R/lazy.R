@@ -15,9 +15,13 @@ cat_line <- function(...) {
   cat(paste0(..., "\n"), sep = "")
 }
 
-print.tbl_connect <- function(x, ...) {
-  cat(x$ops$x)
+print.tbl_connect <- function(x, ..., n = NULL) {
+  cat_line(format(x, ..., n = n))
   invisible(x)
+}
+
+as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
+  as.data.frame(collect(x, n = n))
 }
 
 op_base_connect <- function(x, vars) {
