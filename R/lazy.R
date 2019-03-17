@@ -2,8 +2,10 @@
 # - trace through "n" to default to 10 or so (add a "head" op)
 # - implement "actual" collect / handle n, and reduce # of sample rows
 # - make operation dynamic (i.e. not just users)
-# - figure out filtering... and such...?
+# - figure out filtering... and such...? 
+# - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
+# - some type of quoting here...?
 tbl_connect <- function(src, from, ...) {
   vars <- "test"
   
