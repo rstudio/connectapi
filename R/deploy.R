@@ -15,14 +15,6 @@ Bundle <- R6::R6Class(
   )
 )
 
-validate_R6_class <- function(class, instance) {
-  obj <- rlang::enquo(instance)
-  if (!R6::is.R6(instance) | !inherits(instance, class)) {
-    stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
-  }
-  invisible(TRUE)
-}
-
 #' Content
 #' 
 #' An S6 class that represents content
