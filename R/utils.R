@@ -11,6 +11,14 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
+validate_R6_class <- function(class, instance) {
+  obj <- rlang::enquo(instance)
+  if (!R6::is.R6(instance) | !inherits(instance, class)) {
+    stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
+  }
+  invisible(TRUE)
+}
+
 
 # experimental functions
 tested_connect_version <- function() {
