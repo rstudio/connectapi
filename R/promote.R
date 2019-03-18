@@ -122,7 +122,7 @@ poll_task_old <- function(connect, task_id, wait = 1) {
   code <- -1
   first <- 0
   while (!finished) {
-    task_data <- connect$get_task(task_id, wait = wait, first = first)
+    task_data <- connect$task(task_id, wait = wait, first = first)
     finished <- task_data[["finished"]]
     code <- task_data[["code"]]
     first <- task_data[["last"]]
