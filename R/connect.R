@@ -168,25 +168,25 @@ Connect <- R6::R6Class(
       return(res)
     },
     
-    get_content = function(guid) {
+    content = function(guid) {
       path <- sprintf("v1/experimental/content/%s", guid)
       res <- self$GET(path)
       return(res)
     },
 
-    get_task = function(task_id, first = 0, wait = 5) {
+    task = function(task_id, first = 0, wait = 5) {
       path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, first, wait)
       self$GET(path)
     },
     
     # users -----------------------------------------------
     
-    get_users = function(page_number = 1){
+    users = function(page_number = 1){
       path <- sprintf('v1/users?page_number=%d', page_number)
       self$GET(path)
     },
     
-    get_users_remote = function(prefix) {
+    users_remote = function(prefix) {
       path <- sprintf('v1/users/remote?prefix=%s', prefix)
       self$GET(path)
     },
@@ -217,7 +217,7 @@ Connect <- R6::R6Class(
                 )
     },
     
-    user_unlock = function(user_guid) {
+    users_unlock = function(user_guid) {
       path <- sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
@@ -298,12 +298,12 @@ Connect <- R6::R6Class(
     
     # misc utilities --------------------------------------------
     
-    get_docs = function(docs = "api") {
+    docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
     },
     
-    get_audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+    audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
@@ -315,14 +315,14 @@ Connect <- R6::R6Class(
       )
     },
     
-    get_server_settings_r = function() {
+    server_settings_r = function() {
       path <- "v1/server_settings/r"
       self$GET(
         path = path
       )
     },
     
-    get_server_settings = function() {
+    server_settings = function() {
       path <- "server_settings"
       self$GET(
         path = path
@@ -355,7 +355,7 @@ connect <- function(
   
   # check Connect is accessible
   srv <- tryCatch({
-    con$get_server_settings()
+    con$server_settings()
   }, 
   error = function(e){
     message(
