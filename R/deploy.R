@@ -149,7 +149,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @export
 deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
   validate_R6_class("Bundle", bundle)
-  validate_R6_class("Connect, connect")
+  validate_R6_class("Connect", connect)
   
   con <- connect
   
