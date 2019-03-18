@@ -44,6 +44,8 @@ api_build.op_base_connect <- function(op, con, ..., n) {
     return(NULL)
   } else if (op$x == "inst_shiny") {
     res <- con$inst_shiny_usage(limit = n)
+  } else if (op$x == "inst_visit") {
+    res <- con$inst_content_visits(limit = n)
   }
   purrr::map_df(
     res$results, 
