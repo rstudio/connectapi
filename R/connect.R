@@ -249,6 +249,9 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
       ) {
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/content/visits?",
         glue::glue(
@@ -279,7 +282,9 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
     ) {
-      
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/shiny/usage?",
         glue::glue(
