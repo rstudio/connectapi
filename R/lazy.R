@@ -1,11 +1,12 @@
 # TODO
-# - trace through "n" to default to 10 or so (add a "head" op)
-# - implement "actual" collect / handle n, and reduce # of sample rows
 # - make operation dynamic (i.e. not just users)
+#     - next stop: vanity URLs?
+# - make the op execution more "legit"
 # - figure out filtering... and such...? 
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - some type of quoting here...?
+# - figure out why attaching dbplyr makes trunc_mat work...? what S3 class am I missing?
 #' @export
 tbl_connect <- function(src, from, ...) {
   vars <- "test"
@@ -45,7 +46,6 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
-  print(capture.output(str(x$ops)))
   # handle "head" manually for now
   if (x$ops$name == "head") {
     n = x$ops$args$n
