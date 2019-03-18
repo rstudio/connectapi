@@ -111,10 +111,9 @@ bundle_path <- function(path) {
   invisible(Bundle$new(path = tar_path))
 }
 
-#' Define a Bundle from Deployed Connect Content
+#' Download a Bundle from Deployed Connect Content
 #' 
-#' Downloads a Content item's active bundle, and specifies the
-#' Connect instance 
+#' Downloads a Content item's active bundle
 #' 
 #' @param content A Content object
 #' @param filename The output bundle path
@@ -137,7 +136,8 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 
 #' Deploy a bundle
 #' 
-#' @param bundle A bundle object
+#' @param connect A Connect object
+#' @param bundle A Bundle object
 #' @param name The unique name for the content on the server
 #' @param title optional The title to be used for the content on the server
 #' @param guid optional The GUID if the content already exists on the server
