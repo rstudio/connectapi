@@ -56,7 +56,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
   if (!is.null(guid)) {
     # guid-based deployment
     # just in case we get a 404 back...
-    content <- tryCatch(connect$get_content(guid = guid), error = function(e){return(NULL)})
+    content <- tryCatch(connect$content(guid = guid), error = function(e){return(NULL)})
     if (is.null(content)) {
       warning(glue::glue(
         "guid {guid} was not found on {connect$host}.",
