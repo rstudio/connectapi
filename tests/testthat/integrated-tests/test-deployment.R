@@ -14,7 +14,7 @@ test_that("can create content", {
   expect_equal(cont1$name, cont1_name)
   expect_equal(cont1$title, cont1_title)
   
-  get_cont1 <- test_conn_1$get_content(guid = cont1$guid)
+  get_cont1 <- test_conn_1$content(guid = cont1$guid)
   expect_identical(get_cont1, cont1)
   cont1_guid <<- cont1$guid
 })
