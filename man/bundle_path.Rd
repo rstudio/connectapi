@@ -4,11 +4,9 @@
 \alias{bundle_path}
 \title{Define a bundle from a path (a tar.gz file)}
 \usage{
-bundle_path(connect, path)
+bundle_path(path)
 }
 \arguments{
-\item{connect}{A Connect object}
-
 \item{path}{The path to a .tar.gz file}
 }
 \value{
@@ -19,6 +17,7 @@ Define a bundle from a path (a tar.gz file)
 }
 \seealso{
 Other deploy: \code{\link{bundle_dir}},
-  \code{\link{deploy}}, \code{\link{poll_task}}
+  \code{\link{deploy}}, \code{\link{download_bundle}},
+  \code{\link{poll_task}}
 }
 \concept{deploy}

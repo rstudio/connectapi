@@ -6,11 +6,20 @@
 \usage{
 poll_task(task, wait = 1)
 }
+\arguments{
+\item{task}{A Task object}
+
+\item{wait}{The interval to wait between polling}
+}
+\value{
+Task The Task object that was input
+}
 \description{
-Poll Task
+Polls a task, waiting for information about a deployment
 }
 \seealso{
 Other deploy: \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{deploy}}
+  \code{\link{bundle_path}}, \code{\link{deploy}},
+  \code{\link{download_bundle}}
 }
 \concept{deploy}
