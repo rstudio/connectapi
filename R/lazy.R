@@ -19,25 +19,43 @@ tbl_connect <- function(src, from, ...) {
 #' @importFrom dplyr collect
 #' @export
 collect.tbl_connect <- function(x, ..., n = Inf) {
-  if (x$ops$x == "users") {
-    res <- x$src$get_users(page_size = n)
-  } else if (x$ops$x == "data") {
+  api_build(op = x$ops, con = x$src, n = n)
+}
+
+api_build <- function(op, con = NULL, ..., n = NULL) {
+  UseMethod("api_build")
+}
+
+#' @export
+api_build.op_head <- function(op, con, ..., n) {
+  n <- op$args$n
+  api_build(op$x, con, ..., n = n)
+}
+
+#' @export
+api_build.op_base_connect <- function(op, con, ..., n) {
+  if (op$x == "users") {
+    res <- con$get_users(page_size = n)
+  } else if (op$x == "data") {
     warning("not yet implemented")
-  } else if (x$ops$x == "content") {
+    return(NULL)
+  } else if (op$x == "content") {
     warning("not yet implemented")
-  } else if (x$ops$x == "inst_shiny") {
-    res <- x$src$inst_shiny_usage(limit = n)
-    # protect against NULL... ugly
-    res$results <- purrr::map(
-      res$results, 
-      function(x){
-        if (is.null(x$user_guid)){
-          x$user_guid <- NA
-        }
-        return(x)
-        })
+    return(NULL)
+  } else if (op$x == "inst_shiny") {
+    res <- con$inst_shiny_usage(limit = n)
   }
-  purrr::map_df(res$results, tibble::as_tibble)
+  purrr::map_df(
+    res$results, 
+    function(x) {
+      purrr::map(
+        .x = x,
+        .f = function(y) {
+          purrr::pluck(y, .default = NA)
+        }
+      )
+    }
+  )
 }
 
 cat_line <- function(...) {
@@ -63,10 +81,6 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
-  # handle "head" manually for now
-  if (x$ops$name == "head") {
-    n = x$ops$args$n
-  }
   as.data.frame(collect(x, n = n))
 }
 
