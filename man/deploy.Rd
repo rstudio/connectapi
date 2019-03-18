@@ -4,10 +4,13 @@
 \alias{deploy}
 \title{Deploy a bundle}
 \usage{
-deploy(bundle, name = random_name(), title = name, guid = NULL, ...)
+deploy(connect, bundle, name = random_name(), title = name,
+  guid = NULL, ...)
 }
 \arguments{
-\item{bundle}{A bundle object}
+\item{connect}{A Connect object}
+
+\item{bundle}{A Bundle object}
 
 \item{name}{The unique name for the content on the server}
 
@@ -25,6 +28,7 @@ Deploy a bundle
 }
 \seealso{
 Other deploy: \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{poll_task}}
+  \code{\link{bundle_path}}, \code{\link{download_bundle}},
+  \code{\link{poll_task}}
 }
 \concept{deploy}

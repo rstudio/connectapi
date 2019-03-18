@@ -7,16 +7,11 @@
 Bundle <- R6::R6Class(
   "Bundle",
   public = list(
-    connect = NULL,
     path = NULL,
     
-    initialize = function(connect, path) {
-      validate_R6_class("Connect", connect)
-      self$connect = connect
+    initialize = function(path) {
       self$path = path
-    },
-    
-    get_connect = function(){self$connect}
+    }
   )
 )
 
@@ -77,7 +72,6 @@ Task <- R6::R6Class(
 #' 
 #' Creates a bundle from a target directory. 
 #' 
-#' @param connect A Connect object
 #' @param path The path to the directory to be bundled
 #' @param filename The output bundle path
 #' 
@@ -85,8 +79,7 @@ Task <- R6::R6Class(
 #' 
 #' @family deploy
 #' @export
-bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  validate_R6_class("Connect", connect)
+bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   
   # TODO: check for manifest.json
   
@@ -99,40 +92,37 @@ bundle_dir <- function(connect, path = ".", filename = fs::file_temp(pattern = "
   
   tar_path <- fs::path_abs(filename)
   
-  invisible(Bundle$new(connect = connect, path = tar_path))
+  invisible(Bundle$new(path = tar_path))
 }
 
 #' Define a bundle from a path (a tar.gz file)
 #' 
-#' @param connect A Connect object
 #' @param path The path to a .tar.gz file
 #' 
 #' @return Bundle A bundle object
 #' 
 #' @family deploy
 #' @export
-bundle_path <- function(connect, path) {
+bundle_path <- function(path) {
   # need a check on filetype
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
   
-  invisible(Bundle$new(connect = connect, path = tar_path))
+  invisible(Bundle$new(path = tar_path))
 }
 
-#' Define a Bundle from Deployed Connect Content
+#' Download a Bundle from Deployed Connect Content
 #' 
-#' Downloads a Content item's active bundle, and specifies the
-#' Connect instance 
+#' Downloads a Content item's active bundle
 #' 
 #' @param content A Content object
-#' @param to_connect A Connect object. The RStudio Connect server to deploy the bundle to
 #' @param filename The output bundle path
 #' 
 #' @return Bundle A bundle object
 #' 
 #' @family deploy
 #' @export
-bundle_content <- function(content, to_connect, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   validate_R6_class("Content", content)
   
   from_connect <- content$get_connect()
@@ -141,12 +131,13 @@ bundle_content <- function(content, to_connect, filename = fs::file_temp(pattern
   message("Downloading bundle")
   from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
   
-  invisible(Bundle$new(connect = to_connect, path = filename))
+  invisible(Bundle$new(path = filename))
 }
 
 #' Deploy a bundle
 #' 
-#' @param bundle A bundle object
+#' @param connect A Connect object
+#' @param bundle A Bundle object
 #' @param name The unique name for the content on the server
 #' @param title optional The title to be used for the content on the server
 #' @param guid optional The GUID if the content already exists on the server
@@ -156,10 +147,11 @@ bundle_content <- function(content, to_connect, filename = fs::file_temp(pattern
 #' 
 #' @family deploy
 #' @export
-deploy <- function(bundle, name = random_name(), title = name, guid = NULL, ...) {
+deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
   validate_R6_class("Bundle", bundle)
+  validate_R6_class("Connect, connect")
   
-  con <- bundle$get_connect()
+  con <- connect
   
   message("Getting content endpoint")
   content <- content_ensure(connect = con, name = name, title = title, guid = guid, ...)

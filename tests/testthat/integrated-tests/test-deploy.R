@@ -13,11 +13,11 @@ cont1_content <- NULL
 test_that("bundle_dir deploys", {
   dir_path <- rprojroot::find_testthat_root_file("examples/static")
   tmp_file <- fs::file_temp(pattern = "bundle", ext = ".tar.gz")
-  bund <- bundle_dir(test_conn_1, path = dir_path, filename = tmp_file)
+  bund <- bundle_dir(path = dir_path, filename = tmp_file)
   
   expect_equal(tmp_file, bund$path)
   
-  tsk <- deploy(bundle = bund, name = cont1_name, title = cont1_title)
+  tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = cont1_title)
   
   cont1_guid <<- tsk$get_content()$guid
   cont1_content <<- tsk
@@ -30,12 +30,12 @@ test_that("bundle_dir deploys", {
 
 test_that("bundle_path deploys", {
   tar_path <- rprojroot::find_testthat_root_file("examples/static.tar.gz")
-  bund <- bundle_path(test_conn_1, path = tar_path)
+  bund <- bundle_path(path = tar_path)
   
   expect_equal(tar_path, as.character(bund$path))
   
   # deploy to a new endpoint
-  tsk <- deploy(bundle = bund)
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
   
   # how should we test that deployment happened?
   expect_true(validate_R6_class("Content", tsk))
