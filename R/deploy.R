@@ -224,15 +224,28 @@ set_vanity_url <- function(content, url) {
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
+  current_vanity <- get_vanity_url(content)
+
   con <- content$get_connect()
   
-  res <- con$POST(
-    path = "vanities",
-    body = list(
-      app_guid = guid,
-      path_prefix = url
-    )
+  if (is.null(current_vanity$id)) {
+    # new
+    res <- con$POST(
+      path = "vanities",
+      body = list(
+        app_guid = guid,
+        path_prefix = url
+      )
   )
+  } else {
+    # update
+    res <- con$PUT(
+      path = glue::glue("vanities/{current_vanity$id}"),
+      body = list(
+        path_prefix = url
+      )
+    )
+  }
   
   invisible(content)
 }
@@ -242,11 +255,17 @@ set_vanity_url <- function(content, url) {
 # then PUT that object to vanities/guid
 get_vanity_url <- function(content) {
   con <- content$get_connect()
-  guid <- content$get_content()$id
+  guid <- content$get_content()$guid
   
   res <- con$GET(glue::glue("/applications/{guid}"))
   
-  res
+  # just grab the first?
+  van <- res$vanities[[1]]
+  
+  van$app_id <- NULL
+  van$app_guid <- guid
+  
+  van
 }
 
 #' Poll Task
