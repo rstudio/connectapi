@@ -27,11 +27,10 @@ Content <- R6::R6Class(
     connect = NULL,
     content = NULL,
     
-    initialize = function(connect, content, task) {
+    initialize = function(connect, content) {
       validate_R6_class("Connect", connect)
       self$connect = connect
       self$content = content
-      self$task = task
     },
     get_connect = function(){self$connect},
     get_content = function(){self$content}
