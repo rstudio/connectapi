@@ -192,9 +192,13 @@ Connect <- R6::R6Class(
     },
     
     users_create = function(
-      email, first_name, last_name,
-      password, user_must_set_password, 
-      user_role, username
+      username,
+      email, 
+      first_name = NULL, 
+      last_name = NULL,
+      password = NULL, 
+      user_must_set_password = NULL, 
+      user_role = NULL
       ) {
       path <- sprintf('v1/users')
       self$POST(path = path,
