@@ -24,15 +24,35 @@ client <- connect(
   host = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
 )
-``` 
+```
 
-Once a client is created there are a handful of useful functions:
+You can also define the following environment variables (in a `.Renviron` file, for instance):
 
-- `get_apps` Returns a list with information on available applications
-- `get_apps(filter = list(name = app_name))` Filters the list of applications by the `key=value` pair supplied to `filter` as a named list, e.g: `list(tag = tag_id)`
-- `get_tags` Returns a data frame with columns `tag_id` and `tag_name`
+```
+RSTUDIO_CONNECT_SERVER=https://connect.example.com
+RSTUDIO_CONNECT_API_KEY=my-secret-api-key
+```
 
-To see all the functions, visit the documentation for the `Connect` class. **More functions will be added**.
+These values will be used automatically if defined in your R session.
+
+```r
+library(connectapi)
+client <- connect()
+```
+
+## Getting Started
+
+Once a client is defined, you can use it to interact with RStudio Connect. For instance:
+
+```r
+# deploying content
+bundle <- bundle_dir("./path/to/directory")
+content <- client %>% deploy_bundle(bundle) %>% poll_task()
+
+# set image for content
+content %>% set_image_path("./my/local/image.png")
+content %>% set_image_url("http://url.example.com/image.png")
+```
 
 ## Utilities
 
