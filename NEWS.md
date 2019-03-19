@@ -5,6 +5,7 @@ BREAKING:
   - `connect$activate_bundle` to `connect$content_deploy`
   - `connect$create_app` to `connect$content_create`
   - `connect$upload_bundle` to `connect$content_upload`
+  - `connect$get_users` to `connect$users`
 * Change some return types to be consistent with the API
   - `connect$content_upload` returns the response instead of `bundle_id`
   - `connect$content_deploy` returns the response instead of `task_id`
@@ -15,10 +16,10 @@ BREAKING:
   
 OTHER: 
 * Add some endpoints:
-  - `get_content`
-  - `get_audit_logs`
-  - `get_server_settings`
-  - `get_server_settings_r`
+  - `content`
+  - `audit_logs`
+  - `server_settings`
+  - `server_settings_r`
   - `inst_shiny_usage`
   - `inst_content_visits`
 * Add some helper functions:
