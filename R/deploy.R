@@ -1,6 +1,6 @@
 #' Bundle
 #' 
-#' An S6 class that represents a bundle
+#' An R6 class that represents a bundle
 #' 
 #' @family deployR6
 #' @export
@@ -10,14 +10,14 @@ Bundle <- R6::R6Class(
     path = NULL,
     
     initialize = function(path) {
-      self$path = path
+      self$path <- path
     }
   )
 )
 
 #' Content
 #' 
-#' An S6 class that represents content
+#' An R6 class that represents content
 #' 
 #' @family deployR6
 #' @export
@@ -29,8 +29,8 @@ Content <- R6::R6Class(
     
     initialize = function(connect, content) {
       validate_R6_class("Connect", connect)
-      self$connect = connect
-      self$content = content
+      self$connect <- connect
+      self$content <- content
     },
     get_connect = function(){self$connect},
     get_content = function(){self$content}
@@ -39,7 +39,7 @@ Content <- R6::R6Class(
 
 #' Task
 #' 
-#' An S6 class that represents a Task
+#' An R6 class that represents a Task
 #' 
 #' @family deployR6
 #' @export
@@ -50,11 +50,32 @@ Task <- R6::R6Class(
     task = NULL,
     initialize = function(connect, content, task) {
       validate_R6_class("Connect", connect)
-      self$connect = connect
-      self$content = content
-      self$task = task
+      self$connect <- connect
+      self$content <- content
+      self$task <- task
     },
     get_task = function(){self$task}
+  )
+)
+
+#' Vanity
+#' 
+#' An R6 class that represents a Vanity URL
+#' 
+#' @family deployR6
+#' @export
+Vanity <- R6::R6Class(
+  "Vanity",
+  inherit = Content,
+  public = list(
+    vanity = NULL,
+    initialize = function(connect, content, vanity) {
+      validate_R6_class("Connect", connect)
+      self$connect <- connect
+      self$content <- content
+      self$vanity <- vanity
+    },
+    get_vanity = function(){self$vanity}
   )
 )
 
@@ -228,7 +249,7 @@ set_vanity_url <- function(content, url) {
 
   con <- content$get_connect()
   
-  if (is.null(current_vanity$id)) {
+  if (!inherits(current_vanity, "Vanity")) {
     # new
     res <- con$POST(
       path = "vanities",
@@ -240,14 +261,23 @@ set_vanity_url <- function(content, url) {
   } else {
     # update
     res <- con$PUT(
-      path = glue::glue("vanities/{current_vanity$id}"),
+      path = glue::glue("vanities/{current_vanity$get_vanity()$id}"),
       body = list(
         path_prefix = url
       )
     )
   }
   
-  invisible(content)
+  # update content/vanity definition
+  updated_content <- con$content(guid = guid)
+  updated_van_res <- con$GET(glue::glue("/applications/{guid}"))
+  updated_van <- updated_van_res$vanities[[1]]
+  updated_van$app_id <- NULL
+  updated_van$app_guid <- guid
+  
+  van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
+  
+  invisible(van)
 }
 
 # if you want to update
@@ -262,10 +292,13 @@ get_vanity_url <- function(content) {
   # just grab the first?
   van <- res$vanities[[1]]
   
-  van$app_id <- NULL
-  van$app_guid <- guid
-  
-  van
+  if (is.null(van)) {
+    invisible(content)
+  } else {
+    van$app_id <- NULL
+    van$app_guid <- guid
+    invisible(Vanity$new(connect = con, content = content$get_content(), vanity = van))
+  }
 }
 
 #' Poll Task
