@@ -312,7 +312,7 @@ Connect <- R6::R6Class(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
         "{safe_query(nxt, '&next=')}",
-        "&ascOrder={asc_order}"
+        "&ascOrder={tolower(as.character(asc_order))}"
         )
       self$GET(
         path = path
