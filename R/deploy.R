@@ -135,6 +135,7 @@ bundle_path <- function(path) {
 #' @family deploy
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+  warn_experimental("download_bundle")
   validate_R6_class("Content", content)
   
   from_connect <- content$get_connect()
@@ -190,6 +191,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @family content
 #' @export
 set_image_path <- function(content, path) {
+  warn_experimental("set_image_path")
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
@@ -207,6 +209,7 @@ set_image_path <- function(content, path) {
 #' @rdname set_image
 #' @export
 set_image_url <- function(content, url) {
+  warn_experimental("set_image_url")
   validate_R6_class("Content", content)
   parsed_url <- httr::parse_url(url)
   imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
@@ -218,6 +221,7 @@ set_image_url <- function(content, url) {
 #' @rdname set_image
 #' @export
 set_image_webshot <- function(content, ...) {
+  warn_experimental("set_image_webshot")
   validate_R6_class("Content", content)
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
   webshot::webshot(content$content$url,
@@ -242,6 +246,7 @@ set_image_webshot <- function(content, ...) {
 #' @family content
 #' @export
 set_vanity_url <- function(content, url) {
+  warn_experimental("set_vanity_url")
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
