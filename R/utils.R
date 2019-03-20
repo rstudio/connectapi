@@ -19,6 +19,32 @@ validate_R6_class <- function(class, instance) {
   invisible(TRUE)
 }
 
+warn_experimental <- function(name) {
+  warn_once(
+    msg = glue::glue("The {name} function is experimental and subject to change in a future release"),
+    id = paste0(name, "-experimental")
+  )
+}
+
+warn_once <- function(msg, id = msg) {
+  if (rlang::env_has(warn_env, id)) {
+    return(invisible(NULL))
+  }
+  
+  has_color <- function() rlang::is_installed("crayon") && crayon::has_color()
+  silver <- function(x) if (has_color()) crayon::silver(x) else x
+  
+  msg <- paste0(
+    msg,
+    "\n",
+    silver("This warning is displayed once per session.")
+  )
+  
+  rlang::env_poke(warn_env, id, TRUE)
+  
+  warning(msg)
+}
+warn_env <- new.env(parent = emptyenv())
 
 # experimental functions
 tested_connect_version <- function() {
