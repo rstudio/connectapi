@@ -79,11 +79,13 @@ test_that("get_vanity_url works", {
     
   # without a vanity
   curr_vanity <- get_vanity_url(tmp_content)
-  expect_null(curr_vanity$id)
+  expect_true(validate_R6_class("Content", curr_vanity))
+  expect_error(validate_R6_class("Vanity", curr_vanity), regexp = "R6 Vanity")
   
   # with a vanity
   res <- set_vanity_url(tmp_content, tmp_content_name)
   existing_vanity <- get_vanity_url(tmp_content)
+  expect_true(validate_R6_class("Vanity", existing_vanity))
   expect_equal(existing_vanity$get_vanity()$path_prefix, paste0("/", tmp_content_name, "/"))
 })
 
