@@ -63,8 +63,30 @@ test_that("set_image_webshot works", {
 test_that("set_vanity_url works", {
   res <- set_vanity_url(cont1_content, cont1_name)
   
-  expect_true(validate_R6_class("Content", res))
+  expect_true(validate_R6_class("Vanity", res))
+  expect_equal(res$get_vanity()$path_prefix, paste0("/", cont1_name, "/"))
+  
+  res2 <- set_vanity_url(cont1_content, paste0(cont1_name,"update"))
+  expect_true(validate_R6_class("Vanity", res2))
+  expect_equal(res2$get_vanity()$path_prefix, paste0("/", cont1_name, "update/"))
 })
+
+
+test_that("get_vanity_url works", {
+  tmp_content_name <- uuid::UUIDgenerate()
+  tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
+  tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
+    
+  # without a vanity
+  curr_vanity <- get_vanity_url(tmp_content)
+  expect_null(curr_vanity$id)
+  
+  # with a vanity
+  res <- set_vanity_url(tmp_content, tmp_content_name)
+  existing_vanity <- get_vanity_url(tmp_content)
+  expect_equal(existing_vanity$get_vanity()$path_prefix, paste0("/", tmp_content_name, "/"))
+})
+
 
 test_that("poll_task works and returns its input", {
   expect_message(
