@@ -45,27 +45,19 @@ client <- connect()
 Once a client is defined, you can use it to interact with RStudio Connect. For instance:
 
 ```r
+library(connectapi)
+client <- connect()
+
 # deploying content
 bundle <- bundle_dir("./path/to/directory")
-content <- client %>% deploy_bundle(bundle) %>% poll_task()
+content <- client %>% deploy(bundle, name = "my-app-name") %>% poll_task()
 
-# set image for content
+# set an image for content
 content %>% set_image_path("./my/local/image.png")
 content %>% set_image_url("http://url.example.com/image.png")
+
+# set image and a vanity URL
+content %>%
+  set_image_path("./my/local/image.png") %>%
+  set_vanity_url("/my-awesome-app")
 ```
-
-## Utilities
-
-There are also a handful of higher-level utility functions that use the client API. For example:
-
-- `promote` Provides a method to programatically promote content from one Connect server to another, e.g. going from Dev to Prod.
-
-- `tag_page` Creates an html landing page for content given a `tag` based on a simple template. This html page can be deployed to Connect or hosted on a different CMS portal.
-
-- `audit_*` Functions for auditing different aspects of the
-Connect server including: content that has open permissions,
-what R versions are in use, what vanity urls are available, 
-and non-default RunAs settings.
-
-*More utilities will be added.*
-
