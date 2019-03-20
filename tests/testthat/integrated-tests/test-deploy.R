@@ -17,6 +17,7 @@ test_that("bundle_dir deploys", {
   
   expect_equal(tmp_file, bund$path)
   
+  # with a name / title
   tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = cont1_title)
   
   cont1_guid <<- tsk$get_content()$guid
@@ -26,6 +27,13 @@ test_that("bundle_dir deploys", {
   expect_true(validate_R6_class("Content", tsk))
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
+  
+  # with a guid
+  tsk2 <- deploy(connect = test_conn_1, bundle = bund, guid = cont1_guid)
+  expect_true(validate_R6_class("Content", tsk2))
+  expect_equal(tsk2$get_content()$name, cont1_name)
+  expect_equal(tsk2$get_content()$title, cont1_title)
+  expect_equal(tsk2$get_content()$guid, cont1_guid)
 })
 
 test_that("bundle_path deploys", {
