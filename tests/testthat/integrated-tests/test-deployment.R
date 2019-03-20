@@ -35,6 +35,8 @@ test_that("can upload and deploy content", {
 })
 
 test_that("can promote content to another server", {
+  # TODO : Intermittent failures here... with a 404 response on GET
+  # during the download_bundle... connect.R:154
   res <- promote(
     from = Sys.getenv("TEST_SERVER_1"),
     from_key = Sys.getenv("TEST_KEY_1"),
