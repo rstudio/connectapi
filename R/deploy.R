@@ -290,6 +290,7 @@ set_vanity_url <- function(content, url) {
 #' @family content
 #' @export
 get_vanity_url <- function(content) {
+  warn_experimental("get_vanity_url")
   con <- content$get_connect()
   guid <- content$get_content()$guid
   
