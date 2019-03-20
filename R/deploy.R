@@ -280,9 +280,15 @@ set_vanity_url <- function(content, url) {
   invisible(van)
 }
 
-# if you want to update
-# need to get the vanities off of the private GET applications endpoint
-# then PUT that object to vanities/guid
+
+#' Get the Vanity URL
+#' 
+#' Gets the Vanity URL for a piece of content.
+#' 
+#' @param content A content object
+#' 
+#' @family content
+#' @export
 get_vanity_url <- function(content) {
   con <- content$get_connect()
   guid <- content$get_content()$guid
