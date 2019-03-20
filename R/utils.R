@@ -21,7 +21,7 @@ validate_R6_class <- function(class, instance) {
 
 warn_experimental <- function(name) {
   warn_once(
-    msg = glue::glue("The {name} function is experimental and subject to change in a future release"),
+    msg = glue::glue("The `{name}` function is experimental and subject to change without warning in a future release"),
     id = paste0(name, "-experimental")
   )
 }
@@ -42,7 +42,7 @@ warn_once <- function(msg, id = msg) {
   
   rlang::env_poke(warn_env, id, TRUE)
   
-  warning(msg)
+  rlang::signal(msg, .subclass = "warning")
 }
 warn_env <- new.env(parent = emptyenv())
 
