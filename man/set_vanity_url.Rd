@@ -15,6 +15,8 @@ set_vanity_url(content, url)
 Sets the Vanity URL for a piece of content.
 }
 \seealso{
-Other content: \code{\link{set_image_path}}
+Other content: \code{\link{content_item}},
+  \code{\link{get_vanity_url}},
+  \code{\link{set_image_path}}
 }
 \concept{content}

@@ -25,6 +25,8 @@ set_image_webshot(content, ...)
 Set the Image from a Path
 }
 \seealso{
-Other content: \code{\link{set_vanity_url}}
+Other content: \code{\link{content_item}},
+  \code{\link{get_vanity_url}},
+  \code{\link{set_vanity_url}}
 }
 \concept{content}
