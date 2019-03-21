@@ -26,7 +26,18 @@ warn_experimental <- function(name) {
   )
 }
 
+scoped_experimental_silence <- function(frame = rlang::caller_env()) {
+  rlang::scoped_options(
+    .frame = frame,
+    connectapi_disable_experimental_warnings = TRUE
+    )
+}
+
 warn_once <- function(msg, id = msg) {
+  if (rlang::is_true(rlang::peek_option("connectapi_disable_experimental_warnings"))) {
+    return(invisible(NULL))
+  }
+  
   if (rlang::env_has(warn_env, id)) {
     return(invisible(NULL))
   }
