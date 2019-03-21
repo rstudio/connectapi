@@ -57,6 +57,7 @@ test_that("bundle_path deploys", {
 })
 
 test_that("set_image_path works", {
+  scoped_experimental_silence()
   img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
   
   res <- set_image_path(cont1_content, img_path)
@@ -70,12 +71,14 @@ test_that("set_image_url works", {
 })
 
 test_that("set_image_webshot works", {
+  scoped_experimental_silence()
   res <- set_image_webshot(cont1_content)
   
   expect_true(validate_R6_class("Content", res))
 })
 
 test_that("set_vanity_url works", {
+  scoped_experimental_silence()
   res <- set_vanity_url(cont1_content, cont1_name)
   
   expect_true(validate_R6_class("Vanity", res))
@@ -88,6 +91,7 @@ test_that("set_vanity_url works", {
 
 
 test_that("get_vanity_url works", {
+  scoped_experimental_silence()
   tmp_content_name <- uuid::UUIDgenerate()
   tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
   tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
