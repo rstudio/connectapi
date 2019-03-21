@@ -359,6 +359,7 @@ poll_task <- function(task, wait = 1) {
 #' @family content
 #' @export
 content_item <- function(connect, guid) {
+  # TODO : think about how to handle if GUID does not exist
   validate_R6_class("Connect", connect)
   
   res <- connect$get_connect()$content(guid)
