@@ -19,6 +19,8 @@ validate_R6_class <- function(class, instance) {
   invisible(TRUE)
 }
 
+# super useful examples
+# https://github.com/tidyverse/tibble/blob/master/R/compat-lifecycle.R
 warn_experimental <- function(name) {
   warn_once(
     msg = glue::glue("The `{name}` function is experimental and subject to change without warning in a future release"),
