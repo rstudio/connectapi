@@ -363,5 +363,5 @@ content_item <- function(connect, guid) {
   
   res <- connect$get_connect()$content(guid)
   
-  Content$new(connect = connect, guid = res)
+  Content$new(connect = connect, content = res)
 }
