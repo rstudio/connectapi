@@ -36,6 +36,13 @@ test_that("bundle_dir deploys", {
   expect_equal(tsk2$get_content()$guid, cont1_guid)
 })
 
+test_that("content_item works", {
+  cont1_tmp <- test_conn_1 %>% content_item(guid = cont1_guid)
+  
+  expect_true(validate_R6_class("Content", cont1_tmp))
+  expect_equal(cont1_tmp$get_content()$guid, cont1_guid)
+})
+
 test_that("bundle_path deploys", {
   tar_path <- rprojroot::find_testthat_root_file("examples/static.tar.gz")
   bund <- bundle_path(path = tar_path)
