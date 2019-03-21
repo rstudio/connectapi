@@ -346,3 +346,22 @@ poll_task <- function(task, wait = 1) {
   }
   invisible(task)
 }
+
+#' Get Content Item
+#' 
+#' Returns a single content item based on guid
+#' 
+#' @param connect An R6 Connect object
+#' @param guid The GUID for the content item to be retrieved
+#' 
+#' @value An R6 Content object for use with other content endpoints
+#' 
+#' @family content
+#' @export
+content_item <- function(connect, guid) {
+  validate_R6_class("Connect", connect)
+  
+  res <- connect$get_connect()$content(guid)
+  
+  Content$new(connect = connect, guid = res)
+}
