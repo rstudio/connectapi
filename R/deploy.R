@@ -224,12 +224,12 @@ set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class("Content", content)
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
-  webshot::webshot(content$content$url,
+  webshot::webshot(content$get_content()$url,
             file = imgfile,
             vwidth = 800,
             vheight = 600,
             cliprect = "viewport",
-            key = content$connect$api_key, 
+            key = content$get_connect()$api_key, 
             ...
             )
   
@@ -240,8 +240,18 @@ set_image_webshot <- function(content, ...) {
 #' 
 #' Sets the Vanity URL for a piece of content.
 #' 
-#' @param content A content object
-#' @param url The vanity URL to set
+#' @param content A Content object
+#' @param url The path component of the URL
+#' 
+#' @value An updated Content object
+#' 
+#' @examples
+#' \dontrun{
+#' bnd <- bundle_dir("~/my/directory")
+#' connect() %>% 
+#'   deploy(bnd) %>% 
+#'   set_vanity_url("a/vanity/url")
+#' }
 #' 
 #' @family content
 #' @export
@@ -249,6 +259,8 @@ set_vanity_url <- function(content, url) {
   warn_experimental("set_vanity_url")
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
+  
+  # TODO: Check that the URL provided is appropriate
   
   current_vanity <- get_vanity_url(content)
 
@@ -290,7 +302,7 @@ set_vanity_url <- function(content, url) {
 #' 
 #' Gets the Vanity URL for a piece of content.
 #' 
-#' @param content A content object
+#' @param content A Content object
 #' 
 #' @family content
 #' @export
@@ -351,10 +363,10 @@ poll_task <- function(task, wait = 1) {
 #' 
 #' Returns a single content item based on guid
 #' 
-#' @param connect An R6 Connect object
+#' @param connect A Connect object
 #' @param guid The GUID for the content item to be retrieved
 #' 
-#' @value An R6 Content object for use with other content endpoints
+#' @value A Content object for use with other content endpoints
 #' 
 #' @family content
 #' @export
