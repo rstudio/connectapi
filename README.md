@@ -60,4 +60,23 @@ content %>% set_image_url("http://url.example.com/image.png")
 content %>%
   set_image_path("./my/local/image.png") %>%
   set_vanity_url("/my-awesome-app")
+  
+# edit another piece of content
+client %>%
+  content_item("the-content-guid") %>%
+  set_vanity_url("/another-awesome-app")
+  
+# migrate content to another server
+client_prod <- connect(
+  host = "prod.example.com",
+  api_key = "my-secret-key"
+)
+
+prod_bnd <- client %>%
+  content_item("the-guid-to-promote") %>%
+  download_bundle()
+
+client_prod %>%
+  deploy(prod_bnd, title = "Now in Production") %>%
+  set_vanity_url("/my-app")
 ```
