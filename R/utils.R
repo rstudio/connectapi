@@ -59,7 +59,6 @@ warn_once <- function(msg, id = msg) {
 }
 warn_env <- new.env(parent = emptyenv())
 
-# experimental functions
 tested_connect_version <- function() {
   current_connect_version
 }
