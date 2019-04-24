@@ -1,0 +1,95 @@
+---
+title: "Getting Started with connectapi"
+author: "Cole Arendt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with connectapi}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Getting "Connect"ed
+
+The first thing that you need to accomplish when using the `connectapi` is
+getting connected to your RStudio Connect server. This requires the URL to your
+server and an API key. Directions on how to get an API key are
+[here](https://docs.rstudio.com/connect/user/api-keys.html#api-keys).
+
+Once you have your API key, you can create a Connect object in your code, like so:
+
+```r
+library(connectapi)
+con <- connect(
+  host = "http://example.com:3939",
+  api_key = "aihgaahegiahgg"
+)
+```
+
+The alternative is to define a `.Renviron` file, which specifies environment variables:
+
+```
+RSTUDIO_CONNECT_SERVER=http://example.com:3939
+RSTUDIO_CONNECT_API_KEY=aihgaahegiahgg
+```
+
+Then, those can be used in your code:
+
+```r
+library(connectapi)
+
+# this happens by default if you restart your R session
+readRenviron(".Renviron")
+
+con <- connect()
+```
+
+## Content Management
+
+The `connectapi` package has tools to help programmatically deploy and manage
+content. To get started, you need to use the `rsconnect` package, specifically
+the `rsconnect::writeManifest()` function, to build a `manifest.json` file for a
+directory of content that you want to deploy.
+
+Once the `manifest.json` file is present, you can reference the directory and deploy
+it directly:
+
+```r
+bnd <- bundle_dir("./my/directory")
+
+# name must be unique on the server
+# if you do not specify it, a random value will be provided
+content_1 <- con %>%
+  deploy(bnd, name = "my-content", title = "Amazing Report!!")
+```
+
+The content object (`content_1`) includes information about the deployment that you
+just requested. This can be explored with:
+
+```r
+content_1 %>% poll_task()
+```
+
+Alternatively, you can immediately begin altering the settings of the content object
+while you wait for deployment to complete:
+
+```r
+content_1 %>%
+  set_image_url("https://gph.is/29vyb0s") %>%
+  set_vanity_url("/my_clever_content")
+```
+
+If you have content that already exists and you want to update it. You can do so using the content GUID
+(which you can find within RStudio Connect in the Info pane).
+
+```r
+content_2 <- con %>%
+  deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6")
+```
