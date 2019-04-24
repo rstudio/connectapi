@@ -84,6 +84,14 @@ while you wait for deployment to complete:
 content_1 %>%
   set_image_url("https://gph.is/29vyb0s") %>%
   set_vanity_url("/my_clever_content")
+
+# ensure the vanity URL is set as expected
+content_1 %>%
+  get_vanity_url()
+
+# setting the image from a webshot of the content
+content_1 %>%
+  set_image_webshot()
 ```
 
 If you have content that already exists and you want to update it. You can do so using the content GUID
@@ -93,4 +101,11 @@ If you have content that already exists and you want to update it. You can do so
 content_2 <- con %>%
   deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6") %>%
   poll_task()
+```
+
+You can also get a content object from a GUID (if you want to examine or change settings)
+
+```r
+content_3 <- con %>%
+  content_item(guid = "96532fbc-725e-441b-9cc6-a5622535241b")
 ```
