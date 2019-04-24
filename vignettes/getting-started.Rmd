@@ -91,5 +91,6 @@ If you have content that already exists and you want to update it. You can do so
 
 ```r
 content_2 <- con %>%
-  deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6")
+  deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6") %>%
+  poll_task()
 ```
