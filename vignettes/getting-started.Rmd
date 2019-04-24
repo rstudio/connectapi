@@ -103,7 +103,8 @@ content_2 <- con %>%
   poll_task()
 ```
 
-You can also get a content object from a GUID (if you want to examine or change settings)
+You can also use the RStudio Connect content GUID to retrieve information about
+existing content (if you want to examine or change settings)
 
 ```r
 content_3 <- con %>%
