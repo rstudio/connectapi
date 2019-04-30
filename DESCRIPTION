@@ -17,7 +17,8 @@ Imports:
     glue,
     fs,
     config,
-    yaml
+    yaml,
+    magrittr
 RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,
@@ -27,5 +28,7 @@ Suggests:
     lubridate,
     ggplot2,
     gridExtra,
-    testthat
+    testthat,
+    knitr
 Remotes: slopp/webshot
+VignetteBuilder: knitr

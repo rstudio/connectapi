@@ -1,6 +1,10 @@
-# Connect API Utils - **WIP**
+# connectapi - **WIP**
 
-This package is an **experimental WIP**. The package is designed to provide an R client for the RStudio Connect API as well as helpful functions that utilize the client. The client is based off a similar client in the `rsconnnect` package, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the `rsconnect` package for easier support and maintenance. 
+This package is an **experimental WIP**. The package is designed to provide an R
+client for the RStudio Connect API as well as helpful functions that utilize the
+client. The client is based off a similar client in the `rsconnnect` package,
+but is publicly exported to be easier to use, is extensible via an R6 class, and
+is separated from the `rsconnect` package for easier support and maintenance.
 
 ## Installation
 
@@ -16,32 +20,63 @@ To create a client:
 
 ```r
 library(connectapi)
-client <- Connect$new(
+client <- connect(
   host = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
 )
-``` 
+```
 
-Once a client is created there are a handful of useful functions:
+You can also define the following environment variables (in a `.Renviron` file, for instance):
 
-- `get_apps` Returns a list with information on available applications
-- `get_apps(filter = list(name = app_name))` Filters the list of applications by the `key=value` pair supplied to `filter` as a named list, e.g: `list(tag = tag_id)`
-- `get_tags` Returns a data frame with columns `tag_id` and `tag_name`
+```
+RSTUDIO_CONNECT_SERVER=https://connect.example.com
+RSTUDIO_CONNECT_API_KEY=my-secret-api-key
+```
 
-To see all the functions, visit the documentation for the `Connect` class. **More functions will be added**.
+These environment variable values will be used automatically if defined in your R session.
 
-## Utilities
+```r
+library(connectapi)
+client <- connect()
+```
 
-There are also a handful of higher-level utility functions that use the client API. For example:
+## Getting Started
 
-- `promote` Provides a method to programatically promote content from one Connect server to another, e.g. going from Dev to Prod.
+Once a client is defined, you can use it to interact with RStudio Connect. For instance:
 
-- `tag_page` Creates an html landing page for content given a `tag` based on a simple template. This html page can be deployed to Connect or hosted on a different CMS portal.
+```r
+library(connectapi)
+client <- connect()
 
-- `audit_*` Functions for auditing different aspects of the
-Connect server including: content that has open permissions,
-what R versions are in use, what vanity urls are available, 
-and non-default RunAs settings.
+# deploying content
+bundle <- bundle_dir("./path/to/directory")
+content <- client %>% deploy(bundle, name = "my-app-name") %>% poll_task()
 
-*More utilities will be added.*
+# set an image for content
+content %>% set_image_path("./my/local/image.png")
+content %>% set_image_url("http://url.example.com/image.png")
 
+# set image and a vanity URL
+content %>%
+  set_image_path("./my/local/image.png") %>%
+  set_vanity_url("/my-awesome-app")
+  
+# edit another piece of content
+client %>%
+  content_item("the-content-guid") %>%
+  set_vanity_url("/another-awesome-app")
+  
+# migrate content to another server
+client_prod <- connect(
+  host = "prod.example.com",
+  api_key = "my-secret-key"
+)
+
+prod_bnd <- client %>%
+  content_item("the-guid-to-promote") %>%
+  download_bundle()
+
+client_prod %>%
+  deploy(prod_bnd, title = "Now in Production") %>%
+  set_vanity_url("/my-app")
+```

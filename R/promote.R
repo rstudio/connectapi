@@ -44,19 +44,19 @@ promote <- function(from,
   bundle_id <- to_client$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
   task_id <- to_client$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
   
-  poll_task(connect = to_client, task_id = task_id)
+  poll_task_old(connect = to_client, task_id = task_id)
   
   to_app_url <- to_app$url
   
   return(to_app_url)
 }
 
-content_ensure <- function(connect, name = random_name(), title = name, guid = NULL, ...) {
+content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
   
   if (!is.null(guid)) {
     # guid-based deployment
     # just in case we get a 404 back...
-    content <- tryCatch(connect$get_content(guid = guid), error = function(e){return(NULL)})
+    content <- tryCatch(connect$content(guid = guid), error = function(e){return(NULL)})
     if (is.null(content)) {
       warning(glue::glue(
         "guid {guid} was not found on {connect$host}.",
@@ -117,12 +117,12 @@ deploy_bundle <- function(connect, bundle_path, guid){
   return(task_id)
 }
 
-poll_task <- function(connect, task_id, wait = 1) {
+poll_task_old <- function(connect, task_id, wait = 1) {
   finished <- FALSE
   code <- -1
   first <- 0
   while (!finished) {
-    task_data <- connect$get_task(task_id, wait = wait, first = first)
+    task_data <- connect$task(task_id, wait = wait, first = first)
     finished <- task_data[["finished"]]
     code <- task_data[["code"]]
     first <- task_data[["last"]]
