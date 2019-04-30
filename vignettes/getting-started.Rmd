@@ -27,7 +27,7 @@ Once you have your API key, you can create a Connect object in your code, like s
 
 ```r
 library(connectapi)
-con <- connect(
+client <- connect(
   host = "http://example.com:3939",
   api_key = "aihgaahegiahgg"
 )
@@ -48,7 +48,7 @@ library(connectapi)
 # this happens by default if you restart your R session
 readRenviron(".Renviron")
 
-con <- connect()
+client <- connect()
 ```
 
 ## Content Management
@@ -66,7 +66,7 @@ bnd <- bundle_dir("./my/directory")
 
 # name must be unique on the server
 # if you do not specify it, a random value will be provided
-content_1 <- con %>%
+content_1 <- client %>%
   deploy(bnd, name = "my-content", title = "Amazing Report!!")
 ```
 
@@ -94,7 +94,7 @@ If you have content that already exists and you want to update it, you can do so
 (which you can find within RStudio Connect in the Info pane).
 
 ```r
-content_2 <- con %>%
+content_2 <- client %>%
   deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6") %>%
   poll_task()
 ```
@@ -103,6 +103,6 @@ You can also use the RStudio Connect content GUID to retrieve information about
 existing content (if you want to examine or change settings)
 
 ```r
-content_3 <- con %>%
+content_3 <- client %>%
   content_item(guid = "96532fbc-725e-441b-9cc6-a5622535241b")
 ```
