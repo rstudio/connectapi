@@ -94,7 +94,7 @@ content_1 %>%
   set_image_webshot()
 ```
 
-If you have content that already exists and you want to update it. You can do so using the content GUID
+If you have content that already exists and you want to update it, you can do so using the content GUID
 (which you can find within RStudio Connect in the Info pane).
 
 ```r
