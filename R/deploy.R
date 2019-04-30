@@ -11,6 +11,13 @@ Bundle <- R6::R6Class(
     
     initialize = function(path) {
       self$path <- path
+    },
+    
+    print = function(...) {
+      cat("RStudio Connect Bundle: \n")
+      cat("  Path: ", self$path, "\n\n", sep = "")
+      cat('bundle_path("', self$path, '")', "\n", sep = "")
+      invisible(self)
     }
   )
 )
@@ -104,7 +111,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   
   tar_path <- fs::path_abs(filename)
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Define a bundle from a path (a tar.gz file)
@@ -120,7 +127,7 @@ bundle_path <- function(path) {
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Download a Bundle from Deployed Connect Content
@@ -144,7 +151,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
   message("Downloading bundle")
   from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
   
-  invisible(Bundle$new(path = filename))
+  Bundle$new(path = filename)
 }
 
 #' Deploy a bundle
