@@ -15,7 +15,8 @@ Bundle <- R6::R6Class(
     
     print = function(...) {
       cat("RStudio Connect Bundle: \n")
-      cat("  Path: ", self$path, "\n\n", sep = "")
+      cat("  Path: ", self$path, "\n", sep = "")
+      cat("\n")
       cat('bundle_path("', self$path, '")', "\n", sep = "")
       invisible(self)
     }
@@ -40,7 +41,15 @@ Content <- R6::R6Class(
       self$content <- content
     },
     get_connect = function(){self$connect},
-    get_content = function(){self$content}
+    get_content = function(){self$content},
+    
+    print = function(...) {
+      cat("RStudio Connect Content: \n")
+      cat("  GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("\n")
+      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
+      invisible(self)
+    }
   )
 )
 
