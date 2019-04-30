@@ -7,7 +7,7 @@
 content_item(connect, guid)
 }
 \arguments{
-\item{connect}{An R6 Connect object}
+\item{connect}{A Connect object}
 
 \item{guid}{The GUID for the content item to be retrieved}
 }

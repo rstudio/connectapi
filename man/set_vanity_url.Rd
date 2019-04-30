@@ -7,12 +7,21 @@
 set_vanity_url(content, url)
 }
 \arguments{
-\item{content}{A content object}
+\item{content}{A Content object}
 
-\item{url}{The vanity URL to set}
+\item{url}{The path component of the URL}
 }
 \description{
 Sets the Vanity URL for a piece of content.
+}
+\examples{
+\dontrun{
+bnd <- bundle_dir("~/my/directory")
+connect() \%>\% 
+  deploy(bnd) \%>\% 
+  set_vanity_url("a/vanity/url")
+}
+
 }
 \seealso{
 Other content: \code{\link{content_item}},
