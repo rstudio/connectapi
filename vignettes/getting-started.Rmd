@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Getting "Connect"ed
+## Connecting
 
 The first thing that you need to accomplish when using the `connectapi` is
 getting connected to your RStudio Connect server. This requires the URL to your
