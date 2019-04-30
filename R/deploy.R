@@ -211,7 +211,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
   
-  invisible(Task$new(connect = con, content = content, task = task))
+  Task$new(connect = con, content = content, task = task)
 }
 
 #' Set the Image from a Path
@@ -237,7 +237,7 @@ set_image_path <- function(content, path) {
     )
   
   # return the input (in case it inherits more than just Content)
-  invisible(content)
+  content
 }
 
 #' @rdname set_image
@@ -328,7 +328,7 @@ set_vanity_url <- function(content, url) {
   
   van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
   
-  invisible(van)
+  van
 }
 
 
@@ -351,11 +351,11 @@ get_vanity_url <- function(content) {
   van <- res$vanities[[1]]
   
   if (is.null(van)) {
-    invisible(content)
+    content
   } else {
     van$app_id <- NULL
     van$app_guid <- guid
-    invisible(Vanity$new(connect = con, content = content$get_content(), vanity = van))
+    Vanity$new(connect = con, content = content$get_content(), vanity = van)
   }
 }
 
@@ -390,7 +390,7 @@ poll_task <- function(task, wait = 1) {
     msg <- task_data[["error"]]
     stop(msg)
   }
-  invisible(task)
+  task
 }
 
 #' Get Content Item
