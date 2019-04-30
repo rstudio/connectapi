@@ -218,8 +218,8 @@ set_image_url <- function(content, url) {
   set_image_path(content = content, path = imgfile)
 }
 
-#' @rdname set_image
-#' @export
+# #' @rdname set_image
+# #' @export
 set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class("Content", content)
