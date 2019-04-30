@@ -45,7 +45,9 @@ Content <- R6::R6Class(
     
     print = function(...) {
       cat("RStudio Connect Content: \n")
-      cat("  GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
+      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
       cat("\n")
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
       invisible(self)
@@ -99,7 +101,15 @@ Vanity <- R6::R6Class(
       self$content <- content
       self$vanity <- vanity
     },
-    get_vanity = function(){self$vanity}
+    get_vanity = function(){self$vanity},
+    
+    print = function(...) {
+      cat("RStudio Connect Content Vanity URL: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
