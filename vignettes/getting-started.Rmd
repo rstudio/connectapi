@@ -88,10 +88,6 @@ content_1 %>%
 # ensure the vanity URL is set as expected
 content_1 %>%
   get_vanity_url()
-
-# setting the image from a webshot of the content
-content_1 %>%
-  set_image_webshot()
 ```
 
 If you have content that already exists and you want to update it, you can do so using the content GUID
