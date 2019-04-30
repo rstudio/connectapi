@@ -70,7 +70,15 @@ Task <- R6::R6Class(
       self$content <- content
       self$task <- task
     },
-    get_task = function(){self$task}
+    get_task = function(){self$task},
+    
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Task ID: ", self$get_task()$id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
