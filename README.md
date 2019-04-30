@@ -33,7 +33,7 @@ RSTUDIO_CONNECT_SERVER=https://connect.example.com
 RSTUDIO_CONNECT_API_KEY=my-secret-api-key
 ```
 
-These values will be used automatically if defined in your R session.
+These environment variable values will be used automatically if defined in your R session.
 
 ```r
 library(connectapi)
