@@ -7,3 +7,5 @@ utils::globalVariables(
     "r_version"
   )
 )
+
+current_connect_version <- "1.7.0-11"

@@ -17,7 +17,7 @@ test_that("can create content", {
   expect_equal(cont1$name, cont1_name)
   expect_equal(cont1$title, cont1_title)
   
-  get_cont1 <- test_conn_1$get_content(guid = cont1$guid)
+  get_cont1 <- test_conn_1$content(guid = cont1$guid)
   expect_identical(get_cont1, cont1)
   cont1_guid <<- cont1$guid
 })
@@ -35,12 +35,11 @@ test_that("can upload and deploy content", {
   
   task <- test_conn_1$content_deploy(guid = cont1_guid, bundle_id = res[["bundle_id"]])
   expect_is(task[["task_id"]], "character")
-  
-  res <- poll_task(test_conn_1, task_id = task[["task_id"]])
-  expect_null(res)
 })
 
 test_that("can promote content to another server", {
+  # TODO : Intermittent failures here... with a 404 response on GET
+  # during the download_bundle... connect.R:154
   res <- promote(
     from = Sys.getenv("TEST_SERVER_1"),
     from_key = Sys.getenv("TEST_KEY_1"),
