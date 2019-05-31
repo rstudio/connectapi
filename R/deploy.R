@@ -38,6 +38,8 @@ Content <- R6::R6Class(
     initialize = function(connect, content) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to check that content has
+      # at least guid, url, title to be functional
       self$content <- content
     },
     get_connect = function(){self$connect},
@@ -70,7 +72,9 @@ Task <- R6::R6Class(
     initialize = function(connect, content, task) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to validate content
       self$content <- content
+      # TODO: need to validate task (needs id)
       self$task <- task
     },
     get_task = function(){self$task},
@@ -99,7 +103,9 @@ Vanity <- R6::R6Class(
     initialize = function(connect, content, vanity) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: validate content
       self$content <- content
+      # TODO: validate vanity (needs path_prefix)
       self$vanity <- vanity
     },
     get_vanity = function(){self$vanity},
