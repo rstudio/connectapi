@@ -1,10 +1,8 @@
-
 ----------------------------
 Connect
 ----------------------------
 RStudio Connect API Client: 
   RStudio Connect Server: test_host
-
 
 ----------------------------
 Bundle
@@ -24,14 +22,12 @@ RStudio Connect Content:
 
 content_item(client, guid = "content-guid")
 
-
 ----------------------------
 Task
 ----------------------------
 RStudio Connect Task: 
   Content GUID: content-guid
   Task ID: task-id
-
 
 ----------------------------
 Vanity
