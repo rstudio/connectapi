@@ -1,0 +1,42 @@
+
+----------------------------
+Connect
+----------------------------
+RStudio Connect API Client: 
+  RStudio Connect Server: test_host
+
+
+----------------------------
+Bundle
+----------------------------
+RStudio Connect Bundle: 
+  Path: /test/path
+
+bundle_path("/test/path")
+
+----------------------------
+Content
+----------------------------
+RStudio Connect Content: 
+  Content GUID: content-guid
+  Content URL: http://content-url
+  Content Title: content-title
+
+content_item(client, guid = "content-guid")
+
+
+----------------------------
+Task
+----------------------------
+RStudio Connect Task: 
+  Content GUID: content-guid
+  Task ID: task-id
+
+
+----------------------------
+Vanity
+----------------------------
+RStudio Connect Content Vanity URL: 
+  Content GUID: content-guid
+  Vanity URL: vanity-prefix
+
