@@ -18,6 +18,7 @@ Bundle <- R6::R6Class(
       cat("  Path: ", self$path, "\n", sep = "")
       cat("\n")
       cat('bundle_path("', self$path, '")', "\n", sep = "")
+      cat("\n")
       invisible(self)
     }
   )
