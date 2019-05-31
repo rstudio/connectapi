@@ -50,6 +50,7 @@ Content <- R6::R6Class(
       cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
       cat("\n")
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
+      cat("\n")
       invisible(self)
     }
   )
