@@ -28,7 +28,6 @@ generate_R6_print_output <- function() {
   
   unlist(mapply(
     function(.x, .y) {c(
-      "", 
       "----------------------------",
       .y,
       "----------------------------",
