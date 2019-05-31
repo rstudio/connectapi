@@ -24,9 +24,19 @@ generate_R6_print_output <- function() {
   ex_vanity <- list(path_prefix = "vanity-prefix")
   van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)
   
-  unlist(lapply(
-    list(con, bnd, cnt1, tsk1, van1),
-    function(.x) capture.output(print(.x))
+  obj_list <- list(con, bnd, cnt1, tsk1, van1)
+  
+  unlist(mapply(
+    function(.x, .y) {c(
+      "", 
+      "----------------------------",
+      .y,
+      "----------------------------",
+      capture.output(print(.x))
+      )},
+    .x = obj_list,
+    .y = lapply(obj_list, function(x){class(x)[[1]]}),
+    SIMPLIFY = FALSE
   ))
 }
 
