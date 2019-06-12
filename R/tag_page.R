@@ -29,8 +29,8 @@ tag_page <- function(connect,
     description <- sprintf('Content on %s tagged with %s', connect$host, tag)
   }
 
-  dir <- dir.create(sprintf('./%s-screenshots', tag))
-  if (!dir) {
+  dir <- fs::dir_create(sprintf('./%s-screenshots', tag))
+  if (!fs::dir_exists(dir)) {
     stop(sprintf('Error creating directory for screenshots'))
   }
 
