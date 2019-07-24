@@ -54,6 +54,16 @@ Connect <- R6::R6Class(
       httr::content(res, as = parser)
     },
     
+    DELETE = function(path, writer = httr::write_memory(), parser = 'parsed') {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::DELETE(req,
+               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+               writer)
+      self$raise_error(res)
+      check_debug(req, res)
+      httr::content(res, as = parser)
+    },
+    
     PUT = function(path, body, encode = 'json') {
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::PUT(
