@@ -33,7 +33,18 @@ Content <- R6::R6Class(
       self$content <- content
     },
     get_connect = function(){self$connect},
-    get_content = function(){self$content}
+    get_content = function(){self$content},
+    get_dashboard_url = function(){
+      glue::glue(
+        self$connect$host,
+        "connect",
+        "#",
+        "apps",
+        self$content$guid,
+        "logs",
+        .sep = "/"
+      )
+    }
   )
 )
 
