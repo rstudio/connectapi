@@ -115,3 +115,19 @@ test_that("poll_task works and returns its input", {
   )
   expect_equal(res, cont1_content)
 })
+
+test_that("download_bundle works", {
+  bnd <- download_bundle(content_item(test_conn_1, cont1_guid))
+  
+  expect_true(validate_R6_class("Bundle", bnd))
+})
+
+test_that("download_bundle throws an error for undeployed content", {
+  cont_prep <- content_ensure(test_conn_1)
+  cont <- content_item(test_conn_1, cont_prep$guid)
+  
+  expect_error(
+    download_bundle(cont),
+    "This content has no bundle_id"
+  )
+})
