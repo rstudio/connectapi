@@ -150,7 +150,7 @@ Connect <- R6::R6Class(
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
-      path <- glue::glue('bundles/{bundle_id}/download')
+      path <- glue::glue('v1/experimental/bundles/{bundle_id}/download')
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
     },
