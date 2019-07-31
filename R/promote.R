@@ -26,8 +26,8 @@ promote <- function(from,
   # TODO Validate Inputs
 
   #set up clients
-  from_client <- Connect$new(host = from, api_key = from_key)
-  to_client <- Connect$new(host = to, api_key = to_key)
+  from_client <- connect(host = from, api_key = from_key)
+  to_client <- connect(host = to, api_key = to_key)
 
   # find app on "from" server
   from_app <- from_client$get_apps(list(name = name))
