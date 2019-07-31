@@ -184,7 +184,6 @@ Connect <- R6::R6Class(
     users = function(page_number = 1, page_size=20){
       if (page_size > 500) {
         # reset page_size to avoid error
-        warning("page_size cannot exceed 500")
         page_size <- 500
       }
       path <- sprintf('v1/users?page_number=%d&page_size=%d', page_number, page_size)
