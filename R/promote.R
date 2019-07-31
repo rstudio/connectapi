@@ -34,19 +34,20 @@ promote <- function(from,
   if (length(from_app) != 1) {
     stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), name, from))
   }
+  from_app <- content_item(from_client, guid = from_app[[1]]$guid)
 
   # download bundle
-  bundle <- from_client$download_bundle(from_app[[1]]$bundle_id)
+  bundle <- download_bundle(from_app)
 
   # find or create app to update
   to_app <- content_ensure(connect = to_client, name = name)
+  to_app <- content_item(connect = to_client, guid = to_app$guid)
 
-  bundle_id <- to_client$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
-  task_id <- to_client$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
+  task <- deploy(to_client, bundle = bundle, guid = to_app$get_content()$guid)
   
-  poll_task_old(connect = to_client, task_id = task_id)
+  poll_task(task)
   
-  to_app_url <- to_app$url
+  to_app_url <- to_app$get_content()$url
   
   return(to_app_url)
 }
