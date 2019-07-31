@@ -9,10 +9,11 @@
 Task
 }
 \description{
-An S6 class that represents a Task
+An R6 class that represents a Task
 }
 \seealso{
-Other deployR6: \code{\link{Bundle}}, \code{\link{Content}}
+Other deployR6: \code{\link{Bundle}},
+  \code{\link{Content}}, \code{\link{Vanity}}
 }
 \concept{deployR6}
 \keyword{datasets}

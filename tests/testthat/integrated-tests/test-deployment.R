@@ -1,8 +1,8 @@
 context("test deployment pipelines")
 
 # should connect with env vars
-test_conn_1 <- Connect$new(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
-test_conn_2 <- Connect$new(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
+test_conn_1 <- connect(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
+test_conn_2 <- connect(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
 
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
@@ -14,7 +14,7 @@ test_that("can create content", {
   expect_equal(cont1$name, cont1_name)
   expect_equal(cont1$title, cont1_title)
   
-  get_cont1 <- test_conn_1$get_content(guid = cont1$guid)
+  get_cont1 <- test_conn_1$content(guid = cont1$guid)
   expect_identical(get_cont1, cont1)
   cont1_guid <<- cont1$guid
 })
@@ -35,6 +35,8 @@ test_that("can upload and deploy content", {
 })
 
 test_that("can promote content to another server", {
+  # TODO : Intermittent failures here... with a 404 response on GET
+  # during the download_bundle... connect.R:154
   res <- promote(
     from = Sys.getenv("TEST_SERVER_1"),
     from_key = Sys.getenv("TEST_KEY_1"),

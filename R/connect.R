@@ -150,7 +150,7 @@ Connect <- R6::R6Class(
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
-      path <- glue::glue('bundles/{bundle_id}/download')
+      path <- glue::glue('v1/experimental/bundles/{bundle_id}/download')
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
     },
@@ -168,37 +168,42 @@ Connect <- R6::R6Class(
       return(res)
     },
     
-    get_content = function(guid) {
+    content = function(guid) {
       path <- sprintf("v1/experimental/content/%s", guid)
       res <- self$GET(path)
       return(res)
     },
 
-    get_task = function(task_id, first = 0, wait = 5) {
+    task = function(task_id, first = 0, wait = 5) {
       path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, first, wait)
       self$GET(path)
     },
     
     # users -----------------------------------------------
     
-    get_users = function(page_number = 1, page_size=20){
+    users = function(page_number = 1, page_size=20){
       if (page_size > 500) {
         # reset page_size to avoid error
+        warning("page_size cannot exceed 500")
         page_size <- 500
       }
       path <- sprintf('v1/users?page_number=%d&page_size=%d', page_number, page_size)
       self$GET(path)
     },
     
-    get_users_remote = function(prefix) {
+    users_remote = function(prefix) {
       path <- sprintf('v1/users/remote?prefix=%s', prefix)
       self$GET(path)
     },
     
     users_create = function(
-      email, first_name, last_name,
-      password, user_must_set_password, 
-      user_role, username
+      username,
+      email, 
+      first_name = NULL, 
+      last_name = NULL,
+      password = NULL, 
+      user_must_set_password = NULL, 
+      user_role = NULL
       ) {
       path <- sprintf('v1/users')
       self$POST(path = path,
@@ -221,7 +226,7 @@ Connect <- R6::R6Class(
                 )
     },
     
-    user_unlock = function(user_guid) {
+    users_unlock = function(user_guid) {
       path <- sprintf('v1/users/%s/lock', user_guid)
       self$POST(
         path = path,
@@ -307,31 +312,31 @@ Connect <- R6::R6Class(
     
     # misc utilities --------------------------------------------
     
-    get_docs = function(docs = "api") {
+    docs = function(docs = "api") {
       stopifnot(docs %in% c("admin", "user", "api"))
       utils::browseURL(paste0(self$host, '/__docs__/', docs))
     },
     
-    get_audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+    audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
         "{safe_query(nxt, '&next=')}",
-        "&ascOrder={asc_order}"
+        "&ascOrder={tolower(as.character(asc_order))}"
         )
       self$GET(
         path = path
       )
     },
     
-    get_server_settings_r = function() {
+    server_settings_r = function() {
       path <- "v1/server_settings/r"
       self$GET(
         path = path
       )
     },
     
-    get_server_settings = function() {
+    server_settings = function() {
       path <- "server_settings"
       self$GET(
         path = path
@@ -364,7 +369,7 @@ connect <- function(
   
   # check Connect is accessible
   srv <- tryCatch({
-    con$get_server_settings()
+    con$server_settings()
   }, 
   error = function(e){
     message(

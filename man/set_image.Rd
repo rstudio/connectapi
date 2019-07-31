@@ -3,14 +3,11 @@
 \name{set_image_path}
 \alias{set_image_path}
 \alias{set_image_url}
-\alias{set_image_webshot}
 \title{Set the Image from a Path}
 \usage{
 set_image_path(content, path)
 
 set_image_url(content, url)
-
-set_image_webshot(content, ...)
 }
 \arguments{
 \item{content}{A content object}
@@ -25,6 +22,8 @@ set_image_webshot(content, ...)
 Set the Image from a Path
 }
 \seealso{
-Other content: \code{\link{set_vanity_url}}
+Other content: \code{\link{content_item}},
+  \code{\link{get_vanity_url}},
+  \code{\link{set_vanity_url}}
 }
 \concept{content}

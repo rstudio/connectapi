@@ -9,10 +9,11 @@
 Content
 }
 \description{
-An S6 class that represents content
+An R6 class that represents content
 }
 \seealso{
-Other deployR6: \code{\link{Bundle}}, \code{\link{Task}}
+Other deployR6: \code{\link{Bundle}}, \code{\link{Task}},
+  \code{\link{Vanity}}
 }
 \concept{deployR6}
 \keyword{datasets}

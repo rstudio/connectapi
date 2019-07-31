@@ -1,8 +1,8 @@
 context("deploy")
 
 # should connect with env vars
-test_conn_1 <- Connect$new(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
-test_conn_2 <- Connect$new(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
+test_conn_1 <- connect(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
+test_conn_2 <- connect(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
 
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
@@ -17,6 +17,7 @@ test_that("bundle_dir deploys", {
   
   expect_equal(tmp_file, bund$path)
   
+  # with a name / title
   tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = cont1_title)
   
   cont1_guid <<- tsk$get_content()$guid
@@ -26,6 +27,20 @@ test_that("bundle_dir deploys", {
   expect_true(validate_R6_class("Content", tsk))
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
+  
+  # with a guid
+  tsk2 <- deploy(connect = test_conn_1, bundle = bund, guid = cont1_guid)
+  expect_true(validate_R6_class("Content", tsk2))
+  expect_equal(tsk2$get_content()$name, cont1_name)
+  expect_equal(tsk2$get_content()$title, cont1_title)
+  expect_equal(tsk2$get_content()$guid, cont1_guid)
+})
+
+test_that("content_item works", {
+  cont1_tmp <- test_conn_1 %>% content_item(guid = cont1_guid)
+  
+  expect_true(validate_R6_class("Content", cont1_tmp))
+  expect_equal(cont1_tmp$get_content()$guid, cont1_guid)
 })
 
 test_that("bundle_path deploys", {
@@ -42,6 +57,7 @@ test_that("bundle_path deploys", {
 })
 
 test_that("set_image_path works", {
+  scoped_experimental_silence()
   img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
   
   res <- set_image_path(cont1_content, img_path)
@@ -55,20 +71,63 @@ test_that("set_image_url works", {
 })
 
 test_that("set_image_webshot works", {
+  scoped_experimental_silence()
   res <- set_image_webshot(cont1_content)
   
   expect_true(validate_R6_class("Content", res))
 })
 
 test_that("set_vanity_url works", {
+  scoped_experimental_silence()
   res <- set_vanity_url(cont1_content, cont1_name)
   
-  expect_true(validate_R6_class("Content", res))
+  expect_true(validate_R6_class("Vanity", res))
+  expect_equal(res$get_vanity()$path_prefix, paste0("/", cont1_name, "/"))
+  
+  res2 <- set_vanity_url(cont1_content, paste0(cont1_name,"update"))
+  expect_true(validate_R6_class("Vanity", res2))
+  expect_equal(res2$get_vanity()$path_prefix, paste0("/", cont1_name, "update/"))
 })
+
+
+test_that("get_vanity_url works", {
+  scoped_experimental_silence()
+  tmp_content_name <- uuid::UUIDgenerate()
+  tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
+  tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
+    
+  # without a vanity
+  curr_vanity <- get_vanity_url(tmp_content)
+  expect_true(validate_R6_class("Content", curr_vanity))
+  expect_error(validate_R6_class("Vanity", curr_vanity), regexp = "R6 Vanity")
+  
+  # with a vanity
+  res <- set_vanity_url(tmp_content, tmp_content_name)
+  existing_vanity <- get_vanity_url(tmp_content)
+  expect_true(validate_R6_class("Vanity", existing_vanity))
+  expect_equal(existing_vanity$get_vanity()$path_prefix, paste0("/", tmp_content_name, "/"))
+})
+
 
 test_that("poll_task works and returns its input", {
   expect_message(
     res <- poll_task(cont1_content)
   )
   expect_equal(res, cont1_content)
+})
+
+test_that("download_bundle works", {
+  bnd <- download_bundle(content_item(test_conn_1, cont1_guid))
+  
+  expect_true(validate_R6_class("Bundle", bnd))
+})
+
+test_that("download_bundle throws an error for undeployed content", {
+  cont_prep <- content_ensure(test_conn_1)
+  cont <- content_item(test_conn_1, cont_prep$guid)
+  
+  expect_error(
+    download_bundle(cont),
+    "This content has no bundle_id"
+  )
 })
