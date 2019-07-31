@@ -135,7 +135,6 @@ bundle_path <- function(path) {
 #' @family deploy
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  warn_experimental("download_bundle")
   validate_R6_class("Content", content)
   
   from_connect <- content$get_connect()
