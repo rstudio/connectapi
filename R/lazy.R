@@ -35,7 +35,7 @@ api_build.op_head <- function(op, con, ..., n) {
 #' @export
 api_build.op_base_connect <- function(op, con, ..., n) {
   if (op$x == "users") {
-    res <- con$get_users(page_size = n)
+    res <- con$users(page_size = n)
   } else if (op$x == "data") {
     warning("not yet implemented")
     return(NULL)
