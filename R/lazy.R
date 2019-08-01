@@ -6,7 +6,6 @@
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - some type of quoting here...?
-# - figure out why attaching dbplyr makes trunc_mat work...? what S3 class am I missing?
 #' @export
 tbl_connect <- function(src, from, ...) {
   vars <- "test"
@@ -114,3 +113,16 @@ op_single <- function(name, x, dots = list(), args = list()) {
   )
 }
 
+#' @export
+op_vars <- function(op) UseMethod("op_vars")
+#' @export
+op_vars.op_base <- function(op) op$vars
+#' @export
+op_vars.op_single <- function(op) op_vars(op$x)
+#' @export
+op_vars.tbl_lazy <- function(op) op_vars(op$ops)
+
+#' @export
+dim.tbl_lazy <- function(x) {
+  c(NA, length(op_vars(x$ops)))
+}
