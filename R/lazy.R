@@ -8,6 +8,7 @@
 # - some type of quoting here...?
 #' @export
 tbl_connect <- function(src, from, ...) {
+  # TODO: go get the vars...
   vars <- "test"
   
   ops <- op_base_connect(from, vars)
