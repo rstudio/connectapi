@@ -37,6 +37,7 @@ Connect <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect API Client: \n")
       cat("  RStudio Connect Server: ", self$host, "\n", sep = "")
+      cat("  RStudio Connect API Key: ", paste0(strrep("*",11), substr(self$api_key, nchar(self$api_key)-3, nchar(self$api_key))), "\n", sep = "")
       # TODO: something about API key... role... ?
       # TODO: point to docs on methods... how to see methods?
       cat("\n")
