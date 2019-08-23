@@ -13,71 +13,26 @@ output:
 library(flexdashboard)
 library(htmltools)
 ```
-```{r, echo=FALSE}
-#knitr::knit_meta_add(htmltools::htmlDependency(
-#  name = "hello",
-#  version = 1,
-#  src = "./",
-#  script = "jquery.lazyload-any.min.js",
-#  head = htmltools::tags$script(src="./jquery.lazyload-any.min.js")
-#  #meta = list(one = htmltools::tags$script(scr = "./jquery.lazyload-any.min.js"))
-#))
-```
 
-```{r, results='asis'}
-#raw_script <- readLines("jquery.lazyload-any.min.js")
-#htmlPreserve(paste("<script type='text/javascript'>", paste(raw_script, collapse = " "), "</script>"))
-```
+```{r subpages, include = FALSE}
+out = NULL
+for (i in 1:3) {
+  subpage_env <- new.env()
+  
+  assign("subpage_number", i, subpage_env)
+  
+  out = c(out, knitr::knit_child("tag_page_iframe_page.Rmd", envir = subpage_env))
+}
 
-Page 1
-========================================
-```{r page-1}
-htmltools::tags$div(
-  id = "page-1-iframe-div",
-  htmltools::tags$iframe(
-    id = "page-1-iframe",
-    `data-src` = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
-    style = "min-width: 500px; min-height: 200px; width: 100%; height: 100%"
-  ),
-  style = "width: 100%; height: 100%; min-width: 500px; min-height: 200px;"
-)
 ```
-
-Page 2
-========================================
-```{r page-2}
-  htmltools::tags$iframe(
-    id = "page-2-iframe",
-    `data-src` = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
-    style = "width: 100%; height: 100%"
-  )
-```
-
-Page 3
-========================================
-```{r page-3}
-  htmltools::tags$iframe(
-    id = "page-3-iframe",
-    `data-src` = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
-    style = "width: 100%; height: 100%"
-  )
-```
-
+`r paste(knitr::knit_child(text = out), collapse = '')`
 
 ```{r results='asis'}
+# to find the event: https://getbootstrap.com/docs/4.0/components/navs/
 htmltools::tags$script(
 "
 $.lazyLoadXT.selector = 'iframe[data-src]'
 $.lazyLoadXT.updateEvent = $.lazyLoadXT.updateEvent + ' shown.bs.tab'
 "
 )
-#htmltools::tags$script(
-#"
-#$('#page-1-iframe-div').lazyload({
-#  threshold: 1,
-#  load: function(element) {console.log('hello');},
-#  trigger: 'appear'
-#});
-#"
-#)
 ```
