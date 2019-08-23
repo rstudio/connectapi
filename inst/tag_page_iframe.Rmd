@@ -1,0 +1,83 @@
+---
+title: "Hello"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    css: custom.css
+    includes:
+      in_header: "custom_lazyload.html"
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(htmltools)
+```
+```{r, echo=FALSE}
+#knitr::knit_meta_add(htmltools::htmlDependency(
+#  name = "hello",
+#  version = 1,
+#  src = "./",
+#  script = "jquery.lazyload-any.min.js",
+#  head = htmltools::tags$script(src="./jquery.lazyload-any.min.js")
+#  #meta = list(one = htmltools::tags$script(scr = "./jquery.lazyload-any.min.js"))
+#))
+```
+
+```{r, results='asis'}
+#raw_script <- readLines("jquery.lazyload-any.min.js")
+#htmlPreserve(paste("<script type='text/javascript'>", paste(raw_script, collapse = " "), "</script>"))
+```
+
+Page 1
+========================================
+```{r page-1}
+htmltools::tags$div(
+  id = "page-1-iframe-div",
+  htmltools::tags$iframe(
+    id = "page-1-iframe",
+    src = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
+    style = "min-width: 500px; min-height: 200px; width: 100%; height: 100%"
+  ),
+  style = "width: 100%; height: 100%; min-width: 500px; min-height: 200px;"
+)
+```
+
+Page 2
+========================================
+```{r page-2}
+htmltools::tags$div(
+  class = "lazyload",
+  htmltools::tags$iframe(
+    id = "page-2-iframe",
+    src = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
+    style = "width: 100%; height: 100%"
+  )
+)
+```
+
+Page 3
+========================================
+```{r page-3}
+htmltools::tags$div(
+  class = "lazyload",
+  htmltools::tags$iframe(
+    id = "page-3-iframe",
+    src = "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/",
+    style = "width: 100%; height: 100%"
+  )
+)
+```
+
+
+```{r results='asis'}
+htmltools::tags$script(
+"
+$('#page-1-iframe-div').lazyload({
+  threshold: 1,
+  load: function(element) {console.log('hello');},
+  trigger: 'appear'
+});
+"
+)
+```
