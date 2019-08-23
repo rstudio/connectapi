@@ -18,7 +18,7 @@ library(htmltools)
 out = NULL
 for (i in 1:3) {
   subpage_env <- new.env()
-  
+  assign("subpage_link", "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/", subpage_env)
   assign("subpage_number", i, subpage_env)
   
   out = c(out, knitr::knit_child("tag_page_iframe_page.Rmd", envir = subpage_env))
