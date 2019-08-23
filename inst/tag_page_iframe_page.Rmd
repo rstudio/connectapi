@@ -1,4 +1,4 @@
-`r paste("Page", subpage_number)`
+`r paste("Page", subpage_number, "{data-navmenu='Menu A'}")`
 ========================================
 ```{r}
 id <- paste("page", subpage_number, "iframe", sep = "-")
