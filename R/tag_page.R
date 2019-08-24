@@ -1,9 +1,6 @@
 #' Generate a landing page for a specific RStudio Connect tag
 #'
-#' @param server Url for the Connect server
-#' @param server_key An API key for the Connect server. To get screen shots of
-#'   each app, the owner of the API key must be a viewer for each piece of
-#'   content.
+#' @param connect A Connect object. Must be a viewer of all of the content
 #' @param tag The name of the targetted tag
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
@@ -12,12 +9,11 @@
 #'   which is a list containing information on the apps and screenshots, useful
 #'   if you'd rather use your own template
 #' @export
-tag_page <- function(server,
-                     server_key,
+tag_page <- function(connect,
                      tag,
                      description = NULL) {
 
-  client <- Connect$new(server, server_key)
+  client <- connect
   tag_id <- client$get_tag_id(tag)
   apps <- client$get_apps(filter = list(tag = as.character(tag_id)))
 
