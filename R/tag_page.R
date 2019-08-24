@@ -60,3 +60,43 @@ take_screenshot <- function(app, tag, server_key) {
             key = server_key)
   fname
 }
+
+tag_page_iframe <- function(connect, tag) {
+  client <- connect
+  tag_id <- client$get_tag_id(tag)
+  apps <- client$get_apps(filter = list(tag = as.character(tag_id)))
+  
+  if (length(apps) < 1) {
+    stop(sprintf('No applications found on %s matching tag %s', server, tag))
+  }
+  
+  # for prototyping
+  if (length(apps) > 2) {
+    apps[[1]]$content_group <- "Group 1"
+    apps[[2]]$content_group <- "Group 1"
+  }
+  if (length(apps) > 5) {
+    apps[[4]]$content_group <- "Group 2"
+    apps[[5]]$content_group <- "Group 2"
+  }
+
+  template <- system.file('tag_page_iframe.Rmd', package = "connectapi")
+  
+  out_file <- sprintf('%s.html', tag)
+  out_dir <- getwd()
+  
+  # render
+  tmp_environment <- new.env()
+  assign("apps", apps, tmp_environment)
+  assign("tag", tag, tmp_environment)
+  rmarkdown::render(template,
+    output_dir = out_dir,
+    output_file = out_file,
+    envir = tmp_environment
+  )
+  
+  list(
+    LANDING_PAGE  = normalizePath(sprintf('%s/%s', out_dir, out_file)),
+    APPS = apps
+  )
+}
