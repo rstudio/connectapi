@@ -1,5 +1,5 @@
 ---
-title: "Hello"
+title: "`r tag`"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -15,14 +15,15 @@ library(htmltools)
 ```
 
 ```{r subpages, include = FALSE}
-out = NULL
-for (i in 1:3) {
+out <- mapply(function(app, iter){
   subpage_env <- new.env()
-  assign("subpage_link", "https://colorado.rstudio.com/rsc/cole/my-bitcoin-report/", subpage_env)
-  assign("subpage_number", i, subpage_env)
+  assign("subpage_link", app$url, subpage_env)
+  assign("subpage_title", app$title, subpage_env)
+  assign("subpage_number", iter, subpage_env)
+  assign("subpage_group", app$content_group, subpage_env)
   
-  out = c(out, knitr::knit_child("tag_page_iframe_page.Rmd", envir = subpage_env))
-}
+  knitr::knit_child("tag_page_iframe_page.Rmd", envir = subpage_env)
+}, app = apps, iter = as.list(seq_along(apps)), SIMPLIFY = FALSE)
 
 ```
 `r paste(knitr::knit_child(text = out), collapse = '')`
