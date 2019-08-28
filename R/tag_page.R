@@ -61,6 +61,13 @@ take_screenshot <- function(app, tag, server_key) {
   fname
 }
 
+# unfortunately iframes do not seem to pass cookies cleanly...
+# i can't even get this to work in the "same-origin" setup (where the iframe uses a different origin from the parent)
+# https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent
+# https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+# https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin
+# https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain
+# https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request
 tag_page_iframe <- function(connect, tag) {
   client <- connect
   tag_id <- client$get_tag_id(tag)
