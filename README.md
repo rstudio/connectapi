@@ -85,3 +85,9 @@ client_prod %>%
   deploy(prod_bnd, title = "Now in Production") %>%
   set_vanity_url("/my-app")
 ```
+
+# Code of Conduct
+
+Please note that the 'connectapi' project is released with a
+[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
