@@ -30,6 +30,8 @@ Suggests:
     gridExtra,
     testthat,
     knitr,
-    rprojroot
+    rprojroot,
+    spelling
 Remotes: slopp/webshot
 VignetteBuilder: knitr
+Language: en-US
