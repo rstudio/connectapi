@@ -11,6 +11,15 @@ Bundle <- R6::R6Class(
     
     initialize = function(path) {
       self$path <- path
+    },
+    
+    print = function(...) {
+      cat("RStudio Connect Bundle: \n")
+      cat("  Path: ", self$path, "\n", sep = "")
+      cat("\n")
+      cat('bundle_path("', self$path, '")', "\n", sep = "")
+      cat("\n")
+      invisible(self)
     }
   )
 )
@@ -30,6 +39,8 @@ Content <- R6::R6Class(
     initialize = function(connect, content) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to check that content has
+      # at least guid, url, title to be functional
       self$content <- content
     },
     get_connect = function(){self$connect},
@@ -44,6 +55,16 @@ Content <- R6::R6Class(
         "logs",
         .sep = "/"
       )
+    },
+    print = function(...) {
+      cat("RStudio Connect Content: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
+      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
+      cat("\n")
+      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
+      cat("\n")
+      invisible(self)
     }
   )
 )
@@ -62,10 +83,20 @@ Task <- R6::R6Class(
     initialize = function(connect, content, task) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to validate content
       self$content <- content
+      # TODO: need to validate task (needs id)
       self$task <- task
     },
-    get_task = function(){self$task}
+    get_task = function(){self$task},
+    
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Task ID: ", self$get_task()$id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
@@ -83,10 +114,20 @@ Vanity <- R6::R6Class(
     initialize = function(connect, content, vanity) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: validate content
       self$content <- content
+      # TODO: validate vanity (needs path_prefix)
       self$vanity <- vanity
     },
-    get_vanity = function(){self$vanity}
+    get_vanity = function(){self$vanity},
+    
+    print = function(...) {
+      cat("RStudio Connect Content Vanity URL: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
@@ -115,7 +156,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   
   tar_path <- fs::path_abs(filename)
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Define a bundle from a path (a tar.gz file)
@@ -131,7 +172,7 @@ bundle_path <- function(path) {
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Download a Bundle from Deployed Connect Content
@@ -165,7 +206,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
   message("Downloading bundle")
   from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
   
-  invisible(Bundle$new(path = filename))
+  Bundle$new(path = filename)
 }
 
 #' Deploy a bundle
@@ -198,7 +239,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
   
-  invisible(Task$new(connect = con, content = content, task = task))
+  Task$new(connect = con, content = content, task = task)
 }
 
 #' Set the Image from a Path
@@ -224,7 +265,7 @@ set_image_path <- function(content, path) {
     )
   
   # return the input (in case it inherits more than just Content)
-  invisible(content)
+  content
 }
 
 #' @rdname set_image
@@ -315,7 +356,7 @@ set_vanity_url <- function(content, url) {
   
   van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
   
-  invisible(van)
+  van
 }
 
 
@@ -338,11 +379,11 @@ get_vanity_url <- function(content) {
   van <- res$vanities[[1]]
   
   if (is.null(van)) {
-    invisible(content)
+    content
   } else {
     van$app_id <- NULL
     van$app_guid <- guid
-    invisible(Vanity$new(connect = con, content = content$get_content(), vanity = van))
+    Vanity$new(connect = con, content = content$get_content(), vanity = van)
   }
 }
 
@@ -377,7 +418,7 @@ poll_task <- function(task, wait = 1) {
     msg <- task_data[["error"]]
     stop(msg)
   }
-  invisible(task)
+  task
 }
 
 #' Get Content Item
