@@ -4,7 +4,7 @@
 #' @param server_key An API key for the Connect server. To get screen shots of
 #'   each app, the owner of the API key must be a viewer for each piece of
 #'   content.
-#' @param tag The name of the targetted tag
+#' @param tag The name of the targeted tag
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
 #'
