@@ -31,7 +31,8 @@ Suggests:
     testthat,
     knitr,
     rprojroot,
-    spelling
+    spelling,
+    crayon
 Remotes: slopp/webshot
 VignetteBuilder: knitr
 Language: en-US
