@@ -6,10 +6,17 @@
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - some type of quoting here...?
+# - need to make pagination actually work...
+# - need to add a helper to filter to a number of pages
+# - need to add a progress bar...
+# - filters based on content_guid, started, ended, etc.
+# - nrow should be super fast if we know how many total records there are...
 #' @export
-tbl_connect <- function(src, from, ...) {
-  # TODO: go get the vars...
+tbl_connect <- function(src, from = c("users", "inst_shiny", "inst_visit"), ...) {
+  # TODO: go get the vars we should expect...
   vars <- "test"
+  
+  # TODO: figure out number of rows...
   
   ops <- op_base_connect(from, vars)
   
