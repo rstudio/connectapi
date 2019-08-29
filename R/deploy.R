@@ -285,7 +285,7 @@ set_image_webshot <- function(content, ...) {
 #' @param content A Content object
 #' @param url The path component of the URL
 #' 
-#' @value An updated Content object
+#' @return An updated Content object
 #' 
 #' @examples
 #' \dontrun{
@@ -408,7 +408,7 @@ poll_task <- function(task, wait = 1) {
 #' @param connect A Connect object
 #' @param guid The GUID for the content item to be retrieved
 #' 
-#' @value A Content object for use with other content endpoints
+#' @return A Content object for use with other content endpoints
 #' 
 #' @family content
 #' @export

@@ -1,4 +1,3 @@
-#'
 #' Class representing a Connect API client
 #'
 #' @name RStudioConnect
@@ -16,6 +15,7 @@
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
 #'
+#' @importFrom utils capture.output
 #' @export
 Connect <- R6::R6Class(
   'Connect',
