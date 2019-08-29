@@ -30,6 +30,7 @@ Suggests:
     gridExtra,
     testthat,
     knitr,
-    rprojroot
+    rprojroot,
+    dplyr
 Remotes: slopp/webshot
 VignetteBuilder: knitr
