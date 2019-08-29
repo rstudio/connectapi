@@ -1,3 +1,8 @@
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
+<!-- badges: end -->
+
 # connectapi - **WIP**
 
 This package is an **experimental WIP**. The package is designed to provide an R
