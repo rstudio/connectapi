@@ -13,11 +13,12 @@
 # - nrow should be super fast if we know how many total records there are...
 #' @export
 tbl_connect <- function(src, from = c("users", "inst_shiny", "inst_visit"), ...) {
+  validate_R6_class("Connect", src)
+  
   # TODO: go get the vars we should expect...
   vars <- "test"
   
   # TODO: figure out number of rows...
-  
   ops <- op_base_connect(from, vars)
   
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
@@ -44,15 +45,15 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   if (op$x == "users") {
     res <- con$users(page_size = n)
   } else if (op$x == "data") {
-    warning("not yet implemented")
-    return(NULL)
+    stop(glue::glue("'{op$x} is not yet implemented"))
   } else if (op$x == "content") {
-    warning("not yet implemented")
-    return(NULL)
+    stop(glue::glue("'{op$x}' is not yet implemented"))
   } else if (op$x == "inst_shiny") {
     res <- con$inst_shiny_usage(limit = n)
   } else if (op$x == "inst_visit") {
     res <- con$inst_content_visits(limit = n)
+  } else {
+    stop(glue::glue("'{op$x}' is not recognized"))
   }
   purrr::map_df(
     res$results, 
