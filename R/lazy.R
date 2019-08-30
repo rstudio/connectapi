@@ -12,7 +12,7 @@
 # - filters based on content_guid, started, ended, etc.
 # - nrow should be super fast if we know how many total records there are...
 #' @export
-tbl_connect <- function(src, from = c("users", "inst_shiny", "inst_visit"), ...) {
+tbl_connect <- function(src, from = c("users", "shiny_usage", "content_visits"), ...) {
   validate_R6_class("Connect", src)
   
   # TODO: go get the vars we should expect...
@@ -23,6 +23,10 @@ tbl_connect <- function(src, from = c("users", "inst_shiny", "inst_visit"), ...)
   
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
+
+vars_lookup <- list(
+  users = c()
+)
 
 #' @importFrom dplyr collect
 #' @export
@@ -48,9 +52,9 @@ api_build.op_base_connect <- function(op, con, ..., n) {
     stop(glue::glue("'{op$x} is not yet implemented"))
   } else if (op$x == "content") {
     stop(glue::glue("'{op$x}' is not yet implemented"))
-  } else if (op$x == "inst_shiny") {
+  } else if (op$x == "shiny_usage") {
     res <- con$inst_shiny_usage(limit = n)
-  } else if (op$x == "inst_visit") {
+  } else if (op$x == "content_visits") {
     res <- con$inst_content_visits(limit = n)
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
