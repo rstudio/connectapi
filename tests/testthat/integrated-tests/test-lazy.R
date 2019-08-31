@@ -33,17 +33,17 @@ test_that("users works", {
 })
 
 test_that("content_visits works", {
-  content_visits <- tbl_connect(test_conn_1, "inst_visit")
-  expect_class(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
+  content_visits <- tbl_connect(test_conn_1, "content_visits")
+  expect_is(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
   
   content_visits_local <- content_visits %>% dplyr::collect()
-  expect_class(content_visits, c("tbl_df", "tbl", "data.frame"))
+  expect_is(content_visits, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("shiny_usage works", {
-  shiny_usage <- tbl_connect(test_conn_1, "inst_shiny")
-  expect_class(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
+  shiny_usage <- tbl_connect(test_conn_1, "shiny_usage")
+  expect_is(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
   
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
-  expect_class(shiny_usage, c("tbl_df", "tbl", "data.frame"))
+  expect_is(shiny_usage, c("tbl_df", "tbl", "data.frame"))
 })
