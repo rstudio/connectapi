@@ -20,6 +20,10 @@ safe_format <- function(expr, ...) {
   }
 }
 
+make_timestamp <- function(input) {
+  safe_format(input, '%Y-%m-%dT%H:%M:%SZ')
+}
+
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
