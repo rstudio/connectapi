@@ -283,8 +283,8 @@ Connect <- R6::R6Class(
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
@@ -316,8 +316,8 @@ Connect <- R6::R6Class(
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
