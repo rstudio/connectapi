@@ -18,7 +18,8 @@ Imports:
     fs,
     config,
     yaml,
-    magrittr
+    magrittr,
+    progress
 RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,
