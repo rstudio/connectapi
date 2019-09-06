@@ -47,20 +47,23 @@ api_build.op_head <- function(op, con, ..., n) {
 #' @export
 api_build.op_base_connect <- function(op, con, ..., n) {
   if (op$x == "users") {
-    res <- con$users(page_size = n)
+    res <- con$users(page_size = n) %>% .$results
+    if (length(res) >= 400) {
+      warning("The 'users' tbl_connect does not page and will return max 500 users")
+    }
   } else if (op$x == "data") {
     stop(glue::glue("'{op$x} is not yet implemented"))
   } else if (op$x == "content") {
     stop(glue::glue("'{op$x}' is not yet implemented"))
   } else if (op$x == "shiny_usage") {
-    res <- con$inst_shiny_usage(limit = n)
+    res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "content_visits") {
-    res <- con$inst_content_visits(limit = n)
+    res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
   purrr::map_df(
-    res$results, 
+    res, 
     function(x) {
       purrr::map(
         .x = x,
