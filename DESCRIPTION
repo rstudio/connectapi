@@ -19,7 +19,8 @@ Imports:
     config,
     yaml,
     magrittr,
-    progress
+    progress,
+    uuid
 RoxygenNote: 6.1.1
 Suggests: 
     rmarkdown,
