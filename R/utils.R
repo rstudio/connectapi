@@ -11,6 +11,15 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
+# because format(NULL, "%Y-%m") == "NULL"
+safe_format <- function(expr, ...) {
+  if (is.null(expr)) {
+    return(NULL)
+  } else {
+    return(format(expr, ...))
+  }
+}
+
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
