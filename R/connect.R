@@ -64,6 +64,18 @@ Connect <- R6::R6Class(
       httr::content(res, as = parser)
     },
     
+    GET_URL = function(url, writer = httr::write_memory(), parser = 'parsed') {
+      req <- url
+      res <- httr::GET(
+        url,
+        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        writer
+      )
+      check_debug(req, res)
+      self$raise_error(res)
+      httr::content(res, as = parser)
+    },
+    
     PUT = function(path, body, encode = 'json') {
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::PUT(
@@ -207,11 +219,11 @@ Connect <- R6::R6Class(
     
     users_create = function(
       username,
-      email, 
-      first_name = NULL, 
+      email,
+      first_name = NULL,
       last_name = NULL,
-      password = NULL, 
-      user_must_set_password = NULL, 
+      password = NULL,
+      user_must_set_password = NULL,
       user_role = NULL
       ) {
       path <- sprintf('v1/users')
