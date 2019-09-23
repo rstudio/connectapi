@@ -15,8 +15,11 @@
 tbl_connect <- function(src, from = c("users", "shiny_usage", "content_visits"), ...) {
   validate_R6_class("Connect", src)
   
+  if (!from %in% c("users", "shiny_usage", "content_visits"))
+    stop(glue::glue("ERROR: invalid table name: {from}"))
+  
   # TODO: go get the vars we should expect...
-  vars <- "test"
+  vars <- vars_lookup[[from]]
   
   # TODO: figure out number of rows...
   ops <- op_base_connect(from, vars)
@@ -25,7 +28,35 @@ tbl_connect <- function(src, from = c("users", "shiny_usage", "content_visits"),
 }
 
 vars_lookup <- list(
-  users = c()
+  users = c(
+    "email",
+    "username",
+    "first_name",
+    "last_name",
+    "user_role",
+    "created_time",
+    "updated_time",
+    "active_time",
+    "confirmed",
+    "locked",
+    "guid"
+  ),
+  shiny_usage = c(
+    "content_guid",
+    "user_guid",
+    "started",
+    "ended",
+    "data_version"
+  ),
+  content_visits = c(
+    "content_guid",
+    "user_guid",
+    "variant_key",
+    "time",
+    "rendering_id",
+    "bundle_id",
+    "data_version"
+  )
 )
 
 #' @importFrom dplyr collect
