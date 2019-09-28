@@ -113,7 +113,7 @@ tag_page_iframe <- function(connect, tag, metadata = NULL) {
   }
   
   # set metadata (only content_group is used right now)
-  purrr::reduce(metadata, apply_metadata, .init = apps)
+  apps <- purrr::reduce(metadata, apply_metadata, .init = apps)
 
   template <- system.file('tag_page_iframe.Rmd', package = "connectapi")
   
