@@ -59,12 +59,16 @@ tag_page <- function(connect,
 
 take_screenshot <- function(app, tag, server_key) {
   fname <- sprintf('%s-screenshots/%s.png', tag, app$name)
-  webshot::webshot(app$url,
-            file = fname,
-            vwidth = 800,
-            vheight = 600,
-            cliprect = "viewport",
-            key = server_key)
+  if (fs::file_exists(fname)) {
+    message(glue::glue("{fname} already exists. Using cached file."))
+  } else {
+    webshot::webshot(app$url,
+              file = fname,
+              vwidth = 800,
+              vheight = 600,
+              cliprect = "viewport",
+              key = server_key)
+  }
   fname
 }
 
@@ -97,6 +101,11 @@ take_screenshot <- function(app, tag, server_key) {
 tag_page_iframe <- function(connect, tag, metadata = NULL) {
   client <- connect
   tag_id <- client$get_tag_id(tag)
+  
+  if (length(tag_id) > 1) {
+    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
+  }
+  
   apps <- client$get_apps(filter = list(tag = as.character(tag_id)))
   
   if (length(apps) < 1) {
