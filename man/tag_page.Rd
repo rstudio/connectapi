@@ -20,6 +20,7 @@ A list with LANDING_PAGE which is the path to the html file and APPS
   if you'd rather use your own template
 }
 \description{
+\lifecycle{experimental}
 Note that in order to show a content item in a page, you must have "Viewer"
 priveleges to that content.
 }

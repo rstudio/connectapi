@@ -14,6 +14,7 @@ tag_page_iframe(connect, tag, metadata = NULL)
 \item{metadata}{A metadata object to be used for enriching application data}
 }
 \description{
+\lifecycle{experimental}
 Unfortunately, iframes do not pass cookies as cleanly as I would like... I am having
 trouble even getting this to work in the "same-origin" setup that _should_ work (if
 the iframe uses a different origin from the parent)
