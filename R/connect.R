@@ -191,8 +191,11 @@ Connect <- R6::R6Class(
     
     # users -----------------------------------------------
     
-    users = function(page_number = 1){
+    users = function(page_number = 1, prefix = NULL){
       path <- sprintf('v1/users?page_number=%d', page_number)
+      if (!is.null(prefix)) {
+        path <- paste0(path, "&prefix=", prefix)
+      }
       self$GET(path)
     },
     
