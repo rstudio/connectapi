@@ -18,16 +18,8 @@ tag_page <- function(connect,
                      description = NULL) {
 
   warn_experimental("tag_page")
-  tag_id <- connect$get_tag_id(tag)
   
-  if (length(tag_id) > 1) {
-    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
-  }
-  apps <- connect$get_apps(filter = list(tag = as.character(tag_id)))
-
-  if (length(apps) < 1) {
-    stop(sprintf('No applications found on %s matching tag %s', connect$host, tag))
-  }
+  apps <- get_apps_by_tag(connect = connect, tag = tag)
 
   if (is.null(description)) {
     description <- sprintf('Content on %s tagged with %s', connect$host, tag)
@@ -103,18 +95,7 @@ take_screenshot <- function(app, tag, server_key) {
 tag_page_iframe <- function(connect, tag, metadata = NULL) {
   warn_experimental("tag_page_iframe")
   
-  client <- connect
-  tag_id <- client$get_tag_id(tag)
-  
-  if (length(tag_id) > 1) {
-    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
-  }
-  
-  apps <- client$get_apps(filter = list(tag = as.character(tag_id)))
-  
-  if (length(apps) < 1) {
-    stop(sprintf('No applications found on %s matching tag %s', server, tag))
-  }
+  apps <- get_apps_by_tag(connect = connect, tag = tag)
   
   # set metadata (only content_group is used right now)
   apps <- purrr::reduce(metadata, apply_metadata, .init = apps)
@@ -148,4 +129,19 @@ apply_metadata <- function(all_apps, single_metadata) {
     ~ purrr::list_modify(.x, !!!single_metadata)
     )
   return(all_apps)
+}
+
+get_apps_by_tag <- function(connect, tag) {
+  tag_id <- connect$get_tag_id(tag)
+  
+  if (length(tag_id) > 1) {
+    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
+  }
+  apps <- connect$get_apps(filter = list(tag = as.character(tag_id)))
+
+  if (length(apps) < 1) {
+    stop(sprintf('No applications found on %s matching tag %s', connect$host, tag))
+  }
+  
+  return(apps)
 }
