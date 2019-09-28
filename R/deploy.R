@@ -45,7 +45,16 @@ Content <- R6::R6Class(
     },
     get_connect = function(){self$connect},
     get_content = function(){self$content},
-    
+    get_dashboard_url = function(){
+      glue::glue(
+        self$connect$host,
+        "connect",
+        "#",
+        "apps",
+        self$content$guid,
+        "logs",
+        .sep = "/"
+      )},
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
@@ -177,11 +186,21 @@ bundle_path <- function(path) {
 #' @family deploy
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  warn_experimental("download_bundle")
   validate_R6_class("Content", content)
   
   from_connect <- content$get_connect()
   from_content <- content$get_content()
+  
+  if (is.null(from_content$bundle_id)) {
+    stop(
+    glue::glue(
+      "This content has no bundle_id.",
+      "It has never been successfully deployed.",
+      "See {content$get_dashboard_url()} for more information.",
+      .sep = " "
+      )
+    )
+  }
   
   message("Downloading bundle")
   from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
@@ -285,7 +304,7 @@ set_image_webshot <- function(content, ...) {
 #' @param content A Content object
 #' @param url The path component of the URL
 #' 
-#' @value An updated Content object
+#' @return An updated Content object
 #' 
 #' @examples
 #' \dontrun{
@@ -408,7 +427,7 @@ poll_task <- function(task, wait = 1) {
 #' @param connect A Connect object
 #' @param guid The GUID for the content item to be retrieved
 #' 
-#' @value A Content object for use with other content endpoints
+#' @return A Content object for use with other content endpoints
 #' 
 #' @family content
 #' @export

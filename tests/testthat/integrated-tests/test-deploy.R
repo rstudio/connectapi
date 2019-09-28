@@ -1,8 +1,8 @@
 context("deploy")
 
 # should connect with env vars
-test_conn_1 <- Connect$new(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
-test_conn_2 <- Connect$new(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
+test_conn_1 <- connect(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
+test_conn_2 <- connect(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
 
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
@@ -114,4 +114,20 @@ test_that("poll_task works and returns its input", {
     res <- poll_task(cont1_content)
   )
   expect_equal(res, cont1_content)
+})
+
+test_that("download_bundle works", {
+  bnd <- download_bundle(content_item(test_conn_1, cont1_guid))
+  
+  expect_true(validate_R6_class("Bundle", bnd))
+})
+
+test_that("download_bundle throws an error for undeployed content", {
+  cont_prep <- content_ensure(test_conn_1)
+  cont <- content_item(test_conn_1, cont_prep$guid)
+  
+  expect_error(
+    download_bundle(cont),
+    "This content has no bundle_id"
+  )
 })

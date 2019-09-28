@@ -1,35 +1,48 @@
-Package: connectapi
 Type: Package
-Title: Utilities for Interacting with the RStudio Connect Server API
-Version: 0.1.0.9000
-Authors@R: c(
-  person("Sean", "Lopp", , "sean@rstudio.com", c("aut", "cre")),
-  person("Cole", "Arendt", , "cole@rstudio.com", c("aut")),
-  person("RStudio", role = c("cph", "fnd"))
-  )
-Description: Helpful R6 class for interacting with the RStudio Connect Server API and some example utility functions.
+Package: connectapi
+Title: Utilities for Interacting with the RStudio Connect Server
+    API
+Version: 0.1.0.9001
+Authors@R: 
+    c(person(given = "Sean",
+             family = "Lopp",
+             role = c("aut", "cre"),
+             email = "sean@rstudio.com"),
+      person(given = "Cole",
+             family = "Arendt",
+             role = "aut",
+             email = "cole@rstudio.com"),
+      person(given = "RStudio",
+             role = c("cph", "fnd")))
+Description: Helpful R6 class for interacting with the RStudio
+    Connect Server API and some example utility functions.
 License: GPL-2
-Encoding: UTF-8
 Imports: 
-    R6,
-    httr,
-    rlang,
-    glue,
-    fs,
     config,
-    yaml,
-    magrittr
-RoxygenNote: 6.1.1
+    fs,
+    glue,
+    httr,
+    magrittr,
+    R6,
+    rlang,
+    yaml
 Suggests: 
-    rmarkdown,
-    htmltools,
+    crayon,
     flexdashboard,
-    webshot,
-    lubridate,
     ggplot2,
     gridExtra,
-    testthat,
+    htmltools,
     knitr,
-    rprojroot
-Remotes: slopp/webshot
-VignetteBuilder: knitr
+    lubridate,
+    rmarkdown,
+    rprojroot,
+    spelling,
+    testthat,
+    webshot
+VignetteBuilder: 
+    knitr
+Remotes: 
+    slopp/webshot
+Encoding: UTF-8
+Language: en-US
+RoxygenNote: 6.1.1

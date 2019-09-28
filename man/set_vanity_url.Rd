@@ -11,6 +11,9 @@ set_vanity_url(content, url)
 
 \item{url}{The path component of the URL}
 }
+\value{
+An updated Content object
+}
 \description{
 Sets the Vanity URL for a piece of content.
 }

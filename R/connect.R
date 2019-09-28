@@ -1,4 +1,3 @@
-#'
 #' Class representing a Connect API client
 #'
 #' @name RStudioConnect
@@ -16,6 +15,7 @@
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
 #'
+#' @importFrom utils capture.output
 #' @export
 Connect <- R6::R6Class(
   'Connect',
@@ -160,7 +160,7 @@ Connect <- R6::R6Class(
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
-      path <- glue::glue('bundles/{bundle_id}/download')
+      path <- glue::glue('v1/experimental/bundles/{bundle_id}/download')
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
     },

@@ -13,7 +13,7 @@ tag_page(server, server_key, tag, description = NULL)
 each app, the owner of the API key must be a viewer for each piece of
 content.}
 
-\item{tag}{The name of the targetted tag}
+\item{tag}{The name of the targeted tag}
 
 \item{description}{A description of the tag, placed at the top of the landing
 page}

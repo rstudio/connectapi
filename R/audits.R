@@ -10,14 +10,12 @@ get_field <- function(apps, field, include_null = FALSE) {
 
 #' Get information on all apps for a server
 #'
-#' @param server URL for Connect server
-#' @param server_key Admin API Key for Connect server
+#' @param connect A Connect object
 #'
 #' @return List with application data, to be used by audit functions
 #' @export
-cache_apps <- function(server, server_key){
-  client <- Connect$new(server, server_key)
-  apps <- client$get_apps()
+cache_apps <- function(connect){
+  apps <- connect$get_apps()
   apps
 }
 
