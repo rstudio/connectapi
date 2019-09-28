@@ -1,7 +1,7 @@
 #' Generate a landing page for a specific RStudio Connect tag
 #'
 #' @param connect A Connect object
-#' @param tag The name of the targetted tag
+#' @param tag The name of the targeted tag
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
 #'

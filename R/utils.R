@@ -11,6 +11,34 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
+generate_R6_print_output <- function() {
+  con <- Connect$new(host = "test_host", api_key = "test_key")
+  bnd <- Bundle$new(path = "/test/path")
+  
+  ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
+  cnt1 <- Content$new(connect = con, ex_content)
+  
+  ex_task <- list(id = "task-id")
+  tsk1 <- Task$new(connect = con, content = ex_content, task = ex_task)
+  
+  ex_vanity <- list(path_prefix = "vanity-prefix")
+  van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)
+  
+  obj_list <- list(con, bnd, cnt1, tsk1, van1)
+  
+  unlist(mapply(
+    function(.x, .y) {c(
+      "----------------------------",
+      .y,
+      "----------------------------",
+      capture.output(print(.x))
+      )},
+    .x = obj_list,
+    .y = lapply(obj_list, function(x){class(x)[[1]]}),
+    SIMPLIFY = FALSE
+  ))
+}
+
 validate_R6_class <- function(class, instance) {
   obj <- rlang::enquo(instance)
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
