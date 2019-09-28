@@ -15,9 +15,18 @@ tag_page_iframe(connect, tag, metadata = NULL)
 }
 \description{
 \lifecycle{experimental}
+Build a Tag Page that shows content in iframes, so it is easy to browse
+between content. We also use a JQuery library to ensure content / iframes
+only load resources when accessed (for performance)
+}
+\details{
 Unfortunately, iframes do not pass cookies as cleanly as I would like... I am having
 trouble even getting this to work in the "same-origin" setup that _should_ work (if
 the iframe uses a different origin from the parent)
+
+See the examples for how to define a `metadata` object. It should be a list of
+lists (i.e. objects). Each list should have a "guid" attribute, which will be
+used to update the application data.
 }
 \examples{
 app_metadata <- list(
