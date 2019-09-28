@@ -42,7 +42,7 @@ tag_page <- function(connect,
     a
   })
 
-  template <- system.file('tag_page_template.Rmd', package = "connectapi")
+  template <- system.file('tag_page', 'tag_page_template.Rmd', package = "connectapi")
   out_file <- sprintf('%s.html', tag)
   out_dir <- getwd()
   rmarkdown::render(template,
@@ -115,7 +115,7 @@ tag_page_iframe <- function(connect, tag, metadata = NULL) {
   # set metadata (only content_group is used right now)
   apps <- purrr::reduce(metadata, apply_metadata, .init = apps)
 
-  template <- system.file('tag_page_iframe.Rmd', package = "connectapi")
+  template <- system.file('tag_page', 'tag_page_iframe.Rmd', package = "connectapi")
   
   out_file <- sprintf('%s.html', tag)
   out_dir <- getwd()
