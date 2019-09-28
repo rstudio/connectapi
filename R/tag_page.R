@@ -1,5 +1,6 @@
 #' Generate a landing page for a specific RStudio Connect tag
 #' 
+#' \lifecycle{experimental}
 #' Note that in order to show a content item in a page, you must have "Viewer"
 #' priveleges to that content.
 #'
@@ -74,6 +75,7 @@ take_screenshot <- function(app, tag, server_key) {
 
 #' Tag Page iframe
 #' 
+#' \lifecycle{experimental}
 #' Unfortunately, iframes do not pass cookies as cleanly as I would like... I am having
 #' trouble even getting this to work in the "same-origin" setup that _should_ work (if
 #' the iframe uses a different origin from the parent)
