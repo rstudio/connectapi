@@ -18,7 +18,7 @@ tag_page <- function(connect,
                      description = NULL) {
 
   warn_experimental("tag_page")
-  
+
   apps <- get_apps_by_tag(connect = connect, tag = tag)
 
   if (is.null(description)) {
@@ -94,17 +94,17 @@ take_screenshot <- function(app, tag, server_key) {
 #' @keywords internal
 tag_page_iframe <- function(connect, tag, metadata = NULL) {
   warn_experimental("tag_page_iframe")
-  
+
   apps <- get_apps_by_tag(connect = connect, tag = tag)
-  
+ 
   # set metadata (only content_group is used right now)
   apps <- purrr::reduce(metadata, apply_metadata, .init = apps)
 
   template <- system.file('tag_page', 'tag_page_iframe.Rmd', package = "connectapi")
-  
+ 
   out_file <- sprintf('%s.html', tag)
   out_dir <- getwd()
-  
+ 
   # render
   tmp_environment <- new.env()
   assign("apps", apps, tmp_environment)
@@ -114,7 +114,7 @@ tag_page_iframe <- function(connect, tag, metadata = NULL) {
     output_file = out_file,
     envir = tmp_environment
   )
-  
+ 
   list(
     LANDING_PAGE  = normalizePath(sprintf('%s/%s', out_dir, out_file)),
     APPS = apps
