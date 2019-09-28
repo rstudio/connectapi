@@ -85,6 +85,10 @@ take_screenshot <- function(app, tag, server_key) {
 #' @param tag A tag to search for. NOTE: tag names are not necessarily unique
 #' @param metadata A metadata object to be used for enriching application data
 #' 
+#' See examples for how to define a `metadata` object. It should be a list of
+#' lists (i.e. objects). Each list should have a "guid" attribute, which will be
+#' used to update the application data.
+#' 
 #' @examples 
 #' app_metadata <- list(
 #'   list(guid = "abcde-abcd-abcd-abcde", content_group = "Group 1"),
