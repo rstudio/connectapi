@@ -99,6 +99,8 @@ take_screenshot <- function(app, tag, server_key) {
 #' 
 #' @keywords internal
 tag_page_iframe <- function(connect, tag, metadata = NULL) {
+  warn_experimental("tag_page_iframe")
+  
   client <- connect
   tag_id <- client$get_tag_id(tag)
   
