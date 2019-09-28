@@ -8,7 +8,7 @@
 #'   content is going to be updated, the API key must belong to a user with
 #'   collaborator access on the content that will be updated. If the destination
 #'   content is to be created new, the API key must belong to a user with
-#'   publisher priviliges.
+#'   publisher privileges.
 #' @param from_key An API key on the originating "from" server. The API key must
 #'   belong to a user with collaborator access to the content to be promoted.
 #' @param name The name of the content on the originating "from" server.
@@ -26,27 +26,28 @@ promote <- function(from,
   # TODO Validate Inputs
 
   #set up clients
-  from_client <- Connect$new(host = from, api_key = from_key)
-  to_client <- Connect$new(host = to, api_key = to_key)
+  from_client <- connect(host = from, api_key = from_key)
+  to_client <- connect(host = to, api_key = to_key)
 
   # find app on "from" server
   from_app <- from_client$get_apps(list(name = name))
   if (length(from_app) != 1) {
     stop(sprintf('Found %d apps matching app name %s on %s. Content must have a unique name.', length(from_app), name, from))
   }
+  from_app <- content_item(from_client, guid = from_app[[1]]$guid)
 
   # download bundle
-  bundle <- from_client$download_bundle(from_app[[1]]$bundle_id)
+  bundle <- download_bundle(from_app)
 
   # find or create app to update
   to_app <- content_ensure(connect = to_client, name = name)
+  to_app <- content_item(connect = to_client, guid = to_app$guid)
 
-  bundle_id <- to_client$content_upload(bundle_path = bundle, guid = to_app[["guid"]])[["bundle_id"]]
-  task_id <- to_client$content_deploy(guid = to_app[["guid"]], bundle_id = bundle_id)[["task_id"]]
+  task <- deploy(to_client, bundle = bundle, guid = to_app$get_content()$guid)
   
-  poll_task_old(connect = to_client, task_id = task_id)
+  poll_task(task)
   
-  to_app_url <- to_app$url
+  to_app_url <- to_app$get_content()$url
   
   return(to_app_url)
 }

@@ -1,7 +1,10 @@
 #' Generate a landing page for a specific RStudio Connect tag
+#' 
+#' Note that in order to show a content item in a page, you must have "Viewer"
+#' priveleges to that content.
 #'
-#' @param connect A Connect object. Must be a viewer of all of the content
-#' @param tag The name of the targetted tag
+#' @param connect A Connect object
+#' @param tag The name of the targeted tag
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
 #'
@@ -13,25 +16,29 @@ tag_page <- function(connect,
                      tag,
                      description = NULL) {
 
-  client <- connect
-  tag_id <- client$get_tag_id(tag)
-  apps <- client$get_apps(filter = list(tag = as.character(tag_id)))
+  warn_experimental("tag_page")
+  tag_id <- connect$get_tag_id(tag)
+  
+  if (length(tag_id) > 1) {
+    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
+  }
+  apps <- connect$get_apps(filter = list(tag = as.character(tag_id)))
 
   if (length(apps) < 1) {
-    stop(sprintf('No applications found on %s matching tag %s', server, tag))
+    stop(sprintf('No applications found on %s matching tag %s', connect$host, tag))
   }
 
   if (is.null(description)) {
-    description <- sprintf('Content on %s tagged with %s', server, tag)
+    description <- sprintf('Content on %s tagged with %s', connect$host, tag)
   }
 
-  dir <- dir.create(sprintf('./%s-screenshots', tag))
-  if (!dir) {
+  dir <- fs::dir_create(sprintf('./%s-screenshots', tag))
+  if (!fs::dir_exists(dir)) {
     stop(sprintf('Error creating directory for screenshots'))
   }
 
   apps <- lapply(apps, function(a) {
-    a$screenshot <- take_screenshot(a, tag, server_key)
+    a$screenshot <- take_screenshot(a, tag, connect$api_key)
     a
   })
 
