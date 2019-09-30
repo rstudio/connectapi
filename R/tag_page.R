@@ -143,7 +143,7 @@ get_apps_by_tag <- function(connect, tag) {
   tag_id <- connect$get_tag_id(tag)
   
   if (length(tag_id) > 1) {
-    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications."))
+    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications. Currently, only the first tag_id is used."))
   }
   apps <- connect$get_apps(filter = list(tag = as.character(tag_id)))
 
