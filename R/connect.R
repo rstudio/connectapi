@@ -106,6 +106,28 @@ Connect <- R6::R6Class(
         stop(sprintf('Tag %s not found on server %s', tagname, self$host))
       self$tag_map[which(self$tag_map$name == tagname), 'id']
     },
+    
+    get_tag_tree = function() {
+      warn_experimental("get_tag_tree")
+      self$GET("tag-tree")
+    },
+    
+    create_tag = function(name, parent_id = NULL) {
+      warn_experimental("create_tag")
+      dat <- list(
+        name = name
+      )
+      if (!is.null(parent_id)) {
+        dat <- c(
+          dat,
+          parent_id = parent_id
+        )
+      }
+      self$POST(
+        "tags",
+        body = dat
+        )
+    },
 
     get_n_apps = function() {
       path <- 'applications'
@@ -187,6 +209,16 @@ Connect <- R6::R6Class(
     task = function(task_id, first = 0, wait = 5) {
       path <- sprintf('v1/experimental/tasks/%s?first=%d&wait=%d', task_id, first, wait)
       self$GET(path)
+    },
+    
+    set_content_tag = function(content_id, tag_id) {
+      warn_experimental("set_content_tag")
+      self$POST(
+        path = glue::glue("applications/{content_id}/tags"),
+        body = list(
+          id = tag_id
+        )
+      )
     },
     
     # users -----------------------------------------------
