@@ -9,7 +9,7 @@ test_that("users_create works", {
   if (ss$authentication$name %in% c("LDAP")) {
     skip("not implemented for this authentication provider")
   }
-  username <- uuid::UUIDgenerate(use.time = TRUE)
+  username <- random_name()
   password <- uuid::UUIDgenerate(use.time = TRUE)
   res <- test_conn_1$users_create(
     username = username,
