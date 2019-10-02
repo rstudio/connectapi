@@ -140,12 +140,12 @@ apply_metadata <- function(all_apps, single_metadata) {
 }
 
 get_apps_by_tag <- function(connect, tag) {
-  tag_id <- connect$get_tag_id(tag)
+  tag_ids <- connect$get_tag_id(tag)
   
-  if (length(tag_id) > 1) {
-    warning(glue::glue("More than one tag found with identifier: {tag}. This could cause problems finding applications. Currently, only the first tag_id is used."))
-  }
-  apps <- connect$get_apps(filter = list(tag = as.character(tag_id)))
+  apps <- connect$get_apps(
+    filter = rlang::set_names(tag_ids, rep("tag", length(tag_ids))),
+    .collapse = "||"
+    )
 
   if (length(apps) < 1) {
     stop(sprintf('No applications found on %s matching tag %s', connect$host, tag))
