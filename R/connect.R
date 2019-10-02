@@ -88,8 +88,8 @@ Connect <- R6::R6Class(
       httr::content(res, as = 'parsed')
     },
 
-    get_tags = function() {
-      if (is.null(self$tags)) {
+    get_tags = function(use_cache = FALSE) {
+      if (is.null(self$tags) || !use_cache) {
           self$tags <- self$GET('/tags')
       }
       self$tag_map <- data.frame(
@@ -137,9 +137,9 @@ Connect <- R6::R6Class(
 
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
-    get_apps = function(filter = NULL) {
+    get_apps = function(filter = NULL, .collapse = "&") {
       if (!is.null(filter)) {
-        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = '&')
+        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = .collapse)
         path <- paste0('applications?filter=',query)
         sep <- '&'
       } else {
