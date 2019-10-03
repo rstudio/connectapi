@@ -15,7 +15,9 @@
 #' @export
 tag_page <- function(connect,
                      tag,
-                     description = NULL) {
+                     description = NULL,
+                     screenshot = FALSE
+                     ) {
 
   warn_experimental("tag_page")
 
@@ -31,7 +33,7 @@ tag_page <- function(connect,
   }
 
   apps <- lapply(apps, function(a) {
-    a$screenshot <- take_screenshot(a, tag, connect$api_key)
+    a$screenshot <- take_screenshot(a, tag, connect, screenshot = screenshot)
     a
   })
 
@@ -50,17 +52,19 @@ tag_page <- function(connect,
 
 }
 
-take_screenshot <- function(app, tag, server_key) {
+take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
   fname <- sprintf('%s-screenshots/%s.png', tag, app$name)
   if (fs::file_exists(fname)) {
     message(glue::glue("{fname} already exists. Using cached file."))
+  } else if (!screenshot) {
+    get_image(content_item(connect, app$guid), fname)
   } else {
     webshot::webshot(app$url,
               file = fname,
               vwidth = 800,
               vheight = 600,
               cliprect = "viewport",
-              key = server_key)
+              key = connect$api_key)
   }
   fname
 }
