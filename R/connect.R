@@ -89,8 +89,8 @@ Connect <- R6::R6Class(
       httr::content(res, as = 'parsed')
     },
 
-    POST = function(path, body, encode = 'json') {
-      req <- paste0(self$host, '/__api__/', path)
+    POST = function(path, body, encode = 'json', prefix = "/__api__/") {
+      req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
               body = body,
@@ -98,6 +98,10 @@ Connect <- R6::R6Class(
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = 'parsed')
+    },
+    
+    me = function() {
+      self$GET("me")
     },
 
     get_tags = function() {
