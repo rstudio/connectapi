@@ -1,3 +1,8 @@
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
+<!-- badges: end -->
+
 # connectapi - **WIP**
 
 This package is an **experimental WIP**. The package is designed to provide an R
@@ -80,3 +85,9 @@ client_prod %>%
   deploy(prod_bnd, title = "Now in Production") %>%
   set_vanity_url("/my-app")
 ```
+
+# Code of Conduct
+
+Please note that the 'connectapi' project is released with a
+[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

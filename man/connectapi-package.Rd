@@ -4,9 +4,11 @@
 \name{connectapi-package}
 \alias{connectapi}
 \alias{connectapi-package}
-\title{connectapi: Utilities for Interacting with the RStudio Connect Server API}
+\title{connectapi: Utilities for Interacting with the RStudio Connect Server
+    API}
 \description{
-Helpful R6 class for interacting with the RStudio Connect Server API and some example utility functions.
+Helpful R6 class for interacting with the RStudio
+    Connect Server API and some example utility functions.
 }
 \author{
 \strong{Maintainer}: Sean Lopp \email{sean@rstudio.com}

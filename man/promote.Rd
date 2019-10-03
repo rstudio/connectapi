@@ -17,7 +17,7 @@ destination server)}
 content is going to be updated, the API key must belong to a user with
 collaborator access on the content that will be updated. If the destination
 content is to be created new, the API key must belong to a user with
-publisher priviliges.}
+publisher privileges.}
 
 \item{from_key}{An API key on the originating "from" server. The API key must
 belong to a user with collaborator access to the content to be promoted.}

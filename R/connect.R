@@ -1,4 +1,3 @@
-#'
 #' Class representing a Connect API client
 #'
 #' @name RStudioConnect
@@ -16,6 +15,7 @@
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
 #'
+#' @importFrom utils capture.output
 #' @export
 Connect <- R6::R6Class(
   'Connect',
@@ -108,8 +108,8 @@ Connect <- R6::R6Class(
       self$GET("me")
     },
 
-    get_tags = function() {
-      if (is.null(self$tags)) {
+    get_tags = function(use_cache = FALSE) {
+      if (is.null(self$tags) || !use_cache) {
           self$tags <- self$GET('/tags')
       }
       self$tag_map <- data.frame(
@@ -126,6 +126,28 @@ Connect <- R6::R6Class(
         stop(sprintf('Tag %s not found on server %s', tagname, self$host))
       self$tag_map[which(self$tag_map$name == tagname), 'id']
     },
+    
+    get_tag_tree = function() {
+      warn_experimental("get_tag_tree")
+      self$GET("tag-tree")
+    },
+    
+    create_tag = function(name, parent_id = NULL) {
+      warn_experimental("create_tag")
+      dat <- list(
+        name = name
+      )
+      if (!is.null(parent_id)) {
+        dat <- c(
+          dat,
+          parent_id = parent_id
+        )
+      }
+      self$POST(
+        "tags",
+        body = dat
+        )
+    },
 
     get_n_apps = function() {
       path <- 'applications'
@@ -135,9 +157,9 @@ Connect <- R6::R6Class(
 
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
-    get_apps = function(filter = NULL, .limit = Inf) {
+    get_apps = function(filter = NULL, .collapse = "&", .limit = Inf) {
       if (!is.null(filter)) {
-        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = '&')
+        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = .collapse)
         path <- paste0('applications?filter=',query)
         sep <- '&'
       } else {
@@ -209,14 +231,27 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    set_content_tag = function(content_id, tag_id) {
+      warn_experimental("set_content_tag")
+      self$POST(
+        path = glue::glue("applications/{content_id}/tags"),
+        body = list(
+          id = tag_id
+        )
+      )
+    },
+    
     # users -----------------------------------------------
     
-    users = function(page_number = 1, page_size=20){
+    users = function(page_number = 1, prefix = NULL, page_size=20){
       if (page_size > 500) {
         # reset page_size to avoid error
         page_size <- 500
       }
       path <- sprintf('v1/users?page_number=%d&page_size=%d', page_number, page_size)
+      if (!is.null(prefix)) {
+        path <- paste0(path, "&prefix=", prefix)
+      }
       self$GET(path)
     },
     

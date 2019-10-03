@@ -4,12 +4,10 @@
 \alias{cache_apps}
 \title{Get information on all apps for a server}
 \usage{
-cache_apps(server, server_key)
+cache_apps(connect)
 }
 \arguments{
-\item{server}{URL for Connect server}
-
-\item{server_key}{Admin API Key for Connect server}
+\item{connect}{A Connect object}
 }
 \value{
 List with application data, to be used by audit functions

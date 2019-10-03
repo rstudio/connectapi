@@ -4,19 +4,17 @@
 \alias{tag_page}
 \title{Generate a landing page for a specific RStudio Connect tag}
 \usage{
-tag_page(server, server_key, tag, description = NULL)
+tag_page(connect, tag, description = NULL, screenshot = FALSE)
 }
 \arguments{
-\item{server}{Url for the Connect server}
+\item{connect}{A Connect object}
 
-\item{server_key}{An API key for the Connect server. To get screen shots of
-each app, the owner of the API key must be a viewer for each piece of
-content.}
-
-\item{tag}{The name of the targetted tag}
+\item{tag}{The name of the targeted tag. NOTE: tag names are not necessarily unique}
 
 \item{description}{A description of the tag, placed at the top of the landing
 page}
+
+\item{screenshot}{optional. default: FALSE. Whether to take screenshots automatically. Currently requires a custom build of the `webshot` package}
 }
 \value{
 A list with LANDING_PAGE which is the path to the html file and APPS
@@ -24,5 +22,7 @@ A list with LANDING_PAGE which is the path to the html file and APPS
   if you'd rather use your own template
 }
 \description{
-Generate a landing page for a specific RStudio Connect tag
+\lifecycle{experimental}
+Note that in order to show a content item in a page, you must have "Viewer"
+priveleges to that content.
 }

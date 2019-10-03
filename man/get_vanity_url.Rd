@@ -14,7 +14,7 @@ Gets the Vanity URL for a piece of content.
 }
 \seealso{
 Other content: \code{\link{content_item}},
-  \code{\link{set_image_path}},
+  \code{\link{get_image}}, \code{\link{set_image_path}},
   \code{\link{set_vanity_url}}
 }
 \concept{content}
