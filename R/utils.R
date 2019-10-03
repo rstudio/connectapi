@@ -63,6 +63,9 @@ validate_R6_class <- function(class, instance) {
 # super useful examples
 # https://github.com/tidyverse/tibble/blob/master/R/compat-lifecycle.R
 warn_experimental <- function(name) {
+  if (rlang::is_true(rlang::peek_option("connectapi_disable_experimental_warnings"))) {
+    return(invisible(NULL))
+  }
   warn_once(
     msg = glue::glue("The `{name}` function is experimental and subject to change without warning in a future release"),
     id = paste0(name, "-experimental")
@@ -77,7 +80,7 @@ scoped_experimental_silence <- function(frame = rlang::caller_env()) {
 }
 
 warn_once <- function(msg, id = msg) {
-  if (rlang::is_true(rlang::peek_option("connectapi_disable_experimental_warnings"))) {
+  if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {
     return(invisible(NULL))
   }
   
@@ -111,16 +114,16 @@ check_connect_version <- function(using_version, tested_version = tested_connect
   msg <- switch(
     as.character(comp),
     "0" = NULL,
-    "1" = warning(glue::glue(
+    "1" = warn_once(glue::glue(
       "You are using an older version of RStudio Connect",
       "({using_version}) than was tested ({tested_version}).",
       "Some APIs may not function as expected."
-    )),
-    "-1" = warning(glue::glue(
+    ), id = "old-connect"),
+    "-1" = warn_once(glue::glue(
       "You are using a newer version of RStudio Connect",
       "({using_version}) than was tested ({tested_version}).",
       "Most APIs should function as expected."
-    ))
+    ), id = "new-connect")
   )
   invisible()
 }
