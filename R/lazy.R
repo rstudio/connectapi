@@ -12,14 +12,15 @@
 # - filters based on content_guid, started, ended, etc.
 # - nrow should be super fast if we know how many total records there are...
 #' @export
-tbl_connect <- function(src, from = c("users", "shiny_usage", "content_visits"), ...) {
+tbl_connect <- function(src, from = c("users", "content", "shiny_usage", "content_visits"), ...) {
   validate_R6_class("Connect", src)
   
-  if (!from %in% c("users", "shiny_usage", "content_visits"))
+  if (!from %in% c("users", "content", "shiny_usage", "content_visits"))
     stop(glue::glue("ERROR: invalid table name: {from}"))
   
   # TODO: go get the vars we should expect...
   vars <- vars_lookup[[from]]
+  if (is.null(vars)) vars <- character()
   
   # TODO: figure out number of rows...
   ops <- op_base_connect(from, vars)
@@ -82,10 +83,9 @@ api_build.op_base_connect <- function(op, con, ..., n) {
     if (length(res) >= 400) {
       warning("The 'users' tbl_connect does not page and will return max 500 users")
     }
-  } else if (op$x == "data") {
-    stop(glue::glue("'{op$x} is not yet implemented"))
   } else if (op$x == "content") {
-    stop(glue::glue("'{op$x}' is not yet implemented"))
+    warn_experimental("tbl_connect 'content'")
+    res <- con$get_apps(.limit = n)
   } else if (op$x == "shiny_usage") {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "content_visits") {
