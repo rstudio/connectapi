@@ -241,6 +241,30 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
   Task$new(connect = con, content = content, task = task)
 }
 
+#' Get the Image
+#' 
+#' @param content A content object
+#' @param path The path to the image on disk
+#' 
+#' @rdname get_image
+#' @family content
+#' @export
+get_image <- function(content, path) {
+  warn_experimental("get_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$GET(
+    path = glue::glue("applications/{guid}/image"), 
+    writer = httr::write_disk(path, overwrite = TRUE), 
+    parser = 'raw'
+    )
+  
+  return(fs::as_fs_path(path))
+}
+
 #' Set the Image from a Path
 #' 
 #' @param content A content object
