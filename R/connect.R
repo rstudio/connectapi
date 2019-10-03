@@ -53,11 +53,15 @@ Connect <- R6::R6Class(
         stop(err)
       }
     },
+    
+    add_auth = function() {
+      httr::add_headers(Authorization = paste0('Key ', self$api_key))
+    },
 
     GET = function(path, writer = httr::write_memory(), parser = 'parsed') {
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::GET(req,
-               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+               self$add_auth(),
                writer)
       self$raise_error(res)
       check_debug(req, res)
@@ -68,7 +72,7 @@ Connect <- R6::R6Class(
       req <- url
       res <- httr::GET(
         url,
-        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        self$add_auth(),
         writer
       )
       check_debug(req, res)
@@ -80,7 +84,7 @@ Connect <- R6::R6Class(
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::PUT(
         req,
-        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        self$add_auth(),
         body = body,
         encode = encode
       )
@@ -92,7 +96,7 @@ Connect <- R6::R6Class(
     POST = function(path, body, encode = 'json', prefix = "/__api__/") {
       req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
-              httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+              self$add_auth(),
               body = body,
               encode = encode)
       self$raise_error(res)
