@@ -15,6 +15,7 @@ content_name <- uuid::UUIDgenerate(use.time = TRUE)
 tag_content <- NULL
 
 test_that("create tags works", {
+  scoped_experimental_silence()
   parent_tag <<- test_conn_1$create_tag(parent_tag_name)
   child_tag <<- test_conn_1$create_tag(child_tag_name, parent_tag$id)
   
@@ -29,6 +30,7 @@ test_that("create tags works", {
 
 
 test_that("associate tag with content", {
+  scoped_experimental_silence()
   tag_content <<- deploy(
     test_conn_1, 
     bundle_path(
@@ -50,6 +52,7 @@ test_that("associate tag with content", {
 
 
 test_that("identical tag names are searched properly", {
+  scoped_experimental_silence()
   tag_content_guid <- tag_content$get_content()$guid
   
   # create another tag with same name
@@ -81,4 +84,28 @@ test_that("identical tag names are searched properly", {
   
   guids <- purrr::map_chr(res2, ~.x$guid)
   expect_true(length(guids[guids == tag_content_guid]) == 1)
+})
+
+test_that("tag_page works", {
+  scoped_experimental_silence()
+  res <- tag_page(
+    test_conn_1,
+    tag = child_tag_name
+  )
+  
+  expect_true(fs::file_exists(res$LANDING_PAGE))
+  expect_true(length(res$APPS) > 0)
+  unlink(res$LANDING_PAGE)
+})
+
+test_that("tag_page_iframe works", {
+  scoped_experimental_silence()
+    res <- tag_page_iframe(
+    test_conn_1,
+    tag = child_tag_name
+  )
+  
+  expect_true(fs::file_exists(res$LANDING_PAGE))
+  expect_true(length(res$APPS) > 0)
+  unlink(res$LANDING_PAGE)
 })
