@@ -65,6 +65,19 @@ test_that("set_image_path works", {
   expect_true(validate_R6_class("Content", res))
 })
 
+test_that("get_image works", {
+  scoped_experimental_silence()
+  img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
+  
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  get_image(cont1_content, tmp_img)
+  
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+})
+
 test_that("set_image_url works", {
   # need to find a reliable image URL that is small
   skip("not implemented yet")
