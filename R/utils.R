@@ -60,6 +60,30 @@ validate_R6_class <- function(class, instance) {
   invisible(TRUE)
 }
 
+# set up the first admin
+create_first_admin <- function(url, user, password, keyname = "first-key") {
+  client <- connect(host = url, api_key = NULL)
+  
+  first_admin <- client$POST(
+    body = list(
+      username = user,
+      password = password
+    ),
+    path = "__login__",
+    prefix = "/"
+  )
+  
+  user_info <- client$me
+  
+  api_key <- client$POST(
+    body = list(name = keyname)
+  )
+  
+  return(
+    connect(url, api_key)
+  )
+}
+
 # super useful examples
 # https://github.com/tidyverse/tibble/blob/master/R/compat-lifecycle.R
 warn_experimental <- function(name) {
