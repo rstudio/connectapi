@@ -8,6 +8,7 @@
 #' @param tag The name of the targeted tag. NOTE: tag names are not necessarily unique
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
+#' @param screenshot optional. default: FALSE. Whether to take screenshots automatically. Currently requires a custom build of the `webshot` package
 #'
 #' @return A list with LANDING_PAGE which is the path to the html file and APPS
 #'   which is a list containing information on the apps and screenshots, useful
