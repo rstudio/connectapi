@@ -25,7 +25,9 @@ Imports:
     magrittr,
     R6,
     rlang,
-    yaml
+    yaml,
+    lifecycle,
+    purrr
 Suggests: 
     crayon,
     flexdashboard,
@@ -41,6 +43,8 @@ Suggests:
     webshot
 VignetteBuilder: 
     knitr
+RdMacros: 
+    lifecycle
 Remotes: 
     slopp/webshot
 Encoding: UTF-8
