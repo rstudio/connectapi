@@ -47,3 +47,11 @@ test_that("shiny_usage works", {
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
   expect_is(shiny_usage, c("tbl_df", "tbl", "data.frame"))
 })
+
+test_that("content works", {
+  content_list <- tbl_connect(test_conn_1, "content")
+  expect_is(content_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  
+  content_list_local <- content_list %>% dplyr::collect()
+  expect_is(content_list_local, c("tbl_df", "tbl", "data.frame"))
+})
