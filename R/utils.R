@@ -61,28 +61,71 @@ validate_R6_class <- function(class, instance) {
 }
 
 # set up the first admin
-create_first_admin <- function(url, user, password, keyname = "first-key") {
-  client <- connect(host = url, api_key = NULL)
+create_first_admin <- function(
+  url, 
+  user, password, email, 
+  keyname = "first-key",
+  provider = "password"
+  ) {
+  client <- HackyConnect$new(host = url, api_key = NULL)
   
-  first_admin <- client$POST(
-    body = list(
-      username = user,
-      password = password
-    ),
-    path = "__login__",
-    prefix = "/"
+  if (provider == "password") {
+    tryCatch({
+      first_admin <- client$POST(
+        body = list(
+          username = user,
+          password = password,
+          email = email
+        ),
+        path = "v1/users"
+      )
+    },
+    error = function(e) {
+      message(glue::glue("Error creating first admin: {e}"))
+    }
+    )
+  }
+  
+  login <- client$login(
+    user = user,
+    password = password
   )
   
-  user_info <- client$me
+  user_info <- client$me()
   
   api_key <- client$POST(
+    path = "keys",
     body = list(name = keyname)
   )
   
   return(
-    connect(url, api_key)
+    connect(url, api_key$key)
   )
 }
+
+HackyConnect <- R6::R6Class(
+  "HackyConnect",
+  inherit = Connect,
+  public = list(
+    xsrf = NULL,
+    login = function(user, password) {
+      res <- httr::POST(
+        glue::glue("{self$host}/__login__"),
+        body = list(username = user, password = password),
+        encode = "json"
+      )
+      
+      res_cookies <- httr::cookies(res)
+      self$xsrf <- res_cookies[res_cookies$name == "RSC-XSRF", "value"]
+      
+      httr::content(res, as = 'parsed')
+    },
+    
+    add_auth = function() {
+      httr::add_headers('X-RSC-XSRF'=self$xsrf)
+    }
+  )
+)
 
 # super useful examples
 # https://github.com/tidyverse/tibble/blob/master/R/compat-lifecycle.R
