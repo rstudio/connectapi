@@ -26,7 +26,8 @@ Imports:
     R6,
     rlang,
     yaml,
-    lifecycle
+    lifecycle,
+    purrr
 Suggests: 
     crayon,
     flexdashboard,
