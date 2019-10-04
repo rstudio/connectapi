@@ -42,7 +42,7 @@ Suggests:
     rmarkdown,
     spelling,
     testthat,
-    webshot
+    webshot,
     rprojroot,
     dplyr
 VignetteBuilder: 
