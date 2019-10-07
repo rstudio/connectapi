@@ -90,7 +90,8 @@ test_that("tag_page works", {
   scoped_experimental_silence()
   res <- tag_page(
     test_conn_1,
-    tag = child_tag_name
+    tag = child_tag_name,
+    quiet = TRUE
   )
   
   expect_true(fs::file_exists(res$LANDING_PAGE))
@@ -103,7 +104,8 @@ test_that("tag_page_iframe works", {
   scoped_experimental_silence()
     res <- tag_page_iframe(
     test_conn_1,
-    tag = child_tag_name
+    tag = child_tag_name,
+    quiet = TRUE
   )
   
   expect_true(fs::file_exists(res$LANDING_PAGE))
