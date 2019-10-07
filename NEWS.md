@@ -27,6 +27,8 @@ OTHER:
   - `inst_content_visits`
 * Add some helper functions:
   - `deploy_github`, `download_github`
+  - `swap_vanity_url`, deployment functions
 * Update `connect` R6 object to be compatible with Connect 1.7.0+ APIs
 * Added a `NEWS.md` file to track changes to the package.
 * Add integration testing to protect against regressions
+* Add `tbl_connect()` as a `lazy_tbl` for querying Connect API endpoints
