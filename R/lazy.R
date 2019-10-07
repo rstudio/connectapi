@@ -99,7 +99,12 @@ api_build.op_base_connect <- function(op, con, ..., n) {
       purrr::map(
         .x = x,
         .f = function(y) {
-          purrr::pluck(y, .default = NA)
+          prep <- purrr::pluck(y, .default = NA)
+          # TODO: Should figure out what we want to do about sub-objects...
+          # i.e. content: git details... could build a nested list...?
+          if (length(prep) > 1)
+            prep <- NA
+          return(prep)
         }
       )
     }
