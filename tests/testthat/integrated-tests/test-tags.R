@@ -96,6 +96,7 @@ test_that("tag_page works", {
   expect_true(fs::file_exists(res$LANDING_PAGE))
   expect_true(length(res$APPS) > 0)
   unlink(res$LANDING_PAGE)
+  fs::dir_delete(paste0(fs::path_ext_remove(res$LANDING_PAGE), "-screenshots"))
 })
 
 test_that("tag_page_iframe works", {
