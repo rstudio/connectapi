@@ -180,7 +180,12 @@ Connect <- R6::R6Class(
 
       # handle paging
       prg$tick()
-      res <- self$GET(path)
+      res <- self$GET(
+        sprintf(
+          '%s%scount=%d',
+          path, sep, page_size
+          )
+      )
       all <- res$applications
       start <- page_size + 1
       while (length(res$applications) > 0 && length(all) < .limit) {
