@@ -167,12 +167,19 @@ Connect <- R6::R6Class(
         sep <- '?'
       }
 
+      prg <- progress::progress_bar$new(
+        format = "downloading page :current (:tick_rate/sec) :elapsedfull",
+        total = NA,
+        clear = FALSE
+      )
 
       # handle paging
+      prg$tick()
       res <- self$GET(path)
       all <- res$applications
       start <- 26
       while (length(res$applications) > 0 && length(all) < .limit) {
+        prg$tick()
         res <- self$GET(sprintf('%s%sstart=%d&cont=%s',path, sep, start, res$continuation))
         for (a in res$applications) {
           all[[length(all) + 1]] <- a
