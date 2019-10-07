@@ -93,7 +93,7 @@ Task <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Task ID: ", self$get_task()$id, "\n", sep = "")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
     }
