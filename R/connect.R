@@ -27,12 +27,13 @@ Connect <- R6::R6Class(
     tag_map = NULL,
 
     get_connect = function() {self},
-    
     initialize = function(host, api_key) {
       message(glue::glue("Defining Connect with host: {host}"))
       self$host = base::sub("^(.*)/$", "\\1", host)
       self$api_key = api_key
     },
+    
+    # helpers ----------------------------------------------------------
     
     print = function(...) {
       cat("RStudio Connect API Client: \n")
@@ -107,6 +108,8 @@ Connect <- R6::R6Class(
     me = function() {
       self$GET("me")
     },
+    
+    # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
       if (is.null(self$tags) || !use_cache) {
@@ -149,6 +152,7 @@ Connect <- R6::R6Class(
         )
     },
 
+    # content listing ----------------------------------------------------------
     get_n_apps = function() {
       path <- 'applications'
       apps <- self$GET(path)
