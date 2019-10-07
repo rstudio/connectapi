@@ -396,9 +396,11 @@ Connect <- R6::R6Class(
     
     # misc utilities --------------------------------------------
     
-    docs = function(docs = "api") {
+    docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
-      utils::browseURL(paste0(self$host, '/__docs__/', docs))
+      url <- paste0(self$host, '/__docs__/', docs)
+      if (browse) utils::browseURL(url)
+      return(url)
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
