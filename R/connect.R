@@ -159,10 +159,10 @@ Connect <- R6::R6Class(
       apps <- self$GET(path)
       apps$total
     },
-
+    
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
-    get_apps = function(filter = NULL, .collapse = "&", .limit = Inf) {
+    get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
       if (!is.null(filter)) {
         query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = .collapse)
         path <- paste0('applications?filter=',query)
@@ -182,14 +182,17 @@ Connect <- R6::R6Class(
       prg$tick()
       res <- self$GET(path)
       all <- res$applications
-      start <- 26
+      start <- page_size + 1
       while (length(res$applications) > 0 && length(all) < .limit) {
         prg$tick()
-        res <- self$GET(sprintf('%s%sstart=%d&cont=%s',path, sep, start, res$continuation))
-        for (a in res$applications) {
-          all[[length(all) + 1]] <- a
-        }
-        start <- start + 25
+        res <- self$GET(
+          sprintf(
+            '%s%scount=%d&start=%d&cont=%s',
+            path, sep, page_size, start, res$continuation
+            )
+          )
+        all <- c(all, res$applications)
+        start <- start + page_size
       }
       all
     },
