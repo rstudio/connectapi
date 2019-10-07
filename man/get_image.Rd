@@ -18,6 +18,7 @@ Get the Image
 Other content: \code{\link{content_item}},
   \code{\link{get_vanity_url}},
   \code{\link{set_image_path}},
-  \code{\link{set_vanity_url}}
+  \code{\link{set_vanity_url}},
+  \code{\link{swap_vanity_url}}
 }
 \concept{content}

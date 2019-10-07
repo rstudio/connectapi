@@ -29,6 +29,7 @@ connect() \%>\%
 \seealso{
 Other content: \code{\link{content_item}},
   \code{\link{get_image}}, \code{\link{get_vanity_url}},
-  \code{\link{set_image_path}}
+  \code{\link{set_image_path}},
+  \code{\link{swap_vanity_url}}
 }
 \concept{content}

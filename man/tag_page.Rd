@@ -4,7 +4,8 @@
 \alias{tag_page}
 \title{Generate a landing page for a specific RStudio Connect tag}
 \usage{
-tag_page(connect, tag, description = NULL, screenshot = FALSE)
+tag_page(connect, tag, description = NULL, screenshot = FALSE,
+  quiet = FALSE)
 }
 \arguments{
 \item{connect}{A Connect object}
@@ -15,6 +16,8 @@ tag_page(connect, tag, description = NULL, screenshot = FALSE)
 page}
 
 \item{screenshot}{optional. default: FALSE. Whether to take screenshots automatically. Currently requires a custom build of the `webshot` package}
+
+\item{quiet}{Whether to suppress rmarkdown logging}
 }
 \value{
 A list with LANDING_PAGE which is the path to the html file and APPS
