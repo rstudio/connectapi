@@ -428,6 +428,9 @@ swap_vanity_url <- function(from_content, to_content) {
   # TODO: Add prompt if in an interactive session
   # TODO: Add pretty print output of what is happening
   # TODO: Test error cases super thoroughly!!
+  # TODO: Do a "dry run" of sorts...? Check privileges... etc...
+  # TODO: Do the changes within a TryCatch so we can undo...?
+  # TODO: Need a way to "unset" a vanity URL
   
   from_vanity <- get_vanity_url(from_content)
   to_vanity <- get_vanity_url(to_content)
