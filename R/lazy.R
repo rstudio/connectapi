@@ -162,16 +162,16 @@ op_single <- function(name, x, dots = list(), args = list()) {
   )
 }
 
-#' @export
-op_vars <- function(op) UseMethod("op_vars")
-#' @export
-op_vars.op_base <- function(op) op$vars
-#' @export
-op_vars.op_single <- function(op) op_vars(op$x)
-#' @export
-op_vars.tbl_lazy <- function(op) op_vars(op$ops)
-
-#' @export
-dim.tbl_lazy <- function(x) {
-  c(NA, length(op_vars(x$ops)))
-}
+# #' @export
+# op_vars <- function(op) UseMethod("op_vars")
+# #' @export
+# op_vars.op_base <- function(op) op$vars
+# #' @export
+# op_vars.op_single <- function(op) op_vars(op$x)
+# #' @export
+# op_vars.tbl_lazy <- function(op) op_vars(op$ops)
+# 
+# #' @export
+# dim.tbl_lazy <- function(x) {
+#   c(NA, length(op_vars(x$ops)))
+# }
