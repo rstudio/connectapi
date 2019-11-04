@@ -1,14 +1,11 @@
 # TODO
-# - make operation dynamic (i.e. not just users)
-#     - next stop: vanity URLs?
+# - next stop: vanity URLs?
 # - make the op execution more "legit"
 # - figure out filtering... and such...? 
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - some type of quoting here...?
 # - need to make pagination actually work...
-# - need to add a helper to filter to a number of pages
-# - need to add a progress bar...
 # - filters based on content_guid, started, ended, etc.
 # - nrow should be super fast if we know how many total records there are...
 #' @export
