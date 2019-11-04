@@ -28,6 +28,7 @@ OTHER:
 * Add some helper functions:
   - `deploy_github`, `download_github`
   - `swap_vanity_url`, deployment functions
+  - `browse_` family of functions
 * Update `connect` R6 object to be compatible with Connect 1.7.0+ APIs
 * Added a `NEWS.md` file to track changes to the package.
 * Add integration testing to protect against regressions
