@@ -30,7 +30,9 @@ Imports:
     progress,
     lifecycle,
     purrr,
-    uuid
+    uuid,
+    dplyr,
+    dbplyr
 Suggests: 
     crayon,
     flexdashboard,
@@ -43,8 +45,7 @@ Suggests:
     spelling,
     testthat,
     webshot,
-    rprojroot,
-    dplyr
+    rprojroot
 VignetteBuilder: 
     knitr
 RdMacros: 
