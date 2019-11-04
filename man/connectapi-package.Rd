@@ -11,11 +11,11 @@ Helpful R6 class for interacting with the RStudio
     Connect Server API and some example utility functions.
 }
 \author{
-\strong{Maintainer}: Sean Lopp \email{sean@rstudio.com}
+\strong{Maintainer}: Cole Arendt \email{cole@rstudio.com}
 
 Authors:
 \itemize{
-  \item Cole Arendt \email{cole@rstudio.com}
+  \item Sean Lopp \email{sean@rstudio.com}
 }
 
 Other contributors:
