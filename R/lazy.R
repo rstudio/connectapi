@@ -1,13 +1,22 @@
 # TODO
 # - next stop: vanity URLs?
-# - make the op execution more "legit"
 # - figure out filtering... and such...? 
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
-# - some type of quoting here...?
 # - need to make pagination actually work...
 # - filters based on content_guid, started, ended, etc.
 # - nrow should be super fast if we know how many total records there are...
+# - show example usage...
+#' Connect Tibble
+#' 
+#' A lazy tibble that automatically pages through API requests when `collect`ed.
+#' 
+#' @param src The source object
+#' @param from The type of tibble
+#' @param ... Additional arguments that are not yet implemented
+#' 
+#' @return A `tbl_connect` object
+#' 
 #' @export
 tbl_connect <- function(src, from = c("users", "content", "shiny_usage", "content_visits"), ...) {
   validate_R6_class("Connect", src)
@@ -209,11 +218,13 @@ op_vars.op_single <- function(op) op_vars(op$x)
 #' @export
 op_vars.tbl_lazy <- function(op) op_vars(op$ops)
 
+# important for `nrow`/`ncol` to work
 #' @export
 dim.tbl_lazy <- function(x) {
   c(NA, length(op_vars(x$ops)))
 }
 
+# important for `colnames` to work
 #' @export
 dimnames.tbl_lazy <- function (x) 
 {
