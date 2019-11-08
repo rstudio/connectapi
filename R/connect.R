@@ -453,6 +453,8 @@ connect <- function(
 ) {
   con <- Connect$new(host = host, api_key = api_key)
   
+  check_connect_license(con$host)
+  
   # check Connect is accessible
   srv <- tryCatch({
     con$server_settings()
