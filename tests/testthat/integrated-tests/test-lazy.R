@@ -18,7 +18,6 @@ test_that("error on bad 'src' object", {
 })
 
 test_that("error on bad 'from' value", {
-  skip("expect_error is not picking up the failure")
   expect_error(
     tbl_connect(test_conn_1, "bad_from")
   )
@@ -30,6 +29,10 @@ test_that("users works", {
   
   users_local <- users %>% dplyr::collect()
   expect_is(users_local, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(users)))
+  expect_is(colnames(users), "character")
+  expect_gt(length(colnames(users)), 1)
 })
 
 test_that("content_visits works", {
@@ -38,6 +41,10 @@ test_that("content_visits works", {
   
   content_visits_local <- content_visits %>% dplyr::collect()
   expect_is(content_visits, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(content_visits)))
+  expect_is(colnames(content_visits), "character")
+  expect_gt(length(colnames(content_visits)), 1)
 })
 
 test_that("shiny_usage works", {
@@ -46,12 +53,21 @@ test_that("shiny_usage works", {
   
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
   expect_is(shiny_usage, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(shiny_usage)))
+  expect_is(colnames(shiny_usage), "character")
+  expect_gt(length(colnames(shiny_usage)), 1)
 })
 
 test_that("content works", {
+  scoped_experimental_silence()
   content_list <- tbl_connect(test_conn_1, "content")
   expect_is(content_list, c("tbl_connect", "tbl_lazy", "tbl"))
   
   content_list_local <- content_list %>% dplyr::collect()
   expect_is(content_list_local, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(content_list)))
+  expect_is(colnames(content_list), "character")
+  expect_gt(length(colnames(content_list)), 1)
 })
