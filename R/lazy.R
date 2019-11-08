@@ -9,6 +9,7 @@
 # - show example usage...
 #' Connect Tibble
 #' 
+#' \lifecycle{experimental}
 #' A lazy tibble that automatically pages through API requests when `collect`ed.
 #' 
 #' @param src The source object
