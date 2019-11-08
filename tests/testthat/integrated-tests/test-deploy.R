@@ -105,12 +105,18 @@ test_that("has_image works with an image", {
 
 test_that("delete_image works", {
   scoped_experimental_silence()
+  # from above
+  img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
   
   tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
   # retains the image at the path
   expect_false(fs::file_exists(tmp_img))
   expect_true(validate_R6_class("Content", delete_image(cont1_content, tmp_img)))
   expect_true(fs::file_exists(tmp_img))
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
   expect_false(has_image(cont1_content))
   
   # works again - i.e. if no image available
