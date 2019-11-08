@@ -61,7 +61,7 @@ validate_R6_class <- function(class, instance) {
 }
 
 # TODO: A nicer way to execute these system commands...
-# - debug output... etc...
+# - debug output... better error handling... etc.
 
 # set up test servers...
 find_compose <- function() {
@@ -87,6 +87,9 @@ clean_test_env <- function() {
 }
 
 build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
+  
+  stopifnot(nchar(connect_license) > 0)
+  
   # find compose
   # this is b/c specifying an env requires an absolute path
   compose_path <- find_compose()
@@ -127,7 +130,7 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   p2 <- substr(c2, regexpr("0\\.0\\.0\\.0:", c2)+8, regexpr("->3939", c2)-1)
   cat_line(glue::glue("docker: got ports {p1} and {p2}"))
   
-  # silly sleep
+  # TODO: make this silly sleep more savvy
   cat_line("connect: sleeping - waiting for connect to start")
   Sys.sleep(10)
   
@@ -140,8 +143,8 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
     glue::glue("http://localhost:{p2}"),
     "admin", "admin0", "admin@example.com"
     )
-  cat_line("connect: writing values to .Renviron")
   
+  cat_line("connect: writing values to .Renviron")
   curr_environ <- tryCatch(readLines(".Renviron"), error = function(e){print(e); return(character())})
   
   curr_environ <- curr_environ[!grepl('^TEST_SERVER_1=', curr_environ)]
@@ -161,6 +164,12 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   writeLines(output_environ, ".Renviron")
   
   cat_line("connect: done")
+  
+  cat_line(); cat_line()
+  cat_line("NOTE: be sure to reload .Renviron before running tests!")
+  cat_line('  readRenviron(".Renviron")')
+  cat_line('  devtools::test()')
+  cat_line(); cat_line()
   
   return(
     list(
