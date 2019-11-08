@@ -26,7 +26,6 @@ Imports:
     R6,
     rlang,
     yaml,
-    magrittr,
     progress,
     lifecycle,
     purrr,
@@ -44,7 +43,8 @@ Suggests:
     spelling,
     testthat,
     webshot,
-    rprojroot
+    rprojroot,
+    processx
 VignetteBuilder: 
     knitr
 RdMacros: 
