@@ -266,6 +266,25 @@ get_image <- function(content, path) {
   return(fs::as_fs_path(path))
 }
 
+#' @export
+has_image <- function(content) {
+  warn_experimental("has_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$GET_RESULT(
+    glue::glue("applications/{guid}/image")
+    )
+  
+  if (httr::status_code(res) == 204) {
+    FALSE
+  } else {
+    TRUE
+  }
+}
+
 #' Set the Image from a Path
 #' 
 #' @param content A content object
