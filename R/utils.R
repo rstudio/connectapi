@@ -174,6 +174,14 @@ tested_connect_version <- function() {
   current_connect_version
 }
 
+check_connect_license <- function(url) {
+  res <- httr::GET(glue::glue("{url}/__ping__"))
+  if (res$status_code == 402) {
+    stop(glue::glue("ERROR: The Connect server's license is expired ({url})"))
+  }
+  invisible(res)
+}
+
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
   
   comp <- compareVersion(tested_version, using_version)
