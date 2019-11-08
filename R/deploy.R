@@ -257,13 +257,33 @@ get_image <- function(content, path) {
   
   con <- content$get_connect()
   
-  res <- con$GET(
+  res <- con$GET_RESULT(
     path = glue::glue("applications/{guid}/image"), 
-    writer = httr::write_disk(path, overwrite = TRUE), 
-    parser = 'raw'
+    writer = httr::write_memory()
     )
   
+  if (httr::status_code(res) == 204) {
+    return(NA)
+  } 
+  
+  writeBin(httr::content(res, as = "raw"), path)
+  
   return(fs::as_fs_path(path))
+}
+
+#' @export
+delete_image <- function(content) {
+  warn_experimental("delete_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$DELETE(
+    glue::glue("applications/{guid}/image")
+  )
+  
+  return(content)
 }
 
 #' @export
