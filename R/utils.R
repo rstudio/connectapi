@@ -60,6 +60,9 @@ validate_R6_class <- function(class, instance) {
   invisible(TRUE)
 }
 
+# TODO: A nicer way to execute these system commands...
+# - debug output... etc...
+
 # set up test servers...
 find_compose <- function() {
   wh <- processx::process$new("which", "docker-compose", stdout = "|", stderr = "|")
@@ -83,7 +86,7 @@ clean_test_env <- function() {
   invisible()
 }
 
-build_test_env <- function(clean = FALSE) {
+build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
   # find compose
   # this is b/c specifying an env requires an absolute path
   compose_path <- find_compose()
@@ -100,7 +103,10 @@ build_test_env <- function(clean = FALSE) {
     c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
     stdout = "|",
     stderr = "|",
-    env = c(CONNECT_VERSION=current_connect_version)
+    env = c(
+      CONNECT_VERSION=current_connect_version,
+      CONNECT_LICENSE=connect_license
+      )
     )
   while (compose$is_alive()) Sys.sleep(0.05)
   stopifnot(compose$get_exit_status() == 0)
@@ -121,6 +127,10 @@ build_test_env <- function(clean = FALSE) {
   p2 <- substr(c2, regexpr("0\\.0\\.0\\.0:", c2)+8, regexpr("->3939", c2)-1)
   cat_line(glue::glue("docker: got ports {p1} and {p2}"))
   
+  # silly sleep
+  cat_line("connect: sleeping - waiting for connect to start")
+  Sys.sleep(10)
+  
   cat_line("connect: creating first admin...")
   a1 <- create_first_admin(
     glue::glue("http://localhost:{p1}"),
@@ -130,6 +140,26 @@ build_test_env <- function(clean = FALSE) {
     glue::glue("http://localhost:{p2}"),
     "admin", "admin0", "admin@example.com"
     )
+  cat_line("connect: writing values to .Renviron")
+  
+  curr_environ <- tryCatch(readLines(".Renviron"), error = function(e){print(e); return(character())})
+  
+  curr_environ <- curr_environ[!grepl('^TEST_SERVER_1=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_SERVER_2=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_KEY_1=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_KEY_2=', curr_environ)]
+  output_environ <- glue::glue(
+    paste(curr_environ, collapse = "\n"), 
+    "",
+    "TEST_SERVER_1={a1$host}",
+    "TEST_KEY_1={a1$api_key}",
+    "TEST_SERVER_2={a2$host}",
+    "TEST_KEY_2={a2$api_key}",
+    .sep = "\n"
+  )
+  fs::file_move(".Renviron", ".Renviron.bak")
+  writeLines(output_environ, ".Renviron")
+  
   cat_line("connect: done")
   
   return(
