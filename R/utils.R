@@ -60,6 +60,67 @@ validate_R6_class <- function(class, instance) {
   invisible(TRUE)
 }
 
+# set up test servers...
+bootstrap_test_env <- function(clean = FALSE) {
+  # find compose
+  # this is b/c specifying an env requires an absolute path
+  wh <- processx::process$new("which", "docker-compose", stdout = "|", stderr = "|")
+  while (wh$is_alive()) Sys.sleep(0.05)
+  stopifnot(wh$get_exit_status() == 0)
+  compose_path <- wh$read_output_lines()
+  
+  # stop compose
+  if (clean) {
+    compose_down <- processx::process$new(
+      compose_path,
+      c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
+      stdout = "|",
+      stderr = "|"
+    )
+    while (compose_down$is_alive()) Sys.sleep(0.05)
+    stopifnot(compose_down$get_exit_status() == 0)
+  }
+  
+  # start compose
+  compose <- processx::process$new(
+    compose_path, 
+    c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
+    stdout = "|",
+    stderr = "|",
+    env = c(CONNECT_VERSION=current_connect_version)
+    )
+  while (compose$is_alive()) Sys.sleep(0.05)
+  stopifnot(compose$get_exit_status() == 0)
+  
+  # get docker containers
+  docker_ps <- processx::process$new("docker", "ps", stdout = "|", stderr = "|")
+  while(docker_ps$is_alive()) Sys.sleep(0.05)
+  stopifnot(docker_ps$get_exit_status() == 0)
+  docker_ps_output <- docker_ps$read_output_lines()
+  
+  c1 <- docker_ps_output[grep("connectapi_connect_1", docker_ps_output)]
+  c2 <- docker_ps_output[grep("connectapi_connect_2", docker_ps_output)]
+  
+  p1 <- substr(c1, regexpr("0\\.0\\.0\\.0:", c1)+8, regexpr("->3939", c1)-1)
+  p2 <- substr(c2, regexpr("0\\.0\\.0\\.0:", c2)+8, regexpr("->3939", c2)-1)
+  
+  a1 <- create_first_admin(
+    glue::glue("http://localhost:{p1}"),
+    "admin", "admin0", "admin@example.com"
+    )
+  a2 <- create_first_admin(
+    glue::glue("http://localhost:{p2}"),
+    "admin", "admin0", "admin@example.com"
+    )
+  
+  return(
+    list(
+      connect1 = a1,
+      connect2 = a2
+    )
+  )
+}
+
 # set up the first admin
 create_first_admin <- function(
   url, 
@@ -67,6 +128,8 @@ create_first_admin <- function(
   keyname = "first-key",
   provider = "password"
   ) {
+  check_connect_license(url)
+  
   client <- HackyConnect$new(host = url, api_key = NULL)
   
   if (provider == "password") {
