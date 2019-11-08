@@ -92,6 +92,12 @@ content %>% set_image_url("http://url.example.com/image.png")
 content %>%
   set_image_path("./my/local/image.png") %>%
   set_vanity_url("/my-awesome-app")
+
+# browse to the dashboard log pane
+browse_dashboard(content, "logs")
+
+# browse to "open solo" mode
+browse_solo(content)
   
 # edit another piece of content
 client %>%
