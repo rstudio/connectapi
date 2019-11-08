@@ -4,6 +4,7 @@
 #' utils::browseURL
 #' 
 #' @param content A R6 Content object
+#' @param connect A R6 Connect object
 #' 
 #' @return The url that is opened in the browser
 #' 
