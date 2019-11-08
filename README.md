@@ -54,7 +54,7 @@ Once a client is defined, you can use it to interact with RStudio Connect.
 
 These are experimental `lazy_tbl`s that allow you to retrieve data from the
 Connect Server API much like using `dplyr`, `dbplyr`, or `dtplyr`.  Use
-`dplyr::collect()` to retrieve data when finished.
+`collect()` to retrieve data when finished.
 
 NOTE: `filter` is not yet supported with this `tbl_connect` implementation.
 
