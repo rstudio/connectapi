@@ -54,6 +54,44 @@ vars_lookup <- list(
     "rendering_id",
     "bundle_id",
     "data_version"
+  ),
+  content = c(
+    "id",
+    "guid",
+    "access_type",
+    "connection_timeout",
+    "read_timeout",
+    "init_timeout",
+    "idle_timeout",
+    "max_processes",
+    "min_processes",
+    "max_conns_per_process",
+    "load_factor",
+    "url",
+    "vanity_url",
+    "name",
+    "title",
+    "bundle_id",
+    "app_mode",
+    "content_category",
+    "has_parameters",
+    "created_time",
+    "last_deployed_time",
+    "r_version",
+    "py_version",
+    "build_status",
+    "run_as",
+    "run_as_current_user",
+    "description",
+    "app_role",
+    "owner_first_name",
+    "owner_last_name",
+    "owner_username",
+    "owner_guid",
+    "owner_email",
+    "owner_locked",
+    "is_scheduled",
+    "git"
   )
 )
 
@@ -163,15 +201,21 @@ op_single <- function(name, x, dots = list(), args = list()) {
 }
 
 # #' @export
-# op_vars <- function(op) UseMethod("op_vars")
-# #' @export
-# op_vars.op_base <- function(op) op$vars
-# #' @export
-# op_vars.op_single <- function(op) op_vars(op$x)
-# #' @export
-# op_vars.tbl_lazy <- function(op) op_vars(op$ops)
-# 
-# #' @export
-# dim.tbl_lazy <- function(x) {
-#   c(NA, length(op_vars(x$ops)))
-# }
+op_vars <- function(op) UseMethod("op_vars")
+#' @export
+op_vars.op_base <- function(op) op$vars
+#' @export
+op_vars.op_single <- function(op) op_vars(op$x)
+#' @export
+op_vars.tbl_lazy <- function(op) op_vars(op$ops)
+
+#' @export
+dim.tbl_lazy <- function(x) {
+  c(NA, length(op_vars(x$ops)))
+}
+
+#' @export
+dimnames.tbl_lazy <- function (x) 
+{
+  list(NULL, op_vars(x$ops))
+}
