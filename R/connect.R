@@ -99,6 +99,26 @@ Connect <- R6::R6Class(
       httr::content(res, as = 'parsed')
     },
 
+    HEAD = function(path) {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::HEAD(
+        url = req,
+        self$add_auth()
+      )
+      check_debug(req, res)
+      return(res)
+    },
+    
+    DELETE = function(path) {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::DELETE(
+        url = req,
+        self$add_auth()
+      )
+      check_debug(req, res)
+      return(res)
+    },
+    
     POST = function(path, body, encode = 'json', prefix = "/__api__/") {
       req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
