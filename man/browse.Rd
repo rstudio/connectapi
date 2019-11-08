@@ -14,6 +14,8 @@ browse_api_docs(connect)
 }
 \arguments{
 \item{content}{A R6 Content object}
+
+\item{connect}{A R6 Connect object}
 }
 \value{
 The url that is opened in the browser
