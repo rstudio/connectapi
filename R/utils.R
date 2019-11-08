@@ -61,27 +61,40 @@ validate_R6_class <- function(class, instance) {
 }
 
 # set up test servers...
-bootstrap_test_env <- function(clean = FALSE) {
-  # find compose
-  # this is b/c specifying an env requires an absolute path
+find_compose <- function() {
   wh <- processx::process$new("which", "docker-compose", stdout = "|", stderr = "|")
   while (wh$is_alive()) Sys.sleep(0.05)
   stopifnot(wh$get_exit_status() == 0)
-  compose_path <- wh$read_output_lines()
+  wh$read_output_lines()
+}
+
+clean_test_env <- function() {
+  compose_path <- find_compose()
+  cat_line("compose: cleaning...")
+  compose_down <- processx::process$new(
+    compose_path,
+    c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
+    stdout = "|",
+    stderr = "|"
+  )
+  while (compose_down$is_alive()) Sys.sleep(0.05)
+  stopifnot(compose_down$get_exit_status() == 0)
+  cat_line("compose: clean!")
+  invisible()
+}
+
+build_test_env <- function(clean = FALSE) {
+  # find compose
+  # this is b/c specifying an env requires an absolute path
+  compose_path <- find_compose()
   
   # stop compose
   if (clean) {
-    compose_down <- processx::process$new(
-      compose_path,
-      c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
-      stdout = "|",
-      stderr = "|"
-    )
-    while (compose_down$is_alive()) Sys.sleep(0.05)
-    stopifnot(compose_down$get_exit_status() == 0)
+    clean_test_env()
   }
   
   # start compose
+  cat_line("compose: starting...")
   compose <- processx::process$new(
     compose_path, 
     c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
@@ -91,19 +104,24 @@ bootstrap_test_env <- function(clean = FALSE) {
     )
   while (compose$is_alive()) Sys.sleep(0.05)
   stopifnot(compose$get_exit_status() == 0)
+  cat_line("compose: started!")
   
   # get docker containers
+  cat_line("docker: getting list of containers...")
   docker_ps <- processx::process$new("docker", "ps", stdout = "|", stderr = "|")
   while(docker_ps$is_alive()) Sys.sleep(0.05)
   stopifnot(docker_ps$get_exit_status() == 0)
   docker_ps_output <- docker_ps$read_output_lines()
+  cat_line("docker: got containers")
   
   c1 <- docker_ps_output[grep("connectapi_connect_1", docker_ps_output)]
   c2 <- docker_ps_output[grep("connectapi_connect_2", docker_ps_output)]
   
   p1 <- substr(c1, regexpr("0\\.0\\.0\\.0:", c1)+8, regexpr("->3939", c1)-1)
   p2 <- substr(c2, regexpr("0\\.0\\.0\\.0:", c2)+8, regexpr("->3939", c2)-1)
+  cat_line(glue::glue("docker: got ports {p1} and {p2}"))
   
+  cat_line("connect: creating first admin...")
   a1 <- create_first_admin(
     glue::glue("http://localhost:{p1}"),
     "admin", "admin0", "admin@example.com"
@@ -112,6 +130,7 @@ bootstrap_test_env <- function(clean = FALSE) {
     glue::glue("http://localhost:{p2}"),
     "admin", "admin0", "admin@example.com"
     )
+  cat_line("connect: done")
   
   return(
     list(
