@@ -18,5 +18,6 @@ tbl_connect(src, from = c("users", "content", "shiny_usage",
 A `tbl_connect` object
 }
 \description{
+\lifecycle{experimental}
 A lazy tibble that automatically pages through API requests when `collect`ed.
 }
