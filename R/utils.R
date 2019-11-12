@@ -73,7 +73,7 @@ find_compose <- function() {
 
 clean_test_env <- function() {
   compose_path <- find_compose()
-  cat_line("compose: cleaning...")
+  cat_line("docker-compose: cleaning...")
   compose_down <- processx::process$new(
     compose_path,
     c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
@@ -82,7 +82,7 @@ clean_test_env <- function() {
   )
   while (compose_down$is_alive()) Sys.sleep(0.05)
   stopifnot(compose_down$get_exit_status() == 0)
-  cat_line("compose: clean!")
+  cat_line("docker-compose: clean!")
   invisible()
 }
 
@@ -102,7 +102,7 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   }
   
   # start compose
-  cat_line("compose: starting...")
+  cat_line("docker-compose: starting...")
   compose <- processx::process$new(
     compose_path, 
     c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
@@ -115,7 +115,7 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
     )
   while (compose$is_alive()) Sys.sleep(0.05)
   stopifnot(compose$get_exit_status() == 0)
-  cat_line("compose: started!")
+  cat_line("docker-compose: started!")
   
   # get docker containers
   cat_line("docker: getting list of containers...")
