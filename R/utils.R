@@ -87,6 +87,8 @@ clean_test_env <- function() {
 }
 
 build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
+  warn_dire("build_test_env")
+  scoped_dire_silence()
   
   stopifnot(nchar(connect_license) > 0)
   
@@ -186,6 +188,7 @@ create_first_admin <- function(
   keyname = "first-key",
   provider = "password"
   ) {
+  warn_dire("create_first_admin")
   check_connect_license(url)
   
   client <- HackyConnect$new(host = url, api_key = NULL)
@@ -230,6 +233,7 @@ HackyConnect <- R6::R6Class(
   public = list(
     xsrf = NULL,
     login = function(user, password) {
+      warn_dire("HackyConnect")
       res <- httr::POST(
         glue::glue("{self$host}/__login__"),
         body = list(username = user, password = password),
@@ -266,6 +270,24 @@ scoped_experimental_silence <- function(frame = rlang::caller_env()) {
     connectapi_disable_experimental_warnings = TRUE
     )
 }
+
+warn_dire <- function(name) {
+  if (rlang::is_true(rlang::peek_option("connectapi_disable_dire_warnings"))) {
+    return(invisible(NULL))
+  }
+  warn_once(
+    msg = glue::glue("DO NOT USE IN PRODUCTION - The {name} function is for internal testing purposes only"),
+    id = paste0(name, "-dire")
+  )
+}
+
+scoped_dire_silence <- function(frame = rlang::caller_env()) {
+  rlang::scoped_options(
+    .frame = frame,
+    connectapi_disable_dire_warnings = TRUE
+    )
+}
+
 
 warn_once <- function(msg, id = msg) {
   if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {
