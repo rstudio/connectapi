@@ -1,1 +1,56 @@
 destination: docs
+
+reference:
+  - title: "Audit"
+    desc: >
+      Functions to audit vanity URLs, R versions, etc.
+    contents: 
+      - starts_with("audit")
+
+  - title: "Deployment"
+    desc: >
+      Functions to work with deployments
+    contents: 
+      - starts_with("bundle")
+      - Bundle
+      - download_bundle
+      - deploy
+      - poll_task
+
+  - title: "Content"
+    desc: >
+      Functions to work with content
+    contents: 
+      - starts_with("content")
+      - matches("image")
+      - matches("vanity")
+
+  - title: "Other"
+    desc: >
+      Oher functions
+    contents: 
+      - promote
+      - tag_page
+      - cache_apps
+      - connect
+      
+  - title: "Package"
+    desc: >
+      Package documentation
+    contents: 
+      - connectapi-package
+
+
+      
+  - title: "R6 classes"
+    desc: >
+      Classes representing connect, users, etc.
+    contents: 
+      - Connect
+      - Bundle
+      - Task
+      - Vanity
+      - RStudioConnect
+      - Content
+      
+
