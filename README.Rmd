@@ -78,6 +78,7 @@ library(connectapi)
 client <- connect()
 
 users <- tbl_connect(client, "users")
+groups <- tbl_connect(client, "groups")
 shiny_usage <- tbl_connect(client, "shiny_usage")
 content_visits <- tbl_connect(client, "content_visits")
 all_content <- tbl_connect(client, "content")
