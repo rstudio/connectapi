@@ -244,26 +244,93 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 
 #' Get the Image
 #' 
+#' \lifecycle{experimental}
+#' `get_image` saves the content image to the given path (default: temp file).
+#' `delete_image` removes the image (optionally saving to the given path)
+#' `has_image` returns whether the content has an image
+#' 
 #' @param content A content object
-#' @param path The path to the image on disk
+#' @param path optional. The path to the image on disk
 #' 
 #' @rdname get_image
 #' @family deployment functions
 #' @export
-get_image <- function(content, path) {
+get_image <- function(content, path = NULL) {
   warn_experimental("get_image")
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
   con <- content$get_connect()
   
-  res <- con$GET(
+  res <- con$GET_RESULT(
     path = glue::glue("applications/{guid}/image"), 
-    writer = httr::write_disk(path, overwrite = TRUE), 
-    parser = 'raw'
+    writer = httr::write_memory()
     )
   
+  if (httr::status_code(res) == 204) {
+    return(NA)
+  }
+  
+  # guess file extension
+  if (is.null(path)) {
+    ct <- httr::headers(res)$`content-type`
+    if (grepl("^image/", ct)) {
+      # just strip off 'image/'
+      ext <- substr(ct, 7, nchar(ct))
+      path <- fs::file_temp(pattern = "content_image_", ext = ext)
+    } else {
+      # try png
+      warning(glue::glue("Could not infer file extension from content type: {ct}. Using '.png'"))
+      path <- fs::file_temp(pattern = "content_image_", ext = ".png")
+    }
+  }
+  
+  writeBin(httr::content(res, as = "raw"), path)
+  
   return(fs::as_fs_path(path))
+}
+
+#' @rdname get_image
+#' @family content
+#' @export
+delete_image <- function(content, path = NULL) {
+  warn_experimental("delete_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  if (!is.null(path)) {
+    scoped_experimental_silence()
+    img_path <- get_image(content, path)
+  }
+  
+  res <- con$DELETE(
+    glue::glue("applications/{guid}/image")
+  )
+  
+  return(content)
+}
+
+#' @rdname get_image
+#' @family content
+#' @export
+has_image <- function(content) {
+  warn_experimental("has_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$GET_RESULT(
+    glue::glue("applications/{guid}/image")
+    )
+  
+  if (httr::status_code(res) == 204) {
+    FALSE
+  } else {
+    TRUE
+  }
 }
 
 #' Set the Image from a Path

@@ -79,6 +79,64 @@ test_that("get_image works", {
     readBin(img_path, "raw"),
     readBin(tmp_img, "raw")
   )
+  
+  # works again (i.e. does not append data)
+  get_image(cont1_content, tmp_img)
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+  
+  # works with no path
+  auto_path <- get_image(cont1_content)
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(auto_path, "raw")
+  )
+  expect_identical(fs::path_ext(auto_path), "png")
+  
+})
+
+test_that("has_image works with an image", {
+  scoped_experimental_silence()
+  
+  expect_true(has_image(cont1_content))
+})
+
+test_that("delete_image works", {
+  scoped_experimental_silence()
+  # from above
+  img_path <- rprojroot::find_testthat_root_file("examples/logo.png")
+  
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  # retains the image at the path
+  expect_false(fs::file_exists(tmp_img))
+  expect_true(validate_R6_class("Content", delete_image(cont1_content, tmp_img)))
+  expect_true(fs::file_exists(tmp_img))
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+  expect_false(has_image(cont1_content))
+  
+  # works again - i.e. if no image available
+  expect_true(validate_R6_class("Content", delete_image(cont1_content)))
+})
+
+test_that("has_image works with no image", {
+  scoped_experimental_silence()
+  
+  expect_false(has_image(cont1_content))
+})
+
+test_that("get_image returns NA if no image", {
+  scoped_experimental_silence()
+  
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  response <- get_image(cont1_content, tmp_img)
+  
+  expect_false(identical(tmp_img, response))
+  expect_true(is.na(response))
 })
 
 test_that("set_image_url works", {
