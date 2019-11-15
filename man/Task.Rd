@@ -12,8 +12,8 @@ Task
 An R6 class that represents a Task
 }
 \seealso{
-Other deployR6: \code{\link{Bundle}},
+Other deployR6 functions: \code{\link{Bundle}},
   \code{\link{Content}}, \code{\link{Vanity}}
 }
-\concept{deployR6}
+\concept{deployR6 functions}
 \keyword{datasets}
