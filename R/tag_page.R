@@ -91,11 +91,11 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
 #' 
 #' @references
 #' \itemize{
-#'   \item{\url{https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent}}
-#'   \item{\url{https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/}}
-#'   \item{\url{https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin}}
-#'   \item{\url{https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain}}
-#'   \item{\url{https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request}}
+#'   \item{<https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent>}
+#'   \item{<https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/>}
+#'   \item{<https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin>}
+#'   \item{<https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain>}
+#'   \item{<https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request>}
 #' }
 #' 
 #' @param connect A Connect object

@@ -11,7 +11,7 @@ audit_r_versions(apps)
 }
 \value{
 A plot that shows the R version used by content over time and in
-  aggregate.
+aggregate.
 }
 \description{
 Audit R Versions

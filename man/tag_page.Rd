@@ -16,12 +16,12 @@ unique}
 page}
 
 \item{screenshot}{optional. default: FALSE. Whether to take screenshots
-automatically. Currently requires a custom build of the `webshot` package}
+automatically. Currently requires a custom build of the \code{webshot} package}
 }
 \value{
 A list with LANDING_PAGE which is the path to the html file and APPS
-  which is a list containing information on the apps and screenshots, useful
-  if you'd rather use your own template
+which is a list containing information on the apps and screenshots, useful
+if you'd rather use your own template
 }
 \description{
 \lifecycle{experimental} Note that in order to show a content item in a page,

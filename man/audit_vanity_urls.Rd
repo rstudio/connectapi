@@ -18,6 +18,6 @@ Audit Vanity URLs
 }
 \details{
 If \code{vanity} is not provided, returns a list of all the vanity
-  urls in use. If \code{vanity} is provided, returns whether or not
-  \code{vanity} is eligible as a vanity url.
+urls in use. If \code{vanity} is provided, returns whether or not
+\code{vanity} is eligible as a vanity url.
 }

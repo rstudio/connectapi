@@ -21,10 +21,10 @@ only load resources when accessed (for performance)
 }
 \details{
 Unfortunately, iframes do not pass cookies as cleanly as I would like... I am having
-trouble even getting this to work in the "same-origin" setup that _should_
+trouble even getting this to work in the "same-origin" setup that \emph{should}
 work (it is failing if the iframe uses a different origin from the parent)
 
-See the examples for how to define a `metadata` object. It should be a list
+See the examples for how to define a \code{metadata} object. It should be a list
 of lists (i.e. a list of objects). Each "object" should have a "guid"
 attribute, which will be used to update the application data.
 }
@@ -37,11 +37,11 @@ app_metadata <- list(
 }
 \references{
 \itemize{
-  \item{\url{https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent}}
-  \item{\url{https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/}}
-  \item{\url{https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin}}
-  \item{\url{https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain}}
-  \item{\url{https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request}}
+\item{\url{https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent}}
+\item{\url{https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/}}
+\item{\url{https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin}}
+\item{\url{https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain}}
+\item{\url{https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request}}
 }
 }
 \keyword{internal}

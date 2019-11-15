@@ -11,7 +11,7 @@ audit_runas(apps)
 }
 \value{
 A data frame with the app name and the Run As user if the Run As user
-  is not the default
+is not the default
 }
 \description{
 Audit Run As Settings
