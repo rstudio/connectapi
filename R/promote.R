@@ -2,19 +2,24 @@
 #'
 #' @param from The url for the server containing the content (the originating
 #'   server)
+#'   
 #' @param to   The url for the server where the content will be deployed (the
 #'   destination server)
+#'   
 #' @param to_key An API key on the destination "to" server. If the destination
 #'   content is going to be updated, the API key must belong to a user with
 #'   collaborator access on the content that will be updated. If the destination
 #'   content is to be created new, the API key must belong to a user with
 #'   publisher privileges.
+#'   
 #' @param from_key An API key on the originating "from" server. The API key must
 #'   belong to a user with collaborator access to the content to be promoted.
+#'   
 #' @param name The name of the content on the originating "from" server.
 #'   If content with the same name is found on the destination server,
 #'   the content will be updated. If no content on the destination server
 #'   has a matching name, a new endpoint will be created.
+#'   
 #' @return The URL for the content on the destination "to" server
 #' @export
 promote <- function(from,
