@@ -372,8 +372,11 @@ Connect <- R6::R6Class(
     groups_create = function(
       name
     ) {
-      path <- sprintf('v1/users')
-      self$POST(name = name)
+      path <- sprintf('v1/groups')
+      self$POST(
+        path = path,
+        body = list(name = name)
+        )
     },
     
     # instrumentation --------------------------------------------
