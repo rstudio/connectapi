@@ -34,6 +34,8 @@ Connect <- R6::R6Class(
       self$api_key = api_key
     },
     
+    # helpers ----------------------------------------------------------
+    
     print = function(...) {
       cat("RStudio Connect API Client: \n")
       cat("  RStudio Connect Server: ", self$host, "\n", sep = "")
@@ -53,14 +55,30 @@ Connect <- R6::R6Class(
         stop(err)
       }
     },
+    
+    add_auth = function() {
+      httr::add_headers(Authorization = paste0('Key ', self$api_key))
+    },
 
     GET = function(path, writer = httr::write_memory(), parser = 'parsed') {
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::GET(req,
-               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+               self$add_auth(),
                writer)
       self$raise_error(res)
       check_debug(req, res)
+      httr::content(res, as = parser)
+    },
+    
+    GET_URL = function(url, writer = httr::write_memory(), parser = 'parsed') {
+      req <- url
+      res <- httr::GET(
+        url,
+        self$add_auth(),
+        writer
+      )
+      check_debug(req, res)
+      self$raise_error(res)
       httr::content(res, as = parser)
     },
     
@@ -68,7 +86,7 @@ Connect <- R6::R6Class(
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::PUT(
         req,
-        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        self$add_auth(),
         body = body,
         encode = encode
       )
@@ -77,16 +95,22 @@ Connect <- R6::R6Class(
       httr::content(res, as = 'parsed')
     },
 
-    POST = function(path, body, encode = 'json') {
-      req <- paste0(self$host, '/__api__/', path)
+    POST = function(path, body, encode = 'json', prefix = "/__api__/") {
+      req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
-              httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+              self$add_auth(),
               body = body,
               encode = encode)
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = 'parsed')
     },
+    
+    me = function() {
+      self$GET("me")
+    },
+    
+    # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
       if (is.null(self$tags) || !use_cache) {
@@ -129,15 +153,16 @@ Connect <- R6::R6Class(
         )
     },
 
+    # content listing ----------------------------------------------------------
     get_n_apps = function() {
       path <- 'applications'
       apps <- self$GET(path)
       apps$total
     },
-
+    
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
-    get_apps = function(filter = NULL, .collapse = "&") {
+    get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
       if (!is.null(filter)) {
         query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = .collapse)
         path <- paste0('applications?filter=',query)
@@ -147,17 +172,32 @@ Connect <- R6::R6Class(
         sep <- '?'
       }
 
+      prg <- progress::progress_bar$new(
+        format = "downloading page :current (:tick_rate/sec) :elapsedfull",
+        total = NA,
+        clear = FALSE
+      )
 
       # handle paging
-      res <- self$GET(path)
+      prg$tick()
+      res <- self$GET(
+        sprintf(
+          '%s%scount=%d',
+          path, sep, page_size
+          )
+      )
       all <- res$applications
-      start <- 26
-      while (length(res$applications) > 0) {
-        res <- self$GET(sprintf('%s%sstart=%d&cont=%s',path, sep, start, res$continuation))
-        for (a in res$applications) {
-          all[[length(all) + 1]] <- a
-        }
-        start <- start + 25
+      start <- page_size + 1
+      while (length(res$applications) > 0 && length(all) < .limit) {
+        prg$tick()
+        res <- self$GET(
+          sprintf(
+            '%s%scount=%d&start=%d&cont=%s',
+            path, sep, page_size, start, res$continuation
+            )
+          )
+        all <- c(all, res$applications)
+        start <- start + page_size
       }
       all
     },
@@ -223,8 +263,12 @@ Connect <- R6::R6Class(
     
     # users -----------------------------------------------
     
-    users = function(page_number = 1, prefix = NULL){
-      path <- sprintf('v1/users?page_number=%d', page_number)
+    users = function(page_number = 1, prefix = NULL, page_size=20){
+      if (page_size > 500) {
+        # reset page_size to avoid error
+        page_size <- 500
+      }
+      path <- sprintf('v1/users?page_number=%d&page_size=%d', page_number, page_size)
       if (!is.null(prefix)) {
         path <- paste0(path, "&prefix=", prefix)
       }
@@ -238,11 +282,11 @@ Connect <- R6::R6Class(
     
     users_create = function(
       username,
-      email, 
-      first_name = NULL, 
+      email,
+      first_name = NULL,
       last_name = NULL,
-      password = NULL, 
-      user_must_set_password = NULL, 
+      password = NULL,
+      user_must_set_password = NULL,
       user_role = NULL
       ) {
       path <- sprintf('v1/users')
@@ -294,13 +338,16 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
       ) {
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/content/visits?",
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
@@ -324,14 +371,16 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
     ) {
-      
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/shiny/usage?",
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
@@ -347,9 +396,11 @@ Connect <- R6::R6Class(
     
     # misc utilities --------------------------------------------
     
-    docs = function(docs = "api") {
+    docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
-      utils::browseURL(paste0(self$host, '/__docs__/', docs))
+      url <- paste0(self$host, '/__docs__/', docs)
+      if (browse) utils::browseURL(url)
+      return(url)
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
@@ -401,6 +452,8 @@ connect <- function(
   api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
 ) {
   con <- Connect$new(host = host, api_key = api_key)
+  
+  check_connect_license(con$host)
   
   # check Connect is accessible
   srv <- tryCatch({

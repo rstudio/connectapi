@@ -4,7 +4,8 @@
 
 utils::globalVariables(
   c(
-    "r_version"
+    "r_version",
+    "."
   )
 )
 

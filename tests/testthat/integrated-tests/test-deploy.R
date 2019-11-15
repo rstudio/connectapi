@@ -28,6 +28,9 @@ test_that("bundle_dir deploys", {
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
   
+  expect_true(validate_R6_class("Task", tsk))
+  expect_gt(nchar(tsk$get_task()$task_id), 0)
+  
   # with a guid
   tsk2 <- deploy(connect = test_conn_1, bundle = bund, guid = cont1_guid)
   expect_true(validate_R6_class("Content", tsk2))

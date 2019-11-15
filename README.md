@@ -9,9 +9,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
 <!-- badges: end -->
 
-# connectapi - **WIP**
+# connectapi
 
-This package is an **experimental WIP**. The package is provides an R
+This package is an **experimental WIP**. The package provides an R
 client for the [RStudio Connect
 API](https://docs.rstudio.com/connect/api/) as well as helpful functions
 that utilize the client. The package is based on the `rsconnnect`
@@ -56,8 +56,36 @@ client <- connect()
 
 ## Getting Started
 
-Once a `client` is defined, you can use it to interact with RStudio
-Connect. For instance:
+Once a client is defined, you can use it to interact with RStudio
+Connect.
+
+### Exploring Data
+
+These are experimental `lazy_tbl`s that allow you to retrieve data from
+the Connect Server API much like using `dplyr`, `dbplyr`, or `dtplyr`.
+Use `collect()` to retrieve data when finished.
+
+NOTE: `filter` is not yet supported with this `tbl_connect`
+implementation.
+
+``` r
+library(connectapi)
+client <- connect()
+
+users <- tbl_connect(client, "users")
+shiny_usage <- tbl_connect(client, "shiny_usage")
+content_visits <- tbl_connect(client, "content_visits")
+all_content <- tbl_connect(client, "content")
+
+all_shiny_usage <- shiny_usage %>% dplyr::collect()
+```
+
+### Deployment
+
+The `rsconnect` package is usually used for deploying content to
+Connect. However, if you want to use programmatic deployment with the
+RStudio Connect Server API, then these `connectapi` helpers should be
+useful\!
 
 ``` r
 library(connectapi)

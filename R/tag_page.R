@@ -12,6 +12,7 @@
 #'   page
 #' @param screenshot optional. default: FALSE. Whether to take screenshots
 #'   automatically. Currently requires a custom build of the `webshot` package
+#' @param quiet Whether to suppress rmarkdown logging
 #'
 #' @return A list with LANDING_PAGE which is the path to the html file and APPS
 #'   which is a list containing information on the apps and screenshots, useful
@@ -21,7 +22,8 @@
 tag_page <- function(connect,
                      tag,
                      description = NULL,
-                     screenshot = FALSE
+                     screenshot = FALSE,
+                     quiet = FALSE
                      ) {
 
   warn_experimental("tag_page")
@@ -47,7 +49,8 @@ tag_page <- function(connect,
   out_dir <- getwd()
   rmarkdown::render(template,
     output_dir = out_dir,
-    output_file = out_file
+    output_file = out_file,
+    quiet = quiet
   )
 
   list(
@@ -101,6 +104,7 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
 #' @param connect A Connect object
 #' @param tag A tag to search for. NOTE: tag names are not necessarily unique
 #' @param metadata A metadata object to be used for enriching application data
+#' @param quiet Whether to suppress rmarkdown logging
 #' 
 #' @examples 
 #' app_metadata <- list(
@@ -109,7 +113,7 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
 #' )
 #' 
 #' @keywords internal
-tag_page_iframe <- function(connect, tag, metadata = NULL) {
+tag_page_iframe <- function(connect, tag, metadata = NULL, quiet = FALSE) {
   warn_experimental("tag_page_iframe")
 
   apps <- get_apps_by_tag(connect = connect, tag = tag)
@@ -129,7 +133,8 @@ tag_page_iframe <- function(connect, tag, metadata = NULL) {
   rmarkdown::render(template,
     output_dir = out_dir,
     output_file = out_file,
-    envir = tmp_environment
+    envir = tmp_environment,
+    quiet = quiet
   )
  
   list(

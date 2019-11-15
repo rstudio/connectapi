@@ -45,16 +45,17 @@ Content <- R6::R6Class(
     },
     get_connect = function(){self$connect},
     get_content = function(){self$content},
-    get_dashboard_url = function(){
+    get_dashboard_url = function(pane = ""){
       glue::glue(
         self$connect$host,
         "connect",
         "#",
         "apps",
         self$content$guid,
-        "logs",
+        pane,
         .sep = "/"
-      )},
+      )
+    },
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
@@ -92,7 +93,7 @@ Task <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Task ID: ", self$get_task()$id, "\n", sep = "")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
     }
@@ -345,6 +346,7 @@ set_vanity_url <- function(content, url) {
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
+  scoped_experimental_silence()
   # TODO: Check that the URL provided is appropriate
   
   current_vanity <- get_vanity_url(content)
@@ -408,6 +410,72 @@ get_vanity_url <- function(content) {
     van$app_guid <- guid
     Vanity$new(connect = con, content = content$get_content(), vanity = van)
   }
+}
+
+#' Swap the Vanity URL
+#' 
+#' \lifecycle{experimental}
+#' Swaps the Vanity URLs between two pieces of content
+#' 
+#' @param from_content A Content object
+#' @param to_content A Content object
+#' 
+#' @family content
+#' @export
+swap_vanity_url <- function(from_content, to_content) {
+  warn_experimental("swap_vanity_url")
+  scoped_experimental_silence()
+  # TODO: Add prompt if in an interactive session
+  # TODO: Add pretty print output of what is happening
+  # TODO: Test error cases super thoroughly!!
+  # TODO: Do a "dry run" of sorts...? Check privileges... etc...
+  # TODO: Do the changes within a TryCatch so we can undo...?
+  # TODO: Need a way to "unset" a vanity URL
+  
+  from_vanity <- get_vanity_url(from_content)
+  to_vanity <- get_vanity_url(to_content)
+  
+  if (!inherits(from_vanity, "Vanity") && !inherits(to_vanity, "Vanity")) {
+    warning("Neither content has a Vanity URL. Exiting")
+  } else {
+    # swapping vanity URLs
+    tmp_vanity <- paste0("vanity-url-swap-", random_name(length = 50))
+    
+    if (inherits(from_vanity, "Vanity")) {
+      from_vanity_url <- from_vanity$get_vanity()$path_prefix
+    } else {
+      from_vanity_url <- NA
+    }
+    
+    if (inherits(to_vanity, "Vanity")) {
+      to_vanity_url <- to_vanity$get_vanity()$path_prefix
+    } else {
+      to_vanity_url <- NA
+    }
+    
+    if (!is.na(from_vanity_url)) {
+      set_vanity_url(from_vanity, tmp_vanity)
+    } else {
+      set_vanity_url(to_vanity, tmp_vanity)
+    }
+    
+    if (!is.na(from_vanity_url)) {
+      set_vanity_url(to_vanity, from_vanity_url)
+    }
+    if (!is.na(to_vanity_url)) {
+      set_vanity_url(from_vanity, to_vanity_url)
+    }
+    
+    from_vanity <- get_vanity_url(from_content)
+    to_vanity <- get_vanity_url(to_content)
+  }
+  
+  return(
+    list(
+      from = from_vanity,
+      to = to_vanity
+    )
+  )
 }
 
 #' Poll Task

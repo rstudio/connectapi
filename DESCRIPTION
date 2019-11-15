@@ -6,11 +6,11 @@ Version: 0.1.0.9001
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
-             role = c("aut", "cre"),
+             role = c("aut"),
              email = "sean@rstudio.com"),
       person(given = "Cole",
              family = "Arendt",
-             role = "aut",
+             role = c("aut", "cre"),
              email = "cole@rstudio.com"),
       person(given = "RStudio",
              role = c("cph", "fnd")))
@@ -27,8 +27,11 @@ Imports:
     R6,
     rlang,
     yaml,
+    progress,
     lifecycle,
-    purrr
+    purrr,
+    uuid,
+    dplyr
 Suggests: 
     crayon,
     flexdashboard,
@@ -38,10 +41,11 @@ Suggests:
     knitr,
     lubridate,
     rmarkdown,
-    rprojroot,
     spelling,
     testthat,
-    webshot
+    webshot,
+    rprojroot,
+    processx
 VignetteBuilder: 
     knitr
 RdMacros: 

@@ -90,19 +90,22 @@ test_that("tag_page works", {
   scoped_experimental_silence()
   res <- tag_page(
     test_conn_1,
-    tag = child_tag_name
+    tag = child_tag_name,
+    quiet = TRUE
   )
   
   expect_true(fs::file_exists(res$LANDING_PAGE))
   expect_true(length(res$APPS) > 0)
   unlink(res$LANDING_PAGE)
+  fs::dir_delete(paste0(fs::path_ext_remove(res$LANDING_PAGE), "-screenshots"))
 })
 
 test_that("tag_page_iframe works", {
   scoped_experimental_silence()
     res <- tag_page_iframe(
     test_conn_1,
-    tag = child_tag_name
+    tag = child_tag_name,
+    quiet = TRUE
   )
   
   expect_true(fs::file_exists(res$LANDING_PAGE))

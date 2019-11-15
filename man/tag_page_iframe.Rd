@@ -4,7 +4,7 @@
 \alias{tag_page_iframe}
 \title{Tag Page iframe}
 \usage{
-tag_page_iframe(connect, tag, metadata = NULL)
+tag_page_iframe(connect, tag, metadata = NULL, quiet = FALSE)
 }
 \arguments{
 \item{connect}{A Connect object}
@@ -12,6 +12,8 @@ tag_page_iframe(connect, tag, metadata = NULL)
 \item{tag}{A tag to search for. NOTE: tag names are not necessarily unique}
 
 \item{metadata}{A metadata object to be used for enriching application data}
+
+\item{quiet}{Whether to suppress rmarkdown logging}
 }
 \description{
 \lifecycle{experimental}
