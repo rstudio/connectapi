@@ -4,7 +4,7 @@
 \alias{tbl_connect}
 \title{Connect Tibble}
 \usage{
-tbl_connect(src, from = c("users", "content", "shiny_usage",
+tbl_connect(src, from = c("users", "groups", "content", "shiny_usage",
   "content_visits"), ...)
 }
 \arguments{
