@@ -342,12 +342,41 @@ Connect <- R6::R6Class(
       )
     },
     
-    users_update = function(user_guid, email, ...) {
+    users_update = function(user_guid, ...) {
       path <- sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
-        body = c(list(email = email), rlang::dots_list(...))
+        body = rlang::list2(...)
       )
+    },
+    
+    # groups -----------------------------------------------------
+    
+    groups = function(page_number = 1, prefix = NULL, page_size=20) {
+      if (page_size > 500) {
+        # reset page_size to avoid error
+        page_size <- 500
+      }
+      path <- sprintf('v1/groups?page_number=%d&page_size=%d', page_number, page_size)
+      if (!is.null(prefix)) {
+        path <- paste0(path, "&prefix=", prefix)
+      }
+      self$GET(path)
+    },
+    
+    group_members = function(guid) {
+      path <- glue::glue("v1/groups/{guid}/members")
+      self$GET(path)
+    },
+    
+    groups_create = function(
+      name
+    ) {
+      path <- sprintf('v1/groups')
+      self$POST(
+        path = path,
+        body = list(name = name)
+        )
     },
     
     # instrumentation --------------------------------------------
