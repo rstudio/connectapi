@@ -19,10 +19,10 @@
 #' @return A `tbl_connect` object
 #' 
 #' @export
-tbl_connect <- function(src, from = c("users", "content", "shiny_usage", "content_visits"), ...) {
+tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits"), ...) {
   validate_R6_class("Connect", src)
   
-  if (!from %in% c("users", "content", "shiny_usage", "content_visits"))
+  if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits"))
     stop(glue::glue("ERROR: invalid table name: {from}"))
   
   # TODO: go get the vars we should expect...
@@ -48,6 +48,11 @@ vars_lookup <- list(
     "confirmed",
     "locked",
     "guid"
+  ),
+  groups = c(
+    "guid",
+    "name",
+    "owner_guid"
   ),
   shiny_usage = c(
     "content_guid",
@@ -127,6 +132,11 @@ api_build.op_base_connect <- function(op, con, ..., n) {
     res <- con$users(page_size = n) %>% .$results
     if (length(res) >= 400) {
       warning("The 'users' tbl_connect does not page and will return max 500 users")
+    }
+  } else if (op$x == "groups") {
+    res <- con$groups(page_size = n) %>% .$results
+    if (length(res) >= 400) {
+      warning("The 'groups' tbl_connect does not page and will return max 500 users")
     }
   } else if (op$x == "content") {
     warn_experimental("tbl_connect 'content'")
