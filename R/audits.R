@@ -13,6 +13,7 @@ get_field <- function(apps, field, include_null = FALSE) {
 #' @param connect A Connect object
 #'
 #' @return List with application data, to be used by audit functions
+#' @family audit functions
 #' @export
 cache_apps <- function(connect){
   apps <- connect$get_apps()
@@ -21,7 +22,7 @@ cache_apps <- function(connect){
 
 #' Audit Vanity URLs
 #'
-#' @param apps App list, see `cache_apps`
+#' @param apps App list, see [cache_apps()]
 #' @param server_url Base url for the Connect server
 #' @param vanity Optional, see details
 #'
@@ -29,6 +30,7 @@ cache_apps <- function(connect){
 #'   urls in use. If `vanity` is provided, returns whether or not
 #'   `vanity` is eligible as a vanity url.
 #'
+#' @family audit functions
 #' @export
 audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
@@ -55,6 +57,7 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 #'
 #' @return A plot that shows the R version used by content over time and in
 #'   aggregate.
+#' @family audit functions
 #' @export
 audit_r_versions <- function(apps) {
    r_versions <- get_field(apps, 'r_version', TRUE)
@@ -102,6 +105,7 @@ audit_r_versions <- function(apps) {
 #'
 #' @return A data frame with the app name and the Run As user if the Run As user
 #'   is not the default
+#' @family audit functions
 #' @export
 audit_runas <- function(apps) {
   name   <- get_field(apps, 'name', TRUE)
@@ -141,6 +145,7 @@ audit_runas <- function(apps) {
 #'   whose access control is set to "Everyone". If "logged_in", return a list of
 #'   apps whose access control is set to "All logged in users"
 #'
+#' @family audit functions
 #' @export
 audit_access_open <- function(apps, type = 'all') {
   access <- get_field(apps, 'access_type', TRUE)
