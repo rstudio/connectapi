@@ -369,6 +369,13 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    groups_create = function(
+      name
+    ) {
+      path <- sprintf('v1/users')
+      self$POST(name = name)
+    },
+    
     # instrumentation --------------------------------------------
     
     inst_content_visits = function(
