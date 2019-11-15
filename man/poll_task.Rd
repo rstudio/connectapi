@@ -18,8 +18,8 @@ Task The Task object that was input
 Polls a task, waiting for information about a deployment
 }
 \seealso{
-Other deploy: \code{\link{bundle_dir}},
+Other deployment functions: \code{\link{bundle_dir}},
   \code{\link{bundle_path}}, \code{\link{deploy}},
-  \code{\link{download_bundle}}
+  \code{\link{download_bundle}}, \code{\link{get_image}}
 }
-\concept{deploy}
+\concept{deployment functions}

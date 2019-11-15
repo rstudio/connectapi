@@ -15,3 +15,10 @@ List with application data, to be used by audit functions
 \description{
 Get information on all apps for a server
 }
+\seealso{
+Other audit functions: \code{\link{audit_access_open}},
+  \code{\link{audit_r_versions}},
+  \code{\link{audit_runas}},
+  \code{\link{audit_vanity_urls}}
+}
+\concept{audit functions}

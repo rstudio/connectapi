@@ -10,6 +10,13 @@
 Helpful R6 class for interacting with the RStudio
     Connect Server API and some example utility functions.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rstudio/connectapi}
+}
+
+}
 \author{
 \strong{Maintainer}: Cole Arendt \email{cole@rstudio.com}
 

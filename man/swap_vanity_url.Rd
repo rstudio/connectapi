@@ -15,10 +15,4 @@ swap_vanity_url(from_content, to_content)
 \lifecycle{experimental}
 Swaps the Vanity URLs between two pieces of content
 }
-\seealso{
-Other content: \code{\link{content_item}},
-  \code{\link{get_image}}, \code{\link{get_vanity_url}},
-  \code{\link{set_image_path}},
-  \code{\link{set_vanity_url}}
-}
 \concept{content}

@@ -73,7 +73,7 @@ find_compose <- function() {
 
 clean_test_env <- function() {
   compose_path <- find_compose()
-  cat_line("compose: cleaning...")
+  cat_line("docker-compose: cleaning...")
   compose_down <- processx::process$new(
     compose_path,
     c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
@@ -82,11 +82,13 @@ clean_test_env <- function() {
   )
   while (compose_down$is_alive()) Sys.sleep(0.05)
   stopifnot(compose_down$get_exit_status() == 0)
-  cat_line("compose: clean!")
+  cat_line("docker-compose: clean!")
   invisible()
 }
 
 build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
+  warn_dire("build_test_env")
+  scoped_dire_silence()
   
   stopifnot(nchar(connect_license) > 0)
   
@@ -100,7 +102,7 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   }
   
   # start compose
-  cat_line("compose: starting...")
+  cat_line("docker-compose: starting...")
   compose <- processx::process$new(
     compose_path, 
     c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
@@ -113,7 +115,7 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
     )
   while (compose$is_alive()) Sys.sleep(0.05)
   stopifnot(compose$get_exit_status() == 0)
-  cat_line("compose: started!")
+  cat_line("docker-compose: started!")
   
   # get docker containers
   cat_line("docker: getting list of containers...")
@@ -186,6 +188,7 @@ create_first_admin <- function(
   keyname = "first-key",
   provider = "password"
   ) {
+  warn_dire("create_first_admin")
   check_connect_license(url)
   
   client <- HackyConnect$new(host = url, api_key = NULL)
@@ -230,6 +233,7 @@ HackyConnect <- R6::R6Class(
   public = list(
     xsrf = NULL,
     login = function(user, password) {
+      warn_dire("HackyConnect")
       res <- httr::POST(
         glue::glue("{self$host}/__login__"),
         body = list(username = user, password = password),
@@ -266,6 +270,24 @@ scoped_experimental_silence <- function(frame = rlang::caller_env()) {
     connectapi_disable_experimental_warnings = TRUE
     )
 }
+
+warn_dire <- function(name) {
+  if (rlang::is_true(rlang::peek_option("connectapi_disable_dire_warnings"))) {
+    return(invisible(NULL))
+  }
+  warn_once(
+    msg = glue::glue("DO NOT USE IN PRODUCTION - The {name} function is for internal testing purposes only"),
+    id = paste0(name, "-dire")
+  )
+}
+
+scoped_dire_silence <- function(frame = rlang::caller_env()) {
+  rlang::scoped_options(
+    .frame = frame,
+    connectapi_disable_dire_warnings = TRUE
+    )
+}
+
 
 warn_once <- function(msg, id = msg) {
   if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {

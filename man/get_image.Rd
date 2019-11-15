@@ -15,10 +15,8 @@ get_image(content, path)
 Get the Image
 }
 \seealso{
-Other content: \code{\link{content_item}},
-  \code{\link{get_vanity_url}},
-  \code{\link{set_image_path}},
-  \code{\link{set_vanity_url}},
-  \code{\link{swap_vanity_url}}
+Other deployment functions: \code{\link{bundle_dir}},
+  \code{\link{bundle_path}}, \code{\link{deploy}},
+  \code{\link{download_bundle}}, \code{\link{poll_task}}
 }
-\concept{content}
+\concept{deployment functions}

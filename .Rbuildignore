@@ -4,3 +4,7 @@
 ^\.github$
 ^renv$
 ^renv\.lock$
+^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

@@ -21,6 +21,6 @@ browse_api_docs(connect)
 The url that is opened in the browser
 }
 \description{
-Browse to different locations on Connect via 
+Browse to different locations on Connect via
 utils::browseURL
 }
