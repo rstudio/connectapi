@@ -71,3 +71,16 @@ test_that("content works", {
   expect_is(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
 })
+
+test_that("groups works", {
+  scoped_experimental_silence()
+  groups_list <- tbl_connect(test_conn_1, "groups")
+  expect_is(groups_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  
+  groups_list_local <- groups_list %>% dplyr::collect()
+  expect_is(groups_list_local, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(groups_list)))
+  expect_is(colnames(groups_list), "character")
+  expect_gt(length(colnames(groups_list)), 1)
+})
