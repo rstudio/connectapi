@@ -27,8 +27,8 @@ connect() \%>\%
 
 }
 \seealso{
-Other content: \code{\link{content_item}},
-  \code{\link{get_image}}, \code{\link{get_vanity_url}},
+Other content functions: \code{\link{content_item}},
+  \code{\link{get_vanity_url}},
   \code{\link{set_image_path}}
 }
-\concept{content}
+\concept{content functions}

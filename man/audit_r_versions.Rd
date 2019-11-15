@@ -16,3 +16,9 @@ aggregate.
 \description{
 Audit R Versions
 }
+\seealso{
+Other audit functions: \code{\link{audit_access_open}},
+  \code{\link{audit_runas}},
+  \code{\link{audit_vanity_urls}}, \code{\link{cache_apps}}
+}
+\concept{audit functions}
