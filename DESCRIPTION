@@ -17,6 +17,7 @@ Authors@R:
 Description: Helpful R6 class for interacting with the RStudio
     Connect Server API and some example utility functions.
 License: GPL-2
+URL: https://github.com/rstudio/connectapi
 Imports: 
     config,
     fs,
@@ -50,3 +51,4 @@ Remotes:
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)

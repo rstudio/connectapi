@@ -9,20 +9,21 @@ tag_page(connect, tag, description = NULL, screenshot = FALSE)
 \arguments{
 \item{connect}{A Connect object}
 
-\item{tag}{The name of the targeted tag. NOTE: tag names are not necessarily unique}
+\item{tag}{The name of the targeted tag. NOTE: tag names are not necessarily
+unique}
 
 \item{description}{A description of the tag, placed at the top of the landing
 page}
 
-\item{screenshot}{optional. default: FALSE. Whether to take screenshots automatically. Currently requires a custom build of the `webshot` package}
+\item{screenshot}{optional. default: FALSE. Whether to take screenshots
+automatically. Currently requires a custom build of the \code{webshot} package}
 }
 \value{
 A list with LANDING_PAGE which is the path to the html file and APPS
-  which is a list containing information on the apps and screenshots, useful
-  if you'd rather use your own template
+which is a list containing information on the apps and screenshots, useful
+if you'd rather use your own template
 }
 \description{
-\lifecycle{experimental}
-Note that in order to show a content item in a page, you must have "Viewer"
-priveleges to that content.
+\lifecycle{experimental} Note that in order to show a content item in a page,
+you must have "Viewer" privileges to that content.
 }

@@ -1,18 +1,22 @@
 #' Generate a landing page for a specific RStudio Connect tag
-#' 
-#' \lifecycle{experimental}
-#' Note that in order to show a content item in a page, you must have "Viewer"
-#' priveleges to that content.
+#'
+#' \lifecycle{experimental} Note that in order to show a content item in a page,
+#' you must have "Viewer" privileges to that content.
 #'
 #' @param connect A Connect object
-#' @param tag The name of the targeted tag. NOTE: tag names are not necessarily unique
+#'
+#' @param tag The name of the targeted tag. NOTE: tag names are not necessarily
+#'   unique
+#'
 #' @param description A description of the tag, placed at the top of the landing
 #'   page
-#' @param screenshot optional. default: FALSE. Whether to take screenshots automatically. Currently requires a custom build of the `webshot` package
+#' @param screenshot optional. default: FALSE. Whether to take screenshots
+#'   automatically. Currently requires a custom build of the `webshot` package
 #'
 #' @return A list with LANDING_PAGE which is the path to the html file and APPS
 #'   which is a list containing information on the apps and screenshots, useful
 #'   if you'd rather use your own template
+#'   
 #' @export
 tag_page <- function(connect,
                      tag,
@@ -87,11 +91,11 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
 #' 
 #' @references
 #' \itemize{
-#'   \item{\url{https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent}}
-#'   \item{\url{https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/}}
-#'   \item{\url{https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin}}
-#'   \item{\url{https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain}}
-#'   \item{\url{https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request}}
+#'   \item{<https://security.stackexchange.com/questions/182518/how-to-confirm-that-an-embedded-iframe-can-read-cookies-from-parent>}
+#'   \item{<https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/>}
+#'   \item{<https://stackoverflow.com/questions/31184505/sandboxing-iframe-and-allow-same-origin>}
+#'   \item{<https://stackoverflow.com/questions/2117248/setting-cookie-in-iframe-different-domain>}
+#'   \item{<https://stackoverflow.com/questions/13432821/is-it-possible-to-add-request-headers-to-an-iframe-src-request>}
 #' }
 #' 
 #' @param connect A Connect object

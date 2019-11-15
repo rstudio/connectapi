@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -28,7 +28,7 @@ Bundle <- R6::R6Class(
 #' 
 #' An R6 class that represents content
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Content <- R6::R6Class(
   "Content",
@@ -72,7 +72,7 @@ Content <- R6::R6Class(
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -103,7 +103,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",
@@ -140,7 +140,7 @@ Vanity <- R6::R6Class(
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   
@@ -164,7 +164,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 bundle_path <- function(path) {
   # need a check on filetype
@@ -183,7 +183,7 @@ bundle_path <- function(path) {
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   validate_R6_class("Content", content)
@@ -219,7 +219,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' 
 #' @return Task A task object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
   validate_R6_class("Bundle", bundle)
@@ -247,7 +247,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @param path The path to the image on disk
 #' 
 #' @rdname get_image
-#' @family content
+#' @family deployment functions
 #' @export
 get_image <- function(content, path) {
   warn_experimental("get_image")
@@ -273,7 +273,7 @@ get_image <- function(content, path) {
 #' @param ... Additional arguments passed on to methods
 #' 
 #' @rdname set_image
-#' @family content
+#' @family content functions
 #' @export
 set_image_path <- function(content, path) {
   warn_experimental("set_image_path")
@@ -338,7 +338,7 @@ set_image_webshot <- function(content, ...) {
 #'   set_vanity_url("a/vanity/url")
 #' }
 #' 
-#' @family content
+#' @family content functions
 #' @export
 set_vanity_url <- function(content, url) {
   warn_experimental("set_vanity_url")
@@ -389,7 +389,7 @@ set_vanity_url <- function(content, url) {
 #' 
 #' @param content A Content object
 #' 
-#' @family content
+#' @family content functions
 #' @export
 get_vanity_url <- function(content) {
   warn_experimental("get_vanity_url")
@@ -419,7 +419,7 @@ get_vanity_url <- function(content) {
 #' 
 #' @return Task The Task object that was input
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1) {
   validate_R6_class("Task", task)
@@ -453,7 +453,7 @@ poll_task <- function(task, wait = 1) {
 #' 
 #' @return A Content object for use with other content endpoints
 #' 
-#' @family content
+#' @family content functions
 #' @export
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist

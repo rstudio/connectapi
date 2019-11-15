@@ -16,8 +16,8 @@ Bundle A bundle object
 Define a bundle from a path (a tar.gz file)
 }
 \seealso{
-Other deploy: \code{\link{bundle_dir}},
+Other deployment functions: \code{\link{bundle_dir}},
   \code{\link{deploy}}, \code{\link{download_bundle}},
-  \code{\link{poll_task}}
+  \code{\link{get_image}}, \code{\link{poll_task}}
 }
-\concept{deploy}
+\concept{deployment functions}

@@ -13,8 +13,8 @@ get_vanity_url(content)
 Gets the Vanity URL for a piece of content.
 }
 \seealso{
-Other content: \code{\link{content_item}},
-  \code{\link{get_image}}, \code{\link{set_image_path}},
+Other content functions: \code{\link{content_item}},
+  \code{\link{set_image_path}},
   \code{\link{set_vanity_url}}
 }
-\concept{content}
+\concept{content functions}

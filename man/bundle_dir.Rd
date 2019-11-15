@@ -19,8 +19,8 @@ Bundle A bundle object
 Creates a bundle from a target directory.
 }
 \seealso{
-Other deploy: \code{\link{bundle_path}},
+Other deployment functions: \code{\link{bundle_path}},
   \code{\link{deploy}}, \code{\link{download_bundle}},
-  \code{\link{poll_task}}
+  \code{\link{get_image}}, \code{\link{poll_task}}
 }
-\concept{deploy}
+\concept{deployment functions}
