@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
+[![Travis build status](https://travis-ci.org/rstudio/connectapi.svg?branch=master)](https://travis-ci.org/rstudio/connectapi)
 <!-- badges: end -->
 
 # connectapi
