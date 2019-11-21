@@ -1,4 +1,3 @@
-#'
 #' Class representing a Connect API client
 #'
 #' @name RStudioConnect
@@ -16,6 +15,7 @@
 #' This class allows a user to interact with a Connect server via the Connect
 #' API. Authentication is done by providing an API key.
 #'
+#' @importFrom utils capture.output
 #' @export
 Connect <- R6::R6Class(
   'Connect',
@@ -33,6 +33,18 @@ Connect <- R6::R6Class(
       self$host = base::sub("^(.*)/$", "\\1", host)
       self$api_key = api_key
     },
+    
+    # helpers ----------------------------------------------------------
+    
+    print = function(...) {
+      cat("RStudio Connect API Client: \n")
+      cat("  RStudio Connect Server: ", self$host, "\n", sep = "")
+      cat("  RStudio Connect API Key: ", paste0(strrep("*",11), substr(self$api_key, nchar(self$api_key)-3, nchar(self$api_key))), "\n", sep = "")
+      # TODO: something about API key... role... ?
+      # TODO: point to docs on methods... how to see methods?
+      cat("\n")
+      invisible(self)
+    },
 
     raise_error = function(res) {
       if (httr::http_error(res)) {
@@ -43,32 +55,42 @@ Connect <- R6::R6Class(
         stop(err)
       }
     },
+    
+    add_auth = function() {
+      httr::add_headers(Authorization = paste0('Key ', self$api_key))
+    },
 
     GET = function(path, writer = httr::write_memory(), parser = 'parsed') {
       req <- paste0(self$host, '/__api__/', path)
-      res <- httr::GET(req,
-               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
-               writer)
+      self$GET_URL(url = req, writer = writer, parser = parser)
+    },
+    
+    GET_RESULT = function(path, writer = httr::write_memory()) {
+      req <- paste0(self$host, '/__api__/', path)
+      self$GET_RESULT_URL(url = req, writer = writer)
+    },
+    
+    GET_URL = function(url, writer = httr::write_memory(), parser = 'parsed') {
+      res <- self$GET_RESULT_URL(url = url, writer = writer)
       self$raise_error(res)
-      check_debug(req, res)
       httr::content(res, as = parser)
     },
     
-    DELETE = function(path, writer = httr::write_memory(), parser = 'parsed') {
-      req <- paste0(self$host, '/__api__/', path)
-      res <- httr::DELETE(req,
-               httr::add_headers(Authorization = paste0('Key ', self$api_key)),
-               writer)
-      self$raise_error(res)
-      check_debug(req, res)
-      httr::content(res, as = parser)
+    GET_RESULT_URL = function(url, writer = httr::write_memory()) { 
+      res <- httr::GET(
+        url,
+        self$add_auth(),
+        writer
+      )
+      check_debug(url, res)
+      return(res)
     },
     
     PUT = function(path, body, encode = 'json') {
       req <- paste0(self$host, '/__api__/', path)
       res <- httr::PUT(
         req,
-        httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+        self$add_auth(),
         body = body,
         encode = encode
       )
@@ -77,19 +99,45 @@ Connect <- R6::R6Class(
       httr::content(res, as = 'parsed')
     },
 
-    POST = function(path, body, encode = 'json') {
+    HEAD = function(path) {
       req <- paste0(self$host, '/__api__/', path)
+      res <- httr::HEAD(
+        url = req,
+        self$add_auth()
+      )
+      check_debug(req, res)
+      return(res)
+    },
+    
+    DELETE = function(path) {
+      req <- paste0(self$host, '/__api__/', path)
+      res <- httr::DELETE(
+        url = req,
+        self$add_auth()
+      )
+      check_debug(req, res)
+      return(res)
+    },
+    
+    POST = function(path, body, encode = 'json', prefix = "/__api__/") {
+      req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
-              httr::add_headers(Authorization = paste0('Key ', self$api_key)),
+              self$add_auth(),
               body = body,
               encode = encode)
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = 'parsed')
     },
+    
+    me = function() {
+      self$GET("me")
+    },
+    
+    # tags ----------------------------------------------------------
 
-    get_tags = function() {
-      if (is.null(self$tags)) {
+    get_tags = function(use_cache = FALSE) {
+      if (is.null(self$tags) || !use_cache) {
           self$tags <- self$GET('/tags')
       }
       self$tag_map <- data.frame(
@@ -106,18 +154,41 @@ Connect <- R6::R6Class(
         stop(sprintf('Tag %s not found on server %s', tagname, self$host))
       self$tag_map[which(self$tag_map$name == tagname), 'id']
     },
+    
+    get_tag_tree = function() {
+      warn_experimental("get_tag_tree")
+      self$GET("tag-tree")
+    },
+    
+    create_tag = function(name, parent_id = NULL) {
+      warn_experimental("create_tag")
+      dat <- list(
+        name = name
+      )
+      if (!is.null(parent_id)) {
+        dat <- c(
+          dat,
+          parent_id = parent_id
+        )
+      }
+      self$POST(
+        "tags",
+        body = dat
+        )
+    },
 
+    # content listing ----------------------------------------------------------
     get_n_apps = function() {
       path <- 'applications'
       apps <- self$GET(path)
       apps$total
     },
-
+    
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
-    get_apps = function(filter = NULL) {
+    get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
       if (!is.null(filter)) {
-        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = '&')
+        query <- paste(sapply(1:length(filter), function(i){sprintf('%s:%s',names(filter)[i],filter[[i]])}), collapse = .collapse)
         path <- paste0('applications?filter=',query)
         sep <- '&'
       } else {
@@ -125,17 +196,32 @@ Connect <- R6::R6Class(
         sep <- '?'
       }
 
+      prg <- progress::progress_bar$new(
+        format = "downloading page :current (:tick_rate/sec) :elapsedfull",
+        total = NA,
+        clear = FALSE
+      )
 
       # handle paging
-      res <- self$GET(path)
+      prg$tick()
+      res <- self$GET(
+        sprintf(
+          '%s%scount=%d',
+          path, sep, page_size
+          )
+      )
       all <- res$applications
-      start <- 26
-      while (length(res$applications) > 0) {
-        res <- self$GET(sprintf('%s%sstart=%d&cont=%s',path, sep, start, res$continuation))
-        for (a in res$applications) {
-          all[[length(all) + 1]] <- a
-        }
-        start <- start + 25
+      start <- page_size + 1
+      while (length(res$applications) > 0 && length(all) < .limit) {
+        prg$tick()
+        res <- self$GET(
+          sprintf(
+            '%s%scount=%d&start=%d&cont=%s',
+            path, sep, page_size, start, res$continuation
+            )
+          )
+        all <- c(all, res$applications)
+        start <- start + page_size
       }
       all
     },
@@ -160,7 +246,7 @@ Connect <- R6::R6Class(
     },
 
     download_bundle = function(bundle_id, to_path = tempfile()) {
-      path <- glue::glue('bundles/{bundle_id}/download')
+      path <- glue::glue('v1/experimental/bundles/{bundle_id}/download')
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
     },
@@ -189,10 +275,27 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    set_content_tag = function(content_id, tag_id) {
+      warn_experimental("set_content_tag")
+      self$POST(
+        path = glue::glue("applications/{content_id}/tags"),
+        body = list(
+          id = tag_id
+        )
+      )
+    },
+    
     # users -----------------------------------------------
     
-    users = function(page_number = 1){
-      path <- sprintf('v1/users?page_number=%d', page_number)
+    users = function(page_number = 1, prefix = NULL, page_size=20){
+      if (page_size > 500) {
+        # reset page_size to avoid error
+        page_size <- 500
+      }
+      path <- sprintf('v1/users?page_number=%d&page_size=%d', page_number, page_size)
+      if (!is.null(prefix)) {
+        path <- paste0(path, "&prefix=", prefix)
+      }
       self$GET(path)
     },
     
@@ -203,11 +306,11 @@ Connect <- R6::R6Class(
     
     users_create = function(
       username,
-      email, 
-      first_name = NULL, 
+      email,
+      first_name = NULL,
       last_name = NULL,
-      password = NULL, 
-      user_must_set_password = NULL, 
+      password = NULL,
+      user_must_set_password = NULL,
       user_role = NULL
       ) {
       path <- sprintf('v1/users')
@@ -239,12 +342,41 @@ Connect <- R6::R6Class(
       )
     },
     
-    users_update = function(user_guid, email, ...) {
+    users_update = function(user_guid, ...) {
       path <- sprintf('v1/users/%s', user_guid)
       self$PUT(
         path = path,
-        body = c(list(email = email), rlang::dots_list(...))
+        body = rlang::list2(...)
       )
+    },
+    
+    # groups -----------------------------------------------------
+    
+    groups = function(page_number = 1, prefix = NULL, page_size=20) {
+      if (page_size > 500) {
+        # reset page_size to avoid error
+        page_size <- 500
+      }
+      path <- sprintf('v1/groups?page_number=%d&page_size=%d', page_number, page_size)
+      if (!is.null(prefix)) {
+        path <- paste0(path, "&prefix=", prefix)
+      }
+      self$GET(path)
+    },
+    
+    group_members = function(guid) {
+      path <- glue::glue("v1/groups/{guid}/members")
+      self$GET(path)
+    },
+    
+    groups_create = function(
+      name
+    ) {
+      path <- sprintf('v1/groups')
+      self$POST(
+        path = path,
+        body = list(name = name)
+        )
     },
     
     # instrumentation --------------------------------------------
@@ -259,13 +391,16 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
       ) {
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/content/visits?",
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
@@ -289,14 +424,16 @@ Connect <- R6::R6Class(
       nxt = NULL,
       asc_order = TRUE
     ) {
-      
+      if (limit > 500) {
+        limit <- 500
+      }
       path <- glue::glue(
         "v1/instrumentation/shiny/usage?",
         glue::glue(
           "{safe_query(content_guid, 'content_guid=')}",
           "{safe_query(min_data_version, 'content_guid=')}",
-          "{safe_query(from, 'from=')}",
-          "{safe_query(to, 'to=')}",
+          "{safe_query(make_timestamp(from), 'from=')}",
+          "{safe_query(make_timestamp(to), 'to=')}",
           "{safe_query(limit, 'limit=')}",
           "{safe_query(previous, 'previous=')}",
           "{safe_query(nxt, 'next=')}",
@@ -312,9 +449,11 @@ Connect <- R6::R6Class(
     
     # misc utilities --------------------------------------------
     
-    docs = function(docs = "api") {
+    docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
-      utils::browseURL(paste0(self$host, '/__docs__/', docs))
+      url <- paste0(self$host, '/__docs__/', docs)
+      if (browse) utils::browseURL(url)
+      return(url)
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
@@ -366,6 +505,8 @@ connect <- function(
   api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
 ) {
   con <- Connect$new(host = host, api_key = api_key)
+  
+  check_connect_license(con$host)
   
   # check Connect is accessible
   srv <- tryCatch({

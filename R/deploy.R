@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -11,6 +11,15 @@ Bundle <- R6::R6Class(
     
     initialize = function(path) {
       self$path <- path
+    },
+    
+    print = function(...) {
+      cat("RStudio Connect Bundle: \n")
+      cat("  Path: ", self$path, "\n", sep = "")
+      cat("\n")
+      cat('bundle_path("', self$path, '")', "\n", sep = "")
+      cat("\n")
+      invisible(self)
     }
   )
 )
@@ -19,7 +28,7 @@ Bundle <- R6::R6Class(
 #' 
 #' An R6 class that represents content
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Content <- R6::R6Class(
   "Content",
@@ -30,10 +39,33 @@ Content <- R6::R6Class(
     initialize = function(connect, content) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to check that content has
+      # at least guid, url, title to be functional
       self$content <- content
     },
     get_connect = function(){self$connect},
-    get_content = function(){self$content}
+    get_content = function(){self$content},
+    get_dashboard_url = function(pane = ""){
+      glue::glue(
+        self$connect$host,
+        "connect",
+        "#",
+        "apps",
+        self$content$guid,
+        pane,
+        .sep = "/"
+      )
+    },
+    print = function(...) {
+      cat("RStudio Connect Content: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
+      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
+      cat("\n")
+      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
@@ -41,7 +73,7 @@ Content <- R6::R6Class(
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -51,10 +83,20 @@ Task <- R6::R6Class(
     initialize = function(connect, content, task) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: need to validate content
       self$content <- content
+      # TODO: need to validate task (needs id)
       self$task <- task
     },
-    get_task = function(){self$task}
+    get_task = function(){self$task},
+    
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
@@ -62,7 +104,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6
+#' @family deployR6 functions
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",
@@ -72,10 +114,20 @@ Vanity <- R6::R6Class(
     initialize = function(connect, content, vanity) {
       validate_R6_class("Connect", connect)
       self$connect <- connect
+      # TODO: validate content
       self$content <- content
+      # TODO: validate vanity (needs path_prefix)
       self$vanity <- vanity
     },
-    get_vanity = function(){self$vanity}
+    get_vanity = function(){self$vanity},
+    
+    print = function(...) {
+      cat("RStudio Connect Content Vanity URL: \n")
+      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
   )
 )
 
@@ -89,7 +141,7 @@ Vanity <- R6::R6Class(
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   
@@ -104,7 +156,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   
   tar_path <- fs::path_abs(filename)
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Define a bundle from a path (a tar.gz file)
@@ -113,14 +165,14 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 bundle_path <- function(path) {
   # need a check on filetype
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
   
-  invisible(Bundle$new(path = tar_path))
+  Bundle$new(path = tar_path)
 }
 
 #' Download a Bundle from Deployed Connect Content
@@ -132,19 +184,29 @@ bundle_path <- function(path) {
 #' 
 #' @return Bundle A bundle object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  warn_experimental("download_bundle")
   validate_R6_class("Content", content)
   
   from_connect <- content$get_connect()
   from_content <- content$get_content()
   
+  if (is.null(from_content$bundle_id)) {
+    stop(
+    glue::glue(
+      "This content has no bundle_id.",
+      "It has never been successfully deployed.",
+      "See {content$get_dashboard_url()} for more information.",
+      .sep = " "
+      )
+    )
+  }
+  
   message("Downloading bundle")
   from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
   
-  invisible(Bundle$new(path = filename))
+  Bundle$new(path = filename)
 }
 
 #' Deploy a bundle
@@ -158,7 +220,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' 
 #' @return Task A task object
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
   validate_R6_class("Bundle", bundle)
@@ -177,7 +239,98 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
   
-  invisible(Task$new(connect = con, content = content, task = task))
+  Task$new(connect = con, content = content, task = task)
+}
+
+#' Get the Image
+#' 
+#' \lifecycle{experimental}
+#' `get_image` saves the content image to the given path (default: temp file).
+#' `delete_image` removes the image (optionally saving to the given path)
+#' `has_image` returns whether the content has an image
+#' 
+#' @param content A content object
+#' @param path optional. The path to the image on disk
+#' 
+#' @rdname get_image
+#' @family deployment functions
+#' @export
+get_image <- function(content, path = NULL) {
+  warn_experimental("get_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$GET_RESULT(
+    path = glue::glue("applications/{guid}/image"), 
+    writer = httr::write_memory()
+    )
+  
+  if (httr::status_code(res) == 204) {
+    return(NA)
+  }
+  
+  # guess file extension
+  if (is.null(path)) {
+    ct <- httr::headers(res)$`content-type`
+    if (grepl("^image/", ct)) {
+      # just strip off 'image/'
+      ext <- substr(ct, 7, nchar(ct))
+      path <- fs::file_temp(pattern = "content_image_", ext = ext)
+    } else {
+      # try png
+      warning(glue::glue("Could not infer file extension from content type: {ct}. Using '.png'"))
+      path <- fs::file_temp(pattern = "content_image_", ext = ".png")
+    }
+  }
+  
+  writeBin(httr::content(res, as = "raw"), path)
+  
+  return(fs::as_fs_path(path))
+}
+
+#' @rdname get_image
+#' @family content
+#' @export
+delete_image <- function(content, path = NULL) {
+  warn_experimental("delete_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  if (!is.null(path)) {
+    scoped_experimental_silence()
+    img_path <- get_image(content, path)
+  }
+  
+  res <- con$DELETE(
+    glue::glue("applications/{guid}/image")
+  )
+  
+  return(content)
+}
+
+#' @rdname get_image
+#' @family content
+#' @export
+has_image <- function(content) {
+  warn_experimental("has_image")
+  validate_R6_class("Content", content)
+  guid <- content$get_content()$guid
+  
+  con <- content$get_connect()
+  
+  res <- con$GET_RESULT(
+    glue::glue("applications/{guid}/image")
+    )
+  
+  if (httr::status_code(res) == 204) {
+    FALSE
+  } else {
+    TRUE
+  }
 }
 
 #' Set the Image from a Path
@@ -188,7 +341,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @param ... Additional arguments passed on to methods
 #' 
 #' @rdname set_image
-#' @family content
+#' @family content functions
 #' @export
 set_image_path <- function(content, path) {
   warn_experimental("set_image_path")
@@ -203,7 +356,7 @@ set_image_path <- function(content, path) {
     )
   
   # return the input (in case it inherits more than just Content)
-  invisible(content)
+  content
 }
 
 #' @rdname set_image
@@ -243,7 +396,7 @@ set_image_webshot <- function(content, ...) {
 #' @param content A Content object
 #' @param url The path component of the URL
 #' 
-#' @value An updated Content object
+#' @return An updated Content object
 #' 
 #' @examples
 #' \dontrun{
@@ -253,13 +406,14 @@ set_image_webshot <- function(content, ...) {
 #'   set_vanity_url("a/vanity/url")
 #' }
 #' 
-#' @family content
+#' @family content functions
 #' @export
 set_vanity_url <- function(content, url) {
   warn_experimental("set_vanity_url")
   validate_R6_class("Content", content)
   guid <- content$get_content()$guid
   
+  scoped_experimental_silence()
   # TODO: Check that the URL provided is appropriate
   
   current_vanity <- get_vanity_url(content)
@@ -294,7 +448,7 @@ set_vanity_url <- function(content, url) {
   
   van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
   
-  invisible(van)
+  van
 }
 
 
@@ -304,7 +458,7 @@ set_vanity_url <- function(content, url) {
 #' 
 #' @param content A Content object
 #' 
-#' @family content
+#' @family content functions
 #' @export
 get_vanity_url <- function(content) {
   warn_experimental("get_vanity_url")
@@ -317,12 +471,78 @@ get_vanity_url <- function(content) {
   van <- res$vanities[[1]]
   
   if (is.null(van)) {
-    invisible(content)
+    content
   } else {
     van$app_id <- NULL
     van$app_guid <- guid
-    invisible(Vanity$new(connect = con, content = content$get_content(), vanity = van))
+    Vanity$new(connect = con, content = content$get_content(), vanity = van)
   }
+}
+
+#' Swap the Vanity URL
+#' 
+#' \lifecycle{experimental}
+#' Swaps the Vanity URLs between two pieces of content
+#' 
+#' @param from_content A Content object
+#' @param to_content A Content object
+#' 
+#' @family content
+#' @export
+swap_vanity_url <- function(from_content, to_content) {
+  warn_experimental("swap_vanity_url")
+  scoped_experimental_silence()
+  # TODO: Add prompt if in an interactive session
+  # TODO: Add pretty print output of what is happening
+  # TODO: Test error cases super thoroughly!!
+  # TODO: Do a "dry run" of sorts...? Check privileges... etc...
+  # TODO: Do the changes within a TryCatch so we can undo...?
+  # TODO: Need a way to "unset" a vanity URL
+  
+  from_vanity <- get_vanity_url(from_content)
+  to_vanity <- get_vanity_url(to_content)
+  
+  if (!inherits(from_vanity, "Vanity") && !inherits(to_vanity, "Vanity")) {
+    warning("Neither content has a Vanity URL. Exiting")
+  } else {
+    # swapping vanity URLs
+    tmp_vanity <- paste0("vanity-url-swap-", random_name(length = 50))
+    
+    if (inherits(from_vanity, "Vanity")) {
+      from_vanity_url <- from_vanity$get_vanity()$path_prefix
+    } else {
+      from_vanity_url <- NA
+    }
+    
+    if (inherits(to_vanity, "Vanity")) {
+      to_vanity_url <- to_vanity$get_vanity()$path_prefix
+    } else {
+      to_vanity_url <- NA
+    }
+    
+    if (!is.na(from_vanity_url)) {
+      set_vanity_url(from_vanity, tmp_vanity)
+    } else {
+      set_vanity_url(to_vanity, tmp_vanity)
+    }
+    
+    if (!is.na(from_vanity_url)) {
+      set_vanity_url(to_vanity, from_vanity_url)
+    }
+    if (!is.na(to_vanity_url)) {
+      set_vanity_url(from_vanity, to_vanity_url)
+    }
+    
+    from_vanity <- get_vanity_url(from_content)
+    to_vanity <- get_vanity_url(to_content)
+  }
+  
+  return(
+    list(
+      from = from_vanity,
+      to = to_vanity
+    )
+  )
 }
 
 #' Poll Task
@@ -334,7 +554,7 @@ get_vanity_url <- function(content) {
 #' 
 #' @return Task The Task object that was input
 #' 
-#' @family deploy
+#' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1) {
   validate_R6_class("Task", task)
@@ -356,7 +576,7 @@ poll_task <- function(task, wait = 1) {
     msg <- task_data[["error"]]
     stop(msg)
   }
-  invisible(task)
+  task
 }
 
 #' Get Content Item
@@ -366,9 +586,9 @@ poll_task <- function(task, wait = 1) {
 #' @param connect A Connect object
 #' @param guid The GUID for the content item to be retrieved
 #' 
-#' @value A Content object for use with other content endpoints
+#' @return A Content object for use with other content endpoints
 #' 
-#' @family content
+#' @family content functions
 #' @export
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist
