@@ -33,6 +33,7 @@ acl_add_collaborator <- function(content, user_guid) {
   acl_add_user(content = content, user_guid = user_guid, role = "owner")
 }
 
+# TODO: Should this be a warning if the user is a collaborator? Will downgrade their permissions
 acl_add_viewer <- function(content, user_guid) {
   acl_add_user(content = content, user_guid = user_guid, role = "viewer")
 }
@@ -50,4 +51,12 @@ acl_remove_viewer <- acl_remove_user
 
 acl_remove_self <- function(content) {
   acl_remove_user(content$get_connect()$GET('me')$guid)
+}
+
+acl_user_role <- function(content, user_guid) {
+  acls <- get_acl(content)
+  if (is.null(user_guid) || is.na(user_guid)) return(NULL)
+  user_entry <- purrr::flatten(purrr::keep(acls, ~ .x$guid == user_guid))
+  
+  return(user_entry$app_role)
 }
