@@ -176,7 +176,7 @@ Connect <- R6::R6Class(
         body = dat
         )
     },
-
+    
     # content listing ----------------------------------------------------------
     get_n_apps = function() {
       path <- 'applications'
@@ -286,6 +286,10 @@ Connect <- R6::R6Class(
     },
     
     # users -----------------------------------------------
+    
+    user = function(guid) {
+      self$GET(glue::glue("v1/users/{guid}"))
+    },
     
     users = function(page_number = 1, prefix = NULL, page_size=20){
       if (page_size > 500) {
