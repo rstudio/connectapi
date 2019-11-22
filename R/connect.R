@@ -176,7 +176,7 @@ Connect <- R6::R6Class(
         body = dat
         )
     },
-
+    
     # content listing ----------------------------------------------------------
     get_n_apps = function() {
       path <- 'applications'
