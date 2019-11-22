@@ -230,7 +230,6 @@ test_that("remove a viewer works", {
 })
 
 test_that("remove a viewer twice works", {
-  test_that("remove a viewer works", {
     # remove a viewer
     invisible(acl_remove_viewer(cont1_content, viewer_guid))
     invisible(acl_remove_viewer(cont1_content, viewer_guid))
@@ -240,5 +239,4 @@ test_that("remove a viewer twice works", {
     
     which_match <- purrr::map_lgl(acls, ~.x$guid == viewer_guid && .x$app_role == "viewer")
     expect_false(any(which_match))
-  })
 })
