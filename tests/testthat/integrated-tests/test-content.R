@@ -44,14 +44,11 @@ test_that("add a collaborator works", {
   # add a collaborator
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   
-  # get acl
-  acls <- get_acl(cont1_content)
-  
-  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == collab_guid && .x$app_role == "owner")))
+  expect_equal(acl_user_role(cont1_content, collab_guid), "owner")
   
   # owner is present
   my_guid <- test_conn_1$GET('me')$guid
-  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == my_guid && .x$app_role == "owner")))
+  expect_equal(acl_user_role(cont1_content, my_guid), "owner")
 })
 
 test_that("add collaborator twice works", {
@@ -186,8 +183,7 @@ test_that("a viewer does not affect other viewers", {
   expect_true(viewer_guid %in% purrr::map_chr(acls2, ~ .x$guid))
 })
 
-test_that("a collaborator can be added as a viewer", {
-  skip("failing presently")
+test_that("a collaborator can be added as a viewer (ovewrites)", {
   # remove user to be sure
   invisible(acl_remove_user(cont1_content, collab_guid))
   
@@ -199,7 +195,8 @@ test_that("a collaborator can be added as a viewer", {
   
   acls <- get_acl(cont1_content)
   
-  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == collab_guid && .x$app_role == "owner")))
+  # TODO: Should this be a warning?
+  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == collab_guid && .x$app_role == "viewer")))
 })
 
 test_that("a viewer can be added as a collaborator", {
@@ -239,4 +236,25 @@ test_that("remove a viewer twice works", {
     
     which_match <- purrr::map_lgl(acls, ~.x$guid == viewer_guid && .x$app_role == "viewer")
     expect_false(any(which_match))
+})
+
+test_that("acl_user_role works", {
+  acl_remove_user(cont1_content, collab_guid)
+  acl_remove_user(cont1_content, viewer_guid)
+  
+  acl_add_collaborator(cont1_content, collab_guid)
+  expect_equal(acl_user_role(cont1_content, collab_guid), "owner")
+  
+  acl_add_viewer(cont1_content, viewer_guid)
+  expect_equal(acl_user_role(cont1_content, viewer_guid), "viewer")
+})
+
+
+test_that("acl_user_role with null user_guid returns NULL", {
+  expect_null(acl_user_role(cont1_content, NULL))
+})
+
+test_that("acl_user_role with no role returns NULL", {
+  acl_remove_user(cont1_content, viewer_guid)
+  expect_null(acl_user_role(cont1_content, viewer_guid))
 })
