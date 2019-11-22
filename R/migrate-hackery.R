@@ -6,6 +6,7 @@ deploy_current <- function(content) {
 
 # ACLs ----------------------------------------------------
 get_acl <- function(content) {
+  warn_experimental("get_acl")
   client <- content$get_connect()
   res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
   
@@ -19,6 +20,7 @@ acl_add_self <- function(content) {
 }
 
 acl_add_user <- function(content, user_guid, role) {
+  warn_experimental("acl_add")
   res <- content$get_connect()$POST(
     glue::glue("applications/{content$get_content()$guid}/users"),
     body = list(
@@ -39,6 +41,7 @@ acl_add_viewer <- function(content, user_guid) {
 }
 
 acl_remove_user <- function(content, user_guid) {
+  warn_experimental("acl_remove")
   res <- content$get_connect()$DELETE(
     glue::glue("applications/{content$get_content()$guid}/users/{user_guid}")
   )
@@ -54,6 +57,8 @@ acl_remove_self <- function(content) {
 }
 
 acl_user_role <- function(content, user_guid) {
+  warn_experimental("acl_user_role")
+  scoped_experimental_silence()
   acls <- get_acl(content)
   if (is.null(user_guid) || is.na(user_guid)) return(NULL)
   user_entry <- purrr::flatten(purrr::keep(acls, ~ .x$guid == user_guid))
