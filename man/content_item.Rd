@@ -11,12 +11,15 @@ content_item(connect, guid)
 
 \item{guid}{The GUID for the content item to be retrieved}
 }
+\value{
+A Content object for use with other content endpoints
+}
 \description{
 Returns a single content item based on guid
 }
 \seealso{
-Other content: \code{\link{get_vanity_url}},
+Other content functions: \code{\link{get_vanity_url}},
   \code{\link{set_image_path}},
   \code{\link{set_vanity_url}}
 }
-\concept{content}
+\concept{content functions}

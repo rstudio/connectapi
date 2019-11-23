@@ -1,4 +1,4 @@
-# connectapi 0.1.0.9000
+# connectapi 0.1.0.9001
 
 BREAKING: 
 * Rename a handful of functions:
@@ -13,7 +13,10 @@ BREAKING:
 * `get_task$start` renamed to `get_task$first`
 * `promote$app_name` renamed to `promote$name`
 * rename the package to `connectapi`
-  
+* change functions to take a `Connect` object instead of server / api key
+  - `cache_apps`
+  - `tag_page`
+
 OTHER: 
 * Add some endpoints:
   - `content`
@@ -24,5 +27,9 @@ OTHER:
   - `inst_content_visits`
 * Add some helper functions:
   - `deploy_github`, `download_github`
-* Update `connect` R6 object to be compatible with Connect 1.7.0 APIs
+  - `swap_vanity_url`, deployment functions
+  - `browse_` family of functions
+* Update `connect` R6 object to be compatible with Connect 1.7.0+ APIs
 * Added a `NEWS.md` file to track changes to the package.
+* Add integration testing to protect against regressions
+* Add `tbl_connect()` as a `lazy_tbl` for querying Connect API endpoints

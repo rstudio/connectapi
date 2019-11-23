@@ -11,6 +11,9 @@ set_vanity_url(content, url)
 
 \item{url}{The path component of the URL}
 }
+\value{
+An updated Content object
+}
 \description{
 Sets the Vanity URL for a piece of content.
 }
@@ -24,8 +27,8 @@ connect() \%>\%
 
 }
 \seealso{
-Other content: \code{\link{content_item}},
+Other content functions: \code{\link{content_item}},
   \code{\link{get_vanity_url}},
   \code{\link{set_image_path}}
 }
-\concept{content}
+\concept{content functions}

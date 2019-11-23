@@ -10,27 +10,27 @@ get_field <- function(apps, field, include_null = FALSE) {
 
 #' Get information on all apps for a server
 #'
-#' @param server URL for Connect server
-#' @param server_key Admin API Key for Connect server
+#' @param connect A Connect object
 #'
 #' @return List with application data, to be used by audit functions
+#' @family audit functions
 #' @export
-cache_apps <- function(server, server_key){
-  client <- Connect$new(server, server_key)
-  apps <- client$get_apps()
+cache_apps <- function(connect){
+  apps <- connect$get_apps()
   apps
 }
 
 #' Audit Vanity URLs
 #'
-#' @param apps App list, see \code{cache_apps}
+#' @param apps App list, see [cache_apps()]
 #' @param server_url Base url for the Connect server
 #' @param vanity Optional, see details
 #'
-#' @details If \code{vanity} is not provided, returns a list of all the vanity
-#'   urls in use. If \code{vanity} is provided, returns whether or not
-#'   \code{vanity} is eligible as a vanity url.
+#' @details If `vanity` is not provided, returns a list of all the vanity
+#'   urls in use. If `vanity` is provided, returns whether or not
+#'   `vanity` is eligible as a vanity url.
 #'
+#' @family audit functions
 #' @export
 audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
@@ -53,10 +53,11 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
 #' Audit R Versions
 #'
-#' @param apps App list, see \code{cache_apps}
+#' @param apps App list, see `cache_apps`
 #'
 #' @return A plot that shows the R version used by content over time and in
 #'   aggregate.
+#' @family audit functions
 #' @export
 audit_r_versions <- function(apps) {
    r_versions <- get_field(apps, 'r_version', TRUE)
@@ -100,10 +101,11 @@ audit_r_versions <- function(apps) {
 
 #' Audit Run As Settings
 #'
-#' @param apps App list, see \code{cache_apps}
+#' @param apps App list, see `cache_apps`
 #'
 #' @return A data frame with the app name and the Run As user if the Run As user
 #'   is not the default
+#' @family audit functions
 #' @export
 audit_runas <- function(apps) {
   name   <- get_field(apps, 'name', TRUE)
@@ -138,11 +140,12 @@ audit_runas <- function(apps) {
 # type can be all, logged_in, acl
 #' Audit Access Controls
 #'
-#' @param apps App list, see \code{cache_apps}
+#' @param apps App list, see `cache_apps`
 #' @param type One of "all" or "logged_in". If "all", return a list of apps
 #'   whose access control is set to "Everyone". If "logged_in", return a list of
 #'   apps whose access control is set to "All logged in users"
 #'
+#' @family audit functions
 #' @export
 audit_access_open <- function(apps, type = 'all') {
   access <- get_field(apps, 'access_type', TRUE)

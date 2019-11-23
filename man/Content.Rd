@@ -12,8 +12,8 @@ Content
 An R6 class that represents content
 }
 \seealso{
-Other deployR6: \code{\link{Bundle}}, \code{\link{Task}},
-  \code{\link{Vanity}}
+Other deployR6 functions: \code{\link{Bundle}},
+  \code{\link{Task}}, \code{\link{Vanity}}
 }
-\concept{deployR6}
+\concept{deployR6 functions}
 \keyword{datasets}
