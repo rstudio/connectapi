@@ -56,7 +56,7 @@ acl_remove_collaborator <- acl_remove_user
 acl_remove_viewer <- acl_remove_user
 
 acl_remove_self <- function(content) {
-  acl_remove_user(content$get_connect()$GET('me')$guid)
+  acl_remove_user(content, content$get_connect()$GET('me')$guid)
 }
 
 acl_user_role <- function(content, user_guid) {
