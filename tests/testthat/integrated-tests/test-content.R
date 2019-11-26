@@ -275,3 +275,11 @@ test_that("acl_user_role with no role returns NULL", {
   acl_remove_user(cont1_content, viewer_guid)
   expect_null(acl_user_role(cont1_content, viewer_guid))
 })
+
+test_that("acl_add_self works", {
+  skip("not yet tested")
+})
+
+test_that("acl_remove_self works", {
+  skip("not yet tested")
+})
