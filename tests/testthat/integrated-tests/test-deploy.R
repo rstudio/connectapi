@@ -211,5 +211,5 @@ test_that("dashboard_url resolves properly", {
   
   dash_url <- dashboard_url(cont)
   
-  skip("not yet implemented")
+  skip("not yet tested")
 })
