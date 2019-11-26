@@ -205,3 +205,11 @@ test_that("download_bundle throws an error for undeployed content", {
     "This content has no bundle_id"
   )
 })
+
+test_that("dashboard_url resolves properly", {
+  cont <- content_item(test_conn_1, cont1_guid)
+  
+  dash_url <- dashboard_url(cont)
+  
+  skip("not yet implemented")
+})
