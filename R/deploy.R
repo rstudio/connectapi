@@ -46,15 +46,7 @@ Content <- R6::R6Class(
     get_connect = function(){self$connect},
     get_content = function(){self$content},
     get_dashboard_url = function(pane = ""){
-      glue::glue(
-        self$connect$host,
-        "connect",
-        "#",
-        "apps",
-        self$content$guid,
-        pane,
-        .sep = "/"
-      )
+      dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
     print = function(...) {
       cat("RStudio Connect Content: \n")
@@ -597,4 +589,34 @@ content_item <- function(connect, guid) {
   res <- connect$get_connect()$content(guid)
   
   Content$new(connect = connect, content = res)
+}
+
+#' Build a Dashboard URL from Character Vectors
+#' 
+#' Returns the URL for the content dashboard (opened to the selected pane).
+#' NOTE: this takes a character object for performance optimization.
+#' 
+#' @param connect_url [character] The base URL of the Connect server
+#' @param content_guid [character] The guid for the content item in question
+#' @param pane [character] The pane in the dashboard to link to
+#' 
+#' @return [character] The dashboard URL for the content provided
+#' 
+#' @family content functions
+#' @export
+dashboard_url_chr <- function(connect_url, content_guid, pane = "") {
+  purrr::pmap_chr(
+    list(x = connect_url, y = content_guid, z = pane),
+    function(x,y,z) {
+      paste(
+        x,
+        "connect",
+        "#",
+        "apps",
+        y,
+        z,
+        sep = "/"
+      )
+    }
+  )
 }
