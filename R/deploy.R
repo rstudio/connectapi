@@ -591,6 +591,21 @@ content_item <- function(connect, guid) {
   Content$new(connect = connect, content = res)
 }
 
+#' Build a Dashboard URL from a Content Item
+#' 
+#' Returns the URL for the content dashboard (opened to the selected pane).
+#' 
+#' @param content [R6:Content] A Content object
+#' @param pane [character] The pane in the dashboard to link to
+#' 
+#' @return [character] The dashboard URL for the content provided
+#' 
+#' @family content functions
+#' @export
+dashboard_url <- function(content, pane = "") {
+  content$get_dashboard_url(pane = pane)
+}
+
 #' Build a Dashboard URL from Character Vectors
 #' 
 #' Returns the URL for the content dashboard (opened to the selected pane).
