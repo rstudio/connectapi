@@ -7,6 +7,8 @@
 \title{connectapi: Utilities for Interacting with the RStudio Connect Server
     API}
 \description{
+\if{html}{\figure{logo.png}{options: align='right'}}
+
 Helpful R6 class for interacting with the RStudio
     Connect Server API and some example utility functions.
 }
