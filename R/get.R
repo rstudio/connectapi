@@ -1,10 +1,23 @@
 
 
-#'
-get_users <- function(src){
+#' Get user information from the RStudio Connect server
+#' 
+#' @param src The source object
+#' @param page_size the number of records to return per page (max 500)
+#' @param page_number the page number you wish to query
+get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   validate_R6_class("Connect", src)
   
-  res <- src$users(page_size = n)
+  res <- src$users(
+    page_size = page_size,
+    page_number = page_number,
+    prefix = prefix
+  )
+  
+  ## TODO: Add a pagination option for users? This could be done using the 
+  ## res$total value and changing the page_size and page_number arguments
+  ## with a limit arguemnt. Then a while loop could be written similar 
+  ## to page_cursor
   
   res <- res$results
   
