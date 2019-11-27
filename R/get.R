@@ -475,7 +475,16 @@ get_usage_static <- function(src, content_guid = NULL,
 #' should be listed in ascending or descending order within the response. 
 #' Ordering is by the started timestamp field.
 #' 
-#' 
+#' @return 
+#' A tibble with the following columns:
+#' \itemize{
+#'   \item{\strong{id}}{ID of the audit action}
+#'   \item{\strong{time}}{Timestamp in RFC3339 format when action was taken}
+#'   \item{\strong{user_id}}{User ID of the actor who made the audit action}
+#'   \item{\strong{user_description}}{Description of the actor}
+#'   \item{\strong{action}}{Audit action taken}
+#'   \item{\strong{event_description}}{Description of action}
+#' }
 #' 
 #' @details 
 #' Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more information 
