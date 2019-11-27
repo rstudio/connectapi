@@ -34,14 +34,14 @@ logs relative to the provided value. This value corresponds to an internal
 reference within the server and should be sourced from the appropriate
 attribute within the paging object of a previous response.}
 
-\item{asc_order}{Defaults to TRUE; Determines if the response records
-should be listed in ascending or descending order within the response.
-Ordering is by the started timestamp field.}
-
-\item{next}{Retrieve the next page of Shiny application usage logs
+\item{nxt}{Retrieve the next page of Shiny application usage logs
 relative to the provided value. This value corresponds to an internal
 reference within the server and should be sourced from the appropriate
 attribute within the paging object of a previous response.}
+
+\item{asc_order}{Defaults to TRUE; Determines if the response records
+should be listed in ascending or descending order within the response.
+Ordering is by the started timestamp field.}
 }
 \value{
 A tibble with the following columns:
