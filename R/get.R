@@ -298,7 +298,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
 #' logs relative to the provided value. This value corresponds to an internal 
 #' reference within the server and should be sourced from the appropriate 
 #' attribute within the paging object of a previous response.
-#' @param next Retrieve the next page of Shiny application usage logs 
+#' @param nxt Retrieve the next page of Shiny application usage logs 
 #' relative to the provided value. This value corresponds to an internal 
 #' reference within the server and should be sourced from the appropriate 
 #' attribute within the paging object of a previous response.
@@ -387,7 +387,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
 #' logs relative to the provided value. This value corresponds to an internal 
 #' reference within the server and should be sourced from the appropriate 
 #' attribute within the paging object of a previous response.
-#' @param next Retrieve the next page of Shiny application usage logs 
+#' @param nxt Retrieve the next page of Shiny application usage logs 
 #' relative to the provided value. This value corresponds to an internal 
 #' reference within the server and should be sourced from the appropriate 
 #' attribute within the paging object of a previous response.
@@ -458,6 +458,56 @@ get_usage_static <- function(src, content_guid = NULL,
   return(out)
 }
 
+
+#' Get Audit Logs from RStudio Connect Server
+#' 
+#' @param src The source object
+#' @param limit The number of records to return. 
+#' @param previous Retrieve the previous page of Shiny application usage 
+#' logs relative to the provided value. This value corresponds to an internal 
+#' reference within the server and should be sourced from the appropriate 
+#' attribute within the paging object of a previous response.
+#' @param nxt Retrieve the next page of Shiny application usage logs 
+#' relative to the provided value. This value corresponds to an internal 
+#' reference within the server and should be sourced from the appropriate 
+#' attribute within the paging object of a previous response.
+#' @param asc_order Defaults to TRUE; Determines if the response records 
+#' should be listed in ascending or descending order within the response. 
+#' Ordering is by the started timestamp field.
+#' 
+#' 
+#' 
+#' @details 
+#' Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more information 
+#' 
+#' @examples 
+#' \dontrun{
+#'   library(connectapi)
+#'   client <- connect()
+#'   
+#'   # get the last 20 audit logs
+#'   get_audit_logs(client, limit = 20, asc_order = FALSE)
+#' }
+#' 
+#' @export
+get_audit_logs <- function(src, limit = 20L, previous = NULL, 
+                           nxt = NULL, asc_order = TRUE){
+  validate_R6_class("Connect", src)
+  
+  # browser()
+  res <- src$audit_logs(
+    limit = limit, 
+    previous = previous, 
+    nxt = nxt, 
+    asc_order = asc_order
+  )
+  
+  res <- page_cursor(src, res, limit = limit)
+  
+  out <- parse_connectapi(res)
+  
+  return(out)
+}
 
 
 
