@@ -310,11 +310,17 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
 #' @return 
 #' A tibble with the following columns:
 #' \itemize{
-#'   \item{\strong{content_guid}}{The GUID, in RFC4122 format, of the Shiny application this information pertains to.}
-#'   \item{\strong{user_guid}}{The GUID, in RFC4122 format, of the user that visited the application.}
-#'   \item{\strong{started}}{The timestamp, in RFC3339 format, when the user opened the application.}
-#'   \item{\strong{ended}}{The timestamp, in RFC3339 format, when the user left the application.}
-#'   \item{\strong{data_version}}{The data version the record was recorded with.}
+#'   \item{\strong{content_guid}}{The GUID, in RFC4122 format, of the 
+#'   Shiny application this information pertains to.}
+#'   \item{\strong{user_guid}}{The GUID, in RFC4122 format, of the user 
+#'   that visited the application.}
+#'   \item{\strong{started}}{The timestamp, in RFC3339 format, when the 
+#'   user opened the application.}
+#'   \item{\strong{ended}}{The timestamp, in RFC3339 format, when the 
+#'   user left the application.}
+#'   \item{\strong{data_version}}{The data version the record was recorded 
+#'   with. The Shiny Application Events section of the RStudio Connect Admin 
+#'   Guide explains how to interpret data_version values.}
 #' }
 #' 
 #' @details 
@@ -358,18 +364,92 @@ get_usage_shiny <- function(src, content_guid = NULL,
   return(out)
 }
 
+#' Get usage information from deployed static content
+#' 
+#' This function retrieves usage information from static content
+#' on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)
+#'
+#' @param src the source object
+#' @param content_guid Filter results by content GUID
+#' @param min_data_version Filter by data version. Records with a data version
+#' lower than the given value will be excluded from the set of results.
+#' @param from The timestamp that starts the time window of interest. Any usage
+#' information that ends prior to this timestamp will not be returned. 
+#' Individual records may contain a starting time that is before this if they 
+#' end after it or have not finished. Must be of class Date or POSIX
+#' @param to The timestamp that ends the time window of interest. Any usage 
+#' information that starts after this timestamp will not be returned. 
+#' Individual records may contain an ending time that is after this 
+#' (or no ending time) if they start before it. Must be of class Date or
+#' POSIX
+#' @param limit The number of records to return. 
+#' @param previous Retrieve the previous page of Shiny application usage 
+#' logs relative to the provided value. This value corresponds to an internal 
+#' reference within the server and should be sourced from the appropriate 
+#' attribute within the paging object of a previous response.
+#' @param next Retrieve the next page of Shiny application usage logs 
+#' relative to the provided value. This value corresponds to an internal 
+#' reference within the server and should be sourced from the appropriate 
+#' attribute within the paging object of a previous response.
+#' @param asc_order Defaults to TRUE; Determines if the response records 
+#' should be listed in ascending or descending order within the response. 
+#' Ordering is by the started timestamp field.
 #'
 #'
-#'
-#'
+#' @return 
+#' A tibble with the following columns:
+#' \itemize{
+#'   \item{\strong{content_guid}}{The GUID, in RFC4122 format, of the Shiny 
+#'   application this information pertains to.}
+#'   \item{\strong{user_guid}}{The GUID, in RFC4122 format, of the user that 
+#'   visited the application.}
+#'   \item{\strong{variant_key}}{The key of the variant the user visited. 
+#'   This will be null for static content.}
+#'   \item{\strong{time}}{The timestamp, in RFC3339 format, when the user 
+#'   visited the content.}
+#'   \item{\strong{rendering_id}}{The ID of the rendering the user visited. 
+#'   This will be null for static content.}
+#'   \item{\strong{bundle_id}}{The ID of the particular bundle used.}
+#'   \item{\strong{data_version}}{The data version the record was recorded 
+#'   with. The Rendered and Static Content Visit Events section of the 
+#'   RStudio Connect Admin Guide explains how to interpret data_version 
+#'   values.}
+#' }
+#' 
+#' 
 #' @details 
 #' Please see https://docs.rstudio.com/connect/api/#getContentVisits for more information 
 #'
-#'
-get_usage_static <- function(src){
+#' @examples 
+#' \dontrun{
+#'   library(connectapi)
+#'   client <- connect()
+#'   
+#'   from <- Sys.Date() - lubridate::days(5)
+#'   get_usage_static(client, limit = 20, from = from)
+#' }
+#' 
+#' @export
+get_usage_static <- function(src, content_guid = NULL, 
+                             min_data_version = NULL,
+                             from = NULL,
+                             to = NULL,
+                             limit = 20,
+                             previous = NULL,
+                             nxt = NULL,
+                             asc_order = TRUE){
   validate_R6_class("Connect", src)
   
-  res <- src$inst_content_visits()
+  res <- src$inst_content_visits(
+    content_guid = content_guid, 
+    min_data_version = min_data_version, 
+    from = from,
+    to = to, 
+    limit = limit, 
+    previous = previous, 
+    nxt = nxt,
+    asc_order = asc_order
+  )
   
   res <- page_cursor(src, res, limit = limit)
   
