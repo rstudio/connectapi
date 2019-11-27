@@ -32,7 +32,7 @@ page_cursor <- function(client, req, limit = Inf) {
     next_url <- response$paging$`next`
     if ((limit - length(res)) < limit){
       limit <- (limit - length(res))
-      next_url <- gsub("limit=[0-9]{1,5}", paste0("limit=", limit), next_url)
+      next_url <- gsub("limit=[0-9]*", paste0("limit=", limit), next_url)
     } 
     
     response <- client$GET_URL(next_url)
