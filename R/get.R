@@ -58,7 +58,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
 
 #' 
 #' 
-get_shiny_usage <- function(src, content_guid = NULL, 
+get_usage_shiny <- function(src, content_guid = NULL, 
                             min_data_version = NULL,
                             from = NULL,
                             to = NULL,
@@ -87,7 +87,7 @@ get_shiny_usage <- function(src, content_guid = NULL,
 }
 
 
-get_content_visits <- function(src){
+get_usage_static <- function(src){
   validate_R6_class("Connect", src)
   
   res <- src$inst_content_visits()
