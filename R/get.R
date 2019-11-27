@@ -83,7 +83,11 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' @return 
 #' A tibble with the following columns:
 #' \itemize{
-#'   \item{\strong{}}
+#'   \item{\strong{guid}}{The unique identifier of the group}
+#'   \item{\strong{name}}{The group name}
+#'   \item{\strong{owner_guid}}{The group owner's unique identifier. 
+#'   When using LDAP, or Proxied authentication with group provisioning 
+#'   enabled this property will always be null.}
 #' }
 #' 
 #' @details 
