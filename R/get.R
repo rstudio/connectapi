@@ -58,10 +58,10 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #'   library(connectapi)
 #'   client <- connect()
 #'   
-#'   # get the first 20 users
+#'   # get the first 20 groups
 #'   get_groups(client, page_size = 20)
 #'   
-#'   # get the second twenty users
+#'   # get the second twenty groups
 #'   get_groups(client, page_size = 20, page_number = 2)
 #' 
 #' }
