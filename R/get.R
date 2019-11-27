@@ -106,6 +106,8 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' @return 
 #' A tibble with the following columns:
 #' \itemize{
+#'   \item{\strong{id}}{The application ID}
+#'   \item{\strong{guid}}{The unique identifier of this content item.}
 #'   \item{\strong{access_type}}{Access type describes how this content manages
 #'    its viewers. The value all is the most permissive; any visitor to RStudio
 #'    Connect will be able to view this content. The value logged_in indicates
@@ -113,37 +115,99 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #'    lets specifically enumerated users and groups view the content. Users 
 #'    configured as collaborators may always view content. It may have a 
 #'    value of all, logged_in or acl.}
-#'    \item{\strong{app_mode}}{The runtime model for this content. Has a value 
-#'    of unknown before data is deployed to this item. Automatically assigned 
-#'    upon the first successful bundle deployment.}
-#'    \item{\strong{bundle_id}}{The identifier for the active deployment bundle. 
-#'    Automatically assigned upon the successful deployment of that bundle.}
 #'    \item{\strong{connection_timeout}}{Maximum number of seconds allowed 
 #'    without data sent or received across a client connection. A value of 0 
 #'    means connections will never time-out (not recommended). When null, the 
 #'    default Scheduler.ConnectionTimeout is used. Applies only to content 
 #'    types that are executed on demand.}
-#'    \item{\strong{content_category}}{Describes the specialization of the content 
-#'    runtime model. Automatically assigned upon the first successful bundle 
-#'    deployment.}
-#'    \item{\strong{created_time}}{The timestamp (RFC3339) indicating when this 
-#'    content was created.}
-#'    \item{\strong{description}}{A rich description of this content}
-#'    \item{\strong{guid}}{The unique identifier of this content item.}
-#'    \item{\strong{has_parameters}}{True when R Markdown rendered content 
-#'    allows parameter configuration. Automatically assigned upon the first 
-#'    successful bundle deployment. Applies only to content with an app_mode
-#'    of rmd-static.}
-#'    \item{\strong{idle_timeout}}{The maximum number of seconds a worker process 
-#'    for an interactive application to remain alive after it goes idle (no 
-#'    active connections). When null, the default Scheduler.IdleTimeout is used. 
-#'    Applies only to content types that are executed on demand.}
+#'    \item{\strong{read_timeout}}{Maximum number of seconds allowed without
+#'    data received from a client connection. A value of 0 means a lack of client 
+#'    (browser) interaction never causes the connection to close. When null, 
+#'    the default Scheduler.ReadTimeout is used. Applies only to content types 
+#'    that are executed on demand.}
 #'    \item{\strong{init_timeout}}{The maximum number of seconds allowed for an 
 #'    interactive application to start. RStudio Connect must be able to connect 
 #'    to a newly launched Shiny application, for example, before this threshold
 #'    has elapsed. When null, the default Scheduler.InitTimeout is used. Applies
 #'    only to content types that are executed on demand.}
-#'    \item{\strong{}}
+#'    \item{\strong{idle_timeout}}{The maximum number of seconds a worker process 
+#'    for an interactive application to remain alive after it goes idle (no 
+#'    active connections). When null, the default Scheduler.IdleTimeout is used. 
+#'    Applies only to content types that are executed on demand.}
+#'    \item{\strong{max_processes}}{Specifies the total number of concurrent 
+#'    processes allowed for a single interactive application. When null, the 
+#'    default Scheduler.MaxProcesses is used. Applies only to content types 
+#'    that are executed on demand.}
+#'    \item{\strong{min_processes}}{Specifies the minimum number of concurrent 
+#'    processes allowed for a single interactive application. When null, the 
+#'    default Scheduler.MinProcesses is used. Applies only to content types 
+#'    that are executed on demand.}
+#'    \item{\strong{max_conns_per_process}}{Specifies the maximum number of 
+#'    client connections allowed to an individual process. Incoming connections 
+#'    which will exceed this limit are routed to a new process or rejected. 
+#'    When null, the default Scheduler.MaxConnsPerProcess is used. Applies 
+#'    only to content types that are executed on demand.}
+#'    \item{\strong{load_factor}}{Controls how aggressively new processes are spawned. 
+#'    When null, the default Scheduler.LoadFactor is used. Applies only to 
+#'    content types that are executed on demand.}
+#'    \item{\strong{url}}{The URL associated with this content. Computed from 
+#'    the associated vanity URL or the identifiers for this content.}
+#'    \item{\strong{vanity_url}}{The vanity url assigned to this app by an 
+#'    administrator}
+#'    \item{\strong{name}}{A simple, URL-friendly identifier. Allows 
+#'    alpha-numeric characters, hyphens ("-"), and underscores ("_").}
+#'    \item{\strong{title}}{The title of this content.}
+#'    \item{\strong{bundle_id}}{The identifier for the active deployment bundle. 
+#'    Automatically assigned upon the successful deployment of that bundle.}
+#'    \item{\strong{app_mode}}{The runtime model for this content. Has a value 
+#'    of unknown before data is deployed to this item. Automatically assigned 
+#'    upon the first successful bundle deployment.}
+#'    \item{\strong{content_category}}{Describes the specialization of the content 
+#'    runtime model. Automatically assigned upon the first successful bundle 
+#'    deployment.}
+#'    \item{\strong{has_parameters}}{True when R Markdown rendered content 
+#'    allows parameter configuration. Automatically assigned upon the first 
+#'    successful bundle deployment. Applies only to content with an app_mode
+#'    of rmd-static.}
+#'    \item{\strong{created_time}}{The timestamp (RFC3339) indicating when this 
+#'    content was created.}
+#'    \item{\strong{last_deployed_time}}{The timestamp (RFC3339) indicating when
+#'    this content last had a successful bundle deployment performed.}
+#'    \item{\strong{r_version}}{The version of the R interpreter associated 
+#'    with this content. The value null represents that an R interpreter is 
+#'    not used by this content or that the R package environment has not been 
+#'    successfully restored. Automatically assigned upon the successful 
+#'    deployment of a bundle.}
+#'    \item{\strong{py_version}}{The version of the Python interpreter 
+#'    associated with this content. The value null represents that a Python 
+#'    interpreter is not used by this content or that the Python package 
+#'    environment has not been successfully restored. Automatically assigned 
+#'    upon the successful deployment of a bundle.}
+#'    \item{\strong{build_status}}{}
+#'    \item{\strong{run_as}}{The UNIX user that executes this content. 
+#'    When null, the default Applications.RunAs is used. Applies 
+#'    only to executable content types - not static.}
+#'    \item{\strong{run_as_current_user}}{Indicates if this content is allowed 
+#'    to execute as the logged-in user when using PAM authentication. 
+#'    Applies only to executable content types - not static.}
+#'    \item{\strong{description}}{A rich description of this content}
+#'    \item{\strong{app_role}}{The relationship of the accessing user to this 
+#'    content. A value of owner is returned for the content owner. editor 
+#'    indicates a collaborator. The viewer value is given to users who are 
+#'    permitted to view the content. A none role is returned for 
+#'    administrators who cannot view the content but are permitted to view 
+#'    its configuration. Computed at the time of the request.}
+#'    \item{\strong{owner_first_name}}{The first name of the owner of the 
+#'    content.}
+#'    \item{\strong{owner_last_name}}{The last name of the owner of the 
+#'    content.}
+#'    \item{\strong{owner_username}}{The username of the owner of the 
+#'    content.}
+#'    \item{\strong{owner_guid}}{The unique identifier for the owner}
+#'    \item{\strong{owner_email}}{The email of the content owner}
+#'    \item{\strong{owner_locked}}{Is the owners user account locked?}
+#'    \item{\strong{is_scheduled}}{Is this content scheduled?}
+#'    \item{\strong{git}}{Is this content deployed via git or GitHub?}
 #' }
 #' 
 #' @details 
