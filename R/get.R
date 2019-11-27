@@ -5,6 +5,21 @@
 #' @param src The source object
 #' @param page_size the number of records to return per page (max 500)
 #' @param page_number the page number you wish to query
+#' @param prefix Filters users by prefix (username, first name, or last name). 
+#' The filter is case insensitive.
+#' 
+#' @examples 
+#' \dontrun{
+#'   library(connectapi)
+#'   client <- connect()
+#'   
+#'   # get the first 20 users
+#'   get_users(client, page_size = 20)
+#'   
+#'   # get the second twenty users
+#'   get_users(client, page_size = 20, page_number = 2)
+#' 
+#' }
 get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   validate_R6_class("Connect", src)
   
@@ -30,11 +45,39 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   return(out)
 }
 
-
-get_groups <- function(src){
+#' Get group information from the RStudio Connect server
+#' 
+#' @param src The source object
+#' @param page_size the number of records to return per page (max 500)
+#' @param page_number the page number you wish to query
+#' @param prefix Filters groups by prefix (group name). 
+#' The filter is case insensitive.
+#' 
+#' @examples 
+#' \dontrun{
+#'   library(connectapi)
+#'   client <- connect()
+#'   
+#'   # get the first 20 users
+#'   get_groups(client, page_size = 20)
+#'   
+#'   # get the second twenty users
+#'   get_groups(client, page_size = 20, page_number = 2)
+#' 
+#' }
+get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   validate_R6_class("Connect", src)
   
-  res <- src$groups()
+  res <- src$groups(
+    page_size = page_size,
+    page_number = page_number,
+    prefix = prefix
+  )
+  
+  ## TODO: Add a pagination option for groups? This could be done using the 
+  ## res$total value and changing the page_size and page_number arguments
+  ## with a limit arguemnt. Then a while loop could be written similar 
+  ## to page_cursor
   
   res <- res$results
   
