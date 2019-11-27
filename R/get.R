@@ -36,6 +36,16 @@ get_groups <- function(src){
 #' @param filter a named list of filter options, e.g. list(name = 'appname')
 #' @param limit the maximum number of records to return
 #' @param page_size the number of records to return per page
+#' 
+#' @examples
+#' \dontrun{
+#'   library(connectapi)
+#'   client <- connect()
+#'   
+#'   get_content(client, limit = 20)
+#' }
+#' 
+#' @export
 get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
   validate_R6_class("Connect", src)
   
