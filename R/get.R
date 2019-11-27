@@ -20,6 +20,8 @@
 #'   get_users(client, page_size = 20, page_number = 2)
 #' 
 #' }
+#' 
+#' @export
 get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   validate_R6_class("Connect", src)
   
@@ -65,6 +67,8 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #'   get_groups(client, page_size = 20, page_number = 2)
 #' 
 #' }
+#' 
+#' @export
 get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   validate_R6_class("Connect", src)
   
