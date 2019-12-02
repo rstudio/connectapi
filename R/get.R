@@ -315,7 +315,7 @@ get_group_members <- function(src, guid){
 get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
   validate_R6_class("Connect", src)
   
-  warn_experimental("'get_content'")
+  warn_experimental("get_content")
   
   ## TODO Add more arguments that can build the filter function for users
   ## so that they know explicitely what arguments that can pass
