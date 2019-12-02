@@ -64,7 +64,7 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   res <- res$results
   
   if (length(res) >= 400) {
-    warning("The 'users' tbl_connect does not page and will return max 500 users")
+    warning("'get_users' does not page and will return max 500 users")
   }
   
   out <- parse_connectapi(res)
