@@ -124,7 +124,7 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
   res <- res$results
   
   if (length(res) >= 400) {
-    warning("The 'groups' tbl_connect does not page and will return max 500 users")
+    warning("'get_groups' does not page and will return max 500 groups")
   }
   
   out <- parse_connectapi(res)
