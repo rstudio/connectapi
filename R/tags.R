@@ -1,3 +1,12 @@
+
+#' Get a simple data.frame listing all Tags on server
+#' 
+#' @param src The source object
+#' @param use_cache use the tag list previously queried 
+#' from the connect server. src$tags object is null then
+#' this parameter will be ignored
+#' 
+#' @export
 get_tags <- function(src, use_cache = FALSE){
   validate_R6_class("Connect", src)
   
@@ -6,13 +15,34 @@ get_tags <- function(src, use_cache = FALSE){
   return(res)
 }
 
-
-get_tag_tree <- function(src){
+#' Get a tibble with more information for each tag
+#' 
+#' @param src The source object
+#' 
+#' @export
+get_tag_info <- function(src){
   validate_R6_class("Connect", src)
   
   res <- src$get_tag_tree()
   
-  tag_tree(res)
+  tag_tbl <- parse_tags_tbl(res)
+  
+  return(tag_tbl)
+}
+
+#' Print a visualization of the tag tree
+#' 
+#' @param src The source object
+#' @param top_tag The value to be printed at the top of the 
+#' tag tree. This value can not have any "/" characters in it. 
+#' 
+#' @export
+get_tag_tree <- function(src, top_tag = "RStudio Connect Tags"){
+  validate_R6_class("Connect", src)
+  
+  res <- src$get_tag_tree()
+  
+  tag_tree(res, top_tag = top_tag)
 }
 
 tag_tree <- function(tags, top_tag = "tags"){
@@ -77,3 +107,27 @@ tag_ancestor <- function(x){
 top_tag <- function(x){
   unique(stringr::str_extract(x, "^[^/]+"))
 }
+
+
+parse_tags_tbl <- function(x){
+  parsed_tags <- purrr::map_dfr(x, ~{
+    out <- dplyr::tibble(
+      id = .x$id,
+      name = .x$name,
+      created_time = .x$created_time,
+      updated_time = .x$updated_time,
+      version = .x$version,
+      parent_id = ifelse(is.null(.x$parent_id), NA_integer_, .x$parent_id)
+    )
+    
+    if (length(.x$children) > 0){
+      child <- parse_tags_tbl(.x$children)
+      out <- dplyr::bind_rows(out, child)
+    }
+    
+    return(out)
+  })
+  
+  return(parsed_tags)
+}
+
