@@ -30,12 +30,12 @@ page_cursor <- function(client, req, limit = Inf) {
     
     # change limit if this iteration would exceed the requested limit
     next_url <- response$paging$`next`
+    response <- client$GET_URL(next_url)
+    
     if ((limit - length(res)) < limit){
       limit <- (limit - length(res))
-      next_url <- gsub("limit=[0-9]*", paste0("limit=", limit), next_url)
+      response$results <- head(response$results, n = limit)
     } 
-    
-    response <- client$GET_URL(next_url)
     res <- c(res, response$results)
   }
   return(res)
