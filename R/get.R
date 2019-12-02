@@ -571,27 +571,3 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
   
   return(out)
 }
-
-
-
-
-
-
-parse_connectapi <- function(data){
-  purrr::map_df(
-    data, 
-    function(x) {
-      purrr::map(
-        .x = x,
-        .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
-          if (length(prep) > 1)
-            prep <- NA
-          return(prep)
-        }
-      )
-    }
-  )
-}
