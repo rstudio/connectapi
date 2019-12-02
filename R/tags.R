@@ -7,16 +7,13 @@ get_tags <- function(src, use_cache = FALSE){
 }
 
 
-
-
-
-
-
-get_tag_tree(src){
+get_tag_tree <- function(src){
   validate_R6_class("Connect", src)
+  
+  res <- src$get_tag_tree()
+  
+  tag_tree(res)
 }
-
-
 
 tag_tree <- function(tags, top_tag = "tags"){
   parsed_tags <- parse_tags(tags, top_tag = top_tag)
@@ -45,13 +42,11 @@ tag_tree <- function(tags, top_tag = "tags"){
 }
 
 
-
-
 parseTags <- function(x){
   parsed_tags <- purrr::map(x, ~{
     out <- .x$name
     # out <- paste(top_tag, out, sep = "/")
-    if (!is.null(.x$children)){
+    if (length(.x$children) > 0){
       child_names <- parseTags(.x$children)
       child_names <- paste(out, child_names, sep = "/")
       out <- c(out, child_names)
@@ -74,10 +69,8 @@ parse_tags <- function(x, top_tag = "tags"){
 }
 
 tag_ancestor <- function(x){
-  # stringr::str_extract(x, "^[^/]+")
   out <- stringr::str_extract(x, "^(.*[\\/])")
   out <- ifelse(is.na(out), paste0(x, "/"), out)
-  # if (is.na(out)) out <- x
   return(out)
 }
 
