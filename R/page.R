@@ -32,12 +32,9 @@ page_cursor <- function(client, req, limit = Inf) {
     next_url <- response$paging$`next`
     response <- client$GET_URL(next_url)
     
-    if ((limit - length(res)) < limit){
-      limit <- (limit - length(res))
-      response$results <- head(response$results, n = limit)
-    } 
     res <- c(res, response$results)
   }
+  res <- head(res, n = limit)
   return(res)
 }
 # TODO: Decide if this `limit = Inf` is helpful or a hack...
