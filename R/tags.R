@@ -54,7 +54,6 @@ tag_tree <- function(tags, top_tag = "tags"){
   ch <- fs:::box_chars()
   
   print_leaf <- function(x, indent) {
-    # browser()
     leafs <- tag_split[[x]]
     for (i in seq_along(leafs)) {
       if (i == length(leafs)) {
