@@ -48,8 +48,7 @@ get_tag_tree <- function(src, top_tag = "RStudio Connect Tags"){
 tag_tree <- function(tags, top_tag = "tags"){
   parsed_tags <- parse_tags(tags, top_tag = top_tag)
   
-  tag_split <- split(parsed_tags, tag_ancestor(parsed_tags))
-  names(tag_split) <- gsub("/$", "", names(tag_split))
+  tag_split <- split(parsed_tags, dirname(parsed_tags))
   
   ch <- fs:::box_chars()
   
@@ -97,14 +96,8 @@ parse_tags <- function(x, top_tag = "tags"){
   return(out)
 }
 
-tag_ancestor <- function(x){
-  out <- stringr::str_extract(x, "^(.*[\\/])")
-  out <- ifelse(is.na(out), paste0(x, "/"), out)
-  return(out)
-}
-
 top_tag <- function(x){
-  unique(stringr::str_extract(x, "^[^/]+"))
+  unique(gsub("\\/.*$", "", x))
 }
 
 

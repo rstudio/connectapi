@@ -31,8 +31,7 @@ Imports:
     lifecycle,
     purrr,
     uuid,
-    dplyr,
-    stringr
+    dplyr
 Suggests: 
     crayon,
     flexdashboard,
