@@ -201,6 +201,8 @@ Connect <- R6::R6Class(
         total = NA,
         clear = FALSE
       )
+      
+      if (.limit < page_size) page_size <- .limit
 
       # handle paging
       prg$tick()
@@ -211,9 +213,13 @@ Connect <- R6::R6Class(
           )
       )
       all <- res$applications
+      all_l <- length(all)
       start <- page_size + 1
-      while (length(res$applications) > 0 && length(all) < .limit) {
+      while (length(res$applications) > 0 && all_l < .limit) {
         prg$tick()
+        
+        if ((.limit - all_l) < page_size) page_size <- (.limit - all_l)
+        
         res <- self$GET(
           sprintf(
             '%s%scount=%d&start=%d&cont=%s',
@@ -221,6 +227,7 @@ Connect <- R6::R6Class(
             )
           )
         all <- c(all, res$applications)
+        all_l <- length(all)
         start <- start + page_size
       }
       all
@@ -542,4 +549,3 @@ check_debug <- function(req, res) {
     message(httr::content(res, as = 'text'))
   }
 }
-
