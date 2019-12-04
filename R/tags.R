@@ -50,17 +50,17 @@ tag_tree <- function(tags, top_tag = "tags"){
   
   tag_split <- split(parsed_tags, dirname(parsed_tags))
   
-  ch <- fs:::box_chars()
+  ch <- box_chars()
   
   print_leaf <- function(x, indent) {
     leafs <- tag_split[[x]]
     for (i in seq_along(leafs)) {
       if (i == length(leafs)) {
-        cat(indent, fs:::pc(ch$l, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
+        cat(indent, pc(ch$l, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
         print_leaf(leafs[[i]], paste0(indent, "    "))
       } else {
-        cat(indent, fs:::pc(ch$j, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
-        print_leaf(leafs[[i]], paste0(indent, fs:::pc(ch$v, "   ")))
+        cat(indent, pc(ch$j, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
+        print_leaf(leafs[[i]], paste0(indent, pc(ch$v, "   ")))
       }
     }
   }
@@ -76,7 +76,7 @@ parseTags <- function(x){
     # out <- paste(top_tag, out, sep = "/")
     if (length(.x$children) > 0){
       child_names <- parseTags(.x$children)
-      child_names <- paste(out, child_names, sep = "/")
+      child_names <- paste(out, child_names, sep = "//")
       out <- c(out, child_names)
     } 
     
@@ -92,7 +92,7 @@ parseTags <- function(x){
 parse_tags <- function(x, top_tag = "tags"){
   out <- parseTags(x)
   
-  out <- paste(top_tag, out, sep = "/")
+  out <- paste(top_tag, out, sep = "//")
   return(out)
 }
 
@@ -123,3 +123,41 @@ parse_tags_tbl <- function(x){
   return(parsed_tags)
 }
 
+
+# HELPER FUNCTIONS FOR tag_tree FROM fs
+pc <- function(...) {
+  paste0(..., collapse = "")
+}
+
+# These are derived from https://github.com/r-lib/cli/blob/e9acc82b0d20fa5c64dd529400b622c0338374ed/R/tree.R#L111
+box_chars <- function() {
+  if (is_utf8_output()) {
+    list(
+      "h" = "\u2500",                   # horizontal
+      "v" = "\u2502",                   # vertical
+      "l" = "\u2514",
+      "j" = "\u251C"
+    )
+  } else {
+    list(
+      "h" = "-",                        # horizontal
+      "v" = "|",                        # vertical
+      "l" = "\\",
+      "j" = "+"
+    )
+  }
+}
+
+is_latex_output <- function() {
+  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
+  get("is_latex_output", asNamespace("knitr"))()
+}
+
+is_utf8_output <- function() {
+  opt <- getOption("cli.unicode", NULL)
+  if (! is.null(opt)) {
+    isTRUE(opt)
+  } else {
+    l10n_info()$`UTF-8` && !is_latex_output()
+  }
+}
