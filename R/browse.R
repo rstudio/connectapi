@@ -34,3 +34,12 @@ browse_api_docs <- function(connect) {
   utils::browseURL(url)
   return(url)
 }
+
+#' @rdname browse
+#' @export
+browse_connect <- function(connect) {
+  validate_R6_class(connect, "Connect")
+  url <- connect$host
+  utils::browseURL(url)
+  return(url)
+}
