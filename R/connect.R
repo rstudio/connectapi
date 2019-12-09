@@ -468,6 +468,10 @@ Connect <- R6::R6Class(
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+      if (limit > 500) {
+        # reset limit to avoid error
+        limit <- 500L
+      }
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
