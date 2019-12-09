@@ -52,7 +52,7 @@ generate_R6_print_output <- function() {
   ))
 }
 
-validate_R6_class <- function(class, instance) {
+validate_R6_class <- function(instance, class) {
   obj <- rlang::enquo(instance)
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
     stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
