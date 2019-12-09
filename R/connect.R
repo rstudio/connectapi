@@ -512,8 +512,9 @@ Connect <- R6::R6Class(
 #' @rdname connect
 #' @export
 connect <- function(
-  host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
-  api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
+  host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+  api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+  prefix = "RSTUDIO_CONNECT"
 ) {
   con <- Connect$new(host = host, api_key = api_key)
   
