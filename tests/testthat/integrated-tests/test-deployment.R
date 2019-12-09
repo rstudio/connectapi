@@ -41,7 +41,7 @@ test_that("can promote content to another server", {
     from = Sys.getenv("TEST_1_SERVER"),
     from_key = Sys.getenv("TEST_1_API_KEY"),
     to = Sys.getenv("TEST_2_SERVER"),
-    to_key = Sys.getenv("TEST_1_API_KEY"),
+    to_key = Sys.getenv("TEST_2_API_KEY"),
     name = cont1_name
   )
   
