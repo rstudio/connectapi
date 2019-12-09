@@ -4,8 +4,9 @@
 \alias{connect}
 \title{Create a connection to RStudio Connect}
 \usage{
-connect(host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
-  api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_))
+connect(host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+  api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+  prefix = "RSTUDIO_CONNECT")
 }
 \arguments{
 \item{host}{The URL for accessing RStudio Connect. Defaults to environment

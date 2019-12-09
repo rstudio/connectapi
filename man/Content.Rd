@@ -4,7 +4,7 @@
 \name{Content}
 \alias{Content}
 \title{Content}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
+\format{An object of class \code{R6ClassGenerator} of length 25.}
 \usage{
 Content
 }

@@ -5,7 +5,7 @@
 \title{Connect Tibble}
 \usage{
 tbl_connect(src, from = c("users", "groups", "content", "shiny_usage",
-  "content_visits"), ...)
+  "content_visits", "audit_logs"), ...)
 }
 \arguments{
 \item{src}{The source object}
