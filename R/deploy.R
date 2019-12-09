@@ -56,6 +56,16 @@ Content <- R6::R6Class(
         .sep = "/"
       )
     },
+    get_jobs = function() {
+      warn_experimental("get_jobs")
+      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
+      self$get_connect()$GET(url)
+    },
+    get_job = function(key) {
+      warn_experimental("get_job")
+      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
+      self$get_connect()$GET(url)
+    },
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
