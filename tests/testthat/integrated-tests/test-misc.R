@@ -1,8 +1,8 @@
 context("test misc")
 
 # should connect with env vars
-test_conn_1 <- connect(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
-test_conn_2 <- connect(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
+test_conn_1 <- connect(prefix = "TEST_1")
+test_conn_2 <- connect(prefix = "TEST_2")
 
 test_that("audit_logs work", {
   logs <- test_conn_1$audit_logs()

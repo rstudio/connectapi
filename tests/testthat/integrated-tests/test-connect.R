@@ -6,9 +6,17 @@ test_conn_2 <- NULL
 
 test_that("connect works", {
   test_conn_1 <<- connect(
-    host = Sys.getenv("TEST_SERVER_1"), 
-    api_key = Sys.getenv("TEST_KEY_1")
+    host = Sys.getenv("TEST_1_SERVER"), 
+    api_key = Sys.getenv("TEST_1_API_KEY")
     )
+  expect_true(validate_R6_class(test_conn_1, "Connect"))
+})
+
+test_that("connect works with prefix only", {
+  test_conn_2 <<- connect(
+    prefix = "TEST_2"
+  )
+  expect_true(validate_R6_class(test_conn_2, "Connect"))
 })
 
 test_that("connect fails for nonexistent server", {
@@ -20,7 +28,7 @@ test_that("connect fails for nonexistent server", {
 test_that("connect fails for good server, bad api key", {
   expect_error({
     connect(
-      host = Sys.getenv("TEST_SERVER_1"),
+      host = Sys.getenv("TEST_1_SERVER"),
       api_key = "bogus"
     )
   })
