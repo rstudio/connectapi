@@ -20,7 +20,7 @@
 #' 
 #' @export
 tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"), ...) {
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"))
     stop(glue::glue("ERROR: invalid table name: {from}"))
