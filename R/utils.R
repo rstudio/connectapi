@@ -52,7 +52,7 @@ generate_R6_print_output <- function() {
   ))
 }
 
-validate_R6_class <- function(class, instance) {
+validate_R6_class <- function(instance, class) {
   obj <- rlang::enquo(instance)
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
     stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
@@ -149,17 +149,17 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   cat_line("connect: writing values to .Renviron")
   curr_environ <- tryCatch(readLines(".Renviron"), error = function(e){print(e); return(character())})
   
-  curr_environ <- curr_environ[!grepl('^TEST_SERVER_1=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_SERVER_2=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_KEY_1=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_KEY_2=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_1_SERVER=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_2_SERVER=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_1_API_KEY=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_2_API_KEY=', curr_environ)]
   output_environ <- glue::glue(
     paste(curr_environ, collapse = "\n"), 
     "",
-    "TEST_SERVER_1={a1$host}",
-    "TEST_KEY_1={a1$api_key}",
-    "TEST_SERVER_2={a2$host}",
-    "TEST_KEY_2={a2$api_key}",
+    "TEST_1_SERVER={a1$host}",
+    "TEST_1_API_KEY={a1$api_key}",
+    "TEST_2_SERVER={a2$host}",
+    "TEST_2_API_KEY={a2$api_key}",
     .sep = "\n"
   )
   fs::file_move(".Renviron", ".Renviron.bak")

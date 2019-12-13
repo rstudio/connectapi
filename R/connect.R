@@ -468,6 +468,10 @@ Connect <- R6::R6Class(
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+      if (limit > 500) {
+        # reset limit to avoid error
+        limit <- 500L
+      }
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
@@ -507,13 +511,15 @@ Connect <- R6::R6Class(
 #'   variable RSTUDIO_CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable RSTUDIO_CONNECT_API_KEY
+#' @param prefix The prefix used to determine environment variables
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
 #' @rdname connect
 #' @export
 connect <- function(
-  host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
-  api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
+  host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+  api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+  prefix = "RSTUDIO_CONNECT"
 ) {
   con <- Connect$new(host = host, api_key = api_key)
   

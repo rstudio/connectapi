@@ -48,7 +48,7 @@
 #' 
 #' @export
 get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   res <- src$users(
     page_size = page_size,
@@ -108,7 +108,7 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' 
 #' @export
 get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   res <- src$groups(
     page_size = page_size,
@@ -177,7 +177,7 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' 
 #' @export
 get_group_members <- function(src, guid){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   res <- src$group_members(guid)
   
@@ -313,7 +313,7 @@ get_group_members <- function(src, guid){
 #' 
 #' @export
 get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   warn_experimental("get_content")
   
@@ -398,7 +398,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
                             previous = NULL,
                             nxt = NULL,
                             asc_order = TRUE){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   res <- src$inst_shiny_usage(
     content_guid = content_guid, 
@@ -492,7 +492,7 @@ get_usage_static <- function(src, content_guid = NULL,
                              previous = NULL,
                              nxt = NULL,
                              asc_order = TRUE){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   res <- src$inst_content_visits(
     content_guid = content_guid, 
@@ -555,7 +555,7 @@ get_usage_static <- function(src, content_guid = NULL,
 #' @export
 get_audit_logs <- function(src, limit = 20L, previous = NULL, 
                            nxt = NULL, asc_order = TRUE){
-  validate_R6_class("Connect", src)
+  validate_R6_class(src, "Connect")
   
   # browser()
   res <- src$audit_logs(

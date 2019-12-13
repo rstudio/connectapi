@@ -1,8 +1,8 @@
 integrated_vars <- c(
-  server_1 = Sys.getenv("TEST_SERVER_1"),
-  key_1 = Sys.getenv("TEST_KEY_1"),
-  server_2 = Sys.getenv("TEST_SERVER_2"),
-  key_2 = Sys.getenv("TEST_KEY_2")
+  server_1 = Sys.getenv("TEST_1_SERVER"),
+  key_1 = Sys.getenv("TEST_1_API_KEY"),
+  server_2 = Sys.getenv("TEST_2_SERVER"),
+  key_2 = Sys.getenv("TEST_2_API_KEY")
 )
 
 health_checks <- list(

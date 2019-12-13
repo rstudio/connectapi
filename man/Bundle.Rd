@@ -4,7 +4,7 @@
 \name{Bundle}
 \alias{Bundle}
 \title{Bundle}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
+\format{An object of class \code{R6ClassGenerator} of length 25.}
 \usage{
 Bundle
 }
