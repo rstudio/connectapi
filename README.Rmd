@@ -51,8 +51,8 @@ client <- connect(
 You can also define the following environment variables (in a `.Renviron` file, for instance):
 
 ```
-RSTUDIO_CONNECT_SERVER  = https://connect.example.com
-RSTUDIO_CONNECT_API_KEY = my-secret-api-key
+CONNECT_SERVER  = https://connect.example.com
+CONNECT_API_KEY = my-secret-api-key
 ```
 
 These environment variable values will be used automatically if defined in your R session.
