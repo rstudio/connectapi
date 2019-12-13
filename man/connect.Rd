@@ -14,6 +14,8 @@ variable RSTUDIO_CONNECT_SERVER}
 
 \item{api_key}{The API Key to authenticate to RStudio Connect with. Defaults
 to environment variable RSTUDIO_CONNECT_API_KEY}
+
+\item{prefix}{The prefix used to determine environment variables}
 }
 \value{
 An RStudio Connect R6 object that can be passed along to methods
