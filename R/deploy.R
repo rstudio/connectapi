@@ -56,16 +56,45 @@ Content <- R6::R6Class(
         .sep = "/"
       )
     },
-    get_jobs = function() {
+    jobs = function() {
       warn_experimental("get_jobs")
       url <- glue::glue("applications/{self$get_content()$guid}/jobs")
       self$get_connect()$GET(url)
     },
-    get_job = function(key) {
+    job = function(key) {
       warn_experimental("get_job")
       url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
       self$get_connect()$GET(url)
     },
+    variants = function() {
+      warn_experimental("get_vanities")
+      url <- glue::glue("applications/{self$get_content()$guid}/variants")
+      self$get_connect()$GET(url)
+    },
+    environment = function() {
+      url <- glue::glue("applications/{self$get_content()$guid}/environment")
+      self$get_connect()$GET(url)
+    },
+    set_environment = function(key, value) {
+      url <- glue::glue("applications/{self$get_content()$guid}/environment")
+      # post with 
+      # key = null to retain
+      # post without a variable/key to remove
+      # bump version number
+      body <- list(
+        values = list(
+          # previous values
+          # need key to be set properly...
+          key = value
+        ),
+        version = 1,
+        app_id = app_id
+      )
+      self$get_connect()$POST(
+        path = url,
+        body = body
+      )
+    }
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
@@ -75,6 +104,50 @@ Content <- R6::R6Class(
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
       cat("\n")
       invisible(self)
+    }
+  )
+)
+
+#' Variant
+#' 
+#' An R6 class that represents a Variant
+#' 
+Variant <- R6::R6Class(
+  "Variant",
+  inherit = Content,
+  public = list(
+    variant = NULL,
+    get_variant = function() {self$variant},
+    initialize = function(connect, content, variant) {
+      # TODO
+    },
+    send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
+      if (length(to) > 1) to <- "me"
+      url <- glue::glue("variants/{self$get_variant()$id}/sender")
+      self$get_connect()$POST(
+        path = url, 
+        body = list(
+          email = to
+        ))
+    },
+    render = function() {
+      url <- glue::glue("variants/{self$get_variant()$id}/render")
+      self$get_connect()$POST(
+        path = url,
+        body = list(
+          email = "none",
+          activate = TRUE
+        )
+      )
+    },
+    get_renderings = function() {
+      url <- glue::glue("variants/{self$get_variant()$id}/renderings")
+      self$get_connect()$GET(
+        path = url
+      )
+    },
+    navigate_rev = function() {
+      glue::glue("content_url/variant_hash/_rev{rev_id}")
     }
   )
 )
