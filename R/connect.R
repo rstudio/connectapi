@@ -521,6 +521,14 @@ connect <- function(
   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
   prefix = "CONNECT"
 ) {
+  if (
+    prefix == "CONNECT" &&
+    is.na(host) && is.na(api_key) && 
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
+  ) {
+    stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
+  }
   con <- Connect$new(host = host, api_key = api_key)
   
   check_connect_license(con$host)
