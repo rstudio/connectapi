@@ -36,8 +36,8 @@ client <- connect(
 The alternative is to define a `.Renviron` file, which specifies environment variables:
 
 ```
-RSTUDIO_CONNECT_SERVER=http://example.com:3939
-RSTUDIO_CONNECT_API_KEY=aihgaahegiahgg
+CONNECT_SERVER=http://example.com:3939
+CONNECT_API_KEY=aihgaahegiahgg
 ```
 
 Then, those can be used in your code:
