@@ -79,7 +79,7 @@ compatible with the current version of the package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@ compatible with the current version of the package.</p>
 
     <pre class="usage"><span class='fu'>connect</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>prefix</span>, <span class='st'>"_SERVER"</span>), <span class='fl'>NA_character_</span>),
   <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>prefix</span>, <span class='st'>"_API_KEY"</span>), <span class='fl'>NA_character_</span>),
-  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"RSTUDIO_CONNECT"</span>)</pre>
+  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"CONNECT"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,12 +151,12 @@ compatible with the current version of the package.</p>
     <tr>
       <th>host</th>
       <td><p>The URL for accessing RStudio Connect. Defaults to environment
-variable RSTUDIO_CONNECT_SERVER</p></td>
+variable CONNECT_SERVER</p></td>
     </tr>
     <tr>
       <th>api_key</th>
       <td><p>The API Key to authenticate to RStudio Connect with. Defaults
-to environment variable RSTUDIO_CONNECT_API_KEY</p></td>
+to environment variable CONNECT_API_KEY</p></td>
     </tr>
     <tr>
       <th>prefix</th>
