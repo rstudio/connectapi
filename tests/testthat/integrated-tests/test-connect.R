@@ -21,7 +21,7 @@ test_that("connect works with prefix only", {
 
 test_that("connect fails for nonexistent server", {
   expect_error({
-    connect(host = "does-not-exist.example.com", api_key = "bogus")
+    connect(host = "does-not-exist.rstudio.com", api_key = "bogus")
   })
 })
 
