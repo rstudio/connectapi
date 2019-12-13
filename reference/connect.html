@@ -141,8 +141,9 @@ Validates the connection and checks that the version of the server is
 compatible with the current version of the package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>connect</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"RSTUDIO_CONNECT_SERVER"</span>, <span class='fl'>NA_character_</span>),
-  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"RSTUDIO_CONNECT_API_KEY"</span>, <span class='fl'>NA_character_</span>))</pre>
+    <pre class="usage"><span class='fu'>connect</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>prefix</span>, <span class='st'>"_SERVER"</span>), <span class='fl'>NA_character_</span>),
+  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='no'>prefix</span>, <span class='st'>"_API_KEY"</span>), <span class='fl'>NA_character_</span>),
+  <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"RSTUDIO_CONNECT"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +157,10 @@ variable RSTUDIO_CONNECT_SERVER</p></td>
       <th>api_key</th>
       <td><p>The API Key to authenticate to RStudio Connect with. Defaults
 to environment variable RSTUDIO_CONNECT_API_KEY</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>The prefix used to determine environment variables</p></td>
     </tr>
     </table>
 
