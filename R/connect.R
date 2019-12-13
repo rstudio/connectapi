@@ -511,6 +511,7 @@ Connect <- R6::R6Class(
 #'   variable RSTUDIO_CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable RSTUDIO_CONNECT_API_KEY
+#' @param prefix The prefix used to determine environment variables
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
 #' @rdname connect
