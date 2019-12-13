@@ -71,11 +71,28 @@ Content <- R6::R6Class(
       url <- glue::glue("applications/{self$get_content()$guid}/variants")
       self$get_connect()$GET(url)
     },
+    tag_set = function(id) {
+      url <- glue::glue("applications/{self$get_content()$guid}/tags")
+      self$get_connect()$POST(
+        url,
+        body = list(
+          id = id
+        )
+      )
+    },
+    tag_delete = function(id) {
+      url <- glue::glue("applications/{self$get_content()$guid}/tags/{id}")
+      self$get_connect()$DELETE(url)
+    },
+    tags = function() {
+      url <- glue::glue("applications/{self$get_content()$guid}/tags")
+      self$get_connect()$GET(url)
+    },
     environment = function() {
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
       self$get_connect()$GET(url)
     },
-    set_environment = function(key, value) {
+    environment_set = function(key, value) {
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
       # post with 
       # key = null to retain
@@ -94,7 +111,7 @@ Content <- R6::R6Class(
         path = url,
         body = body
       )
-    }
+    },
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
