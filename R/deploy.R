@@ -57,21 +57,22 @@ Content <- R6::R6Class(
       )
     },
     jobs = function() {
-      warn_experimental("get_jobs")
+      warn_experimental("jobs")
       url <- glue::glue("applications/{self$get_content()$guid}/jobs")
       self$get_connect()$GET(url)
     },
     job = function(key) {
-      warn_experimental("get_job")
+      warn_experimental("job")
       url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
       self$get_connect()$GET(url)
     },
     variants = function() {
-      warn_experimental("get_vanities")
+      warn_experimental("variants")
       url <- glue::glue("applications/{self$get_content()$guid}/variants")
       self$get_connect()$GET(url)
     },
     tag_set = function(id) {
+      warn_experimental("tag_set")
       url <- glue::glue("applications/{self$get_content()$guid}/tags")
       self$get_connect()$POST(
         url,
@@ -81,36 +82,39 @@ Content <- R6::R6Class(
       )
     },
     tag_delete = function(id) {
+      # note that deleting the parent tag deletes all children
+      warn_experimental("tag_delete")
       url <- glue::glue("applications/{self$get_content()$guid}/tags/{id}")
-      self$get_connect()$DELETE(url)
+      invisible(self$get_connect()$DELETE(url))
     },
     tags = function() {
+      warn_experimental("tags")
       url <- glue::glue("applications/{self$get_content()$guid}/tags")
       self$get_connect()$GET(url)
     },
     environment = function() {
+      warn_experimental("environment")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
       self$get_connect()$GET(url)
     },
-    environment_set = function(key, value) {
+    environment_set = function(..., .version = 0) {
+      warn_experimental("environment_set")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
       # post with 
-      # key = null to retain
+      # key = NA to retain
       # post without a variable/key to remove
-      # bump version number
+      # bump version number each time
+      vals <- rlang::list2(...)
       body <- list(
-        values = list(
-          # previous values
-          # need key to be set properly...
-          key = value
-        ),
-        version = 1,
-        app_id = app_id
+        values = vals,
+        version = .version,
+        app_guid = self$get_content()$guid
       )
       self$get_connect()$POST(
         path = url,
         body = body
       )
+      invisible()
     },
     print = function(...) {
       cat("RStudio Connect Content: \n")
