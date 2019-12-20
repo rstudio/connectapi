@@ -380,6 +380,16 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    group_member_add = function(group_guid, user_guid) {
+      path <- glue::glue("v1/groups/{group_guid}/members")
+      self$POST(path, list(user_guid = user_guid))
+    },
+    
+    group_member_remove = function(group_guid, user_guid) {
+      path <- glue::glue("v1/groups/{group_guid}/members/{user_guid}")
+      self$DELETE(path)
+    },
+    
     groups_create = function(
       name
     ) {
