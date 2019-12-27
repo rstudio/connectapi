@@ -614,7 +614,7 @@ get_procs <- function(src) {
     tbl_data <- purrr::map_df(type_vector_proc, identity)
   }
   
-  # force fs_bytes typing for ram
+  # force fs::fs_bytes typing for ram
   tbl_data$ram <- fs::as_fs_bytes(tbl_data$ram)
   
   return(tbl_data)
