@@ -604,10 +604,28 @@ get_procs <- function(src) {
   scoped_experimental_silence()
   raw_proc_data <- src$procs()
   
-  purrr::imap_dfr(
+  tbl_data <- purrr::imap_dfr(
     raw_proc_data, 
     function(x, y) {
       tibble::tibble(pid = y, !!!x)
       }
     )
+  if (ncol(tbl_data) == 0) {
+    tbl_data <- tibble::as_tibble(type_vector_proc)
+  }
+  
+  return(tbl_data)
 }
+
+type_vector_proc <- list(
+  pid = character(),
+  appId = integer(),
+  appGuid = character(),
+  appName = character(),
+  appUrl = character(),
+  appRunAs = character(),
+  type = character(),
+  cpuCurrent = double(),
+  cpuTotal = integer(),
+  ram = integer()
+)
