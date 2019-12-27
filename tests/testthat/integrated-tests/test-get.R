@@ -11,6 +11,7 @@ cont1_bundle <- NULL
 cont1_content <- NULL
 
 test_that("get_procs works", {
+  scoped_experimental_silence()
   proc_data <- get_procs(test_conn_1)
   
   # TODO: This is not a great test, since no processes are running
