@@ -607,11 +607,11 @@ get_procs <- function(src) {
   tbl_data <- purrr::imap_dfr(
     raw_proc_data, 
     function(x, y) {
-      tibble::tibble(pid = y, !!!x)
+      c(list(pid = y), x)
       }
     )
   if (ncol(tbl_data) == 0) {
-    tbl_data <- tibble::as_tibble(type_vector_proc)
+    tbl_data <- purrr::map_df(type_vector_proc, identity)
   }
   
   return(tbl_data)
