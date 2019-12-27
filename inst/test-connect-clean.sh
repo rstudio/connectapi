@@ -1,4 +1,4 @@
 #!/bin/bash
-export CONNECT_VERSION=$(cat CONNECT_VERSION)
+export RSC_VERSION=$(cat RSC_VERSION)
 docker-compose -f ./test-connect.yml down
 docker-compose -f ./test-connect.yml up -d
