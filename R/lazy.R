@@ -205,9 +205,9 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else if (op$x == "content") {
     warn_experimental("tbl_connect 'content'")
     res <- con$get_apps(.limit = n)
-  } else if (op$x == "shiny_usage") {
+  } else if (op$x == "usage_shiny") {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
-  } else if (op$x == "content_visits") {
+  } else if (op$x == "usage_static") {
     res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "audit_logs") {
     res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n) 
