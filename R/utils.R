@@ -60,6 +60,28 @@ validate_R6_class <- function(instance, class) {
   invisible(TRUE)
 }
 
+ensure_columns <- function(.data, ...) {
+  defaults <- rlang::list2(...)
+  names <- names(defaults)
+  for (i in seq_along(defaults)) {
+    .data <- ensure_column(.data, defaults[[i]], names[[i]])
+  }
+  .data
+}
+
+ensure_column <- function(data, default, name) {
+  stopifnot(length(default) == 1)
+  col <- data[[name]]
+  if (rlang::is_null(col)) {
+    col <- rep_len(default, nrow(data))
+    col <- vctrs::vec_cast(col, default)
+  } else {
+    col <- vctrs::vec_cast(col, default)
+  }
+  data[[name]] <- col
+  data
+}
+
 # TODO: A nicer way to execute these system commands...
 # - debug output... better error handling... etc.
 
