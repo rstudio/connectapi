@@ -29,7 +29,7 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
   from <- check_deprecated_names(from)
   
   # TODO: go get the vars we should expect...
-  vars <- vars_lookup[[from]]
+  vars <- connectapi_ptypes[[from]]
   if (is.null(vars)) vars <- character()
   
   # TODO: figure out number of rows...
@@ -263,12 +263,13 @@ op_base_connect <- function(x, vars) {
 }
 
 op_base <- function(x, vars, class = character()) {
-  stopifnot(is.character(vars))
+  stopifnot(is.character(vars) || is.character(names(vars)))
   
   structure(
     list(
       x = x,
-      vars = vars
+      vars = names(vars),
+      ptype = vars
     ),
     class = c(paste0("op_base_", class), "op_base", "op")
   )
