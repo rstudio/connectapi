@@ -35,6 +35,42 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
+NA_datetime_ <- vctrs::new_datetime(NA_real_)
+
+connectapi_ptypes <- list(
+  users = tibble::tibble(
+    "email" = NA_character_,
+    "username" = NA_character_,
+    "first_name" = NA_character_,
+    "last_name" = NA_character_,
+    "user_role" = NA_character_,
+    "created_time" = NA_datetime_,
+    "updated_time" = NA_datetime_,
+    "active_time" = NA_datetime_,
+    "confirmed" = NA,
+    "locked" = NA,
+    "guid" = NA_character_
+  ),
+  usage_shiny = tibble::tibble(
+    "content_guid" = NA_character_,
+    "user_guid" = NA_character_,
+    "started" = NA_datetime_,
+    "ended" = NA_datetime_,
+    "data_version" = NA_integer_
+  ),
+  usage_static = tibble::tibble(
+    "content_guid" = NA_character_,
+    "user_guid" = NA_character_,
+    "variant_key" = NA_character_,
+    "time" = NA_datetime_,
+    "rendering_id" = NA_character_,
+    "bundle_id" = NA_character_,
+    "data_version" = NA_integer_
+  )
+  
+)
+
+
 vars_lookup <- list(
   users = c(
     "email",
