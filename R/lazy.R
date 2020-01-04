@@ -56,6 +56,7 @@ check_deprecated_names <- function(.name, deprecated_names) {
 }
 
 NA_datetime_ <- vctrs::new_datetime(NA_real_)
+NA_list_ <- list(list())
 
 connectapi_ptypes <- list(
   users = tibble::tibble(
@@ -71,7 +72,7 @@ connectapi_ptypes <- list(
     "locked" = NA,
     "guid" = NA_character_
   ),
-  groups = c(
+  groups = tibble::tibble(
     "guid" = NA_character_,
     "name" = NA_character_,
     "owner_guid" = NA_character_
@@ -92,7 +93,7 @@ connectapi_ptypes <- list(
     "bundle_id" = NA_character_,
     "data_version" = NA_integer_
   ),
-  content = c(
+  content = tibble::tibble(
     "id" = NA_integer_,
     "guid" = NA_character_,
     "access_type" = NA_character_,
@@ -105,7 +106,7 @@ connectapi_ptypes <- list(
     "max_conns_per_process" = NA_integer_,
     "load_factor" = NA_real_,
     "url" = NA_character_,
-    "vanity_url" = NA_character_,
+    "vanity_url" = NA,
     "name" = NA_character_,
     "title" = NA_character_,
     "bundle_id" = NA_integer_,
@@ -128,9 +129,9 @@ connectapi_ptypes <- list(
     "owner_email" = NA_character_,
     "owner_locked" = NA,
     "is_scheduled" = NA,
-    "git" = NA
+    "git" = NA_list_
   ),
-  audit_logs = c(
+  audit_logs = tibble::tibble(
     "id" = NA_character_,
     "time" = NA_datetime_,
     "user_id" = NA_character_,
@@ -180,7 +181,7 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  parse_connectapi(res)
+  ensure_columns(parse_connectapi(res), !!!op$ptype)
 }
 
 cat_line <- function(...) {
