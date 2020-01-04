@@ -71,6 +71,11 @@ connectapi_ptypes <- list(
     "locked" = NA,
     "guid" = NA_character_
   ),
+  groups = c(
+    "guid" = NA_character_,
+    "name" = NA_character_,
+    "owner_guid" = NA_character_
+  ),
   usage_shiny = tibble::tibble(
     "content_guid" = NA_character_,
     "user_guid" = NA_character_,
@@ -86,91 +91,52 @@ connectapi_ptypes <- list(
     "rendering_id" = NA_character_,
     "bundle_id" = NA_character_,
     "data_version" = NA_integer_
-  )
-  
-)
-
-
-vars_lookup <- list(
-  users = c(
-    "email",
-    "username",
-    "first_name",
-    "last_name",
-    "user_role",
-    "created_time",
-    "updated_time",
-    "active_time",
-    "confirmed",
-    "locked",
-    "guid"
-  ),
-  groups = c(
-    "guid",
-    "name",
-    "owner_guid"
-  ),
-  shiny_usage = c(
-    "content_guid",
-    "user_guid",
-    "started",
-    "ended",
-    "data_version"
-  ),
-  content_visits = c(
-    "content_guid",
-    "user_guid",
-    "variant_key",
-    "time",
-    "rendering_id",
-    "bundle_id",
-    "data_version"
   ),
   content = c(
-    "id",
-    "guid",
-    "access_type",
-    "connection_timeout",
-    "read_timeout",
-    "init_timeout",
-    "idle_timeout",
-    "max_processes",
-    "min_processes",
-    "max_conns_per_process",
-    "load_factor",
-    "url",
-    "vanity_url",
-    "name",
-    "title",
-    "bundle_id",
-    "app_mode",
-    "content_category",
-    "has_parameters",
-    "created_time",
-    "last_deployed_time",
-    "r_version",
-    "py_version",
-    "build_status",
-    "run_as",
-    "run_as_current_user",
-    "description",
-    "app_role",
-    "owner_first_name",
-    "owner_last_name",
-    "owner_username",
-    "owner_guid",
-    "owner_email",
-    "owner_locked",
-    "is_scheduled",
-    "git"
+    "id" = NA_integer_,
+    "guid" = NA_character_,
+    "access_type" = NA_character_,
+    "connection_timeout" = NA_real_,
+    "read_timeout" = NA_real_,
+    "init_timeout" = NA_real_,
+    "idle_timeout" = NA_real_,
+    "max_processes" = NA_integer_,
+    "min_processes" = NA_integer_,
+    "max_conns_per_process" = NA_integer_,
+    "load_factor" = NA_real_,
+    "url" = NA_character_,
+    "vanity_url" = NA_character_,
+    "name" = NA_character_,
+    "title" = NA_character_,
+    "bundle_id" = NA_integer_,
+    "app_mode" = NA_integer_,
+    "content_category" = NA_character_,
+    "has_parameters" = NA,
+    "created_time" = NA_datetime_,
+    "last_deployed_time" = NA_datetime_,
+    "r_version" = NA_character_,
+    "py_version" = NA_character_,
+    "build_status" = NA_integer_,
+    "run_as" = NA_character_,
+    "run_as_current_user" = NA,
+    "description" = NA_character_,
+    "app_role" = NA_character_,
+    "owner_first_name" = NA_character_,
+    "owner_last_name" = NA_character_,
+    "owner_username" = NA_character_,
+    "owner_guid" = NA_character_,
+    "owner_email" = NA_character_,
+    "owner_locked" = NA,
+    "is_scheduled" = NA,
+    "git" = NA
   ),
   audit_logs = c(
-    "id",
-    "time",
-    "user_id",
-    "user_description",
-    "action",
-    "event_description"
+    "id" = NA_character_,
+    "time" = NA_datetime_,
+    "user_id" = NA_character_,
+    "user_description" = NA_character_,
+    "action" = NA_character_,
+    "event_description" = NA_character_
   )
 )
 
@@ -214,22 +180,7 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  purrr::map_df(
-    res, 
-    function(x) {
-      purrr::map(
-        .x = x,
-        .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
-          if (length(prep) > 1)
-            prep <- NA
-          return(prep)
-        }
-      )
-    }
-  )
+  parse_connectapi(res)
 }
 
 cat_line <- function(...) {
