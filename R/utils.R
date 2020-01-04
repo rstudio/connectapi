@@ -385,7 +385,13 @@ parse_connectapi <- function(data){
       purrr::map(
         .x = x,
         .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
+          if (is.list(y)) {
+            # empty list object gets null
+            prep <- purrr::pluck(y, .default = NULL)
+          } else {
+            # otherwise NA
+            prep <- purrr::pluck(y, .default = NA)
+          }
           if (length(prep) > 1)
             prep <- list(prep)
           return(prep)
