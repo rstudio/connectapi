@@ -377,6 +377,9 @@ check_connect_version <- function(using_version, tested_version = tested_connect
   invisible()
 }
 
+parse_connectapi_typed <- function(data, ...) {
+  ensure_columns(parse_connectapi(data), ...)
+}
 
 parse_connectapi <- function(data){
   purrr::map_df(
