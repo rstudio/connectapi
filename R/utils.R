@@ -60,6 +60,14 @@ validate_R6_class <- function(instance, class) {
   invisible(TRUE)
 }
 
+swap_timestamp_format <- function(.col) {
+  if (is.character(.col)) {
+    gsub("([0-9]{4}-[0-9]{2}-[0-9]{2})T([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)", "\\1 \\2", .col)   
+  } else {
+    .col
+  }
+}
+
 ensure_columns <- function(.data, ...) {
   defaults <- rlang::list2(...)
   names <- names(defaults)
@@ -76,6 +84,7 @@ ensure_column <- function(data, default, name) {
     col <- rep_len(default, nrow(data))
     col <- vctrs::vec_cast(col, default)
   } else {
+    col <- swap_timestamp_format(col)
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
