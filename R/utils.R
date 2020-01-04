@@ -386,10 +386,8 @@ parse_connectapi <- function(data){
         .x = x,
         .f = function(y) {
           prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
           if (length(prep) > 1)
-            prep <- NA
+            prep <- list(prep)
           return(prep)
         }
       )
