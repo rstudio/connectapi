@@ -1,8 +1,8 @@
 context("tbl_connect")
 
 # should connect with env vars
-test_conn_1 <- connect(host = Sys.getenv("TEST_SERVER_1"), api_key = Sys.getenv("TEST_KEY_1"))
-test_conn_2 <- connect(host = Sys.getenv("TEST_SERVER_2"), api_key = Sys.getenv("TEST_KEY_2"))
+test_conn_1 <- connect(prefix = "TEST_1")
+test_conn_2 <- connect(prefix = "TEST_2")
 
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
@@ -83,4 +83,17 @@ test_that("groups works", {
   expect_true(is.na(nrow(groups_list)))
   expect_is(colnames(groups_list), "character")
   expect_gt(length(colnames(groups_list)), 1)
+})
+
+test_that("audit_logs works", {
+  scoped_experimental_silence()
+  audit_list <- tbl_connect(test_conn_1, "audit_logs")
+  expect_is(audit_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  
+  audit_list_local <- audit_list %>% dplyr::collect()
+  expect_is(audit_list_local, c("tbl_df", "tbl", "data.frame"))
+  
+  expect_true(is.na(nrow(audit_list)))
+  expect_is(colnames(audit_list), "character")
+  expect_gt(length(colnames(audit_list)), 1)
 })

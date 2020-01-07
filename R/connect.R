@@ -201,6 +201,8 @@ Connect <- R6::R6Class(
         total = NA,
         clear = FALSE
       )
+      
+      if (.limit < page_size) page_size <- .limit
 
       # handle paging
       prg$tick()
@@ -211,9 +213,13 @@ Connect <- R6::R6Class(
           )
       )
       all <- res$applications
+      all_l <- length(all)
       start <- page_size + 1
-      while (length(res$applications) > 0 && length(all) < .limit) {
+      while (length(res$applications) > 0 && all_l < .limit) {
         prg$tick()
+        
+        if ((.limit - all_l) < page_size) page_size <- (.limit - all_l)
+        
         res <- self$GET(
           sprintf(
             '%s%scount=%d&start=%d&cont=%s',
@@ -221,6 +227,7 @@ Connect <- R6::R6Class(
             )
           )
         all <- c(all, res$applications)
+        all_l <- length(all)
         start <- start + page_size
       }
       all
@@ -451,6 +458,12 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    procs = function() {
+      warn_experimental("procs")
+      path <- "metrics/procs"
+      self$GET(path)
+    },
+    
     # misc utilities --------------------------------------------
     
     docs = function(docs = "api", browse = TRUE) {
@@ -461,6 +474,10 @@ Connect <- R6::R6Class(
     },
     
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+      if (limit > 500) {
+        # reset limit to avoid error
+        limit <- 500L
+      }
       path <- glue::glue(
         "v1/audit_logs?limit={limit}",
         "{safe_query(previous, '&previous=')}",
@@ -497,17 +514,27 @@ Connect <- R6::R6Class(
 #' compatible with the current version of the package.
 #' 
 #' @param host The URL for accessing RStudio Connect. Defaults to environment
-#'   variable RSTUDIO_CONNECT_SERVER
+#'   variable CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
-#'   to environment variable RSTUDIO_CONNECT_API_KEY
+#'   to environment variable CONNECT_API_KEY
+#' @param prefix The prefix used to determine environment variables
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
 #' @rdname connect
 #' @export
 connect <- function(
-  host = Sys.getenv("RSTUDIO_CONNECT_SERVER", NA_character_),
-  api_key = Sys.getenv("RSTUDIO_CONNECT_API_KEY", NA_character_)
+  host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+  api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+  prefix = "CONNECT"
 ) {
+  if (
+    prefix == "CONNECT" &&
+    is.na(host) && is.na(api_key) && 
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
+  ) {
+    stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
+  }
   con <- Connect$new(host = host, api_key = api_key)
   
   check_connect_license(con$host)
@@ -542,4 +569,3 @@ check_debug <- function(req, res) {
     message(httr::content(res, as = 'text'))
   }
 }
-

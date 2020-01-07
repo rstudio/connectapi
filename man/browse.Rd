@@ -4,6 +4,7 @@
 \alias{browse_solo}
 \alias{browse_dashboard}
 \alias{browse_api_docs}
+\alias{browse_connect}
 \title{Browse}
 \usage{
 browse_solo(content)
@@ -11,6 +12,8 @@ browse_solo(content)
 browse_dashboard(content)
 
 browse_api_docs(connect)
+
+browse_connect(connect)
 }
 \arguments{
 \item{content}{A R6 Content object}

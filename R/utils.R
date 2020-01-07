@@ -52,7 +52,7 @@ generate_R6_print_output <- function() {
   ))
 }
 
-validate_R6_class <- function(class, instance) {
+validate_R6_class <- function(instance, class) {
   obj <- rlang::enquo(instance)
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
     stop(paste(rlang::quo_text(obj), "must be an R6", class, "object"))
@@ -86,7 +86,7 @@ clean_test_env <- function() {
   invisible()
 }
 
-build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
+build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
   warn_dire("build_test_env")
   scoped_dire_silence()
   
@@ -109,8 +109,8 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
     stdout = "|",
     stderr = "|",
     env = c(
-      CONNECT_VERSION=current_connect_version,
-      CONNECT_LICENSE=connect_license
+      RSC_VERSION=current_connect_version,
+      RSC_LICENSE=connect_license
       )
     )
   while (compose$is_alive()) Sys.sleep(0.05)
@@ -149,17 +149,17 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
   cat_line("connect: writing values to .Renviron")
   curr_environ <- tryCatch(readLines(".Renviron"), error = function(e){print(e); return(character())})
   
-  curr_environ <- curr_environ[!grepl('^TEST_SERVER_1=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_SERVER_2=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_KEY_1=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_KEY_2=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_1_SERVER=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_2_SERVER=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_1_API_KEY=', curr_environ)]
+  curr_environ <- curr_environ[!grepl('^TEST_2_API_KEY=', curr_environ)]
   output_environ <- glue::glue(
     paste(curr_environ, collapse = "\n"), 
     "",
-    "TEST_SERVER_1={a1$host}",
-    "TEST_KEY_1={a1$api_key}",
-    "TEST_SERVER_2={a2$host}",
-    "TEST_KEY_2={a2$api_key}",
+    "TEST_1_SERVER={a1$host}",
+    "TEST_1_API_KEY={a1$api_key}",
+    "TEST_2_SERVER={a2$host}",
+    "TEST_2_API_KEY={a2$api_key}",
     .sep = "\n"
   )
   fs::file_move(".Renviron", ".Renviron.bak")
@@ -344,4 +344,24 @@ check_connect_version <- function(using_version, tested_version = tested_connect
     ), id = "new-connect")
   )
   invisible()
+}
+
+
+parse_connectapi <- function(data){
+  purrr::map_df(
+    data, 
+    function(x) {
+      purrr::map(
+        .x = x,
+        .f = function(y) {
+          prep <- purrr::pluck(y, .default = NA)
+          # TODO: Should figure out what we want to do about sub-objects...
+          # i.e. content: git details... could build a nested list...?
+          if (length(prep) > 1)
+            prep <- NA
+          return(prep)
+        }
+      )
+    }
+  )
 }

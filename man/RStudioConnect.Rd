@@ -5,7 +5,7 @@
 \alias{RStudioConnect}
 \alias{Connect}
 \title{Class representing a Connect API client}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
+\format{An object of class \code{R6ClassGenerator} of length 25.}
 \usage{
 Connect
 }

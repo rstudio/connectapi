@@ -37,7 +37,7 @@ Content <- R6::R6Class(
     content = NULL,
     
     initialize = function(connect, content) {
-      validate_R6_class("Connect", connect)
+      validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to check that content has
       # at least guid, url, title to be functional
@@ -47,6 +47,16 @@ Content <- R6::R6Class(
     get_content = function(){self$content},
     get_dashboard_url = function(pane = ""){
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
+    },
+    get_jobs = function() {
+      warn_experimental("get_jobs")
+      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
+      self$get_connect()$GET(url)
+    },
+    get_job = function(key) {
+      warn_experimental("get_job")
+      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
+      self$get_connect()$GET(url)
     },
     print = function(...) {
       cat("RStudio Connect Content: \n")
@@ -73,7 +83,7 @@ Task <- R6::R6Class(
   public = list(
     task = NULL,
     initialize = function(connect, content, task) {
-      validate_R6_class("Connect", connect)
+      validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate content
       self$content <- content
@@ -104,7 +114,7 @@ Vanity <- R6::R6Class(
   public = list(
     vanity = NULL,
     initialize = function(connect, content, vanity) {
-      validate_R6_class("Connect", connect)
+      validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: validate content
       self$content <- content
@@ -179,7 +189,7 @@ bundle_path <- function(path) {
 #' @family deployment functions
 #' @export
 download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   
   from_connect <- content$get_connect()
   from_content <- content$get_content()
@@ -215,8 +225,8 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @family deployment functions
 #' @export
 deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
-  validate_R6_class("Bundle", bundle)
-  validate_R6_class("Connect", connect)
+  validate_R6_class(bundle, "Bundle")
+  validate_R6_class(connect, "Connect")
   
   con <- connect
   
@@ -249,7 +259,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @export
 get_image <- function(content, path = NULL) {
   warn_experimental("get_image")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
   
   con <- content$get_connect()
@@ -287,7 +297,7 @@ get_image <- function(content, path = NULL) {
 #' @export
 delete_image <- function(content, path = NULL) {
   warn_experimental("delete_image")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
   
   con <- content$get_connect()
@@ -309,7 +319,7 @@ delete_image <- function(content, path = NULL) {
 #' @export
 has_image <- function(content) {
   warn_experimental("has_image")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
   
   con <- content$get_connect()
@@ -337,7 +347,7 @@ has_image <- function(content) {
 #' @export
 set_image_path <- function(content, path) {
   warn_experimental("set_image_path")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
   
   con <- content$get_connect()
@@ -355,7 +365,7 @@ set_image_path <- function(content, path) {
 #' @export
 set_image_url <- function(content, url) {
   warn_experimental("set_image_url")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   parsed_url <- httr::parse_url(url)
   imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
   httr::GET(url, httr::write_disk(imgfile))
@@ -367,7 +377,7 @@ set_image_url <- function(content, url) {
 # #' @export
 set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
   webshot::webshot(content$get_content()$url,
             file = imgfile,
@@ -402,7 +412,7 @@ set_image_webshot <- function(content, ...) {
 #' @export
 set_vanity_url <- function(content, url) {
   warn_experimental("set_vanity_url")
-  validate_R6_class("Content", content)
+  validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
   
   scoped_experimental_silence()
@@ -549,7 +559,7 @@ swap_vanity_url <- function(from_content, to_content) {
 #' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1) {
-  validate_R6_class("Task", task)
+  validate_R6_class(task, "Task")
   con <- task$get_connect()
   
   finished <- FALSE
@@ -584,7 +594,7 @@ poll_task <- function(task, wait = 1) {
 #' @export
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist
-  validate_R6_class("Connect", connect)
+  validate_R6_class(connect, "Connect")
   
   res <- connect$get_connect()$content(guid)
   

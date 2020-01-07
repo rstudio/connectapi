@@ -19,10 +19,10 @@
 #' @return A `tbl_connect` object
 #' 
 #' @export
-tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits"), ...) {
-  validate_R6_class("Connect", src)
+tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"), ...) {
+  validate_R6_class(src, "Connect")
   
-  if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits"))
+  if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"))
     stop(glue::glue("ERROR: invalid table name: {from}"))
   
   # TODO: go get the vars we should expect...
@@ -107,6 +107,14 @@ vars_lookup <- list(
     "owner_locked",
     "is_scheduled",
     "git"
+  ),
+  audit_logs = c(
+    "id",
+    "time",
+    "user_id",
+    "user_description",
+    "action",
+    "event_description"
   )
 )
 
@@ -145,6 +153,8 @@ api_build.op_base_connect <- function(op, con, ..., n) {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "content_visits") {
     res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
+  } else if (op$x == "audit_logs") {
+    res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n) 
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }

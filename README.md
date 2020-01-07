@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project
 status](https://travis-ci.org/rstudio/connectapi.svg?branch=master)](https://travis-ci.org/rstudio/connectapi)
 <!-- badges: end -->
 
-# connectapi <img src='man/figures/logo.png' align="right" height="139" />
+# connectapi <img src='man/figures/logo.svg' align="right" height="139" />
 
 This package is an **experimental WIP**. The package provides an R
 client for the [RStudio Connect
@@ -45,8 +45,8 @@ client <- connect(
 You can also define the following environment variables (in a
 `.Renviron` file, for instance):
 
-    RSTUDIO_CONNECT_SERVER  = https://connect.example.com
-    RSTUDIO_CONNECT_API_KEY = my-secret-api-key
+    CONNECT_SERVER  = https://connect.example.com
+    CONNECT_API_KEY = my-secret-api-key
 
 These environment variable values will be used automatically if defined
 in your R session.
