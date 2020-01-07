@@ -138,6 +138,18 @@ connectapi_ptypes <- list(
     "user_description" = NA_character_,
     "action" = NA_character_,
     "event_description" = NA_character_
+  ),
+  procs = tibble::tibble(
+    pid = NA_character_,
+    appId = NA_integer_,
+    appGuid = NA_character_,
+    appName = NA_character_,
+    appUrl = NA_character_,
+    appRunAs = NA_character_,
+    type = NA_character_,
+    cpuCurrent = NA_real_,
+    cpuTotal = NA_integer_,
+    ram = fs::as_fs_bytes(NA_integer_)
   )
 )
 
