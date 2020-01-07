@@ -614,18 +614,3 @@ get_procs <- function(src) {
   
   return(tbl_data)
 }
-
-#' @export
-vec_cast.fs_bytes.integer <- function(x, to, ...) {
-  fs::as_fs_bytes(x)
-}
-
-#' @export
-vec_cast.fs_bytes.default <- function(x, to, ...) {
-  vctrs::vec_default_cast(x = x, to = to)
-}
-
-#' @export
-vec_cast.fs_bytes <- function(x, to, ...) {
-  UseMethod("vec_cast.fs_bytes")
-}
