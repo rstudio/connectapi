@@ -37,12 +37,12 @@ test_that("users works", {
   expect_identical(vctrs::vec_ptype(users_local), vctrs::vec_ptype(connectapi_ptypes$users))
 })
 
-test_that("content_visits works", {
+test_that("usage_static works", {
   content_visits <- tbl_connect(test_conn_1, "usage_static")
   expect_is(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
   
   content_visits_local <- content_visits %>% dplyr::collect()
-  expect_is(content_visits, c("tbl_df", "tbl", "data.frame"))
+  expect_is(content_visits_local, c("tbl_df", "tbl", "data.frame"))
   
   expect_true(is.na(nrow(content_visits)))
   expect_is(colnames(content_visits), "character")
@@ -51,12 +51,12 @@ test_that("content_visits works", {
   expect_identical(vctrs::vec_ptype(content_visits_local), vctrs::vec_ptype(connectapi_ptypes$usage_static))
 })
 
-test_that("shiny_usage works", {
+test_that("usage_shiny works", {
   shiny_usage <- tbl_connect(test_conn_1, "usage_shiny")
   expect_is(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
   
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
-  expect_is(shiny_usage, c("tbl_df", "tbl", "data.frame"))
+  expect_is(shiny_usage_local, c("tbl_df", "tbl", "data.frame"))
   
   expect_true(is.na(nrow(shiny_usage)))
   expect_is(colnames(shiny_usage), "character")
