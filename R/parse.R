@@ -72,7 +72,12 @@ parse_connectapi <- function(data){
 
 #' @export
 vec_cast.fs_bytes.integer <- function(x, to, ...) {
-  warn_experimental("vec_cast.fs_bytes")
+  lifecycle::deprecate_soft(
+    "0.1.0.9003", 
+    "vec_cast.fs_bytes.integer()", 
+    "fs::vec_cast.fs_bytes.integer()", 
+    "The fs package will provide this functionality in the future and it will not be exported from `connectapi`"
+    )
   fs::as_fs_bytes(x)
 }
 
