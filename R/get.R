@@ -604,31 +604,28 @@ get_procs <- function(src) {
   scoped_experimental_silence()
   raw_proc_data <- src$procs()
   
-  tbl_data <- purrr::imap_dfr(
+  proc_prep <- purrr::imap(
     raw_proc_data, 
     function(x, y) {
       c(list(pid = y), x)
       }
     )
-  if (ncol(tbl_data) == 0) {
-    tbl_data <- purrr::map_df(type_vector_proc, identity)
-  }
-  
-  # force fs::fs_bytes typing for ram
-  tbl_data$ram <- fs::as_fs_bytes(tbl_data$ram)
+  tbl_data <- parse_connectapi_typed(proc_prep, !!!connectapi_ptypes$procs)
   
   return(tbl_data)
 }
 
-type_vector_proc <- list(
-  pid = character(),
-  appId = integer(),
-  appGuid = character(),
-  appName = character(),
-  appUrl = character(),
-  appRunAs = character(),
-  type = character(),
-  cpuCurrent = double(),
-  cpuTotal = integer(),
-  ram = fs::as_fs_bytes(integer())
-)
+#' @export
+vec_cast.fs_bytes.integer <- function(x, to, ...) {
+  fs::as_fs_bytes(x)
+}
+
+#' @export
+vec_cast.fs_bytes.default <- function(x, to, ...) {
+  vctrs::vec_default_cast(x = x, to = to)
+}
+
+#' @export
+vec_cast.fs_bytes <- function(x, to, ...) {
+  UseMethod("vec_cast.fs_bytes")
+}
