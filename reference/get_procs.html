@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>connectapi: Utilities for Interacting with the RStudio Connect Server
-    API — connectapi-package • connectapi</title>
+<title>Get Real-Time Process Data — get_procs • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -43,11 +42,12 @@
 
 
 
-<meta property="og:title" content="connectapi: Utilities for Interacting with the RStudio Connect Server
-    API — connectapi-package" />
+<meta property="og:title" content="Get Real-Time Process Data — get_procs" />
 <meta property="og:description" content="
-Helpful R6 class for interacting with the RStudio
-    Connect Server API and some example utility functions." />
+
+This returns real-time process data from the RStudio Connect API. It requires
+administrator privileges to use. NOTE that this only returns data for the
+server that responds to the request (i.e. in a Highly Available cluster)" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -132,45 +132,53 @@ Helpful R6 class for interacting with the RStudio
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>connectapi: Utilities for Interacting with the RStudio Connect Server
-    API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/connectapi.R'><code>R/connectapi.R</code></a></small>
-    <div class="hidden name"><code>connectapi-package.Rd</code></div>
+    <h1>Get Real-Time Process Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/get.R'><code>R/get.R</code></a></small>
+    <div class="hidden name"><code>get_procs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' /></p>
-<p>Helpful R6 class for interacting with the RStudio
-    Connect Server API and some example utility functions.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+
+This returns real-time process data from the RStudio Connect API. It requires
+administrator privileges to use. NOTE that this only returns data for the
+server that responds to the request (i.e. in a Highly Available cluster)</p>
     </div>
 
+    <pre class="usage"><span class='fu'>get_procs</span>(<span class='no'>src</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>src</th>
+      <td><p>The source object</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/rstudio/connectapi'>https://github.com/rstudio/connectapi</a></p></li>
+    <p>A tibble with the following columns:</p><ul>
+<li><p><strong>pid</strong>The PID of the current process</p></li>
+<li><p><strong>appId</strong>The application ID</p></li>
+<li><p><strong>appGuid</strong>The application GUID</p></li>
+<li><p><strong>appName</strong>The application name</p></li>
+<li><p><strong>appUrl</strong>The application URL</p></li>
+<li><p><strong>appRunAs</strong>The application RunAs user</p></li>
+<li><p><strong>type</strong>The type of process</p></li>
+<li><p><strong>cpuCurrent</strong>The current CPU usage</p></li>
+<li><p><strong>cpuTotal</strong>The total CPU usage</p></li>
+<li><p><strong>ram</strong>The current RAM usage</p></li>
 </ul>
 
-</div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
-
-    <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Cole Arendt <a href='mailto:cole@rstudio.com'>cole@rstudio.com</a></p>
-<p>Authors:</p><ul>
-<li><p>Sean Lopp <a href='mailto:sean@rstudio.com'>sean@rstudio.com</a></p></li>
-</ul>
-
-<p>Other contributors:</p><ul>
-<li><p>RStudio [copyright holder, funder]</p></li>
-</ul>
-
 
   </div>
 </div>
