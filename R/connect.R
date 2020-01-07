@@ -458,6 +458,12 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    procs = function() {
+      warn_experimental("procs")
+      path <- "metrics/procs"
+      self$GET(path)
+    },
+    
     # misc utilities --------------------------------------------
     
     docs = function(docs = "api", browse = TRUE) {
