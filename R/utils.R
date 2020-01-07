@@ -186,7 +186,6 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
   curr_environ <- curr_environ[!grepl('^TEST_2_API_KEY=', curr_environ)]
   output_environ <- glue::glue(
     paste(curr_environ, collapse = "\n"), 
-    "",
     "TEST_1_SERVER={a1$host}",
     "TEST_1_API_KEY={a1$api_key}",
     "TEST_2_SERVER={a2$host}",
