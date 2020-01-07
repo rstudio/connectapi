@@ -17,12 +17,5 @@ test_that("get_procs works", {
   # TODO: This is not a great test, since no processes are running
   # we could always start a content restoration...
   expect_is(proc_data, "tbl_df")
-  expect_identical(
-    names(proc_data),
-    names(type_vector_proc)
-  )
-  expect_identical(
-    purrr::map(proc_data, typeof),
-    purrr::map(type_vector_proc, typeof)
-  )
+  expect_identical(vctrs::vec_ptype(proc_data), vctrs::vec_ptype(connectapi_ptypes$procs))
 })
