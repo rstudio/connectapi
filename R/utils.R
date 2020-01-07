@@ -86,7 +86,7 @@ clean_test_env <- function() {
   invisible()
 }
 
-build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clean = TRUE) {
+build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
   warn_dire("build_test_env")
   scoped_dire_silence()
   
@@ -109,8 +109,8 @@ build_test_env <- function(connect_license = Sys.getenv("CONNECT_LICENSE"), clea
     stdout = "|",
     stderr = "|",
     env = c(
-      CONNECT_VERSION=current_connect_version,
-      CONNECT_LICENSE=connect_license
+      RSC_VERSION=current_connect_version,
+      RSC_LICENSE=connect_license
       )
     )
   while (compose$is_alive()) Sys.sleep(0.05)

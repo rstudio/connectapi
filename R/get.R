@@ -571,3 +571,64 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
   
   return(out)
 }
+
+#' Get Real-Time Process Data
+#' 
+#' \lifecycle{experimental}
+#' This returns real-time process data from the RStudio Connect API. It requires
+#' administrator privileges to use. NOTE that this only returns data for the
+#' server that responds to the request (i.e. in a Highly Available cluster)
+#' 
+#' @param src The source object
+#' 
+#' @return
+#' A tibble with the following columns:
+#' \itemize{
+#'   \item{\strong{pid}}{The PID of the current process}
+#'   \item{\strong{appId}}{The application ID}
+#'   \item{\strong{appGuid}}{The application GUID}
+#'   \item{\strong{appName}}{The application name}
+#'   \item{\strong{appUrl}}{The application URL}
+#'   \item{\strong{appRunAs}}{The application RunAs user}
+#'   \item{\strong{type}}{The type of process}
+#'   \item{\strong{cpuCurrent}}{The current CPU usage}
+#'   \item{\strong{cpuTotal}}{The total CPU usage}
+#'   \item{\strong{ram}}{The current RAM usage}
+#' }
+#' 
+#' @export
+get_procs <- function(src) {
+  validate_R6_class(src, "Connect")
+  warn_experimental("get_procs")
+  
+  scoped_experimental_silence()
+  raw_proc_data <- src$procs()
+  
+  tbl_data <- purrr::imap_dfr(
+    raw_proc_data, 
+    function(x, y) {
+      c(list(pid = y), x)
+      }
+    )
+  if (ncol(tbl_data) == 0) {
+    tbl_data <- purrr::map_df(type_vector_proc, identity)
+  }
+  
+  # force fs::fs_bytes typing for ram
+  tbl_data$ram <- fs::as_fs_bytes(tbl_data$ram)
+  
+  return(tbl_data)
+}
+
+type_vector_proc <- list(
+  pid = character(),
+  appId = integer(),
+  appGuid = character(),
+  appName = character(),
+  appUrl = character(),
+  appRunAs = character(),
+  type = character(),
+  cpuCurrent = double(),
+  cpuTotal = integer(),
+  ram = fs::as_fs_bytes(integer())
+)
