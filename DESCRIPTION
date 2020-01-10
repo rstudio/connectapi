@@ -32,7 +32,8 @@ Imports:
     purrr,
     uuid,
     dplyr,
-    vctrs
+    vctrs,
+    tibble
 Suggests: 
     crayon,
     flexdashboard,
