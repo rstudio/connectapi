@@ -33,7 +33,9 @@ Bundle <- R6::R6Class(
 Content <- R6::R6Class(
   "Content",
   public = list(
+    #' @field connect An R6 Connect object
     connect = NULL,
+    #' @field content The content details from RStudio Connect
     content = NULL,
     
     initialize = function(connect, content) {
@@ -605,10 +607,10 @@ content_item <- function(connect, guid) {
 #' 
 #' Returns the URL for the content dashboard (opened to the selected pane).
 #' 
-#' @param content [R6:Content] A Content object
-#' @param pane [character] The pane in the dashboard to link to
+#' @param content [Content] A Content object
+#' @param pane character The pane in the dashboard to link to
 #' 
-#' @return [character] The dashboard URL for the content provided
+#' @return character The dashboard URL for the content provided
 #' 
 #' @family content functions
 #' @export
@@ -621,11 +623,11 @@ dashboard_url <- function(content, pane = "") {
 #' Returns the URL for the content dashboard (opened to the selected pane).
 #' NOTE: this takes a character object for performance optimization.
 #' 
-#' @param connect_url [character] The base URL of the Connect server
-#' @param content_guid [character] The guid for the content item in question
-#' @param pane [character] The pane in the dashboard to link to
+#' @param connect_url character The base URL of the Connect server
+#' @param content_guid character The guid for the content item in question
+#' @param pane character The pane in the dashboard to link to
 #' 
-#' @return [character] The dashboard URL for the content provided
+#' @return character The dashboard URL for the content provided
 #' 
 #' @family content functions
 #' @export
