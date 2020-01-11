@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Promote content from one Connect server to another — promote • connectapi</title>
+<title>Cast to fs_bytes — vec_cast.fs_bytes • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,13 @@
 
 
 
-<meta property="og:title" content="Promote content from one Connect server to another — promote" />
-<meta property="og:description" content="Promote content from one Connect server to another" />
+<meta property="og:title" content="Cast to fs_bytes — vec_cast.fs_bytes" />
+<meta property="og:description" content="
+
+This is a temporary placeholder because the functionality
+does not exist yet in the fs package. Do not build dependencies
+on connectapi::vec-cast.fs_bytes, as it will be removed without
+warning in a future release." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -128,55 +133,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Promote content from one Connect server to another</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/promote.R'><code>R/promote.R</code></a></small>
-    <div class="hidden name"><code>promote.Rd</code></div>
+    <h1>Cast to fs_bytes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/parse.R'><code>R/parse.R</code></a></small>
+    <div class="hidden name"><code>vec_cast.fs_bytes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Promote content from one Connect server to another</p>
+    <p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' />
+
+This is a temporary placeholder because the functionality
+does not exist yet in the <code>fs</code> package. Do not build dependencies
+on <code>connectapi::vec-cast.fs_bytes</code>, as it will be removed without
+warning in a future release.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>promote</span>(<span class='no'>from</span>, <span class='no'>to</span>, <span class='no'>to_key</span>, <span class='no'>from_key</span>, <span class='no'>name</span>)</pre>
+    <pre class="usage"><span class='fu'>vec_cast.fs_bytes</span>(<span class='no'>x</span>, <span class='no'>to</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>from</th>
-      <td><p>The url for the server containing the content (the originating
-server)</p></td>
+      <th>x</th>
+      <td><p>Vectors to cast</p></td>
     </tr>
     <tr>
       <th>to</th>
-      <td><p>The url for the server where the content will be deployed (the
-destination server)</p></td>
+      <td><p>Type to cast to. If <code>NULL</code>, <code>x</code> will be returned as is</p></td>
     </tr>
     <tr>
-      <th>to_key</th>
-      <td><p>An API key on the destination "to" server. If the destination
-content is going to be updated, the API key must belong to a user with
-collaborator access on the content that will be updated. If the destination
-content is to be created new, the API key must belong to a user with
-publisher privileges.</p></td>
-    </tr>
-    <tr>
-      <th>from_key</th>
-      <td><p>An API key on the originating "from" server. The API key must
-belong to a user with collaborator access to the content to be promoted.</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>The name of the content on the originating "from" server.
-If content with the same name is found on the destination server,
-the content will be updated. If no content on the destination server
-has a matching name, a new endpoint will be created.</p></td>
+      <th>...</th>
+      <td><p>Dots for future extensions and should be empty</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The URL for the content on the destination "to" server</p>
+    <p>A vector the same length as <code>x</code> with the same type as <code>to</code>, or an
+error if the cast is not possible.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -132,13 +132,15 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(connectapi)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">client &lt;-<span class="st"> </span><span class="kw"><a href="reference/connect.html">connect</a></span>()</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">users &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"users"</span>)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">groups &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"groups"</span>)</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">shiny_usage &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"shiny_usage"</span>)</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">content_visits &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"content_visits"</span>)</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">all_content &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"content"</span>)</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">all_shiny_usage &lt;-<span class="st"> </span>shiny_usage <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># preview data</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">users &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"users"</span>)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">groups &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"groups"</span>)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">usage_shiny &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"usage_shiny"</span>)</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">usage_static &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"usage_static"</span>)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">all_content &lt;-<span class="st"> </span><span class="kw"><a href="reference/tbl_connect.html">tbl_connect</a></span>(client, <span class="st">"content"</span>)</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co"># page through all of the data</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">all_shiny_usage &lt;-<span class="st"> </span>usage_shiny <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/collect.html">collect</a></span>()</a></code></pre></div>
 </div>
 <div id="deployment" class="section level3">
 <h3 class="hasAnchor">
