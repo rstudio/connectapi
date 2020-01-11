@@ -7,14 +7,14 @@
 dashboard_url_chr(connect_url, content_guid, pane = "")
 }
 \arguments{
-\item{connect_url}{\link{character} The base URL of the Connect server}
+\item{connect_url}{character The base URL of the Connect server}
 
-\item{content_guid}{\link{character} The guid for the content item in question}
+\item{content_guid}{character The guid for the content item in question}
 
-\item{pane}{\link{character} The pane in the dashboard to link to}
+\item{pane}{character The pane in the dashboard to link to}
 }
 \value{
-\link{character} The dashboard URL for the content provided
+character The dashboard URL for the content provided
 }
 \description{
 Returns the URL for the content dashboard (opened to the selected pane).

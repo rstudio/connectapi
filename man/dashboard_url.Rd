@@ -7,12 +7,12 @@
 dashboard_url(content, pane = "")
 }
 \arguments{
-\item{content}{\link{R6:Content} A Content object}
+\item{content}{\link{Content} A Content object}
 
-\item{pane}{\link{character} The pane in the dashboard to link to}
+\item{pane}{character The pane in the dashboard to link to}
 }
 \value{
-\link{character} The dashboard URL for the content provided
+character The dashboard URL for the content provided
 }
 \description{
 Returns the URL for the content dashboard (opened to the selected pane).
