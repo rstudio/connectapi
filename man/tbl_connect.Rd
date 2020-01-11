@@ -4,8 +4,8 @@
 \alias{tbl_connect}
 \title{Connect Tibble}
 \usage{
-tbl_connect(src, from = c("users", "groups", "content", "shiny_usage",
-  "content_visits", "audit_logs"), ...)
+tbl_connect(src, from = c("users", "groups", "content", "usage_shiny",
+  "usage_static", "audit_logs"), ...)
 }
 \arguments{
 \item{src}{The source object}
