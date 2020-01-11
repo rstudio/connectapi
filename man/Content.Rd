@@ -11,6 +11,14 @@ Content
 \description{
 An R6 class that represents content
 }
+\section{Fields}{
+
+\describe{
+\item{\code{connect}}{An R6 Connect object}
+
+\item{\code{content}}{The content details from RStudio Connect}
+}}
+
 \seealso{
 Other deployR6 functions: \code{\link{Bundle}},
   \code{\link{Task}}, \code{\link{Vanity}}
