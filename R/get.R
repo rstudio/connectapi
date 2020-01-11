@@ -67,7 +67,7 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
     warning("'get_users' does not page and will return max 500 users")
   }
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$users)
   
   return(out)
 }
@@ -127,7 +127,7 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
     warning("'get_groups' does not page and will return max 500 groups")
   }
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$groups)
   
   return(out)
 }
@@ -326,7 +326,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
     page_size = page_size
   )
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
   
   return(out)
 }
@@ -413,7 +413,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_shiny)
   
   return(out)
 }
@@ -507,7 +507,7 @@ get_usage_static <- function(src, content_guid = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_static)
   
   return(out)
 }
@@ -567,7 +567,7 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$audit_logs)
   
   return(out)
 }
@@ -604,31 +604,13 @@ get_procs <- function(src) {
   scoped_experimental_silence()
   raw_proc_data <- src$procs()
   
-  tbl_data <- purrr::imap_dfr(
+  proc_prep <- purrr::imap(
     raw_proc_data, 
     function(x, y) {
       c(list(pid = y), x)
       }
     )
-  if (ncol(tbl_data) == 0) {
-    tbl_data <- purrr::map_df(type_vector_proc, identity)
-  }
-  
-  # force fs::fs_bytes typing for ram
-  tbl_data$ram <- fs::as_fs_bytes(tbl_data$ram)
+  tbl_data <- parse_connectapi_typed(proc_prep, !!!connectapi_ptypes$procs)
   
   return(tbl_data)
 }
-
-type_vector_proc <- list(
-  pid = character(),
-  appId = integer(),
-  appGuid = character(),
-  appName = character(),
-  appUrl = character(),
-  appRunAs = character(),
-  type = character(),
-  cpuCurrent = double(),
-  cpuTotal = integer(),
-  ram = fs::as_fs_bytes(integer())
-)

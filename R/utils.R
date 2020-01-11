@@ -11,19 +11,6 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
-# because format(NULL, "%Y-%m") == "NULL"
-safe_format <- function(expr, ...) {
-  if (is.null(expr)) {
-    return(NULL)
-  } else {
-    return(format(expr, ...))
-  }
-}
-
-make_timestamp <- function(input) {
-  safe_format(input, '%Y-%m-%dT%H:%M:%SZ')
-}
-
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
@@ -155,7 +142,6 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
   curr_environ <- curr_environ[!grepl('^TEST_2_API_KEY=', curr_environ)]
   output_environ <- glue::glue(
     paste(curr_environ, collapse = "\n"), 
-    "",
     "TEST_1_SERVER={a1$host}",
     "TEST_1_API_KEY={a1$api_key}",
     "TEST_2_SERVER={a2$host}",
@@ -344,24 +330,4 @@ check_connect_version <- function(using_version, tested_version = tested_connect
     ), id = "new-connect")
   )
   invisible()
-}
-
-
-parse_connectapi <- function(data){
-  purrr::map_df(
-    data, 
-    function(x) {
-      purrr::map(
-        .x = x,
-        .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
-          if (length(prep) > 1)
-            prep <- NA
-          return(prep)
-        }
-      )
-    }
-  )
 }

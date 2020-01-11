@@ -74,13 +74,15 @@ implementation.
 library(connectapi)
 client <- connect()
 
+# preview data
 users <- tbl_connect(client, "users")
 groups <- tbl_connect(client, "groups")
-shiny_usage <- tbl_connect(client, "shiny_usage")
-content_visits <- tbl_connect(client, "content_visits")
+usage_shiny <- tbl_connect(client, "usage_shiny")
+usage_static <- tbl_connect(client, "usage_static")
 all_content <- tbl_connect(client, "content")
 
-all_shiny_usage <- shiny_usage %>% dplyr::collect()
+# page through all of the data
+all_shiny_usage <- usage_shiny %>% collect()
 ```
 
 ### Deployment
