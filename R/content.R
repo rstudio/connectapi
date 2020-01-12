@@ -7,7 +7,6 @@
 #' 
 #' @return A list of users who have access to the content
 #' @export
-# TODO: How should we behave if this content is open to the server / world?
 get_acl <- function(content) {
   warn_experimental("get_acl")
   validate_R6_class(content, "Content")
