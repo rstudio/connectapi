@@ -63,8 +63,12 @@ Content <- R6::R6Class(
 
 #' Get ACL Details
 #' 
-#' \lifecycle{experimental} Retrieve the Access Controls
-#' associated with a given piece of content.
+#' \lifecycle{experimental} Retrieve the Access Controls associated with a given
+#' piece of content.
+#'
+#' NOTE: ACLs can still be stored, even when access_type for content is "all" or
+#' "logged_in" users. In these cases, granting or removing "viewer" privileges
+#' have no effect.
 #' 
 #' @param content [Content] An R6 Content item
 #' 
