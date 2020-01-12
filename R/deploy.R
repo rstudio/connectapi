@@ -47,6 +47,20 @@ Content <- R6::R6Class(
     },
     get_connect = function(){self$connect},
     get_content = function(){self$content},
+    get_content_remote = function(){
+      new_content_details <- self$get_connect()$content(self$get_content()$guid)
+      self$content <- new_content_details
+      self$get_content()
+    },
+    update = function(...) {
+      params <- rlang::list2(...)
+      url <- glue::glue("v1/experimental/content/{self$get_content()$guid}")
+      res <- self$get_connect()$POST(
+        url,
+        params
+      )
+      return(self)
+    },
     get_dashboard_url = function(pane = ""){
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
