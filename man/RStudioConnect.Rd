@@ -29,4 +29,10 @@ This class allows a user to interact with a Connect server via the Connect
 API. Authentication is done by providing an API key.
 }
 
+\seealso{
+Other R6 classes: \code{\link{Bundle}},
+  \code{\link{Content}}, \code{\link{Task}},
+  \code{\link{Vanity}}
+}
+\concept{R6 classes}
 \keyword{datasets}
