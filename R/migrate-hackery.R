@@ -6,17 +6,6 @@ deploy_current <- function(content) {
 
 # ACLs ----------------------------------------------------
 
-# TODO: How should we behave if this content is open to the server / world?
-get_acl <- function(content) {
-  warn_experimental("get_acl")
-  client <- content$get_connect()
-  res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
-  
-  owner <- client$user(res$owner_guid)
-  owner$app_role <- "owner"
-  return(c(list(owner), res[["users"]]))
-}
-
 acl_add_self <- function(content) {
   acl_add_collaborator(content, content$get_connect()$GET("me")$guid)
 }
