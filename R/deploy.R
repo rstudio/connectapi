@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -28,7 +28,7 @@ Bundle <- R6::R6Class(
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -59,7 +59,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",

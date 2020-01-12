@@ -16,6 +16,9 @@
 #' API. Authentication is done by providing an API key.
 #'
 #' @importFrom utils capture.output
+#' 
+#' @family R6 classes
+#' 
 #' @export
 Connect <- R6::R6Class(
   'Connect',

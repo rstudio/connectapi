@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents content
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Content <- R6::R6Class(
   "Content",
@@ -69,6 +69,8 @@ Content <- R6::R6Class(
 #' @param content [Content] An R6 Content item
 #' 
 #' @return A list of users who have access to the content
+#' 
+#' @family content functions
 #' @export
 get_acl <- function(content) {
   warn_experimental("get_acl")
