@@ -193,7 +193,7 @@ test_that("a viewer does not affect other viewers", {
   expect_true(viewer_guid %in% purrr::map_chr(acls2, ~ .x$guid))
 })
 
-test_that("a collaborator can be added as a viewer (ovewrites)", {
+test_that("a collaborator can be added as a viewer (overwrites)", {
   scoped_experimental_silence()
   # remove user to be sure
   invisible(acl_remove_user(cont1_content, collab_guid))
