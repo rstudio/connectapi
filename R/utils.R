@@ -73,6 +73,25 @@ clean_test_env <- function() {
   invisible()
 }
 
+determine_license_env <- function(license) {
+  if (fs::file_exists(license) && fs::path_ext(license) == "lic") {
+    cat_line("determine_license: looks like a license file")
+    return(list(
+      type = "file",
+      cmd_params = c("-v", paste0(license, ":/etc/rstudio-connect/license.lic")),
+      env_params = c(RSC_LICENSE_FILE = license)
+      ))
+  } else {
+    cat_line("determine_license: looks like a license key")
+    return(list(
+      type = "key",
+      cmd_params = c(),
+      env_params = c(
+        RSC_LICENSE = license
+      )
+      ))
+  }
+}
 build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
   warn_dire("build_test_env")
   scoped_dire_silence()
@@ -88,16 +107,22 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
     clean_test_env()
   }
   
+  license_details <- determine_license_env(connect_license)
+  compose_file <- switch(
+    license_details$type,
+    "file" = "test-connect-lic.yml",
+    "test-connect.yml"
+  )
   # start compose
   cat_line("docker-compose: starting...")
   compose <- processx::process$new(
     compose_path, 
-    c("-f", system.file("test-connect.yml", package = "connectapi"), "up", "-d"),
+    c("-f", system.file(compose_file, package = "connectapi"), "up", "-d"),
     stdout = "|",
     stderr = "|",
     env = c(
       RSC_VERSION=current_connect_version,
-      RSC_LICENSE=connect_license
+      license_details$env_params
       )
     )
   while (compose$is_alive()) Sys.sleep(0.05)
