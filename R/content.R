@@ -78,6 +78,17 @@ Content <- R6::R6Class(
 #' @export
 get_acl <- function(content) {
   warn_experimental("get_acl")
+
+  content_info <- content$get_content_remote()
+  prep <- get_acl_impl(content)
+  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl)
+  out$content_guid <- content_info$guid
+  out$content_access_type <- content_info$access_type
+  
+  return(out)
+}
+
+get_acl_impl <- function(content) {
   validate_R6_class(content, "Content")
   client <- content$get_connect()
   res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
@@ -94,16 +105,11 @@ get_acl <- function(content) {
     warn_once(
       glue::glue("Content (guid: {content_info$guid}) has access type {content_info$access_type}: ACLs for viewers have no effect"),
       "get_acl_not_acl"
-      )
+    )
   }
   
   content_acls <- res[["users"]]
   content_acls <- purrr::map(content_acls, function(.x){.x$is_owner <- FALSE; return(.x)})
   
-  prep <- c(list(owner), content_acls)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl)
-  out$content_guid <- content_info$guid
-  out$content_access_type <- content_info$access_type
-  
-  return(out)
+  return(c(list(owner), content_acls))
 }
