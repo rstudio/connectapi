@@ -212,7 +212,8 @@ test_that("a collaborator can be added as a viewer (overwrites)", {
   acls <- get_acl(cont1_content)
   
   # TODO: Should this be a warning?
-  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == collab_guid && .x$app_role == "viewer")))
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {.x == collab_guid && .y == "viewer"})
+  expect_true(any(which_match))
 })
 
 test_that("a viewer can be added as a collaborator", {
@@ -228,7 +229,8 @@ test_that("a viewer can be added as a collaborator", {
   
   acls <- get_acl(cont1_content)
   
-  expect_true(any(purrr::map_lgl(acls, ~ .x$guid == collab_guid && .x$app_role == "owner")))
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {.x == collab_guid && .y == "owner"})
+  expect_true(any(which_match))
 })
 
 test_that("remove a viewer works", {
@@ -240,7 +242,7 @@ test_that("remove a viewer works", {
   # get acl
   acls <- get_acl(cont1_content)
   
-  which_match <- purrr::map_lgl(acls, ~.x$guid == viewer_guid && .x$app_role == "viewer")
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {.x == viewer_guid && .y == "viewer"})
   expect_false(any(which_match))
 })
 
@@ -253,7 +255,7 @@ test_that("remove a viewer twice works", {
     # get acl
     acls <- get_acl(cont1_content)
     
-    which_match <- purrr::map_lgl(acls, ~.x$guid == viewer_guid && .x$app_role == "viewer")
+    which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {.x == viewer_guid && .y == "viewer"})
     expect_false(any(which_match))
 })
 
