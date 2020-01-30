@@ -1,0 +1,12 @@
+version: '2.3'
+services:
+
+  connect:
+    hostname: connect
+    image: rstudio/rstudio-connect:${RSC_VERSION}
+    scale: 2
+    ports:
+      - 3939
+    privileged: true
+    volumes:
+      - "${RSC_LICENSE_FILE}:/etc/rstudio-connect/rstudio-connect.lic"

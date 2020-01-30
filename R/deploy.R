@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -24,60 +24,11 @@ Bundle <- R6::R6Class(
   )
 )
 
-#' Content
-#' 
-#' An R6 class that represents content
-#' 
-#' @family deployR6 functions
-#' @export
-Content <- R6::R6Class(
-  "Content",
-  public = list(
-    #' @field connect An R6 Connect object
-    connect = NULL,
-    #' @field content The content details from RStudio Connect
-    content = NULL,
-    
-    initialize = function(connect, content) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      # TODO: need to check that content has
-      # at least guid, url, title to be functional
-      self$content <- content
-    },
-    get_connect = function(){self$connect},
-    get_content = function(){self$content},
-    get_dashboard_url = function(pane = ""){
-      dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
-    },
-    get_jobs = function() {
-      warn_experimental("get_jobs")
-      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
-      self$get_connect()$GET(url)
-    },
-    get_job = function(key) {
-      warn_experimental("get_job")
-      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
-      self$get_connect()$GET(url)
-    },
-    print = function(...) {
-      cat("RStudio Connect Content: \n")
-      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
-      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
-      cat("\n")
-      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
-      cat("\n")
-      invisible(self)
-    }
-  )
-)
-
 #' Task
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -108,7 +59,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",
