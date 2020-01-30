@@ -13,8 +13,13 @@ get_acl(content)
 A list of users who have access to the content
 }
 \description{
-\lifecycle{experimental} Retrieve the Access Controls
-associated with a given piece of content.
+\lifecycle{experimental} Retrieve the Access Controls associated with a given
+piece of content.
+}
+\details{
+NOTE: ACLs can still be stored, even when access_type for content is "all" or
+"logged_in" users. In these cases, granting or removing "viewer" privileges
+have no effect.
 }
 \seealso{
 Other content functions: \code{\link{content_item}},
