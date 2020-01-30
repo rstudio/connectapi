@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the Vanity URL — get_vanity_url • connectapi</title>
+<title>Get ACL Details — get_acl • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,10 @@
 
 
 
-<meta property="og:title" content="Get the Vanity URL — get_vanity_url" />
-<meta property="og:description" content="Gets the Vanity URL for a piece of content." />
+<meta property="og:title" content="Get ACL Details — get_acl" />
+<meta property="og:description" content="
+ Retrieve the Access Controls associated with a given
+piece of content." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -128,31 +130,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the Vanity URL</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/deploy.R'><code>R/deploy.R</code></a></small>
-    <div class="hidden name"><code>get_vanity_url.Rd</code></div>
+    <h1>Get ACL Details</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <div class="hidden name"><code>get_acl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets the Vanity URL for a piece of content.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ Retrieve the Access Controls associated with a given
+piece of content.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_vanity_url</span>(<span class='no'>content</span>)</pre>
+    <pre class="usage"><span class='fu'>get_acl</span>(<span class='no'>content</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>content</th>
-      <td><p>A Content object</p></td>
+      <td><p><a href='Content.html'>Content</a> An R6 Content item</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of users who have access to the content</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>NOTE: ACLs can still be stored, even when access_type for content is "all" or
+"logged_in" users. In these cases, granting or removing "viewer" privileges
+have no effect.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other content functions: <code><a href='content_item.html'>content_item</a></code>,
   <code><a href='dashboard_url_chr.html'>dashboard_url_chr</a></code>,
-  <code><a href='dashboard_url.html'>dashboard_url</a></code>, <code><a href='get_acl.html'>get_acl</a></code>,
+  <code><a href='dashboard_url.html'>dashboard_url</a></code>,
+  <code><a href='get_vanity_url.html'>get_vanity_url</a></code>,
   <code><a href='set_image.html'>set_image_path</a></code>,
   <code><a href='set_vanity_url.html'>set_vanity_url</a></code></p></div>
 
@@ -161,6 +174,8 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
     </ul>
 

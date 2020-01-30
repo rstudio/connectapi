@@ -97,7 +97,17 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#connectapi" class="anchor"></a>connectapi <img src="reference/figures/logo.svg" align="right" height="139">
 </h1></div>
-<p>This package is an <strong>experimental WIP</strong>. The package provides an R client for the <a href="https://docs.rstudio.com/connect/api/">RStudio Connect API</a> as well as helpful functions that utilize the client. The package is based on the <code>rsconnnect</code> <a href="https://rstudio.github.io/rsconnect/">package</a>, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the <code>rsconnect</code> package for easier support and maintenance.</p>
+<p>This package is an <strong>experimental WIP</strong>. The package provides an R client for the <a href="https://docs.rstudio.com/connect/api/">RStudio Connect Server API</a> as well as helpful functions that utilize the client. The package is based on the <code>rsconnnect</code> <a href="https://rstudio.github.io/rsconnect/">package</a>, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the <code>rsconnect</code> package for easier support and maintenance.</p>
+<div id="disclaimer" class="section level2">
+<h2 class="hasAnchor">
+<a href="#disclaimer" class="anchor"></a>Disclaimer</h2>
+<p>Because many of these functions are experimental, it is advisable to be cautious about (1) upgrading the package, (2) upgrading RStudio Connect when you care about the reproducibility of workflows that use <code>connectapi</code>. As a result, we would advise:</p>
+<ul>
+<li>managing package versions with <a href="https://rstudio.github.io/renv/"><code>renv</code></a>
+</li>
+<li>test your dependent content before and after upgrading RStudio Connect</li>
+</ul>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
