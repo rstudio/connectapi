@@ -101,10 +101,10 @@ get_acl_impl <- function(content) {
   content_info <- content$get_content_remote()
   
   if (content_info$access_type != "acl") {
-    # we should do this more often than once...
+    # we warn once per content item
     warn_once(
       glue::glue("Content (guid: {content_info$guid}) has access type {content_info$access_type}: ACLs for viewers have no effect"),
-      "get_acl_not_acl"
+      glue::glue("get_acl_not_acl_{content_info$guid}")
     )
   }
   
