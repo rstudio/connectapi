@@ -135,7 +135,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
   invisible()
 }
 
-compose_find <- function(prefix) {
+compose_find_hosts <- function(prefix) {
   warn_dire("compose_find")
   scoped_dire_silence()
   
@@ -165,7 +165,7 @@ compose_find <- function(prefix) {
 }
 
 
-update_renviron <- function(host, api_key, prefix, .file = ".Renviron") {
+update_renviron_creds <- function(host, api_key, prefix, .file = ".Renviron") {
   cat_line(glue::glue("connect: writing values for {prefix} to {.file}"))
   curr_environ <- tryCatch(readLines(.file), error = function(e){print(e); return(character())})
   
@@ -192,7 +192,7 @@ build_test_env <- function(
   
   compose_start(connect_license = connect_license, clean = clean)
   
-  hosts <- compose_find(prefix = "ci_connect")
+  hosts <- compose_find_hosts(prefix = "ci_connect")
   
   cat_line("connect: creating first admin...")
   a1 <- create_first_admin(
@@ -204,8 +204,8 @@ build_test_env <- function(
     "admin", "admin0", "admin@example.com"
     )
   
-  update_renviron(a1$host, a1$api_key, "TEST_1")
-  update_renviron(a2$host, a2$api_key, "TEST_2")
+  update_renviron_creds(a1$host, a1$api_key, "TEST_1")
+  update_renviron_creds(a2$host, a2$api_key, "TEST_2")
   
   cat_line("connect: done")
   
