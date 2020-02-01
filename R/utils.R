@@ -58,12 +58,12 @@ find_compose <- function() {
   wh$read_output_lines()
 }
 
-clean_test_env <- function() {
+clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml", package = "connectapi")) {
   compose_path <- find_compose()
   cat_line("docker-compose: cleaning...")
   compose_down <- processx::process$new(
     compose_path,
-    c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
+    c("-f", compose_file_path, "down"),
     stdout = "|",
     stderr = "|"
   )
@@ -103,22 +103,25 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
   # this is b/c specifying an env requires an absolute path
   compose_path <- find_compose()
   
-  # stop compose
-  if (clean) {
-    clean_test_env()
-  }
-  
   license_details <- determine_license_env(connect_license)
   compose_file <- switch(
     license_details$type,
     "file" = "ci/test-connect-lic.yml",
     "ci/test-connect.yml"
   )
+  
+  compose_file_path <- system.file(compose_file, package = "connectapi")
+  
+  # stop compose
+  if (clean) {
+    clean_test_env(compose_file_path)
+  }
+  
   # start compose
   cat_line("docker-compose: starting...")
   compose <- processx::process$new(
     compose_path, 
-    c("-f", system.file(compose_file, package = "connectapi"), "up", "-d"),
+    c("-f", compose_file_path, "up", "-d"),
     stdout = "|",
     stderr = "|",
     env = c(
@@ -156,7 +159,7 @@ compose_find <- function(prefix) {
   Sys.sleep(10)
   
   return(list(
-  glue::glue("http::/localhost:{p1}"), 
+  glue::glue("http://localhost:{p1}"), 
   glue::glue("http://localhost:{p2}")
   ))
 }
@@ -189,7 +192,7 @@ build_test_env <- function(
   
   compose_start(connect_license = connect_license, clean = clean)
   
-  hosts <- compose_find(prefix = "connectapi_connect")
+  hosts <- compose_find(prefix = "ci_connect")
   
   cat_line("connect: creating first admin...")
   a1 <- create_first_admin(
