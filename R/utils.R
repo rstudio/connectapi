@@ -177,6 +177,7 @@ update_renviron_creds <- function(host, api_key, prefix, .file = ".Renviron") {
     "{prefix}_API_KEY={api_key}",
     .sep = "\n"
   )
+  if ( !fs::file_exists(.file) ) fs::file_touch(.file)
   writeLines(output_environ, .file)
   invisible()
 }
