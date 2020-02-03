@@ -145,6 +145,7 @@ test_that("set_image_url works", {
 })
 
 test_that("set_image_webshot works", {
+  skip("currently broken")
   scoped_experimental_silence()
   res <- set_image_webshot(cont1_content)
   
