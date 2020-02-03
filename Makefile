@@ -35,3 +35,19 @@ connect-file-up:
 connect-file-down:
 	NETWORK=${NETWORK} \
 	docker-compose -f inst/ci/test-connect-lic.yml -f inst/ci/make-network.yml down
+	
+test-env-up:
+	NETWORK=${NETWORK} \
+	RSC_LICENSE=$(RSC_LICENSE) \
+	RSC_VERSION=$(RSC_VERSION) \
+	docker-compose -f inst/ci/test-connect-ci.yml -f inst/ci/make-network.yml up -d
+
+test-env-down:
+	NETWORK=${NETWORK} \
+	docker-compose -f inst/ci/test-connect-ci.yml -f inst/ci/make-network.yml down
+
+test-run:
+	NETWORK=${NETWORK} \
+  docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test
+
+test: test-env-up test-run test-env-down
