@@ -6,7 +6,7 @@ ansiColor('xterm') {
     node('docker') {
       checkout scm
       print "Running integration tests"
-      echo $RSC_LICENSE
+      sh "env"
       sh "RSC_LICENSE=$RSC_LICENSE make test"
       print "Finished integration tests"
     }
