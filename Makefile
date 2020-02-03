@@ -6,6 +6,28 @@ NETWORK=${PROJECT}_default
 RSC_VERSION=1.8.0.1-14
 
 #---------------------------------------------
+# Network
+#---------------------------------------------
+network-up:
+	$(eval NETWORK_EXISTS=$(shell docker network inspect ${NETWORK} > /dev/null 2>&1 && echo 0 || echo 1))
+	@if [ "${NETWORK_EXISTS}" = "1" ] ; then \
+		echo "Creating network: ${NETWORK}"; \
+		docker network create --driver bridge ${NETWORK} ; \
+	fi;
+
+network-down:
+	$(eval NETWORK_EXISTS=$(shell docker network inspect ${NETWORK} > /dev/null 2>&1 && echo 0 || echo 1))
+	@if [ "${NETWORK_EXISTS}" = "0" ] ; then \
+		for i in `docker network inspect -f '{{range .Containers}}{{.Name}} {{end}}' ${NETWORK}`; do \
+			echo "Removing container \"$${i}\" from network \"${NETWORK}\""; \
+			docker network disconnect -f ${NETWORK} $${i}; \
+		done; \
+		echo "Removing network: ${NETWORK}"; \
+		docker network rm ${NETWORK}; \
+	fi;
+
+
+#---------------------------------------------
 # Helpers
 #---------------------------------------------
 mail-up:
@@ -50,4 +72,4 @@ test-run:
 	NETWORK=${NETWORK} \
   docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test
 
-test: test-env-up test-run test-env-down
+test: network-up test-env-up test-run test-env-down network-down
