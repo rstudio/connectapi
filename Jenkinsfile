@@ -1,7 +1,7 @@
 ansiColor('xterm') {
   stage('integration_test') {
     environment {
-      RSC_LICENSE = "test" // credentials('connectapi-connect-license-key')
+      "RSC_LICENSE" = "test" // credentials('connectapi-connect-license-key')
     }
     node('docker') {
       checkout scm
