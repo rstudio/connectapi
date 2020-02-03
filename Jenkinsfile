@@ -3,7 +3,7 @@ ansiColor('xterm') {
     node('docker') {
       checkout scm
       print "Running integration tests"
-      make test
+      sh "make test"
       print "Finished integration tests"
     }
   }
