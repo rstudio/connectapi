@@ -1,14 +1,12 @@
 ansiColor('xterm') {
   stage('integration_test') {
+    environment {
+      RSC_LICENSE = credentials('connectapi-connect-license-key')
+    }
     node('docker') {
       checkout scm
       print "Running integration tests"
-      withCredentials([string(credentialsId: 'connectapi-connect-license-key', variable: 'license')]) {
-          environment {
-            RSC_LICENSE = license
-          }
-          sh "make test"
-      }
+      sh "make test"
       print "Finished integration tests"
     }
   }
