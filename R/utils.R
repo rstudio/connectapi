@@ -58,12 +58,12 @@ find_compose <- function() {
   wh$read_output_lines()
 }
 
-clean_test_env <- function() {
+clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml", package = "connectapi")) {
   compose_path <- find_compose()
   cat_line("docker-compose: cleaning...")
   compose_down <- processx::process$new(
     compose_path,
-    c("-f", system.file("test-connect.yml", package = "connectapi"), "down"),
+    c("-f", compose_file_path, "down"),
     stdout = "|",
     stderr = "|"
   )
@@ -92,8 +92,9 @@ determine_license_env <- function(license) {
       ))
   }
 }
-build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
-  warn_dire("build_test_env")
+
+compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
+  warn_dire("compose_Start")
   scoped_dire_silence()
   
   stopifnot(nchar(connect_license) > 0)
@@ -102,32 +103,41 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
   # this is b/c specifying an env requires an absolute path
   compose_path <- find_compose()
   
-  # stop compose
-  if (clean) {
-    clean_test_env()
-  }
-  
   license_details <- determine_license_env(connect_license)
   compose_file <- switch(
     license_details$type,
-    "file" = "test-connect-lic.yml",
-    "test-connect.yml"
+    "file" = "ci/test-connect-lic.yml",
+    "ci/test-connect.yml"
   )
+  
+  compose_file_path <- system.file(compose_file, package = "connectapi")
+  
+  # stop compose
+  if (clean) {
+    clean_test_env(compose_file_path)
+  }
+  
   # start compose
   cat_line("docker-compose: starting...")
   compose <- processx::process$new(
     compose_path, 
-    c("-f", system.file(compose_file, package = "connectapi"), "up", "-d"),
+    c("-f", compose_file_path, "up", "-d"),
     stdout = "|",
     stderr = "|",
     env = c(
       RSC_VERSION=current_connect_version,
       license_details$env_params
-      )
     )
+  )
   while (compose$is_alive()) Sys.sleep(0.05)
   stopifnot(compose$get_exit_status() == 0)
   cat_line("docker-compose: started!")
+  invisible()
+}
+
+compose_find_hosts <- function(prefix) {
+  warn_dire("compose_find")
+  scoped_dire_silence()
   
   # get docker containers
   cat_line("docker: getting list of containers...")
@@ -137,8 +147,8 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
   docker_ps_output <- docker_ps$read_output_lines()
   cat_line("docker: got containers")
   
-  c1 <- docker_ps_output[grep("connectapi_connect_1", docker_ps_output)]
-  c2 <- docker_ps_output[grep("connectapi_connect_2", docker_ps_output)]
+  c1 <- docker_ps_output[grep(glue::glue("{prefix}_1"), docker_ps_output)]
+  c2 <- docker_ps_output[grep(glue::glue("{prefix}_2"), docker_ps_output)]
   
   p1 <- substr(c1, regexpr("0\\.0\\.0\\.0:", c1)+8, regexpr("->3939", c1)-1)
   p2 <- substr(c2, regexpr("0\\.0\\.0\\.0:", c2)+8, regexpr("->3939", c2)-1)
@@ -148,33 +158,55 @@ build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = 
   cat_line("connect: sleeping - waiting for connect to start")
   Sys.sleep(10)
   
+  return(list(
+  glue::glue("http://localhost:{p1}"), 
+  glue::glue("http://localhost:{p2}")
+  ))
+}
+
+
+update_renviron_creds <- function(host, api_key, prefix, .file = ".Renviron") {
+  cat_line(glue::glue("connect: writing values for {prefix} to {.file}"))
+  curr_environ <- tryCatch(readLines(.file), error = function(e){print(e); return(character())})
+  
+  curr_environ <- curr_environ[!grepl(glue::glue('^{prefix}_SERVER='), curr_environ)]
+  curr_environ <- curr_environ[!grepl(glue::glue('^{prefix}_API_KEY='), curr_environ)]
+  output_environ <- glue::glue(
+    paste(curr_environ, collapse = "\n"), 
+    "{prefix}_SERVER={host}",
+    "{prefix}_API_KEY={api_key}",
+    .sep = "\n"
+  )
+  if ( !fs::file_exists(.file) ) fs::file_touch(.file)
+  writeLines(output_environ, .file)
+  invisible()
+}
+
+build_test_env <- function(
+  connect_license = Sys.getenv("RSC_LICENSE"), 
+  clean = TRUE,
+  username = "admin",
+  password = "admin0"
+  ) {
+  warn_dire("build_test_env")
+  scoped_dire_silence()
+  
+  compose_start(connect_license = connect_license, clean = clean)
+  
+  hosts <- compose_find_hosts(prefix = "ci_connect")
+  
   cat_line("connect: creating first admin...")
   a1 <- create_first_admin(
-    glue::glue("http://localhost:{p1}"),
+    hosts[[1]],
     "admin", "admin0", "admin@example.com"
     )
   a2 <- create_first_admin(
-    glue::glue("http://localhost:{p2}"),
+   hosts[[2]],
     "admin", "admin0", "admin@example.com"
     )
   
-  cat_line("connect: writing values to .Renviron")
-  curr_environ <- tryCatch(readLines(".Renviron"), error = function(e){print(e); return(character())})
-  
-  curr_environ <- curr_environ[!grepl('^TEST_1_SERVER=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_2_SERVER=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_1_API_KEY=', curr_environ)]
-  curr_environ <- curr_environ[!grepl('^TEST_2_API_KEY=', curr_environ)]
-  output_environ <- glue::glue(
-    paste(curr_environ, collapse = "\n"), 
-    "TEST_1_SERVER={a1$host}",
-    "TEST_1_API_KEY={a1$api_key}",
-    "TEST_2_SERVER={a2$host}",
-    "TEST_2_API_KEY={a2$api_key}",
-    .sep = "\n"
-  )
-  fs::file_move(".Renviron", ".Renviron.bak")
-  writeLines(output_environ, ".Renviron")
+  update_renviron_creds(a1$host, a1$api_key, "TEST_1")
+  update_renviron_creds(a2$host, a2$api_key, "TEST_2")
   
   cat_line("connect: done")
   

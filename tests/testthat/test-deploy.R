@@ -16,6 +16,6 @@ test_that("dashboard_url_chr works with various length inputs", {
 test_that("dashboard_url_chr fails with invalid inputs", {
   expect_error(
     dashboard_url_chr(c("a", "b", "c"), "d", c("e", "f")),
-    "length.*2"
+    class = "purrr_error_bad_element_length"
   )
 })
