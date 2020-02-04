@@ -39,14 +39,12 @@ Content <- R6::R6Class(
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
     get_jobs = function() {
-      warn_experimental("get_jobs")
-      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
-      self$get_connect()$GET(url)
+      lifecycle::deprecate_warn("0.1.0.9005", "Content$get_jobs()", "Content$jobs()")
+      self$jobs()
     },
     get_job = function(key) {
-      warn_experimental("get_job")
-      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
-      self$get_connect()$GET(url)
+      lifecycle::deprecate_warn("0.1.0.9005", "Content$get_job()", "Content$job()")
+      self$job(key)
     },
     jobs = function() {
       warn_experimental("jobs")
