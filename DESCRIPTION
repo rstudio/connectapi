@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9002
+Version: 0.1.0.9004
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -31,7 +31,9 @@ Imports:
     lifecycle,
     purrr,
     uuid,
-    dplyr
+    dplyr,
+    vctrs,
+    tibble
 Suggests: 
     crayon,
     flexdashboard,

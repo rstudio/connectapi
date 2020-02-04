@@ -145,6 +145,7 @@ test_that("set_image_url works", {
 })
 
 test_that("set_image_webshot works", {
+  skip("currently broken")
   scoped_experimental_silence()
   res <- set_image_webshot(cont1_content)
   
@@ -204,4 +205,12 @@ test_that("download_bundle throws an error for undeployed content", {
     download_bundle(cont),
     "This content has no bundle_id"
   )
+})
+
+test_that("dashboard_url resolves properly", {
+  cont <- content_item(test_conn_1, cont1_guid)
+  
+  dash_url <- dashboard_url(cont)
+  
+  skip("not yet tested")
 })

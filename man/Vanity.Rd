@@ -12,8 +12,9 @@ Vanity
 An R6 class that represents a Vanity URL
 }
 \seealso{
-Other deployR6 functions: \code{\link{Bundle}},
-  \code{\link{Content}}, \code{\link{Task}}
+Other R6 classes: \code{\link{Bundle}},
+  \code{\link{Content}}, \code{\link{RStudioConnect}},
+  \code{\link{Task}}
 }
-\concept{deployR6 functions}
+\concept{R6 classes}
 \keyword{datasets}

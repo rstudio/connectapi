@@ -1,0 +1,19 @@
+version: '2.3'
+services:
+
+  connect1:
+    hostname: connect1
+    image: rstudio/rstudio-connect:${RSC_VERSION}
+    ports:
+      - 3939
+    privileged: true
+    environment:
+      - RSC_LICENSE
+  connect2:
+    hostname: connect2
+    image: rstudio/rstudio-connect:${RSC_VERSION}
+    ports:
+      - 3939
+    privileged: true
+    environment:
+      - RSC_LICENSE

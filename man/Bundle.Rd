@@ -12,8 +12,9 @@ Bundle
 An R6 class that represents a bundle
 }
 \seealso{
-Other deployR6 functions: \code{\link{Content}},
-  \code{\link{Task}}, \code{\link{Vanity}}
+Other R6 classes: \code{\link{Content}},
+  \code{\link{RStudioConnect}}, \code{\link{Task}},
+  \code{\link{Vanity}}
 }
-\concept{deployR6 functions}
+\concept{R6 classes}
 \keyword{datasets}

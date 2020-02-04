@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -24,160 +24,11 @@ Bundle <- R6::R6Class(
   )
 )
 
-#' Content
-#' 
-#' An R6 class that represents content
-#' 
-#' @family deployR6 functions
-#' @export
-Content <- R6::R6Class(
-  "Content",
-  public = list(
-    connect = NULL,
-    content = NULL,
-    
-    initialize = function(connect, content) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      # TODO: need to check that content has
-      # at least guid, url, title to be functional
-      self$content <- content
-    },
-    get_connect = function(){self$connect},
-    get_content = function(){self$content},
-    get_dashboard_url = function(pane = ""){
-      glue::glue(
-        self$connect$host,
-        "connect",
-        "#",
-        "apps",
-        self$content$guid,
-        pane,
-        .sep = "/"
-      )
-    },
-    jobs = function() {
-      warn_experimental("jobs")
-      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
-      self$get_connect()$GET(url)
-    },
-    job = function(key) {
-      warn_experimental("job")
-      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
-      self$get_connect()$GET(url)
-    },
-    variants = function() {
-      warn_experimental("variants")
-      url <- glue::glue("applications/{self$get_content()$guid}/variants")
-      self$get_connect()$GET(url)
-    },
-    tag_set = function(id) {
-      warn_experimental("tag_set")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags")
-      self$get_connect()$POST(
-        url,
-        body = list(
-          id = id
-        )
-      )
-    },
-    tag_delete = function(id) {
-      # note that deleting the parent tag deletes all children
-      warn_experimental("tag_delete")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags/{id}")
-      invisible(self$get_connect()$DELETE(url))
-    },
-    tags = function() {
-      warn_experimental("tags")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags")
-      self$get_connect()$GET(url)
-    },
-    environment = function() {
-      warn_experimental("environment")
-      url <- glue::glue("applications/{self$get_content()$guid}/environment")
-      self$get_connect()$GET(url)
-    },
-    environment_set = function(..., .version = 0) {
-      warn_experimental("environment_set")
-      url <- glue::glue("applications/{self$get_content()$guid}/environment")
-      # post with 
-      # key = NA to retain
-      # post without a variable/key to remove
-      # bump version number each time
-      vals <- rlang::list2(...)
-      body <- list(
-        values = vals,
-        version = .version,
-        app_guid = self$get_content()$guid
-      )
-      self$get_connect()$POST(
-        path = url,
-        body = body
-      )
-      invisible()
-    },
-    print = function(...) {
-      cat("RStudio Connect Content: \n")
-      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
-      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
-      cat("\n")
-      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
-      cat("\n")
-      invisible(self)
-    }
-  )
-)
-
-#' Variant
-#' 
-#' An R6 class that represents a Variant
-#' 
-Variant <- R6::R6Class(
-  "Variant",
-  inherit = Content,
-  public = list(
-    variant = NULL,
-    get_variant = function() {self$variant},
-    initialize = function(connect, content, variant) {
-      # TODO
-    },
-    send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
-      if (length(to) > 1) to <- "me"
-      url <- glue::glue("variants/{self$get_variant()$id}/sender")
-      self$get_connect()$POST(
-        path = url, 
-        body = list(
-          email = to
-        ))
-    },
-    render = function() {
-      url <- glue::glue("variants/{self$get_variant()$id}/render")
-      self$get_connect()$POST(
-        path = url,
-        body = list(
-          email = "none",
-          activate = TRUE
-        )
-      )
-    },
-    get_renderings = function() {
-      url <- glue::glue("variants/{self$get_variant()$id}/renderings")
-      self$get_connect()$GET(
-        path = url
-      )
-    },
-    navigate_rev = function() {
-      glue::glue("content_url/variant_hash/_rev{rev_id}")
-    }
-  )
-)
-
 #' Task
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -208,7 +59,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",
@@ -701,4 +552,49 @@ content_item <- function(connect, guid) {
   res <- connect$get_connect()$content(guid)
   
   Content$new(connect = connect, content = res)
+}
+
+#' Build a Dashboard URL from a Content Item
+#' 
+#' Returns the URL for the content dashboard (opened to the selected pane).
+#' 
+#' @param content [Content] A Content object
+#' @param pane character The pane in the dashboard to link to
+#' 
+#' @return character The dashboard URL for the content provided
+#' 
+#' @family content functions
+#' @export
+dashboard_url <- function(content, pane = "") {
+  content$get_dashboard_url(pane = pane)
+}
+
+#' Build a Dashboard URL from Character Vectors
+#' 
+#' Returns the URL for the content dashboard (opened to the selected pane).
+#' NOTE: this takes a character object for performance optimization.
+#' 
+#' @param connect_url character The base URL of the Connect server
+#' @param content_guid character The guid for the content item in question
+#' @param pane character The pane in the dashboard to link to
+#' 
+#' @return character The dashboard URL for the content provided
+#' 
+#' @family content functions
+#' @export
+dashboard_url_chr <- function(connect_url, content_guid, pane = "") {
+  purrr::pmap_chr(
+    list(x = connect_url, y = content_guid, z = pane),
+    function(x,y,z) {
+      paste(
+        x,
+        "connect",
+        "#",
+        "apps",
+        y,
+        z,
+        sep = "/"
+      )
+    }
+  )
 }
