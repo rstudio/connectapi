@@ -135,6 +135,7 @@ Variant <- R6::R6Class(
       # TODO
     },
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
+      warn_experimental("send_mail")
       if (length(to) > 1) to <- "me"
       url <- glue::glue("variants/{self$get_variant()$id}/sender")
       self$get_connect()$POST(
@@ -144,6 +145,7 @@ Variant <- R6::R6Class(
         ))
     },
     render = function() {
+      warn_experimental("render")
       url <- glue::glue("variants/{self$get_variant()$id}/render")
       self$get_connect()$POST(
         path = url,
@@ -153,7 +155,8 @@ Variant <- R6::R6Class(
         )
       )
     },
-    get_renderings = function() {
+    renderings = function() {
+      warn_experimental("renderings")
       url <- glue::glue("variants/{self$get_variant()$id}/renderings")
       self$get_connect()$GET(
         path = url
