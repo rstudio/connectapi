@@ -110,7 +110,8 @@ connectapi_ptypes <- list(
     "name" = NA_character_,
     "title" = NA_character_,
     "bundle_id" = NA_integer_,
-    "app_mode" = NA_integer_,
+    #(1=shiny, 2=shiny Rmd, 3=source Rmd, 4=static, 5=api, 6=tensorflow, 7=python)
+    "app_mode" = NA_integer_, 
     "content_category" = NA_character_,
     "has_parameters" = NA,
     "created_time" = NA_datetime_,
