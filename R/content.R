@@ -61,6 +61,53 @@ Content <- R6::R6Class(
   )
 )
 
+#' Get Content Item
+#' 
+#' Returns a single content item based on guid
+#' 
+#' @param connect A Connect object
+#' @param guid The GUID for the content item to be retrieved
+#' 
+#' @return A Content object for use with other content endpoints
+#' 
+#' @family content functions
+#' @export
+content_item <- function(connect, guid) {
+  # TODO : think about how to handle if GUID does not exist
+  validate_R6_class(connect, "Connect")
+  
+  res <- connect$get_connect()$content(guid)
+  
+  Content$new(connect = connect, content = res)
+}
+
+#' Get Content Title
+#' 
+#' Return content title for a piece of content. If the content
+#' is missing (deleted) or not visible, then returns the `default`
+#' 
+#' @param connect A Connect object
+#' @param guid The GUID for the content item to be retrieved
+#' @param default The default value returned for missing or not visible content
+#' 
+#' @return character. The title of the requested content
+#' 
+#' @family content functions
+#' @export 
+content_title <- function(connect, guid, default = "Unknown Content") {
+  validate_R6_class(connect, "Connect")
+  
+  content_title <- tryCatch({
+    res <- suppressMessages(connect$get_connect()$content(guid))
+    res$title
+  },
+  error = function(e){
+    return(default)
+  })
+  
+  return(content_title)
+}
+
 #' Get ACL Details
 #' 
 #' \lifecycle{experimental} Retrieve the Access Controls associated with a given
