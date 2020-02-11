@@ -15,18 +15,32 @@ collab_alt_guid <- NULL
 viewer_guid <- NULL
 viewer_alt_guid <- NULL
 
+# deploy content
+dir_path <- rprojroot::find_testthat_root_file("examples/static")
+tmp_file <- fs::file_temp(pattern = "bundle", ext = ".tar.gz")
+bund <- bundle_dir(path = dir_path, filename = tmp_file)
+
+tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = cont1_title)
+
+cont1_guid <- tsk$get_content()$guid
+cont1_content <- content_item(tsk$get_connect(), cont1_guid)
+
+test_that("content_title works in a simple example", {
+  test_title <- content_title(test_conn_1, cont1_guid)
+  expect_identical(test_title, cont1_title)
+})
+
+test_that("content_title handles missing content gracefully", {
+  null_title <- content_title(test_conn_1, "not_a_real_guid")
+  expect_identical(null_title, "Unknown Content")
+  
+  null_title_custom <- content_title(test_conn_1, "not_a_real_guid", "other-default")
+  expect_identical(null_title_custom, "other-default")
+})
+
 test_that("acl returns owner once and only once", {
   scoped_experimental_silence()
-  # deploy content
-  dir_path <- rprojroot::find_testthat_root_file("examples/static")
-  tmp_file <- fs::file_temp(pattern = "bundle", ext = ".tar.gz")
-  bund <- bundle_dir(path = dir_path, filename = tmp_file)
-  
-  tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = cont1_title)
-  
-  cont1_guid <<- tsk$get_content()$guid
-  cont1_content <<- content_item(tsk$get_connect(), cont1_guid)
-  
+
   # get acl
   acls <- get_acl(cont1_content)
   
