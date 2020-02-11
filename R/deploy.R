@@ -534,25 +534,6 @@ poll_task <- function(task, wait = 1) {
   task
 }
 
-#' Get Content Item
-#' 
-#' Returns a single content item based on guid
-#' 
-#' @param connect A Connect object
-#' @param guid The GUID for the content item to be retrieved
-#' 
-#' @return A Content object for use with other content endpoints
-#' 
-#' @family content functions
-#' @export
-content_item <- function(connect, guid) {
-  # TODO : think about how to handle if GUID does not exist
-  validate_R6_class(connect, "Connect")
-  
-  res <- connect$get_connect()$content(guid)
-  
-  Content$new(connect = connect, content = res)
-}
 
 #' Build a Dashboard URL from a Content Item
 #' 
