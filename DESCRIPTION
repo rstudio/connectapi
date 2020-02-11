@@ -54,6 +54,7 @@ RdMacros:
     lifecycle
 Remotes: 
     slopp/webshot
+    r-lib/lifecycle
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 6.1.1
