@@ -28,6 +28,7 @@ connect() \%>\%
 }
 \seealso{
 Other content functions: \code{\link{content_item}},
+  \code{\link{content_title}},
   \code{\link{dashboard_url_chr}},
   \code{\link{dashboard_url}}, \code{\link{get_acl}},
   \code{\link{get_vanity_url}},
