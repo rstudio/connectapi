@@ -25,6 +25,13 @@ tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = c
 cont1_guid <- tsk$get_content()$guid
 cont1_content <- content_item(tsk$get_connect(), cont1_guid)
 
+test_that("content_item works", {
+  cont1_tmp <- test_conn_1 %>% content_item(guid = cont1_guid)
+  
+  expect_true(validate_R6_class(cont1_tmp, "Content"))
+  expect_equal(cont1_tmp$get_content()$guid, cont1_guid)
+})
+
 test_that("content_title works in a simple example", {
   test_title <- content_title(test_conn_1, cont1_guid)
   expect_identical(test_title, cont1_title)
