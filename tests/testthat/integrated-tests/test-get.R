@@ -30,7 +30,7 @@ test_that("get_content works", {
   expect_is(content_list, c("tbl_df", "tbl", "data.frame"))
   
   # https://github.com/r-lib/testthat/issues/985
-  skip("currently segfaults")
+  #skip("currently segfaults")
   expect_equal(vctrs::vec_ptype(content_list), vctrs::vec_ptype(connectapi_ptypes$content))
 })
 
