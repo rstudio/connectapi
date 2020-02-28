@@ -137,35 +137,114 @@
     <p>An R6 class that represents content</p>
     </div>
 
-    <pre class="usage"><span class='no'>Content</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>An object of class <code>R6ClassGenerator</code> of length 25.</p>
-    <h2 class="hasAnchor" id="fields"><a class="anchor" href="#fields"></a>Fields</h2>
+    <div class='dont-index'><p>Other R6 classes: 
+<code><a href='Bundle.html'>Bundle</a></code>,
+<code><a href='RStudioConnect.html'>RStudioConnect</a></code>,
+<code><a href='Task.html'>Task</a></code>,
+<code><a href='Vanity.html'>Vanity</a></code></p></div>
+    <h2 class="hasAnchor" id="public-fields"><a class="anchor" href="#public-fields"></a>Public fields</h2>
 
-    
-
-<dl class='dl-horizontal'>
+    <p><div class="r6-fields"></p><dl class='dl-horizontal'>
 <dt><code>connect</code></dt><dd><p>An R6 Connect object</p></dd>
 
 <dt><code>content</code></dt><dd><p>The content details from RStudio Connect</p></dd>
 
-</dl>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+</dl><p></div></p>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
-    <div class='dont-index'><p>Other R6 classes: <code><a href='Bundle.html'>Bundle</a></code>,
-  <code><a href='RStudioConnect.html'>RStudioConnect</a></code>, <code><a href='Task.html'>Task</a></code>,
-  <code><a href='Vanity.html'>Vanity</a></code></p></div>
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-new'><code>Content$new()</code></a></p></li>
+<li><p><a href='#method-get_connect'><code>Content$get_connect()</code></a></p></li>
+<li><p><a href='#method-get_content'><code>Content$get_content()</code></a></p></li>
+<li><p><a href='#method-get_content_remote'><code>Content$get_content_remote()</code></a></p></li>
+<li><p><a href='#method-update'><code>Content$update()</code></a></p></li>
+<li><p><a href='#method-get_dashboard_url'><code>Content$get_dashboard_url()</code></a></p></li>
+<li><p><a href='#method-get_jobs'><code>Content$get_jobs()</code></a></p></li>
+<li><p><a href='#method-get_job'><code>Content$get_job()</code></a></p></li>
+<li><p><a href='#method-print'><code>Content$print()</code></a></p></li>
+<li><p><a href='#method-clone'><code>Content$clone()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$new(connect, content)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_connect"></a></p><h3>Method <code>get_connect()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_connect()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_content"></a></p><h3>Method <code><a href='get_content.html'>get_content()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_content()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_content_remote"></a></p><h3>Method <code>get_content_remote()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_content_remote()</pre><p></div></p>
+
+<p><hr>
+<a id="method-update"></a></p><h3>Method <code><a href='https://rdrr.io/r/stats/update.html'>update()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$update(...)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_dashboard_url"></a></p><h3>Method <code>get_dashboard_url()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_dashboard_url(pane = "")</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_jobs"></a></p><h3>Method <code>get_jobs()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_jobs()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_job"></a></p><h3>Method <code>get_job()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$get_job(key)</pre><p></div></p>
+
+<p><hr>
+<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Content$print(...)</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>Content$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
-      <li><a href="#fields">Fields</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#public-fields">Public fields</a></li>
+      <li><a href="#methods">Methods</a></li>
     </ul>
 
   </div>

@@ -137,8 +137,10 @@
     <p>Creates a bundle from a target directory.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bundle_dir</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw pkg'>fs</span><span class='kw ns'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/file_temp.html'>file_temp</a></span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"bundle"</span>, <span class='kw'>ext</span>
-  <span class='kw'>=</span> <span class='st'>".tar.gz"</span>))</pre>
+    <pre class="usage"><span class='fu'>bundle_dir</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw pkg'>fs</span><span class='kw ns'>::</span><span class='fu'><a href='http://fs.r-lib.org/reference/file_temp.html'>file_temp</a></span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"bundle"</span>, <span class='kw'>ext</span> <span class='kw'>=</span> <span class='st'>".tar.gz"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,9 +160,12 @@
     <p>Bundle A bundle object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other deployment functions: <code><a href='bundle_path.html'>bundle_path</a></code>,
-  <code><a href='deploy.html'>deploy</a></code>, <code><a href='download_bundle.html'>download_bundle</a></code>,
-  <code><a href='get_image.html'>get_image</a></code>, <code><a href='poll_task.html'>poll_task</a></code></p></div>
+    <div class='dont-index'><p>Other deployment functions: 
+<code><a href='bundle_path.html'>bundle_path</a>()</code>,
+<code><a href='deploy.html'>deploy</a>()</code>,
+<code><a href='download_bundle.html'>download_bundle</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='poll_task.html'>poll_task</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

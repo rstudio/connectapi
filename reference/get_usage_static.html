@@ -139,9 +139,17 @@ on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)" />
 on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_usage_static</span>(<span class='no'>src</span>, <span class='kw'>content_guid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>min_data_version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>previous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nxt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>asc_order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_usage_static</span>(
+  <span class='no'>src</span>,
+  <span class='kw'>content_guid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>min_data_version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>previous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>nxt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>asc_order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

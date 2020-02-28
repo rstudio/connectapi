@@ -43,7 +43,8 @@
 
 
 <meta property="og:title" content="Class representing a Connect API client — RStudioConnect" />
-<meta property="og:description" content="Class representing a Connect API client" />
+<meta property="og:description" content="Class representing a Connect API client
+Class representing a Connect API client" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -135,14 +136,11 @@
 
     <div class="ref-description">
     <p>Class representing a Connect API client</p>
+<p>Class representing a Connect API client</p>
     </div>
 
-    <pre class="usage"><span class='no'>Connect</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>R6ClassGenerator</code> of length 25.</p>
     <h2 class="hasAnchor" id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
 
     
@@ -163,18 +161,381 @@ client$get_tags()
 API. Authentication is done by providing an API key.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other R6 classes: <code><a href='Bundle.html'>Bundle</a></code>,
-  <code><a href='Content.html'>Content</a></code>, <code><a href='Task.html'>Task</a></code>,
-  <code><a href='Vanity.html'>Vanity</a></code></p></div>
+    <div class='dont-index'><p>Other R6 classes: 
+<code><a href='Bundle.html'>Bundle</a></code>,
+<code><a href='Content.html'>Content</a></code>,
+<code><a href='Task.html'>Task</a></code>,
+<code><a href='Vanity.html'>Vanity</a></code></p></div>
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+<h3>Public methods</h3>
+
+<ul>
+<li><p><a href='#method-get_connect'><code>Connect$get_connect()</code></a></p></li>
+<li><p><a href='#method-new'><code>Connect$new()</code></a></p></li>
+<li><p><a href='#method-print'><code>Connect$print()</code></a></p></li>
+<li><p><a href='#method-raise_error'><code>Connect$raise_error()</code></a></p></li>
+<li><p><a href='#method-add_auth'><code>Connect$add_auth()</code></a></p></li>
+<li><p><a href='#method-GET'><code>Connect$GET()</code></a></p></li>
+<li><p><a href='#method-GET_RESULT'><code>Connect$GET_RESULT()</code></a></p></li>
+<li><p><a href='#method-GET_URL'><code>Connect$GET_URL()</code></a></p></li>
+<li><p><a href='#method-GET_RESULT_URL'><code>Connect$GET_RESULT_URL()</code></a></p></li>
+<li><p><a href='#method-PUT'><code>Connect$PUT()</code></a></p></li>
+<li><p><a href='#method-HEAD'><code>Connect$HEAD()</code></a></p></li>
+<li><p><a href='#method-DELETE'><code>Connect$DELETE()</code></a></p></li>
+<li><p><a href='#method-POST'><code>Connect$POST()</code></a></p></li>
+<li><p><a href='#method-me'><code>Connect$me()</code></a></p></li>
+<li><p><a href='#method-get_tags'><code>Connect$get_tags()</code></a></p></li>
+<li><p><a href='#method-get_tag_id'><code>Connect$get_tag_id()</code></a></p></li>
+<li><p><a href='#method-get_tag_tree'><code>Connect$get_tag_tree()</code></a></p></li>
+<li><p><a href='#method-create_tag'><code>Connect$create_tag()</code></a></p></li>
+<li><p><a href='#method-get_n_apps'><code>Connect$get_n_apps()</code></a></p></li>
+<li><p><a href='#method-get_apps'><code>Connect$get_apps()</code></a></p></li>
+<li><p><a href='#method-get_schedule'><code>Connect$get_schedule()</code></a></p></li>
+<li><p><a href='#method-content_create'><code>Connect$content_create()</code></a></p></li>
+<li><p><a href='#method-download_bundle'><code>Connect$download_bundle()</code></a></p></li>
+<li><p><a href='#method-content_upload'><code>Connect$content_upload()</code></a></p></li>
+<li><p><a href='#method-content_deploy'><code>Connect$content_deploy()</code></a></p></li>
+<li><p><a href='#method-content'><code>Connect$content()</code></a></p></li>
+<li><p><a href='#method-task'><code>Connect$task()</code></a></p></li>
+<li><p><a href='#method-set_content_tag'><code>Connect$set_content_tag()</code></a></p></li>
+<li><p><a href='#method-user'><code>Connect$user()</code></a></p></li>
+<li><p><a href='#method-users'><code>Connect$users()</code></a></p></li>
+<li><p><a href='#method-users_remote'><code>Connect$users_remote()</code></a></p></li>
+<li><p><a href='#method-users_create'><code>Connect$users_create()</code></a></p></li>
+<li><p><a href='#method-users_lock'><code>Connect$users_lock()</code></a></p></li>
+<li><p><a href='#method-users_unlock'><code>Connect$users_unlock()</code></a></p></li>
+<li><p><a href='#method-users_update'><code>Connect$users_update()</code></a></p></li>
+<li><p><a href='#method-groups'><code>Connect$groups()</code></a></p></li>
+<li><p><a href='#method-group_members'><code>Connect$group_members()</code></a></p></li>
+<li><p><a href='#method-groups_create'><code>Connect$groups_create()</code></a></p></li>
+<li><p><a href='#method-inst_content_visits'><code>Connect$inst_content_visits()</code></a></p></li>
+<li><p><a href='#method-inst_shiny_usage'><code>Connect$inst_shiny_usage()</code></a></p></li>
+<li><p><a href='#method-procs'><code>Connect$procs()</code></a></p></li>
+<li><p><a href='#method-docs'><code>Connect$docs()</code></a></p></li>
+<li><p><a href='#method-audit_logs'><code>Connect$audit_logs()</code></a></p></li>
+<li><p><a href='#method-server_settings_r'><code>Connect$server_settings_r()</code></a></p></li>
+<li><p><a href='#method-server_settings'><code>Connect$server_settings()</code></a></p></li>
+<li><p><a href='#method-clone'><code>Connect$clone()</code></a></p></li>
+</ul>
+<p><hr>
+<a id="method-get_connect"></a></p><h3>Method <code>get_connect()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_connect()</pre><p></div></p>
+
+<p><hr>
+<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$new(host, api_key)</pre><p></div></p>
+
+<p><hr>
+<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$print(...)</pre><p></div></p>
+
+<p><hr>
+<a id="method-raise_error"></a></p><h3>Method <code>raise_error()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$raise_error(res)</pre><p></div></p>
+
+<p><hr>
+<a id="method-add_auth"></a></p><h3>Method <code>add_auth()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$add_auth()</pre><p></div></p>
+
+<p><hr>
+<a id="method-GET"></a></p><h3>Method <code>GET()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$GET(path, writer = httr::write_memory(), parser = "parsed")</pre><p></div></p>
+
+<p><hr>
+<a id="method-GET_RESULT"></a></p><h3>Method <code>GET_RESULT()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$GET_RESULT(path, writer = httr::write_memory())</pre><p></div></p>
+
+<p><hr>
+<a id="method-GET_URL"></a></p><h3>Method <code>GET_URL()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed")</pre><p></div></p>
+
+<p><hr>
+<a id="method-GET_RESULT_URL"></a></p><h3>Method <code>GET_RESULT_URL()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$GET_RESULT_URL(url, writer = httr::write_memory())</pre><p></div></p>
+
+<p><hr>
+<a id="method-PUT"></a></p><h3>Method <code>PUT()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$PUT(path, body, encode = "json")</pre><p></div></p>
+
+<p><hr>
+<a id="method-HEAD"></a></p><h3>Method <code>HEAD()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$HEAD(path)</pre><p></div></p>
+
+<p><hr>
+<a id="method-DELETE"></a></p><h3>Method <code>DELETE()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$DELETE(path)</pre><p></div></p>
+
+<p><hr>
+<a id="method-POST"></a></p><h3>Method <code>POST()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$POST(path, body, encode = "json", prefix = "/__api__/")</pre><p></div></p>
+
+<p><hr>
+<a id="method-me"></a></p><h3>Method <code>me()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$me()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_tags"></a></p><h3>Method <code>get_tags()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_tags(use_cache = FALSE)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_tag_id"></a></p><h3>Method <code>get_tag_id()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_tag_id(tagname)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_tag_tree"></a></p><h3>Method <code>get_tag_tree()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_tag_tree()</pre><p></div></p>
+
+<p><hr>
+<a id="method-create_tag"></a></p><h3>Method <code>create_tag()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$create_tag(name, parent_id = NULL)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_n_apps"></a></p><h3>Method <code>get_n_apps()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_n_apps()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_apps"></a></p><h3>Method <code>get_apps()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_apps(filter = NULL, .collapse = "&amp;", .limit = Inf, page_size = 25)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_schedule"></a></p><h3>Method <code>get_schedule()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$get_schedule(schedule_id)</pre><p></div></p>
+
+<p><hr>
+<a id="method-content_create"></a></p><h3>Method <code>content_create()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$content_create(name, title = name, ...)</pre><p></div></p>
+
+<p><hr>
+<a id="method-download_bundle"></a></p><h3>Method <code><a href='download_bundle.html'>download_bundle()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$download_bundle(bundle_id, to_path = tempfile())</pre><p></div></p>
+
+<p><hr>
+<a id="method-content_upload"></a></p><h3>Method <code>content_upload()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$content_upload(bundle_path, guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-content_deploy"></a></p><h3>Method <code>content_deploy()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$content_deploy(guid, bundle_id)</pre><p></div></p>
+
+<p><hr>
+<a id="method-content"></a></p><h3>Method <code>content()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$content(guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-task"></a></p><h3>Method <code>task()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$task(task_id, first = 0, wait = 5)</pre><p></div></p>
+
+<p><hr>
+<a id="method-set_content_tag"></a></p><h3>Method <code>set_content_tag()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$set_content_tag(content_id, tag_id)</pre><p></div></p>
+
+<p><hr>
+<a id="method-user"></a></p><h3>Method <code>user()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$user(guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users"></a></p><h3>Method <code>users()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users(page_number = 1, prefix = NULL, page_size = 20)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users_remote"></a></p><h3>Method <code>users_remote()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users_remote(prefix)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users_create"></a></p><h3>Method <code>users_create()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users_create(
+  username,
+  email,
+  first_name = NULL,
+  last_name = NULL,
+  password = NULL,
+  user_must_set_password = NULL,
+  user_role = NULL
+)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users_lock"></a></p><h3>Method <code>users_lock()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users_lock(user_guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users_unlock"></a></p><h3>Method <code>users_unlock()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users_unlock(user_guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-users_update"></a></p><h3>Method <code>users_update()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$users_update(user_guid, ...)</pre><p></div></p>
+
+<p><hr>
+<a id="method-groups"></a></p><h3>Method <code>groups()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$groups(page_number = 1, prefix = NULL, page_size = 20)</pre><p></div></p>
+
+<p><hr>
+<a id="method-group_members"></a></p><h3>Method <code>group_members()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$group_members(guid)</pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_create"></a></p><h3>Method <code>groups_create()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$groups_create(name)</pre><p></div></p>
+
+<p><hr>
+<a id="method-inst_content_visits"></a></p><h3>Method <code>inst_content_visits()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$inst_content_visits(
+  content_guid = NULL,
+  min_data_version = NULL,
+  from = NULL,
+  to = NULL,
+  limit = 20,
+  previous = NULL,
+  nxt = NULL,
+  asc_order = TRUE
+)</pre><p></div></p>
+
+<p><hr>
+<a id="method-inst_shiny_usage"></a></p><h3>Method <code>inst_shiny_usage()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$inst_shiny_usage(
+  content_guid = NULL,
+  min_data_version = NULL,
+  from = NULL,
+  to = NULL,
+  limit = 20,
+  previous = NULL,
+  nxt = NULL,
+  asc_order = TRUE
+)</pre><p></div></p>
+
+<p><hr>
+<a id="method-procs"></a></p><h3>Method <code>procs()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$procs()</pre><p></div></p>
+
+<p><hr>
+<a id="method-docs"></a></p><h3>Method <code>docs()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$docs(docs = "api", browse = TRUE)</pre><p></div></p>
+
+<p><hr>
+<a id="method-audit_logs"></a></p><h3>Method <code>audit_logs()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$audit_logs(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)</pre><p></div></p>
+
+<p><hr>
+<a id="method-server_settings_r"></a></p><h3>Method <code>server_settings_r()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$server_settings_r()</pre><p></div></p>
+
+<p><hr>
+<a id="method-server_settings"></a></p><h3>Method <code>server_settings()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$server_settings()</pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>Connect$clone(deep = FALSE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
+
+</dl><p></div></p>
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
       <li><a href="#usage">Usage</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
+      <li><a href="#methods">Methods</a></li>
     </ul>
 
   </div>
