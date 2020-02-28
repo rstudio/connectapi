@@ -4,9 +4,17 @@
 \alias{get_usage_static}
 \title{Get usage information from deployed static content}
 \usage{
-get_usage_static(src, content_guid = NULL, min_data_version = NULL,
-  from = NULL, to = NULL, limit = 20, previous = NULL,
-  nxt = NULL, asc_order = TRUE)
+get_usage_static(
+  src,
+  content_guid = NULL,
+  min_data_version = NULL,
+  from = NULL,
+  to = NULL,
+  limit = 20,
+  previous = NULL,
+  nxt = NULL,
+  asc_order = TRUE
+)
 }
 \arguments{
 \item{src}{the source object}

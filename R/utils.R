@@ -130,7 +130,9 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
     )
   )
   while (compose$is_alive()) Sys.sleep(0.05)
-  stopifnot(compose$get_exit_status() == 0)
+  if (compose$get_exit_status() != 0) {
+    stop(compose$read_all_error_lines())
+  }
   cat_line("docker-compose: started!")
   invisible()
 }
