@@ -19,14 +19,17 @@
 #' @return A `tbl_connect` object
 #' 
 #' @export
-tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"), ...) {
+tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs"), ...) {
   validate_R6_class(src, "Connect")
   
-  if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits", "audit_logs"))
+  stopifnot(length(from) == 1)
+  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names))
     stop(glue::glue("ERROR: invalid table name: {from}"))
   
+  from <- check_deprecated_names(from)
+  
   # TODO: go get the vars we should expect...
-  vars <- vars_lookup[[from]]
+  vars <- connectapi_ptypes[[from]]
   if (is.null(vars)) vars <- character()
   
   # TODO: figure out number of rows...
@@ -35,86 +38,136 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-vars_lookup <- list(
-  users = c(
-    "email",
-    "username",
-    "first_name",
-    "last_name",
-    "user_role",
-    "created_time",
-    "updated_time",
-    "active_time",
-    "confirmed",
-    "locked",
-    "guid"
+deprecated_names <- c(
+  usage_shiny = "shiny_usage",
+  usage_static = "content_visits"
+)
+
+check_deprecated_names <- function(.name, deprecated_names) {
+  if (.name == "shiny_usage") {
+    warning("`shiny_usage` is deprecated. Please use `usage_shiny`")
+    .name <- "usage_shiny"
+  }
+  if (.name == "content_visits") {
+    warning("`content_visits` is deprecated. Please use `usage_static`")
+    .name <- "usage_static"
+  }
+  return(.name)
+}
+
+NA_datetime_ <- vctrs::new_datetime(NA_real_)
+NA_list_ <- list(list())
+
+connectapi_ptypes <- list(
+  users = tibble::tibble(
+    "email" = NA_character_,
+    "username" = NA_character_,
+    "first_name" = NA_character_,
+    "last_name" = NA_character_,
+    "user_role" = NA_character_,
+    "created_time" = NA_datetime_,
+    "updated_time" = NA_datetime_,
+    "active_time" = NA_datetime_,
+    "confirmed" = NA,
+    "locked" = NA,
+    "guid" = NA_character_
   ),
-  groups = c(
-    "guid",
-    "name",
-    "owner_guid"
+  groups = tibble::tibble(
+    "guid" = NA_character_,
+    "name" = NA_character_,
+    "owner_guid" = NA_character_
   ),
-  shiny_usage = c(
-    "content_guid",
-    "user_guid",
-    "started",
-    "ended",
-    "data_version"
+  usage_shiny = tibble::tibble(
+    "content_guid" = NA_character_,
+    "user_guid" = NA_character_,
+    "started" = NA_datetime_,
+    "ended" = NA_datetime_,
+    "data_version" = NA_integer_
   ),
-  content_visits = c(
-    "content_guid",
-    "user_guid",
-    "variant_key",
-    "time",
-    "rendering_id",
-    "bundle_id",
-    "data_version"
+  usage_static = tibble::tibble(
+    "content_guid" = NA_character_,
+    "user_guid" = NA_character_,
+    "variant_key" = NA_character_,
+    "time" = NA_datetime_,
+    "rendering_id" = NA_character_,
+    "bundle_id" = NA_character_,
+    "data_version" = NA_integer_
   ),
-  content = c(
-    "id",
-    "guid",
-    "access_type",
-    "connection_timeout",
-    "read_timeout",
-    "init_timeout",
-    "idle_timeout",
-    "max_processes",
-    "min_processes",
-    "max_conns_per_process",
-    "load_factor",
-    "url",
-    "vanity_url",
-    "name",
-    "title",
-    "bundle_id",
-    "app_mode",
-    "content_category",
-    "has_parameters",
-    "created_time",
-    "last_deployed_time",
-    "r_version",
-    "py_version",
-    "build_status",
-    "run_as",
-    "run_as_current_user",
-    "description",
-    "app_role",
-    "owner_first_name",
-    "owner_last_name",
-    "owner_username",
-    "owner_guid",
-    "owner_email",
-    "owner_locked",
-    "is_scheduled",
-    "git"
+  content = tibble::tibble(
+    "id" = NA_integer_,
+    "guid" = NA_character_,
+    "access_type" = NA_character_,
+    "connection_timeout" = NA_real_,
+    "read_timeout" = NA_real_,
+    "init_timeout" = NA_real_,
+    "idle_timeout" = NA_real_,
+    "max_processes" = NA_integer_,
+    "min_processes" = NA_integer_,
+    "max_conns_per_process" = NA_integer_,
+    "load_factor" = NA_real_,
+    "url" = NA_character_,
+    "vanity_url" = NA,
+    "name" = NA_character_,
+    "title" = NA_character_,
+    "bundle_id" = NA_integer_,
+    "app_mode" = NA_integer_,
+    "content_category" = NA_character_,
+    "has_parameters" = NA,
+    "created_time" = NA_datetime_,
+    "last_deployed_time" = NA_datetime_,
+    "r_version" = NA_character_,
+    "py_version" = NA_character_,
+    "build_status" = NA_integer_,
+    "run_as" = NA_character_,
+    "run_as_current_user" = NA,
+    "description" = NA_character_,
+    "app_role" = NA_character_,
+    "owner_first_name" = NA_character_,
+    "owner_last_name" = NA_character_,
+    "owner_username" = NA_character_,
+    "owner_guid" = NA_character_,
+    "owner_email" = NA_character_,
+    "owner_locked" = NA,
+    "is_scheduled" = NA,
+    "git" = NA_list_
   ),
-  audit_logs = c(
-    "id",
-    "time",
-    "user_id",
-    "user_description",
-    "action",
-    "event_description"
+  audit_logs = tibble::tibble(
+    "id" = NA_character_,
+    "time" = NA_datetime_,
+    "user_id" = NA_character_,
+    "user_description" = NA_character_,
+    "action" = NA_character_,
+    "event_description" = NA_character_
+  ),
+  procs = tibble::tibble(
+    pid = NA_character_,
+    appId = NA_integer_,
+    appGuid = NA_character_,
+    appName = NA_character_,
+    appUrl = NA_character_,
+    appRunAs = NA_character_,
+    type = NA_character_,
+    cpuCurrent = NA_real_,
+    cpuTotal = NA_integer_,
+    ram = fs::as_fs_bytes(NA_integer_)
+  ),
+  acl = tibble::tibble(
+    content_guid = NA_character_,
+    content_access_type = NA_character_,
+    email = NA_character_,
+    username = NA_character_,
+    first_name = NA_character_,
+    last_name = NA_character_,
+    password = NA_character_,
+    user_role = NA_character_,
+    created_time = NA_datetime_,
+    updated_time = NA_datetime_,
+    active_time = NA_datetime_,
+    confirmed = NA,
+    locked = NA,
+    guid = NA_character_,
+    app_role = NA_character_,
+    is_owner = NA
   )
 )
 
@@ -149,31 +202,16 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else if (op$x == "content") {
     warn_experimental("tbl_connect 'content'")
     res <- con$get_apps(.limit = n)
-  } else if (op$x == "shiny_usage") {
+  } else if (op$x == "usage_shiny") {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
-  } else if (op$x == "content_visits") {
+  } else if (op$x == "usage_static") {
     res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "audit_logs") {
     res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n) 
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  purrr::map_df(
-    res, 
-    function(x) {
-      purrr::map(
-        .x = x,
-        .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
-          if (length(prep) > 1)
-            prep <- NA
-          return(prep)
-        }
-      )
-    }
-  )
+  parse_connectapi_typed(res, !!!op$ptype)
 }
 
 cat_line <- function(...) {
@@ -207,12 +245,13 @@ op_base_connect <- function(x, vars) {
 }
 
 op_base <- function(x, vars, class = character()) {
-  stopifnot(is.character(vars))
+  stopifnot(is.character(vars) || is.character(names(vars)))
   
   structure(
     list(
       x = x,
-      vars = vars
+      vars = names(vars),
+      ptype = vars
     ),
     class = c(paste0("op_base_", class), "op_base", "op")
   )

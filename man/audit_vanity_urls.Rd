@@ -22,8 +22,10 @@ urls in use. If \code{vanity} is provided, returns whether or not
 \code{vanity} is eligible as a vanity url.
 }
 \seealso{
-Other audit functions: \code{\link{audit_access_open}},
-  \code{\link{audit_r_versions}},
-  \code{\link{audit_runas}}, \code{\link{cache_apps}}
+Other audit functions: 
+\code{\link{audit_access_open}()},
+\code{\link{audit_r_versions}()},
+\code{\link{audit_runas}()},
+\code{\link{cache_apps}()}
 }
 \concept{audit functions}

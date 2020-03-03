@@ -1,6 +1,7 @@
 # connectapi 0.1.0.9001
 
 BREAKING: 
+* Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
 * Rename a handful of functions:
   - `connect$activate_bundle` to `connect$content_deploy`
   - `connect$create_app` to `connect$content_create`

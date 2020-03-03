@@ -14,13 +14,25 @@ status](https://travis-ci.org/rstudio/connectapi.svg?branch=master)](https://tra
 # connectapi <img src='man/figures/logo.svg' align="right" height="139" />
 
 This package is an **experimental WIP**. The package provides an R
-client for the [RStudio Connect
+client for the [RStudio Connect Server
 API](https://docs.rstudio.com/connect/api/) as well as helpful functions
 that utilize the client. The package is based on the `rsconnnect`
 [package](https://rstudio.github.io/rsconnect/), but is publicly
 exported to be easier to use, is extensible via an R6 class, and is
 separated from the `rsconnect` package for easier support and
 maintenance.
+
+## Disclaimer
+
+Because many of these functions are experimental, it is advisable to be
+cautious about (1) upgrading the package, (2) upgrading RStudio Connect
+when you care about the reproducibility of workflows that use
+`connectapi`. As a result, we would advise:
+
+  - managing package versions with
+    [`renv`](https://rstudio.github.io/renv/)
+  - test your dependent content before and after upgrading RStudio
+    Connect
 
 ## Installation
 
@@ -45,8 +57,8 @@ client <- connect(
 You can also define the following environment variables (in a
 `.Renviron` file, for instance):
 
-    RSTUDIO_CONNECT_SERVER  = https://connect.example.com
-    RSTUDIO_CONNECT_API_KEY = my-secret-api-key
+    CONNECT_SERVER  = https://connect.example.com
+    CONNECT_API_KEY = my-secret-api-key
 
 These environment variable values will be used automatically if defined
 in your R session.
@@ -74,13 +86,15 @@ implementation.
 library(connectapi)
 client <- connect()
 
+# preview data
 users <- tbl_connect(client, "users")
 groups <- tbl_connect(client, "groups")
-shiny_usage <- tbl_connect(client, "shiny_usage")
-content_visits <- tbl_connect(client, "content_visits")
+usage_shiny <- tbl_connect(client, "usage_shiny")
+usage_static <- tbl_connect(client, "usage_static")
 all_content <- tbl_connect(client, "content")
 
-all_shiny_usage <- shiny_usage %>% dplyr::collect()
+# page through all of the data
+all_shiny_usage <- usage_shiny %>% collect()
 ```
 
 ### Deployment

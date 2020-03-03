@@ -33,30 +33,36 @@ test_that("users works", {
   expect_true(is.na(nrow(users)))
   expect_is(colnames(users), "character")
   expect_gt(length(colnames(users)), 1)
+  
+  expect_equal(vctrs::vec_ptype(users_local), vctrs::vec_ptype(connectapi_ptypes$users))
 })
 
-test_that("content_visits works", {
-  content_visits <- tbl_connect(test_conn_1, "content_visits")
+test_that("usage_static works", {
+  content_visits <- tbl_connect(test_conn_1, "usage_static")
   expect_is(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
   
   content_visits_local <- content_visits %>% dplyr::collect()
-  expect_is(content_visits, c("tbl_df", "tbl", "data.frame"))
+  expect_is(content_visits_local, c("tbl_df", "tbl", "data.frame"))
   
   expect_true(is.na(nrow(content_visits)))
   expect_is(colnames(content_visits), "character")
   expect_gt(length(colnames(content_visits)), 1)
+  
+  expect_equal(vctrs::vec_ptype(content_visits_local), vctrs::vec_ptype(connectapi_ptypes$usage_static))
 })
 
-test_that("shiny_usage works", {
-  shiny_usage <- tbl_connect(test_conn_1, "shiny_usage")
+test_that("usage_shiny works", {
+  shiny_usage <- tbl_connect(test_conn_1, "usage_shiny")
   expect_is(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
   
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
-  expect_is(shiny_usage, c("tbl_df", "tbl", "data.frame"))
+  expect_is(shiny_usage_local, c("tbl_df", "tbl", "data.frame"))
   
   expect_true(is.na(nrow(shiny_usage)))
   expect_is(colnames(shiny_usage), "character")
   expect_gt(length(colnames(shiny_usage)), 1)
+  
+  expect_equal(vctrs::vec_ptype(shiny_usage_local), vctrs::vec_ptype(connectapi_ptypes$usage_shiny))
 })
 
 test_that("content works", {
@@ -70,6 +76,10 @@ test_that("content works", {
   expect_true(is.na(nrow(content_list)))
   expect_is(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
+  
+  # https://github.com/r-lib/testthat/issues/985
+  skip("currently segfaults")
+  expect_equal(vctrs::vec_ptype(content_list_local), vctrs::vec_ptype(connectapi_ptypes$content))
 })
 
 test_that("groups works", {
@@ -83,6 +93,8 @@ test_that("groups works", {
   expect_true(is.na(nrow(groups_list)))
   expect_is(colnames(groups_list), "character")
   expect_gt(length(colnames(groups_list)), 1)
+  
+  expect_equal(vctrs::vec_ptype(groups_list_local), vctrs::vec_ptype(connectapi_ptypes$groups))
 })
 
 test_that("audit_logs works", {
@@ -96,4 +108,6 @@ test_that("audit_logs works", {
   expect_true(is.na(nrow(audit_list)))
   expect_is(colnames(audit_list), "character")
   expect_gt(length(colnames(audit_list)), 1)
+  
+  expect_equal(vctrs::vec_ptype(audit_list_local), vctrs::vec_ptype(connectapi_ptypes$audit_logs))
 })

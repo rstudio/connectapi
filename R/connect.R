@@ -16,6 +16,9 @@
 #' API. Authentication is done by providing an API key.
 #'
 #' @importFrom utils capture.output
+#' 
+#' @family R6 classes
+#' 
 #' @export
 Connect <- R6::R6Class(
   'Connect',
@@ -468,6 +471,12 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
     
+    procs = function() {
+      warn_experimental("procs")
+      path <- "metrics/procs"
+      self$GET(path)
+    },
+    
     # misc utilities --------------------------------------------
     
     docs = function(docs = "api", browse = TRUE) {
@@ -518,9 +527,9 @@ Connect <- R6::R6Class(
 #' compatible with the current version of the package.
 #' 
 #' @param host The URL for accessing RStudio Connect. Defaults to environment
-#'   variable RSTUDIO_CONNECT_SERVER
+#'   variable CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
-#'   to environment variable RSTUDIO_CONNECT_API_KEY
+#'   to environment variable CONNECT_API_KEY
 #' @param prefix The prefix used to determine environment variables
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #' 
@@ -529,8 +538,16 @@ Connect <- R6::R6Class(
 connect <- function(
   host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
-  prefix = "RSTUDIO_CONNECT"
+  prefix = "CONNECT"
 ) {
+  if (
+    prefix == "CONNECT" &&
+    is.na(host) && is.na(api_key) && 
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
+    !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
+  ) {
+    stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
+  }
   con <- Connect$new(host = host, api_key = api_key)
   
   check_connect_license(con$host)

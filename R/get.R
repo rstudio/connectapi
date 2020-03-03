@@ -67,7 +67,7 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
     warning("'get_users' does not page and will return max 500 users")
   }
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$users)
   
   return(out)
 }
@@ -127,7 +127,7 @@ get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
     warning("'get_groups' does not page and will return max 500 groups")
   }
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$groups)
   
   return(out)
 }
@@ -326,7 +326,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25){
     page_size = page_size
   )
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
   
   return(out)
 }
@@ -413,7 +413,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_shiny)
   
   return(out)
 }
@@ -507,7 +507,7 @@ get_usage_static <- function(src, content_guid = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_static)
   
   return(out)
 }
@@ -567,7 +567,50 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
   
   res <- page_cursor(src, res, limit = limit)
   
-  out <- parse_connectapi(res)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$audit_logs)
   
   return(out)
+}
+
+#' Get Real-Time Process Data
+#' 
+#' \lifecycle{experimental}
+#' This returns real-time process data from the RStudio Connect API. It requires
+#' administrator privileges to use. NOTE that this only returns data for the
+#' server that responds to the request (i.e. in a Highly Available cluster)
+#' 
+#' @param src The source object
+#' 
+#' @return
+#' A tibble with the following columns:
+#' \itemize{
+#'   \item{\strong{pid}}{The PID of the current process}
+#'   \item{\strong{appId}}{The application ID}
+#'   \item{\strong{appGuid}}{The application GUID}
+#'   \item{\strong{appName}}{The application name}
+#'   \item{\strong{appUrl}}{The application URL}
+#'   \item{\strong{appRunAs}}{The application RunAs user}
+#'   \item{\strong{type}}{The type of process}
+#'   \item{\strong{cpuCurrent}}{The current CPU usage}
+#'   \item{\strong{cpuTotal}}{The total CPU usage}
+#'   \item{\strong{ram}}{The current RAM usage}
+#' }
+#' 
+#' @export
+get_procs <- function(src) {
+  validate_R6_class(src, "Connect")
+  warn_experimental("get_procs")
+  
+  scoped_experimental_silence()
+  raw_proc_data <- src$procs()
+  
+  proc_prep <- purrr::imap(
+    raw_proc_data, 
+    function(x, y) {
+      c(list(pid = y), x)
+      }
+    )
+  tbl_data <- parse_connectapi_typed(proc_prep, !!!connectapi_ptypes$procs)
+  
+  return(tbl_data)
 }

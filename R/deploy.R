@@ -2,7 +2,7 @@
 #' 
 #' An R6 class that represents a bundle
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Bundle <- R6::R6Class(
   "Bundle",
@@ -24,66 +24,11 @@ Bundle <- R6::R6Class(
   )
 )
 
-#' Content
-#' 
-#' An R6 class that represents content
-#' 
-#' @family deployR6 functions
-#' @export
-Content <- R6::R6Class(
-  "Content",
-  public = list(
-    connect = NULL,
-    content = NULL,
-    
-    initialize = function(connect, content) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      # TODO: need to check that content has
-      # at least guid, url, title to be functional
-      self$content <- content
-    },
-    get_connect = function(){self$connect},
-    get_content = function(){self$content},
-    get_dashboard_url = function(pane = ""){
-      glue::glue(
-        self$connect$host,
-        "connect",
-        "#",
-        "apps",
-        self$content$guid,
-        pane,
-        .sep = "/"
-      )
-    },
-    get_jobs = function() {
-      warn_experimental("get_jobs")
-      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
-      self$get_connect()$GET(url)
-    },
-    get_job = function(key) {
-      warn_experimental("get_job")
-      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
-      self$get_connect()$GET(url)
-    },
-    print = function(...) {
-      cat("RStudio Connect Content: \n")
-      cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
-      cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
-      cat("\n")
-      cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
-      cat("\n")
-      invisible(self)
-    }
-  )
-)
-
 #' Task
 #' 
 #' An R6 class that represents a Task
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Task <- R6::R6Class(
   "Task",
@@ -114,7 +59,7 @@ Task <- R6::R6Class(
 #' 
 #' An R6 class that represents a Vanity URL
 #' 
-#' @family deployR6 functions
+#' @family R6 classes
 #' @export
 Vanity <- R6::R6Class(
   "Vanity",
@@ -589,22 +534,48 @@ poll_task <- function(task, wait = 1) {
   task
 }
 
-#' Get Content Item
+
+#' Build a Dashboard URL from a Content Item
 #' 
-#' Returns a single content item based on guid
+#' Returns the URL for the content dashboard (opened to the selected pane).
 #' 
-#' @param connect A Connect object
-#' @param guid The GUID for the content item to be retrieved
+#' @param content [Content] A Content object
+#' @param pane character The pane in the dashboard to link to
 #' 
-#' @return A Content object for use with other content endpoints
+#' @return character The dashboard URL for the content provided
 #' 
 #' @family content functions
 #' @export
-content_item <- function(connect, guid) {
-  # TODO : think about how to handle if GUID does not exist
-  validate_R6_class(connect, "Connect")
-  
-  res <- connect$get_connect()$content(guid)
-  
-  Content$new(connect = connect, content = res)
+dashboard_url <- function(content, pane = "") {
+  content$get_dashboard_url(pane = pane)
+}
+
+#' Build a Dashboard URL from Character Vectors
+#' 
+#' Returns the URL for the content dashboard (opened to the selected pane).
+#' NOTE: this takes a character object for performance optimization.
+#' 
+#' @param connect_url character The base URL of the Connect server
+#' @param content_guid character The guid for the content item in question
+#' @param pane character The pane in the dashboard to link to
+#' 
+#' @return character The dashboard URL for the content provided
+#' 
+#' @family content functions
+#' @export
+dashboard_url_chr <- function(connect_url, content_guid, pane = "") {
+  purrr::pmap_chr(
+    list(x = connect_url, y = content_guid, z = pane),
+    function(x,y,z) {
+      paste(
+        x,
+        "connect",
+        "#",
+        "apps",
+        y,
+        z,
+        sep = "/"
+      )
+    }
+  )
 }
