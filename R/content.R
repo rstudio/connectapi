@@ -99,6 +99,7 @@ content_title <- function(connect, guid, default = "Unknown Content") {
   
   content_title <- tryCatch({
     res <- suppressMessages(connect$get_connect()$content(guid))
+    # TODO: What about length 0?
     if (is.null(res$title)) return(default)
     res$title
   },
