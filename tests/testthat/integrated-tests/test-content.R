@@ -45,6 +45,14 @@ test_that("content_title handles missing content gracefully", {
   expect_identical(null_title_custom, "other-default")
 })
 
+test_that("content_title handles NULL titles gracefully", {
+  c2_name <- uuid::UUIDgenerate()
+  c2 <- deploy(connect = test_conn_1, bundle = bund, name = c2_name, title = NA)
+  expect_null(c2$get_content()$title)
+  null_title <- content_title(test_conn_1, c2$get_content()$guid, "Test Title")
+  expect_identical(null_title, "Test Title")
+})
+
 test_that("acl returns owner once and only once", {
   scoped_experimental_silence()
 
