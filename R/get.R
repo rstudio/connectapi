@@ -3,6 +3,7 @@
 #' Get user information from the RStudio Connect server
 #' 
 #' @param src The source object
+#' @param page_size the number of records to return per page (max 500)
 #' @param prefix Filters users by prefix (username, first name, or last name). 
 #' The filter is case insensitive.
 #' @param limit The max number of records to return
@@ -37,21 +38,18 @@
 #'   library(connectapi)
 #'   client <- connect()
 #'   
-#'   # get the first 20 users
-#'   get_users(client, page_size = 20)
-#'   
-#'   # get the second twenty users
-#'   get_users(client, page_size = 20, page_number = 2)
+#'   # get all users
+#'   get_users(client, limit = Inf)
 #' 
 #' }
 #' 
 #' @export
-get_users <- function(src, prefix = NULL, limit = 25){
+get_users <- function(src, page_size = 20, prefix = NULL, limit = 25){
   validate_R6_class(src, "Connect")
   
   res <- page_offset(
     src, 
-    src$users(prefix = prefix), 
+    src$users(page_size = page_size, prefix = prefix), 
     limit = limit
     )
   
@@ -63,6 +61,7 @@ get_users <- function(src, prefix = NULL, limit = 25){
 #' Get group information from the RStudio Connect server
 #' 
 #' @param src The source object
+#' @param page_size the number of records to return per page (max 500)
 #' @param prefix Filters groups by prefix (group name). 
 #' The filter is case insensitive.
 #' @param limit The max number of groups to return
@@ -85,19 +84,16 @@ get_users <- function(src, prefix = NULL, limit = 25){
 #'   library(connectapi)
 #'   client <- connect()
 #'   
-#'   # get the first 20 groups
-#'   get_groups(client, page_size = 20)
-#'   
-#'   # get the second twenty groups
-#'   get_groups(client, page_size = 20, page_number = 2)
+#'   # get all groups
+#'   get_groups(client, limit = Inf)
 #' 
 #' }
 #' 
 #' @export
-get_groups <- function(src, prefix = NULL, limit = 25){
+get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25){
   validate_R6_class(src, "Connect")
   
-  res <- page_offset(src, src$groups(prefix = prefix), limit = limit)
+  res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
   
   out <- parse_connectapi_typed(res, !!!connectapi_ptypes$groups)
   
