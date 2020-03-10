@@ -190,15 +190,9 @@ api_build.op_head <- function(op, con, ..., n) {
 #' @export
 api_build.op_base_connect <- function(op, con, ..., n) {
   if (op$x == "users") {
-    res <- con$users(page_size = n) %>% .$results
-    if (length(res) >= 400) {
-      warning("The 'users' tbl_connect does not page and will return max 500 users")
-    }
+    res <- page_offset(con, con$users(), limit = n)
   } else if (op$x == "groups") {
-    res <- con$groups(page_size = n) %>% .$results
-    if (length(res) >= 400) {
-      warning("The 'groups' tbl_connect does not page and will return max 500 users")
-    }
+    res <- page_offset(con, con$groups(), limit = n)
   } else if (op$x == "content") {
     warn_experimental("tbl_connect 'content'")
     res <- con$get_apps(.limit = n)
