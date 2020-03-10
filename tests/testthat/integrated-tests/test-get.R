@@ -14,7 +14,7 @@ test_that("get_users works", {
   users <- get_users(test_conn_1)
   
   expect_is(users, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(vctrs::vec_ptype(users), vctrs::vec_ptype(connectapi_ptypes$users))
+  expect_equal(purrr::map_chr(vctrs::vec_ptype(users), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof))
 })
 
 test_that("get_groups works", {
