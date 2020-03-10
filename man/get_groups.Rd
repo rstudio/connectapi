@@ -4,17 +4,17 @@
 \alias{get_groups}
 \title{Get group information from the RStudio Connect server}
 \usage{
-get_groups(src, page_size = 20, page_number = 1, prefix = NULL)
+get_groups(src, page_size = 20, prefix = NULL, limit = 25)
 }
 \arguments{
 \item{src}{The source object}
 
 \item{page_size}{the number of records to return per page (max 500)}
 
-\item{page_number}{the page number you wish to query}
-
 \item{prefix}{Filters groups by prefix (group name).
 The filter is case insensitive.}
+
+\item{limit}{The max number of groups to return}
 }
 \value{
 A tibble with the following columns:
@@ -37,11 +37,8 @@ Please see https://docs.rstudio.com/connect/api/#getGroups for more information
   library(connectapi)
   client <- connect()
   
-  # get the first 20 groups
-  get_groups(client, page_size = 20)
-  
-  # get the second twenty groups
-  get_groups(client, page_size = 20, page_number = 2)
+  # get all groups
+  get_groups(client, limit = Inf)
 
 }
 
