@@ -3,10 +3,9 @@
 #' Get user information from the RStudio Connect server
 #' 
 #' @param src The source object
-#' @param page_size the number of records to return per page (max 500)
-#' @param page_number the page number you wish to query
 #' @param prefix Filters users by prefix (username, first name, or last name). 
 #' The filter is case insensitive.
+#' @param limit The max number of records to return
 #' 
 #' @return 
 #' A tibble with the following columns:
@@ -47,25 +46,14 @@
 #' }
 #' 
 #' @export
-get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
+get_users <- function(src, prefix = NULL, limit = 25){
   validate_R6_class(src, "Connect")
   
-  res <- src$users(
-    page_size = page_size,
-    page_number = page_number,
-    prefix = prefix
-  )
-  
-  ## TODO: Add a pagination option for users? This could be done using the 
-  ## res$total value and changing the page_size and page_number arguments
-  ## with a limit arguemnt. Then a while loop could be written similar 
-  ## to page_cursor
-  
-  res <- res$results
-  
-  if (length(res) >= 400) {
-    warning("'get_users' does not page and will return max 500 users")
-  }
+  res <- page_offset(
+    src, 
+    src$users(prefix = prefix), 
+    limit = limit
+    )
   
   out <- parse_connectapi_typed(res, !!!connectapi_ptypes$users)
   
@@ -75,10 +63,9 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' Get group information from the RStudio Connect server
 #' 
 #' @param src The source object
-#' @param page_size the number of records to return per page (max 500)
-#' @param page_number the page number you wish to query
 #' @param prefix Filters groups by prefix (group name). 
 #' The filter is case insensitive.
+#' @param limit The max number of groups to return
 #' 
 #' @return 
 #' A tibble with the following columns:
@@ -107,25 +94,10 @@ get_users <- function(src, page_size = 20, page_number = 1, prefix = NULL){
 #' }
 #' 
 #' @export
-get_groups <- function(src, page_size = 20, page_number = 1, prefix = NULL){
+get_groups <- function(src, prefix = NULL, limit = 25){
   validate_R6_class(src, "Connect")
   
-  res <- src$groups(
-    page_size = page_size,
-    page_number = page_number,
-    prefix = prefix
-  )
-  
-  ## TODO: Add a pagination option for groups? This could be done using the 
-  ## res$total value and changing the page_size and page_number arguments
-  ## with a limit arguemnt. Then a while loop could be written similar 
-  ## to page_cursor
-  
-  res <- res$results
-  
-  if (length(res) >= 400) {
-    warning("'get_groups' does not page and will return max 500 groups")
-  }
+  res <- page_offset(src, src$groups(prefix = prefix), limit = limit)
   
   out <- parse_connectapi_typed(res, !!!connectapi_ptypes$groups)
   
