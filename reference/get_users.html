@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9006</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@
     <p>Get user information from the RStudio Connect server</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_users</span>(<span class='no'>src</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>page_number</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>get_users</span>(<span class='no'>src</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>25</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,13 +151,13 @@
       <td><p>the number of records to return per page (max 500)</p></td>
     </tr>
     <tr>
-      <th>page_number</th>
-      <td><p>the page number you wish to query</p></td>
-    </tr>
-    <tr>
       <th>prefix</th>
       <td><p>Filters users by prefix (username, first name, or last name).
 The filter is case insensitive.</p></td>
+    </tr>
+    <tr>
+      <th>limit</th>
+      <td><p>The max number of records to return</p></td>
     </tr>
     </table>
 
@@ -192,11 +192,8 @@ authentication.</p></li>
   <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>connectapi</span>)
   <span class='no'>client</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span>()
 
-  <span class='co'># get the first 20 users</span>
-  <span class='fu'>get_users</span>(<span class='no'>client</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>)
-
-  <span class='co'># get the second twenty users</span>
-  <span class='fu'>get_users</span>(<span class='no'>client</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>page_number</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='co'># get all users</span>
+  <span class='fu'>get_users</span>(<span class='no'>client</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>Inf</span>)
 
 }</div></pre>
   </div>
