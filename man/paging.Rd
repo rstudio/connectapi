@@ -2,9 +2,12 @@
 % Please edit documentation in R/page.R
 \name{page_cursor}
 \alias{page_cursor}
+\alias{page_offset}
 \title{Paging}
 \usage{
 page_cursor(client, req, limit = Inf)
+
+page_offset(client, req, limit = Inf)
 }
 \arguments{
 \item{client}{A Connect client object}
@@ -15,8 +18,13 @@ page_cursor(client, req, limit = Inf)
 }
 \value{
 The aggregated results from all requests
+
+The aggregated results from all requests
 }
 \description{
+Helper functions that make paging easier in
+the RStudio Connect Server API.
+
 Helper functions that make paging easier in
 the RStudio Connect Server API.
 }

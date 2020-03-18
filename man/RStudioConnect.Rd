@@ -74,6 +74,8 @@ Other R6 classes:
 \item \href{#method-users_update}{\code{Connect$users_update()}}
 \item \href{#method-groups}{\code{Connect$groups()}}
 \item \href{#method-group_members}{\code{Connect$group_members()}}
+\item \href{#method-group_member_add}{\code{Connect$group_member_add()}}
+\item \href{#method-group_member_remove}{\code{Connect$group_member_remove()}}
 \item \href{#method-groups_create}{\code{Connect$groups_create()}}
 \item \href{#method-inst_content_visits}{\code{Connect$inst_content_visits()}}
 \item \href{#method-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
@@ -386,6 +388,22 @@ Other R6 classes:
 \subsection{Method \code{group_members()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$group_members(guid)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-group_member_add"></a>}}
+\subsection{Method \code{group_member_add()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_add(group_guid, user_guid)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-group_member_remove"></a>}}
+\subsection{Method \code{group_member_remove()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_remove(group_guid, user_guid)}\if{html}{\out{</div>}}
 }
 
 }

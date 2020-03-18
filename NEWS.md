@@ -1,4 +1,4 @@
-# connectapi 0.1.0.9001
+# connectapi 0.1.0.900x
 
 BREAKING: 
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
@@ -34,3 +34,4 @@ OTHER:
 * Added a `NEWS.md` file to track changes to the package.
 * Add integration testing to protect against regressions
 * Add `tbl_connect()` as a `lazy_tbl` for querying Connect API endpoints
+* Add `get_*` functions as alternatives to `lazy_tbl`
