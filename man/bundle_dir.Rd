@@ -4,8 +4,10 @@
 \alias{bundle_dir}
 \title{Define a bundle from a Directory}
 \usage{
-bundle_dir(path = ".", filename = fs::file_temp(pattern = "bundle", ext
-  = ".tar.gz"))
+bundle_dir(
+  path = ".",
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")
+)
 }
 \arguments{
 \item{path}{The path to the directory to be bundled}
@@ -19,8 +21,11 @@ Bundle A bundle object
 Creates a bundle from a target directory.
 }
 \seealso{
-Other deployment functions: \code{\link{bundle_path}},
-  \code{\link{deploy}}, \code{\link{download_bundle}},
-  \code{\link{get_image}}, \code{\link{poll_task}}
+Other deployment functions: 
+\code{\link{bundle_path}()},
+\code{\link{deploy}()},
+\code{\link{download_bundle}()},
+\code{\link{get_image}()},
+\code{\link{poll_task}()}
 }
 \concept{deployment functions}

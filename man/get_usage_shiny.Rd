@@ -4,9 +4,17 @@
 \alias{get_usage_shiny}
 \title{Get usage information for deployed shiny applications}
 \usage{
-get_usage_shiny(src, content_guid = NULL, min_data_version = NULL,
-  from = NULL, to = NULL, limit = 20, previous = NULL,
-  nxt = NULL, asc_order = TRUE)
+get_usage_shiny(
+  src,
+  content_guid = NULL,
+  min_data_version = NULL,
+  from = NULL,
+  to = NULL,
+  limit = 20,
+  previous = NULL,
+  nxt = NULL,
+  asc_order = TRUE
+)
 }
 \arguments{
 \item{src}{the source object}

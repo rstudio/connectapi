@@ -16,6 +16,7 @@ swap_vanity_url(from_content, to_content)
 Swaps the Vanity URLs between two pieces of content
 }
 \seealso{
-Other content: \code{\link{get_image}}
+Other content: 
+\code{\link{get_image}()}
 }
 \concept{content}
