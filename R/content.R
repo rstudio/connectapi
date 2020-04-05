@@ -130,7 +130,11 @@ Variant <- R6::R6Class(
     variant = NULL,
     get_variant = function() {self$variant},
     initialize = function(connect, content, variant) {
-      # TODO
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      # TODO: need to check that content has
+      # at least guid, url, title to be functional
+      self$content <- content
     },
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
