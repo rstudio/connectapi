@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-RSC_VERSION=1.8.0.3-19
+RSC_VERSION=1.8.2-10
 
 #---------------------------------------------
 # Network
