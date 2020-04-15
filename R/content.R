@@ -162,3 +162,45 @@ get_acl_impl <- function(content) {
   
   return(c(list(owner), content_acls))
 }
+
+content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
+  
+  if (!is.null(guid)) {
+    # guid-based deployment
+    # just in case we get a 404 back...
+    content <- tryCatch(connect$content(guid = guid), error = function(e){return(NULL)})
+    if (is.null(content)) {
+      warning(glue::glue(
+        "guid {guid} was not found on {connect$host}.",
+        "Creating new content with name {name}"))
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+    }
+  } else {
+    # name-based deployment
+    content <- connect$get_apps(list(name = name))
+    if (length(content) > 1) {
+      stop(glue::glue("Found {length(to_content)} content items ",
+                "matching {name} on {connect$host}",
+                ", content must have a unique name."))
+    } else if (length(content) == 0) {
+      # create app
+      content <- connect$content_create(
+        name = name,
+        title = title,
+        ...
+      )
+      message(glue::glue("Creating NEW content {content$guid} ",
+                   "with name {name} on {connect$host}"))
+    } else {
+      content <- content[[1]]
+      message(glue::glue("Found EXISTING content {content$guid} with ",
+      "name {name} on {connect$host}"))
+      # update values...? need a PUT endpoint
+    }
+  }
+  return(content)
+}
