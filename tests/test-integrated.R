@@ -1,6 +1,8 @@
 library(testthat)
 library(connectapi)
 
+testthat::skip_on_cran()
+testthat::skip_on_travis()
 
 progress_reporter <- ProgressReporter$new(max_failures = 1000)
 check_reporter <- CheckReporter$new(file = fs::path("integrated-results-check.txt"))
