@@ -11,14 +11,16 @@ health_checks <- list(
 )
 
 # decide if integrated tests can run
-if ( 
+if (nchar(Sys.getenv("CONNECTAPI_INTEGRATED")) > 0) {
+  test_dir("integrated")
+} else if ( 
   all(nchar(integrated_vars) > 0) &&
   all(as.logical(lapply(health_checks, function(x){length(x) == 0})))
-  ) {
-  test_dir("integrated-tests")
+) {
+  test_dir("integrated")
 } else {
   context("integrated tests")
   test_that("all", {
-    skip("test environment not set up properly")
+    skip("integrated test environment not set up properly")
   })
 }
