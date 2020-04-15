@@ -46,7 +46,13 @@ additional endpoints would be useful\!\!**
 To get started:
 
 ``` r
-devtools::install_github('rstudio/connectapi')
+install.packages("connectapi")
+```
+
+To install the development version:
+
+``` r
+remotes::install_github('rstudio/connectapi')
 ```
 
 ## Client
