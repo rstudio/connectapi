@@ -370,9 +370,15 @@ check_connect_license <- function(url) {
   invisible(res)
 }
 
+simplify_version <- function(version) {
+  sub("([0-9]+\\.[0-9]+\\.[0-9]+).*", "\\1", version)
+}
+
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
   
-  comp <- compareVersion(tested_version, using_version)
+  minor_using_version <- simplify_version(using_version)
+  minor_tested_version <- simplify_version(tested_version)
+  comp <- compareVersion(minor_tested_version, minor_using_version)
   
   msg <- switch(
     as.character(comp),
