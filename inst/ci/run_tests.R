@@ -1,4 +1,4 @@
-options("repos" = c(RSPM = "https://demo.rstudiopm.com/cran/__linux__/bionic/latest"))
+options("repos" = c(RSPM = "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"))
 install.packages("devtools")
 
 message("installing dependencies")
