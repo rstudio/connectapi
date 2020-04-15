@@ -9,6 +9,8 @@ get_field <- function(apps, field, include_null = FALSE) {
 }
 
 #' Get information on all apps for a server
+#' 
+#' \lifecycle{experimental}
 #'
 #' @param connect A Connect object
 #'
@@ -21,6 +23,8 @@ cache_apps <- function(connect){
 }
 
 #' Audit Vanity URLs
+#' 
+#' \lifecycle{experimental}
 #'
 #' @param apps App list, see [cache_apps()]
 #' @param server_url Base url for the Connect server
@@ -52,6 +56,8 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
 
 #' Audit R Versions
+#' 
+#' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
 #'
@@ -100,6 +106,8 @@ audit_r_versions <- function(apps) {
 }
 
 #' Audit Run As Settings
+#' 
+#' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
 #'
@@ -139,6 +147,8 @@ audit_runas <- function(apps) {
 
 # type can be all, logged_in, acl
 #' Audit Access Controls
+#' 
+#' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
 #' @param type One of "all" or "logged_in". If "all", return a list of apps

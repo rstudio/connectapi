@@ -290,6 +290,8 @@ has_image <- function(content) {
 
 #' Set the Image from a Path
 #' 
+#' \lifecycle{experimental}
+#' 
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
@@ -346,7 +348,7 @@ set_image_webshot <- function(content, ...) {
 
 #' Set the Vanity URL
 #' 
-#' Sets the Vanity URL for a piece of content.
+#' \lifecycle{experimental} Sets the Vanity URL for a piece of content.
 #' 
 #' @param content A Content object
 #' @param url The path component of the URL
@@ -409,7 +411,7 @@ set_vanity_url <- function(content, url) {
 
 #' Get the Vanity URL
 #' 
-#' Gets the Vanity URL for a piece of content.
+#' \lifecycle{experimental} Gets the Vanity URL for a piece of content.
 #' 
 #' @param content A Content object
 #' 
@@ -436,8 +438,7 @@ get_vanity_url <- function(content) {
 
 #' Swap the Vanity URL
 #' 
-#' \lifecycle{experimental}
-#' Swaps the Vanity URLs between two pieces of content
+#' \lifecycle{experimental} Swaps the Vanity URLs between two pieces of content
 #' 
 #' @param from_content A Content object
 #' @param to_content A Content object
