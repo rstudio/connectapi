@@ -33,4 +33,4 @@ Sys.setenv(
   )
 
 message("running integration tests")
-testthat::test_dir(path = "tests/testthat/integrated-tests/", reporter = multi_reporter, stop_on_failure = FALSE)
+testthat::test_dir(path = "tests/integrated", reporter = multi_reporter, stop_on_failure = FALSE)
