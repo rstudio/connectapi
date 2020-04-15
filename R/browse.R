@@ -1,13 +1,13 @@
 #' Browse
-#' 
-#' Browse to different locations on Connect via 
+#'
+#' Browse to different locations on Connect via
 #' utils::browseURL
-#' 
+#'
 #' @param content A R6 Content object
 #' @param connect A R6 Connect object
-#' 
+#'
 #' @return The url that is opened in the browser
-#' 
+#'
 #' @rdname browse
 #' @export
 browse_solo <- function(content) {

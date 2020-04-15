@@ -1,5 +1,7 @@
 get_field <- function(apps, field, include_null = FALSE) {
-  all <- lapply(apps, function(x){x[[field]]})
+  all <- lapply(apps, function(x) {
+    x[[field]]
+  })
   empty <- sapply(all, is.null)
 
   if (!include_null) {
@@ -9,7 +11,7 @@ get_field <- function(apps, field, include_null = FALSE) {
 }
 
 #' Get information on all apps for a server
-#' 
+#'
 #' \lifecycle{experimental}
 #'
 #' @param connect A Connect object
@@ -17,13 +19,13 @@ get_field <- function(apps, field, include_null = FALSE) {
 #' @return List with application data, to be used by audit functions
 #' @family audit functions
 #' @export
-cache_apps <- function(connect){
+cache_apps <- function(connect) {
   apps <- connect$get_apps()
   apps
 }
 
 #' Audit Vanity URLs
-#' 
+#'
 #' \lifecycle{experimental}
 #'
 #' @param apps App list, see [cache_apps()]
@@ -39,16 +41,16 @@ cache_apps <- function(connect){
 audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
   # TODO: why does vanities not work?
-  urls <- get_field(apps, 'url')
-  content <- sapply(urls, function(u){
-    sub(server_url, '', u, fixed = )
+  urls <- get_field(apps, "url")
+  content <- sapply(urls, function(u) {
+    sub(server_url, "", u, fixed = )
   })
 
-  vanities <- content[!grepl('content/\\d+', content)]
+  vanities <- content[!grepl("content/\\d+", content)]
 
   if (!is.null(vanity)) {
     return(
-      ifelse(sprintf('%s/',vanity) %in% vanities, sprintf('%s Not Available', vanity), sprintf('%s Available', vanity))
+      ifelse(sprintf("%s/", vanity) %in% vanities, sprintf("%s Not Available", vanity), sprintf("%s Available", vanity))
     )
   }
   vanities
@@ -56,7 +58,7 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
 
 #' Audit R Versions
-#' 
+#'
 #' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
@@ -66,47 +68,49 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 #' @family audit functions
 #' @export
 audit_r_versions <- function(apps) {
-   r_versions <- get_field(apps, 'r_version', TRUE)
-   published <- get_field(apps, 'last_deployed_time', TRUE)
+  r_versions <- get_field(apps, "r_version", TRUE)
+  published <- get_field(apps, "last_deployed_time", TRUE)
 
-   # TODO: this is not pretty
-   timeline <- data.frame(
-     stringsAsFactors = FALSE,
-     r_version = unlist(r_versions),
-     published = do.call(c,unname(  # this flattens the list while preserving the date time
-                     lapply(published[!sapply(r_versions, is.null)],  # filter out records w/o r version
-                            function(d){lubridate::ymd_hms(d)})       # convert to date time
-                     )
-                  )
+  # TODO: this is not pretty
+  timeline <- data.frame(
+    stringsAsFactors = FALSE,
+    r_version = unlist(r_versions),
+    published = do.call(c, unname( # this flattens the list while preserving the date time
+      lapply(
+        published[!sapply(r_versions, is.null)], # filter out records w/o r version
+        function(d) {
+          lubridate::ymd_hms(d)
+        }
+      ) # convert to date time
+    ))
+  )
+
+  # histogram
+  p1 <- ggplot2::ggplot(timeline) +
+    ggplot2::geom_histogram(ggplot2::aes(r_version), stat = "count") +
+    ggplot2::theme_minimal() +
+    ggplot2::labs(
+      title = "Distribution of Content by R Version",
+      x = NULL,
+      y = NULL
     )
 
-   # histogram
-   p1 <- ggplot2::ggplot(timeline) +
-     ggplot2::geom_histogram(ggplot2::aes(r_version), stat = "count") +
-     ggplot2::theme_minimal() +
-     ggplot2::labs(
-        title = "Distribution of Content by R Version",
-        x = NULL,
-        y = NULL
-     )
+  # timeline
+  p2 <- ggplot2::ggplot(timeline) +
+    ggplot2::geom_point(pch = 4, ggplot2::aes(x = published, color = r_version, y = r_version)) +
+    ggplot2::theme_minimal() +
+    ggplot2::labs(
+      title = "Content by Time",
+      x = "Last Updated",
+      y = NULL,
+      color = ""
+    )
 
-   # timeline
-   p2 <- ggplot2::ggplot(timeline) +
-     ggplot2::geom_point(pch = 4, ggplot2::aes(x = published, color = r_version, y = r_version)) +
-     ggplot2::theme_minimal() +
-     ggplot2::labs(
-       title = "Content by Time",
-       x = 'Last Updated',
-       y = NULL,
-       color = ""
-     )
-
-   gridExtra::grid.arrange(p1, p2, ncol=2)
-
+  gridExtra::grid.arrange(p1, p2, ncol = 2)
 }
 
 #' Audit Run As Settings
-#' 
+#'
 #' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
@@ -116,8 +120,8 @@ audit_r_versions <- function(apps) {
 #' @family audit functions
 #' @export
 audit_runas <- function(apps) {
-  name   <- get_field(apps, 'name', TRUE)
-  run_as <- get_field(apps, 'run_as', TRUE)
+  name <- get_field(apps, "name", TRUE)
+  run_as <- get_field(apps, "run_as", TRUE)
   set <- !sapply(run_as, is.null)
 
   run_as <- data.frame(
@@ -126,8 +130,10 @@ audit_runas <- function(apps) {
     run_as_user = unlist(run_as)
   )
 
-  run_as_current <- get_field(apps, 'run_as_current_user', TRUE)
-  set <- sapply(run_as_current, function(x){x == TRUE})
+  run_as_current <- get_field(apps, "run_as_current_user", TRUE)
+  set <- sapply(run_as_current, function(x) {
+    x == TRUE
+  })
 
   if (sum(set > 0)) {
     run_as_current <- data.frame(
@@ -147,7 +153,7 @@ audit_runas <- function(apps) {
 
 # type can be all, logged_in, acl
 #' Audit Access Controls
-#' 
+#'
 #' \lifecycle{experimental}
 #'
 #' @param apps App list, see `cache_apps`
@@ -157,9 +163,9 @@ audit_runas <- function(apps) {
 #'
 #' @family audit functions
 #' @export
-audit_access_open <- function(apps, type = 'all') {
-  access <- get_field(apps, 'access_type', TRUE)
-  name <- get_field(apps, 'name', TRUE)
+audit_access_open <- function(apps, type = "all") {
+  access <- get_field(apps, "access_type", TRUE)
+  name <- get_field(apps, "name", TRUE)
   acl_set <- !sapply(access, is.null)
 
   access <- data.frame(
@@ -169,5 +175,4 @@ audit_access_open <- function(apps, type = 'all') {
   )
 
   return(access$name[access$access == type])
-
 }

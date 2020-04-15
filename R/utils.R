@@ -18,27 +18,31 @@ random_name <- function(length = 25) {
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
-  
+
   ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
   cnt1 <- Content$new(connect = con, ex_content)
-  
+
   ex_task <- list(task_id = "task-id")
   tsk1 <- Task$new(connect = con, content = ex_content, task = ex_task)
-  
+
   ex_vanity <- list(path_prefix = "vanity-prefix")
   van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)
-  
+
   obj_list <- list(con, bnd, cnt1, tsk1, van1)
-  
+
   unlist(mapply(
-    function(.x, .y) {c(
-      "----------------------------",
-      .y,
-      "----------------------------",
-      capture.output(print(.x))
-      )},
+    function(.x, .y) {
+      c(
+        "----------------------------",
+        .y,
+        "----------------------------",
+        capture.output(print(.x))
+      )
+    },
     .x = obj_list,
-    .y = lapply(obj_list, function(x){class(x)[[1]]}),
+    .y = lapply(obj_list, function(x) {
+      class(x)[[1]]
+    }),
     SIMPLIFY = FALSE
   ))
 }
@@ -67,7 +71,7 @@ scoped_experimental_silence <- function(frame = rlang::caller_env()) {
   rlang::scoped_options(
     .frame = frame,
     connectapi_disable_experimental_warnings = TRUE
-    )
+  )
 }
 
 warn_dire <- function(name) {
@@ -84,7 +88,7 @@ scoped_dire_silence <- function(frame = rlang::caller_env()) {
   rlang::scoped_options(
     .frame = frame,
     connectapi_disable_dire_warnings = TRUE
-    )
+  )
 }
 
 
@@ -92,22 +96,22 @@ warn_once <- function(msg, id = msg) {
   if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {
     return(invisible(NULL))
   }
-  
+
   if (rlang::env_has(warn_env, id)) {
     return(invisible(NULL))
   }
-  
+
   has_color <- function() rlang::is_installed("crayon") && crayon::has_color()
   silver <- function(x) if (has_color()) crayon::silver(x) else x
-  
+
   msg <- paste0(
     msg,
     "\n",
     silver("This warning is displayed once per session.")
   )
-  
+
   rlang::env_poke(warn_env, id, TRUE)
-  
+
   rlang::signal(msg, .subclass = "warning")
 }
 warn_env <- new.env(parent = emptyenv())
@@ -129,11 +133,10 @@ simplify_version <- function(version) {
 }
 
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
-  
   minor_using_version <- simplify_version(using_version)
   minor_tested_version <- simplify_version(tested_version)
   comp <- compareVersion(minor_tested_version, minor_using_version)
-  
+
   msg <- switch(
     as.character(comp),
     "0" = NULL,
