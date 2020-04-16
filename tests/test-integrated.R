@@ -24,6 +24,14 @@ if (nchar(Sys.getenv("CONNECTAPI_INTEGRATED")) > 0) {
     server_1 = tryCatch(httr::content(httr::GET(paste0(integrated_vars[["server_1"]], "/__ping__"))), error = print),
     server_2 = tryCatch(httr::content(httr::GET(paste0(integrated_vars[["server_2"]], "/__ping__"))), error = print)
   )
+  
+  if ( 
+    any(nchar(integrated_vars) == 0) ||
+    any(as.logical(lapply(health_checks, function(x){length(x) > 0})))
+  ) {
+    str(health_checks)
+    stop("One or both of your integration test servers are not healthy")
+  }
     
   test_dir(rprojroot::find_package_root_file("tests/integrated"), reporter = multi_reporter)
 } else {
