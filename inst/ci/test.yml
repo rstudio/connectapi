@@ -6,6 +6,7 @@ services:
     image: rstudio/r-base:3.6-bionic
     volumes:
       - "../../:/test"
+    working_dir: "/test"
     command:
       - "Rscript"
       - "/test/inst/ci/run_tests.R"
