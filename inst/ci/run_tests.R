@@ -2,7 +2,6 @@ options("repos" = c(RSPM = "https://packagemanager.rstudio.com/cran/__linux__/bi
 install.packages("devtools")
 
 message("installing dependencies")
-setwd("/test")
 devtools::install_deps(dep = TRUE)
 
 library(testthat)
@@ -29,8 +28,9 @@ Sys.setenv(
   "TEST_1_SERVER" = a1$host,
   "TEST_1_API_KEY" = a1$api_key,
   "TEST_2_SERVER" = a2$host,
-  "TEST_2_API_KEY" = a2$api_key
+  "TEST_2_API_KEY" = a2$api_key,
+  "CONNECTAPI_INTEGRATED" = "true"
   )
 
-message("running integration tests")
-testthat::test_dir(path = "tests/integrated", reporter = multi_reporter, stop_on_failure = FALSE)
+message("sourcing integration tests")
+source(rprojroot::find_package_root_file("tests/test-integrated.R"))
