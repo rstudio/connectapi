@@ -25,7 +25,7 @@ test_that("can upload and deploy content", {
   )
   expect_true(fs::file_exists(cont1_bundle$path))
 
-  res <- test_conn_1$content_upload(bundle_path = cont1_bundle, guid = cont1_guid)
+  res <- test_conn_1$content_upload(bundle_path = cont1_bundle$path, guid = cont1_guid)
   expect_false(is.null(res))
   expect_silent(as.integer(res[["bundle_id"]]))
 
