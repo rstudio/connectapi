@@ -34,7 +34,7 @@ test_that("associate tag with content", {
   tag_content <<- deploy(
     test_conn_1,
     bundle_path(
-      rprojroot::find_testthat_root_file("examples", "static.tar.gz")
+      rprojroot::find_package_root_file("tests/testthat/examples", "static.tar.gz")
     ),
     name = content_name
   )

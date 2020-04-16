@@ -20,11 +20,10 @@ test_that("can create content", {
 })
 
 test_that("can upload and deploy content", {
-  cont1_bundle <<- dir_bundle(
-    rprojroot::find_testthat_root_file("test-plot"),
-    "../test-ex-1.tar.gz"
+  cont1_bundle <<- bundle_dir(
+    rprojroot::find_package_root_file("tests/testthat/test-plot")
   )
-  expect_true(fs::file_exists(cont1_bundle))
+  expect_true(fs::file_exists(cont1_bundle$path))
 
   res <- test_conn_1$content_upload(bundle_path = cont1_bundle, guid = cont1_guid)
   expect_false(is.null(res))

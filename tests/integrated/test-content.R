@@ -16,7 +16,7 @@ viewer_guid <- NULL
 viewer_alt_guid <- NULL
 
 # deploy content
-dir_path <- rprojroot::find_testthat_root_file("examples/static")
+dir_path <- rprojroot::find_package_root_file("tests/testthat/examples/static")
 tmp_file <- fs::file_temp(pattern = "bundle", ext = ".tar.gz")
 bund <- bundle_dir(path = dir_path, filename = tmp_file)
 
