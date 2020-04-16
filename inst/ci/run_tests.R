@@ -7,12 +7,6 @@ devtools::install_deps(dep = TRUE)
 library(testthat)
 devtools::load_all()
 
-message("creating reporters")
-progress_reporter <- ProgressReporter$new(max_failures = 1000)
-junit_reporter <- JunitReporter$new(file = fs::path("test-results-junit.xml"))
-check_reporter <- CheckReporter$new(file = fs::path("test-results-check.txt"))
-multi_reporter <- MultiReporter$new(reporters = list(progress_reporter, junit_reporter, check_reporter))
-
 message("creating first admins")
 a1 <- create_first_admin(
   "http://connect1:3939",
