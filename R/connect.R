@@ -336,7 +336,8 @@ Connect <- R6::R6Class(
                             last_name = NULL,
                             password = NULL,
                             user_must_set_password = NULL,
-                            user_role = NULL) {
+                            user_role = NULL,
+                            unique_id = NULL) {
       path <- sprintf("v1/users")
       self$POST(
         path = path,
@@ -347,7 +348,8 @@ Connect <- R6::R6Class(
           password = password,
           user_must_set_password = user_must_set_password,
           user_role = user_role,
-          username = username
+          username = username,
+          unique_id = unique_id
         )
       )
     },
