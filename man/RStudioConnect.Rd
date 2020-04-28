@@ -89,6 +89,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_connect"></a>}}
+\if{latex}{\out{\hypertarget{method-get_connect}{}}}
 \subsection{Method \code{get_connect()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_connect()}\if{html}{\out{</div>}}
@@ -97,6 +98,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$new(host, api_key)}\if{html}{\out{</div>}}
@@ -105,6 +107,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$print(...)}\if{html}{\out{</div>}}
@@ -113,6 +116,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-raise_error"></a>}}
+\if{latex}{\out{\hypertarget{method-raise_error}{}}}
 \subsection{Method \code{raise_error()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$raise_error(res)}\if{html}{\out{</div>}}
@@ -121,6 +125,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-add_auth"></a>}}
+\if{latex}{\out{\hypertarget{method-add_auth}{}}}
 \subsection{Method \code{add_auth()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$add_auth()}\if{html}{\out{</div>}}
@@ -129,6 +134,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GET"></a>}}
+\if{latex}{\out{\hypertarget{method-GET}{}}}
 \subsection{Method \code{GET()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
@@ -137,6 +143,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GET_RESULT"></a>}}
+\if{latex}{\out{\hypertarget{method-GET_RESULT}{}}}
 \subsection{Method \code{GET_RESULT()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory())}\if{html}{\out{</div>}}
@@ -145,6 +152,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GET_URL"></a>}}
+\if{latex}{\out{\hypertarget{method-GET_URL}{}}}
 \subsection{Method \code{GET_URL()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
@@ -153,6 +161,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-GET_RESULT_URL"></a>}}
+\if{latex}{\out{\hypertarget{method-GET_RESULT_URL}{}}}
 \subsection{Method \code{GET_RESULT_URL()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory())}\if{html}{\out{</div>}}
@@ -161,6 +170,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PUT"></a>}}
+\if{latex}{\out{\hypertarget{method-PUT}{}}}
 \subsection{Method \code{PUT()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json")}\if{html}{\out{</div>}}
@@ -169,6 +179,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-HEAD"></a>}}
+\if{latex}{\out{\hypertarget{method-HEAD}{}}}
 \subsection{Method \code{HEAD()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path)}\if{html}{\out{</div>}}
@@ -177,6 +188,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DELETE"></a>}}
+\if{latex}{\out{\hypertarget{method-DELETE}{}}}
 \subsection{Method \code{DELETE()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path)}\if{html}{\out{</div>}}
@@ -185,6 +197,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-POST"></a>}}
+\if{latex}{\out{\hypertarget{method-POST}{}}}
 \subsection{Method \code{POST()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
@@ -193,6 +206,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-me"></a>}}
+\if{latex}{\out{\hypertarget{method-me}{}}}
 \subsection{Method \code{me()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$me()}\if{html}{\out{</div>}}
@@ -201,6 +215,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_tags"></a>}}
+\if{latex}{\out{\hypertarget{method-get_tags}{}}}
 \subsection{Method \code{get_tags()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_tags(use_cache = FALSE)}\if{html}{\out{</div>}}
@@ -209,6 +224,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_tag_id"></a>}}
+\if{latex}{\out{\hypertarget{method-get_tag_id}{}}}
 \subsection{Method \code{get_tag_id()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_id(tagname)}\if{html}{\out{</div>}}
@@ -217,6 +233,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_tag_tree"></a>}}
+\if{latex}{\out{\hypertarget{method-get_tag_tree}{}}}
 \subsection{Method \code{get_tag_tree()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree()}\if{html}{\out{</div>}}
@@ -225,6 +242,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-create_tag"></a>}}
+\if{latex}{\out{\hypertarget{method-create_tag}{}}}
 \subsection{Method \code{create_tag()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$create_tag(name, parent_id = NULL)}\if{html}{\out{</div>}}
@@ -233,6 +251,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_n_apps"></a>}}
+\if{latex}{\out{\hypertarget{method-get_n_apps}{}}}
 \subsection{Method \code{get_n_apps()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_n_apps()}\if{html}{\out{</div>}}
@@ -241,6 +260,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_apps"></a>}}
+\if{latex}{\out{\hypertarget{method-get_apps}{}}}
 \subsection{Method \code{get_apps()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_apps(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25)}\if{html}{\out{</div>}}
@@ -249,6 +269,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_schedule"></a>}}
+\if{latex}{\out{\hypertarget{method-get_schedule}{}}}
 \subsection{Method \code{get_schedule()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_schedule(schedule_id)}\if{html}{\out{</div>}}
@@ -257,6 +278,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-content_create"></a>}}
+\if{latex}{\out{\hypertarget{method-content_create}{}}}
 \subsection{Method \code{content_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$content_create(name, title = name, ...)}\if{html}{\out{</div>}}
@@ -265,6 +287,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-download_bundle"></a>}}
+\if{latex}{\out{\hypertarget{method-download_bundle}{}}}
 \subsection{Method \code{download_bundle()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile())}\if{html}{\out{</div>}}
@@ -273,6 +296,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-content_upload"></a>}}
+\if{latex}{\out{\hypertarget{method-content_upload}{}}}
 \subsection{Method \code{content_upload()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$content_upload(bundle_path, guid)}\if{html}{\out{</div>}}
@@ -281,6 +305,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-content_deploy"></a>}}
+\if{latex}{\out{\hypertarget{method-content_deploy}{}}}
 \subsection{Method \code{content_deploy()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$content_deploy(guid, bundle_id)}\if{html}{\out{</div>}}
@@ -289,6 +314,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-content"></a>}}
+\if{latex}{\out{\hypertarget{method-content}{}}}
 \subsection{Method \code{content()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$content(guid)}\if{html}{\out{</div>}}
@@ -297,6 +323,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-task"></a>}}
+\if{latex}{\out{\hypertarget{method-task}{}}}
 \subsection{Method \code{task()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$task(task_id, first = 0, wait = 5)}\if{html}{\out{</div>}}
@@ -305,6 +332,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_content_tag"></a>}}
+\if{latex}{\out{\hypertarget{method-set_content_tag}{}}}
 \subsection{Method \code{set_content_tag()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$set_content_tag(content_id, tag_id)}\if{html}{\out{</div>}}
@@ -313,6 +341,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-user"></a>}}
+\if{latex}{\out{\hypertarget{method-user}{}}}
 \subsection{Method \code{user()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$user(guid)}\if{html}{\out{</div>}}
@@ -321,6 +350,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users"></a>}}
+\if{latex}{\out{\hypertarget{method-users}{}}}
 \subsection{Method \code{users()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
@@ -329,6 +359,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-users_remote}{}}}
 \subsection{Method \code{users_remote()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users_remote(prefix)}\if{html}{\out{</div>}}
@@ -337,6 +368,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_create"></a>}}
+\if{latex}{\out{\hypertarget{method-users_create}{}}}
 \subsection{Method \code{users_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users_create(
@@ -354,6 +386,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_lock"></a>}}
+\if{latex}{\out{\hypertarget{method-users_lock}{}}}
 \subsection{Method \code{users_lock()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users_lock(user_guid)}\if{html}{\out{</div>}}
@@ -362,6 +395,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_unlock"></a>}}
+\if{latex}{\out{\hypertarget{method-users_unlock}{}}}
 \subsection{Method \code{users_unlock()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users_unlock(user_guid)}\if{html}{\out{</div>}}
@@ -370,6 +404,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_update"></a>}}
+\if{latex}{\out{\hypertarget{method-users_update}{}}}
 \subsection{Method \code{users_update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$users_update(user_guid, ...)}\if{html}{\out{</div>}}
@@ -378,6 +413,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-groups"></a>}}
+\if{latex}{\out{\hypertarget{method-groups}{}}}
 \subsection{Method \code{groups()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
@@ -386,6 +422,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-group_members"></a>}}
+\if{latex}{\out{\hypertarget{method-group_members}{}}}
 \subsection{Method \code{group_members()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$group_members(guid)}\if{html}{\out{</div>}}
@@ -394,6 +431,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-group_member_add"></a>}}
+\if{latex}{\out{\hypertarget{method-group_member_add}{}}}
 \subsection{Method \code{group_member_add()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_add(group_guid, user_guid)}\if{html}{\out{</div>}}
@@ -402,6 +440,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-group_member_remove"></a>}}
+\if{latex}{\out{\hypertarget{method-group_member_remove}{}}}
 \subsection{Method \code{group_member_remove()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_remove(group_guid, user_guid)}\if{html}{\out{</div>}}
@@ -410,6 +449,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-groups_create"></a>}}
+\if{latex}{\out{\hypertarget{method-groups_create}{}}}
 \subsection{Method \code{groups_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$groups_create(name)}\if{html}{\out{</div>}}
@@ -418,6 +458,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-inst_content_visits"></a>}}
+\if{latex}{\out{\hypertarget{method-inst_content_visits}{}}}
 \subsection{Method \code{inst_content_visits()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$inst_content_visits(
@@ -435,6 +476,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-inst_shiny_usage"></a>}}
+\if{latex}{\out{\hypertarget{method-inst_shiny_usage}{}}}
 \subsection{Method \code{inst_shiny_usage()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$inst_shiny_usage(
@@ -452,6 +494,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-procs"></a>}}
+\if{latex}{\out{\hypertarget{method-procs}{}}}
 \subsection{Method \code{procs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$procs()}\if{html}{\out{</div>}}
@@ -460,6 +503,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-docs"></a>}}
+\if{latex}{\out{\hypertarget{method-docs}{}}}
 \subsection{Method \code{docs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$docs(docs = "api", browse = TRUE)}\if{html}{\out{</div>}}
@@ -468,6 +512,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-audit_logs"></a>}}
+\if{latex}{\out{\hypertarget{method-audit_logs}{}}}
 \subsection{Method \code{audit_logs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
@@ -476,6 +521,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-server_settings_r"></a>}}
+\if{latex}{\out{\hypertarget{method-server_settings_r}{}}}
 \subsection{Method \code{server_settings_r()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$server_settings_r()}\if{html}{\out{</div>}}
@@ -484,6 +530,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-server_settings"></a>}}
+\if{latex}{\out{\hypertarget{method-server_settings}{}}}
 \subsection{Method \code{server_settings()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$server_settings()}\if{html}{\out{</div>}}
@@ -492,6 +539,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
