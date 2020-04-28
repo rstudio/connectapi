@@ -1,7 +1,7 @@
 context("vec_cast")
 
 test_that("vec_cast.fs_bytes warns", {
-  #expect_warning(vctrs::vec_cast(1L, fs::as_fs_bytes(1L)), "experimental")
+  expect_warning(vctrs::vec_cast(1L, fs::as_fs_bytes(1L)), "experimental")
   expect_is(vctrs::vec_cast(1L, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
 })
 
