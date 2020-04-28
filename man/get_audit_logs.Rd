@@ -44,11 +44,11 @@ Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more informati
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  # get the last 20 audit logs
-  get_audit_logs(client, limit = 20, asc_order = FALSE)
+library(connectapi)
+client <- connect()
+
+# get the last 20 audit logs
+get_audit_logs(client, limit = 20, asc_order = FALSE)
 }
 
 }

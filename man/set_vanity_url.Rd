@@ -15,13 +15,13 @@ set_vanity_url(content, url)
 An updated Content object
 }
 \description{
-Sets the Vanity URL for a piece of content.
+\lifecycle{experimental} Sets the Vanity URL for a piece of content.
 }
 \examples{
 \dontrun{
 bnd <- bundle_dir("~/my/directory")
-connect() \%>\% 
-  deploy(bnd) \%>\% 
+connect() \%>\%
+  deploy(bnd) \%>\%
   set_vanity_url("a/vanity/url")
 }
 

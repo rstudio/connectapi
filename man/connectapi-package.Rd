@@ -9,8 +9,8 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Helpful R6 class for interacting with the RStudio
-    Connect Server API and some example utility functions.
+Provides a helpful R6 class for interacting with the RStudio
+    Connect Server API along with some meaningful utility functions.
 }
 \seealso{
 Useful links:

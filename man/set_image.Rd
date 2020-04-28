@@ -19,7 +19,7 @@ set_image_url(content, url)
 \item{...}{Additional arguments passed on to methods}
 }
 \description{
-Set the Image from a Path
+\lifecycle{experimental}
 }
 \seealso{
 Other content functions: 

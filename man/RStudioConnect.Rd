@@ -346,7 +346,8 @@ Other R6 classes:
   last_name = NULL,
   password = NULL,
   user_must_set_password = NULL,
-  user_role = NULL
+  user_role = NULL,
+  unique_id = NULL
 )}\if{html}{\out{</div>}}
 }
 
