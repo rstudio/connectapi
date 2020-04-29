@@ -1,4 +1,6 @@
-# connectapi 0.1.0.900x
+# connectapi development
+
+* Initial CRAN release!
 
 BREAKING: 
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
@@ -27,11 +29,15 @@ OTHER:
   - `inst_shiny_usage`
   - `inst_content_visits`
 * Add some helper functions:
-  - `deploy_github`, `download_github`
   - `swap_vanity_url`, deployment functions
   - `browse_` family of functions
-* Update `connect` R6 object to be compatible with Connect 1.7.0+ APIs
+* Update `Connect` R6 object to be compatible with Connect 1.7.0+ APIs
 * Added a `NEWS.md` file to track changes to the package.
 * Add integration testing to protect against regressions
 * Add `tbl_connect()` as a `lazy_tbl` for querying Connect API endpoints
 * Add `get_*` functions as alternatives to `lazy_tbl`
+
+# connectapi 0.1.0
+
+* Initial package version
+* Create a `Connect` R6 object

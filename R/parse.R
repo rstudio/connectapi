@@ -8,12 +8,12 @@ safe_format <- function(expr, ...) {
 }
 
 make_timestamp <- function(input) {
-  safe_format(input, '%Y-%m-%dT%H:%M:%SZ')
+  safe_format(input, "%Y-%m-%dT%H:%M:%SZ")
 }
 
 swap_timestamp_format <- function(.col) {
   if (is.character(.col)) {
-    gsub("([0-9]{4}-[0-9]{2}-[0-9]{2})T([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)", "\\1 \\2", .col)   
+    gsub("([0-9]{4}-[0-9]{2}-[0-9]{2})T([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)", "\\1 \\2", .col)
   } else {
     .col
   }
@@ -47,9 +47,9 @@ parse_connectapi_typed <- function(data, ...) {
   ensure_columns(parse_connectapi(data), ...)
 }
 
-parse_connectapi <- function(data){
+parse_connectapi <- function(data) {
   purrr::map_df(
-    data, 
+    data,
     function(x) {
       purrr::map(
         .x = x,
@@ -61,8 +61,9 @@ parse_connectapi <- function(data){
             # otherwise NA
             prep <- purrr::pluck(y, .default = NA)
           }
-          if (length(prep) > 1)
+          if (length(prep) > 1) {
             prep <- list(prep)
+          }
           return(prep)
         }
       )
@@ -82,20 +83,20 @@ vec_cast.fs_bytes.default <- function(x, to, ...) {
 }
 
 #' Cast to fs_bytes
-#' 
+#'
 #' \lifecycle{deprecated}
 #' This is a temporary placeholder because the functionality
 #' does not exist yet in the `fs` package. Do not build dependencies
 #' on `connectapi::vec-cast.fs_bytes`, as it will be removed without
 #' warning in a future release.
-#' 
+#'
 #' @param x Vectors to cast
 #' @param to Type to cast to. If `NULL`, `x` will be returned as is
 #' @param ... Dots for future extensions and should be empty
-#' 
+#'
 #' @return A vector the same length as `x` with the same type as `to`, or an
 #'   error if the cast is not possible.
-#' 
+#'
 #' @export
 vec_cast.fs_bytes <- function(x, to, ...) {
   warn_experimental("vec_cast.fs_bytes")

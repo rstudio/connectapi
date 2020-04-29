@@ -1,6 +1,6 @@
 # TODO
 # - next stop: vanity URLs?
-# - figure out filtering... and such...? 
+# - figure out filtering... and such...?
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - need to make pagination actually work...
@@ -8,33 +8,34 @@
 # - nrow should be super fast if we know how many total records there are...
 # - show example usage...
 #' Connect Tibble
-#' 
+#'
 #' \lifecycle{experimental}
 #' A lazy tibble that automatically pages through API requests when `collect`ed.
-#' 
+#'
 #' @param src The source object
 #' @param from The type of tibble
 #' @param ... Additional arguments that are not yet implemented
-#' 
+#'
 #' @return A `tbl_connect` object
-#' 
+#'
 #' @export
 tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs"), ...) {
   validate_R6_class(src, "Connect")
-  
+
   stopifnot(length(from) == 1)
-  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names))
+  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names)) {
     stop(glue::glue("ERROR: invalid table name: {from}"))
-  
+  }
+
   from <- check_deprecated_names(from)
-  
+
   # TODO: go get the vars we should expect...
   vars <- connectapi_ptypes[[from]]
   if (is.null(vars)) vars <- character()
-  
+
   # TODO: figure out number of rows...
   ops <- op_base_connect(from, vars)
-  
+
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
@@ -201,7 +202,7 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else if (op$x == "usage_static") {
     res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "audit_logs") {
-    res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n) 
+    res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n)
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
@@ -240,7 +241,7 @@ op_base_connect <- function(x, vars) {
 
 op_base <- function(x, vars, class = character()) {
   stopifnot(is.character(vars) || is.character(names(vars)))
-  
+
   structure(
     list(
       x = x,
@@ -280,7 +281,6 @@ dim.tbl_lazy <- function(x) {
 
 # important for `colnames` to work
 #' @export
-dimnames.tbl_lazy <- function (x) 
-{
+dimnames.tbl_lazy <- function(x) {
   list(NULL, op_vars(x$ops))
 }

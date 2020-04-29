@@ -13,7 +13,7 @@ cache_apps(connect)
 List with application data, to be used by audit functions
 }
 \description{
-Get information on all apps for a server
+\lifecycle{experimental}
 }
 \seealso{
 Other audit functions: 

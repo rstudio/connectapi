@@ -46,12 +46,11 @@ Please see https://docs.rstudio.com/connect/api/#getUsers for more information
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  # get all users
-  get_users(client, limit = Inf)
+library(connectapi)
+client <- connect()
 
+# get all users
+get_users(client, limit = Inf)
 }
 
 }

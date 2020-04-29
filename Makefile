@@ -72,4 +72,8 @@ test-run:
 	NETWORK=${NETWORK} \
   docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test
 
+test-run-i:
+	NETWORK=${NETWORK} \
+  docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test bash
+
 test: network-up test-env-up test-run test-env-down network-down

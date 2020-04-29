@@ -6,9 +6,9 @@ test_conn_2 <- NULL
 
 test_that("connect works", {
   test_conn_1 <<- connect(
-    host = Sys.getenv("TEST_1_SERVER"), 
+    host = Sys.getenv("TEST_1_SERVER"),
     api_key = Sys.getenv("TEST_1_API_KEY")
-    )
+  )
   expect_true(validate_R6_class(test_conn_1, "Connect"))
 })
 

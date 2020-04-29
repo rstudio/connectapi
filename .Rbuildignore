@@ -10,3 +10,4 @@
 ^pkgdown$
 ^\.travis\.yml$
 ^Makefile$
+^Jenkinsfile$

@@ -45,15 +45,17 @@ acl_remove_collaborator <- acl_remove_user
 acl_remove_viewer <- acl_remove_user
 
 acl_remove_self <- function(content) {
-  acl_remove_user(content, content$get_connect()$GET('me')$guid)
+  acl_remove_user(content, content$get_connect()$GET("me")$guid)
 }
 
 acl_user_role <- function(content, user_guid) {
   warn_experimental("acl_user_role")
   scoped_experimental_silence()
   acls <- get_acl_impl(content)
-  if (is.null(user_guid) || is.na(user_guid)) return(NULL)
+  if (is.null(user_guid) || is.na(user_guid)) {
+    return(NULL)
+  }
   user_entry <- purrr::flatten(purrr::keep(acls, ~ .x$guid == user_guid))
-  
+
   return(user_entry$app_role)
 }

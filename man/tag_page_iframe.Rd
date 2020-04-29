@@ -35,7 +35,6 @@ app_metadata <- list(
   list(guid = "abcde-abcd-abcd-abcde", content_group = "Group 1"),
   list(guid = "fghij-fghi-fghi-fghij", content_group = "Group 2")
 )
-
 }
 \references{
 \itemize{

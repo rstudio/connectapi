@@ -14,7 +14,7 @@ A plot that shows the R version used by content over time and in
 aggregate.
 }
 \description{
-Audit R Versions
+\lifecycle{experimental}
 }
 \seealso{
 Other audit functions: 
