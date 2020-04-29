@@ -299,7 +299,6 @@ has_image <- function(content) {
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
-#' @param ... Additional arguments passed on to methods
 #'
 #' @rdname set_image
 #' @family content functions

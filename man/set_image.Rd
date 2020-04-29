@@ -15,8 +15,6 @@ set_image_url(content, url)
 \item{path}{The path to an image on disk}
 
 \item{url}{The url for an image}
-
-\item{...}{Additional arguments passed on to methods}
 }
 \description{
 \lifecycle{experimental}
