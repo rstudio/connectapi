@@ -44,7 +44,7 @@ yaml_content_deploy <- function(
                                 ...) {
   # orig_connect <- connect
   # connect <- connect_input(connect)
-  bundle_path <- dir_bundle(path = path)
+  bundle <- bundle_dir(path = path)
 
   c_obj <- rlang::exec(
     content_ensure,
@@ -57,7 +57,7 @@ yaml_content_deploy <- function(
   c_guid <- c_obj[["guid"]]
 
   c_upload <- connect$content_upload(
-    bundle_path = bundle_path,
+    bundle_path = bundle$path,
     guid = c_guid
   )
 
