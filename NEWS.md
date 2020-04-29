@@ -1,4 +1,4 @@
-# connectapi dev
+# connectapi development
 
 * Initial CRAN release!
 
