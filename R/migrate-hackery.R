@@ -26,6 +26,8 @@ acl_add_group <- function(content, group_guid, role) {
       guid = group_guid
     )
   )
+  
+  return(content)
 }
 
 #' ACL Add User
