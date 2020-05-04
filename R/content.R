@@ -174,6 +174,7 @@ get_acl_impl <- function(content) {
 
 get_acl_user_impl <- function(content) {
   res <- get_acl_impl(content)
+  client <- content$get_connect()
   owner <- client$user(res$owner_guid)
   owner$app_role <- "owner"
   # because collaborators are hard to differentiate
