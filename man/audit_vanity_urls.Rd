@@ -14,7 +14,7 @@ audit_vanity_urls(apps, server_url, vanity = NULL)
 \item{vanity}{Optional, see details}
 }
 \description{
-Audit Vanity URLs
+\lifecycle{experimental}
 }
 \details{
 If \code{vanity} is not provided, returns a list of all the vanity

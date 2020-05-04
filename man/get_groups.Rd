@@ -34,12 +34,11 @@ Please see https://docs.rstudio.com/connect/api/#getGroups for more information
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  # get all groups
-  get_groups(client, limit = Inf)
+library(connectapi)
+client <- connect()
 
+# get all groups
+get_groups(client, limit = Inf)
 }
 
 }

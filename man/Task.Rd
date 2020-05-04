@@ -41,6 +41,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Task$new(connect, content, task)}\if{html}{\out{</div>}}
@@ -49,6 +50,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_task"></a>}}
+\if{latex}{\out{\hypertarget{method-get_task}{}}}
 \subsection{Method \code{get_task()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Task$get_task()}\if{html}{\out{</div>}}
@@ -57,6 +59,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Task$print(...)}\if{html}{\out{</div>}}
@@ -65,6 +68,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

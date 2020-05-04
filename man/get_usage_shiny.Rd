@@ -75,11 +75,11 @@ Please see https://docs.rstudio.com/connect/api/#getShinyAppUsage for more infor
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  from <- Sys.Date() - lubridate::days(5)
-  get_usage_shiny(client, limit = 20, from = from)
+library(connectapi)
+client <- connect()
+
+from <- Sys.Date() - lubridate::days(5)
+get_usage_shiny(client, limit = 20, from = from)
 }
 
 }

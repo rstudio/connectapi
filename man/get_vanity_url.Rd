@@ -10,7 +10,7 @@ get_vanity_url(content)
 \item{content}{A Content object}
 }
 \description{
-Gets the Vanity URL for a piece of content.
+\lifecycle{experimental} Gets the Vanity URL for a piece of content.
 }
 \seealso{
 Other content functions: 
