@@ -152,7 +152,7 @@ connectapi_ptypes <- list(
     cpuTotal = NA_integer_,
     ram = fs::as_fs_bytes(NA_integer_)
   ),
-  acl = tibble::tibble(
+  acl_user = tibble::tibble(
     content_guid = NA_character_,
     content_access_type = NA_character_,
     email = NA_character_,
@@ -169,6 +169,10 @@ connectapi_ptypes <- list(
     guid = NA_character_,
     app_role = NA_character_,
     is_owner = NA
+  ),
+  acl_group = tibble::tibble(
+    content_guid = NA_character_,
+    content_access_type = NA_character_
   )
 )
 
