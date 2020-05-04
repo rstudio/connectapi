@@ -133,11 +133,11 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #'
 #' @family content functions
 #' @export
-get_acl <- function(content) {
+get_acl_user <- function(content) {
   warn_experimental("get_acl")
 
   content_info <- content$get_content_remote()
-  prep <- get_acl_impl(content)
+  prep <- get_acl_user_impl(content)
   out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl)
   out$content_guid <- content_info$guid
   out$content_access_type <- content_info$access_type
@@ -145,16 +145,20 @@ get_acl <- function(content) {
   return(out)
 }
 
+#' @rdname get_acl_user
+#' @export
+get_acl <- function(content) {
+  lifecycle::deprecate_warn(
+    "0.1.0.9007", "get_acl()", "get_acl_user()"
+    )
+  get_acl_user(content)
+}
+
 get_acl_impl <- function(content) {
   validate_R6_class(content, "Content")
   client <- content$get_connect()
   res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
-
-  owner <- client$user(res$owner_guid)
-  owner$app_role <- "owner"
-  # because collaborators are hard to differentiate
-  owner$is_owner <- TRUE
-
+  
   content_info <- content$get_content_remote()
 
   if (content_info$access_type != "acl") {
@@ -164,6 +168,16 @@ get_acl_impl <- function(content) {
       glue::glue("get_acl_not_acl_{content_info$guid}")
     )
   }
+  
+  return(res)
+}
+
+get_acl_user_impl <- function(content) {
+  res <- get_acl_impl(content)
+  owner <- client$user(res$owner_guid)
+  owner$app_role <- "owner"
+  # because collaborators are hard to differentiate
+  owner$is_owner <- TRUE
 
   content_acls <- res[["users"]]
   content_acls <- purrr::map(content_acls, function(.x) {
@@ -172,6 +186,17 @@ get_acl_impl <- function(content) {
   })
 
   return(c(list(owner), content_acls))
+}
+
+get_acl_group_impl <- function(content) {
+  res <- get_acl_impl(content)
+
+  content_acls <- res[["groups"]]
+  content_acls <- purrr::map(content_acls, function(.x) {
+    return(.x)
+  })
+
+  return(c(content_acls))
 }
 
 content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
