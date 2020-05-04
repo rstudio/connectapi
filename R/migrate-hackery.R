@@ -93,7 +93,7 @@ acl_remove_self <- function(content) {
 acl_user_role <- function(content, user_guid) {
   warn_experimental("acl_user_role")
   scoped_experimental_silence()
-  acls <- get_acl_impl(content)
+  acls <- get_acl_user_impl(content)
   if (is.null(user_guid) || is.na(user_guid)) {
     return(NULL)
   }
