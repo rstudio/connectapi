@@ -145,6 +145,19 @@ get_acl_user <- function(content) {
   return(out)
 }
 
+get_acl_group <- function(content) {
+  warn_experimental("get_acl")
+  
+  content_info <- content$get_content_remote()
+  prep <- get_acl_group_impl(content)
+  # TODO: need this ptype defined
+  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_group)
+  out$content_guid <- content_info$guid
+  out$content_access_type <- content_info$access_type
+  
+  return(out)
+}
+
 #' @rdname get_acl_user
 #' @export
 get_acl <- function(content) {
