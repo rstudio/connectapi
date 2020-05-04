@@ -10,10 +10,16 @@ cont1_guid <- NULL
 cont1_bundle <- NULL
 cont1_content <- NULL
 
+cont2_name <- uuid::UUIDgenerate()
+cont2_title <- "Test Content 2"
+
 collab_guid <- NULL
 collab_alt_guid <- NULL
 viewer_guid <- NULL
 viewer_alt_guid <- NULL
+
+collap_group_guid <- NULL
+viewer_group_guid <- NULL
 
 # deploy content
 dir_path <- rprojroot::find_package_root_file("tests/testthat/examples/static")
@@ -24,6 +30,11 @@ tsk <- deploy(connect = test_conn_1, bundle = bund, name = cont1_name, title = c
 
 cont1_guid <- tsk$get_content()$guid
 cont1_content <- content_item(tsk$get_connect(), cont1_guid)
+
+tsk2 <- deploy(connect = test_conn_1, bundle = bund, name = cont2_name, title = cont2_title)
+
+cont2_guid <- tsk2$get_content()$guid
+cont2_content <- content_item(tsk2$get_connect(), cont2_guid)
 
 test_that("content_item works", {
   cont1_tmp <- test_conn_1 %>% content_item(guid = cont1_guid)
@@ -57,7 +68,7 @@ test_that("acl returns owner once and only once", {
   scoped_experimental_silence()
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   my_guid <- test_conn_1$GET("me")$guid
 
@@ -89,7 +100,7 @@ test_that("add collaborator twice works", {
   invisible(acl_add_collaborator(cont1_content, collab_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
@@ -108,7 +119,7 @@ test_that("add a viewer works", {
   invisible(acl_add_viewer(cont1_content, viewer_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
@@ -124,7 +135,7 @@ test_that("add a viewer twice works", {
   invisible(acl_add_viewer(cont1_content, viewer_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
@@ -139,7 +150,7 @@ test_that("remove a collaborator works", {
   invisible(acl_remove_collaborator(cont1_content, collab_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
@@ -154,7 +165,7 @@ test_that("remove a collaborator twice works", {
   invisible(acl_remove_collaborator(cont1_content, collab_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
@@ -173,7 +184,7 @@ test_that("a collaborator does not affect other collaborators", {
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   invisible(acl_add_collaborator(cont1_content, collab_alt_guid))
 
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   # both present
   expect_true(all(c(collab_guid, collab_alt_guid) %in% acls$guid))
@@ -181,7 +192,7 @@ test_that("a collaborator does not affect other collaborators", {
   # remove one
   invisible(acl_remove_collaborator(cont1_content, collab_alt_guid))
 
-  acls2 <- get_acl(cont1_content)
+  acls2 <- get_acl_user(cont1_content)
   # other present
   expect_true(collab_guid %in% acls2$guid)
 })
@@ -192,7 +203,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   invisible(acl_add_viewer(cont1_content, viewer_guid))
 
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match_collab <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
@@ -204,7 +215,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   expect_true(any(which_match_viewer))
 
   invisible(acl_remove_collaborator(cont1_content, collab_guid))
-  acls2 <- get_acl(cont1_content)
+  acls2 <- get_acl_user(cont1_content)
 
   which_match_viewer2 <- purrr::map2_lgl(acls2$guid, acls2$app_role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
@@ -214,7 +225,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   invisible(acl_remove_viewer(cont1_content, viewer_guid))
 
-  acls3 <- get_acl(cont1_content)
+  acls3 <- get_acl_user(cont1_content)
   which_match_collab3 <- purrr::map2_lgl(acls3$guid, acls3$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
   })
@@ -231,7 +242,7 @@ test_that("a viewer does not affect other viewers", {
   invisible(acl_add_viewer(cont1_content, viewer_guid))
   invisible(acl_add_viewer(cont1_content, viewer_alt_guid))
 
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   # both present
   expect_true(all(c(viewer_guid, viewer_alt_guid) %in% acls$guid))
@@ -239,7 +250,7 @@ test_that("a viewer does not affect other viewers", {
   # remove one
   invisible(acl_remove_viewer(cont1_content, viewer_alt_guid))
 
-  acls2 <- get_acl(cont1_content)
+  acls2 <- get_acl_user(cont1_content)
 
   # other present
   expect_true(viewer_guid %in% acls2$guid)
@@ -256,7 +267,7 @@ test_that("a collaborator can be added as a viewer (overwrites)", {
   # add as viewer
   invisible(acl_add_viewer(cont1_content, collab_guid))
 
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   # TODO: Should this be a warning?
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
@@ -276,7 +287,7 @@ test_that("a viewer can be added as a collaborator", {
   # add collaborator
   invisible(acl_add_collaborator(cont1_content, collab_guid))
 
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
@@ -291,7 +302,7 @@ test_that("remove a viewer works", {
   invisible(acl_remove_viewer(cont1_content, viewer_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
@@ -306,7 +317,7 @@ test_that("remove a viewer twice works", {
   invisible(acl_remove_viewer(cont1_content, viewer_guid))
 
   # get acl
-  acls <- get_acl(cont1_content)
+  acls <- get_acl_user(cont1_content)
 
   which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
@@ -344,4 +355,14 @@ test_that("acl_add_self works", {
 
 test_that("acl_remove_self works", {
   skip("not yet tested")
+})
+
+test_that("acl_add_group works", {
+  scoped_experimental_silence()
+  grp <- test_conn_1$groups_create(name = random_name())
+  
+  grpa <- acl_add_group(cont2_content, grp$guid, "owner")
+  
+  expect_is(grpa, "Content")
+  
 })
