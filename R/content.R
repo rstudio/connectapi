@@ -165,13 +165,21 @@ get_acl_impl <- function(content) {
     )
   }
 
-  content_acls <- res[["users"]]
-  content_acls <- purrr::map(content_acls, function(.x) {
+  content_acls_user <- res[["users"]]
+  content_acls_user <- purrr::map(content_acls, function(.x) {
     .x$is_owner <- FALSE
+    .x$acl_type <- "user"
+    return(.x)
+  })
+  
+  content_acls_group <- res[["groups"]]
+  content_acls_group <- purrr::map(content_acls, function(.x) {
+    .x$is_owner <- FALSE
+    .x$acl_type = "group"
     return(.x)
   })
 
-  return(c(list(owner), content_acls))
+  return(c(list(owner), content_acls_user, content_acls_group))
 }
 
 content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
