@@ -138,7 +138,7 @@ get_acl_user <- function(content) {
 
   content_info <- content$get_content_remote()
   prep <- get_acl_user_impl(content)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl)
+  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_user)
   out$content_guid <- content_info$guid
   out$content_access_type <- content_info$access_type
 
