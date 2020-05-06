@@ -361,17 +361,20 @@ test_that("acl_add_group works", {
   scoped_experimental_silence()
   grp <- test_conn_1$groups_create(name = random_name())
   
-  grpaddedcontent <- acl_add_group(cont2_content, grp$guid, "owner")
+  content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
   
-  expect_is(grpaddedcontent, "Content")
+  expect_is(content_v1, "Content")
   
-  cacl <- get_acl_group(grpaddedcontent)
+  cacl <- get_acl_group(content_v1)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl), 1)
+  expect_equal(acl_group_role(content_v1, grp$guid), "owner")
   
-  
-  content_v2 <- acl_remove_group(grpaddedcontent, grp$guid)
+  # remove ACL
+  content_v2 <- acl_remove_group(content_v1, grp$guid)
   cacl_new <- get_acl_group(content_v2)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl_new), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl_new), 0)
+  
+  expect_null(acl_group_role(content_v2, grp$guid))
 })
