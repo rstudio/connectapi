@@ -101,3 +101,12 @@ acl_user_role <- function(content, user_guid) {
 
   return(user_entry$app_role)
 }
+
+#' @rdname acl_add_group
+acl_remove_group <- function(content, group_guid) {
+  warn_experimental("acl_remove")
+  res <- content$get_connect()$DELETE(
+    glue::glue("applications/{content$get_content()$guid}/groups/{group_guid}")
+  )
+  return(content)
+}
