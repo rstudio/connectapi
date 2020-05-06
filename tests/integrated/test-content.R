@@ -368,4 +368,10 @@ test_that("acl_add_group works", {
   cacl <- get_acl_group(grpaddedcontent)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl), 1)
+  
+  
+  content_v2 <- acl_remove_group(grpaddedcontent, grp$guid)
+  cacl_new <- get_acl_group(content_v2)
+  expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl_new), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
+  expect_equal(nrow(cacl_new), 0)
 })
