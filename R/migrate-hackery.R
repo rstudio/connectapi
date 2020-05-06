@@ -110,3 +110,15 @@ acl_remove_group <- function(content, group_guid) {
   )
   return(content)
 }
+
+acl_group_role <- function(content, group_guid) {
+  warn_experimental("acl_group_role")
+  scoped_experimental_silence()
+  acls <- get_acl_group_impl(content)
+  if (is.null(group_guid) || is.na(group_guid)) {
+    return(NULL)
+  }
+  group_entry <- purrr::flatten(purrr::keep(acls, ~ .x$guid == group_guid))
+  
+  return(group_entry$app_role)
+}
