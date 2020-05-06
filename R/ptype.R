@@ -113,13 +113,13 @@ connectapi_ptypes <- list(
     is_owner = NA
   ),
   acl_group = tibble::tibble(
-    content_guid = NA_character_,
-    content_access_type = NA_character_,
+    owner_guid = NA_character_,
     name = NA_character_,
+    members = NA_list_,
+    owner = NA_character_,
     guid = NA_character_,
     app_role = NA_character_,
-    members = NA_list_,
-    owner_guid = NA_character_,
-    owner = NA_character_
+    content_guid = NA_character_,
+    content_access_type = NA_character_
   )
 )
