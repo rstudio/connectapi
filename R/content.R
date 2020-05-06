@@ -151,10 +151,11 @@ get_acl_group <- function(content) {
   
   content_info <- content$get_content_remote()
   prep <- get_acl_group_impl(content)
-  # TODO: need this ptype defined
   out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_group)
-  out$content_guid <- content_info$guid
-  out$content_access_type <- content_info$access_type
+  if (nrow(out) > 0) {
+    out$content_guid <- content_info$guid
+    out$content_access_type <- content_info$access_type
+  }
   
   return(out)
 }
