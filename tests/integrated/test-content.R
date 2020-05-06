@@ -378,3 +378,14 @@ test_that("acl_add_group works", {
   
   expect_null(acl_group_role(content_v2, grp$guid))
 })
+
+test_that("acl_group_role with null user_guid returns NULL", {
+  scoped_experimental_silence()
+  expect_null(acl_group_role(cont1_content, NULL))
+})
+
+test_that("acl_group_role with no role returns NULL", {
+  scoped_experimental_silence()
+  acl_remove_user(cont1_content, viewer_guid)
+  expect_null(acl_group_role(cont1_content, viewer_guid))
+})
