@@ -145,6 +145,7 @@ get_acl_user <- function(content) {
   return(out)
 }
 
+#' @export
 get_acl_group <- function(content) {
   warn_experimental("get_acl")
   
