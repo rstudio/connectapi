@@ -416,6 +416,22 @@ Connect <- R6::R6Class(
         body = list(name = name)
       )
     },
+    
+    groups_create_remote = function(temp_ticket) {
+      path <- "v1/groups"
+      self$PUT(
+        path = path,
+        body = list(temp_ticket = temp_ticket)
+      )
+    },
+    
+    groups_remote = function(prefix = NULL, limit = 20) {
+      if (limit > 500) {
+        # reset limit to avoid error
+        limit <- 500
+      }
+      self$GET("v1/groups/remote")
+    },
 
     # instrumentation --------------------------------------------
 
