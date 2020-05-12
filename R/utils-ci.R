@@ -186,12 +186,13 @@ create_first_admin <- function(
                                url,
                                user, password, email,
                                keyname = "first-key",
-                               provider = "password") {
+                               provider = "password"
+                               ) {
   warn_dire("create_first_admin")
   check_connect_license(url)
 
   client <- HackyConnect$new(host = url, api_key = NULL)
-
+  
   if (provider == "password") {
     tryCatch(
       {
@@ -208,6 +209,10 @@ create_first_admin <- function(
         message(glue::glue("Error creating first admin: {e}"))
       }
     )
+  } else if (provider %in% c("ldap", "pam")) {
+    # can just log in using user / password
+  } else {
+    stop("Unsupported authentication provider")
   }
 
   login <- client$login(
