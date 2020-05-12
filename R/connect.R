@@ -353,6 +353,14 @@ Connect <- R6::R6Class(
         )
       )
     },
+    
+    users_create_remote = function(temp_ticket) {
+      path <- "v1/users"
+      self$PUT(
+        path = path,
+        body = list(temp_ticket = temp_ticket)
+      )
+    },
 
     users_lock = function(user_guid) {
       path <- sprintf("v1/users/%s/lock", user_guid)
