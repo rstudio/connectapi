@@ -126,6 +126,11 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #' NOTE: ACLs can still be stored, even when access_type for content is "all" or
 #' "logged_in" users. In these cases, granting or removing "viewer" privileges
 #' have no effect.
+#' 
+#' - `get_acl_user()` returns user ACLs
+#' - `get_acl_group()` returns group ACLs
+#' 
+#' `get_acl()` is deprecated.
 #'
 #' @param content [Content] An R6 Content item
 #'
@@ -133,6 +138,8 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #'
 #' @family content functions
 #' @export
+#' 
+#' @rdname get_acl
 get_acl_user <- function(content) {
   warn_experimental("get_acl")
 
@@ -145,6 +152,7 @@ get_acl_user <- function(content) {
   return(out)
 }
 
+#' @rdname get_acl
 #' @export
 get_acl_group <- function(content) {
   warn_experimental("get_acl")
@@ -160,7 +168,7 @@ get_acl_group <- function(content) {
   return(out)
 }
 
-#' @rdname get_acl_user
+#' @rdname get_acl
 #' @export
 get_acl <- function(content) {
   lifecycle::deprecate_warn(
