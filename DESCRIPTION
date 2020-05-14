@@ -32,7 +32,7 @@ Imports:
     rlang,
     tibble,
     uuid,
-    vctrs,
+    vctrs (>= 3.0.0),
     yaml
 Suggests: 
     crayon,
