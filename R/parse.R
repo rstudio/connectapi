@@ -33,7 +33,7 @@ ensure_column <- function(data, default, name) {
   col <- data[[name]]
   scoped_experimental_silence()
   if (rlang::is_null(col)) {
-    col <- rep_len(default, nrow(data))
+    col <- vctrs::vec_rep(default, nrow(data))
     col <- vctrs::vec_cast(col, default)
   } else {
     col <- swap_timestamp_format(col)
