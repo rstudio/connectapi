@@ -64,6 +64,8 @@ test_that("content_title handles NULL titles gracefully", {
   expect_identical(null_title, "Test Title")
 })
 
+context("acl")
+
 test_that("acl returns owner once and only once", {
   scoped_experimental_silence()
 
