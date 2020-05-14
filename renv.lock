@@ -114,13 +114,6 @@
       "Repository": "CRAN",
       "Hash": "08cf4045c149a0f0eaf405324c7495bd"
     },
-    "clisymbols": {
-      "Package": "clisymbols",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "96c01552bfd5661b9bbdefbc762f4bcd"
-    },
     "colorspace": {
       "Package": "colorspace",
       "Version": "1.4-1",
@@ -234,15 +227,10 @@
     },
     "farver": {
       "Package": "farver",
-      "Version": "2.0.3.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "farver",
-      "RemoteUsername": "thomasp85",
-      "RemoteRef": "master",
-      "RemoteSha": "f1bcb566bff88f2b58d90e77a8e5d36c1c6bba77",
-      "Hash": "b2f5fb49431937c17cad01278be6329e"
+      "Version": "2.0.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "dad6793a5a1f73c8e91f1a1e3e834b05"
     },
     "fastmap": {
       "Package": "fastmap",
@@ -672,15 +660,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.4.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "rlang",
-      "RemoteUsername": "r-lib",
-      "RemoteRef": "master",
-      "RemoteSha": "26bdd4f54536eac1d23f36a573460a1be5297774",
-      "Hash": "ac797efee4f599b820d287d4034647d0"
+      "Version": "0.4.6",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "aa263e3ce17b177c49e0daade2ee3cdc"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -817,15 +800,10 @@
     },
     "usethis": {
       "Package": "usethis",
-      "Version": "1.5.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "usethis",
-      "RemoteUsername": "r-lib",
-      "RemoteRef": "master",
-      "RemoteSha": "5c1efddd54fb8c9b953b25ada7970946801c485b",
-      "Hash": "481f0b6fe27d75ca11210bf1f8ddc007"
+      "Version": "1.6.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e1985f5a9985fea2e338fa7eb99018ca"
     },
     "utf8": {
       "Package": "utf8",
@@ -843,10 +821,15 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.2.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "2c0f41d87be7a186139a6d3d5215848e"
+      "Version": "0.3.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "vctrs",
+      "RemoteRef": "master",
+      "RemoteSha": "5b71d88b365e7190ffc096e50f58c924464e019a",
+      "Hash": "9013903678bf69e1548eaad0722dbe02"
     },
     "viridisLite": {
       "Package": "viridisLite",
