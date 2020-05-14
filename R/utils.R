@@ -11,23 +11,6 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
-my_rep_len <- function(x, length.out) {
-  if (inherits(x, "POSIXct") || inherits(x, "POSIXt")) {
-    if (length.out == 0) {
-      return()
-    }
-    x_agg <- x
-    i <- 1
-    while (i < length.out) {
-      x_agg <- c(x_agg, x)
-      i <- i + 1
-    }
-    return(x_agg)
-  } else {
-    return(rep_len(x, length.out))
-  }
-}
-
 random_name <- function(length = 25) {
   tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
 }
