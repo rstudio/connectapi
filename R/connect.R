@@ -438,7 +438,18 @@ Connect <- R6::R6Class(
         # reset limit to avoid error
         limit <- 500
       }
-      self$GET("v1/groups/remote")
+      path <- glue::glue(
+        "v1/groups/remote?",
+        glue::glue(
+          safe_query(prefix, "prefix="),
+          safe_query(limit, "limit="),
+          .sep = "&"
+        ) %>%
+          gsub("^&+", "", .) %>%
+          gsub("&+", "&", .)
+      ) 
+      
+      self$GET(path)
     },
 
     # instrumentation --------------------------------------------
