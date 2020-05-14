@@ -45,7 +45,7 @@ determine_license_env <- function(license) {
 }
 
 compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
-  warn_dire("compose_Start")
+  warn_dire("compose_start")
   scoped_dire_silence()
 
   stopifnot(nchar(connect_license) > 0)
@@ -88,6 +88,30 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
   invisible()
 }
 
+#' Wait for a Process to Complete
+#' 
+#' It is important to poll output intermittently in case pipe buffers fill up.
+#' Otherwise the process will be paused until the buffer is cleared.
+#' 
+#' @param proc A processx process object
+#' 
+#' @return A list with named stdout and stderr entries
+#' 
+#' @keywords internal
+wait_for_process <- function(proc) {
+  agg_output <- character()
+  agg_error <- character()
+  
+  while(proc$is_alive()) {
+    agg_output <- c(agg_output, proc$read_output_lines())
+    agg_error <- c(agg_error, proc$read_error_lines())
+    Sys.sleep(0.05)
+  }
+  return(
+    list(stdout = agg_output, stderr = agg_error)
+  )
+}
+
 compose_find_hosts <- function(prefix) {
   warn_dire("compose_find")
   scoped_dire_silence()
@@ -95,9 +119,7 @@ compose_find_hosts <- function(prefix) {
   # get docker containers
   cat_line("docker: getting list of containers...")
   docker_ps <- processx::process$new("docker", "ps", stdout = "|", stderr = "|")
-  while (docker_ps$is_alive()) Sys.sleep(0.05)
-  stopifnot(docker_ps$get_exit_status() == 0)
-  docker_ps_output <- docker_ps$read_output_lines()
+  docker_ps_output <- wait_for_process(docker_ps)$stdout
   cat_line("docker: got containers")
 
   c1 <- docker_ps_output[grep(glue::glue("{prefix}_1"), docker_ps_output)]
@@ -169,7 +191,7 @@ build_test_env <- function(
   cat_line()
   cat_line("NOTE: be sure to reload .Renviron before running tests!")
   cat_line('  readRenviron(".Renviron")')
-  cat_line("  devtools::test()")
+  cat_line('  source("tests/test-integrated.R")')
   cat_line()
   cat_line()
 
