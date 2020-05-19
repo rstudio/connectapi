@@ -4,10 +4,10 @@
 \alias{users_create_remote}
 \title{Create a Remote User}
 \usage{
-users_create_remote(src, prefix, expect = 1, check = TRUE)
+users_create_remote(connect, prefix, expect = 1, check = TRUE)
 }
 \arguments{
-\item{src}{A R6 Connect object}
+\item{connect}{A R6 Connect object}
 
 \item{prefix}{character. The prefix of the user name to search for}
 
