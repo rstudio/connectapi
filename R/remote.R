@@ -8,7 +8,7 @@
 #' @return The results of creating the users
 #'
 #' @export
-rsc_users_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
+users_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
   expect <- as.integer(expect)
   if (check && expect > 1) {
     stop(glue::glue("expect > 1 is not tested. Please set expect = 1, and specify a more narrow 'prefix'. You provided: expect={expect}"))
@@ -51,7 +51,7 @@ rsc_users_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
 #' @return The results of creating the groups
 #'
 #' @export
-rsc_groups_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
+groups_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
   expect <- as.integer(expect)
   if (check && expect > 1) {
     stop(glue::glue("expect > 1 is not tested. Please set expect = 1, and specify a more narrow 'prefix'. You provided: expect={expect}"))
