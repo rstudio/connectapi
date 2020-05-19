@@ -4,10 +4,10 @@
 \alias{groups_create_remote}
 \title{Create a Remote Group}
 \usage{
-groups_create_remote(src, prefix, expect = 1, check = TRUE)
+groups_create_remote(connect, prefix, expect = 1, check = TRUE)
 }
 \arguments{
-\item{src}{A R6 Connect object}
+\item{connect}{A R6 Connect object}
 
 \item{prefix}{character. The prefix of the group name to search for}
 
