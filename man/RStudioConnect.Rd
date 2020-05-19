@@ -69,6 +69,7 @@ Other R6 classes:
 \item \href{#method-users}{\code{Connect$users()}}
 \item \href{#method-users_remote}{\code{Connect$users_remote()}}
 \item \href{#method-users_create}{\code{Connect$users_create()}}
+\item \href{#method-users_create_remote}{\code{Connect$users_create_remote()}}
 \item \href{#method-users_lock}{\code{Connect$users_lock()}}
 \item \href{#method-users_unlock}{\code{Connect$users_unlock()}}
 \item \href{#method-users_update}{\code{Connect$users_update()}}
@@ -77,6 +78,8 @@ Other R6 classes:
 \item \href{#method-group_member_add}{\code{Connect$group_member_add()}}
 \item \href{#method-group_member_remove}{\code{Connect$group_member_remove()}}
 \item \href{#method-groups_create}{\code{Connect$groups_create()}}
+\item \href{#method-groups_create_remote}{\code{Connect$groups_create_remote()}}
+\item \href{#method-groups_remote}{\code{Connect$groups_remote()}}
 \item \href{#method-inst_content_visits}{\code{Connect$inst_content_visits()}}
 \item \href{#method-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
 \item \href{#method-procs}{\code{Connect$procs()}}
@@ -385,6 +388,15 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-users_create_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-users_create_remote}{}}}
+\subsection{Method \code{users_create_remote()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$users_create_remote(temp_ticket)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-users_lock"></a>}}
 \if{latex}{\out{\hypertarget{method-users_lock}{}}}
 \subsection{Method \code{users_lock()}}{
@@ -453,6 +465,24 @@ Other R6 classes:
 \subsection{Method \code{groups_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$groups_create(name)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-groups_create_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-groups_create_remote}{}}}
+\subsection{Method \code{groups_create_remote()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_create_remote(temp_ticket)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-groups_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-groups_remote}{}}}
+\subsection{Method \code{groups_remote()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 20)}\if{html}{\out{</div>}}
 }
 
 }
