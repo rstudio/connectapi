@@ -43,12 +43,6 @@ additional endpoints would be useful\!\!**
 
 ## Installation
 
-To get started:
-
-``` r
-install.packages("connectapi")
-```
-
 To install the development version:
 
 ``` r
