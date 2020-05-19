@@ -6,6 +6,20 @@ test_that("vec_cast.fs_bytes warns", {
   expect_is(vctrs::vec_cast(1L, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
 })
 
+test_that("vec_cast.POSIXct.character works", {
+  skip("failing currently")
+  vctrs::vec_cast("2020-05-19 01:36:27Z", NA_datetime_)
+})
+
+test_that("coerce_datetime fills the void", {
+  chardate <- "2020-05-19 01:36:27Z"
+  numdate <- as.double(Sys.time())
+  expect_is(coerce_datetime(chardate, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(numdate, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(NA_datetime_, NA_datetime_), "POSIXct")
+  expect_error(coerce_datetime(data.frame(), NA_datetime_), class = "vctrs_error_incompatible_type")
+})
+
 context("swap_timestamp_format")
 
 test_that("works with expected case", {
