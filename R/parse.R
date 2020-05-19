@@ -37,6 +37,10 @@ ensure_column <- function(data, default, name) {
     col <- vctrs::vec_cast(col, default)
   } else {
     col <- swap_timestamp_format(col)
+    if (vctrs::vec_is(default, NA_datetime_) && !vctrs::vec_is(col, NA_datetime_)) {
+      # manual fix because vctrs::vec_cast cannot cast double -> datetime or char -> datetime
+      col <- coerce_datetime(col, default)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
@@ -101,4 +105,41 @@ vec_cast.fs_bytes.default <- function(x, to, ...) {
 vec_cast.fs_bytes <- function(x, to, ...) {
   warn_experimental("vec_cast.fs_bytes")
   UseMethod("vec_cast.fs_bytes")
+}
+
+coerce_datetime <- function(x, to, ...) {
+  if (is.double(x)) {
+    vctrs::new_datetime(x, tzone = tzone(to))
+  } else if (is.character(x)) {
+    as.POSIXct(x, tz = tzone(to))
+  } else {
+    vctrs::stop_incompatible_cast(x = x, to = to, x_arg = "x", to_arg = "to")
+  }
+}
+
+vec_cast.POSIXct.double <- function(x, to, ...) {
+  warn_experimental("vec_cast.POSIXct.double")
+  vctrs::new_datetime(x, tzone = tzone(to))
+}
+
+vec_cast.POSIXct.character <- function (x, to, ...) 
+{
+  as.POSIXct(x, tz = tzone(to))
+}
+
+tzone <- function (x) 
+{
+  attr(x, "tzone")[[1]] %||% ""
+}
+
+
+new_datetime <- function (x = double(), tzone = "") 
+{
+  tzone <- tzone %||% ""
+  if (is.integer(x)) {
+    x <- as.double(x)
+  }
+  stopifnot(is.double(x))
+  stopifnot(is.character(tzone))
+  structure(x, tzone = tzone, class = c("POSIXct", "POSIXt"))
 }
