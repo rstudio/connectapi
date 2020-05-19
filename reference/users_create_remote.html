@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • connectapi</title>
+<title>Create a Remote User — users_create_remote • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Create a Remote User — users_create_remote" />
+<meta property="og:description" content="Create a Remote User" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -130,18 +131,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Create a Remote User</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/remote.R'><code>R/remote.R</code></a></small>
+    <div class="hidden name"><code>users_create_remote.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="getting-started.html">Getting Started with connectapi</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Create a Remote User</p>
     </div>
+
+    <pre class="usage"><span class='fu'>users_create_remote</span>(<span class='no'>src</span>, <span class='no'>prefix</span>, <span class='kw'>expect</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>src</th>
+      <td><p>A R6 Connect object</p></td>
+    </tr>
+    <tr>
+      <th>prefix</th>
+      <td><p>character. The prefix of the user name to search for</p></td>
+    </tr>
+    <tr>
+      <th>expect</th>
+      <td><p>number. The number of responses to expect for this search</p></td>
+    </tr>
+    <tr>
+      <th>check</th>
+      <td><p>boolean. Whether to check for local existence first</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The results of creating the users</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

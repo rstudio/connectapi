@@ -81,7 +81,7 @@ Class representing a Connect API client" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9008</span>
       </span>
     </div>
 
@@ -206,6 +206,7 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href='#method-users'><code>Connect$users()</code></a></p></li>
 <li><p><a href='#method-users_remote'><code>Connect$users_remote()</code></a></p></li>
 <li><p><a href='#method-users_create'><code>Connect$users_create()</code></a></p></li>
+<li><p><a href='#method-users_create_remote'><code>Connect$users_create_remote()</code></a></p></li>
 <li><p><a href='#method-users_lock'><code>Connect$users_lock()</code></a></p></li>
 <li><p><a href='#method-users_unlock'><code>Connect$users_unlock()</code></a></p></li>
 <li><p><a href='#method-users_update'><code>Connect$users_update()</code></a></p></li>
@@ -214,6 +215,8 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href='#method-group_member_add'><code>Connect$group_member_add()</code></a></p></li>
 <li><p><a href='#method-group_member_remove'><code>Connect$group_member_remove()</code></a></p></li>
 <li><p><a href='#method-groups_create'><code>Connect$groups_create()</code></a></p></li>
+<li><p><a href='#method-groups_create_remote'><code>Connect$groups_create_remote()</code></a></p></li>
+<li><p><a href='#method-groups_remote'><code>Connect$groups_remote()</code></a></p></li>
 <li><p><a href='#method-inst_content_visits'><code>Connect$inst_content_visits()</code></a></p></li>
 <li><p><a href='#method-inst_shiny_usage'><code>Connect$inst_shiny_usage()</code></a></p></li>
 <li><p><a href='#method-procs'><code>Connect$procs()</code></a></p></li>
@@ -425,6 +428,12 @@ API. Authentication is done by providing an API key.</p>
 )</pre><p></div></p>
 
 <p><hr>
+<a id="method-users_create_remote"></a></p><h3>Method <code><a href='users_create_remote.html'>users_create_remote()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='users_create_remote.html'>users_create_remote</a></span>(<span class='no'>temp_ticket</span>)</pre><p></div></p>
+
+<p><hr>
 <a id="method-users_lock"></a></p><h3>Method <code>users_lock()</code></h3>
 
 <h3>Usage</h3>
@@ -471,6 +480,18 @@ API. Authentication is done by providing an API key.</p>
 
 <h3>Usage</h3>
 <p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>groups_create</span>(<span class='no'>name</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_create_remote"></a></p><h3>Method <code><a href='groups_create_remote.html'>groups_create_remote()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='groups_create_remote.html'>groups_create_remote</a></span>(<span class='no'>temp_ticket</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_remote"></a></p><h3>Method <code>groups_remote()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>groups_remote</span>(<span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre><p></div></p>
 
 <p><hr>
 <a id="method-inst_content_visits"></a></p><h3>Method <code>inst_content_visits()</code></h3>

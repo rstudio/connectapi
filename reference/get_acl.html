@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get ACL Details — get_acl • connectapi</title>
+<title>Get ACL Details — get_acl_user • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Get ACL Details — get_acl" />
+<meta property="og:title" content="Get ACL Details — get_acl_user" />
 <meta property="og:description" content="
  Retrieve the Access Controls associated with a given
 piece of content." />
@@ -82,7 +82,7 @@ piece of content." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9008</span>
       </span>
     </div>
 
@@ -144,7 +144,11 @@ piece of content." />
 piece of content.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_acl</span>(<span class='no'>content</span>)</pre>
+    <pre class="usage"><span class='fu'>get_acl_user</span>(<span class='no'>content</span>)
+
+<span class='fu'>get_acl_group</span>(<span class='no'>content</span>)
+
+<span class='fu'>get_acl</span>(<span class='no'>content</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,7 +166,12 @@ piece of content.</p>
 
     <p>NOTE: ACLs can still be stored, even when access_type for content is "all" or
 "logged_in" users. In these cases, granting or removing "viewer" privileges
-have no effect.</p>
+have no effect.</p><ul>
+<li><p><code>get_acl_user()</code> returns user ACLs</p></li>
+<li><p><code>get_acl_group()</code> returns group ACLs</p></li>
+</ul>
+
+<p><code>get_acl()</code> is deprecated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other content functions: 

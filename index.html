@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9008</span>
       </span>
     </div>
 
@@ -113,25 +113,23 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>To get started:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"connectapi"</span>)</pre></div>
 <p>To install the development version:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'rstudio/connectapi'</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'rstudio/connectapi'</span>)</pre></div>
 </div>
 <div id="client" class="section level2">
 <h2 class="hasAnchor">
 <a href="#client" class="anchor"></a>Client</h2>
 <p>To create a client:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
 <span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>(
   <span class="kw">host</span> <span class="kw">=</span> <span class="st">'https://connect.example.com'</span>,
   <span class="kw">api_key</span> <span class="kw">=</span> <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span>
 )</pre></div>
 <p>You can also define the following environment variables (in a <code>.Renviron</code> file, for instance):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">CONNECT_SERVER  =<span class="st"> </span>https<span class="op">:</span><span class="er">//</span>connect.example.com</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">CONNECT_API_KEY =<span class="st"> </span>my<span class="op">-</span>secret<span class="op">-</span>api<span class="op">-</span>key</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">CONNECT_SERVER  =<span class="st"> </span>https<span class="op">:</span><span class="er">//</span>connect.example.com</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">CONNECT_API_KEY =<span class="st"> </span>my<span class="op">-</span>secret<span class="op">-</span>api<span class="op">-</span>key</a></code></pre></div>
 <p>These environment variable values will be used automatically if defined in your R session.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
 <span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()</pre></div>
 </div>
 <div id="getting-started" class="section level2">
@@ -142,7 +140,7 @@
 <h3 class="hasAnchor">
 <a href="#exploring-data" class="anchor"></a>Exploring Data</h3>
 <p>You can use the <code>get_</code> methods to retrieve data from the RStudio Connect server.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
 <span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
 
 <span class="co"># get data</span>
@@ -159,7 +157,7 @@
 <h3 class="hasAnchor">
 <a href="#deployment" class="anchor"></a>Deployment</h3>
 <p>The <code>rsconnect</code> package is usually used for deploying content to Connect. However, if you want to use programmatic deployment with the RStudio Connect Server API, then these <code>connectapi</code> helpers should be useful!</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
 <span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
 
 <span class="co"># deploying content</span>
