@@ -353,6 +353,14 @@ Connect <- R6::R6Class(
         )
       )
     },
+    
+    users_create_remote = function(temp_ticket) {
+      path <- "v1/users"
+      self$PUT(
+        path = path,
+        body = list(temp_ticket = temp_ticket)
+      )
+    },
 
     users_lock = function(user_guid) {
       path <- sprintf("v1/users/%s/lock", user_guid)
@@ -415,6 +423,33 @@ Connect <- R6::R6Class(
         path = path,
         body = list(name = name)
       )
+    },
+    
+    groups_create_remote = function(temp_ticket) {
+      path <- "v1/groups"
+      self$PUT(
+        path = path,
+        body = list(temp_ticket = temp_ticket)
+      )
+    },
+    
+    groups_remote = function(prefix = NULL, limit = 20) {
+      if (limit > 500) {
+        # reset limit to avoid error
+        limit <- 500
+      }
+      path <- glue::glue(
+        "v1/groups/remote?",
+        glue::glue(
+          safe_query(prefix, "prefix="),
+          safe_query(limit, "limit="),
+          .sep = "&"
+        ) %>%
+          gsub("^&+", "", .) %>%
+          gsub("&+", "&", .)
+      ) 
+      
+      self$GET(path)
     },
 
     # instrumentation --------------------------------------------

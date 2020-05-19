@@ -1,7 +1,5 @@
 # connectapi development
 
-* Initial CRAN release!
-
 BREAKING: 
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
 * Rename a handful of functions:
@@ -31,6 +29,7 @@ OTHER:
 * Add some helper functions:
   - `swap_vanity_url`, deployment functions
   - `browse_` family of functions
+  - `users_create_remote` and `groups_create_remote` for remote users/groups
 * Update `Connect` R6 object to be compatible with Connect 1.7.0+ APIs
 * Added a `NEWS.md` file to track changes to the package.
 * Add integration testing to protect against regressions

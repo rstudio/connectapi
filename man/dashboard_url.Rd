@@ -22,7 +22,7 @@ Other content functions:
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{dashboard_url_chr}()},
-\code{\link{get_acl}()},
+\code{\link{get_acl_user}()},
 \code{\link{get_vanity_url}()},
 \code{\link{set_image_path}()},
 \code{\link{set_vanity_url}()}
