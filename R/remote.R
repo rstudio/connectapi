@@ -1,6 +1,6 @@
 #' Create a Remote User
 #' 
-#' @param connect A R6 Connect object
+#' @param src A R6 Connect object
 #' @param prefix character. The prefix of the user name to search for
 #' @param expect number. The number of responses to expect for this search
 #' @param check boolean. Whether to check for local existence first
@@ -43,7 +43,7 @@ users_create_remote <- function(src, prefix, expect = 1, check = TRUE) {
 
 #' Create a Remote Group
 #' 
-#' @param connect A R6 Connect object
+#' @param src A R6 Connect object
 #' @param prefix character. The prefix of the group name to search for
 #' @param expect number. The number of responses to expect for this search
 #' @param check boolean. Whether to check for local existence first

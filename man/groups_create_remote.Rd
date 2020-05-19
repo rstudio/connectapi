@@ -7,13 +7,13 @@
 groups_create_remote(src, prefix, expect = 1, check = TRUE)
 }
 \arguments{
+\item{src}{A R6 Connect object}
+
 \item{prefix}{character. The prefix of the group name to search for}
 
 \item{expect}{number. The number of responses to expect for this search}
 
 \item{check}{boolean. Whether to check for local existence first}
-
-\item{connect}{A R6 Connect object}
 }
 \value{
 The results of creating the groups
