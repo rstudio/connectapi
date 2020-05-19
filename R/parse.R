@@ -41,6 +41,9 @@ ensure_column <- function(data, default, name) {
       # manual fix because vctrs::vec_cast cannot cast double -> datetime or char -> datetime
       col <- coerce_datetime(col, default)
     }
+    if (inherits(default, "fs_bytes") && !inherits(col, "fs_bytes")) {
+      col <- coerce_fsbytes(col, default)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
@@ -105,6 +108,14 @@ vec_cast.fs_bytes.default <- function(x, to, ...) {
 vec_cast.fs_bytes <- function(x, to, ...) {
   warn_experimental("vec_cast.fs_bytes")
   UseMethod("vec_cast.fs_bytes")
+}
+
+coerce_fsbytes <- function(x, to, ...) {
+  if (is.numeric(x)) {
+    fs::as_fs_bytes(x)
+  } else {
+    vctrs::stop_incompatible_cast(x = x, to = to, x_arg = "x", to_arg = "to")
+  }
 }
 
 coerce_datetime <- function(x, to, ...) {

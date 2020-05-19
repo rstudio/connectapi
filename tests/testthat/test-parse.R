@@ -11,6 +11,12 @@ test_that("vec_cast.POSIXct.character works", {
   vctrs::vec_cast("2020-05-19 01:36:27Z", NA_datetime_)
 })
 
+test_that("coerce_fsbytes fills the void", {
+  expect_is(coerce_fsbytes(1L, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
+  expect_is(coerce_fsbytes(1, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
+  expect_error(coerce_fsbytes(data.frame(), fs::as_fs_bytes(NA_integer_)), class = "vctrs_error_incompatible_type")
+})
+
 test_that("coerce_datetime fills the void", {
   chardate <- "2020-05-19 01:36:27Z"
   numdate <- as.double(Sys.time())
