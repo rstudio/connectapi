@@ -40,6 +40,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$new(connect, content)}\if{html}{\out{</div>}}
@@ -48,6 +49,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_connect"></a>}}
+\if{latex}{\out{\hypertarget{method-get_connect}{}}}
 \subsection{Method \code{get_connect()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_connect()}\if{html}{\out{</div>}}
@@ -56,6 +58,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_content"></a>}}
+\if{latex}{\out{\hypertarget{method-get_content}{}}}
 \subsection{Method \code{get_content()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content()}\if{html}{\out{</div>}}
@@ -64,6 +67,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_content_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-get_content_remote}{}}}
 \subsection{Method \code{get_content_remote()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content_remote()}\if{html}{\out{</div>}}
@@ -72,6 +76,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-update"></a>}}
+\if{latex}{\out{\hypertarget{method-update}{}}}
 \subsection{Method \code{update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$update(...)}\if{html}{\out{</div>}}
@@ -80,6 +85,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_dashboard_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_dashboard_url}{}}}
 \subsection{Method \code{get_dashboard_url()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_dashboard_url(pane = "")}\if{html}{\out{</div>}}
@@ -88,6 +94,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_jobs"></a>}}
+\if{latex}{\out{\hypertarget{method-get_jobs}{}}}
 \subsection{Method \code{get_jobs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_jobs()}\if{html}{\out{</div>}}
@@ -96,6 +103,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_job"></a>}}
+\if{latex}{\out{\hypertarget{method-get_job}{}}}
 \subsection{Method \code{get_job()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
@@ -104,6 +112,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$print(...)}\if{html}{\out{</div>}}
@@ -112,6 +121,7 @@ Other R6 classes:
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

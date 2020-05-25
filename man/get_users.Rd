@@ -4,17 +4,17 @@
 \alias{get_users}
 \title{Get user information from the RStudio Connect server}
 \usage{
-get_users(src, page_size = 20, page_number = 1, prefix = NULL)
+get_users(src, page_size = 20, prefix = NULL, limit = 25)
 }
 \arguments{
 \item{src}{The source object}
 
 \item{page_size}{the number of records to return per page (max 500)}
 
-\item{page_number}{the page number you wish to query}
-
 \item{prefix}{Filters users by prefix (username, first name, or last name).
 The filter is case insensitive.}
+
+\item{limit}{The max number of records to return}
 }
 \value{
 A tibble with the following columns:
@@ -46,15 +46,11 @@ Please see https://docs.rstudio.com/connect/api/#getUsers for more information
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  # get the first 20 users
-  get_users(client, page_size = 20)
-  
-  # get the second twenty users
-  get_users(client, page_size = 20, page_number = 2)
+library(connectapi)
+client <- connect()
 
+# get all users
+get_users(client, limit = Inf)
 }
 
 }

@@ -18,13 +18,13 @@ test_that("users_create works", {
     user_role = "publisher",
     email = "test@example.com",
     password = password
-    )
-  
+  )
+
   expect_equal(res$username, username)
 })
 
 test_that("users works", {
   users <- test_conn_1$users()
-  
+
   expect_gt(length(users$results), 0)
 })

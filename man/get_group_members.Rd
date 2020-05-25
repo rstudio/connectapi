@@ -41,15 +41,15 @@ Please see https://docs.rstudio.com/connect/api/#getGroupMembers for more inform
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  # get the first 20 groups
-  groups <- get_groups(client)
-  
-  group_guid <- groups$guid[1]
-  
-  get_group_members(client, guid = group_guid)
+library(connectapi)
+client <- connect()
+
+# get the first 20 groups
+groups <- get_groups(client)
+
+group_guid <- groups$guid[1]
+
+get_group_members(client, guid = group_guid)
 }
 
 }

@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
 [![Travis build
@@ -13,8 +13,7 @@ status](https://travis-ci.org/rstudio/connectapi.svg?branch=master)](https://tra
 
 # connectapi <img src='man/figures/logo.svg' align="right" height="139" />
 
-This package is an **experimental WIP**. The package provides an R
-client for the [RStudio Connect Server
+This package provides an R client for the [RStudio Connect Server
 API](https://docs.rstudio.com/connect/api/) as well as helpful functions
 that utilize the client. The package is based on the `rsconnnect`
 [package](https://rstudio.github.io/rsconnect/), but is publicly
@@ -34,12 +33,20 @@ when you care about the reproducibility of workflows that use
   - test your dependent content before and after upgrading RStudio
     Connect
 
+Please pay careful attention to the lifecycle badges of the various
+functions and warnings present when you are using experimental features.
+
+**Also, [please share
+feedback\!\!](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+We love hearing how the RStudio Connect Server API is helpful and what
+additional endpoints would be useful\!\!**
+
 ## Installation
 
-To get started:
+To install the development version:
 
 ``` r
-devtools::install_github('rstudio/connectapi')
+remotes::install_github('rstudio/connectapi')
 ```
 
 ## Client
@@ -75,26 +82,22 @@ Connect.
 
 ### Exploring Data
 
-These are experimental `lazy_tbl`s that allow you to retrieve data from
-the Connect Server API much like using `dplyr`, `dbplyr`, or `dtplyr`.
-Use `collect()` to retrieve data when finished.
-
-NOTE: `filter` is not yet supported with this `tbl_connect`
-implementation.
+You can use the `get_` methods to retrieve data from the RStudio Connect
+server.
 
 ``` r
 library(connectapi)
 client <- connect()
 
-# preview data
-users <- tbl_connect(client, "users")
-groups <- tbl_connect(client, "groups")
-usage_shiny <- tbl_connect(client, "usage_shiny")
-usage_static <- tbl_connect(client, "usage_static")
-all_content <- tbl_connect(client, "content")
+# get data
+users <- get_users(client)
+groups <- get_groups(client)
+usage_shiny <- get_usage_shiny(client)
+usage_static <- get_usage_static(client)
+some_content <- get_content(client)
 
-# page through all of the data
-all_shiny_usage <- usage_shiny %>% collect()
+# get all content
+all_content <- get_content(client, n = Inf)
 ```
 
 ### Deployment
@@ -109,6 +112,7 @@ library(connectapi)
 client <- connect()
 
 # deploying content
+# NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`
 
 bundle <- bundle_dir("./path/to/directory")
 content <- client %>% 
@@ -149,6 +153,10 @@ prod_bnd <- client %>%
 client_prod %>%
   deploy(prod_bnd, title = "Now in Production") %>%
   set_vanity_url("/my-app")
+
+# open a browser to the content item
+client_prod %>% browse_dashboard()
+client_prod %>% browse_solo()
 ```
 
 # Code of Conduct

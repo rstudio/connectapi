@@ -130,10 +130,10 @@ Please see https://docs.rstudio.com/connect/api/#getContent for more information
 }
 \examples{
 \dontrun{
-  library(connectapi)
-  client <- connect()
-  
-  get_content(client, limit = 20)
+library(connectapi)
+client <- connect()
+
+get_content(client, limit = 20)
 }
 
 }

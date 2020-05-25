@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-RSC_VERSION=1.8.0.3-19
+RSC_VERSION=1.8.2-10
 
 #---------------------------------------------
 # Network
@@ -72,4 +72,10 @@ test-run:
 	NETWORK=${NETWORK} \
   docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test
 
+test-run-i:
+	NETWORK=${NETWORK} \
+  docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test bash
+
 test: network-up test-env-up test-run test-env-down network-down
+
+clean: test-env-down network-down
