@@ -391,3 +391,25 @@ test_that("acl_group_role with no role returns NULL", {
   acl_remove_user(cont1_content, viewer_guid)
   expect_null(acl_group_role(cont1_content, viewer_guid))
 })
+
+context("set_run_as")
+
+test_that("fails for static content", {
+  skip("TODO: testing")
+})
+
+test_that("works with a good linux user", {
+  skip("TODO: testing")
+})
+
+test_that("fails with a bad linux user", {
+  skip("TODO: testing")
+})
+
+test_that("resets with value NULL", {
+  skip("TODO: testing")
+})
+
+test_that("works for run_as_current_user", {
+  skip("TODO: testing")
+})
