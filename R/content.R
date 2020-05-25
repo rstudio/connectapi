@@ -39,6 +39,19 @@ Content <- R6::R6Class(
       )
       return(self)
     },
+    runas = function(run_as, run_as_current_user = FALSE) {
+      warn_experimental("content_runas")
+      params <- list(
+        run_as = run_as,
+        run_as_current_user = run_as_current_user
+      )
+      url <- glue::glue("applications/{self$get_content()$guid}/runas")
+      res <- self$get_connect()$POST(
+        url,
+        params
+      )
+      return(res)
+    },
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
