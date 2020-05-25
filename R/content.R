@@ -300,15 +300,19 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 #' server and have appropriate group memberships, or you will get a `400: Bad Request`.
 #' Set to `NULL` to use the default RunAs user / unset any current configuration.
 #' 
+#' To "read" the current RunAs user, use the `Content` object or `get_content()` function.
+#' 
 #' @param content an R6 Content item
 #' @param run_as The RunAs user to use for this content
 #' @param run_as_current_user Whether to run this content as the viewer of the application
 #' 
 #' @return a Content object, updated with new details
 #' 
+#' @seealso get_content
+#' 
 #' @family content functions
 #' @export
-set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
+content_run_as <- function(content, run_as, run_as_current_user = FALSE) {
   warn_experimental("set_run_as")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
