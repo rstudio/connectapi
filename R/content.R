@@ -312,7 +312,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 #' 
 #' @family content functions
 #' @export
-content_run_as <- function(content, run_as, run_as_current_user = FALSE) {
+set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
   warn_experimental("set_run_as")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
