@@ -285,3 +285,37 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
   }
   return(content)
 }
+
+
+
+#' Set RunAs User
+#'
+#' \lifecycle{experimental} Set the `RunAs` user for a piece of content. 
+#' The `run_as_current_user` flag only does anything if:
+#' 
+#' - PAM is the authentication method
+#' - `Applications.RunAsCurrentUser` is enabled on the server
+#' 
+#' Also worth noting that the `run_as` user must exist on the RStudio Connect
+#' server and have appropriate group memberships, or you will get a `400: Bad Request`.
+#' Set to `NULL` to use the default RunAs user / unset any current configuration.
+#' 
+#' @param content an R6 Content item
+#' @param run_as The RunAs user to use for this content
+#' @param run_as_current_user Whether to run this content as the viewer of the application
+#' 
+#' @return a Content object, updated with new details
+#' 
+#' @family content functions
+#' @export
+set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
+  warn_experimental("set_run_as")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  raw_res <- content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
+  
+  invisible(content$get_content_remote())
+  
+  return(content)
+}
