@@ -35,6 +35,7 @@ Other R6 classes:
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url">}\href{../../connectapi/html/Content.html#method-get_dashboard_url}{\code{connectapi::Content$get_dashboard_url()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update">}\href{../../connectapi/html/Content.html#method-update}{\code{connectapi::Content$update()}}\out{</span>}
 }
 \out{</details>}
