@@ -129,6 +129,50 @@ test_that("content_title handles NULL titles gracefully", {
   expect_identical(null_title, "Test Title")
 })
 
+test_that("get_environment works with no environment variables", {
+  env <- get_environment(rmd_content)
+  curr_vers <- env$env_version
+  env <- get_environment(rmd_content)
+  
+  expect_identical(env$env_vars, list(a=1)[0])
+  expect_equal(env$env_version, curr_vers)
+})
+
+test_that("set_environment works", {
+  env <- get_environment(rmd_content)
+  curr_vers <- env$env_version
+  
+  new_env <- set_environment_new(env, test = "value", test1 = "value1", test2 = "value2")
+  
+  expect_equal(
+    new_env$env_vars,
+    list(
+      test = NA_character_, test1 = NA_character_, test2 = NA_character_
+      )
+    )
+  expect_equal(new_env$env_version, curr_vers + 1)
+  
+  new_env1 <- set_environment_new(env, test1 = "another")
+  expect_equal(
+    new_env$env_vars,
+    list(
+      test = NA_character_, test1 = NA_character_, test2 = NA_character_
+    )
+  )
+  
+  # remove a value multiple times
+  rm1 <- set_environment_remove(env, test)
+  expect_equal(rm1$env_vars, list(test1 = NA_character_, test2 = NA_character_))
+  rm2 <- set_environment_remove(env, test)
+  expect_equal(rm2$env_vars, list(test1 = NA_character_, test2 = NA_character_))
+  
+  rm3 <- set_environment_remove(env, "test1")
+  expect_equal(rm3$env_vars, list(test2 = NA_character_))
+  
+  rm4 <- set_environment_remove(env, test2 = "hi")
+  expect_equal(rm4$env_vars, list(a=1)[0])
+})
+
 # Execution ----------------------------------------------------
 #
 # i.e. deploying real content...
