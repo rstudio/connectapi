@@ -122,5 +122,34 @@ connectapi_ptypes <- list(
     app_role = NA_character_,
     content_guid = NA_character_,
     content_access_type = NA_character_
+  ),
+  variant = tibble::tibble(
+    id = NA_integer_,
+    app_id = NA_integer_,
+    key = NA_character_,
+    bundle_id = NA_integer_,
+    is_default = NA,
+    name = NA_character_,
+    email_collaborators = NA,
+    email_viewers = NA,
+    created_time = NA_datetime_,
+    rendering_id = NA_integer_,
+    render_time = NA_datetime_,
+    render_duration = NA_integer_,
+    visibility = NA_character_,
+    owner_id = NA_integer_
+  ),
+  rendering = tibble::tibble(
+    id = NA_integer_,
+    app_id = NA_integer_,
+    variant_id = NA_integer_,
+    bundle_id = NA_integer_,
+    job_key = NA_character_,
+    render_time = NA_datetime_,
+    # TODO: add bit64 for (large) integer duration here
+    render_duration = NA_integer_,
+    active = NA,
+    app_guid = NA_character_,
+    variant_key = NA_character_,
   )
 )
