@@ -214,7 +214,26 @@ Environment <- R6::R6Class(
 
 # does it make more sense to automatically "get the latest"
 # or to force the user to do that?
-get_environment <- function(content, ...) {
+#' Manage Environment Variables
+#' 
+#' \lifecycle{experimental} Manage Environment Variables for a piece of content.
+#' 
+#' `get_environment()` returns an Environment object for use with "setter" methods
+#' 
+#' `set_environment_new()` sets new environment values (either creating new
+#' values or updating existing)
+#' 
+#' `set_environment_remove()` removes existing environment variables
+#' 
+#' @param content An R6 Content object as returned by `content_item()`
+#' @param env An R6 Environment object as returned by `get_environment()`
+#' @param ... name = value pairs of environment variable names and values
+#' 
+#' @family content functions
+#' @export
+#' 
+#' @rdname environment
+get_environment <- function(content) {
   warn_experimental("get_environment")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
@@ -223,6 +242,8 @@ get_environment <- function(content, ...) {
   return(Environment$new(connect_client, content_data))
 }
 
+#' @rdname environment
+#' @export
 set_environment_new <- function(env, ...) {
   warn_experimental("set_environment")
   scoped_experimental_silence()
@@ -236,6 +257,8 @@ set_environment_new <- function(env, ...) {
   env$env_refresh()
 }
 
+#' @rdname environment
+#' @export
 set_environment_remove <- function(env, ...) {
   warn_experimental("set_environment")
   scoped_experimental_silence()
