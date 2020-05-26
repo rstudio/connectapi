@@ -89,7 +89,13 @@ Content <- R6::R6Class(
     environment = function() {
       warn_experimental("environment")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
-      self$get_connect()$GET(url)
+      res <- self$get_connect()$GET(url)
+      # update values to be NA, which is how we preserve them
+      res$values <- purrr::map(
+        res$values,
+        ~ NA_character_
+      )
+      return(res)
     },
     environment_set = function(..., .version = 0) {
       warn_experimental("environment_set")
@@ -139,6 +145,7 @@ Variant <- R6::R6Class(
       # TODO: need to check that content has
       # at least guid, url, title to be functional
       self$content <- content
+      # TODO: need to get the variant...?
     },
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
@@ -173,6 +180,83 @@ Variant <- R6::R6Class(
     }
   )
 )
+
+Environment <- R6::R6Class(
+  "Environment",
+  inherit = Content,
+  public = list(
+    env_version = NULL,
+    env_raw = NULL,
+    env_vars = NULL,
+    initialize = function(connect, content) {
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      # TODO: need to check that content has
+      # at least guid, url, title to be functional
+      self$content <- content
+      self$env_refresh()
+    },
+    env_refresh = function() {
+      # mutates the existing instance, so future
+      # references have the right version
+      self$env_raw <- self$environment()
+      self$env_version <- self$env_raw$version
+      self$env_vars <- self$env_raw$values
+      return(self)
+    },
+    print = function(...) {
+      super$print(...)
+      cat("Environment Variables:\n")
+      cat("  vctrs::vec_c(\n")
+      purrr::imap(self$env_vars, ~ cat(paste0("    ", .y, " = ", .x, ",\n")))
+      cat("  )\n")
+      cat("\n")
+      invisible(self)
+    }
+  )
+)
+
+# does it make more sense to automatically "get the latest"
+# or to force the user to do that?
+get_environment <- function(content, ...) {
+  warn_experimental("get_environment")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  content_data <- content$get_content_remote()
+  connect_client <- content$get_connect()
+  return(Environment$new(connect_client, content_data))
+}
+
+set_environment_new <- function(env, ...) {
+  warn_experimental("set_environment")
+  scoped_experimental_silence()
+  validate_R6_class(env, "Environment")
+  
+  # update existing env vars with new ones
+  new_env_vars <- purrr::list_modify(env$env_vars, ...)
+  
+  env$environment_set(!!!new_env_vars, .version = env$env_version)
+  
+  env$env_refresh()
+}
+
+set_environment_remove <- function(env, ...) {
+  warn_experimental("set_environment")
+  scoped_experimental_silence()
+  validate_R6_class(env, "Environment")
+  
+  # how to get the list of env vars to remove
+  #to_remove <- rlang::list2(...)
+  to_remove <- rlang::enexprs(...)
+  existing_vars <- env$env_vars
+  new_env_vars <- existing_vars[!names(existing_vars) %in% c(names(to_remove), as.character(to_remove))]
+  
+  env$environment_set(!!!new_env_vars, .version = env$env_version)
+  
+  env$env_refresh()
+}
+
+
 #' Get Content Item
 #'
 #' Returns a single content item based on guid
