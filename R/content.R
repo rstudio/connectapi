@@ -140,11 +140,7 @@ Variant <- R6::R6Class(
     variant = NULL,
     get_variant = function() {self$variant},
     initialize = function(connect, content, variant) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      # TODO: need to check that content has
-      # at least guid, url, title to be functional
-      self$content <- content
+      super$initialize(connect = connect, content = content)
       # TODO: need to get the variant...?
     },
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
@@ -181,6 +177,10 @@ Variant <- R6::R6Class(
   )
 )
 
+#' Environment
+#' 
+#' An R6 class that represents a Content's Environment Variables
+#' 
 Environment <- R6::R6Class(
   "Environment",
   inherit = Content,
@@ -189,11 +189,7 @@ Environment <- R6::R6Class(
     env_raw = NULL,
     env_vars = NULL,
     initialize = function(connect, content) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      # TODO: need to check that content has
-      # at least guid, url, title to be functional
-      self$content <- content
+      super$initialize(connect = connect, content = content)
       self$env_refresh()
     },
     env_refresh = function() {
