@@ -137,11 +137,16 @@ Variant <- R6::R6Class(
   "Variant",
   inherit = Content,
   public = list(
+    key = NULL,
     variant = NULL,
     get_variant = function() {self$variant},
-    initialize = function(connect, content, variant) {
+    initialize = function(connect, content, key) {
       super$initialize(connect = connect, content = content)
-      # TODO: need to get the variant...?
+      self$key <- key
+      # TODO: a better way to GET self
+      all_variants <- self$variants()
+      this_variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
+      self$variant <- this_variant
     },
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
@@ -155,24 +160,45 @@ Variant <- R6::R6Class(
     },
     render = function() {
       warn_experimental("render")
-      url <- glue::glue("variants/{self$get_variant()$id}/render")
-      self$get_connect()$POST(
+      # TODO: why both in query AND in body?
+      url <- glue::glue("variants/{self$get_variant()$id}/render?email=none&activate=true")
+      res <- self$get_connect()$POST(
         path = url,
         body = list(
           email = "none",
           activate = TRUE
         )
       )
+      
+      # add the content guid and variant key
+      content_guid <- self$get_content()$guid
+      variant_key <- self$key
+      
+      purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
     },
     renderings = function() {
       warn_experimental("renderings")
       url <- glue::glue("variants/{self$get_variant()$id}/renderings")
-      self$get_connect()$GET(
+      res <- self$get_connect()$GET(
         path = url
+      )
+      # add the content guid and variant key
+      content_guid <- self$get_content()$guid
+      variant_key <- self$key
+      
+      purrr::map(
+        res,
+        ~ purrr::list_modify(.x, app_guid = content_guid, variant_key = variant_key)
       )
     },
     navigate_rev = function() {
       glue::glue("content_url/variant_hash/_rev{rev_id}")
+    },
+    print = function(...) {
+      super$print(...)
+      cat("Variant:\n")
+      cat(glue::glue("  get_variant(content, key = '{self$key}' )"), "\n")
+      cat("\n")
     }
   )
 )
@@ -275,6 +301,51 @@ set_environment_remove <- function(env, ...) {
   env$env_refresh()
 }
 
+get_variants <- function(content) {
+  warn_experimental("get_variant")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  variants <- content$variants()
+  
+  parse_connectapi_typed(variants, !!!connectapi_ptypes$variant)
+}
+
+get_variant_default <- function(content) {
+  warn_experimental("get_variant")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  all_variants <- content$variants()
+  the_default <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
+  variant <- Variant$new(connect =  content$get_connect(), content = content$get_content(), key = the_default$key)
+  return(variant)
+}
+
+get_variant <- function(content, key) {
+  warn_experimental("get_variant")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = key)
+  return(variant)
+}
+
+get_variant_renderings <- function(variant) {
+  warn_experimental("get_variant")
+  scoped_experimental_silence()
+  validate_R6_class(variant, "Variant")
+  
+  renders <- variant$renderings()
+  parse_connectapi_typed(renders, !!!connectapi_ptypes$rendering)
+}
+
+variant_render <- function(variant) {
+  warn_experimental("variant_render")
+  scoped_experimental_silence()
+  validate_R6_class(variant, "Variant")
+  
+  rendered <- variant$render()
+  rendered
+}
 
 #' Get Content Item
 #'
