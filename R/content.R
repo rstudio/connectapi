@@ -39,6 +39,9 @@ Content <- R6::R6Class(
       )
       return(self)
     },
+    get_url = function() {
+      self$get_content()$url
+    },
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
@@ -191,9 +194,23 @@ Variant <- R6::R6Class(
         ~ purrr::list_modify(.x, app_guid = content_guid, variant_key = variant_key)
       )
     },
-    navigate_rev = function() {
-      glue::glue("content_url/variant_hash/_rev{rev_id}")
+    get_url = function() {
+      base_content <- super$get_url()
+      glue::glue("{base_content}v{self$key}/")
     },
+    get_url_rev = function(rev) {
+      base_url <- self$get_url()
+      glue::glue("{base_url}_rev{rev}")
+    },
+    # TODO: dashboard cannot navigate directly to variants / renderings today
+    #get_dashboard_url = function(pane = "") {
+    #  base_content <- super$get_dashboard_url("")
+    #  glue::glue("{base_content}{self$key}/{pane}")
+    #},
+    #get_dashboard_url_rev = function(rev, pane = "") {
+    #  base_content <- self$get_dashboard_url("")
+    #  glue::glue("{base_content}_rev{rev}")
+    #},
     print = function(...) {
       super$print(...)
       cat("Variant:\n")
