@@ -516,7 +516,7 @@ swap_vanity_url <- function(from_content, to_content) {
 #' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1) {
-  validate_R6_class(task, "Task")
+  validate_R6_class(task, c("Task", "VariantTask"))
   con <- task$get_connect()
 
   finished <- FALSE
