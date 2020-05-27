@@ -46,22 +46,28 @@ Content <- R6::R6Class(
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
     },
     get_jobs = function() {
-      lifecycle::deprecate_warn("0.1.0.9005", "Content$get_jobs()", "Content$jobs()")
+      lifecycle::deprecate_warn("0.1.0.9005", what = "get_jobs()", with = "jobs()")
       self$jobs()
     },
     get_job = function(key) {
-      lifecycle::deprecate_warn("0.1.0.9005", "Content$get_job()", "Content$job()")
+      lifecycle::deprecate_warn("0.1.0.9005", "get_job()", "job()")
       self$job(key)
     },
     jobs = function() {
       warn_experimental("jobs")
       url <- glue::glue("applications/{self$get_content()$guid}/jobs")
-      self$get_connect()$GET(url)
+      res <- self$get_connect()$GET(url)
     },
     job = function(key) {
       warn_experimental("job")
       url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
-      self$get_connect()$GET(url)
+      res <- self$get_connect()$GET(url)
+      
+      content_guid <- self$get_content()$guid
+      purrr::map(
+        list(res),
+        ~ purrr::list_modify(.x, app_guid = content_guid)
+      )[[1]]
     },
     variants = function() {
       warn_experimental("variants")
@@ -194,6 +200,20 @@ Variant <- R6::R6Class(
         ~ purrr::list_modify(.x, app_guid = content_guid, variant_key = variant_key)
       )
     },
+    jobs = function() {
+      pre_jobs <- super$jobs()
+      purrr::map(
+        pre_jobs,
+        ~ purrr::list_modify(.x, variant_key = self$key)
+      )
+    },
+    job = function(key) {
+      pre_job <- super$job(key = key)
+      purrr::map(
+        list(pre_job),
+        ~ purrr::list_modify(.x, variant_key = self$key)
+      )[[1]]
+    },
     get_url = function() {
       base_content <- super$get_url()
       glue::glue("{base_content}v{self$key}/")
@@ -319,7 +339,7 @@ set_environment_remove <- function(env, ...) {
 }
 
 get_variants <- function(content) {
-  warn_experimental("get_variant")
+  warn_experimental("get_variants")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
   
@@ -329,7 +349,7 @@ get_variants <- function(content) {
 }
 
 get_variant_default <- function(content) {
-  warn_experimental("get_variant")
+  warn_experimental("get_variant_default")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
   all_variants <- content$variants()
@@ -347,12 +367,36 @@ get_variant <- function(content, key) {
 }
 
 get_variant_renderings <- function(variant) {
-  warn_experimental("get_variant")
+  warn_experimental("get_variant_renderings")
   scoped_experimental_silence()
   validate_R6_class(variant, "Variant")
   
   renders <- variant$renderings()
   parse_connectapi_typed(renders, !!!connectapi_ptypes$rendering)
+}
+
+get_jobs <- function(content) {
+  warn_experimental("get_jobs")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  jobs <- content$jobs()
+  parse_connectapi_typed(jobs, !!!connectapi_ptypes$jobs)
+}
+
+# TODO: Need to test `logged_error` on a real error
+get_job <- function(content, key) {
+  warn_experimental("get_job")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  job <- content$job(key = key)
+  # protect against becoming a list...
+  job$stdout <- strsplit(job$stdout, "\n")[[1]]
+  job$stderr <- strsplit(job$stderr, "\n")[[1]]
+  # a bit of an abuse
+  # since stdout / stderr / logged_error are here now...
+  parse_connectapi_typed(list(job), !!!connectapi_ptypes$job)
 }
 
 variant_render <- function(variant) {
