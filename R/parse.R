@@ -119,8 +119,8 @@ coerce_fsbytes <- function(x, to, ...) {
 }
 
 coerce_datetime <- function(x, to, ...) {
-  if (is.double(x)) {
-    vctrs::new_datetime(x, tzone = tzone(to))
+  if (is.numeric(x)) {
+    vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
     as.POSIXct(x, tz = tzone(to))
   } else {
