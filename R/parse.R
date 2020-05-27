@@ -126,6 +126,8 @@ coerce_datetime <- function(x, to, ...) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
     as.POSIXct(x, tz = tzone(to))
+  } else if (inherits(x, "POSIXct")) {
+    x
   } else {
     vctrs::stop_incompatible_cast(x = x, to = to, x_arg = "x", to_arg = "to")
   }
