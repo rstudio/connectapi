@@ -240,6 +240,35 @@ Variant <- R6::R6Class(
   )
 )
 
+#' VariantTask
+#'
+#' An R6 class that represents a Variant Task
+#'
+#' @family R6 classes
+VariantTask <- R6::R6Class(
+  "VariantTask",
+  inherit = Variant,
+  public = list(
+    task = NULL,
+    initialize = function(connect, content, key, task) {
+      super$initialize(connect = connect, content = content, key = key)
+      # TODO: need to validate task (needs task_id)
+      self$task <- task
+    },
+    get_task = function() {
+      self$task
+    },
+    
+    print = function(...) {
+      super$print(...)
+      cat("Task: \n")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
+  )
+)
+
 #' Environment
 #' 
 #' An R6 class that represents a Content's Environment Variables
@@ -405,7 +434,9 @@ variant_render <- function(variant) {
   validate_R6_class(variant, "Variant")
   
   rendered <- variant$render()
-  rendered
+  rendered$task_id <- rendered$id
+  
+  VariantTask$new(connect = variant$get_connect(), content = variant$get_content(), key = variant$key, task = rendered)
 }
 
 #' Get Content Item
