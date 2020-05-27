@@ -146,8 +146,7 @@ connectapi_ptypes <- list(
     bundle_id = NA_integer_,
     job_key = NA_character_,
     render_time = NA_datetime_,
-    # TODO: add bit64 for (large) integer duration here
-    render_duration = NA_integer_,
+    render_duration = bit64::as.integer64(NA_integer_),
     active = NA,
     app_guid = NA_character_,
     variant_key = NA_character_,

@@ -44,6 +44,9 @@ ensure_column <- function(data, default, name) {
     if (inherits(default, "fs_bytes") && !inherits(col, "fs_bytes")) {
       col <- coerce_fsbytes(col, default)
     }
+    if (inherits(default, "integer64") && !inherits(col, "integer64")) {
+      col <- bit64::as.integer64(col)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
