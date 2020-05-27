@@ -177,8 +177,42 @@ test_that("set_environment works", {
 #
 # i.e. deploying real content...
 #
-context("execution")
+context("render")
 
+# TODO: very hard to test parameterized rmarkdown because creating a
+# programmatic variant is not possible
+
+test_that("get_variants works", {
+  scoped_experimental_silence()
+  vrs <- get_variants(rmd_content)
+  
+  expect_equal(nrow(vrs), 1)
+  
+  vr <- get_variant(rmd_content, vrs$key)
+  expect_true(validate_R6_class(vr, "Variant"))
+})
+
+test_that("variant_render works", {
+  scoped_experimental_silence()
+  vr <- get_variant_default(rmd_content)
+  
+  rnd <- variant_render(vr)
+  rnd2 <- variant_render(vr)
+  
+  expect_true(validate_R6_class(rnd, "VariantTask"))
+  # TODO: would be great to be able to "tail the logs", for instance
+  # i.e. actually reference the "job" itself...
+})
+
+test_that("get_variant_renderings works", {
+  scoped_experimental_silence()
+  
+  vr <- get_variant_default(rmd_content)
+  
+  rnd <- get_variant_renderings(vr)
+  
+  expect_gt(nrow(rnd), 1)
+})
 
 # ACLs ----------------------------------------------------
 
