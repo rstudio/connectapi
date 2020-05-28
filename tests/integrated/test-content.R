@@ -202,6 +202,10 @@ test_that("variant_render works", {
   expect_true(validate_R6_class(rnd, "VariantTask"))
   # TODO: would be great to be able to "tail the logs", for instance
   # i.e. actually reference the "job" itself...
+  
+  # wait for tasks to complete...
+  poll_task(rnd)
+  poll_task(rnd2)
 })
 
 test_that("get_variant_renderings works", {
