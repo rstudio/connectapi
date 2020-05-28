@@ -32,6 +32,7 @@ Other R6 classes:
 \item \href{#method-get_content}{\code{Content$get_content()}}
 \item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
 \item \href{#method-update}{\code{Content$update()}}
+\item \href{#method-runas}{\code{Content$runas()}}
 \item \href{#method-get_url}{\code{Content$get_url()}}
 \item \href{#method-get_dashboard_url}{\code{Content$get_dashboard_url()}}
 \item \href{#method-get_jobs}{\code{Content$get_jobs()}}
@@ -90,6 +91,15 @@ Other R6 classes:
 \subsection{Method \code{update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$update(...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-runas"></a>}}
+\if{latex}{\out{\hypertarget{method-runas}{}}}
+\subsection{Method \code{runas()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
 }
 
 }

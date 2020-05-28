@@ -41,6 +41,7 @@ Other R6 classes:
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url">}\href{../../connectapi/html/Content.html#method-get_url}{\code{connectapi::Content$get_url()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job">}\href{../../connectapi/html/Content.html#method-job}{\code{connectapi::Content$job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs">}\href{../../connectapi/html/Content.html#method-jobs}{\code{connectapi::Content$jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set">}\href{../../connectapi/html/Content.html#method-tag_set}{\code{connectapi::Content$tag_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags">}\href{../../connectapi/html/Content.html#method-tags}{\code{connectapi::Content$tags()}}\out{</span>}
