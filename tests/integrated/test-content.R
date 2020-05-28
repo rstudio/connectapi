@@ -204,8 +204,8 @@ test_that("variant_render works", {
   # i.e. actually reference the "job" itself...
   
   # wait for tasks to complete...
-  poll_task(rnd)
-  poll_task(rnd2)
+  suppressMessages(poll_task(rnd))
+  suppressMessages(poll_task(rnd2))
 })
 
 test_that("get_variant_renderings works", {
@@ -216,6 +216,19 @@ test_that("get_variant_renderings works", {
   rnd <- get_variant_renderings(vr)
   
   expect_gt(nrow(rnd), 1)
+})
+
+test_that("get_jobs works", {
+  scoped_experimental_silence()
+  vr <- get_variant_default(rmd_content)
+  
+  all_jobs <- get_jobs(vr)
+  expect_gt(nrow(all_jobs), 1)
+  
+  sel_key <- all_jobs$key[[1]]
+  one_job <- get_job(vr, sel_key)
+  expect_equal(nrow(one_job), 1)
+  expect_equal(one_job$key[[1]], sel_key)
 })
 
 # ACLs ----------------------------------------------------
