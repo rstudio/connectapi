@@ -1,5 +1,8 @@
 context("content")
 
+
+# Setup ----------------------------------------------------
+
 # should connect with env vars
 test_conn_1 <- connect(prefix = "TEST_1")
 test_conn_2 <- connect(prefix = "TEST_2")
@@ -36,6 +39,68 @@ tsk2 <- deploy(connect = test_conn_1, bundle = bund, name = cont2_name, title = 
 cont2_guid <- tsk2$get_content()$guid
 cont2_content <- content_item(tsk2$get_connect(), cont2_guid)
 
+# Setup - "REAL" content ------------------------------------------------
+# ensure that RSPM is being used so this does not take eternity
+
+shiny_name <- uuid::UUIDgenerate()
+shiny_title <- "Test Shiny 1"
+shiny_guid <- NULL
+shiny_content <- NULL
+
+rmd_name <- uuid::UUIDgenerate()
+rmd_title <- "Test RMarkdown 1"
+rmd_guid <- NULL
+rmd_content <- NULL
+
+prmd_name <- uuid::UUIDgenerate()
+prmd_title <- "Test Param RMarkdown 1"
+prmd_guid <- NULL
+prmd_content <- NULL
+
+# Setup - Shiny -------------------------------------------------------
+
+dir_shiny <- rprojroot::find_package_root_file("tests/testthat/examples/shiny")
+tmp_file_shiny <- fs::file_temp(pattern = "bundle_shiny", ext = ".tar.gz")
+bund_shiny <- bundle_dir(path = dir_shiny, filename = tmp_file_shiny)
+
+tsk_shiny <- deploy(connect = test_conn_1, bundle = bund_shiny, name = shiny_name, title = shiny_title)
+
+shiny_guid <- tsk_shiny$get_content()$guid
+shiny_content <- content_item(tsk_shiny$get_connect(), shiny_guid)
+
+# TODO: a smarter, noninteractive wait...
+shiny_wait <- suppressMessages(poll_task(tsk_shiny))
+
+# Setup - RMarkdown -------------------------------------------------------
+
+dir_rmd <- rprojroot::find_package_root_file("tests/testthat/examples/rmarkdown")
+tmp_file_rmd <- fs::file_temp(pattern = "bundle_rmd", ext = ".tar.gz")
+bund_rmd <- bundle_dir(path = dir_rmd, filename = tmp_file_rmd)
+
+tsk_rmd <- deploy(connect = test_conn_1, bundle = bund_rmd, name = rmd_name, title = rmd_title)
+
+rmd_guid <- tsk_rmd$get_content()$guid
+rmd_content <- content_item(tsk_rmd$get_connect(), rmd_guid)
+
+# TODO: a smarter, noninteractive wait...
+rmd_wait <- suppressMessages(poll_task(tsk_rmd))
+
+# Setup - Param RMarkdown -------------------------------------------------------
+
+dir_prmd <- rprojroot::find_package_root_file("tests/testthat/examples/param_rmarkdown")
+tmp_file_prmd <- fs::file_temp(pattern = "bundle_prmd", ext = ".tar.gz")
+bund_prmd <- bundle_dir(path = dir_prmd, filename = tmp_file_prmd)
+
+tsk_prmd <- deploy(connect = test_conn_1, bundle = bund_prmd, name = prmd_name, title = prmd_title)
+
+prmd_guid <- tsk_prmd$get_content()$guid
+prmd_content <- content_item(tsk_prmd$get_connect(), prmd_guid)
+
+# TODO: a smarter, noninteractive wait
+prmd_wait <- suppressMessages(poll_task(tsk_prmd))
+
+# Metadata Tests ----------------------------------------------------
+
 test_that("content_item works", {
   cont1_tmp <- test_conn_1 %>% content_item(guid = cont1_guid)
 
@@ -63,6 +128,110 @@ test_that("content_title handles NULL titles gracefully", {
   null_title <- content_title(test_conn_1, c2$get_content()$guid, "Test Title")
   expect_identical(null_title, "Test Title")
 })
+
+test_that("get_environment works with no environment variables", {
+  env <- get_environment(rmd_content)
+  curr_vers <- env$env_version
+  env <- get_environment(rmd_content)
+  
+  expect_identical(env$env_vars, list(a=1)[0])
+  expect_equal(env$env_version, curr_vers)
+})
+
+test_that("set_environment works", {
+  env <- get_environment(rmd_content)
+  curr_vers <- env$env_version
+  
+  new_env <- set_environment_new(env, test = "value", test1 = "value1", test2 = "value2")
+  
+  expect_equal(
+    new_env$env_vars,
+    list(
+      test = NA_character_, test1 = NA_character_, test2 = NA_character_
+      )
+    )
+  expect_equal(new_env$env_version, curr_vers + 1)
+  
+  new_env1 <- set_environment_new(env, test1 = "another")
+  expect_equal(
+    new_env$env_vars,
+    list(
+      test = NA_character_, test1 = NA_character_, test2 = NA_character_
+    )
+  )
+  
+  # remove a value multiple times
+  rm1 <- set_environment_remove(env, test)
+  expect_equal(rm1$env_vars, list(test1 = NA_character_, test2 = NA_character_))
+  rm2 <- set_environment_remove(env, test)
+  expect_equal(rm2$env_vars, list(test1 = NA_character_, test2 = NA_character_))
+  
+  rm3 <- set_environment_remove(env, "test1")
+  expect_equal(rm3$env_vars, list(test2 = NA_character_))
+  
+  rm4 <- set_environment_remove(env, test2 = "hi")
+  expect_equal(rm4$env_vars, list(a=1)[0])
+})
+
+# Execution ----------------------------------------------------
+#
+# i.e. deploying real content...
+#
+context("render")
+
+# TODO: very hard to test parameterized rmarkdown because creating a
+# programmatic variant is not possible
+
+test_that("get_variants works", {
+  scoped_experimental_silence()
+  vrs <- get_variants(rmd_content)
+  
+  expect_equal(nrow(vrs), 1)
+  
+  vr <- get_variant(rmd_content, vrs$key)
+  expect_true(validate_R6_class(vr, "Variant"))
+})
+
+test_that("variant_render works", {
+  scoped_experimental_silence()
+  vr <- get_variant_default(rmd_content)
+  
+  rnd <- variant_render(vr)
+  rnd2 <- variant_render(vr)
+  
+  expect_true(validate_R6_class(rnd, "VariantTask"))
+  # TODO: would be great to be able to "tail the logs", for instance
+  # i.e. actually reference the "job" itself...
+  
+  # wait for tasks to complete...
+  suppressMessages(poll_task(rnd))
+  suppressMessages(poll_task(rnd2))
+})
+
+test_that("get_variant_renderings works", {
+  scoped_experimental_silence()
+  
+  vr <- get_variant_default(rmd_content)
+  
+  rnd <- get_variant_renderings(vr)
+  
+  expect_gt(nrow(rnd), 1)
+})
+
+test_that("get_jobs works", {
+  scoped_experimental_silence()
+  vr <- get_variant_default(rmd_content)
+  
+  all_jobs <- get_jobs(vr)
+  expect_gt(nrow(all_jobs), 1)
+  
+  sel_key <- all_jobs$key[[1]]
+  one_job <- get_job(vr, sel_key)
+  expect_equal(nrow(one_job), 1)
+  expect_equal(one_job$key[[1]], sel_key)
+})
+
+# ACLs ----------------------------------------------------
 
 context("acl")
 
@@ -175,7 +344,10 @@ test_that("remove a collaborator twice works", {
   expect_false(any(which_match))
 })
 
-# Side effect test... lest POST / DELETE cause trouble... ------------------------------------------------
+# ACLs - Side effects ------------------------------------------
+#
+#   lest POST / DELETE cause trouble...
+#
 test_that("a collaborator does not affect other collaborators", {
   scoped_experimental_silence()
   # create a user
@@ -358,6 +530,8 @@ test_that("acl_add_self works", {
 test_that("acl_remove_self works", {
   skip("not yet tested")
 })
+
+# ACLs - Groups ---------------------------------------------------
 
 test_that("acl_add_group works", {
   scoped_experimental_silence()
