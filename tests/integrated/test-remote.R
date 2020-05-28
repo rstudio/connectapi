@@ -1,6 +1,6 @@
 # TODO: This testing requires an LDAP server
 # TODO: use the same underlying implementation somehow...
-context("rsc_users_create_remote")
+context("users_create_remote")
 
 test_that("errors if prefix returns zero matches", {
   skip("not implemented")
@@ -26,7 +26,7 @@ test_that("avoids existing matches if multiple are found", {
   skip("not implemented")
 })
 
-context("rsc_groups_create_remote")
+context("groups_create_remote")
 test_that("errors if prefix returns zero matches", {
   skip("not implemented")
 })

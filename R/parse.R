@@ -44,6 +44,9 @@ ensure_column <- function(data, default, name) {
     if (inherits(default, "fs_bytes") && !inherits(col, "fs_bytes")) {
       col <- coerce_fsbytes(col, default)
     }
+    if (inherits(default, "integer64") && !inherits(col, "integer64")) {
+      col <- bit64::as.integer64(col)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
@@ -119,10 +122,12 @@ coerce_fsbytes <- function(x, to, ...) {
 }
 
 coerce_datetime <- function(x, to, ...) {
-  if (is.double(x)) {
-    vctrs::new_datetime(x, tzone = tzone(to))
+  if (is.numeric(x)) {
+    vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
     as.POSIXct(x, tz = tzone(to))
+  } else if (inherits(x, "POSIXct")) {
+    x
   } else {
     vctrs::stop_incompatible_cast(x = x, to = to, x_arg = "x", to_arg = "to")
   }

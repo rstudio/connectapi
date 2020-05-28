@@ -206,10 +206,10 @@
     },
     "ellipsis": {
       "Package": "ellipsis",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7067d90c1c780bfe80c0d497e3d7b49d"
+      "Hash": "fd2844b3a43ae2d27e70ece2df1b4e2a"
     },
     "evaluate": {
       "Package": "evaluate",
@@ -276,15 +276,10 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.3.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "glue",
-      "RemoteUsername": "tidyverse",
-      "RemoteRef": "master",
-      "RemoteSha": "7131fc394cb36241d59f0ac46cccbaa726844f83",
-      "Hash": "c81db218df910f8778adbe8813ab178a"
+      "Version": "1.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f43e0d5e85ccb0a4045670c0607ee504"
     },
     "gridExtra": {
       "Package": "gridExtra",
@@ -386,15 +381,10 @@
     },
     "later": {
       "Package": "later",
-      "Version": "1.0.0.9002",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "r-lib",
-      "RemoteRepo": "later",
-      "RemoteRef": "master",
-      "RemoteSha": "0fb877adcfdf8166eb5b505fe99bcf2f9bedacd3",
-      "Hash": "9398333dc5e9c03d2ec15ae99dcfd41a"
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6d927978fc658d24175ce37db635f9e5"
     },
     "lattice": {
       "Package": "lattice",
@@ -573,15 +563,10 @@
     },
     "promises": {
       "Package": "promises",
-      "Version": "1.1.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "promises",
-      "RemoteRef": "master",
-      "RemoteSha": "dfc2754b6f9f463c2319d047973a53d5f86bf771",
-      "Hash": "27adc19bcc4f88df751c717d41c22533"
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "efbbe62da4709f7040a380c702bc7103"
     },
     "ps": {
       "Package": "ps",

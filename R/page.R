@@ -28,7 +28,6 @@ page_cursor <- function(client, req, limit = Inf) {
   while (!is.null(response$paging$`next`) && length(res) < limit) {
     prg$tick()
 
-    # change limit if this iteration would exceed the requested limit
     next_url <- response$paging$`next`
     response <- client$GET_URL(next_url)
 

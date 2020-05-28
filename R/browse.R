@@ -12,7 +12,7 @@
 #' @export
 browse_solo <- function(content) {
   validate_R6_class(content, "Content")
-  url <- content$get_content()$url
+  url <- content$get_url()
   utils::browseURL(url)
   return(url)
 }

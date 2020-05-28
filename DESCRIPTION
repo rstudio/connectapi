@@ -33,7 +33,8 @@ Imports:
     tibble,
     uuid,
     vctrs (>= 0.3.0),
-    yaml
+    yaml,
+    bit64
 Suggests: 
     crayon,
     flexdashboard,

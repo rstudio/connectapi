@@ -11,7 +11,8 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
-\code{\link{Vanity}}
+\code{\link{Vanity}},
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Public fields}{
@@ -31,10 +32,18 @@ Other R6 classes:
 \item \href{#method-get_content}{\code{Content$get_content()}}
 \item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
 \item \href{#method-update}{\code{Content$update()}}
-\item \href{#method-runas}{\code{Content$runas()}}
+\item \href{#method-get_url}{\code{Content$get_url()}}
 \item \href{#method-get_dashboard_url}{\code{Content$get_dashboard_url()}}
 \item \href{#method-get_jobs}{\code{Content$get_jobs()}}
 \item \href{#method-get_job}{\code{Content$get_job()}}
+\item \href{#method-jobs}{\code{Content$jobs()}}
+\item \href{#method-job}{\code{Content$job()}}
+\item \href{#method-variants}{\code{Content$variants()}}
+\item \href{#method-tag_set}{\code{Content$tag_set()}}
+\item \href{#method-tag_delete}{\code{Content$tag_delete()}}
+\item \href{#method-tags}{\code{Content$tags()}}
+\item \href{#method-environment}{\code{Content$environment()}}
+\item \href{#method-environment_set}{\code{Content$environment_set()}}
 \item \href{#method-print}{\code{Content$print()}}
 \item \href{#method-clone}{\code{Content$clone()}}
 }
@@ -85,11 +94,11 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-runas"></a>}}
-\if{latex}{\out{\hypertarget{method-runas}{}}}
-\subsection{Method \code{runas()}}{
+\if{html}{\out{<a id="method-get_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_url}{}}}
+\subsection{Method \code{get_url()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$get_url()}\if{html}{\out{</div>}}
 }
 
 }
@@ -117,6 +126,78 @@ Other R6 classes:
 \subsection{Method \code{get_job()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-jobs"></a>}}
+\if{latex}{\out{\hypertarget{method-jobs}{}}}
+\subsection{Method \code{jobs()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$jobs()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-job"></a>}}
+\if{latex}{\out{\hypertarget{method-job}{}}}
+\subsection{Method \code{job()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$job(key)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-variants"></a>}}
+\if{latex}{\out{\hypertarget{method-variants}{}}}
+\subsection{Method \code{variants()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$variants()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag_set"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_set}{}}}
+\subsection{Method \code{tag_set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$tag_set(id)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_delete}{}}}
+\subsection{Method \code{tag_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(id)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tags"></a>}}
+\if{latex}{\out{\hypertarget{method-tags}{}}}
+\subsection{Method \code{tags()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$tags()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-environment"></a>}}
+\if{latex}{\out{\hypertarget{method-environment}{}}}
+\subsection{Method \code{environment()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$environment()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-environment_set"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_set}{}}}
+\subsection{Method \code{environment_set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(..., .version = 0)}\if{html}{\out{</div>}}
 }
 
 }
