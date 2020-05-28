@@ -17,8 +17,11 @@ An R6 class that represents a Variant
 \item \href{#method-send_mail}{\code{Variant$send_mail()}}
 \item \href{#method-render}{\code{Variant$render()}}
 \item \href{#method-renderings}{\code{Variant$renderings()}}
+\item \href{#method-jobs}{\code{Variant$jobs()}}
+\item \href{#method-job}{\code{Variant$job()}}
 \item \href{#method-get_url}{\code{Variant$get_url()}}
 \item \href{#method-get_url_rev}{\code{Variant$get_url_rev()}}
+\item \href{#method-get_dashboard_url}{\code{Variant$get_dashboard_url()}}
 \item \href{#method-print}{\code{Variant$print()}}
 \item \href{#method-clone}{\code{Variant$clone()}}
 }
@@ -31,11 +34,8 @@ An R6 class that represents a Variant
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect">}\href{../../connectapi/html/Content.html#method-get_connect}{\code{connectapi::Content$get_connect()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content">}\href{../../connectapi/html/Content.html#method-get_content}{\code{connectapi::Content$get_content()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url">}\href{../../connectapi/html/Content.html#method-get_dashboard_url}{\code{connectapi::Content$get_dashboard_url()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job">}\href{../../connectapi/html/Content.html#method-job}{\code{connectapi::Content$job()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs">}\href{../../connectapi/html/Content.html#method-jobs}{\code{connectapi::Content$jobs()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set">}\href{../../connectapi/html/Content.html#method-tag_set}{\code{connectapi::Content$tag_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags">}\href{../../connectapi/html/Content.html#method-tags}{\code{connectapi::Content$tags()}}\out{</span>}
@@ -90,6 +90,24 @@ An R6 class that represents a Variant
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-jobs"></a>}}
+\if{latex}{\out{\hypertarget{method-jobs}{}}}
+\subsection{Method \code{jobs()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Variant$jobs()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-job"></a>}}
+\if{latex}{\out{\hypertarget{method-job}{}}}
+\subsection{Method \code{job()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Variant$job(key)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_url"></a>}}
 \if{latex}{\out{\hypertarget{method-get_url}{}}}
 \subsection{Method \code{get_url()}}{
@@ -104,6 +122,15 @@ An R6 class that represents a Variant
 \subsection{Method \code{get_url_rev()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Variant$get_url_rev(rev)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_dashboard_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_dashboard_url}{}}}
+\subsection{Method \code{get_dashboard_url()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Variant$get_dashboard_url(pane = "access")}\if{html}{\out{</div>}}
 }
 
 }

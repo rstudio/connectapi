@@ -31,7 +31,8 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{Task}},
-\code{\link{Vanity}}
+\code{\link{Vanity}},
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Methods}{
