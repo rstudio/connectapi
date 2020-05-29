@@ -231,6 +231,66 @@ test_that("get_jobs works", {
   expect_equal(one_job$key[[1]], sel_key)
 })
 
+context("set_run_as")
+
+test_that("fails for static content", {
+  scoped_experimental_silence()
+  expect_error(
+    suppressMessages(set_run_as(cont1_content, "rstudio-connect")),
+    "400"
+  )
+})
+
+test_that("works with a good linux user", {
+  res <- set_run_as(shiny_content, "rstudio-connect")
+  expect_equal(
+    res$get_content()$run_as,
+    "rstudio-connect"
+  )
+  res2 <- set_run_as(shiny_content, NULL)
+  expect_null(res2$get_content()$run_as)
+})
+
+test_that("fails with a bad linux user", {
+  expect_error(
+    suppressMessages(
+      set_run_as(shiny_content, "fake-user")
+    ),
+    "400"
+  )
+})
+
+test_that("works for run_as_current_user", {
+  res <- set_run_as(
+    shiny_content,
+    run_as = NULL,
+    run_as_current_user = TRUE
+  )
+  
+  expect_true(
+    shiny_content$get_content()$run_as_current_user
+  )
+  
+  res2 <- set_run_as(
+    shiny_content,
+    run_as = NULL,
+    run_as_current_user = FALSE
+  )
+  
+  expect_false(
+    shiny_content$get_content()$run_as_current_user
+  )
+})
+
+test_that("run_as_current_user fails for rmd", {
+  expect_error(
+    suppressMessages(
+      set_run_as(rmd_content, "rstudio-connect", TRUE),
+      "400"
+    )
+  )
+})
+
 # ACLs ----------------------------------------------------
 
 context("acl")

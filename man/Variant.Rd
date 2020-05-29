@@ -36,6 +36,7 @@ An R6 class that represents a Variant
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set">}\href{../../connectapi/html/Content.html#method-tag_set}{\code{connectapi::Content$tag_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags">}\href{../../connectapi/html/Content.html#method-tags}{\code{connectapi::Content$tags()}}\out{</span>}
