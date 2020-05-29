@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a Remote Group — groups_create_remote • connectapi</title>
+<title>Set RunAs User — set_run_as • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="Create a Remote Group — groups_create_remote" />
-<meta property="og:description" content="Create a Remote Group" />
+<meta property="og:title" content="Set RunAs User — set_run_as" />
+<meta property="og:description" content="
+ Set the RunAs user for a piece of content.
+The run_as_current_user flag only does anything if:" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -131,41 +133,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a Remote Group</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/remote.R'><code>R/remote.R</code></a></small>
-    <div class="hidden name"><code>groups_create_remote.Rd</code></div>
+    <h1>Set RunAs User</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <div class="hidden name"><code>set_run_as.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a Remote Group</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ Set the <code>RunAs</code> user for a piece of content.
+The <code>run_as_current_user</code> flag only does anything if:</p>
     </div>
 
-    <pre class="usage"><span class='fu'>groups_create_remote</span>(<span class='no'>connect</span>, <span class='no'>prefix</span>, <span class='kw'>expect</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>set_run_as</span>(<span class='no'>content</span>, <span class='no'>run_as</span>, <span class='kw'>run_as_current_user</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>connect</th>
-      <td><p>A R6 Connect object</p></td>
+      <th>content</th>
+      <td><p>an R6 Content item</p></td>
     </tr>
     <tr>
-      <th>prefix</th>
-      <td><p>character. The prefix of the group name to search for</p></td>
+      <th>run_as</th>
+      <td><p>The RunAs user to use for this content</p></td>
     </tr>
     <tr>
-      <th>expect</th>
-      <td><p>number. The number of responses to expect for this search</p></td>
-    </tr>
-    <tr>
-      <th>check</th>
-      <td><p>boolean. Whether to check for local existence first</p></td>
+      <th>run_as_current_user</th>
+      <td><p>Whether to run this content as the viewer of the application</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The results of creating the groups</p>
+    <p>a Content object, updated with new details</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>PAM is the authentication method</p></li>
+<li><p><code>Applications.RunAsCurrentUser</code> is enabled on the server</p></li>
+</ul>
+
+<p>Also worth noting that the <code>run_as</code> user must exist on the RStudio Connect
+server and have appropriate group memberships, or you will get a <code>400: Bad Request</code>.
+Set to <code>NULL</code> to use the default RunAs user / unset any current configuration.</p>
+<p>To "read" the current RunAs user, use the <code>Content</code> object or <code><a href='get_content.html'>get_content()</a></code> function.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>get_content</p>
+<p>Other content functions: 
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='get_acl.html'>get_acl_user</a>()</code>,
+<code><a href='Environment.html'>get_environment</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='set_image.html'>set_image_path</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
