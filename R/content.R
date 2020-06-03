@@ -457,7 +457,39 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
   return(content)
 }
 
+#' Get Jobs
+#' 
+#' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
+#' "Jobs" in RStudio Connect are content executions
+#' 
+#' @rdname jobs
+#' @family content functions
+#' @export
+get_jobs <- function(content) {
+  warn_experimental("get_jobs")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  jobs <- content$jobs()
+  parse_connectapi_typed(jobs, !!!connectapi_ptypes$jobs)
+}
 
+# TODO: Need to test `logged_error` on a real error
+#' @rdname jobs
+#' @export
+get_job <- function(content, key) {
+  warn_experimental("get_job")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  
+  job <- content$job(key = key)
+  # protect against becoming a list...
+  job$stdout <- strsplit(job$stdout, "\n")[[1]]
+  job$stderr <- strsplit(job$stderr, "\n")[[1]]
+  # a bit of an abuse
+  # since stdout / stderr / logged_error are here now...
+  parse_connectapi_typed(list(job), !!!connectapi_ptypes$job)
+}
 
 #' Set RunAs User
 #'
