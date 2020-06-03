@@ -8,6 +8,10 @@ safe_format <- function(expr, ...) {
 }
 
 make_timestamp <- function(input) {
+  if (is.character(input)) {
+    # TODO: make sure this is the right timestamp format
+    return(input)
+  }
   safe_format(input, "%Y-%m-%dT%H:%M:%SZ")
 }
 
