@@ -39,13 +39,19 @@ Variant <- R6::R6Class(
       url <- glue::glue("variants/{self$get_variant()$id}/schedules")
       res <- self$get_connect()$GET(
         path = url
-      )[[1]]
+      )
+      if (length(res) == 1) {
+        res <- res[[1]]
+      }
       
-      # add the content guid and variant key
-      content_guid <- self$get_content()$guid
-      variant_key <- self$key
+      if (length(res) > 0) {
+        # add the content guid and variant key
+        content_guid <- self$get_content()$guid
+        variant_key <- self$key
+        res <- purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
+      }
       
-      purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
+      res
     },
     get_subscribers = function() {
       self$get_connect()$GET("variants/{self$get_variant()$id}/subscribers")
