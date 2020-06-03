@@ -21,6 +21,30 @@ VariantSchedule <- R6::R6Class(
     DELETE = function(path) {
       self$get_connect()$DELETE(path = path)
     },
+    set_schedule = function(...) {
+      params <- rlang::list2(...)
+      if ("start_time" %in% names(params)) {
+        params$start_time <- make_timestamp(params$start_time)
+      }
+      if ("next_run" %in% names(params)) {
+        params$next_run <- make_timestamp(params$next_run)
+      }
+      if (self$is_empty()) {
+        params <- purrr::list_modify(
+          params, 
+          app_id = self$get_variant()$app_id,
+          variant_id = self$get_variant()$id
+          )
+        path <- "schedules"
+      } else {
+        path <- glue::glue("schedules/{self$get_schedule()$id}")
+      }
+      cli <- self$get_connect()
+      res <- cli$POST(path = path, body = params)
+      
+      self$schedule_data <- res
+      return(self)
+    },
     is_empty = function() {
       if (length(self$schedule_data) == 0) {
         TRUE
@@ -35,11 +59,28 @@ VariantSchedule <- R6::R6Class(
       if (self$is_empty()) {
         cat("  WARNING: No schedule defined\n")
       } else {
-        cat("  TODO: describe schedule\n")
+        cat(c("", paste0(" ", self$describe_schedule(), "\n")))
       }
     },
     get_schedule = function() {
       return(self$schedule_data)
+    },
+    describe_schedule = function() {
+      # TODO: create a human readable description of schedule
+      if (!self$is_empty()) {
+        rawdata <- self$get_schedule()
+        schdata <- jsonlite::fromJSON(rawdata$schedule)
+        desc <- switch(
+          rawdata$type,
+          "day" = glue::glue("Every {schdata$N} days"),
+          "Unknown"
+        )
+        c(
+          desc,
+          # TODO: a nice way to print out relative times...?
+          glue::glue("Starting {swap_timestamp_format(rawdata$start_time)}")
+        )
+      }
     }
   )
 )
@@ -48,10 +89,13 @@ get_variant_schedule <- function(variant) {
   warn_experimental("get_schedule")
   scoped_experimental_silence()
   validate_R6_class(variant, "Variant")
+  
   content_details <- variant$get_content()
   connect_client <- variant$get_connect()
+  
   variant_key <- variant$key
   variant_schedule <- variant$get_schedule_remote()
+  
   VariantSchedule$new(connect = connect_client, content = content_details, key = variant_key, schedule = variant_schedule)
 }
 
@@ -68,9 +112,9 @@ set_schedule <- function(
   ...
   ) {
   validate_R6_class(.schedule, "VariantSchedule")
-  cli <- .schedule$get_connect()
-  path <- glue::glue("schedules/{.schedule$get_schedule()$id}")
   params <- rlang::list2(...)
+  
+  # because "schedule" has to be a JSON blob, which is confusing
   if ("schedule" %in% names(params)) {
     orig_schedule <- params$schedule
     if (is.list(params$schedule)) {
@@ -80,12 +124,32 @@ set_schedule <- function(
       stop(glue::glue("The schedule you provided is invalid: {capture.output(str(orig_schedule))}"))
     }
   }
-  final_params <- purrr::list_modify(.schedule$get_schedule_remote(), !!!params)
-  res <- cli$POST(path = path, body = final_params)
   
-  .schedule$get_schedule_remote()
-  .schedule
+  if ("type" %in% names(params) && ! "schedule" %in% names(params)) {
+    warning("Specifying 'type' without 'schedule' can cause unexpected results. Different schedule 'type's have different 'schedule' requirements")
+  }
+  
+  if ("type" %in% names(params) && ! params$type %in% schedule_types) {
+    stop(glue::glue("Invalid `type` provided. Should be one of `schedule_types`: {params$type}"))
+  }
+  
+  # update the existing schedule rather than (likely) erroring
+  # this could create some weird edge cases... (see warnings / errors above)
+  final_params <- purrr::list_modify(.schedule$get_schedule_remote(), !!!params)
+  
+  .schedule$set_schedule(!!!final_params)
 }
+
+schedule_types <- c("hour", "minute", "day", "weekday", "week", "semimonth", "dayofmonth", "dayweekofmonth", "year")
+
+set_schedule_daily <- function(.schedule, n = 1, start_time = Sys.time()) {
+  set_schedule(.schedule, type = "day", schedule = list(N = n), start_time = start_time)
+}
+
+# TODO: will be useful for testing programmatically...
+example_schedules <- list(
+  
+)
 
 set_schedule_remove <- function(.schedule) {
   validate_R6_class(.schedule, "VariantSchedule")
