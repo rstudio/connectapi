@@ -173,6 +173,23 @@ VariantTask <- R6::R6Class(
   )
 )
 
+#' Get Variant
+#' 
+#' \lifecycle{experimental} Work with variants
+#' 
+#' `get_variants()` returns a `tibble` with variant data for a `content_item`
+#' 
+#' `get_default_variant()` returns the default variant for a `content_item`
+#' 
+#' `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
+#' 
+#' @param content An R6 Content object. Returned from `content_item()`
+#' @param key The Variant key for a specific variant
+#' 
+#' @rdname variant
+#' 
+#' @family variant functions
+#' @export
 get_variants <- function(content) {
   warn_experimental("get_variants")
   scoped_experimental_silence()
@@ -183,6 +200,9 @@ get_variants <- function(content) {
   parse_connectapi_typed(variants, !!!connectapi_ptypes$variant)
 }
 
+#' @rdname variant
+#' @family variant functions
+#' @export
 get_variant_default <- function(content) {
   warn_experimental("get_variant_default")
   scoped_experimental_silence()
@@ -193,6 +213,9 @@ get_variant_default <- function(content) {
   return(variant)
 }
 
+#' @rdname variant
+#' @family variant functions
+#' @export
 get_variant <- function(content, key) {
   warn_experimental("get_variant")
   scoped_experimental_silence()
@@ -201,6 +224,19 @@ get_variant <- function(content, key) {
   return(variant)
 }
 
+#' Render a Variant
+#' 
+#' \lifecycle{experimental} Get details about renderings (i.e. render history)
+#' or execute a variant on demand
+#' 
+#' `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`
+#' `variant_render()` executes a variant on demand. Returns a `VariantTask` object
+#' 
+#' @param variant An R6 Variant object. As returned by `get_variant()` or `get_variant_default()`
+#' 
+#' @rdname render
+#' @family variant functions
+#' @export
 get_variant_renderings <- function(variant) {
   warn_experimental("get_variant_renderings")
   scoped_experimental_silence()
@@ -210,30 +246,8 @@ get_variant_renderings <- function(variant) {
   parse_connectapi_typed(renders, !!!connectapi_ptypes$rendering)
 }
 
-get_jobs <- function(content) {
-  warn_experimental("get_jobs")
-  scoped_experimental_silence()
-  validate_R6_class(content, "Content")
-  
-  jobs <- content$jobs()
-  parse_connectapi_typed(jobs, !!!connectapi_ptypes$jobs)
-}
-
-# TODO: Need to test `logged_error` on a real error
-get_job <- function(content, key) {
-  warn_experimental("get_job")
-  scoped_experimental_silence()
-  validate_R6_class(content, "Content")
-  
-  job <- content$job(key = key)
-  # protect against becoming a list...
-  job$stdout <- strsplit(job$stdout, "\n")[[1]]
-  job$stderr <- strsplit(job$stderr, "\n")[[1]]
-  # a bit of an abuse
-  # since stdout / stderr / logged_error are here now...
-  parse_connectapi_typed(list(job), !!!connectapi_ptypes$job)
-}
-
+#' @rdname render
+#' @export
 variant_render <- function(variant) {
   warn_experimental("variant_render")
   scoped_experimental_silence()
