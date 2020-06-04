@@ -27,6 +27,29 @@ test_that("coerce_datetime fills the void", {
   expect_error(coerce_datetime(data.frame(), NA_datetime_), class = "vctrs_error_incompatible_type")
 })
 
+context("make_timestamp")
+
+test_that("works with POSIXct", {
+  ts <- as.POSIXct("2020-01-01 01:02:03Z")
+  outcome <- "2020-01-01T01:02:03Z"
+  expect_equal(make_timestamp(ts), outcome)
+  expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
+  
+  # idempotent
+  expect_equal(make_timestamp(make_timestamp(ts)), outcome)
+})
+
+test_that("safe for strings", {
+  expect_equal(make_timestamp("hello"), "hello")
+  expect_equal(make_timestamp(rep("hello", 5)), rep("hello", 5))
+  
+  expect_equal(make_timestamp(NA_character_), NA_character_)
+})
+
+test_that("converts to character", {
+  expect_is(make_timestamp(NA_datetime_), "character")
+})
+
 context("swap_timestamp_format")
 
 test_that("works with expected case", {
