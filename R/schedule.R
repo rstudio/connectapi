@@ -140,7 +140,7 @@ set_schedule <- function(
   .schedule$set_schedule(!!!final_params)
 }
 
-schedule_types <- c("hour", "minute", "day", "weekday", "week", "semimonth", "dayofmonth", "dayweekofmonth", "year")
+schedule_types <- c("hour", "minute", "day", "weekday", "week", "dayofweek", "semimonth", "dayofmonth", "dayweekofmonth", "year")
 
 set_schedule_daily <- function(.schedule, n = 1, start_time = Sys.time()) {
   set_schedule(.schedule, type = "day", schedule = list(N = n), start_time = start_time)
@@ -148,8 +148,27 @@ set_schedule_daily <- function(.schedule, n = 1, start_time = Sys.time()) {
 
 # TODO: will be useful for testing programmatically...
 example_schedules <- list(
-  
+  list(type = "minute", schedule = list(N = 15)),
+  list(type = "hour", schedule = list(N = 2)),
+  list(type = "day", schedule = list(N = 3)),
+  list(type = "weekday", schedule = "{}"),
+  list(type = "week", schedule = list(N = 2)),
+  list(type = "dayofweek", schedule = list(Days = list(1))),
+  list(type = "dayofweek", schedule = list(Days = list(0,1,2,3,4,5,6))),
+  list(type = "semimonth", schedule = list(First = TRUE)),
+  list(type = "semimonth", schedule = list(First = FALSE)),
+  list(type = "dayofmonth", schedule = list(N = 3, Day = 4)),
+  list(type = "dayweekofmonth", schedule = list(N = 3, Day = 1, Week = 4)),
+  list(type = "year", schedule = list(N = 2))
 )
+
+# for testing the examples
+#purrr::map(example_schedules, function(.x, sch) {
+#  message(glue::glue("Executing {.x$type}"))
+#  sch <- get_variant_schedule(sch)
+#  set_schedule(sch, !!!.x, start_time = Sys.time())
+#  set_schedule_remove(sch)
+#}, sch = sch)
 
 set_schedule_remove <- function(.schedule) {
   validate_R6_class(.schedule, "VariantSchedule")
