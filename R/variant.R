@@ -182,11 +182,9 @@ VariantTask <- R6::R6Class(
 #' 
 #' \lifecycle{experimental} Work with variants
 #' 
-#' `get_variants()` returns a `tibble` with variant data for a `content_item`
-#' 
-#' `get_default_variant()` returns the default variant for a `content_item`
-#' 
-#' `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
+#' - `get_variants()` returns a `tibble` with variant data for a `content_item`
+#' - `get_default_variant()` returns the default variant for a `content_item`
+#' - `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
 #' 
 #' @param content An R6 Content object. Returned from `content_item()`
 #' @param key The Variant key for a specific variant
@@ -234,8 +232,8 @@ get_variant <- function(content, key) {
 #' \lifecycle{experimental} Get details about renderings (i.e. render history)
 #' or execute a variant on demand
 #' 
-#' `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`
-#' `variant_render()` executes a variant on demand. Returns a `VariantTask` object
+#' - `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`
+#' - `variant_render()` executes a variant on demand. Returns a `VariantTask` object
 #' 
 #' @param variant An R6 Variant object. As returned by `get_variant()` or `get_variant_default()`
 #' 
