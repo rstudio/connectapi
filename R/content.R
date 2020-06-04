@@ -316,9 +316,9 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #' 
 #' `get_acl()` is deprecated.
 #'
-#' @param content [Content] An R6 Content item
+#' @param content [Content] An R6 Content item as returned from `content_item()`
 #'
-#' @return A list of users who have access to the content
+#' @return A list of users/groups who have access to the content
 #'
 #' @family content functions
 #' @export
