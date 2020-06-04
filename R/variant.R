@@ -261,3 +261,20 @@ variant_render <- function(variant) {
   
   VariantTask$new(connect = variant$get_connect(), content = variant$get_content(), key = variant$key, task = rendered)
 }
+
+# TODO
+set_variant_email_viewers <- function() {
+  
+}
+
+set_variant_email_collaborators <- function() {
+  
+}
+
+set_variant_email_subscribe <- function() {
+  
+}
+
+set_variant_email_unsubscribe <- function() {
+  
+}
