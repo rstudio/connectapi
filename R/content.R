@@ -465,6 +465,9 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 #' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
 #' "Jobs" in RStudio Connect are content executions
 #' 
+#' @param content A Content object, as returned by `content_item()`
+#' @param key The key for a job
+#' 
 #' @rdname jobs
 #' @family content functions
 #' @export
