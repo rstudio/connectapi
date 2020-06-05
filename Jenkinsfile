@@ -8,7 +8,7 @@ if (env.CHANGE_TITLE == null) {
     // There is no access to the branch name.
     branchDescription = "for <${env.JOB_URL}|${env.BRANCH_NAME}>: <${env.CHANGE_URL}|${env.CHANGE_TITLE}>"
 }
-messagePrefix = "Pipeline build <${env.BUILD_URL}|${env.BUILD_DISPLAY_NAME}> ${branchDescription}"
+messagePrefix = "connectapi pipeline build <${env.BUILD_URL}|${env.BUILD_DISPLAY_NAME}> ${branchDescription}"
 
 slackChannelFail = "#sol-eng-bots"
 
