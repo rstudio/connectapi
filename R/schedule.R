@@ -65,6 +65,11 @@ VariantSchedule <- R6::R6Class(
     get_schedule = function() {
       return(self$schedule_data)
     },
+    get_schedule_remote = function() {
+      sch <- super$get_schedule_remote()
+      self$schedule_data <- sch
+      return(self$schedule_data)
+    },
     describe_schedule = function() {
       # TODO: create a human readable description of schedule
       if (!self$is_empty()) {
@@ -144,6 +149,8 @@ set_schedule <- function(
   ) {
   validate_R6_class(.schedule, "VariantSchedule")
   params <- rlang::list2(...)
+  
+  # TODO: check whether this schedule actually exists...
   
   # because "schedule" has to be a JSON blob, which is confusing
   if ("schedule" %in% names(params)) {
@@ -233,8 +240,6 @@ set_schedule_year <- function(.schedule, n = 1, start_time = Sys.time(), activat
   set_schedule(.schedule, type = "year", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
 
-
-# TODO: will be useful for testing programmatically...
 example_schedules <- list(
   list(type = "minute", schedule = list(N = 15)),
   list(type = "hour", schedule = list(N = 2)),
@@ -249,15 +254,6 @@ example_schedules <- list(
   list(type = "dayweekofmonth", schedule = list(N = 3, Day = 1, Week = 4)),
   list(type = "year", schedule = list(N = 2))
 )
-
-# for testing the examples
-#purrr::map(example_schedules, function(.x, sch) {
-#  message(glue::glue("Executing {.x$type}"))
-#  sch <- get_variant_schedule(sch)
-#  set_schedule(sch, !!!.x, start_time = Sys.time())
-#  set_schedule_remove(sch)
-#}, sch = sch)
-
 
 #' @rdname set_schedule
 #' @export
