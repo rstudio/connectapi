@@ -13,10 +13,10 @@ get_acl_group(content)
 get_acl(content)
 }
 \arguments{
-\item{content}{\link{Content} An R6 Content item}
+\item{content}{\link{Content} An R6 Content item as returned from \code{content_item()}}
 }
 \value{
-A list of users who have access to the content
+A list of users/groups who have access to the content
 }
 \description{
 \lifecycle{experimental} Retrieve the Access Controls associated with a given
@@ -40,6 +40,7 @@ Other content functions:
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
 \code{\link{get_environment}()},
+\code{\link{get_jobs}()},
 \code{\link{get_vanity_url}()},
 \code{\link{set_image_path}()},
 \code{\link{set_run_as}()},
