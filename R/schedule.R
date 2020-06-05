@@ -140,13 +140,10 @@ get_variant_schedule <- function(variant) {
 #' recommended.
 #' 
 #' @param .schedule A schedule object. As returned by `get_variant_schedule()`
-#' @param type The type of schedule. One of "hour", "minute", "day", "weekday",
-#'   "week", "semimonth", "dayofmonth", "dayweekofmonth", "year"
 #' @param email Whether to send emails on this schedule
 #' @param activate Whether to publish the output of this schedule
 #' @param schedule A JSON blob (as a string) describing the schedule. See "More Details"
 #' @param start_time The start time of the schedule
-#' @param next_run The next run of the schedule (set to `start_time` in most cases)
 #' @param n The "number of" iterations
 #' @param day The day of the week (0-6) or day of the month (0-31)
 #' @param days The days of the week (0-6)
