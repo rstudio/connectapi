@@ -20,6 +20,7 @@ An R6 class that represents a Schedule
 \item \href{#method-is_empty}{\code{VariantSchedule$is_empty()}}
 \item \href{#method-print}{\code{VariantSchedule$print()}}
 \item \href{#method-get_schedule}{\code{VariantSchedule$get_schedule()}}
+\item \href{#method-get_schedule_remote}{\code{VariantSchedule$get_schedule_remote()}}
 \item \href{#method-describe_schedule}{\code{VariantSchedule$describe_schedule()}}
 \item \href{#method-clone}{\code{VariantSchedule$clone()}}
 }
@@ -42,7 +43,6 @@ An R6 class that represents a Schedule
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants">}\href{../../connectapi/html/Content.html#method-variants}{\code{connectapi::Content$variants()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="add_subscribers">}\href{../../connectapi/html/Variant.html#method-add_subscribers}{\code{connectapi::Variant$add_subscribers()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_dashboard_url">}\href{../../connectapi/html/Variant.html#method-get_dashboard_url}{\code{connectapi::Variant$get_dashboard_url()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_schedule_remote">}\href{../../connectapi/html/Variant.html#method-get_schedule_remote}{\code{connectapi::Variant$get_schedule_remote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_subscribers">}\href{../../connectapi/html/Variant.html#method-get_subscribers}{\code{connectapi::Variant$get_subscribers()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_url">}\href{../../connectapi/html/Variant.html#method-get_url}{\code{connectapi::Variant$get_url()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_url_rev">}\href{../../connectapi/html/Variant.html#method-get_url_rev}{\code{connectapi::Variant$get_url_rev()}}\out{</span>}
@@ -127,6 +127,15 @@ An R6 class that represents a Schedule
 \subsection{Method \code{get_schedule()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$get_schedule()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_schedule_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-get_schedule_remote}{}}}
+\subsection{Method \code{get_schedule_remote()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$get_schedule_remote()}\if{html}{\out{</div>}}
 }
 
 }

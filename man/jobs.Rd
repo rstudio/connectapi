@@ -9,6 +9,11 @@ get_jobs(content)
 
 get_job(content, key)
 }
+\arguments{
+\item{content}{A Content object, as returned by \code{content_item()}}
+
+\item{key}{The key for a job}
+}
 \description{
 \lifecycle{experimental} Retrieve details about jobs associated with a \code{content_item}.
 "Jobs" in RStudio Connect are content executions
