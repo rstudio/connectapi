@@ -1,5 +1,13 @@
 isMasterBranch  = (env.BRANCH_NAME == 'master')
 
+if (env.CHANGE_TITLE == null) {
+    // When running against a branch, BRANCH_NAME is the branch name and CHANGE_TITLE is null.
+    branchDescription = "on <${env.JOB_URL}|${env.BRANCH_NAME}>"
+} else {
+    // When running against a PR, BRANCH_NAME is PR-XXXX and CHANGE_TITLE is the PR name.
+    // There is no access to the branch name.
+    branchDescription = "for <${env.JOB_URL}|${env.BRANCH_NAME}>: <${env.CHANGE_URL}|${env.CHANGE_TITLE}>"
+}
 messagePrefix = "Pipeline build <${env.BUILD_URL}|${env.BUILD_DISPLAY_NAME}> ${branchDescription}"
 
 slackChannelFail = "#sol-eng-bots"
