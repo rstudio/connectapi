@@ -75,10 +75,21 @@ VariantSchedule <- R6::R6Class(
       if (!self$is_empty()) {
         rawdata <- self$get_schedule()
         schdata <- jsonlite::fromJSON(rawdata$schedule)
+        # TODO: translate dayofweek "Days" to something more usable
+        plural <- ifelse(ifelse(is.null(schdata$N), FALSE, schdata$N > 1), "s", "")
         desc <- switch(
           rawdata$type,
-          "day" = glue::glue("Every {schdata$N} days"),
-          "Unknown"
+          "minute" = glue::glue("Every {schdata$N} minute{plural}"),
+          "hour" = glue::glue("Every {schdata$N} hour{plural}"),
+          "day" = glue::glue("Every {schdata$N} day{plural}"),
+          "weekday" = glue::glue("Every weekday"),
+          "week" = glue::glue("Every {schdata$N} week{plural}"),
+          "dayofweek" = glue::glue("On week days {glue::glue_collapse(schdata$Days, ', ')}"),
+          "semimonth" = ifelse(schdata$First == "TRUE", "On the 1st and 15th of each month", "On the 14th and Last day of each month"),
+          "dayofmonth" = glue::glue("Every {schdata$N} month{plural} on day {schdata$Day}"),
+          "dayweekofmonth" = glue::glue("Every {schdata$N} month{plural} on week {schdata$Week}, day {schdata$Day}"),
+          "year" = glue::glue("Every {schdata$N} year{plural}"),
+          "Unknown schedule"
         )
         c(
           desc,
