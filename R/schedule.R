@@ -85,6 +85,17 @@ VariantSchedule <- R6::R6Class(
   )
 )
 
+#' Get a Variant Schedule
+#' 
+#' \lifecycle{experimental} Gets the schedule associated with a Variant.
+#' 
+#' @param variant A Variant object, as returned by `get_variant()` or `get_variant_default()`
+#' 
+#' @return A VariantSchedule object
+#' 
+#' @rdname get_variant_schedule
+#' @family schedule functions
+#' @export
 get_variant_schedule <- function(variant) {
   warn_experimental("get_schedule")
   scoped_experimental_silence()
@@ -99,6 +110,15 @@ get_variant_schedule <- function(variant) {
   VariantSchedule$new(connect = connect_client, content = content_details, key = variant_key, schedule = variant_schedule)
 }
 
+#' Set a Schedule
+#' 
+#' \lifecycle{experimental} Sets the schedule for a given Variant. Requires a
+#' `Schedule` object (as returned by `get_variant_schedule()`)
+#' 
+#' - `set_schedule()` is a somewhat raw interface to RStudio Connect's `schedule` API
+#' - `set_schedule_*()` functions provide handy wrappers around `set_schedule()`
+#' - `set_schedule_remove()` removes a schedule / un-schedules a variant
+#' 
 #' @param .schedule A schedule object. As returned by `get_variant_schedule()`
 #' @param type The type of schedule. One of "hour", "minute", "day", "weekday",
 #'   "week", "semimonth", "dayofmonth", "dayweekofmonth", "year"
@@ -107,6 +127,17 @@ get_variant_schedule <- function(variant) {
 #' @param schedule A JSON blob (as a string) describing the schedule. See "More Details"
 #' @param start_time The start time of the schedule
 #' @param next_run The next run of the schedule (set to `start_time` in most cases)
+#' @param n The "number of" iterations
+#' @param day The day of the week (0-6) or day of the month (0-31)
+#' @param days The days of the week (0-6)
+#' @param week The week of the month (0-5)
+#' @param first [logical] Whether to execute on the 1st and 15th (TRUE) or 14th and last (FALSE)
+#' 
+#' @return An updated Schedule object
+#' 
+#' @rdname set_schedule
+#' @family schedule functions
+#' @export
 set_schedule <- function(
   .schedule, 
   ...
@@ -142,42 +173,62 @@ set_schedule <- function(
 
 schedule_types <- c("minute", "hour", "day", "weekday", "week", "dayofweek", "semimonth", "dayofmonth", "dayweekofmonth", "year")
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_minute <- function(.schedule, n = 30, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "minute", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_hour <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "hour", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_day <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "day", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_weekday <- function(.schedule, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "weekday", schedule = "{}", start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_week <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "week", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_dayofweek <- function(.schedule, days, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "dayofweek", schedule = list(Days = days), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_semimonth <- function(.schedule, first = TRUE, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "semimonth", schedule = list(First = first), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_dayofmonth <- function(.schedule, n = 1, day = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "dayofmonth", schedule = list(N = n, Day = day), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_dayweekofmonth <- function(.schedule, n = 1, day = 1, week = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "dayweekofmonth", schedule = list(N = n, Day = day, Week = week), start_time = start_time, activate = activate, email = email)
 }
 
+#' @rdname set_scheudule
+#' @export
 set_schedule_year <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
   set_schedule(.schedule, type = "year", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
 }
@@ -207,6 +258,9 @@ example_schedules <- list(
 #  set_schedule_remove(sch)
 #}, sch = sch)
 
+
+#' @rdname set_schedule
+#' @export
 set_schedule_remove <- function(.schedule) {
   validate_R6_class(.schedule, "VariantSchedule")
   cli <- .schedule$get_connect()
