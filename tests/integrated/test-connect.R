@@ -33,7 +33,3 @@ test_that("connect fails for good server, bad api key", {
     )
   })
 })
-
-test_that("pretend", {
-  expect_true(FALSE)
-})
