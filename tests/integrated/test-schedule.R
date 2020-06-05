@@ -32,6 +32,7 @@ invisible(purrr::map(
     test_that(
       glue::glue("example schedule {.x$type} works"),
       {
+        scoped_experimental_silence()
         sch <- get_variant_schedule(sch)
         sch <- set_schedule(sch, !!!.x, start_time = Sys.time())
         expect_true(validate_R6_class(sch, "VariantSchedule"))
@@ -43,12 +44,14 @@ invisible(purrr::map(
 ))
 
 test_that("set_schedule_remove is idempotent", {
+  scoped_experimental_silence()
   set_schedule_remove(d_var_sch)
   set_schedule_remove(d_var_sch)
   set_schedule_remove(d_var_sch)
 })
 
 test_that("schedule helpers work", {
+  scoped_experimental_silence()
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_minute(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_hour(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_day(get_variant_schedule(d_var_sch))), "Variant"))
