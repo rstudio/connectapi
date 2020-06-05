@@ -1,4 +1,4 @@
-isMasterBranch  = (env.BRANCH_NAME == 'master')
+isMasterBranch  = (env.BRANCH_NAME == 'schedules')
 
 if (env.CHANGE_TITLE == null) {
     // When running against a branch, BRANCH_NAME is the branch name and CHANGE_TITLE is null.
