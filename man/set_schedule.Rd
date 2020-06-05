@@ -122,12 +122,7 @@ set_schedule_remove(.schedule)
 
 \item{week}{The week of the month (0-5)}
 
-\item{type}{The type of schedule. One of "hour", "minute", "day", "weekday",
-"week", "semimonth", "dayofmonth", "dayweekofmonth", "year"}
-
 \item{schedule}{A JSON blob (as a string) describing the schedule. See "More Details"}
-
-\item{next_run}{The next run of the schedule (set to \code{start_time} in most cases)}
 }
 \value{
 An updated Schedule object
