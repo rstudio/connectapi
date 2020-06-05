@@ -142,7 +142,7 @@ test_that("set_environment works", {
   env <- get_environment(rmd_content)
   curr_vers <- env$env_version
   
-  new_env <- set_environment_new(env, test = "value", test1 = "value1", test2 = "value2")
+  new_env <- set_environment_new(env, test = "value", test1 = TRUE, test2 = 4567)
   
   expect_equal(
     new_env$env_vars,
