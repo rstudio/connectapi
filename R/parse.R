@@ -62,7 +62,7 @@ parse_connectapi_typed <- function(data, ...) {
 }
 
 parse_connectapi <- function(data) {
-  purrr::map_df(
+  tibble::as_tibble(purrr::map_df(
     data,
     function(x) {
       purrr::map(
@@ -82,7 +82,7 @@ parse_connectapi <- function(data) {
         }
       )
     }
-  )
+  ))
 }
 
 #' @export
