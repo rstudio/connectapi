@@ -127,6 +127,9 @@ Content <- R6::R6Class(
       # post without a variable/key to remove
       # bump version number each time
       vals <- rlang::list2(...)
+      
+      # TODO: evaluate whether we should be coercing to character or erroring
+      vals <- purrr::map(vals, as.character)
       body <- list(
         values = vals,
         version = .version,
