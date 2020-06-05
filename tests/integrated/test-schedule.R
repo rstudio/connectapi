@@ -45,9 +45,9 @@ invisible(purrr::map(
 
 test_that("set_schedule_remove is idempotent", {
   scoped_experimental_silence()
-  set_schedule_remove(d_var_sch)
-  set_schedule_remove(d_var_sch)
-  set_schedule_remove(d_var_sch)
+  expect_true(validate_R6_class(set_schedule_remove(d_var_sch), "Variant"))
+  expect_true(validate_R6_class(set_schedule_remove(d_var_sch), "Variant"))
+  expect_true(validate_R6_class(set_schedule_remove(d_var_sch), "Variant"))
 })
 
 test_that("schedule helpers work", {
