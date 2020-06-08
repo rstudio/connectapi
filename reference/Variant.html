@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Variant — Variant • connectapi</title>
+<title>Get Variant — get_variants • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Variant — Variant" />
-<meta property="og:description" content="An R6 class that represents a Variant" />
+<meta property="og:title" content="Get Variant — get_variants" />
+<meta property="og:description" content="
+ Work with variants" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -80,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9010</span>
       </span>
     </div>
 
@@ -131,135 +132,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Variant</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <h1>Get Variant</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/variant.R'><code>R/variant.R</code></a></small>
     <div class="hidden name"><code>Variant.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R6 class that represents a Variant</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ Work with variants</p>
     </div>
 
+    <pre class="usage"><span class='fu'>get_variants</span>(<span class='no'>content</span>)
 
+<span class='fu'>get_variant_default</span>(<span class='no'>content</span>)
 
-    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+<span class='fu'>get_variant</span>(<span class='no'>content</span>, <span class='no'>key</span>)</pre>
 
-    <p><code><a href='Content.html'>connectapi::Content</a></code> -&gt; <code>Variant</code></p>
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>content</th>
+      <td><p>An R6 Content object. Returned from <code><a href='content_item.html'>content_item()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>The Variant key for a specific variant</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
-<h3>Public methods</h3>
-
 <ul>
-<li><p><a href='#method-get_variant'><code>Variant$get_variant()</code></a></p></li>
-<li><p><a href='#method-new'><code>Variant$new()</code></a></p></li>
-<li><p><a href='#method-send_mail'><code>Variant$send_mail()</code></a></p></li>
-<li><p><a href='#method-render'><code>Variant$render()</code></a></p></li>
-<li><p><a href='#method-renderings'><code>Variant$renderings()</code></a></p></li>
-<li><p><a href='#method-jobs'><code>Variant$jobs()</code></a></p></li>
-<li><p><a href='#method-job'><code>Variant$job()</code></a></p></li>
-<li><p><a href='#method-get_url'><code>Variant$get_url()</code></a></p></li>
-<li><p><a href='#method-get_url_rev'><code>Variant$get_url_rev()</code></a></p></li>
-<li><p><a href='#method-get_dashboard_url'><code>Variant$get_dashboard_url()</code></a></p></li>
-<li><p><a href='#method-print'><code>Variant$print()</code></a></p></li>
-<li><p><a href='#method-clone'><code>Variant$clone()</code></a></p></li>
+<li><p><code>get_variants()</code> returns a <code>tibble</code> with variant data for a <code>content_item</code></p></li>
+<li><p><code>get_default_variant()</code> returns the default variant for a <code>content_item</code></p></li>
+<li><p><code>get_variant()</code> returns a specific variant for a <code>content_item</code> (specified by <code>key</code>)</p></li>
 </ul>
-<p><details ><summary>Inherited methods</summary>
-<ul>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment"><a href='../../connectapi/html/Content.html#method-environment'><code>connectapi::Content$environment()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set"><a href='../../connectapi/html/Content.html#method-environment_set'><code>connectapi::Content$environment_set()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect"><a href='../../connectapi/html/Content.html#method-get_connect'><code>connectapi::Content$get_connect()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content"><a href='../../connectapi/html/Content.html#method-get_content'><code>connectapi::Content$get_content()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job"><a href='../../connectapi/html/Content.html#method-get_job'><code>connectapi::Content$get_job()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs"><a href='../../connectapi/html/Content.html#method-get_jobs'><code>connectapi::Content$get_jobs()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas"><a href='../../connectapi/html/Content.html#method-runas'><code>connectapi::Content$runas()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-tag_set'><code>connectapi::Content$tag_set()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-tags'><code>connectapi::Content$tags()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-update'><code>connectapi::Content$update()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-variants'><code>connectapi::Content$variants()</code></a></span></p></li>
-</ul>
-</details>
 
-<hr>
-<a id="method-get_variant"></a></p><h3>Method <code>get_variant()</code></h3>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>get_variant</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>new</span>(<span class='no'>connect</span>, <span class='no'>content</span>, <span class='no'>key</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-send_mail"></a></p><h3>Method <code>send_mail()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>send_mail</span>(<span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"me"</span>, <span class='st'>"collaborators"</span>, <span class='st'>"collaborators_viewers"</span>))</pre><p></div></p>
-
-<p><hr>
-<a id="method-render"></a></p><h3>Method <code>render()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>render</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-renderings"></a></p><h3>Method <code>renderings()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>renderings</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-jobs"></a></p><h3>Method <code>jobs()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>jobs</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-job"></a></p><h3>Method <code>job()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>job</span>(<span class='no'>key</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-get_url"></a></p><h3>Method <code>get_url()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>get_url</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-get_url_rev"></a></p><h3>Method <code>get_url_rev()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>get_url_rev</span>(<span class='no'>rev</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-get_dashboard_url"></a></p><h3>Method <code>get_dashboard_url()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>get_dashboard_url</span>(<span class='kw'>pane</span> <span class='kw'>=</span> <span class='st'>"access"</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>...</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Variant</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
-
-<h3>Arguments</h3>
-<p><div class="arguments"></p><dl'>
-<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
-
-</dl><p></div></p>
-
-
+    <div class='dont-index'><p>Other variant functions: 
+<code><a href='render.html'>get_variant_renderings</a>()</code></p>
+<p>Other variant functions: 
+<code><a href='render.html'>get_variant_renderings</a>()</code></p>
+<p>Other variant functions: 
+<code><a href='render.html'>get_variant_renderings</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -276,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9010</span>
       </span>
     </div>
 
@@ -93,9 +93,9 @@
   <div class="contents col-md-9">
 
 
-<div id="connectapi" class="section level1">
+<div id="connectapi-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#connectapi" class="anchor"></a>connectapi <img src="reference/figures/logo.svg" align="right" height="139">
+<a href="#connectapi-" class="anchor"></a>connectapi <img src="reference/figures/logo.svg" align="right" height="139">
 </h1></div>
 <p>This package provides an R client for the <a href="https://docs.rstudio.com/connect/api/">RStudio Connect Server API</a> as well as helpful functions that utilize the client. The package is based on the <code>rsconnnect</code> <a href="https://rstudio.github.io/rsconnect/">package</a>, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the <code>rsconnect</code> package for easier support and maintenance.</p>
 <div id="disclaimer" class="section level2">
@@ -126,8 +126,8 @@
   <span class="kw">api_key</span> <span class="kw">=</span> <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span>
 )</pre></div>
 <p>You can also define the following environment variables (in a <code>.Renviron</code> file, for instance):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">CONNECT_SERVER  =<span class="st"> </span>https<span class="op">:</span><span class="er">//</span>connect.example.com</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">CONNECT_API_KEY =<span class="st"> </span>my<span class="op">-</span>secret<span class="op">-</span>api<span class="op">-</span>key</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>CONNECT_SERVER  =<span class="st"> </span>https<span class="op">:</span><span class="er">//</span>connect.example.com</span>
+<span id="cb3-2"><a href="#cb3-2"></a>CONNECT_API_KEY =<span class="st"> </span>my<span class="op">-</span>secret<span class="op">-</span>api<span class="op">-</span>key</span></code></pre></div>
 <p>These environment variable values will be used automatically if defined in your R session.</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
 <span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()</pre></div>
@@ -265,7 +265,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

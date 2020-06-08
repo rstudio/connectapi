@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VariantTask — VariantTask • connectapi</title>
+<title>VariantSchedule — VariantSchedule • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="VariantTask — VariantTask" />
-<meta property="og:description" content="An R6 class that represents a Variant Task" />
+<meta property="og:title" content="VariantSchedule — VariantSchedule" />
+<meta property="og:description" content="An R6 class that represents a Schedule" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -131,38 +131,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>VariantTask</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/variant.R'><code>R/variant.R</code></a></small>
-    <div class="hidden name"><code>VariantTask.Rd</code></div>
+    <h1>VariantSchedule</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/schedule.R'><code>R/schedule.R</code></a></small>
+    <div class="hidden name"><code>VariantSchedule.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R6 class that represents a Variant Task</p>
+    <p>An R6 class that represents a Schedule</p>
     </div>
 
 
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other R6 classes: 
-<code><a href='Bundle.html'>Bundle</a></code>,
-<code><a href='Content.html'>Content</a></code>,
-<code><a href='RStudioConnect.html'>RStudioConnect</a></code>,
-<code><a href='Task.html'>Task</a></code>,
-<code><a href='Vanity.html'>Vanity</a></code></p></div>
     <h2 class="hasAnchor" id="super-classes"><a class="anchor" href="#super-classes"></a>Super classes</h2>
 
-    <p><code><a href='Content.html'>connectapi::Content</a></code> -&gt; <code>connectapi::Variant</code> -&gt; <code>VariantTask</code></p>
+    <p><code><a href='Content.html'>connectapi::Content</a></code> -&gt; <code>connectapi::Variant</code> -&gt; <code>VariantSchedule</code></p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
 <h3>Public methods</h3>
 
 <ul>
-<li><p><a href='#method-new'><code>VariantTask$new()</code></a></p></li>
-<li><p><a href='#method-get_task'><code>VariantTask$get_task()</code></a></p></li>
-<li><p><a href='#method-print'><code>VariantTask$print()</code></a></p></li>
-<li><p><a href='#method-clone'><code>VariantTask$clone()</code></a></p></li>
+<li><p><a href='#method-new'><code>VariantSchedule$new()</code></a></p></li>
+<li><p><a href='#method-GET'><code>VariantSchedule$GET()</code></a></p></li>
+<li><p><a href='#method-POST'><code>VariantSchedule$POST()</code></a></p></li>
+<li><p><a href='#method-DELETE'><code>VariantSchedule$DELETE()</code></a></p></li>
+<li><p><a href='#method-set_schedule'><code>VariantSchedule$set_schedule()</code></a></p></li>
+<li><p><a href='#method-is_empty'><code>VariantSchedule$is_empty()</code></a></p></li>
+<li><p><a href='#method-print'><code>VariantSchedule$print()</code></a></p></li>
+<li><p><a href='#method-get_schedule'><code>VariantSchedule$get_schedule()</code></a></p></li>
+<li><p><a href='#method-get_schedule_remote'><code>VariantSchedule$get_schedule_remote()</code></a></p></li>
+<li><p><a href='#method-describe_schedule'><code>VariantSchedule$describe_schedule()</code></a></p></li>
+<li><p><a href='#method-clone'><code>VariantSchedule$clone()</code></a></p></li>
 </ul>
 <p><details ><summary>Inherited methods</summary>
 <ul>
@@ -181,8 +180,6 @@
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-variants'><code>connectapi::Content$variants()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="add_subscribers"><a href='../../connectapi/html/Variant.html#method-add_subscribers'><code>connectapi::Variant$add_subscribers()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_dashboard_url"><a href='../../connectapi/html/Variant.html#method-get_dashboard_url'><code>connectapi::Variant$get_dashboard_url()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_schedule"><a href='../../connectapi/html/Variant.html#method-get_schedule'><code>connectapi::Variant$get_schedule()</code></a></span></p></li>
-<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_schedule_remote"><a href='../../connectapi/html/Variant.html#method-get_schedule_remote'><code>connectapi::Variant$get_schedule_remote()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_subscribers"><a href='../../connectapi/html/Variant.html#method-get_subscribers'><code>connectapi::Variant$get_subscribers()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_url"><a href='../../connectapi/html/Variant.html#method-get_url'><code>connectapi::Variant$get_url()</code></a></span></p></li>
 <li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Variant" data-id="get_url_rev"><a href='../../connectapi/html/Variant.html#method-get_url_rev'><code>connectapi::Variant$get_url_rev()</code></a></span></p></li>
@@ -202,24 +199,66 @@
 <a id="method-new"></a></p><h3>Method <code>new()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>VariantTask</span>$<span class='fu'>new</span>(<span class='no'>connect</span>, <span class='no'>content</span>, <span class='no'>key</span>, <span class='no'>task</span>)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>new</span>(<span class='no'>connect</span>, <span class='no'>content</span>, <span class='no'>key</span>, <span class='no'>schedule</span>)</pre><p></div></p>
 
 <p><hr>
-<a id="method-get_task"></a></p><h3>Method <code>get_task()</code></h3>
+<a id="method-GET"></a></p><h3>Method <code>GET()</code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>VariantTask</span>$<span class='fu'>get_task</span>()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>GET</span>(<span class='no'>path</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-POST"></a></p><h3>Method <code>POST()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>POST</span>(<span class='no'>path</span>, <span class='no'>body</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-DELETE"></a></p><h3>Method <code>DELETE()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>DELETE</span>(<span class='no'>path</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-set_schedule"></a></p><h3>Method <code><a href='set_schedule.html'>set_schedule()</a></code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'><a href='set_schedule.html'>set_schedule</a></span>(<span class='no'>...</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-is_empty"></a></p><h3>Method <code>is_empty()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>is_empty</span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
 <h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>VariantTask</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>...</span>)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>...</span>)</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_schedule"></a></p><h3>Method <code>get_schedule()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>get_schedule</span>()</pre><p></div></p>
+
+<p><hr>
+<a id="method-get_schedule_remote"></a></p><h3>Method <code>get_schedule_remote()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>get_schedule_remote</span>()</pre><p></div></p>
+
+<p><hr>
+<a id="method-describe_schedule"></a></p><h3>Method <code>describe_schedule()</code></h3>
+
+<h3>Usage</h3>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>describe_schedule</span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>VariantTask</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>VariantSchedule</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
 <p><div class="arguments"></p><dl>
