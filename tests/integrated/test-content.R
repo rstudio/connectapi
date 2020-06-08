@@ -139,10 +139,11 @@ test_that("get_environment works with no environment variables", {
 })
 
 test_that("set_environment works", {
+  scoped_experimental_silence()
   env <- get_environment(rmd_content)
   curr_vers <- env$env_version
   
-  new_env <- set_environment_new(env, test = "value", test1 = "value1", test2 = "value2")
+  new_env <- set_environment_new(env, test = "value", test1 = TRUE, test2 = 4567)
   
   expect_equal(
     new_env$env_vars,
@@ -242,6 +243,7 @@ test_that("fails for static content", {
 })
 
 test_that("works with a good linux user", {
+  scoped_experimental_silence()
   res <- set_run_as(shiny_content, "rstudio-connect")
   expect_equal(
     res$get_content()$run_as,
@@ -252,6 +254,7 @@ test_that("works with a good linux user", {
 })
 
 test_that("fails with a bad linux user", {
+  scoped_experimental_silence()
   expect_error(
     suppressMessages(
       set_run_as(shiny_content, "fake-user")
@@ -261,6 +264,7 @@ test_that("fails with a bad linux user", {
 })
 
 test_that("works for run_as_current_user", {
+  scoped_experimental_silence()
   res <- set_run_as(
     shiny_content,
     run_as = NULL,
@@ -283,6 +287,7 @@ test_that("works for run_as_current_user", {
 })
 
 test_that("run_as_current_user fails for rmd", {
+  scoped_experimental_silence()
   expect_error(
     suppressMessages(
       set_run_as(rmd_content, "rstudio-connect", TRUE),

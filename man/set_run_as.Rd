@@ -42,6 +42,7 @@ Other content functions:
 \code{\link{dashboard_url}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_environment}()},
+\code{\link{get_jobs}()},
 \code{\link{get_vanity_url}()},
 \code{\link{set_image_path}()},
 \code{\link{set_vanity_url}()}

@@ -10,6 +10,7 @@ appRunAs
 appUrl
 browseURL
 cloneable
+Connect's
 ConnectionTimeout
 conns
 cpuCurrent
@@ -34,6 +35,7 @@ iframes
 init
 InitTimeout
 JQuery
+JSON
 Jupyter
 LDAP
 lifecycle
@@ -44,6 +46,7 @@ MaxProcesses
 MinProcesses
 pid
 PID
+processx
 programmatically
 Proxied
 py
@@ -54,6 +57,12 @@ Rmarkdown
 rmd
 rstudio
 RunAs
+stderr
+stdout
+th
 tibble
 Tibble
+un
 UUID
+VariantSchedule
+VariantTask

@@ -8,6 +8,10 @@ safe_format <- function(expr, ...) {
 }
 
 make_timestamp <- function(input) {
+  if (is.character(input)) {
+    # TODO: make sure this is the right timestamp format
+    return(input)
+  }
   safe_format(input, "%Y-%m-%dT%H:%M:%SZ")
 }
 
@@ -58,7 +62,7 @@ parse_connectapi_typed <- function(data, ...) {
 }
 
 parse_connectapi <- function(data) {
-  purrr::map_df(
+  tibble::as_tibble(purrr::map_df(
     data,
     function(x) {
       purrr::map(
@@ -78,7 +82,7 @@ parse_connectapi <- function(data) {
         }
       )
     }
-  )
+  ))
 }
 
 #' @export
