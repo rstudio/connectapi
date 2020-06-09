@@ -11,12 +11,19 @@ bundle_static(
 }
 \arguments{
 \item{path}{The path to a file (or files) that will be used for the static bundle}
+
+\item{filename}{The output bundle path}
 }
 \value{
 Bundle A bundle object
 }
 \description{
-Define a bundle from a static file (or files)
+Defines a bundle from static files. It copies all files to a temporary
+directory, generates a basic manifest file (using the first file as the
+"primary"), and bundles the directory.
+}
+\details{
+NOTE: the \code{rsconnect} package is required for this function to work properly.
 }
 \seealso{
 Other deployment functions: 
