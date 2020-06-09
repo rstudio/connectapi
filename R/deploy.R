@@ -120,7 +120,14 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 
 #' Define a bundle from a static file (or files)
 #' 
+#' Defines a bundle from static files. It copies all files to a temporary
+#' directory, generates a basic manifest file (using the first file as the
+#' "primary"), and bundles the directory.
+#' 
+#' NOTE: the `rsconnect` package is required for this function to work properly.
+#' 
 #' @param path The path to a file (or files) that will be used for the static bundle
+#' @param filename The output bundle path
 #' 
 #' @return Bundle A bundle object
 #' 
@@ -133,6 +140,8 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   if (!requireNamespace("rsconnect", quietly = TRUE)) {
     stop("ERROR: the `rsconnect` package needs to be installed to use this function")
   }
+  # TODO: error if these files are not static?
+  # TODO: a better way to get the primary document besides `all_files[[1]]`?
   rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = all_files[[1]])
   bundle_dir(tmpdir, filename = filename)
 }
