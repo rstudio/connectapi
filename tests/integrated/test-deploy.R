@@ -10,6 +10,14 @@ cont1_guid <- NULL
 cont1_bundle <- NULL
 cont1_content <- NULL
 
+test_that("bundle_static deploys", {
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  deployed <- deploy(test_conn_1, bnd, uuid::UUIDgenerate())
+  
+  expect_true(validate_R6_class(bnd, "Bundle"))
+  expect_true(validate_R6_class(deployed, "Content"))
+})
+
 test_that("bundle_dir deploys", {
   dir_path <- rprojroot::find_package_root_file("tests/testthat/examples/static")
   tmp_file <- fs::file_temp(pattern = "bundle", ext = ".tar.gz")
