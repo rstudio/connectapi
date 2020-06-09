@@ -240,7 +240,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @param path optional. The path to the image on disk
 #'
 #' @rdname get_image
-#' @family deployment functions
+#' @family content functions
 #' @export
 get_image <- function(content, path = NULL) {
   warn_experimental("get_image")
@@ -278,7 +278,6 @@ get_image <- function(content, path = NULL) {
 }
 
 #' @rdname get_image
-#' @family content
 #' @export
 delete_image <- function(content, path = NULL) {
   warn_experimental("delete_image")
@@ -300,7 +299,6 @@ delete_image <- function(content, path = NULL) {
 }
 
 #' @rdname get_image
-#' @family content
 #' @export
 has_image <- function(content) {
   warn_experimental("has_image")
@@ -474,7 +472,7 @@ get_vanity_url <- function(content) {
 #' @param from_content A Content object
 #' @param to_content A Content object
 #'
-#' @family content
+#' @family content functions
 #' @export
 swap_vanity_url <- function(from_content, to_content) {
   warn_experimental("swap_vanity_url")
