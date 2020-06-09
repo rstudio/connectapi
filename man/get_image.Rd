@@ -27,6 +27,7 @@ has_image(content)
 Other deployment functions: 
 \code{\link{bundle_dir}()},
 \code{\link{bundle_path}()},
+\code{\link{bundle_static}()},
 \code{\link{deploy}()},
 \code{\link{download_bundle}()},
 \code{\link{poll_task}()}
