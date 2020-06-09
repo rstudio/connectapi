@@ -118,6 +118,25 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   Bundle$new(path = tar_path)
 }
 
+#' Define a bundle from a static file (or files)
+#' 
+#' @param path The path to a file (or files) that will be used for the static bundle
+#' 
+#' @return Bundle A bundle object
+#' 
+#' @family deployment functions
+#' @export
+bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+  tmpdir <- fs::file_temp("bundledir")
+  dir.create(tmpdir, recursive = TRUE)
+  all_files <- fs::file_copy(path = path, new_path = paste0(tmpdir, "/"))
+  if (!requireNamespace("rsconnect", quietly = TRUE)) {
+    stop("ERROR: the `rsconnect` package needs to be installed to use this function")
+  }
+  rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = all_files[[1]])
+  bundle_dir(tmpdir, filename = filename)
+}
+
 #' Define a bundle from a path (a tar.gz file)
 #'
 #' @param path The path to a .tar.gz file
