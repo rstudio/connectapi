@@ -1,7 +1,5 @@
 # connectapi (development version)
 
-# connectapi development
-
 BREAKING: 
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
 * Rename a handful of functions:

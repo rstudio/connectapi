@@ -118,6 +118,34 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   Bundle$new(path = tar_path)
 }
 
+#' Define a bundle from a static file (or files)
+#' 
+#' Defines a bundle from static files. It copies all files to a temporary
+#' directory, generates a basic manifest file (using the first file as the
+#' "primary"), and bundles the directory.
+#' 
+#' NOTE: the `rsconnect` package is required for this function to work properly.
+#' 
+#' @param path The path to a file (or files) that will be used for the static bundle
+#' @param filename The output bundle path
+#' 
+#' @return Bundle A bundle object
+#' 
+#' @family deployment functions
+#' @export
+bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+  tmpdir <- fs::file_temp("bundledir")
+  dir.create(tmpdir, recursive = TRUE)
+  all_files <- fs::file_copy(path = path, new_path = paste0(tmpdir, "/"))
+  if (!requireNamespace("rsconnect", quietly = TRUE)) {
+    stop("ERROR: the `rsconnect` package needs to be installed to use this function")
+  }
+  # TODO: error if these files are not static?
+  # TODO: a better way to get the primary document besides `all_files[[1]]`?
+  rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = all_files[[1]])
+  bundle_dir(tmpdir, filename = filename)
+}
+
 #' Define a bundle from a path (a tar.gz file)
 #'
 #' @param path The path to a .tar.gz file
@@ -212,7 +240,7 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
 #' @param path optional. The path to the image on disk
 #'
 #' @rdname get_image
-#' @family deployment functions
+#' @family content functions
 #' @export
 get_image <- function(content, path = NULL) {
   warn_experimental("get_image")
@@ -250,7 +278,6 @@ get_image <- function(content, path = NULL) {
 }
 
 #' @rdname get_image
-#' @family content
 #' @export
 delete_image <- function(content, path = NULL) {
   warn_experimental("delete_image")
@@ -272,7 +299,6 @@ delete_image <- function(content, path = NULL) {
 }
 
 #' @rdname get_image
-#' @family content
 #' @export
 has_image <- function(content) {
   warn_experimental("has_image")
@@ -446,7 +472,7 @@ get_vanity_url <- function(content) {
 #' @param from_content A Content object
 #' @param to_content A Content object
 #'
-#' @family content
+#' @family content functions
 #' @export
 swap_vanity_url <- function(from_content, to_content) {
   warn_experimental("swap_vanity_url")
