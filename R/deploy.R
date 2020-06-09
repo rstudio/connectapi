@@ -142,7 +142,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   }
   # TODO: error if these files are not static?
   # TODO: a better way to get the primary document besides `all_files[[1]]`?
-  rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = all_files[[1]])
+  rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = path)
   bundle_dir(tmpdir, filename = filename)
 }
 
