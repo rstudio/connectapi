@@ -26,7 +26,6 @@ Other deployment functions:
 \code{\link{bundle_path}()},
 \code{\link{bundle_static}()},
 \code{\link{deploy}()},
-\code{\link{get_image}()},
 \code{\link{poll_task}()}
 }
 \concept{deployment functions}
