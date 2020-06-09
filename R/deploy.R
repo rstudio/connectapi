@@ -134,7 +134,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 #' @family deployment functions
 #' @export
 bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-  tmpdir <- fs::file_temp("bundledir")
+  tmpdir <- fs::file_temp("bundledir", ".")
   dir.create(tmpdir, recursive = TRUE)
   all_files <- fs::file_copy(path = path, new_path = paste0(tmpdir, "/"))
   if (!requireNamespace("rsconnect", quietly = TRUE)) {
