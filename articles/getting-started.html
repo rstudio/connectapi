@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1 data-toc-skip>Getting Started with connectapi</h1>
                         <h4 class="author">Cole Arendt</h4>
             
-            <h4 class="date">2020-06-08</h4>
+            <h4 class="date">2020-06-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/master/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
@@ -125,7 +125,7 @@ CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <div id="content-management" class="section level2">
 <h2 class="hasAnchor">
 <a href="#content-management" class="anchor"></a>Content Management</h2>
-<p>The <code>connectapi</code> package has tools to help programmatically deploy and manage content. To get started, you need to use the <code>rsconnect</code> package, specifically the <code>rsconnect::writeManifest()</code> function, to build a <code>manifest.json</code> file for a directory of content that you want to deploy.</p>
+<p>The <code>connectapi</code> package has tools to help programmatically deploy and manage content. To get started, you need to use the <code>rsconnect</code> package, specifically the <code><a href="https://rdrr.io/pkg/rsconnect/man/writeManifest.html">rsconnect::writeManifest()</a></code> function, to build a <code>manifest.json</code> file for a directory of content that you want to deploy.</p>
 <p>Once the <code>manifest.json</code> file is present, you can reference the directory and deploy it directly:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">bnd</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bundle_dir.html">bundle_dir</a></span>(<span class="st">"./my/directory"</span>)
 
