@@ -4,8 +4,10 @@
 \alias{download_bundle}
 \title{Download a Bundle from Deployed Connect Content}
 \usage{
-download_bundle(content, filename = fs::file_temp(pattern = "bundle", ext
-  = ".tar.gz"))
+download_bundle(
+  content,
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")
+)
 }
 \arguments{
 \item{content}{A Content object}
@@ -19,8 +21,11 @@ Bundle A bundle object
 Downloads a Content item's active bundle
 }
 \seealso{
-Other deployment functions: \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{deploy}},
-  \code{\link{get_image}}, \code{\link{poll_task}}
+Other deployment functions: 
+\code{\link{bundle_dir}()},
+\code{\link{bundle_path}()},
+\code{\link{bundle_static}()},
+\code{\link{deploy}()},
+\code{\link{poll_task}()}
 }
 \concept{deployment functions}

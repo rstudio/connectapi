@@ -24,13 +24,18 @@ has_image(content)
 \code{has_image} returns whether the content has an image
 }
 \seealso{
-Other deployment functions: \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{deploy}},
-  \code{\link{download_bundle}}, \code{\link{poll_task}}
-
-Other content: \code{\link{swap_vanity_url}}
-
-Other content: \code{\link{swap_vanity_url}}
+Other content functions: 
+\code{\link{content_item}()},
+\code{\link{content_title}()},
+\code{\link{dashboard_url_chr}()},
+\code{\link{dashboard_url}()},
+\code{\link{get_acl_user}()},
+\code{\link{get_environment}()},
+\code{\link{get_jobs}()},
+\code{\link{get_vanity_url}()},
+\code{\link{set_image_path}()},
+\code{\link{set_run_as}()},
+\code{\link{set_vanity_url}()},
+\code{\link{swap_vanity_url}()}
 }
-\concept{content}
-\concept{deployment functions}
+\concept{content functions}

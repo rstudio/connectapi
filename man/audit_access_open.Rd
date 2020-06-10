@@ -14,11 +14,13 @@ whose access control is set to "Everyone". If "logged_in", return a list of
 apps whose access control is set to "All logged in users"}
 }
 \description{
-Audit Access Controls
+\lifecycle{experimental}
 }
 \seealso{
-Other audit functions: \code{\link{audit_r_versions}},
-  \code{\link{audit_runas}},
-  \code{\link{audit_vanity_urls}}, \code{\link{cache_apps}}
+Other audit functions: 
+\code{\link{audit_r_versions}()},
+\code{\link{audit_runas}()},
+\code{\link{audit_vanity_urls}()},
+\code{\link{cache_apps}()}
 }
 \concept{audit functions}

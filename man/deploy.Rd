@@ -4,8 +4,7 @@
 \alias{deploy}
 \title{Deploy a bundle}
 \usage{
-deploy(connect, bundle, name = random_name(), title = name,
-  guid = NULL, ...)
+deploy(connect, bundle, name = random_name(), title = name, guid = NULL, ...)
 }
 \arguments{
 \item{connect}{A Connect object}
@@ -27,8 +26,11 @@ Task A task object
 Deploy a bundle
 }
 \seealso{
-Other deployment functions: \code{\link{bundle_dir}},
-  \code{\link{bundle_path}}, \code{\link{download_bundle}},
-  \code{\link{get_image}}, \code{\link{poll_task}}
+Other deployment functions: 
+\code{\link{bundle_dir}()},
+\code{\link{bundle_path}()},
+\code{\link{bundle_static}()},
+\code{\link{download_bundle}()},
+\code{\link{poll_task}()}
 }
 \concept{deployment functions}

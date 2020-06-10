@@ -4,4 +4,6 @@ inst/doc
 .RData
 .Ruserdata
 .Renviron*
+.Rprofile*
 docs/*
+docs/

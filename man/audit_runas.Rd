@@ -14,11 +14,13 @@ A data frame with the app name and the Run As user if the Run As user
 is not the default
 }
 \description{
-Audit Run As Settings
+\lifecycle{experimental}
 }
 \seealso{
-Other audit functions: \code{\link{audit_access_open}},
-  \code{\link{audit_r_versions}},
-  \code{\link{audit_vanity_urls}}, \code{\link{cache_apps}}
+Other audit functions: 
+\code{\link{audit_access_open}()},
+\code{\link{audit_r_versions}()},
+\code{\link{audit_vanity_urls}()},
+\code{\link{cache_apps}()}
 }
 \concept{audit functions}

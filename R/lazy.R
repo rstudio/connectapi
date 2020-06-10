@@ -1,6 +1,6 @@
 # TODO
 # - next stop: vanity URLs?
-# - figure out filtering... and such...? 
+# - figure out filtering... and such...?
 # - draw diagram for understanding dbplyr execution
 # - how does the op-list work... can you make "collect" happen before filter, mutate, and such?
 # - need to make pagination actually work...
@@ -8,107 +8,53 @@
 # - nrow should be super fast if we know how many total records there are...
 # - show example usage...
 #' Connect Tibble
-#' 
+#'
 #' \lifecycle{experimental}
 #' A lazy tibble that automatically pages through API requests when `collect`ed.
-#' 
+#'
 #' @param src The source object
 #' @param from The type of tibble
 #' @param ... Additional arguments that are not yet implemented
-#' 
+#'
 #' @return A `tbl_connect` object
-#' 
+#'
 #' @export
-tbl_connect <- function(src, from = c("users", "groups", "content", "shiny_usage", "content_visits"), ...) {
-  validate_R6_class("Connect", src)
-  
-  if (!from %in% c("users", "groups", "content", "shiny_usage", "content_visits"))
+tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs"), ...) {
+  validate_R6_class(src, "Connect")
+
+  stopifnot(length(from) == 1)
+  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names)) {
     stop(glue::glue("ERROR: invalid table name: {from}"))
-  
+  }
+
+  from <- check_deprecated_names(from)
+
   # TODO: go get the vars we should expect...
-  vars <- vars_lookup[[from]]
+  vars <- connectapi_ptypes[[from]]
   if (is.null(vars)) vars <- character()
-  
+
   # TODO: figure out number of rows...
   ops <- op_base_connect(from, vars)
-  
+
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-vars_lookup <- list(
-  users = c(
-    "email",
-    "username",
-    "first_name",
-    "last_name",
-    "user_role",
-    "created_time",
-    "updated_time",
-    "active_time",
-    "confirmed",
-    "locked",
-    "guid"
-  ),
-  groups = c(
-    "guid",
-    "name",
-    "owner_guid"
-  ),
-  shiny_usage = c(
-    "content_guid",
-    "user_guid",
-    "started",
-    "ended",
-    "data_version"
-  ),
-  content_visits = c(
-    "content_guid",
-    "user_guid",
-    "variant_key",
-    "time",
-    "rendering_id",
-    "bundle_id",
-    "data_version"
-  ),
-  content = c(
-    "id",
-    "guid",
-    "access_type",
-    "connection_timeout",
-    "read_timeout",
-    "init_timeout",
-    "idle_timeout",
-    "max_processes",
-    "min_processes",
-    "max_conns_per_process",
-    "load_factor",
-    "url",
-    "vanity_url",
-    "name",
-    "title",
-    "bundle_id",
-    "app_mode",
-    "content_category",
-    "has_parameters",
-    "created_time",
-    "last_deployed_time",
-    "r_version",
-    "py_version",
-    "build_status",
-    "run_as",
-    "run_as_current_user",
-    "description",
-    "app_role",
-    "owner_first_name",
-    "owner_last_name",
-    "owner_username",
-    "owner_guid",
-    "owner_email",
-    "owner_locked",
-    "is_scheduled",
-    "git"
-  )
+deprecated_names <- c(
+  usage_shiny = "shiny_usage",
+  usage_static = "content_visits"
 )
+
+check_deprecated_names <- function(.name, deprecated_names) {
+  if (.name == "shiny_usage") {
+    warning("`shiny_usage` is deprecated. Please use `usage_shiny`")
+    .name <- "usage_shiny"
+  }
+  if (.name == "content_visits") {
+    warning("`content_visits` is deprecated. Please use `usage_static`")
+    .name <- "usage_static"
+  }
+  return(.name)
+}
 
 #' @importFrom dplyr collect
 #' @export
@@ -129,41 +75,22 @@ api_build.op_head <- function(op, con, ..., n) {
 #' @export
 api_build.op_base_connect <- function(op, con, ..., n) {
   if (op$x == "users") {
-    res <- con$users(page_size = n) %>% .$results
-    if (length(res) >= 400) {
-      warning("The 'users' tbl_connect does not page and will return max 500 users")
-    }
+    res <- page_offset(con, con$users(), limit = n)
   } else if (op$x == "groups") {
-    res <- con$groups(page_size = n) %>% .$results
-    if (length(res) >= 400) {
-      warning("The 'groups' tbl_connect does not page and will return max 500 users")
-    }
+    res <- page_offset(con, con$groups(), limit = n)
   } else if (op$x == "content") {
     warn_experimental("tbl_connect 'content'")
     res <- con$get_apps(.limit = n)
-  } else if (op$x == "shiny_usage") {
+  } else if (op$x == "usage_shiny") {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
-  } else if (op$x == "content_visits") {
+  } else if (op$x == "usage_static") {
     res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
+  } else if (op$x == "audit_logs") {
+    res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n)
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  purrr::map_df(
-    res, 
-    function(x) {
-      purrr::map(
-        .x = x,
-        .f = function(y) {
-          prep <- purrr::pluck(y, .default = NA)
-          # TODO: Should figure out what we want to do about sub-objects...
-          # i.e. content: git details... could build a nested list...?
-          if (length(prep) > 1)
-            prep <- NA
-          return(prep)
-        }
-      )
-    }
-  )
+  parse_connectapi_typed(res, !!!op$ptype)
 }
 
 cat_line <- function(...) {
@@ -197,12 +124,13 @@ op_base_connect <- function(x, vars) {
 }
 
 op_base <- function(x, vars, class = character()) {
-  stopifnot(is.character(vars))
-  
+  stopifnot(is.character(vars) || is.character(names(vars)))
+
   structure(
     list(
       x = x,
-      vars = vars
+      vars = names(vars),
+      ptype = vars
     ),
     class = c(paste0("op_base_", class), "op_base", "op")
   )
@@ -237,7 +165,6 @@ dim.tbl_lazy <- function(x) {
 
 # important for `colnames` to work
 #' @export
-dimnames.tbl_lazy <- function (x) 
-{
+dimnames.tbl_lazy <- function(x) {
   list(NULL, op_vars(x$ops))
 }

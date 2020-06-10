@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9001
+Version: 0.1.0.9011
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -14,24 +14,28 @@ Authors@R:
              email = "cole@rstudio.com"),
       person(given = "RStudio",
              role = c("cph", "fnd")))
-Description: Helpful R6 class for interacting with the RStudio
-    Connect Server API and some example utility functions.
+Description: Provides a helpful R6 class for interacting with the RStudio
+    Connect Server API along with some meaningful utility functions.
 License: GPL-2
 URL: https://github.com/rstudio/connectapi
 Imports: 
     config,
+    dplyr,
     fs,
     glue,
     httr,
+    lifecycle,
     magrittr,
+    progress,
+    purrr,
     R6,
     rlang,
-    yaml,
-    progress,
-    lifecycle,
-    purrr,
+    tibble,
     uuid,
-    dplyr
+    vctrs (>= 0.3.0),
+    yaml,
+    bit64,
+    jsonlite
 Suggests: 
     crayon,
     flexdashboard,
@@ -40,19 +44,20 @@ Suggests:
     htmltools,
     knitr,
     lubridate,
+    processx,
     rmarkdown,
+    rprojroot,
     spelling,
     testthat,
     webshot,
-    rprojroot,
-    processx
-VignetteBuilder: 
+    rsconnect
+VignetteBuilder:
     knitr
-RdMacros: 
+RdMacros:
     lifecycle
-Remotes: 
+Remotes:
     slopp/webshot
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)

@@ -1,0 +1,32 @@
+version: "2.3"
+volumes:
+  mailbox:
+  sqlite:
+
+services:
+  mail-smtp:
+    build: ../cluster/mail-smtp/
+    image: colearendt/mail-smtp
+    ports:
+      - "25"
+    volumes:
+      - mailbox:/home/smtp/Maildir/
+
+  mail-courier:
+    build: ../cluster/mail-courier/
+    image: colearendt/mail-courier
+    ports:
+      - "143"
+    volumes:
+      - mailbox:/home/smtp/Maildir/
+
+  mail-ui:
+    build: ../cluster/mail-ui/
+    image: colearendt/mail-ui
+    environment:
+      - IMAP_HOSTNAME=mail-courier
+      - SMTP_HOSTNAME=mail-smtp
+    ports:
+      - "80"
+    volumes:
+      - sqlite:/var/lib/dbconfig-common/sqlite3/roundcube

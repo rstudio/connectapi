@@ -1,0 +1,14 @@
+version: '2.3'
+services:
+
+  test:
+    hostname: test
+    image: rstudio/r-base:3.6-bionic
+    environment:
+      - "IS_JENKINS=TRUE"
+    volumes:
+      - "../../:/test"
+    working_dir: "/test"
+    command:
+      - "Rscript"
+      - "/test/inst/ci/run_tests.R"

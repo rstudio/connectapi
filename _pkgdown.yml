@@ -1,11 +1,18 @@
 destination: docs
 
 reference:
+
+  - title: "Package"
+    desc: >
+      Package documentation
+    contents: 
+      - connectapi-package
+
   - title: "Audit"
     desc: >
       Functions to audit vanity URLs, R versions, etc.
     contents: 
-      - starts_with("audit")
+      - matches("audit")
 
   - title: "Deployment"
     desc: >
@@ -21,9 +28,22 @@ reference:
     desc: >
       Functions to work with content
     contents: 
-      - starts_with("content")
+      - matches("content")
       - matches("image")
       - matches("vanity")
+      
+  - title: "Users and groups"
+    desc: >
+      Users and groups
+    contents: 
+      - matches("user")
+      - matches("group")
+
+  - title: "shiny"
+    desc: >
+      Shiny functions
+    contents: 
+      - matches("shiny")
 
   - title: "Other"
     desc: >
@@ -33,14 +53,10 @@ reference:
       - tag_page
       - cache_apps
       - connect
+      - tbl_connect
+      - page_cursor
+      - browse_solo
       
-  - title: "Package"
-    desc: >
-      Package documentation
-    contents: 
-      - connectapi-package
-
-
       
   - title: "R6 classes"
     desc: >

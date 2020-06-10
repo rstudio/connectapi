@@ -15,20 +15,30 @@ set_vanity_url(content, url)
 An updated Content object
 }
 \description{
-Sets the Vanity URL for a piece of content.
+\lifecycle{experimental} Sets the Vanity URL for a piece of content.
 }
 \examples{
 \dontrun{
 bnd <- bundle_dir("~/my/directory")
-connect() \%>\% 
-  deploy(bnd) \%>\% 
+connect() \%>\%
+  deploy(bnd) \%>\%
   set_vanity_url("a/vanity/url")
 }
 
 }
 \seealso{
-Other content functions: \code{\link{content_item}},
-  \code{\link{get_vanity_url}},
-  \code{\link{set_image_path}}
+Other content functions: 
+\code{\link{content_item}()},
+\code{\link{content_title}()},
+\code{\link{dashboard_url_chr}()},
+\code{\link{dashboard_url}()},
+\code{\link{get_acl_user}()},
+\code{\link{get_environment}()},
+\code{\link{get_image}()},
+\code{\link{get_jobs}()},
+\code{\link{get_vanity_url}()},
+\code{\link{set_image_path}()},
+\code{\link{set_run_as}()},
+\code{\link{swap_vanity_url}()}
 }
 \concept{content functions}

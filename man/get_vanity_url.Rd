@@ -10,11 +10,21 @@ get_vanity_url(content)
 \item{content}{A Content object}
 }
 \description{
-Gets the Vanity URL for a piece of content.
+\lifecycle{experimental} Gets the Vanity URL for a piece of content.
 }
 \seealso{
-Other content functions: \code{\link{content_item}},
-  \code{\link{set_image_path}},
-  \code{\link{set_vanity_url}}
+Other content functions: 
+\code{\link{content_item}()},
+\code{\link{content_title}()},
+\code{\link{dashboard_url_chr}()},
+\code{\link{dashboard_url}()},
+\code{\link{get_acl_user}()},
+\code{\link{get_environment}()},
+\code{\link{get_image}()},
+\code{\link{get_jobs}()},
+\code{\link{set_image_path}()},
+\code{\link{set_run_as}()},
+\code{\link{set_vanity_url}()},
+\code{\link{swap_vanity_url}()}
 }
 \concept{content functions}
