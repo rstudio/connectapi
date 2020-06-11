@@ -79,7 +79,7 @@ TagTree <- R6::R6Class(
 )
 
 my_tag_structure <- function(client) {
-  tag_tree_new(client$get_tag_tree())
+  connect_tag_tree(tag_tree_new(client$get_tag_tree()))
 }
 
 connect_tag_tree <- function(tag_data) {
