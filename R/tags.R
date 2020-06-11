@@ -58,8 +58,8 @@ tag_tree <- function(tags, top_tag = "tags"){
   print_leaf(top_tag(parsed_tags), indent = "", tag_split = tag_split)
 }
 
-Tag <- R6::R6Class(
-  "Tag",
+TagTree <- R6::R6Class(
+  "TagTree",
   public = list(
     initialize = function(id, name, ...) {
       # could recurse in an R6 object... might lose autocomplete...?
@@ -115,7 +115,7 @@ print_leaf <- function(x, indent, tag_split) {
   }
 }
 
-print_leaf_new <- function(x, indent) {
+recursive_tag_print <- function(x, indent) {
   x_noname <- x
   x_noname$name <- NULL
   x_noname$id <- NULL
@@ -136,43 +136,16 @@ print_leaf_new <- function(x, indent) {
   invisible(x)
 }
 
-recurse_print <- function(.x, ch, indent = " ") {
-  cat(indent, pc(ch$l, ch$h, ch$h, " "), .x$name, "\n", sep = "")
-  .x$name <- NULL
-  .x$id <- NULL
-  purrr::map2(
-    .x,
-    seq_along(.x),
-    function(.y, .i, indent, llength) {
-      trim_item <- .y
-      trim_item$id <- NULL
-      trim_item$name <- NULL
-      if (.i == llength) {
-        cat(indent, pc(ch$l, ch$h, ch$h, " "), .y$name, "\n", sep = "")
-      } else {
-        cat(indent, pc(ch$j, ch$h, ch$h, " "), .y$name, "\n", sep = "")
-      }
-      purrr::map(
-        trim_item,
-        function(.z) recurse_print(.z, ch = ch, indent = paste0(indent, "   "))
-      )
-    },
-    indent = paste0(indent, "   "),
-    llength = length(.x)
-  )
-  invisible(.x)
-}
-
-recurse_children <- function(.x) {
+recursive_tag_restructure <- function(.x) {
   if (length(.x$children) > 0) {
-    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recurse_children)), id = .x$id, name = .x$name)), .x$name)
+    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = .x$id, name = .x$name)), .x$name)
   } else {
     rlang::set_names(list(list(id = .x$id, name = .x$name)), .x$name)
   }
 }
 
 tag_tree_new <- function(.x) {
-  purrr::flatten(purrr::map(.x, recurse_children))
+  purrr::flatten(purrr::map(.x, recursive_tag_restructure))
 }
 
 parseTags <- function(x){
