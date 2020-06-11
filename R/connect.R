@@ -140,6 +140,10 @@ Connect <- R6::R6Class(
     me = function() {
       self$GET("me")
     },
+    
+    get_dashboard_url = function() {
+      self$host
+    },
 
     # tags ----------------------------------------------------------
 
