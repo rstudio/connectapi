@@ -61,11 +61,44 @@ tag_tree <- function(tags, top_tag = "tags"){
 TagTree <- R6::R6Class(
   "TagTree",
   public = list(
-    initialize = function(id, name, ...) {
-      # could recurse in an R6 object... might lose autocomplete...?
+    connect = NULL,
+    raw = NULL,
+    tags = NULL,
+    initialize = function(connect) {
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      self$raw <- self$connect$get_tag_tree()
+      self$tags <- tag_tree_new(self$raw)
+    },
+    print = function(...) {
+      cat("RStudio Connect Tag Tree\n")
+      recursive_tag_print(self$tags, "")
+      cat("\nget_tag_tree(client)")
     }
   )
 )
+
+my_tag_structure <- function(client) {
+  tag_tree_new(client$get_tag_tree())
+}
+
+connect_tag_tree <- function(tag_data) {
+  structure(tag_data, class = c("connect_tag_tree", "list"))
+}
+
+print.connect_tag_tree <- function(x, ...) {
+  cat("RStudio Connect Tag Tree\n")
+  recursive_tag_print(x, "")
+}
+
+`$.connect_tag_tree` <- function(x,y){
+  out <- NextMethod("$")
+  if (is.list(out) && length(out) > 2) {
+    connect_tag_tree(out)
+  } else {
+    out
+  }
+}
 
 is_latex_output <- function() {
   if (!("knitr" %in% loadedNamespaces())) return(FALSE)
@@ -125,10 +158,10 @@ recursive_tag_print <- function(x, indent) {
     function(.y, .i, list_length) {
       if (.i == list_length) {
         cat(indent, pc(ch$l, ch$h, ch$h, " "), .y$name, "\n", sep = "")
-        print_leaf_new(.y, paste0(indent, "   "))
+        recursive_tag_print(.y, paste0(indent, "   "))
       } else {
         cat(indent, pc(ch$j, ch$h, ch$h, " "), .y$name, "\n", sep = "")
-        print_leaf_new(.y, paste0(indent, pc(ch$v, "   ")))
+        recursive_tag_print(.y, paste0(indent, pc(ch$v, "   ")))
       }
     },
     list_length = length(x_noname)
