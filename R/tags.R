@@ -100,42 +100,8 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
-is_latex_output <- function() {
-  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
-  get("is_latex_output", asNamespace("knitr"))()
-}
-
-is_utf8_output <- function() {
-  opt <- getOption("cli.unicode", NULL)
-  if (! is.null(opt)) {
-    isTRUE(opt)
-  } else {
-    l10n_info()$`UTF-8` && !is_latex_output()
-  }
-}
-
-# These are derived from https://github.com/r-lib/cli/blob/e9acc82b0d20fa5c64dd529400b622c0338374ed/R/tree.R#L111
-box_chars <- function() {
-  if (is_utf8_output()) {
-    list(
-      "h" = "\u2500",                   # horizontal
-      "v" = "\u2502",                   # vertical
-      "l" = "\u2514",
-      "j" = "\u251C"
-    )
-  } else {
-    list(
-      "h" = "-",                        # horizontal
-      "v" = "|",                        # vertical
-      "l" = "\\",
-      "j" = "+"
-    )
-  }
-}
-
-ch <- box_chars()
-
 print_leaf <- function(x, indent, tag_split) {
+  ch <- box_chars()
   leafs <- tag_split[[x]]
   for (i in seq_along(leafs)) {
     if (i == length(leafs)) {
@@ -152,6 +118,7 @@ recursive_tag_print <- function(x, indent) {
   x_noname <- x
   x_noname$name <- NULL
   x_noname$id <- NULL
+  ch <- box_chars()
   purrr::map2(
     x_noname,
     seq_along(x_noname),
@@ -247,3 +214,35 @@ pc <- function(...) {
   paste0(..., collapse = "")
 }
 
+is_latex_output <- function() {
+  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
+  get("is_latex_output", asNamespace("knitr"))()
+}
+
+is_utf8_output <- function() {
+  opt <- getOption("cli.unicode", NULL)
+  if (! is.null(opt)) {
+    isTRUE(opt)
+  } else {
+    l10n_info()$`UTF-8` && !is_latex_output()
+  }
+}
+
+# These are derived from https://github.com/r-lib/cli/blob/e9acc82b0d20fa5c64dd529400b622c0338374ed/R/tree.R#L111
+box_chars <- function() {
+  if (is_utf8_output()) {
+    list(
+      "h" = "\u2500",                   # horizontal
+      "v" = "\u2502",                   # vertical
+      "l" = "\u2514",
+      "j" = "\u251C"
+    )
+  } else {
+    list(
+      "h" = "-",                        # horizontal
+      "v" = "|",                        # vertical
+      "l" = "\\",
+      "j" = "+"
+    )
+  }
+}
