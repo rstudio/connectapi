@@ -88,7 +88,11 @@ connect_tag_tree <- function(tag_data) {
 
 print.connect_tag_tree <- function(x, ...) {
   cat("RStudio Connect Tag Tree\n")
-  recursive_tag_print(x, "")
+  if (length(x) > 0) {
+    recursive_tag_print(x, "")
+  } else {
+    cat("  < No tags defined >")
+  }
 }
 
 `$.connect_tag_tree` <- function(x,y){
@@ -98,6 +102,36 @@ print.connect_tag_tree <- function(x, ...) {
   } else {
     out
   }
+}
+
+create_tag <- function(client, name, parent = NULL) {
+  warn_experimental("create_tag")
+  scoped_experimental_silence()
+  if (is.numeric(parent)) {
+    parent_id <- parent
+  } else if (inherits(parent, "connect_tag_tree")) {
+    parent_id <- parent[["id"]]
+  } else {
+    stop("`parent` must be an ID or a connect_tag_tree object")
+  }
+  res <- client$tag_create(name = name, parent_id = parent_id)
+  return(client)
+}
+
+create_tag_tree <- function(...) {
+  # TODO: a way to create a tag tree or many tags at once
+}
+
+delete_tag <- function(client, tag) {
+  if (is.numeric(tag)) {
+    tag_id <- tag
+  } else if (inherits(tag, "connect_tag_tree")) {
+    tag_id <- tag[["id"]]
+  } else {
+    stop("`tag` must be an ID or a connect_tag_tree object")
+  }
+  res <- client$tag_delete(id = tag_id)
+  return(client)
 }
 
 print_leaf <- function(x, indent, tag_split) {
