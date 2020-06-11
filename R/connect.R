@@ -144,6 +144,7 @@ Connect <- R6::R6Class(
     # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
+      warn_experimental("get_tags")
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$GET("/tags")
       }
