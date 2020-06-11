@@ -172,8 +172,8 @@ Connect <- R6::R6Class(
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
-
-    create_tag = function(name, parent_id = NULL) {
+    
+    tag_create = function(name, parent_id = NULL) {
       warn_experimental("create_tag")
       dat <- list(
         name = name
@@ -188,6 +188,10 @@ Connect <- R6::R6Class(
         "tags",
         body = dat
       )
+    },
+    
+    tag_delete = function(id) {
+      invisible(self$DELETE(glue::glue("tags/{id}")))
     },
 
     # content listing ----------------------------------------------------------
