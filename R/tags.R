@@ -11,20 +11,16 @@
 #' @return A tibble of id / name pairs
 #' 
 #' @export
+#' @rdname tags
 get_tags <- function(src, use_cache = FALSE){
   validate_R6_class(src, "Connect")
   
-  res <- src$get_tags(use_cache = use_cache)
-  
-  return(res)
+  connect_tag_tree(tag_tree(src$get_tag_tree()))
 }
 
-#' Get a tibble with more information for each tag
-#' 
-#' @param src The source object
-#' 
 #' @export
-get_tag_info <- function(src){
+#' @rdname tags
+get_tag_data <- function(src){
   validate_R6_class(src, "Connect")
   
   res <- src$get_tag_tree()
@@ -32,54 +28,6 @@ get_tag_info <- function(src){
   tag_tbl <- parse_tags_tbl(res)
   
   return(tag_tbl)
-}
-
-#' Print a visualization of the tag tree
-#' 
-#' @param src The source object
-#' @param top_tag The value to be printed at the top of the 
-#' tag tree. This value can not have any "/" characters in it. 
-#' 
-#' @export
-get_tag_tree <- function(src, top_tag = "RStudio Connect Tags"){
-  validate_R6_class(src, "Connect")
-  
-  res <- src$get_tag_tree()
-  
-  tag_tree(res, top_tag = top_tag)
-}
-
-tag_tree <- function(tags, top_tag = "tags"){
-  parsed_tags <- parse_tags(tags, top_tag = top_tag)
-  
-  tag_split <- split(parsed_tags, dirname(parsed_tags))
-  
-  cat(top_tag(parsed_tags), "\n", sep = "")
-  print_leaf(top_tag(parsed_tags), indent = "", tag_split = tag_split)
-}
-
-TagTree <- R6::R6Class(
-  "TagTree",
-  public = list(
-    connect = NULL,
-    raw = NULL,
-    tags = NULL,
-    initialize = function(connect) {
-      validate_R6_class(connect, "Connect")
-      self$connect <- connect
-      self$raw <- self$connect$get_tag_tree()
-      self$tags <- tag_tree_new(self$raw)
-    },
-    print = function(...) {
-      cat("RStudio Connect Tag Tree\n")
-      recursive_tag_print(self$tags, "")
-      cat("\nget_tag_tree(client)")
-    }
-  )
-)
-
-my_tag_structure <- function(client) {
-  connect_tag_tree(tag_tree_new(client$get_tag_tree()))
 }
 
 connect_tag_tree <- function(tag_data) {
@@ -118,8 +66,20 @@ create_tag <- function(client, name, parent = NULL) {
   return(client)
 }
 
-create_tag_tree <- function(...) {
+create_tag_tree <- function(client, ...) {
   # TODO: a way to create a tag tree or many tags at once
+}
+
+set_content_tag_tree <- function(content, ...) {
+  # TODO: a way to set the tag for a content item
+}
+
+set_content_tags <- function(content, ...) {
+  # TODO: set tags for a content item
+}
+
+get_content_tags <- function(content) {
+  # TODO: get tags for a content item
 }
 
 delete_tag <- function(client, tag) {
@@ -132,20 +92,6 @@ delete_tag <- function(client, tag) {
   }
   res <- client$tag_delete(id = tag_id)
   return(client)
-}
-
-print_leaf <- function(x, indent, tag_split) {
-  ch <- box_chars()
-  leafs <- tag_split[[x]]
-  for (i in seq_along(leafs)) {
-    if (i == length(leafs)) {
-      cat(indent, pc(ch$l, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
-      print_leaf(leafs[[i]], paste0(indent, "    "), tag_split = tag_split)
-    } else {
-      cat(indent, pc(ch$j, ch$h, ch$h, " "), basename(leafs[[i]]), "\n", sep = "")
-      print_leaf(leafs[[i]], paste0(indent, pc(ch$v, "   ")), tag_split = tag_split)
-    }
-  }
 }
 
 recursive_tag_print <- function(x, indent) {
@@ -178,47 +124,9 @@ recursive_tag_restructure <- function(.x) {
   }
 }
 
-tag_tree_new <- function(.x) {
+tag_tree <- function(.x) {
   purrr::flatten(purrr::map(.x, recursive_tag_restructure))
 }
-
-parseTags <- function(x){
-  parsed_tags <- purrr::map(x, ~{
-    out <- .x$name
-    # out <- paste(top_tag, out, sep = "/")
-    if (length(.x$children) > 0){
-      child_names <- parseTags(.x$children)
-      child_names <- paste(out, child_names, sep = "//")
-      out <- c(out, child_names)
-    } 
-    
-    return(out)
-  })
-  
-  parsed_tags <- purrr::flatten_chr(parsed_tags)
-  out <- gsub("/$", "", parsed_tags)
-  
-  return(out)
-}
-
-parse_tags_new <- function(x, top_tag = "tags") {
-  out <- parseTagsNew(x)
-  
-  out <- paste(top_tag, out, sep = "//")
-  return(out)
-}
-
-parse_tags <- function(x, top_tag = "tags"){
-  out <- parseTags(x)
-  
-  out <- paste(top_tag, out, sep = "//")
-  return(out)
-}
-
-top_tag <- function(x){
-  unique(gsub("\\/.*$", "", x))
-}
-
 
 parse_tags_tbl <- function(x){
   parsed_tags <- purrr::map_dfr(x, ~{
