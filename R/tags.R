@@ -10,9 +10,10 @@
 #' @param name The name of the tag to create
 #' @param parent optional. A `connect_tag_tree` object (as returned by `get_tags()`) pointed at the parent tag
 #' @param content An R6 Content object, as returned by `content_item()`
-#' @param tag A `connect_tag_tree` object (as retunred by `get_tags()`)
+#' @param tag A `connect_tag_tree` object (as returned by `get_tags()`)
 #' @param tags A `connect_tag_tree` object (as returned by `get_tags()`)
 #' @param ids A list of `id`s to filter the tag tree by
+#' @param ... Additional arguments
 #' 
 #' @export
 #' @rdname tags
@@ -108,6 +109,8 @@ create_tag <- function(src, name, parent = NULL) {
 
 # TODO: try without quotes...
 # TODO: do not fail if the key already exists...
+#' @export
+#' @rdname tags
 create_tag_tree <- function(src, ...) {
   warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
