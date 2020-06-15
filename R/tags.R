@@ -106,6 +106,8 @@ create_tag <- function(src, name, parent = NULL) {
   return(src)
 }
 
+# TODO: try without quotes...
+# TODO: do not fail if the key already exists...
 create_tag_tree <- function(src, ...) {
   warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
