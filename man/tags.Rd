@@ -4,6 +4,7 @@
 \alias{get_tags}
 \alias{get_tag_data}
 \alias{create_tag}
+\alias{create_tag_tree}
 \alias{set_content_tags}
 \alias{filter_tag_tree}
 \alias{get_content_tags}
@@ -15,6 +16,8 @@ get_tags(src, use_cache = FALSE)
 get_tag_data(src)
 
 create_tag(src, name, parent = NULL)
+
+create_tag_tree(src, ...)
 
 set_content_tags(content, ...)
 
@@ -35,13 +38,15 @@ this parameter will be ignored}
 
 \item{parent}{optional. A \code{connect_tag_tree} object (as returned by \code{get_tags()}) pointed at the parent tag}
 
+\item{...}{Additional arguments}
+
 \item{content}{An R6 Content object, as returned by \code{content_item()}}
 
 \item{tags}{A \code{connect_tag_tree} object (as returned by \code{get_tags()})}
 
 \item{ids}{A list of \code{id}s to filter the tag tree by}
 
-\item{tag}{A \code{connect_tag_tree} object (as retunred by \code{get_tags()})}
+\item{tag}{A \code{connect_tag_tree} object (as returned by \code{get_tags()})}
 }
 \description{
 \lifecycle{experimental} Get a tibble of all tags

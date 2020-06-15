@@ -57,6 +57,7 @@ Other R6 classes:
 \item \href{#method-get_tag_id}{\code{Connect$get_tag_id()}}
 \item \href{#method-get_tag_tree}{\code{Connect$get_tag_tree()}}
 \item \href{#method-tag_create}{\code{Connect$tag_create()}}
+\item \href{#method-tag}{\code{Connect$tag()}}
 \item \href{#method-tag_delete}{\code{Connect$tag_delete()}}
 \item \href{#method-get_n_apps}{\code{Connect$get_n_apps()}}
 \item \href{#method-get_apps}{\code{Connect$get_apps()}}
@@ -261,6 +262,15 @@ Other R6 classes:
 \subsection{Method \code{tag_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create(name, parent_id = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag"></a>}}
+\if{latex}{\out{\hypertarget{method-tag}{}}}
+\subsection{Method \code{tag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag(id)}\if{html}{\out{</div>}}
 }
 
 }
