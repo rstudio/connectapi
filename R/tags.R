@@ -77,11 +77,43 @@ set_content_tag_tree <- function(content, ...) {
 }
 
 set_content_tags <- function(content, ...) {
-  # TODO: set tags for a content item
+  validate_R6_class(content, "Content")
+  new_tags <- rlang::list2(...)
+  tmp <- purrr::map(
+    new_tags,
+    function(.x) {
+      ifelse(
+        inherits(.x, "connect_tag_tree"), 
+        content$tag_set(.x$id),
+        content$tag_set(.x)
+      )
+    }
+  )
+  content
+}
+
+filter_tag_tree <- function(tags, ids) {
+  
+}
+
+recursive_filter <- function(tags, ids) {
+  tags_noname <- tags
+  tags_noname$name <- NULL
+  tags_noname$id <- NULL
+  recurse_res <- purrr::map_lgl(tags_noname, ~ recursive_filter(.x, ids))
+  if (tags$id %in% ids || any(recurse_res)) {
+    TRUE
+  } else {
+    FALSE
+  }
 }
 
 get_content_tags <- function(content) {
-  # TODO: get tags for a content item
+  validate_R6_class(content, "Content")
+  ctags <- content$tags()
+  # TODO: find a way to build a tag tree from a list of tags
+  ctagtree <- ctags
+  connect_tag_tree(ctags)
 }
 
 delete_tag <- function(client, tag) {
