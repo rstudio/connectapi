@@ -194,8 +194,14 @@ Connect <- R6::R6Class(
       )
     },
     
+    tag = function(id) {
+      path <- glue::glue("tags/{id}")
+      self$GET(path)
+    },
+    
     tag_delete = function(id) {
-      invisible(self$DELETE(glue::glue("tags/{id}")))
+      tag_version <- self$tag(id = id)$version
+      invisible(self$DELETE(glue::glue("tags/{id}?version={tag_version}")))
     },
 
     # content listing ----------------------------------------------------------
