@@ -14,10 +14,21 @@ content_name <- uuid::UUIDgenerate(use.time = TRUE)
 
 tag_content <- NULL
 
+check_tag_exists <- function(con, id) {
+  res <- tryCatch(suppressMessages(con$tag(id)), error = function(e){return(e)})
+  if (is.numeric(res[["id"]])) {
+    TRUE
+  } else if (regexpr(res, "simpleError") && regexpr(res, "(404) Not Found")) {
+    FALSE
+  } else {
+    stop("error retrieving tag")
+  }
+}
+
 test_that("create tags works", {
   scoped_experimental_silence()
-  parent_tag <<- test_conn_1$create_tag(parent_tag_name)
-  child_tag <<- test_conn_1$create_tag(child_tag_name, parent_tag$id)
+  parent_tag <<- test_conn_1$tag_create(parent_tag_name)
+  child_tag <<- test_conn_1$tag_create(child_tag_name, parent_tag$id)
 
   expect_identical(parent_tag$name, parent_tag_name)
   expect_identical(child_tag$name, child_tag_name)
@@ -27,7 +38,6 @@ test_that("create tags works", {
   test_conn_1$get_tags(TRUE)
   expect_equal(child_tag$id, test_conn_1$get_tag_id(child_tag_name))
 })
-
 
 test_that("associate tag with content", {
   scoped_experimental_silence()
@@ -48,6 +58,69 @@ test_that("associate tag with content", {
   expect_true(
     tag_content$get_content()$guid %in% purrr::map_chr(res, ~ .x$guid)
   )
+})
+
+## Test high level functions --------------------------------------------------
+
+test_that("get_tags works", {
+  scoped_experimental_silence()
+  atags <- get_tags(test_conn_1)
+  expect_is(atags, "connect_tag_tree")
+})
+
+test_that("create_tag and delete_tag works", {
+  ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_2 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_3 <- uuid::UUIDgenerate(use.time = TRUE)
+
+  scoped_experimental_silence()
+  res <- create_tag(test_conn_1, ptag_1)
+  expect_true(validate_R6_class(res, "Connect"))
+  
+  tags <- get_tags(test_conn_1)
+  create_tag(test_conn_1, ctag_1, tags[[ptag_1]])
+  
+  tags <- get_tags(test_conn_1)
+  create_tag(test_conn_1, ctag_2, tags[[ptag_1]][[ctag_1]])
+  
+  tags <- get_tags(test_conn_1)
+  create_tag(test_conn_1, ctag_3, tags[[ptag_1]][[ctag_1]][[ctag_2]])
+  
+  tags <- get_tags(test_conn_1)
+  
+  delete_tag(test_conn_1, tags[[ptag_1]][[ctag_1]][[ctag_2]][[ctag_3]])
+  expect_false(check_tag_exists(test_conn_1, tags[[ptag_1]][[ctag_1]][[ctag_2]][[ctag_3]][["id"]]))
+  
+  delete_tag(test_conn_1, tags[[ptag_1]][[ctag_1]][[ctag_2]])
+  expect_false(check_tag_exists(test_conn_1, tags[[ptag_1]][[ctag_1]][[ctag_2]][["id"]]))
+  
+  delete_tag(test_conn_1, tags[[ptag_1]][[ctag_1]])
+  expect_false(check_tag_exists(test_conn_1, tags[[ptag_1]][[ctag_1]][["id"]]))
+  
+  res <- delete_tag(test_conn_1, tags[[ptag_1]])
+  expect_false(check_tag_exists(test_conn_1, tags[[ptag_1]][["id"]]))
+  
+  expect_true(validate_R6_class(res, "Connect"))
+})
+
+test_that("create_tag_tree works", {
+  ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_2 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_3 <- uuid::UUIDgenerate(use.time = TRUE)
+})
+
+
+test_that("get_content_tags and set_content_tags works", {
+  ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_2_1 <- uuid::UUIDgenerate(use.time = TRUE)
+})
+
+test_that("set_content_tag_tree works", {
+  skip("not implemented yet")
 })
 
 
