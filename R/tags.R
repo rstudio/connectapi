@@ -17,14 +17,18 @@
 #' @export
 #' @rdname tags
 get_tags <- function(src, use_cache = FALSE){
+  warn_experimental("get_tags")
+  scoped_experimental_silence()
   validate_R6_class(src, "Connect")
   
-  connect_tag_tree(tag_tree(src$get_tag_tree()))
+  connect_tag_tree(tag_tree(src$get_tag_tree()), NULL)
 }
 
 #' @export
 #' @rdname tags
 get_tag_data <- function(src){
+  warn_experimental("get_tag_data")
+  scoped_experimental_silence()
   validate_R6_class(src, "Connect")
   
   res <- src$get_tag_tree()
@@ -39,12 +43,17 @@ get_tag_data <- function(src){
 # TODO: Need to protect against a bad data structure...
 # TODO: possible that you could decouple this from a connect server and get strange results
 #       (i.e. build a tag tree from server A, use it to "set_content_tags" for server B - ids would not match)
-connect_tag_tree <- function(tag_data) {
-  structure(tag_data, class = c("connect_tag_tree", "list"))
+connect_tag_tree <- function(tag_data, filter = "filtered") {
+  structure(tag_data, class = c("connect_tag_tree", "list"), filter = filter)
 }
 
 print.connect_tag_tree <- function(x, ...) {
-  cat("RStudio Connect Tag Tree\n")
+  if (!is.null(attr(x, "filter"))) {
+    cat(glue::glue("RStudio Connect Tag Tree ({attr(x, 'filter')})"))
+    cat("\n")
+  } else {
+    cat("RStudio Connect Tag Tree\n")
+  }
   if (length(x) > 0) {
     recursive_tag_print(x, "")
   } else {
@@ -53,18 +62,38 @@ print.connect_tag_tree <- function(x, ...) {
 }
 
 `$.connect_tag_tree` <- function(x,y){
-  out <- NextMethod("$")
-  if (is.list(out) && length(out) >= 2) {
-    connect_tag_tree(out)
+  res <- NextMethod("$")
+  if (is.list(res) && length(res) >= 2) {
+    connect_tag_tree(res)
   } else {
-    out
+   res 
   }
 }
 
+`[[.connect_tag_tree` <- function(x, ...) {
+  res <- NextMethod("[[")
+  if (is.list(res) && length(res) >= 2) {
+    connect_tag_tree(res)
+  } else {
+   res 
+  }
+}
+
+`[.connect_tag_tree` <- function(x, i, j) {
+  res <- NextMethod("[")
+  if (is.list(res) && length(res) >= 2) {
+    connect_tag_tree(res)
+  } else {
+   res 
+  }
+}
+
+# TODO: this is hard to "use" directly... maybe create a Tag R6 class?
 #' @export
 #' @rdname tags
 create_tag <- function(src, name, parent = NULL) {
   warn_experimental("create_tag")
+  validate_R6_class(src, "Connect")
   scoped_experimental_silence()
   if (is.null(parent) || is.numeric(parent)) {
     parent_id <- parent
@@ -73,12 +102,27 @@ create_tag <- function(src, name, parent = NULL) {
   } else {
     stop("`parent` must be an ID or a connect_tag_tree object")
   }
-  res <- client$tag_create(name = name, parent_id = parent_id)
-  return(client)
+  res <- src$tag_create(name = name, parent_id = parent_id)
+  return(src)
 }
 
 create_tag_tree <- function(src, ...) {
-  # TODO: a way to create a tag tree or many tags at once
+  warn_experimental("create_tag_tree")
+  validate_R6_class(src, "Connect")
+  scoped_experimental_silence()
+  
+  params <- rlang::list2(...)
+  
+  results <- purrr::reduce(
+    params,
+    function(.parent, .x, con) {
+      res <- con$tag_create(.x, .parent)
+      return(res[["id"]])
+    },
+    con = src,
+    .init = NULL
+  )
+  filter_tag_tree(get_tags(src), results)
 }
 
 set_content_tag_tree <- function(content, ...) {
@@ -88,6 +132,8 @@ set_content_tag_tree <- function(content, ...) {
 #' @export
 #' @rdname tags
 set_content_tags <- function(content, ...) {
+  warn_experimental("set_content_tags")
+  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   new_tags <- rlang::list2(...)
   tmp <- purrr::map(
@@ -106,6 +152,9 @@ set_content_tags <- function(content, ...) {
 #' @export
 #' @rdname tags
 filter_tag_tree <- function(tags, ids) {
+  warn_experimental("filter_tag_tree")
+  scoped_experimental_silence()
+  stopifnot(inherits(tags, "connect_tag_tree"))
   recursive_filter(tags = tags, ids = ids)
 }
 
@@ -125,17 +174,23 @@ recursive_filter <- function(tags, ids) {
 #' @export
 #' @rdname tags
 get_content_tags <- function(content) {
+  warn_experimental("get_content_tags")
+  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   ctags <- content$tags()
   # TODO: find a way to build a tag tree from a list of tags
   
   tagtree <- get_tags(content$get_connect(), FALSE)
-  filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
+  res <- filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
+  attr(res, "filter") <- "content"
+  res
 }
 
 #' @export
 #' @rdname tags
 delete_tag <- function(src, tag) {
+  warn_experimental("delete_tag")
+  scoped_experimental_silence()
   if (is.numeric(tag)) {
     tag_id <- tag
   } else if (inherits(tag, "connect_tag_tree")) {
@@ -143,8 +198,8 @@ delete_tag <- function(src, tag) {
   } else {
     stop("`tag` must be an ID or a connect_tag_tree object")
   }
-  res <- client$tag_delete(id = tag_id)
-  return(client)
+  res <- src$tag_delete(id = tag_id)
+  return(src)
 }
 
 recursive_tag_print <- function(x, indent) {
