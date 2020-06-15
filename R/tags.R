@@ -7,8 +7,12 @@
 #' @param use_cache use the tag list previously queried 
 #' from the connect server. If the `src$tags` object is null then
 #' this parameter will be ignored
-#' 
-#' @return A tibble of id / name pairs
+#' @param name The name of the tag to create
+#' @param parent optional. A `connect_tag_tree` object (as returned by `get_tags()`) pointed at the parent tag
+#' @param content An R6 Content object, as returned by `content_item()`
+#' @param tag A `connect_tag_tree` object (as retunred by `get_tags()`)
+#' @param tags A `connect_tag_tree` object (as returned by `get_tags()`)
+#' @param ids A list of `id`s to filter the tag tree by
 #' 
 #' @export
 #' @rdname tags
@@ -33,6 +37,8 @@ get_tag_data <- function(src){
 # TODO: Need to find a way to denote categories...?
 # error  : chr "Cannot assign a category to an app"
 # TODO: Need to protect against a bad data structure...
+# TODO: possible that you could decouple this from a connect server and get strange results
+#       (i.e. build a tag tree from server A, use it to "set_content_tags" for server B - ids would not match)
 connect_tag_tree <- function(tag_data) {
   structure(tag_data, class = c("connect_tag_tree", "list"))
 }
@@ -55,7 +61,9 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
-create_tag <- function(client, name, parent = NULL) {
+#' @export
+#' @rdname tags
+create_tag <- function(src, name, parent = NULL) {
   warn_experimental("create_tag")
   scoped_experimental_silence()
   if (is.null(parent) || is.numeric(parent)) {
@@ -69,7 +77,7 @@ create_tag <- function(client, name, parent = NULL) {
   return(client)
 }
 
-create_tag_tree <- function(client, ...) {
+create_tag_tree <- function(src, ...) {
   # TODO: a way to create a tag tree or many tags at once
 }
 
@@ -77,6 +85,8 @@ set_content_tag_tree <- function(content, ...) {
   # TODO: a way to set the tag for a content item
 }
 
+#' @export
+#' @rdname tags
 set_content_tags <- function(content, ...) {
   validate_R6_class(content, "Content")
   new_tags <- rlang::list2(...)
@@ -93,6 +103,8 @@ set_content_tags <- function(content, ...) {
   content
 }
 
+#' @export
+#' @rdname tags
 filter_tag_tree <- function(tags, ids) {
   recursive_filter(tags = tags, ids = ids)
 }
@@ -110,6 +122,8 @@ recursive_filter <- function(tags, ids) {
   }
 }
 
+#' @export
+#' @rdname tags
 get_content_tags <- function(content) {
   validate_R6_class(content, "Content")
   ctags <- content$tags()
@@ -119,7 +133,9 @@ get_content_tags <- function(content) {
   filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
 }
 
-delete_tag <- function(client, tag) {
+#' @export
+#' @rdname tags
+delete_tag <- function(src, tag) {
   if (is.numeric(tag)) {
     tag_id <- tag
   } else if (inherits(tag, "connect_tag_tree")) {
