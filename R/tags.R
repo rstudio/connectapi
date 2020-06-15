@@ -32,6 +32,7 @@ get_tag_data <- function(src){
 
 # TODO: Need to find a way to denote categories...?
 # error  : chr "Cannot assign a category to an app"
+# TODO: Need to protect against a bad data structure...
 connect_tag_tree <- function(tag_data) {
   structure(tag_data, class = c("connect_tag_tree", "list"))
 }
@@ -93,18 +94,19 @@ set_content_tags <- function(content, ...) {
 }
 
 filter_tag_tree <- function(tags, ids) {
-  
+  recursive_filter(tags = tags, ids = ids)
 }
 
 recursive_filter <- function(tags, ids) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map_lgl(tags_noname, ~ recursive_filter(.x, ids))
-  if (tags$id %in% ids || any(recurse_res)) {
-    TRUE
+  recurse_res <- purrr::map(tags_noname, ~ recursive_filter(.x, ids))
+  rr_nonull <- purrr::keep(recurse_res, ~ !is.null(.x))
+  if (tags$id %in% ids || length(rr_nonull) > 0) {
+    connect_tag_tree(c(list(name = tags$name, id = tags$id), rr_nonull))
   } else {
-    FALSE
+    NULL
   }
 }
 
@@ -112,8 +114,9 @@ get_content_tags <- function(content) {
   validate_R6_class(content, "Content")
   ctags <- content$tags()
   # TODO: find a way to build a tag tree from a list of tags
-  ctagtree <- ctags
-  connect_tag_tree(ctags)
+  
+  tagtree <- get_tags(content$get_connect(), FALSE)
+  filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
 }
 
 delete_tag <- function(client, tag) {
