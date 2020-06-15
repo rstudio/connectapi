@@ -30,6 +30,8 @@ get_tag_data <- function(src){
   return(tag_tbl)
 }
 
+# TODO: Need to find a way to denote categories...?
+# error  : chr "Cannot assign a category to an app"
 connect_tag_tree <- function(tag_data) {
   structure(tag_data, class = c("connect_tag_tree", "list"))
 }
@@ -45,7 +47,7 @@ print.connect_tag_tree <- function(x, ...) {
 
 `$.connect_tag_tree` <- function(x,y){
   out <- NextMethod("$")
-  if (is.list(out) && length(out) > 2) {
+  if (is.list(out) && length(out) >= 2) {
     connect_tag_tree(out)
   } else {
     out
@@ -55,7 +57,7 @@ print.connect_tag_tree <- function(x, ...) {
 create_tag <- function(client, name, parent = NULL) {
   warn_experimental("create_tag")
   scoped_experimental_silence()
-  if (is.numeric(parent)) {
+  if (is.null(parent) || is.numeric(parent)) {
     parent_id <- parent
   } else if (inherits(parent, "connect_tag_tree")) {
     parent_id <- parent[["id"]]
@@ -99,6 +101,12 @@ recursive_tag_print <- function(x, indent) {
   x_noname$name <- NULL
   x_noname$id <- NULL
   ch <- box_chars()
+  # print a "single level tag"
+  if (length(x_noname) == 0 && nchar(indent) == 0) {
+    if (!is.null(x$name)) {
+      cat(indent, pc(ch$l, ch$h, ch$h, " "), x$name, "\n", sep = "")
+    }
+  }
   purrr::map2(
     x_noname,
     seq_along(x_noname),
