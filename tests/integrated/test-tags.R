@@ -104,6 +104,16 @@ test_that("create_tag and delete_tag works", {
   expect_true(validate_R6_class(res, "Connect"))
 })
 
+test_that("delete_tag errs for whole tree", {
+  scoped_experimental_silence()
+  alltags <- get_tags(test_conn_1)
+  
+  expect_error(
+    delete_tag(test_conn_1, alltags),
+    "entire tag tree"
+  )
+})
+
 test_that("create_tag_tree works", {
   scoped_experimental_silence()
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
@@ -118,6 +128,9 @@ test_that("create_tag_tree works", {
   a2 <- create_tag_tree(test_conn_1, ptag_1, ctag_1, ctag_2, ctag_3)
   expect_is(a2, "connect_tag_tree")
   expect_identical(a1[[ptag_1]][["id"]], a2[[ptag_1]][["id"]])
+  
+  delete_tag(test_conn_1, a2[[ptag_1]])
+  expect_error(suppressMessages(test_conn_1$tag(a2[[ptag_1]][["id"]])), "Not Found")
 })
 
 
