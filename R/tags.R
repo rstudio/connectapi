@@ -126,8 +126,29 @@ create_tag_tree <- function(src, ...) {
   filter_tag_tree(get_tags(src), results)
 }
 
+#' @export
+#' @rdname tags
 set_content_tag_tree <- function(content, ...) {
-  # TODO: a way to set the tag for a content item
+  warn_experimental("set_content_tag_tree")
+  validate_R6_class(content, "Content")
+  scoped_experimental_silence()
+  
+  params <- rlang::list2(...)
+  if (length(params) == 1) {
+    stop("cannot assign a category to an app. Please specify an additional tag level")
+  }
+  
+  tags <- get_tags(content$get_connect())
+  
+  # check that tags exist
+  tmp <- purrr::pluck(tags, !!!params)
+  if (!is.null(tmp[["id"]])) {
+    # only use the "bottom most" ID to tag
+    content$tag_set(tmp[["id"]])
+  } else {
+    stop("the tag tree specified was not found")
+  }
+  return(content)
 }
 
 #' @export
@@ -142,7 +163,7 @@ set_content_tags <- function(content, ...) {
     function(.x) {
       ifelse(
         inherits(.x, "connect_tag_tree"), 
-        content$tag_set(.x$id),
+        content$tag_set(.x[["id"]]),
         content$tag_set(.x)
       )
     }
@@ -221,6 +242,9 @@ delete_tag <- function(src, tag) {
   if (is.numeric(tag)) {
     tag_id <- tag
   } else if (inherits(tag, "connect_tag_tree")) {
+    if (is.null(tag[["id"]])) {
+      stop("`tag` must reference some tag specifically, and not the entire tag tree")
+    }
     tag_id <- tag[["id"]]
   } else {
     stop("`tag` must be an ID or a connect_tag_tree object")
