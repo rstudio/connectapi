@@ -129,7 +129,7 @@ test_that("identical tag names are searched properly", {
   tag_content_guid <- tag_content$get_content()$guid
 
   # create another tag with same name
-  child_tag_2 <- test_conn_1$create_tag(
+  child_tag_2 <- test_conn_1$tag_create(
     name = child_tag_name,
     parent_id = child_tag$id
   )
