@@ -55,7 +55,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (length(x) > 0) {
     recursive_tag_print(x, "")
   } else {
-    cat("  < No tags defined >")
+    cat("  < No tags >")
   }
 }
 
@@ -123,7 +123,7 @@ create_tag_tree <- function(src, ...) {
     con = src,
     .init = NULL
   )
-  filter_tag_tree(get_tags(src), results)
+  filter_tag_tree_id(get_tags(src), results)
 }
 
 #' @export
@@ -173,21 +173,69 @@ set_content_tags <- function(content, ...) {
 
 #' @export
 #' @rdname tags
-filter_tag_tree <- function(tags, ids) {
+filter_tag_tree_id <- function(tags, ids) {
   warn_experimental("filter_tag_tree")
   scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
-  recursive_filter(tags = tags, ids = ids)
+  flt <- recursive_filter_id(tags = tags, ids = ids)
+  if (!is.null(flt)) {
+    flt
+  } else {
+    connect_tag_tree(list())
+  }
 }
 
-recursive_filter <- function(tags, ids) {
+#' @export
+#' @rdname tags
+filter_tag_tree_chr <- function(tags, pattern) {
+  warn_experimental("filter_tag_tree")
+  scoped_experimental_silence()
+  stopifnot(inherits(tags, "connect_tag_tree"))
+  
+  flt <- recursive_filter_chr(tags = tags, pattern = pattern)
+  if (!is.null(flt)) {
+    flt
+  } else {
+    connect_tag_tree(list())
+  }
+}
+
+recursive_filter_id <- function(tags, ids) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map(tags_noname, ~ recursive_filter(.x, ids))
+  recurse_res <- purrr::map(tags_noname, ~ recursive_filter_id(.x, ids))
   rr_nonull <- purrr::keep(recurse_res, ~ !is.null(.x))
   if (tags$id %in% ids || length(rr_nonull) > 0) {
-    connect_tag_tree(c(list(name = tags$name, id = tags$id), rr_nonull))
+    if (!is.null(tags[["name"]])) {
+      name_add <- list(name = tags$name, id = tags$id)
+    } else {
+      name_add <- list()
+    }
+    connect_tag_tree(c(name_add, rr_nonull))
+  } else {
+    NULL
+  }
+}
+
+recursive_filter_chr <- function(tags, pattern) {
+  tags_noname <- tags
+  tags_noname$name <- NULL
+  tags_noname$id <- NULL
+  recurse_res <- purrr::map(tags_noname, ~ recursive_filter_chr(.x, pattern))
+  rr_nonull <- purrr::keep(recurse_res, ~ !is.null(.x))
+  if (!is.null(tags[["name"]])) {
+    name_match <- any(purrr::map_lgl(pattern, ~ grepl(.x, tags$name)))
+  } else {
+    name_match <- FALSE
+  }
+  if (name_match || length(rr_nonull) > 0) {
+    if (!is.null(tags[["name"]])) {
+      name_add <- list(name = tags$name, id = tags$id)
+    } else {
+      name_add <- list()
+    }
+    connect_tag_tree(c(name_add, rr_nonull))
   } else {
     NULL
   }
@@ -229,7 +277,7 @@ get_content_tags <- function(content) {
   # TODO: find a way to build a tag tree from a list of tags
   
   tagtree <- get_tags(content$get_connect())
-  res <- filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
+  res <- filter_tag_tree_id(tagtree, purrr::map_int(ctags, ~ .x$id))
   attr(res, "filter") <- "content"
   res
 }
