@@ -89,7 +89,7 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
-# TODO: this is hard to "use" directly... maybe create a Tag R6 class?
+# TODO: this is hard to "use" directly because what it returns is not a tag... maybe create a Tag R6 class?
 #' @export
 #' @rdname tags
 create_tag <- function(src, name, parent = NULL) {
@@ -173,6 +173,26 @@ recursive_filter <- function(tags, ids) {
     connect_tag_tree(c(list(name = tags$name, id = tags$id), rr_nonull))
   } else {
     NULL
+  }
+}
+
+recursive_check_exists <- function(tags, tag, parent_id = NULL) {
+  tags_noname <- tags
+  tags_noname$name <- NULL
+  tags_noname$id <- NULL
+  recurse_res <- purrr::map_lgl(tags_noname, ~ recursive_check_exists(.x, tag, parent_id))
+  if (length(recurse_res) == 0) {
+    recurse_res <- FALSE
+  }
+  recurse_res_any <- any(recurse_res)
+  if (
+    recurse_res_any || 
+    (is.null(parent_id) && tags$name == tag) ||
+    (!is.null(parent_id) && tags$id == parent_id && tag %in% names(tags_noname))
+    ) {
+    TRUE
+  } else {
+    FALSE
   }
 }
 
