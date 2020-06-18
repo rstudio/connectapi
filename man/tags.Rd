@@ -11,7 +11,7 @@
 \alias{delete_tag}
 \title{Get all Tags on the server}
 \usage{
-get_tags(src, use_cache = FALSE)
+get_tags(src)
 
 get_tag_data(src)
 
@@ -29,10 +29,6 @@ delete_tag(src, tag)
 }
 \arguments{
 \item{src}{The source object}
-
-\item{use_cache}{use the tag list previously queried
-from the connect server. If the \code{src$tags} object is null then
-this parameter will be ignored}
 
 \item{name}{The name of the tag to create}
 

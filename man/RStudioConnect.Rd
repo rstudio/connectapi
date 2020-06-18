@@ -56,6 +56,7 @@ Other R6 classes:
 \item \href{#method-get_tags}{\code{Connect$get_tags()}}
 \item \href{#method-get_tag_id}{\code{Connect$get_tag_id()}}
 \item \href{#method-get_tag_tree}{\code{Connect$get_tag_tree()}}
+\item \href{#method-tag_create_safe}{\code{Connect$tag_create_safe()}}
 \item \href{#method-tag_create}{\code{Connect$tag_create()}}
 \item \href{#method-tag}{\code{Connect$tag()}}
 \item \href{#method-tag_delete}{\code{Connect$tag_delete()}}
@@ -253,6 +254,15 @@ Other R6 classes:
 \subsection{Method \code{get_tag_tree()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag_create_safe"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_create_safe}{}}}
+\subsection{Method \code{tag_create_safe()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create_safe(name, parent_id = NULL)}\if{html}{\out{</div>}}
 }
 
 }
