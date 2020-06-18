@@ -239,9 +239,13 @@ recursive_tag_print <- function(x, indent) {
   x_noname$id <- NULL
   ch <- box_chars()
   # print a "single level tag"
-  if (length(x_noname) == 0 && nchar(indent) == 0) {
+  if ( length(x_noname) == 0 && nchar(indent) == 0 ) {
     if (!is.null(x$name)) {
       cat(indent, pc(ch$l, ch$h, ch$h, " "), x$name, "\n", sep = "")
+    }
+  } else if (nchar(indent) == 0) {
+    if (!is.null(x$name)) {
+      cat(x$name, "\n", sep = "")
     }
   }
   purrr::map2(
