@@ -178,9 +178,9 @@ Connect <- R6::R6Class(
       self$GET("tag-tree")
     },
     
-    tag_create_safe = function(name, parent_id = NULL, use_cache = TRUE) {
+    tag_create_safe = function(name, parent_id = NULL) {
       warn_experimental("create_tag")
-      tt <- get_tags(self, use_cache = use_cache)
+      tt <- get_tags(self)
       
       tag_exists_id <- recursive_find_tag(tt, name, parent_id)
       if (is.na(tag_exists_id)) {

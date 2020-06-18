@@ -4,9 +4,6 @@
 #' \lifecycle{experimental} Get a tibble of all tags
 #' 
 #' @param src The source object
-#' @param .use_cache use the tag list previously queried 
-#' from the connect server. If the `src$tags` object is null then
-#' this parameter will be ignored
 #' @param name The name of the tag to create
 #' @param parent optional. A `connect_tag_tree` object (as returned by `get_tags()`) pointed at the parent tag
 #' @param content An R6 Content object, as returned by `content_item()`
@@ -108,10 +105,9 @@ create_tag <- function(src, name, parent = NULL) {
 }
 
 # TODO: try without quotes...
-# TODO: do not fail if the key already exists...
 #' @export
 #' @rdname tags
-create_tag_tree <- function(src, ..., .use_cache = TRUE) {
+create_tag_tree <- function(src, ...) {
   warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
   scoped_experimental_silence()
@@ -121,7 +117,7 @@ create_tag_tree <- function(src, ..., .use_cache = TRUE) {
   results <- purrr::reduce(
     params,
     function(.parent, .x, con) {
-      res <- con$tag_create_safe(.x, .parent, use_cache = .use_cache)
+      res <- con$tag_create_safe(.x, .parent)
       return(res[["id"]])
     },
     con = src,
@@ -189,7 +185,7 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   
   if (!is.na(recurse_res_any)) {
     recurse_res_any
-  } else if (is.null(parent_id) && tags$name == tag) {
+  } else if (is.null(parent_id) && !is.null(tags$name) && tags$name == tag) {
     res <- tags$id
     names(res) <- NULL
     res
@@ -211,7 +207,7 @@ get_content_tags <- function(content) {
   ctags <- content$tags()
   # TODO: find a way to build a tag tree from a list of tags
   
-  tagtree <- get_tags(content$get_connect(), FALSE)
+  tagtree <- get_tags(content$get_connect())
   res <- filter_tag_tree(tagtree, purrr::map_int(ctags, ~ .x$id))
   attr(res, "filter") <- "content"
   res
