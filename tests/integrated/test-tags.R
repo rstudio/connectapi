@@ -105,10 +105,19 @@ test_that("create_tag and delete_tag works", {
 })
 
 test_that("create_tag_tree works", {
+  scoped_experimental_silence()
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_2 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_3 <- uuid::UUIDgenerate(use.time = TRUE)
+  
+  a1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1)
+  expect_is(a1, "connect_tag_tree")
+  expect_named(a1, c("name", "id", ptag_1))
+  
+  a2 <- create_tag_tree(test_conn_1, ptag_1, ctag_1, ctag_2, ctag_3)
+  expect_is(a2, "connect_tag_tree")
+  expect_identical(a1[[ptag_1]][["id"]], a2[[ptag_1]][["id"]])
 })
 
 
@@ -117,6 +126,7 @@ test_that("get_content_tags and set_content_tags works", {
   ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_2_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  skip("TODO")
 })
 
 test_that("set_content_tag_tree works", {
