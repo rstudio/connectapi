@@ -4,7 +4,7 @@
 #' \lifecycle{experimental} Get a tibble of all tags
 #' 
 #' @param src The source object
-#' @param use_cache use the tag list previously queried 
+#' @param .use_cache use the tag list previously queried 
 #' from the connect server. If the `src$tags` object is null then
 #' this parameter will be ignored
 #' @param name The name of the tag to create
@@ -17,7 +17,7 @@
 #' 
 #' @export
 #' @rdname tags
-get_tags <- function(src, use_cache = FALSE){
+get_tags <- function(src){
   warn_experimental("get_tags")
   scoped_experimental_silence()
   validate_R6_class(src, "Connect")
@@ -111,7 +111,7 @@ create_tag <- function(src, name, parent = NULL) {
 # TODO: do not fail if the key already exists...
 #' @export
 #' @rdname tags
-create_tag_tree <- function(src, ...) {
+create_tag_tree <- function(src, ..., .use_cache = TRUE) {
   warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
   scoped_experimental_silence()
@@ -121,7 +121,7 @@ create_tag_tree <- function(src, ...) {
   results <- purrr::reduce(
     params,
     function(.parent, .x, con) {
-      res <- con$tag_create(.x, .parent)
+      res <- con$tag_create_safe(.x, .parent, use_cache = .use_cache)
       return(res[["id"]])
     },
     con = src,
@@ -176,23 +176,29 @@ recursive_filter <- function(tags, ids) {
   }
 }
 
-recursive_check_exists <- function(tags, tag, parent_id = NULL) {
+recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map_lgl(tags_noname, ~ recursive_check_exists(.x, tag, parent_id))
-  if (length(recurse_res) == 0) {
-    recurse_res <- FALSE
+  recurse_res <- purrr::map_dbl(tags_noname, ~ recursive_find_tag(.x, tag, parent_id))
+  recurse_res_any <- recurse_res[!is.na(recurse_res)]
+  if (length(recurse_res_any) == 0) {
+    recurse_res_any <- NA_real_
   }
-  recurse_res_any <- any(recurse_res)
-  if (
-    recurse_res_any || 
-    (is.null(parent_id) && tags$name == tag) ||
-    (!is.null(parent_id) && tags$id == parent_id && tag %in% names(tags_noname))
-    ) {
-    TRUE
+  names(recurse_res_any) <- NULL
+  
+  if (!is.na(recurse_res_any)) {
+    recurse_res_any
+  } else if (is.null(parent_id) && tags$name == tag) {
+    res <- tags$id
+    names(res) <- NULL
+    res
+  } else if (!is.null(parent_id) && tags$id == parent_id && tag %in% names(tags_noname)) {
+    res <- tags[[tag]]$id
+    names(res) <- NULL
+    res
   } else {
-    FALSE
+    NA_real_
   }
 }
 
