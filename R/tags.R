@@ -96,6 +96,9 @@ create_tag <- function(src, name, parent = NULL) {
   if (is.null(parent) || is.numeric(parent)) {
     parent_id <- parent
   } else if (inherits(parent, "connect_tag_tree")) {
+    if (is.null(parent[["id"]])) {
+      stop("must specify a `parent` tag, and not the entire tag tree")
+    }
     parent_id <- parent[["id"]]
   } else {
     stop("`parent` must be an ID or a connect_tag_tree object")
