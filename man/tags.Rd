@@ -5,8 +5,10 @@
 \alias{get_tag_data}
 \alias{create_tag}
 \alias{create_tag_tree}
+\alias{set_content_tag_tree}
 \alias{set_content_tags}
-\alias{filter_tag_tree}
+\alias{filter_tag_tree_id}
+\alias{filter_tag_tree_chr}
 \alias{get_content_tags}
 \alias{delete_tag}
 \title{Get all Tags on the server}
@@ -19,9 +21,13 @@ create_tag(src, name, parent = NULL)
 
 create_tag_tree(src, ...)
 
+set_content_tag_tree(content, ...)
+
 set_content_tags(content, ...)
 
-filter_tag_tree(tags, ids)
+filter_tag_tree_id(tags, ids)
+
+filter_tag_tree_chr(tags, pattern)
 
 get_content_tags(content)
 
