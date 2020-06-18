@@ -146,9 +146,10 @@ Connect <- R6::R6Class(
     },
 
     # tags ----------------------------------------------------------
-
+    
     get_tags = function(use_cache = FALSE) {
       warn_experimental("get_tags")
+      # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$GET("/tags")
       }
@@ -175,6 +176,18 @@ Connect <- R6::R6Class(
     get_tag_tree = function() {
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
+    },
+    
+    tag_create_safe = function(name, parent_id = NULL, use_cache = TRUE) {
+      warn_experimental("create_tag")
+      tt <- get_tags(self, use_cache = use_cache)
+      
+      tag_exists_id <- recursive_find_tag(tt, name, parent_id)
+      if (is.na(tag_exists_id)) {
+        self$tag_create(name, parent_id)
+      } else {
+        self$tag(tag_exists_id)
+      }
     },
     
     tag_create = function(name, parent_id = NULL) {
