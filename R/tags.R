@@ -180,7 +180,11 @@ filter_tag_tree_id <- function(tags, ids) {
   warn_experimental("filter_tag_tree")
   scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
-  flt <- recursive_filter_id(tags = tags, ids = ids)
+  if (length(ids) == 0) {
+    flt <- NULL
+  } else {
+    flt <- recursive_filter_id(tags = tags, ids = ids)
+  }
   if (!is.null(flt)) {
     flt
   } else {
