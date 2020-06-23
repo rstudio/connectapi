@@ -14,12 +14,21 @@ simple_tag_tree <- connect_tag_tree(
 test_that("works with no input", {
   expect_output(
     print(connect_tag_tree(list(), NULL)),
-    "No tags defined"
+    "No tags"
   )
   expect_output(
     print(connect_tag_tree(list())),
-    "No tags defined"
+    "No tags"
   )
+})
+
+test_that("print method ends in a newline", {
+  c0 <- capture.output({print(connect_tag_tree(list())); cat("hi")})
+  expect_length(c0, 3)
+  expect_equal(c0[3], "hi")
+  
+  c1 <- capture.output({print(simple_tag_tree); cat("max")})
+  expect_identical(c1[length(c1)], "max")
 })
 
 test_that("print methods work as expected", {
@@ -27,28 +36,67 @@ test_that("print methods work as expected", {
 })
 
 test_that("$ works as expected", {
-  skip("not tested yet")
+  expect_is(simple_tag_tree$hi, "connect_tag_tree")
+  expect_is(simple_tag_tree$hi$ho, "connect_tag_tree")
+  expect_named(simple_tag_tree$hi$ho, c("name", "id"))
+  expect_output(print(simple_tag_tree$hi), "filtered")
+  expect_is(simple_tag_tree$hi$ho$name, "character")
+  expect_is(simple_tag_tree$hi$ho$id, "numeric")
 })
 
 test_that("[ works as expected", {
-  skip("not tested yet")
+  skip("broken")
+  expect_is(simple_tag_tree["hi"], "connect_tag_tree")
 })
 
 test_that("[[ works as expected", {
-  skip("not tested yet")
+  expect_is(simple_tag_tree[["hi"]], "connect_tag_tree")
+  expect_is(simple_tag_tree[["hi"]][["ho"]], "connect_tag_tree")
+  expect_named(simple_tag_tree[["hi"]][["ho"]], c("name", "id"))
+  expect_output(print(simple_tag_tree[["hi"]]), "filtered")
+  expect_is(simple_tag_tree[["hi"]][["ho"]][["name"]], "character")
+  expect_is(simple_tag_tree[["hi"]][["ho"]][["id"]], "numeric")
 })
 
-test_that("filter works as expected", {
+test_that("filter_tag_tree_chr works as expected", {
+  scoped_experimental_silence()
+  tt <- simple_tag_tree
   
+  expect_length(filter_tag_tree_chr(tt, "hi"), 1)
+  expect_length(filter_tag_tree_chr(tt, "ho"), 1)
+  expect_length(filter_tag_tree_chr(tt, "ho")[["hi"]], 3) # name, id, ho
+  
+  expect_length(filter_tag_tree_chr(tt, "(ho)|(away)")[["hi"]], 4) # name, id, ho, away
+})
+
+test_that("filter_tag_tree_id works as expected", {
+  scoped_experimental_silence()
+  tt <- simple_tag_tree
+  
+  expect_length(filter_tag_tree_id(tt, 1), 1)
+  expect_length(filter_tag_tree_id(tt, 2), 1)
+  expect_length(filter_tag_tree_id(tt, 2)[["hi"]], 3) # name, id, ho
+  
+  expect_length(filter_tag_tree_id(tt, c(2,4))[["hi"]], 4) # name, id, ho, away
 })
 
 test_that("filter handles no responses", {
+  scoped_experimental_silence()
+  tt <- simple_tag_tree
+  
+  expect_length(filter_tag_tree_chr(tt, "something"), 0)
+  expect_length(filter_tag_tree_id(tt, 45), 0)
+})
+
+test_that("filter handles no input", {
+  scoped_experimental_silence()
   tt <- simple_tag_tree
   
   expect_length(filter_tag_tree_chr(tt, character()), 0)
 })
 
 test_that("filter handles no input", {
+  scoped_experimental_silence()
   tt <- simple_tag_tree
   
   expect_length(filter_tag_tree_id(tt, integer()), 0)
