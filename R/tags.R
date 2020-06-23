@@ -55,7 +55,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (length(x) > 0) {
     recursive_tag_print(x, "")
   } else {
-    cat("  < No tags >")
+    cat("  < No tags >\n")
   }
 }
 
@@ -164,14 +164,28 @@ set_content_tags <- function(content, ...) {
   tmp <- purrr::map(
     new_tags,
     function(.x) {
-      ifelse(
-        inherits(.x, "connect_tag_tree"), 
-        content$tag_set(.x[["id"]]),
+      if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
+        print(tmp1)
+        stop("this tag does not have an 'id'. Is it a tag list?")
+      }
+      if (inherits(.x, "connect_tag_tree")) {
+        content$tag_set(.x[["id"]])
+      } else {
         content$tag_set(.x)
-      )
+      }
     }
   )
+  print(get_content_tags(content))
+  cat("\n")
   content
+}
+
+set_content_tags_remove <- function() {
+  # TODO
+}
+
+set_content_tag_tree_remove <- function() {
+  # TODO
 }
 
 #' @export
@@ -180,11 +194,7 @@ filter_tag_tree_id <- function(tags, ids) {
   warn_experimental("filter_tag_tree")
   scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
-  if (length(ids) == 0) {
-    flt <- NULL
-  } else {
-    flt <- recursive_filter_id(tags = tags, ids = ids)
-  }
+  flt <- recursive_filter_id(tags = tags, ids = ids)
   if (!is.null(flt)) {
     flt
   } else {
@@ -213,7 +223,7 @@ recursive_filter_id <- function(tags, ids) {
   tags_noname$id <- NULL
   recurse_res <- purrr::map(tags_noname, ~ recursive_filter_id(.x, ids))
   rr_nonull <- purrr::keep(recurse_res, ~ !is.null(.x))
-  if (tags$id %in% ids || length(rr_nonull) > 0) {
+  if ((!is.null(tags$id) && tags$id %in% ids) || length(rr_nonull) > 0) {
     if (!is.null(tags[["name"]])) {
       name_add <- list(name = tags$name, id = tags$id)
     } else {
