@@ -91,6 +91,9 @@ scoped_dire_silence <- function(frame = rlang::caller_env()) {
   )
 }
 
+warn_clear <- function(id) {
+  rm(list = id, envir = warn_env)
+}
 
 warn_once <- function(msg, id = msg) {
   if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {
