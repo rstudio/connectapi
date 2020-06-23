@@ -61,7 +61,7 @@ print.connect_tag_tree <- function(x, ...) {
 
 `$.connect_tag_tree` <- function(x,y){
   res <- NextMethod("$")
-  if (is.list(res) && length(res) >= 2) {
+  if (is.list(res)) {
     connect_tag_tree(res)
   } else {
    res 
@@ -70,7 +70,7 @@ print.connect_tag_tree <- function(x, ...) {
 
 `[[.connect_tag_tree` <- function(x, ...) {
   res <- NextMethod("[[")
-  if (is.list(res) && length(res) >= 2) {
+  if (is.list(res)) {
     connect_tag_tree(res)
   } else {
    res 
@@ -79,11 +79,11 @@ print.connect_tag_tree <- function(x, ...) {
 
 `[.connect_tag_tree` <- function(x, i, j) {
   res <- NextMethod("[")
-  if (is.list(res) && length(res) >= 2) {
-    connect_tag_tree(res)
-  } else {
-   res 
-  }
+  warn_once(
+    "`[` drops the `connect_tag_tree` class. Use `$` or `[[` instead",
+    id = "[.connect_tag_tree"
+    )
+  res
 }
 
 # TODO: this is hard to "use" directly because what it returns is not a tag... maybe create a Tag R6 class?
