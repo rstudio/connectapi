@@ -45,8 +45,15 @@ test_that("$ works as expected", {
 })
 
 test_that("[ works as expected", {
-  skip("broken")
-  expect_is(simple_tag_tree["hi"], "connect_tag_tree")
+  # drops the connect_tag_tree class
+  # because maintaining the structure becomes hard...
+  
+  expect_warning(simple_tag_tree["hi"], "drops")
+  expect_false(inherits(simple_tag_tree["hi"], "connect_tag_tree"))
+  expect_is(simple_tag_tree["hi"], "list")
+  
+  # clear "warn_once" state
+  warn_clear("[.connect_tag_tree")
 })
 
 test_that("[[ works as expected", {
