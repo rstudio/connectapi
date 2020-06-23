@@ -123,7 +123,8 @@ test_that("create_tag_tree works", {
   
   a1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1)
   expect_is(a1, "connect_tag_tree")
-  expect_named(a1, c("name", "id", ptag_1))
+  expect_named(a1, c(ptag_1))
+  expect_named(a1[[ptag_1]], c("name", "id", ctag_1))
   
   a2 <- create_tag_tree(test_conn_1, ptag_1, ctag_1, ctag_2, ctag_3)
   expect_is(a2, "connect_tag_tree")
@@ -153,14 +154,71 @@ test_that("get_content_tags and set_content_tags works", {
   ct <- get_content_tags(app1)
   expect_length(ct, 0)
   
-  #set_content_tags(app1, tmp1)
-  skip("TODO")
+  c1o <- capture.output(
+    c1 <- set_content_tags(
+      app1, 
+      tmp1[[ptag_1]][[ctag_1_1]][[ctag_1_2]]
+      )
+    )
+  expect_identical(c1, app1)
+  expect_length(get_content_tags(app1), 1)
+  
+  c2o <- capture.output(
+    c2 <- set_content_tags(
+      app1, 
+      tmp1[[ptag_1]][[ctag_1_1]][[ctag_1_2]],
+      tmp2[[ptag_1]][[ctag_2_1]]
+      )
+    )
+  expect_identical(c2, app1)
+  expect_length(get_content_tags(app1)[[ptag_1]], 4) # 2 tags, id, name
+  
+  # TODO: use newer way to delete tags
+  app1$tag_delete(get_content_tags(app1)[[ptag_1]][["id"]])
+  expect_length(get_content_tags(app1), 0)
 })
 
 test_that("set_content_tag_tree works", {
-  skip("not implemented yet")
+  scoped_experimental_silence()
+  
+  ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_2_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  
+  app1 <- deploy(test_conn_1, bundle_dir(rprojroot::find_package_root_file("tests", "testthat", "examples", "static")))
+  
+  tmp1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1_1, ctag_1_2)
+  tmp2 <- create_tag_tree(test_conn_1, ptag_1, ctag_2_1)
+  
+  expect_is(tmp1, "connect_tag_tree")
+  expect_is(tmp2, "connect_tag_tree")
+  
+  ct <- get_content_tags(app1)
+  expect_length(ct, 0)
+  
+  c1o <- capture.output(
+    c1 <- set_content_tag_tree(
+      app1, 
+      ptag_1, ctag_1_1, ctag_1_2
+      )
+    )
+  expect_identical(c1, app1)
+  expect_length(get_content_tags(app1), 1)
+  
+  c2o <- capture.output(
+    c2 <- set_content_tag_tree(
+      app1, 
+      ptag_1, ctag_2_1
+      )
+    )
+  expect_identical(c2, app1)
+  expect_length(get_content_tags(app1)[[ptag_1]], 4) # 2 tags, id, name
+  
+  # TODO: use newer way to delete tags
+  app1$tag_delete(get_content_tags(app1)[[ptag_1]][["id"]])
+  expect_length(get_content_tags(app1), 0)
 })
-
 
 test_that("identical tag names are searched properly", {
   scoped_experimental_silence()
@@ -196,6 +254,8 @@ test_that("identical tag names are searched properly", {
   guids <- purrr::map_chr(res2, ~ .x$guid)
   expect_true(length(guids[guids == tag_content_guid]) == 1)
 })
+
+context("tag_page")
 
 test_that("tag_page works", {
   scoped_experimental_silence()
