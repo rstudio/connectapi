@@ -135,10 +135,25 @@ test_that("create_tag_tree works", {
 
 
 test_that("get_content_tags and set_content_tags works", {
+  scoped_experimental_silence()
+  
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_2_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  
+  app1 <- deploy(test_conn_1, bundle_dir(rprojroot::find_package_root_file("tests", "testthat", "examples", "static")))
+  
+  tmp1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1_1, ctag_1_2)
+  tmp2 <- create_tag_tree(test_conn_1, ptag_1, ctag_2_1)
+  
+  expect_is(tmp1, "connect_tag_tree")
+  expect_is(tmp2, "connect_tag_tree")
+  
+  ct <- get_content_tags(app1)
+  expect_length(ct, 0)
+  
+  #set_content_tags(app1, tmp1)
   skip("TODO")
 })
 
