@@ -122,15 +122,18 @@ test_that("create_tag_tree works", {
   ctag_3 <- uuid::UUIDgenerate(use.time = TRUE)
   
   a1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1)
-  expect_is(a1, "connect_tag_tree")
-  expect_named(a1, c(ptag_1))
-  expect_named(a1[[ptag_1]], c("name", "id", ctag_1))
+  expect_true(validate_R6_class(a1, "Connect"))
+  
+  tags1 <- get_tags(test_conn_1)
   
   a2 <- create_tag_tree(test_conn_1, ptag_1, ctag_1, ctag_2, ctag_3)
-  expect_is(a2, "connect_tag_tree")
-  expect_identical(a1[[ptag_1]][["id"]], a2[[ptag_1]][["id"]])
+  expect_true(validate_R6_class(a2, "Connect"))
   
-  delete_tag(test_conn_1, a2[[ptag_1]])
+  tags2 <- get_tags(test_conn_1)
+  
+  expect_identical(tags1[[ptag_1]][["id"]], tags2[[ptag_1]][["id"]])
+  
+  delete_tag(test_conn_1, tags2[[ptag_1]])
   expect_error(suppressMessages(test_conn_1$tag(a2[[ptag_1]][["id"]])), "Not Found")
 })
 
