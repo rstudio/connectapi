@@ -4,6 +4,6 @@
 \alias{collect}
 \title{Collect function}
 \description{
-See \code{dplyr::\link{dplyr::collect}} for details.
+See \code{dplyr::\link[dplyr:collect]{collect}} for details.
 }
 \keyword{internal}
