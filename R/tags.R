@@ -45,6 +45,7 @@ connect_tag_tree <- function(tag_data, filter = "filtered") {
   structure(tag_data, class = c("connect_tag_tree", "list"), filter = filter)
 }
 
+#' @export
 print.connect_tag_tree <- function(x, ...) {
   if (!is.null(attr(x, "filter"))) {
     cat(glue::glue("RStudio Connect Tag Tree ({attr(x, 'filter')})"))
@@ -59,6 +60,7 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
+#' @export
 `$.connect_tag_tree` <- function(x,y){
   res <- NextMethod("$")
   if (is.list(res)) {
@@ -68,6 +70,7 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
+#' @export
 `[[.connect_tag_tree` <- function(x, ...) {
   res <- NextMethod("[[")
   if (is.list(res)) {
@@ -77,6 +80,7 @@ print.connect_tag_tree <- function(x, ...) {
   }
 }
 
+#' @export
 `[.connect_tag_tree` <- function(x, i, j) {
   res <- NextMethod("[")
   warn_once(
