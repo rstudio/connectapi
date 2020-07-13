@@ -1,5 +1,5 @@
 ---
-title: "`connectapi` Tags"
+title: "connectapi Tags"
 author: "Cole Arendt"
 date: "7/12/2020"
 output: html_document
@@ -58,7 +58,9 @@ if ("DemoProject" %in% names(start_tags) || "DemoAudience" %in% names(start_tags
 tree_project_1 <- create_tag_tree(client, "DemoProject", "project_1")
 tree_project_1
 
-tree_project_2 <- create_tag(client, name = "project_2", parent = tree_project_1$DemoProject)
+tmp_tags <- get_tags(client)
+
+tree_project_2 <- create_tag(client, name = "project_2", parent = tmp_tags$DemoProject)
 tree_project_2
 
 tree_audience_1 <- create_tag_tree(client, "DemoAudience", "Sales")
