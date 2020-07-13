@@ -101,7 +101,7 @@ set_content_tags(
   )
 ```
 
-## See the tags assosciated with content
+## See the tags associated with content
 
 In order to see the tags associated with content, use `get_content_tags()`.
 The data structure is the same as `get_tags()`, but the "whole list" is filtered
