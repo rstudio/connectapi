@@ -5,12 +5,12 @@
 \alias{get_tag_data}
 \alias{create_tag}
 \alias{create_tag_tree}
+\alias{delete_tag}
+\alias{get_content_tags}
 \alias{set_content_tag_tree}
 \alias{set_content_tags}
 \alias{filter_tag_tree_id}
 \alias{filter_tag_tree_chr}
-\alias{get_content_tags}
-\alias{delete_tag}
 \title{Get all Tags on the server}
 \usage{
 get_tags(src)
@@ -21,6 +21,10 @@ create_tag(src, name, parent = NULL)
 
 create_tag_tree(src, ...)
 
+delete_tag(src, tag)
+
+get_content_tags(content)
+
 set_content_tag_tree(content, ...)
 
 set_content_tags(content, ...)
@@ -28,10 +32,6 @@ set_content_tags(content, ...)
 filter_tag_tree_id(tags, ids)
 
 filter_tag_tree_chr(tags, pattern)
-
-get_content_tags(content)
-
-delete_tag(src, tag)
 }
 \arguments{
 \item{src}{The source object}
@@ -40,7 +40,37 @@ delete_tag(src, tag)
 
 \item{parent}{optional. A \code{connect_tag_tree} object (as returned by \code{get_tags()}) pointed at the parent tag}
 
-\item{...}{Additional arguments}
+\item{...}{Additional arguments
+
+Manage tags (requires Administrator role):
+\itemize{
+\item \code{get_tags()} - returns a "tag tree" object that can be traversed with \code{tag_tree$tag1$childtag}
+\item \code{get_tag_data()} - returns a tibble of tag data
+\item \code{create_tag()} - create a tag by specifying the Parent directly
+\item \code{create_tag_tree()} - create tag(s) by specifying the "desired" tag tree
+hierarchy
+\item \code{delete_tag()} - delete a tag (and its children). WARNING: will
+disassociate any content automatically
+}
+
+Manage content tags:
+\itemize{
+\item \code{get_content_tags()} - return a \code{connect_tag_tree} object corresponding to
+the tags for a piece of content.
+\item \code{set_content_tag_tree()} - attach a tag to content by specifying the
+desired tag tree
+\item \code{set_content_tags()} - Set multiple tags at once by providing
+\code{connect_tag_tree} objects
+}
+
+Search a tag tree:
+\itemize{
+\item \code{filter_tag_tree_chr()} - filters a tag tree based on a regex
+\item \code{filter_tag_tree_id()} - filters a tag tree based on an id
+\item 
+}}
+
+\item{tag}{A \code{connect_tag_tree} object (as returned by \code{get_tags()})}
 
 \item{content}{An R6 Content object, as returned by \code{content_item()}}
 
@@ -48,8 +78,8 @@ delete_tag(src, tag)
 
 \item{ids}{A list of \code{id}s to filter the tag tree by}
 
-\item{tag}{A \code{connect_tag_tree} object (as returned by \code{get_tags()})}
+\item{pattern}{A regex to filter the tag tree by (it is passed to \code{grepl})}
 }
 \description{
-\lifecycle{experimental} Get a tibble of all tags
+\lifecycle{experimental} Tag manipulation and assignment functions
 }

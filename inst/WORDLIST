@@ -10,6 +10,7 @@ appRunAs
 appUrl
 browseURL
 cloneable
+Codecov
 Connect's
 ConnectionTimeout
 conns

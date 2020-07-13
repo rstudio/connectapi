@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9012
+Version: 0.1.0.9013
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -60,5 +60,5 @@ Remotes:
     slopp/webshot
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

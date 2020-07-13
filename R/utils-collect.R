@@ -1,6 +1,6 @@
 #' Collect function
 #'
-#' See \code{dplyr::\link[dplyr]{collect}} for details.
+#' See \code{dplyr::\link[dplyr:collect]{collect}} for details.
 #'
 #' @name collect
 #' @rdname collect
