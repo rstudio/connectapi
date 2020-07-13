@@ -1,0 +1,147 @@
+---
+title: "`connectapi` Tags"
+author: "Cole Arendt"
+date: "7/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(connectapi)
+client <- connect(prefix = "TEST_1")
+```
+
+# Getting Started
+
+To understand how tags work with `connectapi`, you must first understand tags in
+RStudio Connect.
+
+- Tags in RStudio Connect consist of multiple "tag trees," each with a "Category"
+as its parent.
+- The tag hierarchy / structure is created by administrators
+- Publishers and administrators can associate any non-Category tag with content
+- A tag being a member of a "child" tag doe _not_ automatically make it a member
+of the "parent" tag
+
+As always, get started by defining the `CONNECT_SERVER` and `CONNECT_API_KEY`
+variables, then initialize an API client.
+
+```{r eval=FALSE}
+library(connectapi)
+client <- connect()
+```
+
+**NOTE:** This example report will create a few tag hierarchies and then use
+them. As a result, to use this example verbatim requires admin privileges and
+_will_ create tags on your server.
+
+# Create the Tag Tree(s)
+
+To get started, we will create a tag tree to show how things work. The
+`create_tag()` helper allows you to create a singular tag (by specifying its
+parent, etc.). For our purposes, `create_tag_tree()` is easier, since it
+creates the entire tree specified at once.
+
+```{r get_tags}
+start_tags <- get_tags(client)
+start_tags
+```
+
+```{r check_tag_exist include=FALSE}
+# Protect against tags already existing
+if ("DemoProject" %in% names(start_tags) || "DemoAudience" %in% names(start_tags))
+  stop("ERROR: One of the demo tags already exist for you! Beware lest they be deleted by this demo")
+```
+
+```{r create_demo_tags}
+tree_project_1 <- create_tag_tree(client, "DemoProject", "project_1")
+tree_project_1
+
+tree_project_2 <- create_tag(client, name = "project_2", parent = tree_project_1$DemoProject)
+tree_project_2
+
+tree_audience_1 <- create_tag_tree(client, "DemoAudience", "Sales")
+tree_audience_2 <- create_tag_tree(client, "DemoAudience", "Finance")
+
+get_tags(client)
+```
+
+# Content tags
+
+In order to show how tags work, we need some content to work with.
+
+```{r content_deploy}
+bnd <- bundle_static(system.file("logo.png", package = "connectapi"))
+
+content_1 <- deploy(client, bnd)
+content_2 <- deploy(client, bnd)
+```
+
+## Set Tags
+
+Content 1 is for `project_1` and `Sales`, so let's set the tags!
+There are a few ways to do so.
+
+```{r content_1_tags}
+all_tags <- get_tags(client)
+
+set_content_tag_tree(content_1, "DemoProject", "project_1")
+
+set_content_tags(content_1, all_tags$DemoAudience$Sales)
+```
+Content 2 is for `project_2` and both Audiences (`Sales` and `Finance`).
+
+```{r content_2_tags}
+set_content_tags(
+  content_2, 
+  all_tags$DemoProject$project_2, 
+  all_tags$DemoAudience$Sales,
+  all_tags$DemoAudience$Finance
+  )
+```
+
+## See the tags assosciated with content
+
+In order to see the tags associated with content, use `get_content_tags()`.
+The data structure is the same as `get_tags()`, but the "whole list" is filtered
+to only the tags that are associated with a piece of content.
+
+```{r}
+c1_tags <- get_content_tags(content_1)
+c1_tags
+
+c2_tags <- get_content_tags(content_2)
+c2_tags
+```
+
+# List all content associated with a tag
+
+Once tags have been defined, you can also search for all of the content
+associated with a tag. This is not, by any means, "first class" search
+functionality, yet. (See `?get_content` for help)
+
+```{r}
+get_content(client, filter = list(tag = all_tags$DemoAudience$Sales$id))
+
+get_content(client, filter = list(tag = all_tags$DemoProject$project_1$id))
+
+get_content(client, filter = list(tag = all_tags$DemoProject$id))
+```
+
+# Cleanup
+
+Now we will clean up the demo tags that we created.
+
+```{r cleanup}
+# Protect against tags already existing
+if ("DemoProject" %in% names(start_tags) || "DemoAudience" %in% names(start_tags))
+  stop("ERROR: One of the demo tags already exist for you! Beware lest they be deleted by this demo")
+
+latest_tags <- get_tags(client)
+delete_tag(client, latest_tags$DemoProject)
+delete_tag(client, latest_tags$DemoAudience)
+
+# TODO: delete content
+```
+
+
