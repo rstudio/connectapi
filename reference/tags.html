@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • connectapi</title>
+<title>Get all Tags on the server — get_tags • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Get all Tags on the server — get_tags" />
+<meta property="og:description" content="
+ Tag manipulation and assignment functions" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -66,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -133,105 +135,108 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/rstudio/connectapi/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Get all Tags on the server</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/tags.R'><code>R/tags.R</code></a></small>
+    <div class="hidden name"><code>tags.Rd</code></div>
     </div>
 
-    <div id="connectapi-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#connectapi-development-version" class="anchor"></a>connectapi (development version)</h1>
-<p>BREAKING:</p>
-<ul>
-<li>Switch from <code>RSTUDIO_CONNECT_*</code> variables to <code>CONNECT_*</code> variables</li>
-<li>Rename a handful of functions:
-<ul>
-<li>
-<code>connect$activate_bundle</code> to <code>connect$content_deploy</code>
-</li>
-<li>
-<code>connect$create_app</code> to <code>connect$content_create</code>
-</li>
-<li>
-<code>connect$upload_bundle</code> to <code>connect$content_upload</code>
-</li>
-<li>
-<code>connect$get_users</code> to <code>connect$users</code>
-</li>
-</ul>
-</li>
-<li>Change some return types to be consistent with the API
-<ul>
-<li>
-<code>connect$content_upload</code> returns the response instead of <code>bundle_id</code>
-</li>
-<li>
-<code>connect$content_deploy</code> returns the response instead of <code>task_id</code>
-</li>
-</ul>
-</li>
-<li>Switch endpoints from using <code>app_id</code> to <code>guid</code>
-</li>
-<li>
-<code>get_task$start</code> renamed to <code>get_task$first</code>
-</li>
-<li>
-<code>promote$app_name</code> renamed to <code>promote$name</code>
-</li>
-<li>rename the package to <code>connectapi</code>
-</li>
-<li>change functions to take a <code>Connect</code> object instead of server / api key
-<ul>
-<li><code>cache_apps</code></li>
-<li><code>tag_page</code></li>
-</ul>
-</li>
-</ul>
-<p>OTHER:</p>
-<ul>
-<li>Add some endpoints:
-<ul>
-<li><code>content</code></li>
-<li><code>audit_logs</code></li>
-<li><code>server_settings</code></li>
-<li><code>server_settings_r</code></li>
-<li><code>inst_shiny_usage</code></li>
-<li><code>inst_content_visits</code></li>
-</ul>
-</li>
-<li>Add some helper functions:
-<ul>
-<li>
-<code>swap_vanity_url</code>, deployment functions</li>
-<li>
-<code>browse_</code> family of functions</li>
-<li>
-<code>users_create_remote</code> and <code>groups_create_remote</code> for remote users/groups</li>
-</ul>
-</li>
-<li>Update <code>Connect</code> R6 object to be compatible with Connect 1.7.0+ APIs</li>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-<li>Add integration testing to protect against regressions</li>
-<li>Add <code><a href="https://rdrr.io/pkg/connectapi/man/tbl_connect.html">tbl_connect()</a></code> as a <code>lazy_tbl</code> for querying Connect API endpoints</li>
-<li>Add <code>get_*</code> functions as alternatives to <code>lazy_tbl</code>
-</li>
-</ul>
-</div>
-    <div id="connectapi-010" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0">
-<a href="#connectapi-010" class="anchor"></a>connectapi 0.1.0</h1>
-<ul>
-<li>Initial package version</li>
-<li>Create a <code>Connect</code> R6 object</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+ Tag manipulation and assignment functions</p>
+    </div>
 
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tags</a></span>(<span class='kw'>src</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tag_data</a></span>(<span class='kw'>src</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>create_tag</a></span>(<span class='kw'>src</span>, <span class='kw'>name</span>, parent = <span class='kw'>NULL</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>create_tag_tree</a></span>(<span class='kw'>src</span>, <span class='kw'>...</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>delete_tag</a></span>(<span class='kw'>src</span>, <span class='kw'>tag</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_content_tags</a></span>(<span class='kw'>content</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>set_content_tag_tree</a></span>(<span class='kw'>content</span>, <span class='kw'>...</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>set_content_tags</a></span>(<span class='kw'>content</span>, <span class='kw'>...</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>filter_tag_tree_id</a></span>(<span class='kw'>tags</span>, <span class='kw'>ids</span>)
+
+<span class='fu'><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>filter_tag_tree_chr</a></span>(<span class='kw'>tags</span>, <span class='kw'>pattern</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>src</th>
+      <td><p>The source object</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>The name of the tag to create</p></td>
+    </tr>
+    <tr>
+      <th>parent</th>
+      <td><p>optional. A <code>connect_tag_tree</code> object (as returned by <code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tags()</a></code>) pointed at the parent tag</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments</p>
+<p>Manage tags (requires Administrator role):</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tags()</a></code> - returns a "tag tree" object that can be traversed with <code>tag_tree$tag1$childtag</code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tag_data()</a></code> - returns a tibble of tag data</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>create_tag()</a></code> - create a tag by specifying the Parent directly</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>create_tag_tree()</a></code> - create tag(s) by specifying the "desired" tag tree
+hierarchy</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>delete_tag()</a></code> - delete a tag (and its children). WARNING: will
+disassociate any content automatically</p></li>
+</ul>
+
+<p>Manage content tags:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_content_tags()</a></code> - return a <code>connect_tag_tree</code> object corresponding to
+the tags for a piece of content.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>set_content_tag_tree()</a></code> - attach a tag to content by specifying the
+desired tag tree</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>set_content_tags()</a></code> - Set multiple tags at once by providing
+<code>connect_tag_tree</code> objects</p></li>
+</ul>
+
+<p>Search a tag tree:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>filter_tag_tree_chr()</a></code> - filters a tag tree based on a regex</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>filter_tag_tree_id()</a></code> - filters a tag tree based on an id</p></li>
+<li><p></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>tag</th>
+      <td><p>A <code>connect_tag_tree</code> object (as returned by <code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tags()</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>content</th>
+      <td><p>An R6 Content object, as returned by <code><a href='https://rdrr.io/pkg/connectapi/man/content_item.html'>content_item()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>tags</th>
+      <td><p>A <code>connect_tag_tree</code> object (as returned by <code><a href='https://rdrr.io/pkg/connectapi/man/tags.html'>get_tags()</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>ids</th>
+      <td><p>A list of <code>id</code>s to filter the tag tree by</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>A regex to filter the tag tree by (it is passed to <code>grepl</code>)</p></td>
+    </tr>
+    </table>
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

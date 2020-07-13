@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9013</span>
       </span>
     </div>
 
@@ -64,6 +64,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
       <a href="articles/getting-started.html">Getting Started with connectapi</a>
     </li>
   </ul>
@@ -114,23 +117,29 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install the development version:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'rstudio/connectapi'</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'rstudio/connectapi'</span>)
+</pre></div>
 </div>
 <div id="client" class="section level2">
 <h2 class="hasAnchor">
 <a href="#client" class="anchor"></a>Client</h2>
 <p>To create a client:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>(
-  <span class="kw">host</span> <span class="kw">=</span> <span class="st">'https://connect.example.com'</span>,
-  <span class="kw">api_key</span> <span class="kw">=</span> <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span>
-)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/rstudio/connectapi">connectapi</a></span>)
+<span class="kw">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>(
+  host = <span class="st">'https://connect.example.com'</span>,
+  api_key = <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span>
+)
+</pre></div>
 <p>You can also define the following environment variables (in a <code>.Renviron</code> file, for instance):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>CONNECT_SERVER  =<span class="st"> </span>https<span class="op">:</span><span class="er">//</span>connect.example.com</span>
 <span id="cb3-2"><a href="#cb3-2"></a>CONNECT_API_KEY =<span class="st"> </span>my<span class="op">-</span>secret<span class="op">-</span>api<span class="op">-</span>key</span></code></pre></div>
 <p>These environment variable values will be used automatically if defined in your R session.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/rstudio/connectapi">connectapi</a></span>)
+<span class="kw">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
+</pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -140,72 +149,76 @@
 <h3 class="hasAnchor">
 <a href="#exploring-data" class="anchor"></a>Exploring Data</h3>
 <p>You can use the <code>get_</code> methods to retrieve data from the RStudio Connect server.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/rstudio/connectapi">connectapi</a></span>)
+<span class="kw">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
 
 <span class="co"># get data</span>
-<span class="no">users</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_users.html">get_users</a></span>(<span class="no">client</span>)
-<span class="no">groups</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_groups.html">get_groups</a></span>(<span class="no">client</span>)
-<span class="no">usage_shiny</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_usage_shiny.html">get_usage_shiny</a></span>(<span class="no">client</span>)
-<span class="no">usage_static</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_usage_static.html">get_usage_static</a></span>(<span class="no">client</span>)
-<span class="no">some_content</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_content.html">get_content</a></span>(<span class="no">client</span>)
+<span class="kw">users</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_users.html">get_users</a></span>(<span class="kw">client</span>)
+<span class="kw">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_groups.html">get_groups</a></span>(<span class="kw">client</span>)
+<span class="kw">usage_shiny</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_usage_shiny.html">get_usage_shiny</a></span>(<span class="kw">client</span>)
+<span class="kw">usage_static</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_usage_static.html">get_usage_static</a></span>(<span class="kw">client</span>)
+<span class="kw">some_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_content.html">get_content</a></span>(<span class="kw">client</span>)
 
 <span class="co"># get all content</span>
-<span class="no">all_content</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/get_content.html">get_content</a></span>(<span class="no">client</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">Inf</span>)</pre></div>
+<span class="kw">all_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_content.html">get_content</a></span>(<span class="kw">client</span>, n = <span class="fl">Inf</span>)
+</pre></div>
 </div>
 <div id="deployment" class="section level3">
 <h3 class="hasAnchor">
 <a href="#deployment" class="anchor"></a>Deployment</h3>
 <p>The <code>rsconnect</code> package is usually used for deploying content to Connect. However, if you want to use programmatic deployment with the RStudio Connect Server API, then these <code>connectapi</code> helpers should be useful!</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/rstudio/connectapi">connectapi</a></span>)
+<span class="kw">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>()
 
 <span class="co"># deploying content</span>
 <span class="co"># NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`</span>
 
-<span class="no">bundle</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bundle_dir.html">bundle_dir</a></span>(<span class="st">"./path/to/directory"</span>)
-<span class="no">content</span> <span class="kw">&lt;-</span> <span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/deploy.html">deploy</a></span>(<span class="no">bundle</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"my-app-name"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bundle_dir.html">bundle_dir</a></span>(<span class="st">"./path/to/directory"</span>)
+<span class="kw">content</span> <span class="op">&lt;-</span> <span class="kw">client</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/deploy.html">deploy</a></span>(<span class="kw">bundle</span>, name = <span class="st">"my-app-name"</span>) <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/poll_task.html">poll_task</a></span>()
 
 <span class="co"># set an image for content</span>
 
-<span class="no">content</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_image.html">set_image_path</a></span>(<span class="st">"./my/local/image.png"</span>)
+<span class="kw">content</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/set_image_path.html">set_image_path</a></span>(<span class="st">"./my/local/image.png"</span>)
 
-<span class="no">content</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_image.html">set_image_url</a></span>(<span class="st">"http://url.example.com/image.png"</span>)
+<span class="kw">content</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/set_image_path.html">set_image_url</a></span>(<span class="st">"http://url.example.com/image.png"</span>)
 
 <span class="co"># set image and a vanity URL</span>
 
-<span class="no">content</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/set_image.html">set_image_path</a></span>(<span class="st">"./my/local/image.png"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">content</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/set_image_path.html">set_image_path</a></span>(<span class="st">"./my/local/image.png"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span>(<span class="st">"/my-awesome-app"</span>)
-
+  
 <span class="co"># edit another piece of content</span>
 
-<span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/content_item.html">content_item</a></span>(<span class="st">"the-content-guid"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">client</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/content_item.html">content_item</a></span>(<span class="st">"the-content-guid"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span>(<span class="st">"/another-awesome-app"</span>)
-
+  
 <span class="co"># migrate content to another server</span>
 
-<span class="no">client_prod</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>(
-  <span class="kw">host</span> <span class="kw">=</span> <span class="st">"prod.example.com"</span>,
-  <span class="kw">api_key</span> <span class="kw">=</span> <span class="st">"my-secret-key"</span>
+<span class="kw">client_prod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span>(
+  host = <span class="st">"prod.example.com"</span>,
+  api_key = <span class="st">"my-secret-key"</span>
 )
 
-<span class="no">prod_bnd</span> <span class="kw">&lt;-</span> <span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/content_item.html">content_item</a></span>(<span class="st">"the-guid-to-promote"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">prod_bnd</span> <span class="op">&lt;-</span> <span class="kw">client</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/content_item.html">content_item</a></span>(<span class="st">"the-guid-to-promote"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/download_bundle.html">download_bundle</a></span>()
 
-<span class="no">client_prod</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/deploy.html">deploy</a></span>(<span class="no">prod_bnd</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Now in Production"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">client_prod</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/deploy.html">deploy</a></span>(<span class="kw">prod_bnd</span>, title = <span class="st">"Now in Production"</span>) <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span>(<span class="st">"/my-app"</span>)
 
 <span class="co"># open a browser to the content item</span>
-<span class="no">client_prod</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/browse.html">browse_dashboard</a></span>()
-<span class="no">client_prod</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/browse.html">browse_solo</a></span>()</pre></div>
+<span class="kw">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_dashboard</a></span>()
+<span class="kw">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_solo</a></span>()
+</pre></div>
 </div>
 </div>
 </div>
@@ -253,7 +266,8 @@
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=connectapi"><img src="https://www.r-pkg.org/badges/version/connectapi" alt="CRAN status"></a></li>
-<li><a href="https://travis-ci.org/rstudio/connectapi"><img src="https://travis-ci.org/rstudio/connectapi.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/rstudio/connectapi?branch=master"><img src="https://codecov.io/gh/rstudio/connectapi/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/rstudio/connectapi/actions"><img src="https://github.com/rstudio/connectapi/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 </div>
