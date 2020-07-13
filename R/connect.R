@@ -140,10 +140,16 @@ Connect <- R6::R6Class(
     me = function() {
       self$GET("me")
     },
+    
+    get_dashboard_url = function() {
+      self$host
+    },
 
     # tags ----------------------------------------------------------
-
+    
     get_tags = function(use_cache = FALSE) {
+      warn_experimental("get_tags")
+      # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$GET("/tags")
       }
@@ -171,8 +177,20 @@ Connect <- R6::R6Class(
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
-
-    create_tag = function(name, parent_id = NULL) {
+    
+    tag_create_safe = function(name, parent_id = NULL) {
+      warn_experimental("create_tag")
+      tt <- get_tags(self)
+      
+      tag_exists_id <- recursive_find_tag(tt, name, parent_id)
+      if (is.na(tag_exists_id)) {
+        self$tag_create(name, parent_id)
+      } else {
+        self$tag(tag_exists_id)
+      }
+    },
+    
+    tag_create = function(name, parent_id = NULL) {
       warn_experimental("create_tag")
       dat <- list(
         name = name
@@ -187,6 +205,16 @@ Connect <- R6::R6Class(
         "tags",
         body = dat
       )
+    },
+    
+    tag = function(id) {
+      path <- glue::glue("tags/{id}")
+      self$GET(path)
+    },
+    
+    tag_delete = function(id) {
+      tag_version <- self$tag(id = id)$version
+      invisible(self$DELETE(glue::glue("tags/{id}?version={tag_version}")))
     },
 
     # content listing ----------------------------------------------------------

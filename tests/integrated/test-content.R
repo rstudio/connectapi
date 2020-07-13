@@ -130,6 +130,7 @@ test_that("content_title handles NULL titles gracefully", {
 })
 
 test_that("get_environment works with no environment variables", {
+  scoped_experimental_silence()
   env <- get_environment(rmd_content)
   curr_vers <- env$env_version
   env <- get_environment(rmd_content)

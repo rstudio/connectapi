@@ -52,10 +52,14 @@ Other R6 classes:
 \item \href{#method-DELETE}{\code{Connect$DELETE()}}
 \item \href{#method-POST}{\code{Connect$POST()}}
 \item \href{#method-me}{\code{Connect$me()}}
+\item \href{#method-get_dashboard_url}{\code{Connect$get_dashboard_url()}}
 \item \href{#method-get_tags}{\code{Connect$get_tags()}}
 \item \href{#method-get_tag_id}{\code{Connect$get_tag_id()}}
 \item \href{#method-get_tag_tree}{\code{Connect$get_tag_tree()}}
-\item \href{#method-create_tag}{\code{Connect$create_tag()}}
+\item \href{#method-tag_create_safe}{\code{Connect$tag_create_safe()}}
+\item \href{#method-tag_create}{\code{Connect$tag_create()}}
+\item \href{#method-tag}{\code{Connect$tag()}}
+\item \href{#method-tag_delete}{\code{Connect$tag_delete()}}
 \item \href{#method-get_n_apps}{\code{Connect$get_n_apps()}}
 \item \href{#method-get_apps}{\code{Connect$get_apps()}}
 \item \href{#method-get_schedule}{\code{Connect$get_schedule()}}
@@ -218,6 +222,15 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_dashboard_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_dashboard_url}{}}}
+\subsection{Method \code{get_dashboard_url()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$get_dashboard_url()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_tags"></a>}}
 \if{latex}{\out{\hypertarget{method-get_tags}{}}}
 \subsection{Method \code{get_tags()}}{
@@ -245,11 +258,38 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-create_tag"></a>}}
-\if{latex}{\out{\hypertarget{method-create_tag}{}}}
-\subsection{Method \code{create_tag()}}{
+\if{html}{\out{<a id="method-tag_create_safe"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_create_safe}{}}}
+\subsection{Method \code{tag_create_safe()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$create_tag(name, parent_id = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create_safe(name, parent_id = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag_create"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_create}{}}}
+\subsection{Method \code{tag_create()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create(name, parent_id = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag"></a>}}
+\if{latex}{\out{\hypertarget{method-tag}{}}}
+\subsection{Method \code{tag()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag(id)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tag_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_delete}{}}}
+\subsection{Method \code{tag_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_delete(id)}\if{html}{\out{</div>}}
 }
 
 }

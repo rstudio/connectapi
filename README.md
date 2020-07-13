@@ -7,8 +7,10 @@
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
-[![Travis build
-status](https://travis-ci.org/rstudio/connectapi.svg?branch=master)](https://travis-ci.org/rstudio/connectapi)
+[![Codecov test
+coverage](https://codecov.io/gh/rstudio/connectapi/branch/master/graph/badge.svg)](https://codecov.io/gh/rstudio/connectapi?branch=master)
+[![R build
+status](https://github.com/rstudio/connectapi/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/connectapi/actions)
 <!-- badges: end -->
 
 # connectapi <img src='man/figures/logo.svg' align="right" height="139" />
