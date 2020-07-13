@@ -1,7 +1,8 @@
+# Manage Tags ------------------------------------------
 
 #' Get all Tags on the server
 #' 
-#' \lifecycle{experimental} Get a tibble of all tags
+#' \lifecycle{experimental} Tag manipulation and assignment functions
 #' 
 #' @param src The source object
 #' @param name The name of the tag to create
@@ -10,7 +11,30 @@
 #' @param tag A `connect_tag_tree` object (as returned by `get_tags()`)
 #' @param tags A `connect_tag_tree` object (as returned by `get_tags()`)
 #' @param ids A list of `id`s to filter the tag tree by
+#' @param pattern A regex to filter the tag tree by (it is passed to `grepl`)
 #' @param ... Additional arguments
+#' 
+#' Manage tags (requires Administrator role):
+#' - `get_tags()` - returns a "tag tree" object that can be traversed with `tag_tree$tag1$childtag`
+#' - `get_tag_data()` - returns a tibble of tag data
+#' - `create_tag()` - create a tag by specifying the Parent directly
+#' - `create_tag_tree()` - create tag(s) by specifying the "desired" tag tree
+#' hierarchy
+#' - `delete_tag()` - delete a tag (and its children). WARNING: will
+#' disassociate any content automatically
+#' 
+#' Manage content tags:
+#' - `get_content_tags()` - return a `connect_tag_tree` object corresponding to
+#' the tags for a piece of content.
+#' - `set_content_tag_tree()` - attach a tag to content by specifying the
+#' desired tag tree
+#' - `set_content_tags()` - Set multiple tags at once by providing
+#' `connect_tag_tree` objects
+#' 
+#' Search a tag tree:
+#' - `filter_tag_tree_chr()` - filters a tag tree based on a regex
+#' - `filter_tag_tree_id()` - filters a tag tree based on an id
+#' - 
 #' 
 #' @export
 #' @rdname tags
@@ -35,6 +59,74 @@ get_tag_data <- function(src){
   
   return(tag_tbl)
 }
+
+# TODO: this is hard to "use" directly because what it returns is not a tag... maybe create a Tag R6 class?
+#' @export
+#' @rdname tags
+create_tag <- function(src, name, parent = NULL) {
+  warn_experimental("create_tag")
+  validate_R6_class(src, "Connect")
+  scoped_experimental_silence()
+  if (is.null(parent) || is.numeric(parent)) {
+    parent_id <- parent
+  } else if (inherits(parent, "connect_tag_tree")) {
+    if (is.null(parent[["id"]])) {
+      stop("must specify a `parent` tag, and not the entire tag tree")
+    }
+    parent_id <- parent[["id"]]
+  } else {
+    stop("`parent` must be an ID or a connect_tag_tree object")
+  }
+  res <- src$tag_create(name = name, parent_id = parent_id)
+  print(filter_tag_tree_id(get_tags(src), res))
+  cat("\n")
+  return(src)
+}
+
+# TODO: try without quotes...
+#' @export
+#' @rdname tags
+create_tag_tree <- function(src, ...) {
+  warn_experimental("create_tag_tree")
+  validate_R6_class(src, "Connect")
+  scoped_experimental_silence()
+  
+  params <- rlang::list2(...)
+  
+  results <- purrr::reduce(
+    params,
+    function(.parent, .x, con) {
+      res <- con$tag_create_safe(.x, .parent)
+      return(res[["id"]])
+    },
+    con = src,
+    .init = NULL
+  )
+  print(filter_tag_tree_id(get_tags(src), results))
+  cat("\n")
+  return(src)
+}
+
+#' @export
+#' @rdname tags
+delete_tag <- function(src, tag) {
+  warn_experimental("delete_tag")
+  scoped_experimental_silence()
+  if (is.numeric(tag)) {
+    tag_id <- tag
+  } else if (inherits(tag, "connect_tag_tree")) {
+    if (is.null(tag[["id"]])) {
+      stop("`tag` must reference some tag specifically, and not the entire tag tree")
+    }
+    tag_id <- tag[["id"]]
+  } else {
+    stop("`tag` must be an ID or a connect_tag_tree object")
+  }
+  res <- src$tag_delete(id = tag_id)
+  return(src)
+}
+
+# connect_tag_tree S3 object --------------------------------------------
 
 # TODO: Need to find a way to denote categories...?
 # error  : chr "Cannot assign a category to an app"
@@ -90,51 +182,21 @@ print.connect_tag_tree <- function(x, ...) {
   res
 }
 
-# TODO: this is hard to "use" directly because what it returns is not a tag... maybe create a Tag R6 class?
-#' @export
-#' @rdname tags
-create_tag <- function(src, name, parent = NULL) {
-  warn_experimental("create_tag")
-  validate_R6_class(src, "Connect")
-  scoped_experimental_silence()
-  if (is.null(parent) || is.numeric(parent)) {
-    parent_id <- parent
-  } else if (inherits(parent, "connect_tag_tree")) {
-    if (is.null(parent[["id"]])) {
-      stop("must specify a `parent` tag, and not the entire tag tree")
-    }
-    parent_id <- parent[["id"]]
-  } else {
-    stop("`parent` must be an ID or a connect_tag_tree object")
-  }
-  res <- src$tag_create(name = name, parent_id = parent_id)
-  print(filter_tag_tree_id(get_tags(src), res))
-  cat("\n")
-  return(src)
-}
+# Content Tags ----------------------------------------------------
 
-# TODO: try without quotes...
 #' @export
 #' @rdname tags
-create_tag_tree <- function(src, ...) {
-  warn_experimental("create_tag_tree")
-  validate_R6_class(src, "Connect")
+get_content_tags <- function(content) {
+  warn_experimental("get_content_tags")
   scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  ctags <- content$tags()
+  # TODO: find a way to build a tag tree from a list of tags
   
-  params <- rlang::list2(...)
-  
-  results <- purrr::reduce(
-    params,
-    function(.parent, .x, con) {
-      res <- con$tag_create_safe(.x, .parent)
-      return(res[["id"]])
-    },
-    con = src,
-    .init = NULL
-  )
-  print(filter_tag_tree_id(get_tags(src), results))
-  cat("\n")
-  return(src)
+  tagtree <- get_tags(content$get_connect())
+  res <- filter_tag_tree_id(tagtree, purrr::map_int(ctags, ~ .x$id))
+  attr(res, "filter") <- "content"
+  res
 }
 
 #' @export
@@ -175,7 +237,7 @@ set_content_tags <- function(content, ...) {
     new_tags,
     function(.x) {
       if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
-        print(tmp1)
+        print(.x)
         stop("this tag does not have an 'id'. Is it a tag list?")
       }
       if (inherits(.x, "connect_tag_tree")) {
@@ -197,6 +259,8 @@ set_content_tags_remove <- function() {
 set_content_tag_tree_remove <- function() {
   # TODO
 }
+
+# Filter ----------------------------------------------------
 
 #' @export
 #' @rdname tags
@@ -226,6 +290,8 @@ filter_tag_tree_chr <- function(tags, pattern) {
     connect_tag_tree(list())
   }
 }
+
+# Utils ----------------------------------------------------
 
 recursive_filter_id <- function(tags, ids) {
   tags_noname <- tags
@@ -294,39 +360,8 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   }
 }
 
-#' @export
-#' @rdname tags
-get_content_tags <- function(content) {
-  warn_experimental("get_content_tags")
-  scoped_experimental_silence()
-  validate_R6_class(content, "Content")
-  ctags <- content$tags()
-  # TODO: find a way to build a tag tree from a list of tags
-  
-  tagtree <- get_tags(content$get_connect())
-  res <- filter_tag_tree_id(tagtree, purrr::map_int(ctags, ~ .x$id))
-  attr(res, "filter") <- "content"
-  res
-}
 
-#' @export
-#' @rdname tags
-delete_tag <- function(src, tag) {
-  warn_experimental("delete_tag")
-  scoped_experimental_silence()
-  if (is.numeric(tag)) {
-    tag_id <- tag
-  } else if (inherits(tag, "connect_tag_tree")) {
-    if (is.null(tag[["id"]])) {
-      stop("`tag` must reference some tag specifically, and not the entire tag tree")
-    }
-    tag_id <- tag[["id"]]
-  } else {
-    stop("`tag` must be an ID or a connect_tag_tree object")
-  }
-  res <- src$tag_delete(id = tag_id)
-  return(src)
-}
+
 
 recursive_tag_print <- function(x, indent) {
   x_noname <- x
