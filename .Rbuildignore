@@ -11,3 +11,4 @@
 ^\.travis\.yml$
 ^Makefile$
 ^Jenkinsfile$
+^codecov\.yml$
