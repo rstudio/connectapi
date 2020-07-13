@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(connectapi)
 client <- connect(prefix = "TEST_1")
+options("connectapi_disable_experimental_warnings" = TRUE)
 ```
 
 # Getting Started
@@ -47,7 +48,7 @@ start_tags <- get_tags(client)
 start_tags
 ```
 
-```{r check_tag_exist include=FALSE}
+```{r check_tag_exist, include=FALSE}
 # Protect against tags already existing
 if ("DemoProject" %in% names(start_tags) || "DemoAudience" %in% names(start_tags))
   stop("ERROR: One of the demo tags already exist for you! Beware lest they be deleted by this demo")
