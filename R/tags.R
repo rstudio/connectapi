@@ -108,6 +108,8 @@ create_tag <- function(src, name, parent = NULL) {
     stop("`parent` must be an ID or a connect_tag_tree object")
   }
   res <- src$tag_create(name = name, parent_id = parent_id)
+  print(filter_tag_tree_id(get_tags(src), res))
+  cat("\n")
   return(src)
 }
 
@@ -130,7 +132,9 @@ create_tag_tree <- function(src, ...) {
     con = src,
     .init = NULL
   )
-  filter_tag_tree_id(get_tags(src), results)
+  print(filter_tag_tree_id(get_tags(src), results))
+  cat("\n")
+  return(src)
 }
 
 #' @export
@@ -155,6 +159,8 @@ set_content_tag_tree <- function(content, ...) {
   } else {
     stop("the tag tree specified was not found")
   }
+  print(get_content_tags(content))
+  cat("\n")
   return(content)
 }
 
