@@ -34,7 +34,7 @@ test_that("works with POSIXct", {
   outcome <- "2020-01-01T01:02:03Z"
   expect_equal(make_timestamp(ts), outcome)
   expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
-  
+
   # idempotent
   expect_equal(make_timestamp(make_timestamp(ts)), outcome)
 })
@@ -42,7 +42,7 @@ test_that("works with POSIXct", {
 test_that("safe for strings", {
   expect_equal(make_timestamp("hello"), "hello")
   expect_equal(make_timestamp(rep("hello", 5)), rep("hello", 5))
-  
+
   expect_equal(make_timestamp(NA_character_), NA_character_)
 })
 
