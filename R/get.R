@@ -438,7 +438,8 @@ get_usage_shiny <- function(src, content_guid = NULL,
 #'
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getContentVisits for more information
+#' Please see https://docs.rstudio.com/connect/api/#getContentVisits for more
+#' information
 #'
 #' @examples
 #' \dontrun{
@@ -507,7 +508,8 @@ get_usage_static <- function(src, content_guid = NULL,
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more information
+#' Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more
+#' information
 #'
 #' @examples
 #' \dontrun{
@@ -523,7 +525,6 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
                            nxt = NULL, asc_order = TRUE) {
   validate_R6_class(src, "Connect")
 
-  # browser()
   res <- src$audit_logs(
     limit = limit,
     previous = previous,

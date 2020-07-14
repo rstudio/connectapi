@@ -241,8 +241,6 @@ set_environment_remove <- function(env, ...) {
   scoped_experimental_silence()
   validate_R6_class(env, "Environment")
 
-  # how to get the list of env vars to remove
-  #to_remove <- rlang::list2(...)
   to_remove <- rlang::enexprs(...)
   existing_vars <- env$env_vars
   new_env_vars <- existing_vars[!names(existing_vars) %in% c(names(to_remove), as.character(to_remove))]
@@ -288,8 +286,7 @@ content_item <- function(connect, guid) {
 content_title <- function(connect, guid, default = "Unknown Content") {
   validate_R6_class(connect, "Connect")
 
-  content_title <- tryCatch(
-    {
+  content_title <- tryCatch({
       res <- suppressMessages(connect$get_connect()$content(guid))
       # TODO: What about length 0?
       if (is.null(res$title)) {
@@ -526,7 +523,7 @@ set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
 
-  raw_res <- content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
+  content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
 
   invisible(content$get_content_remote())
 

@@ -1,10 +1,10 @@
 #' Create a Remote User
-#' 
+#'
 #' @param connect A R6 Connect object
 #' @param prefix character. The prefix of the user name to search for
 #' @param expect number. The number of responses to expect for this search
 #' @param check boolean. Whether to check for local existence first
-#' 
+#'
 #' @return The results of creating the users
 #'
 #' @export
@@ -20,7 +20,7 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
       return(local_users)
     }
   }
-  
+
   remote_users <- connect$users_remote(prefix = prefix)
   if (remote_users$total != expect) {
     message(glue::glue("Found {remote_users$total} remote users. Expected {expect}"))
@@ -35,19 +35,19 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
       message(glue::glue("Creating remote user: {.x[['username']]}"))
       src$users_create_remote(temp_ticket = .x[["temp_ticket"]])
     },
-    src = connect 
+    src = connect
   )
   message("Done creating remote users")
   return(get_users(connect, prefix = prefix))
 }
 
 #' Create a Remote Group
-#' 
+#'
 #' @param connect A R6 Connect object
 #' @param prefix character. The prefix of the group name to search for
 #' @param expect number. The number of responses to expect for this search
 #' @param check boolean. Whether to check for local existence first
-#' 
+#'
 #' @return The results of creating the groups
 #'
 #' @export
@@ -64,7 +64,7 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
       return(local_groups)
     }
   }
-  
+
   remote_groups <- connect$groups_remote(prefix = prefix)
   if (remote_groups$total != expect) {
     message(glue::glue("Found {remote_groups$total} remote groups. Expected {expect}"))
@@ -79,7 +79,7 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
       message(glue::glue("Creating remote group: {.x[['name']]}"))
       src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
     },
-    src = connect 
+    src = connect
   )
   message("Done creating remote groups")
   return(get_groups(connect, prefix = prefix, limit = 1))

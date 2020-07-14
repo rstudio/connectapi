@@ -89,19 +89,19 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
 }
 
 #' Wait for a Process to Complete
-#' 
+#'
 #' It is important to poll output intermittently in case pipe buffers fill up.
 #' Otherwise the process will be paused until the buffer is cleared.
-#' 
+#'
 #' @param proc A processx process object
-#' 
+#'
 #' @return A list with named stdout and stderr entries
-#' 
+#'
 #' @keywords internal
 wait_for_process <- function(proc) {
   agg_output <- character()
   agg_error <- character()
-  
+
   while(proc$is_alive()) {
     agg_output <- c(agg_output, proc$read_output_lines())
     agg_error <- c(agg_error, proc$read_error_lines())
@@ -214,7 +214,7 @@ create_first_admin <- function(
   check_connect_license(url)
 
   client <- HackyConnect$new(host = url, api_key = NULL)
-  
+
   if (provider == "password") {
     tryCatch(
       {
