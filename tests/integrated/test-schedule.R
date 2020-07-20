@@ -57,7 +57,7 @@ test_that("schedule helpers work", {
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_day(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_weekday(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_week(get_variant_schedule(d_var_sch))), "Variant"))
-  expect_true(validate_R6_class(set_schedule_remove(set_schedule_dayofweek(get_variant_schedule(d_var_sch), c(0,1,6))), "Variant"))
+  expect_true(validate_R6_class(set_schedule_remove(set_schedule_dayofweek(get_variant_schedule(d_var_sch), c(0, 1, 6))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_semimonth(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_semimonth(get_variant_schedule(d_var_sch), FALSE)), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_dayofmonth(get_variant_schedule(d_var_sch))), "Variant"))

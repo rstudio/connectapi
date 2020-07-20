@@ -142,19 +142,16 @@ vec_cast.POSIXct.double <- function(x, to, ...) {
   vctrs::new_datetime(x, tzone = tzone(to))
 }
 
-vec_cast.POSIXct.character <- function (x, to, ...) 
-{
+vec_cast.POSIXct.character <- function(x, to, ...) {
   as.POSIXct(x, tz = tzone(to))
 }
 
-tzone <- function (x) 
-{
+tzone <- function(x) {
   attr(x, "tzone")[[1]] %||% ""
 }
 
 
-new_datetime <- function (x = double(), tzone = "") 
-{
+new_datetime <- function(x = double(), tzone = "") {
   tzone <- tzone %||% ""
   if (is.integer(x)) {
     x <- as.double(x)

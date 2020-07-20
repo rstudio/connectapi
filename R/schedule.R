@@ -1,5 +1,5 @@
 #' VariantSchedule
-#' 
+#'
 #' An R6 class that represents a Schedule
 VariantSchedule <- R6::R6Class(
   "VariantSchedule",
@@ -31,7 +31,7 @@ VariantSchedule <- R6::R6Class(
       }
       if (self$is_empty()) {
         params <- purrr::list_modify(
-          params, 
+          params,
           app_id = self$get_variant()$app_id,
           variant_id = self$get_variant()$id
           )
@@ -41,7 +41,7 @@ VariantSchedule <- R6::R6Class(
       }
       cli <- self$get_connect()
       res <- cli$POST(path = path, body = params)
-      
+
       self$schedule_data <- res
       return(self)
     },
@@ -102,13 +102,13 @@ VariantSchedule <- R6::R6Class(
 )
 
 #' Get a Variant Schedule
-#' 
+#'
 #' \lifecycle{experimental} Gets the schedule associated with a Variant.
-#' 
+#'
 #' @param variant A Variant object, as returned by `get_variant()` or `get_variant_default()`
-#' 
+#'
 #' @return A VariantSchedule object
-#' 
+#'
 #' @rdname get_variant_schedule
 #' @family schedule functions
 #' @export
@@ -116,29 +116,29 @@ get_variant_schedule <- function(variant) {
   warn_experimental("get_schedule")
   scoped_experimental_silence()
   validate_R6_class(variant, "Variant")
-  
+
   content_details <- variant$get_content()
   connect_client <- variant$get_connect()
-  
+
   variant_key <- variant$key
   variant_schedule <- variant$get_schedule_remote()
-  
+
   VariantSchedule$new(connect = connect_client, content = content_details, key = variant_key, schedule = variant_schedule)
 }
 
 #' Set a Schedule
-#' 
+#'
 #' \lifecycle{experimental} Sets the schedule for a given Variant. Requires a
 #' `Schedule` object (as returned by `get_variant_schedule()`)
-#' 
+#'
 #' - `set_schedule()` is a raw interface to RStudio Connect's `schedule` API
 #' - `set_schedule_*()` functions provide handy wrappers around `set_schedule()`
 #' - `set_schedule_remove()` removes a schedule / un-schedules a variant
-#' 
+#'
 #' Beware, using `set_schedule()` currently uses the RStudio Connect `schedule` API
 #' directly, and so can be a little clunky. Using the `set_schedule_*()` is generally
 #' recommended.
-#' 
+#'
 #' @param .schedule A schedule object. As returned by `get_variant_schedule()`
 #' @param email Whether to send emails on this schedule
 #' @param activate Whether to publish the output of this schedule
@@ -150,23 +150,23 @@ get_variant_schedule <- function(variant) {
 #' @param week The week of the month (0-5)
 #' @param first [logical] Whether to execute on the 1st and 15th (TRUE) or 14th and last (FALSE)
 #' @param ... Scheduling parameters
-#' 
+#'
 #' @return An updated Schedule object
-#' 
+#'
 #' @rdname set_schedule
 #' @family schedule functions
 #' @export
 set_schedule <- function(
-  .schedule, 
+  .schedule,
   ...
   ) {
   validate_R6_class(.schedule, "VariantSchedule")
   params <- rlang::list2(...)
-  
+
   # TODO: check whether this schedule actually exists...
   # TODO: fix capitalization if "day" or "days" or "first" or "n" is provided
   # TODO: if type = "weekday", make sure "schedule" is turned into a {} JSON blob properly
-  
+
   # because "schedule" has to be a JSON blob, which is confusing
   if ("schedule" %in% names(params)) {
     orig_schedule <- params$schedule
@@ -177,19 +177,19 @@ set_schedule <- function(
       stop(glue::glue("The schedule you provided is invalid: {capture.output(str(orig_schedule))}"))
     }
   }
-  
+
   if ("type" %in% names(params) && ! "schedule" %in% names(params)) {
     warning("Specifying 'type' without 'schedule' can cause unexpected results. Different schedule 'type's have different 'schedule' requirements")
   }
-  
+
   if ("type" %in% names(params) && ! params$type %in% schedule_types) {
     stop(glue::glue("Invalid `type` provided. Should be one of `schedule_types`: {params$type}"))
   }
-  
+
   # update the existing schedule rather than (likely) erroring
   # this could create some weird edge cases... (see warnings / errors above)
   final_params <- purrr::list_modify(.schedule$get_schedule_remote(), !!!params)
-  
+
   .schedule$set_schedule(!!!final_params)
 }
 
@@ -262,7 +262,7 @@ example_schedules <- list(
   list(type = "weekday", schedule = "{}"),
   list(type = "week", schedule = list(N = 2)),
   list(type = "dayofweek", schedule = list(Days = list(1))),
-  list(type = "dayofweek", schedule = list(Days = list(0,1,2,3,4,5,6))),
+  list(type = "dayofweek", schedule = list(Days = list(0, 1, 2, 3, 4, 5, 6))),
   list(type = "semimonth", schedule = list(First = TRUE)),
   list(type = "semimonth", schedule = list(First = FALSE)),
   list(type = "dayofmonth", schedule = list(N = 3, Day = 4)),

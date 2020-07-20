@@ -1,9 +1,9 @@
 # Manage Tags ------------------------------------------
 
 #' Get all Tags on the server
-#' 
+#'
 #' \lifecycle{experimental} Tag manipulation and assignment functions
-#' 
+#'
 #' @param src The source object
 #' @param name The name of the tag to create
 #' @param parent optional. A `connect_tag_tree` object (as returned by `get_tags()`) pointed at the parent tag
@@ -13,7 +13,7 @@
 #' @param ids A list of `id`s to filter the tag tree by
 #' @param pattern A regex to filter the tag tree by (it is passed to `grepl`)
 #' @param ... Additional arguments
-#' 
+#'
 #' Manage tags (requires Administrator role):
 #' - `get_tags()` - returns a "tag tree" object that can be traversed with `tag_tree$tag1$childtag`
 #' - `get_tag_data()` - returns a tibble of tag data
@@ -22,7 +22,7 @@
 #' hierarchy
 #' - `delete_tag()` - delete a tag (and its children). WARNING: will
 #' disassociate any content automatically
-#' 
+#'
 #' Manage content tags:
 #' - `get_content_tags()` - return a `connect_tag_tree` object corresponding to
 #' the tags for a piece of content.
@@ -30,33 +30,33 @@
 #' desired tag tree
 #' - `set_content_tags()` - Set multiple tags at once by providing
 #' `connect_tag_tree` objects
-#' 
+#'
 #' Search a tag tree:
 #' - `filter_tag_tree_chr()` - filters a tag tree based on a regex
 #' - `filter_tag_tree_id()` - filters a tag tree based on an id
-#' - 
-#' 
+#' -
+#'
 #' @export
 #' @rdname tags
-get_tags <- function(src){
+get_tags <- function(src) {
   warn_experimental("get_tags")
   scoped_experimental_silence()
   validate_R6_class(src, "Connect")
-  
+
   connect_tag_tree(tag_tree(src$get_tag_tree()), NULL)
 }
 
 #' @export
 #' @rdname tags
-get_tag_data <- function(src){
+get_tag_data <- function(src) {
   warn_experimental("get_tag_data")
   scoped_experimental_silence()
   validate_R6_class(src, "Connect")
-  
+
   res <- src$get_tag_tree()
-  
+
   tag_tbl <- parse_tags_tbl(res)
-  
+
   return(tag_tbl)
 }
 
@@ -90,9 +90,9 @@ create_tag_tree <- function(src, ...) {
   warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
   scoped_experimental_silence()
-  
+
   params <- rlang::list2(...)
-  
+
   results <- purrr::reduce(
     params,
     function(.parent, .x, con) {
@@ -122,7 +122,7 @@ delete_tag <- function(src, tag) {
   } else {
     stop("`tag` must be an ID or a connect_tag_tree object")
   }
-  res <- src$tag_delete(id = tag_id)
+  src$tag_delete(id = tag_id)
   return(src)
 }
 
@@ -153,12 +153,12 @@ print.connect_tag_tree <- function(x, ...) {
 }
 
 #' @export
-`$.connect_tag_tree` <- function(x,y){
+`$.connect_tag_tree` <- function(x, y) {
   res <- NextMethod("$")
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res 
+   res
   }
 }
 
@@ -168,7 +168,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res 
+   res
   }
 }
 
@@ -192,7 +192,7 @@ get_content_tags <- function(content) {
   validate_R6_class(content, "Content")
   ctags <- content$tags()
   # TODO: find a way to build a tag tree from a list of tags
-  
+
   tagtree <- get_tags(content$get_connect())
   res <- filter_tag_tree_id(tagtree, purrr::map_int(ctags, ~ .x$id))
   attr(res, "filter") <- "content"
@@ -205,14 +205,14 @@ set_content_tag_tree <- function(content, ...) {
   warn_experimental("set_content_tag_tree")
   validate_R6_class(content, "Content")
   scoped_experimental_silence()
-  
+
   params <- rlang::list2(...)
   if (length(params) == 1) {
     stop("cannot assign a category to an app. Please specify an additional tag level")
   }
-  
+
   tags <- get_tags(content$get_connect())
-  
+
   # check that tags exist
   tmp <- purrr::pluck(tags, !!!params)
   if (!is.null(tmp[["id"]])) {
@@ -282,7 +282,7 @@ filter_tag_tree_chr <- function(tags, pattern) {
   warn_experimental("filter_tag_tree")
   scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
-  
+
   flt <- recursive_filter_chr(tags = tags, pattern = pattern)
   if (!is.null(flt)) {
     flt
@@ -344,7 +344,7 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
     recurse_res_any <- NA_real_
   }
   names(recurse_res_any) <- NULL
-  
+
   if (!is.na(recurse_res_any)) {
     recurse_res_any
   } else if (is.null(parent_id) && !is.null(tags$name) && tags$name == tag) {
@@ -369,7 +369,7 @@ recursive_tag_print <- function(x, indent) {
   x_noname$id <- NULL
   ch <- box_chars()
   # print a "single level tag"
-  if ( length(x_noname) == 0 && nchar(indent) == 0 ) {
+  if (length(x_noname) == 0 && nchar(indent) == 0) {
     if (!is.null(x$name)) {
       cat(indent, pc(ch$l, ch$h, ch$h, " "), x$name, "\n", sep = "")
     }
@@ -407,7 +407,7 @@ tag_tree <- function(.x) {
   purrr::flatten(purrr::map(.x, recursive_tag_restructure))
 }
 
-parse_tags_tbl <- function(x){
+parse_tags_tbl <- function(x) {
   parsed_tags <- purrr::map_dfr(x, ~{
     out <- dplyr::tibble(
       id = .x$id,
@@ -417,15 +417,15 @@ parse_tags_tbl <- function(x){
       version = .x$version,
       parent_id = ifelse(is.null(.x$parent_id), NA_integer_, .x$parent_id)
     )
-    
-    if (length(.x$children) > 0){
+
+    if (length(.x$children) > 0) {
       child <- parse_tags_tbl(.x$children)
       out <- dplyr::bind_rows(out, child)
     }
-    
+
     return(out)
   })
-  
+
   return(parsed_tags)
 }
 
