@@ -1,7 +1,7 @@
 #' Variant
-#' 
+#'
 #' An R6 class that represents a Variant
-#' 
+#'
 Variant <- R6::R6Class(
   "Variant",
   inherit = Content,
@@ -26,7 +26,7 @@ Variant <- R6::R6Class(
       if (length(to) > 1) to <- "me"
       url <- glue::glue("variants/{self$get_variant()$id}/sender")
       self$get_connect()$POST(
-        path = url, 
+        path = url,
         body = list(
           email = to
         ))
@@ -43,14 +43,14 @@ Variant <- R6::R6Class(
       if (length(res) == 1) {
         res <- res[[1]]
       }
-      
+
       if (length(res) > 0) {
         # add the content guid and variant key
         content_guid <- self$get_content()$guid
         variant_key <- self$key
         res <- purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
       }
-      
+
       res
     },
     get_subscribers = function() {
@@ -77,11 +77,11 @@ Variant <- R6::R6Class(
           activate = TRUE
         )
       )
-      
+
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
       variant_key <- self$key
-      
+
       purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
     },
     renderings = function() {
@@ -93,7 +93,7 @@ Variant <- R6::R6Class(
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
       variant_key <- self$key
-      
+
       purrr::map(
         res,
         ~ purrr::list_modify(.x, app_guid = content_guid, variant_key = variant_key)
@@ -167,7 +167,7 @@ VariantTask <- R6::R6Class(
     get_task = function() {
       self$task
     },
-    
+
     print = function(...) {
       super$print(...)
       cat("Task: \n")
@@ -179,27 +179,27 @@ VariantTask <- R6::R6Class(
 )
 
 #' Get Variant
-#' 
+#'
 #' \lifecycle{experimental} Work with variants
-#' 
+#'
 #' - `get_variants()` returns a `tibble` with variant data for a `content_item`
 #' - `get_default_variant()` returns the default variant for a `content_item`
 #' - `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
-#' 
+#'
 #' @param content An R6 Content object. Returned from `content_item()`
 #' @param key The Variant key for a specific variant
-#' 
+#'
 #' @rdname variant
-#' 
+#'
 #' @family variant functions
 #' @export
 get_variants <- function(content) {
   warn_experimental("get_variants")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  
+
   variants <- content$variants()
-  
+
   parse_connectapi_typed(variants, !!!connectapi_ptypes$variant)
 }
 
@@ -228,15 +228,15 @@ get_variant <- function(content, key) {
 }
 
 #' Render a Variant
-#' 
+#'
 #' \lifecycle{experimental} Get details about renderings (i.e. render history)
 #' or execute a variant on demand
-#' 
+#'
 #' - `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`
 #' - `variant_render()` executes a variant on demand. Returns a `VariantTask` object
-#' 
+#'
 #' @param variant An R6 Variant object. As returned by `get_variant()` or `get_variant_default()`
-#' 
+#'
 #' @rdname render
 #' @family variant functions
 #' @export
@@ -244,7 +244,7 @@ get_variant_renderings <- function(variant) {
   warn_experimental("get_variant_renderings")
   scoped_experimental_silence()
   validate_R6_class(variant, "Variant")
-  
+
   renders <- variant$renderings()
   parse_connectapi_typed(renders, !!!connectapi_ptypes$rendering)
 }
@@ -255,26 +255,26 @@ variant_render <- function(variant) {
   warn_experimental("variant_render")
   scoped_experimental_silence()
   validate_R6_class(variant, "Variant")
-  
+
   rendered <- variant$render()
   rendered$task_id <- rendered$id
-  
+
   VariantTask$new(connect = variant$get_connect(), content = variant$get_content(), key = variant$key, task = rendered)
 }
 
 # TODO
 set_variant_email_viewers <- function() {
-  
+
 }
 
 set_variant_email_collaborators <- function() {
-  
+
 }
 
 set_variant_email_subscribe <- function() {
-  
+
 }
 
 set_variant_email_unsubscribe <- function() {
-  
+
 }

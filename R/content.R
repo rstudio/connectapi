@@ -75,7 +75,7 @@ Content <- R6::R6Class(
       warn_experimental("job")
       url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
       res <- self$get_connect()$GET(url)
-      
+
       content_guid <- self$get_content()$guid
       purrr::map(
         list(res),
@@ -122,12 +122,12 @@ Content <- R6::R6Class(
     environment_set = function(..., .version = 0) {
       warn_experimental("environment_set")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
-      # post with 
+      # post with
       # key = NA to retain
       # post without a variable/key to remove
       # bump version number each time
       vals <- rlang::list2(...)
-      
+
       # TODO: evaluate whether we should be coercing to character or erroring
       vals <- purrr::map(vals, as.character)
       body <- list(
@@ -155,9 +155,9 @@ Content <- R6::R6Class(
 )
 
 #' Environment
-#' 
+#'
 #' An R6 class that represents a Content's Environment Variables
-#' 
+#'
 Environment <- R6::R6Class(
   "Environment",
   inherit = Content,
@@ -192,23 +192,23 @@ Environment <- R6::R6Class(
 # does it make more sense to automatically "get the latest"
 # or to force the user to do that?
 #' Manage Environment Variables
-#' 
+#'
 #' \lifecycle{experimental} Manage Environment Variables for a piece of content.
-#' 
+#'
 #' `get_environment()` returns an Environment object for use with "setter" methods
-#' 
+#'
 #' `set_environment_new()` sets new environment values (either creating new
 #' values or updating existing)
-#' 
+#'
 #' `set_environment_remove()` removes existing environment variables
-#' 
+#'
 #' @param content An R6 Content object as returned by `content_item()`
 #' @param env An R6 Environment object as returned by `get_environment()`
 #' @param ... name = value pairs of environment variable names and values
-#' 
+#'
 #' @family content functions
 #' @export
-#' 
+#'
 #' @rdname environment
 get_environment <- function(content) {
   warn_experimental("get_environment")
@@ -225,12 +225,12 @@ set_environment_new <- function(env, ...) {
   warn_experimental("set_environment")
   scoped_experimental_silence()
   validate_R6_class(env, "Environment")
-  
+
   # update existing env vars with new ones
   new_env_vars <- purrr::list_modify(env$env_vars, ...)
-  
+
   env$environment_set(!!!new_env_vars, .version = env$env_version)
-  
+
   env$env_refresh()
 }
 
@@ -240,15 +240,13 @@ set_environment_remove <- function(env, ...) {
   warn_experimental("set_environment")
   scoped_experimental_silence()
   validate_R6_class(env, "Environment")
-  
-  # how to get the list of env vars to remove
-  #to_remove <- rlang::list2(...)
+
   to_remove <- rlang::enexprs(...)
   existing_vars <- env$env_vars
   new_env_vars <- existing_vars[!names(existing_vars) %in% c(names(to_remove), as.character(to_remove))]
-  
+
   env$environment_set(!!!new_env_vars, .version = env$env_version)
-  
+
   env$env_refresh()
 }
 
@@ -288,8 +286,7 @@ content_item <- function(connect, guid) {
 content_title <- function(connect, guid, default = "Unknown Content") {
   validate_R6_class(connect, "Connect")
 
-  content_title <- tryCatch(
-    {
+  content_title <- tryCatch({
       res <- suppressMessages(connect$get_connect()$content(guid))
       # TODO: What about length 0?
       if (is.null(res$title)) {
@@ -313,10 +310,10 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #' NOTE: ACLs can still be stored, even when access_type for content is "all" or
 #' "logged_in" users. In these cases, granting or removing "viewer" privileges
 #' have no effect.
-#' 
+#'
 #' - `get_acl_user()` returns user ACLs
 #' - `get_acl_group()` returns group ACLs
-#' 
+#'
 #' `get_acl()` is deprecated.
 #'
 #' @param content [Content] An R6 Content item as returned from `content_item()`
@@ -325,7 +322,7 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 #'
 #' @family content functions
 #' @export
-#' 
+#'
 #' @rdname get_acl
 get_acl_user <- function(content) {
   warn_experimental("get_acl")
@@ -343,7 +340,7 @@ get_acl_user <- function(content) {
 #' @export
 get_acl_group <- function(content) {
   warn_experimental("get_acl")
-  
+
   content_info <- content$get_content_remote()
   prep <- get_acl_group_impl(content)
   out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_group)
@@ -351,7 +348,7 @@ get_acl_group <- function(content) {
     out$content_guid <- content_info$guid
     out$content_access_type <- content_info$access_type
   }
-  
+
   return(out)
 }
 
@@ -368,7 +365,7 @@ get_acl_impl <- function(content) {
   validate_R6_class(content, "Content")
   client <- content$get_connect()
   res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
-  
+
   content_info <- content$get_content_remote()
 
   if (content_info$access_type != "acl") {
@@ -378,7 +375,7 @@ get_acl_impl <- function(content) {
       glue::glue("get_acl_not_acl_{content_info$guid}")
     )
   }
-  
+
   return(res)
 }
 
@@ -461,13 +458,13 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 }
 
 #' Get Jobs
-#' 
+#'
 #' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
 #' "Jobs" in RStudio Connect are content executions
-#' 
+#'
 #' @param content A Content object, as returned by `content_item()`
 #' @param key The key for a job
-#' 
+#'
 #' @rdname jobs
 #' @family content functions
 #' @export
@@ -475,7 +472,7 @@ get_jobs <- function(content) {
   warn_experimental("get_jobs")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  
+
   jobs <- content$jobs()
   parse_connectapi_typed(jobs, !!!connectapi_ptypes$jobs)
 }
@@ -487,7 +484,7 @@ get_job <- function(content, key) {
   warn_experimental("get_job")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  
+
   job <- content$job(key = key)
   # protect against becoming a list...
   job$stdout <- strsplit(job$stdout, "\n")[[1]]
@@ -499,36 +496,36 @@ get_job <- function(content, key) {
 
 #' Set RunAs User
 #'
-#' \lifecycle{experimental} Set the `RunAs` user for a piece of content. 
+#' \lifecycle{experimental} Set the `RunAs` user for a piece of content.
 #' The `run_as_current_user` flag only does anything if:
-#' 
+#'
 #' - PAM is the authentication method
 #' - `Applications.RunAsCurrentUser` is enabled on the server
-#' 
+#'
 #' Also worth noting that the `run_as` user must exist on the RStudio Connect
 #' server and have appropriate group memberships, or you will get a `400: Bad Request`.
 #' Set to `NULL` to use the default RunAs user / unset any current configuration.
-#' 
+#'
 #' To "read" the current RunAs user, use the `Content` object or `get_content()` function.
-#' 
+#'
 #' @param content an R6 Content item
 #' @param run_as The RunAs user to use for this content
 #' @param run_as_current_user Whether to run this content as the viewer of the application
-#' 
+#'
 #' @return a Content object, updated with new details
-#' 
+#'
 #' @seealso get_content
-#' 
+#'
 #' @family content functions
 #' @export
 set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
   warn_experimental("set_run_as")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  
-  raw_res <- content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
-  
+
+  content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
+
   invisible(content$get_content_remote())
-  
+
   return(content)
 }

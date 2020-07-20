@@ -140,13 +140,13 @@ Connect <- R6::R6Class(
     me = function() {
       self$GET("me")
     },
-    
+
     get_dashboard_url = function() {
       self$host
     },
 
     # tags ----------------------------------------------------------
-    
+
     get_tags = function(use_cache = FALSE) {
       warn_experimental("get_tags")
       # TODO: check cache "age"?
@@ -177,11 +177,11 @@ Connect <- R6::R6Class(
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
-    
+
     tag_create_safe = function(name, parent_id = NULL) {
       warn_experimental("create_tag")
       tt <- get_tags(self)
-      
+
       tag_exists_id <- recursive_find_tag(tt, name, parent_id)
       if (is.na(tag_exists_id)) {
         self$tag_create(name, parent_id)
@@ -189,7 +189,7 @@ Connect <- R6::R6Class(
         self$tag(tag_exists_id)
       }
     },
-    
+
     tag_create = function(name, parent_id = NULL) {
       warn_experimental("create_tag")
       dat <- list(
@@ -206,12 +206,12 @@ Connect <- R6::R6Class(
         body = dat
       )
     },
-    
+
     tag = function(id) {
       path <- glue::glue("tags/{id}")
       self$GET(path)
     },
-    
+
     tag_delete = function(id) {
       tag_version <- self$tag(id = id)$version
       invisible(self$DELETE(glue::glue("tags/{id}?version={tag_version}")))
@@ -381,7 +381,7 @@ Connect <- R6::R6Class(
         )
       )
     },
-    
+
     users_create_remote = function(temp_ticket) {
       path <- "v1/users"
       self$PUT(
@@ -452,7 +452,7 @@ Connect <- R6::R6Class(
         body = list(name = name)
       )
     },
-    
+
     groups_create_remote = function(temp_ticket) {
       path <- "v1/groups"
       self$PUT(
@@ -460,7 +460,7 @@ Connect <- R6::R6Class(
         body = list(temp_ticket = temp_ticket)
       )
     },
-    
+
     groups_remote = function(prefix = NULL, limit = 20) {
       if (limit > 500) {
         # reset limit to avoid error
@@ -475,8 +475,8 @@ Connect <- R6::R6Class(
         ) %>%
           gsub("^&+", "", .) %>%
           gsub("&+", "&", .)
-      ) 
-      
+      )
+
       self$GET(path)
     },
 
@@ -627,8 +627,7 @@ connect <- function(
   check_connect_license(con$host)
 
   # check Connect is accessible
-  srv <- tryCatch(
-    {
+  srv <- tryCatch({
       con$server_settings()
     },
     error = function(e) {

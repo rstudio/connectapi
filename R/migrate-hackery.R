@@ -7,15 +7,15 @@ deploy_current <- function(content) {
 # ACLs ----------------------------------------------------
 
 #' ACL Add Group
-#' 
+#'
 #' Add a group_guid to the content as an owner or viewer
-#' 
+#'
 #' @param content The R6 Content object
 #' @param group_guid The group's GUID
 #' @param role One of "owner" or "viewer"
-#' 
+#'
 #' @return The R6 content object (for piping)
-#' 
+#'
 #' @keywords internal
 acl_add_group <- function(content, group_guid, role) {
   warn_experimental("acl_add")
@@ -26,20 +26,20 @@ acl_add_group <- function(content, group_guid, role) {
       guid = group_guid
     )
   )
-  
+
   return(content)
 }
 
 #' ACL Add User
-#' 
+#'
 #' Add a user_guid to the content as an owner or viewer
-#' 
+#'
 #' @param content The R6 Content object
 #' @param user_guid The user's GUID
 #' @param role One of "owner" or "viewer"
-#' 
+#'
 #' @return The R6 content object (for piping)
-#' 
+#'
 #' @keywords internal
 acl_add_user <- function(content, user_guid, role) {
   warn_experimental("acl_add")
@@ -58,7 +58,8 @@ acl_add_collaborator <- function(content, user_guid) {
   acl_add_user(content = content, user_guid = user_guid, role = "owner")
 }
 
-# TODO: Should this be a warning if the user is a collaborator? Will downgrade their permissions
+# TODO: Should this be a warning if the user is a collaborator? Will downgrade
+# their permissions
 # TODO: How should this behave if the content does not have access_type: acl?
 #' @rdname acl_add_user
 acl_add_viewer <- function(content, user_guid) {
@@ -119,6 +120,6 @@ acl_group_role <- function(content, group_guid) {
     return(NULL)
   }
   group_entry <- purrr::flatten(purrr::keep(acls, ~ .x$guid == group_guid))
-  
+
   return(group_entry$app_role)
 }

@@ -134,8 +134,8 @@ test_that("get_environment works with no environment variables", {
   env <- get_environment(rmd_content)
   curr_vers <- env$env_version
   env <- get_environment(rmd_content)
-  
-  expect_identical(env$env_vars, list(a=1)[0])
+
+  expect_identical(env$env_vars, list(a = 1)[0])
   expect_equal(env$env_version, curr_vers)
 })
 
@@ -143,9 +143,9 @@ test_that("set_environment works", {
   scoped_experimental_silence()
   env <- get_environment(rmd_content)
   curr_vers <- env$env_version
-  
+
   new_env <- set_environment_new(env, test = "value", test1 = TRUE, test2 = 4567)
-  
+
   expect_equal(
     new_env$env_vars,
     list(
@@ -153,7 +153,7 @@ test_that("set_environment works", {
       )
     )
   expect_equal(new_env$env_version, curr_vers + 1)
-  
+
   new_env1 <- set_environment_new(env, test1 = "another")
   expect_equal(
     new_env$env_vars,
@@ -161,18 +161,18 @@ test_that("set_environment works", {
       test = NA_character_, test1 = NA_character_, test2 = NA_character_
     )
   )
-  
+
   # remove a value multiple times
   rm1 <- set_environment_remove(env, test)
   expect_equal(rm1$env_vars, list(test1 = NA_character_, test2 = NA_character_))
   rm2 <- set_environment_remove(env, test)
   expect_equal(rm2$env_vars, list(test1 = NA_character_, test2 = NA_character_))
-  
+
   rm3 <- set_environment_remove(env, "test1")
   expect_equal(rm3$env_vars, list(test2 = NA_character_))
-  
+
   rm4 <- set_environment_remove(env, test2 = "hi")
-  expect_equal(rm4$env_vars, list(a=1)[0])
+  expect_equal(rm4$env_vars, list(a = 1)[0])
 })
 
 # Execution ----------------------------------------------------
@@ -187,9 +187,9 @@ context("render")
 test_that("get_variants works", {
   scoped_experimental_silence()
   vrs <- get_variants(rmd_content)
-  
+
   expect_equal(nrow(vrs), 1)
-  
+
   vr <- get_variant(rmd_content, vrs$key)
   expect_true(validate_R6_class(vr, "Variant"))
 })
@@ -197,14 +197,14 @@ test_that("get_variants works", {
 test_that("variant_render works", {
   scoped_experimental_silence()
   vr <- get_variant_default(rmd_content)
-  
+
   rnd <- variant_render(vr)
   rnd2 <- variant_render(vr)
-  
+
   expect_true(validate_R6_class(rnd, "VariantTask"))
   # TODO: would be great to be able to "tail the logs", for instance
   # i.e. actually reference the "job" itself...
-  
+
   # wait for tasks to complete...
   suppressMessages(poll_task(rnd))
   suppressMessages(poll_task(rnd2))
@@ -212,21 +212,21 @@ test_that("variant_render works", {
 
 test_that("get_variant_renderings works", {
   scoped_experimental_silence()
-  
+
   vr <- get_variant_default(rmd_content)
-  
+
   rnd <- get_variant_renderings(vr)
-  
+
   expect_gt(nrow(rnd), 1)
 })
 
 test_that("get_jobs works", {
   scoped_experimental_silence()
   vr <- get_variant_default(rmd_content)
-  
+
   all_jobs <- get_jobs(vr)
   expect_gt(nrow(all_jobs), 1)
-  
+
   sel_key <- all_jobs$key[[1]]
   one_job <- get_job(vr, sel_key)
   expect_equal(nrow(one_job), 1)
@@ -271,17 +271,17 @@ test_that("works for run_as_current_user", {
     run_as = NULL,
     run_as_current_user = TRUE
   )
-  
+
   expect_true(
     shiny_content$get_content()$run_as_current_user
   )
-  
+
   res2 <- set_run_as(
     shiny_content,
     run_as = NULL,
     run_as_current_user = FALSE
   )
-  
+
   expect_false(
     shiny_content$get_content()$run_as_current_user
   )
@@ -602,22 +602,22 @@ test_that("acl_remove_self works", {
 test_that("acl_add_group works", {
   scoped_experimental_silence()
   grp <- test_conn_1$groups_create(name = random_name())
-  
+
   content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
-  
+
   expect_is(content_v1, "Content")
-  
+
   cacl <- get_acl_group(content_v1)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl), 1)
   expect_equal(acl_group_role(content_v1, grp$guid), "owner")
-  
+
   # remove ACL
   content_v2 <- acl_remove_group(content_v1, grp$guid)
   cacl_new <- get_acl_group(content_v2)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl_new), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl_new), 0)
-  
+
   expect_null(acl_group_role(content_v2, grp$guid))
 })
 
