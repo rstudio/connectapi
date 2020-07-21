@@ -64,12 +64,19 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
   } else if (!screenshot) {
     get_image(content_item(connect, app$guid), fname)
   } else {
+    
+    if (!webshot::is_phantomjs_installed()) {
+      stop("\n  phantom js is not installed.\n  Install with `webshot::install_phantomjs()`\n  Alternatively, set `screenshot = FALSE`")
+    }
+    
     webshot::webshot(app$url,
       file = fname,
       vwidth = 800,
       vheight = 600,
-      cliprect = "viewport",
-      key = connect$api_key
+      cliprect = "viewport"
+      # This was an unused argument. Commenting out so it works.
+      # ,
+      # key = connect$api_key
     )
   }
   fname
