@@ -204,12 +204,13 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @param title optional The title to be used for the content on the server
 #' @param guid optional The GUID if the content already exists on the server
 #' @param ... Additional arguments passed along to the content creation
+#' @param .pre_deploy An expression to execute before deploying the new bundle. The variables `content` and `bundle_id` are supplied
 #'
 #' @return Task A task object
 #'
 #' @family deployment functions
 #' @export
-deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ...) {
+deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
   validate_R6_class(bundle, "Bundle")
   validate_R6_class(connect, "Connect")
 
@@ -221,6 +222,9 @@ deploy <- function(connect, bundle, name = random_name(), title = name, guid = N
   message("Uploading bundle")
   # upload
   new_bundle_id <- con$content_upload(bundle_path = bundle$path, guid = content$guid)[["bundle_id"]]
+
+  pre_deploy_expr <- rlang::enexpr(.pre_deploy)
+  rlang::eval_bare(pre_deploy_expr, env = rlang::env(content = content_item(con, content$guid), bundle_id = new_bundle_id))
 
   message("Deploying bundle")
   # deploy
