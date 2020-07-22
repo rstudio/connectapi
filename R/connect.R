@@ -285,10 +285,14 @@ Connect <- R6::R6Class(
     content_create = function(name, title = name, ...) {
       path <- sprintf("v1/experimental/content")
       other_params <- rlang::dots_list(...)
+      new_name <- tolower(gsub("\\s", "", name))
+      if (new_name != name) {
+        warning(glue::glue("Content name '{name}' has been cleaned to '{new_name}'"))
+      }
       self$POST(
         path,
         c(
-          list(name = tolower(gsub("\\s", "", name)), title = title),
+          list(name = new_name, title = title),
           other_params
         )
       )
