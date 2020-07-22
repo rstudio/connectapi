@@ -60,6 +60,20 @@ test_that("bundle_path deploys", {
   expect_true(validate_R6_class(tsk, "Content"))
 })
 
+test_that(".pre_deploy hook works", {
+  scoped_experimental_silence()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  deployed <- deploy(test_conn_1, bnd, uuid::UUIDgenerate(), .pre_deploy = {
+    content %>% set_vanity_url(glue::glue("pre_deploy_{bundle_id}"))
+  })
+
+  active_bundle <- deployed$get_content_remote()$bundle_id
+  expect_equal(
+    get_vanity_url(deployed)$vanity$path_prefix,
+    as.character(glue::glue("/pre_deploy_{active_bundle}/"))
+  )
+})
+
 test_that("set_image_path works", {
   scoped_experimental_silence()
   img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
