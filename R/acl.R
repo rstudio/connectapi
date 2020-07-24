@@ -18,7 +18,8 @@
 #'
 #' @param content [Content] An R6 Content item as returned from `content_item()`
 #' @param user_guid [character] A user guid. Get user guids using `get_users()`
-#' @param group_guid [character] A group guid. Get group guids using `get_groups()`
+#' @param group_guid [character] A group guid. Get group guids using
+#'   `get_groups()`
 #'
 #' @return A list of users/groups who have access to the content
 #'
