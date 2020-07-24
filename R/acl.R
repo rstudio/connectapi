@@ -140,31 +140,6 @@ get_acl_group_role <- function(content, group_guid) {
 
 # ACL ADD ----------------------------------------------------
 
-#' ACL Add Group
-#'
-#' Add a group_guid to the content as an owner or viewer
-#'
-#' @param content The R6 Content object (as returned by `content_item()`)
-#' @param group_guid The group's GUID. Use `get_groups()`
-#' @param role One of "owner" or "viewer"
-#'
-#' @return The R6 content object (for piping)
-#'
-#' @family content functions
-#' @export
-acl_add_group <- function(content, group_guid, role) {
-  warn_experimental("acl_add")
-  res <- content$get_connect()$POST(
-    glue::glue("applications/{content$get_content()$guid}/groups"),
-    body = list(
-      app_role = role,
-      guid = group_guid
-    )
-  )
-
-  return(content)
-}
-
 #' ACL Add Users or Groups
 #'
 #' Add a user or group to the content as an "owner" (collaborator) or "viewer"
@@ -208,15 +183,17 @@ acl_add_user <- function(content, user_guid, role) {
 #' @export
 acl_add_group <- function(content, group_guid, role) {
   warn_experimental("acl_add")
-  stopifnot(role %in% c("owner", "viewer"))
   res <- content$get_connect()$POST(
     glue::glue("applications/{content$get_content()$guid}/groups"),
     body = list(
       app_role = role,
-      guid = user_guid
+      guid = group_guid
     )
   )
+
+  return(content)
 }
+
 
 # TODO: Need a "group" variant? A way to "determine" which?
 #' @rdname acl_add
