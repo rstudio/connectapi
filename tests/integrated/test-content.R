@@ -384,7 +384,7 @@ test_that("add a viewer twice works", {
 test_that("remove a collaborator works", {
   scoped_experimental_silence()
   # remove a collaborator
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -398,8 +398,8 @@ test_that("remove a collaborator works", {
 test_that("remove a collaborator twice works", {
   scoped_experimental_silence()
   # remove a collaborator
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -430,7 +430,7 @@ test_that("a collaborator does not affect other collaborators", {
   expect_true(all(c(collab_guid, collab_alt_guid) %in% acls$guid))
 
   # remove one
-  invisible(acl_remove_collaborator(cont1_content, collab_alt_guid))
+  invisible(acl_remove_user(cont1_content, collab_alt_guid))
 
   acls2 <- get_acl_user(cont1_content)
   # other present
@@ -454,7 +454,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   expect_true(any(which_match_collab))
   expect_true(any(which_match_viewer))
 
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
   acls2 <- get_acl_user(cont1_content)
 
   which_match_viewer2 <- purrr::map2_lgl(acls2$guid, acls2$app_role, function(.x, .y) {
@@ -463,7 +463,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   expect_true(any(which_match_viewer2))
 
   invisible(acl_add_collaborator(cont1_content, collab_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   acls3 <- get_acl_user(cont1_content)
   which_match_collab3 <- purrr::map2_lgl(acls3$guid, acls3$app_role, function(.x, .y) {
@@ -488,7 +488,7 @@ test_that("a viewer does not affect other viewers", {
   expect_true(all(c(viewer_guid, viewer_alt_guid) %in% acls$guid))
 
   # remove one
-  invisible(acl_remove_viewer(cont1_content, viewer_alt_guid))
+  invisible(acl_remove_user(cont1_content, viewer_alt_guid))
 
   acls2 <- get_acl_user(cont1_content)
 
@@ -539,7 +539,7 @@ test_that("remove a viewer works", {
   scoped_experimental_silence()
   # remove a viewer
   invisible(acl_add_viewer(cont1_content, viewer_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -553,8 +553,8 @@ test_that("remove a viewer works", {
 test_that("remove a viewer twice works", {
   scoped_experimental_silence()
   # remove a viewer
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
