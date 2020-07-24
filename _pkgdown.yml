@@ -5,19 +5,19 @@ reference:
   - title: "Package"
     desc: >
       Package documentation
-    contents: 
+    contents:
       - connectapi-package
 
   - title: "Audit"
     desc: >
       Functions to audit vanity URLs, R versions, etc.
-    contents: 
+    contents:
       - matches("audit")
 
   - title: "Deployment"
     desc: >
       Functions to work with deployments
-    contents: 
+    contents:
       - starts_with("bundle")
       - Bundle
       - download_bundle
@@ -27,46 +27,57 @@ reference:
   - title: "Content"
     desc: >
       Functions to work with content
-    contents: 
+    contents:
       - matches("content")
       - matches("image")
       - matches("vanity")
-      
+      - matches("acl")
+      - matches("schedule")
+
   - title: "Users and groups"
     desc: >
       Users and groups
-    contents: 
+    contents:
       - matches("user")
       - matches("group")
 
   - title: "shiny"
     desc: >
       Shiny functions
-    contents: 
+    contents:
       - matches("shiny")
+
+  - title: "Reporting"
+    desc: >
+      Helpers to "get" data out of Connect
+    contents:
+      - starts_with("get")
 
   - title: "Other"
     desc: >
       Oher functions
-    contents: 
+    contents:
       - promote
       - tag_page
       - cache_apps
       - connect
       - tbl_connect
       - page_cursor
+      - browse_connect
+      - browse_dashboard
       - browse_solo
-      
-      
+
+
   - title: "R6 classes"
     desc: >
       Classes representing connect, users, etc.
-    contents: 
+    contents:
       - Connect
       - Bundle
       - Task
       - Vanity
       - RStudioConnect
       - Content
-      
+      - Variant
+
 
