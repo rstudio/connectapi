@@ -76,7 +76,8 @@ This function retrieves usage information from static content
 on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getContentVisits for more information
+Please see https://docs.rstudio.com/connect/api/#getContentVisits for more
+information
 }
 \examples{
 \dontrun{

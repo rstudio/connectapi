@@ -40,7 +40,8 @@ A tibble with the following columns:
 Get Audit Logs from RStudio Connect Server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more information
+Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more
+information
 }
 \examples{
 \dontrun{

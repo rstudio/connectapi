@@ -25,6 +25,7 @@ has_image(content)
 }
 \seealso{
 Other content functions: 
+\code{\link{acl_add_user}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{dashboard_url_chr}()},

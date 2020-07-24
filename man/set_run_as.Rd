@@ -36,6 +36,7 @@ To "read" the current RunAs user, use the \code{Content} object or \code{get_con
 get_content
 
 Other content functions: 
+\code{\link{acl_add_user}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{dashboard_url_chr}()},
