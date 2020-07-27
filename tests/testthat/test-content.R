@@ -4,8 +4,12 @@ test_that("works with valid names", {
 
   short_name <- "123"
   expect_equal(verify_content_name(short_name), short_name)
+
   long_name <- "abcdefghijklmnopqrstuvwxyabcdefghijklmnopqrstuvwxyabcdefghijklmn"
   expect_equal(verify_content_name(long_name), long_name)
+
+  uuid <- uuid::UUIDgenerate()
+  expect_equal(verify_content_name(uuid), uuid)
 })
 
 test_that("fails for invalid names", {
@@ -17,6 +21,8 @@ test_that("fails for invalid names", {
   expect_error(verify_content_name("abc!@#$"))
   expect_error(verify_content_name("123 abc"))
 })
+
+context("create_random_name")
 
 test_that("works with no length", {
   expect_is(create_random_name(), "character")
