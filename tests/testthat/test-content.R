@@ -18,8 +18,6 @@ test_that("fails for invalid names", {
   expect_error(verify_content_name("123 abc"))
 })
 
-test_that("create_random_name")
-
 test_that("works with no length", {
   expect_is(create_random_name(), "character")
 })
