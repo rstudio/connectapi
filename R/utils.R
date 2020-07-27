@@ -11,10 +11,6 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
-random_name <- function(length = 25) {
-  tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
-}
-
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
