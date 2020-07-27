@@ -210,7 +210,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #'
 #' @family deployment functions
 #' @export
-deploy <- function(connect, bundle, name = random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
+deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
   validate_R6_class(bundle, "Bundle")
   validate_R6_class(connect, "Connect")
 
@@ -495,7 +495,7 @@ swap_vanity_url <- function(from_content, to_content) {
     warning("Neither content has a Vanity URL. Exiting")
   } else {
     # swapping vanity URLs
-    tmp_vanity <- paste0("vanity-url-swap-", random_name(length = 50))
+    tmp_vanity <- paste0("vanity-url-swap-", create_random_name(length = 50))
 
     if (inherits(from_vanity, "Vanity")) {
       from_vanity_url <- from_vanity$get_vanity()$path_prefix
