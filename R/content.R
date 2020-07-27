@@ -430,3 +430,41 @@ delete_content <- function(content) {
   validate_R6_class(content, "Content")
   # TODO
 }
+
+
+#' Verify Content Name
+#'
+#' Ensures that a content name fits the specifications / requirements of RStudio
+#' Connect. Throws an error if content name is invalid. Content names (as of the
+#' time of writing) must be between 3 and 64 alphanumeric characters, dashes,
+#' and underscores
+#'
+#' @param name The proposed content name
+#'
+#' @return The name (or an error if invalid)
+#'
+#' @seealso connectapi::create_random_name
+#' @family content functions
+#' @export
+verify_content_name <- function(name) {
+  if (grepl("[^\\-\\_a-zA-Z0-9]", name) || nchar(name) < 3 || nchar(name) > 64 ) {
+    stop(glue::glue("ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, dashes, and underscores"))
+  }
+  return(name)
+}
+
+#' Create Random Name
+#'
+#' Creates a random name from the LETTERS dataset
+#'
+#' @param length Optional. The length of the random name. Defaults to 25
+#'
+#' @return The randomly generated name
+#'
+#' @seealso connectapi::verify_content_name
+#' @family content functions
+#' @export
+create_random_name <- function(length = 25) {
+  tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
+}
+
