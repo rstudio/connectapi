@@ -7,7 +7,7 @@
 deploy(
   connect,
   bundle,
-  name = random_name(),
+  name = create_random_name(),
   title = name,
   guid = NULL,
   ...,

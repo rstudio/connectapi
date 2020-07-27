@@ -25,6 +25,7 @@ Other content functions:
 \code{\link{acl_add_user}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{create_random_name}()},
 \code{\link{dashboard_url}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_environment}()},
@@ -34,6 +35,7 @@ Other content functions:
 \code{\link{set_image_path}()},
 \code{\link{set_run_as}()},
 \code{\link{set_vanity_url}()},
-\code{\link{swap_vanity_url}()}
+\code{\link{swap_vanity_url}()},
+\code{\link{verify_content_name}()}
 }
 \concept{content functions}
