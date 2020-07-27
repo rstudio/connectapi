@@ -317,7 +317,7 @@ test_that("add a collaborator works", {
   scoped_experimental_silence()
 
   # create a user
-  collab <- test_conn_1$users_create(username = glue::glue("test_collab{random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_guid <<- collab$guid
 
   # add a collaborator
@@ -349,7 +349,7 @@ test_that("add collaborator twice works", {
 test_that("add a viewer works", {
   scoped_experimental_silence()
   # create a user
-  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_guid <<- view_user$guid
 
   # add a viewer
@@ -417,7 +417,7 @@ test_that("remove a collaborator twice works", {
 test_that("a collaborator does not affect other collaborators", {
   scoped_experimental_silence()
   # create a user
-  collab_alt <- test_conn_1$users_create(username = glue::glue("test_collab_alt{random_name()}"), email = "collab_alt@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab_alt <- test_conn_1$users_create(username = glue::glue("test_collab_alt{create_random_name()}"), email = "collab_alt@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_alt_guid <<- collab_alt$guid
 
   # add both
@@ -475,7 +475,7 @@ test_that("a collaborator and a viewer do not affect each other", {
 test_that("a viewer does not affect other viewers", {
   scoped_experimental_silence()
   # create a user
-  view_user_alt <- test_conn_1$users_create(username = glue::glue("test_viewer_alt{random_name()}"), email = "viewer_alt@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  view_user_alt <- test_conn_1$users_create(username = glue::glue("test_viewer_alt{create_random_name()}"), email = "viewer_alt@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_alt_guid <<- view_user_alt$guid
 
   # add both
@@ -601,7 +601,7 @@ test_that("acl_remove_self works", {
 
 test_that("acl_add_group works", {
   scoped_experimental_silence()
-  grp <- test_conn_1$groups_create(name = random_name())
+  grp <- test_conn_1$groups_create(name = create_random_name())
 
   content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
 
