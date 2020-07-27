@@ -447,7 +447,7 @@ delete_content <- function(content) {
 #' @family content functions
 #' @export
 verify_content_name <- function(name) {
-  if (grepl("[^\\-\\_a-zA-Z0-9]", name) || nchar(name) < 3 || nchar(name) > 64 ) {
+  if (grepl("[^\\-\\_a-zA-Z0-9]", name, perl = TRUE) || nchar(name) < 3 || nchar(name) > 64 ) {
     stop(glue::glue("ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, dashes, and underscores"))
   }
   return(name)
