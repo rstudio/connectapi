@@ -290,7 +290,7 @@ Connect <- R6::R6Class(
       self$POST(
         path,
         c(
-          list(name = new_name, title = title),
+          list(name = name, title = title),
           other_params
         )
       )
