@@ -4,7 +4,15 @@
 \alias{deploy}
 \title{Deploy a bundle}
 \usage{
-deploy(connect, bundle, name = random_name(), title = name, guid = NULL, ...)
+deploy(
+  connect,
+  bundle,
+  name = create_random_name(),
+  title = name,
+  guid = NULL,
+  ...,
+  .pre_deploy = { }
+)
 }
 \arguments{
 \item{connect}{A Connect object}
@@ -18,6 +26,8 @@ deploy(connect, bundle, name = random_name(), title = name, guid = NULL, ...)
 \item{guid}{optional The GUID if the content already exists on the server}
 
 \item{...}{Additional arguments passed along to the content creation}
+
+\item{.pre_deploy}{An expression to execute before deploying the new bundle. The variables \code{content} and \code{bundle_id} are supplied}
 }
 \value{
 Task A task object

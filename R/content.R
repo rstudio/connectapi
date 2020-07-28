@@ -302,111 +302,6 @@ content_title <- function(connect, guid, default = "Unknown Content") {
   return(content_title)
 }
 
-#' Get ACL Details
-#'
-#' \lifecycle{experimental} Retrieve the Access Controls associated with a given
-#' piece of content.
-#'
-#' NOTE: ACLs can still be stored, even when access_type for content is "all" or
-#' "logged_in" users. In these cases, granting or removing "viewer" privileges
-#' have no effect.
-#'
-#' - `get_acl_user()` returns user ACLs
-#' - `get_acl_group()` returns group ACLs
-#'
-#' `get_acl()` is deprecated.
-#'
-#' @param content [Content] An R6 Content item as returned from `content_item()`
-#'
-#' @return A list of users/groups who have access to the content
-#'
-#' @family content functions
-#' @export
-#'
-#' @rdname get_acl
-get_acl_user <- function(content) {
-  warn_experimental("get_acl")
-
-  content_info <- content$get_content_remote()
-  prep <- get_acl_user_impl(content)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_user)
-  out$content_guid <- content_info$guid
-  out$content_access_type <- content_info$access_type
-
-  return(out)
-}
-
-#' @rdname get_acl
-#' @export
-get_acl_group <- function(content) {
-  warn_experimental("get_acl")
-
-  content_info <- content$get_content_remote()
-  prep <- get_acl_group_impl(content)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_group)
-  if (nrow(out) > 0) {
-    out$content_guid <- content_info$guid
-    out$content_access_type <- content_info$access_type
-  }
-
-  return(out)
-}
-
-#' @rdname get_acl
-#' @export
-get_acl <- function(content) {
-  lifecycle::deprecate_warn(
-    "0.1.0.9007", "get_acl()", "get_acl_user()"
-    )
-  get_acl_user(content)
-}
-
-get_acl_impl <- function(content) {
-  validate_R6_class(content, "Content")
-  client <- content$get_connect()
-  res <- client$GET(glue::glue("applications/{content$get_content()$guid}"))
-
-  content_info <- content$get_content_remote()
-
-  if (content_info$access_type != "acl") {
-    # we warn once per content item
-    warn_once(
-      glue::glue("Content (guid: {content_info$guid}) has access type {content_info$access_type}: ACLs for viewers have no effect"),
-      glue::glue("get_acl_not_acl_{content_info$guid}")
-    )
-  }
-
-  return(res)
-}
-
-get_acl_user_impl <- function(content) {
-  res <- get_acl_impl(content)
-  client <- content$get_connect()
-  owner <- client$user(res$owner_guid)
-  owner$app_role <- "owner"
-  # because collaborators are hard to differentiate
-  owner$is_owner <- TRUE
-
-  content_acls <- res[["users"]]
-  content_acls <- purrr::map(content_acls, function(.x) {
-    .x$is_owner <- FALSE
-    return(.x)
-  })
-
-  return(c(list(owner), content_acls))
-}
-
-get_acl_group_impl <- function(content) {
-  res <- get_acl_impl(content)
-
-  content_acls <- res[["groups"]]
-  content_acls <- purrr::map(content_acls, function(.x) {
-    return(.x)
-  })
-
-  return(c(content_acls))
-}
-
 content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
   if (!is.null(guid)) {
     # guid-based deployment
@@ -529,3 +424,47 @@ set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
 
   return(content)
 }
+
+
+delete_content <- function(content) {
+  validate_R6_class(content, "Content")
+  # TODO
+}
+
+
+#' Verify Content Name
+#'
+#' Ensures that a content name fits the specifications / requirements of RStudio
+#' Connect. Throws an error if content name is invalid. Content names (as of the
+#' time of writing) must be between 3 and 64 alphanumeric characters, dashes,
+#' and underscores
+#'
+#' @param name The proposed content name
+#'
+#' @return The name (or an error if invalid)
+#'
+#' @seealso connectapi::create_random_name
+#' @family content functions
+#' @export
+verify_content_name <- function(name) {
+  if (grepl("[^\\-\\_a-zA-Z0-9]", name, perl = TRUE) || nchar(name) < 3 || nchar(name) > 64 ) {
+    stop(glue::glue("ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, dashes, and underscores"))
+  }
+  return(name)
+}
+
+#' Create Random Name
+#'
+#' Creates a random name from the LETTERS dataset
+#'
+#' @param length Optional. The length of the random name. Defaults to 25
+#'
+#' @return The randomly generated name
+#'
+#' @seealso connectapi::verify_content_name
+#' @family content functions
+#' @export
+create_random_name <- function(length = 25) {
+  tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
+}
+

@@ -12,10 +12,14 @@ cont1_content <- NULL
 
 test_that("bundle_static deploys", {
   bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
-  deployed <- deploy(test_conn_1, bnd, uuid::UUIDgenerate())
+  uniq_id <- uuid::UUIDgenerate()
+  deployed <- deploy(test_conn_1, bnd, uniq_id)
 
   expect_true(validate_R6_class(bnd, "Bundle"))
   expect_true(validate_R6_class(deployed, "Content"))
+
+  deployed2 <- deploy(test_conn_1, bnd, uniq_id)
+  expect_true(validate_R6_class(deployed2, "Content"))
 })
 
 test_that("bundle_dir deploys", {
@@ -58,6 +62,31 @@ test_that("bundle_path deploys", {
 
   # how should we test that deployment happened?
   expect_true(validate_R6_class(tsk, "Content"))
+})
+
+test_that("strange name re-casing does not break things", {
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  testname <- "test_Test_45"
+  deploy1 <- deploy(test_conn_1, bnd, testname)
+  deploy2 <- deploy(test_conn_1, bnd, testname)
+
+  testname2 <- "test_Test"
+  deployA <- deploy(test_conn_1, bnd, testname2)
+  deployB <- deploy(test_conn_1, bnd, testname2)
+})
+
+test_that(".pre_deploy hook works", {
+  scoped_experimental_silence()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  deployed <- deploy(test_conn_1, bnd, uuid::UUIDgenerate(), .pre_deploy = {
+    content %>% set_vanity_url(glue::glue("pre_deploy_{bundle_id}"))
+  })
+
+  active_bundle <- deployed$get_content_remote()$bundle_id
+  expect_equal(
+    get_vanity_url(deployed)$vanity$path_prefix,
+    as.character(glue::glue("/pre_deploy_{active_bundle}/"))
+  )
 })
 
 test_that("set_image_path works", {

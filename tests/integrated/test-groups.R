@@ -12,7 +12,7 @@ test_that("groups_create works", {
   if (ss$authentication$name %in% c("LDAP")) {
     skip("not implemented for this authentication provider")
   }
-  groupname <- random_name()
+  groupname <- create_random_name()
   res <- test_conn_1$groups_create(
     name = groupname
   )
@@ -30,7 +30,7 @@ test_that("groups works", {
 
 test_that("group_member_add works", {
   user_guid <<- test_conn_1$users_create(
-    username = paste0("group_member", random_name()),
+    username = paste0("group_member", create_random_name()),
     email = "test@example.com",
     user_must_set_password = TRUE
   )$guid

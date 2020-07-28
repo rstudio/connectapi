@@ -317,17 +317,17 @@ test_that("add a collaborator works", {
   scoped_experimental_silence()
 
   # create a user
-  collab <- test_conn_1$users_create(username = glue::glue("test_collab{random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_guid <<- collab$guid
 
   # add a collaborator
   invisible(acl_add_collaborator(cont1_content, collab_guid))
 
-  expect_equal(acl_user_role(cont1_content, collab_guid), "owner")
+  expect_equal(get_acl_user_role(cont1_content, collab_guid), "owner")
 
   # owner is present
   my_guid <- test_conn_1$GET("me")$guid
-  expect_equal(acl_user_role(cont1_content, my_guid), "owner")
+  expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
 })
 
 test_that("add collaborator twice works", {
@@ -349,7 +349,7 @@ test_that("add collaborator twice works", {
 test_that("add a viewer works", {
   scoped_experimental_silence()
   # create a user
-  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_guid <<- view_user$guid
 
   # add a viewer
@@ -384,7 +384,7 @@ test_that("add a viewer twice works", {
 test_that("remove a collaborator works", {
   scoped_experimental_silence()
   # remove a collaborator
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -398,8 +398,8 @@ test_that("remove a collaborator works", {
 test_that("remove a collaborator twice works", {
   scoped_experimental_silence()
   # remove a collaborator
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -417,7 +417,7 @@ test_that("remove a collaborator twice works", {
 test_that("a collaborator does not affect other collaborators", {
   scoped_experimental_silence()
   # create a user
-  collab_alt <- test_conn_1$users_create(username = glue::glue("test_collab_alt{random_name()}"), email = "collab_alt@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab_alt <- test_conn_1$users_create(username = glue::glue("test_collab_alt{create_random_name()}"), email = "collab_alt@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_alt_guid <<- collab_alt$guid
 
   # add both
@@ -430,7 +430,7 @@ test_that("a collaborator does not affect other collaborators", {
   expect_true(all(c(collab_guid, collab_alt_guid) %in% acls$guid))
 
   # remove one
-  invisible(acl_remove_collaborator(cont1_content, collab_alt_guid))
+  invisible(acl_remove_user(cont1_content, collab_alt_guid))
 
   acls2 <- get_acl_user(cont1_content)
   # other present
@@ -454,7 +454,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   expect_true(any(which_match_collab))
   expect_true(any(which_match_viewer))
 
-  invisible(acl_remove_collaborator(cont1_content, collab_guid))
+  invisible(acl_remove_user(cont1_content, collab_guid))
   acls2 <- get_acl_user(cont1_content)
 
   which_match_viewer2 <- purrr::map2_lgl(acls2$guid, acls2$app_role, function(.x, .y) {
@@ -463,7 +463,7 @@ test_that("a collaborator and a viewer do not affect each other", {
   expect_true(any(which_match_viewer2))
 
   invisible(acl_add_collaborator(cont1_content, collab_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   acls3 <- get_acl_user(cont1_content)
   which_match_collab3 <- purrr::map2_lgl(acls3$guid, acls3$app_role, function(.x, .y) {
@@ -475,7 +475,7 @@ test_that("a collaborator and a viewer do not affect each other", {
 test_that("a viewer does not affect other viewers", {
   scoped_experimental_silence()
   # create a user
-  view_user_alt <- test_conn_1$users_create(username = glue::glue("test_viewer_alt{random_name()}"), email = "viewer_alt@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  view_user_alt <- test_conn_1$users_create(username = glue::glue("test_viewer_alt{create_random_name()}"), email = "viewer_alt@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_alt_guid <<- view_user_alt$guid
 
   # add both
@@ -488,7 +488,7 @@ test_that("a viewer does not affect other viewers", {
   expect_true(all(c(viewer_guid, viewer_alt_guid) %in% acls$guid))
 
   # remove one
-  invisible(acl_remove_viewer(cont1_content, viewer_alt_guid))
+  invisible(acl_remove_user(cont1_content, viewer_alt_guid))
 
   acls2 <- get_acl_user(cont1_content)
 
@@ -539,7 +539,7 @@ test_that("remove a viewer works", {
   scoped_experimental_silence()
   # remove a viewer
   invisible(acl_add_viewer(cont1_content, viewer_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -553,8 +553,8 @@ test_that("remove a viewer works", {
 test_that("remove a viewer twice works", {
   scoped_experimental_silence()
   # remove a viewer
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
-  invisible(acl_remove_viewer(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
+  invisible(acl_remove_user(cont1_content, viewer_guid))
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -565,28 +565,28 @@ test_that("remove a viewer twice works", {
   expect_false(any(which_match))
 })
 
-test_that("acl_user_role works", {
+test_that("get_acl_user_role works", {
   scoped_experimental_silence()
   acl_remove_user(cont1_content, collab_guid)
   acl_remove_user(cont1_content, viewer_guid)
 
   acl_add_collaborator(cont1_content, collab_guid)
-  expect_equal(acl_user_role(cont1_content, collab_guid), "owner")
+  expect_equal(get_acl_user_role(cont1_content, collab_guid), "owner")
 
   acl_add_viewer(cont1_content, viewer_guid)
-  expect_equal(acl_user_role(cont1_content, viewer_guid), "viewer")
+  expect_equal(get_acl_user_role(cont1_content, viewer_guid), "viewer")
 })
 
 
-test_that("acl_user_role with null user_guid returns NULL", {
+test_that("get_acl_user_role with null user_guid returns NULL", {
   scoped_experimental_silence()
-  expect_null(acl_user_role(cont1_content, NULL))
+  expect_null(get_acl_user_role(cont1_content, NULL))
 })
 
-test_that("acl_user_role with no role returns NULL", {
+test_that("get_acl_user_role with no role returns NULL", {
   scoped_experimental_silence()
   acl_remove_user(cont1_content, viewer_guid)
-  expect_null(acl_user_role(cont1_content, viewer_guid))
+  expect_null(get_acl_user_role(cont1_content, viewer_guid))
 })
 
 test_that("acl_add_self works", {
@@ -601,7 +601,7 @@ test_that("acl_remove_self works", {
 
 test_that("acl_add_group works", {
   scoped_experimental_silence()
-  grp <- test_conn_1$groups_create(name = random_name())
+  grp <- test_conn_1$groups_create(name = create_random_name())
 
   content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
 
@@ -610,7 +610,7 @@ test_that("acl_add_group works", {
   cacl <- get_acl_group(content_v1)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl), 1)
-  expect_equal(acl_group_role(content_v1, grp$guid), "owner")
+  expect_equal(get_acl_group_role(content_v1, grp$guid), "owner")
 
   # remove ACL
   content_v2 <- acl_remove_group(content_v1, grp$guid)
@@ -618,16 +618,16 @@ test_that("acl_add_group works", {
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl_new), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))
   expect_equal(nrow(cacl_new), 0)
 
-  expect_null(acl_group_role(content_v2, grp$guid))
+  expect_null(get_acl_group_role(content_v2, grp$guid))
 })
 
-test_that("acl_group_role with null user_guid returns NULL", {
+test_that("get_acl_group_role with null user_guid returns NULL", {
   scoped_experimental_silence()
-  expect_null(acl_group_role(cont1_content, NULL))
+  expect_null(get_acl_group_role(cont1_content, NULL))
 })
 
-test_that("acl_group_role with no role returns NULL", {
+test_that("get_acl_group_role with no role returns NULL", {
   scoped_experimental_silence()
   acl_remove_user(cont1_content, viewer_guid)
-  expect_null(acl_group_role(cont1_content, viewer_guid))
+  expect_null(get_acl_group_role(cont1_content, viewer_guid))
 })

@@ -285,10 +285,12 @@ Connect <- R6::R6Class(
     content_create = function(name, title = name, ...) {
       path <- sprintf("v1/experimental/content")
       other_params <- rlang::dots_list(...)
+
+      verify_content_name(name)
       self$POST(
         path,
         c(
-          list(name = tolower(gsub("\\s", "", name)), title = title),
+          list(name = name, title = title),
           other_params
         )
       )

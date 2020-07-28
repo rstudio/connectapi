@@ -36,8 +36,10 @@ To "read" the current RunAs user, use the \code{Content} object or \code{get_con
 get_content
 
 Other content functions: 
+\code{\link{acl_add_user}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
 \code{\link{get_acl_user}()},
@@ -47,6 +49,7 @@ Other content functions:
 \code{\link{get_vanity_url}()},
 \code{\link{set_image_path}()},
 \code{\link{set_vanity_url}()},
-\code{\link{swap_vanity_url}()}
+\code{\link{swap_vanity_url}()},
+\code{\link{verify_content_name}()}
 }
 \concept{content functions}
