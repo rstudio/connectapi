@@ -540,12 +540,13 @@ swap_vanity_url <- function(from_content, to_content) {
 #'
 #' @param task A Task object
 #' @param wait The interval to wait between polling
+#' @param callback A function to be called for each message received
 #'
 #' @return Task The Task object that was input
 #'
 #' @family deployment functions
 #' @export
-poll_task <- function(task, wait = 1) {
+poll_task <- function(task, wait = 1, callback = message) {
   validate_R6_class(task, c("Task", "VariantTask"))
   con <- task$get_connect()
 
@@ -558,7 +559,7 @@ poll_task <- function(task, wait = 1) {
     code <- task_data[["code"]]
     first <- task_data[["last"]]
 
-    lapply(task_data[["output"]], message)
+    lapply(task_data[["output"]], callback)
   }
 
   if (code != 0) {
