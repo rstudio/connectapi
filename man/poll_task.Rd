@@ -4,12 +4,14 @@
 \alias{poll_task}
 \title{Poll Task}
 \usage{
-poll_task(task, wait = 1)
+poll_task(task, wait = 1, callback = message)
 }
 \arguments{
 \item{task}{A Task object}
 
 \item{wait}{The interval to wait between polling}
+
+\item{callback}{A function to be called for each message received}
 }
 \value{
 Task The Task object that was input
