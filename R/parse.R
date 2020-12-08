@@ -43,7 +43,7 @@ ensure_column <- function(data, default, name) {
     col <- swap_timestamp_format(col)
     if (vctrs::vec_is(default, NA_datetime_) && !vctrs::vec_is(col, NA_datetime_)) {
       # manual fix because vctrs::vec_cast cannot cast double -> datetime or char -> datetime
-      col <- coerce_datetime(col, default)
+      col <- coerce_datetime(col, default, name = name)
     }
     if (inherits(default, "fs_bytes") && !inherits(col, "fs_bytes")) {
       col <- coerce_fsbytes(col, default)
@@ -125,15 +125,22 @@ coerce_fsbytes <- function(x, to, ...) {
   }
 }
 
+# name - optional. Must be named, the name of the variable / column being converted
 coerce_datetime <- function(x, to, ...) {
+  tmp_name <- rlang::dots_list(...)[["name"]]
+  if (is.null(tmp_name) || is.na(tmp_name) || !is.character(tmp_name)) {
+    tmp_name <- "x"
+  }
   if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
     as.POSIXct(x, tz = tzone(to))
   } else if (inherits(x, "POSIXct")) {
     x
+  } else if (is.logical(x) && is.na(x)) {
+    NA_datetime_
   } else {
-    vctrs::stop_incompatible_cast(x = x, to = to, x_arg = "x", to_arg = "to")
+    vctrs::stop_incompatible_cast(x = x, to = to, x_arg = tmp_name, to_arg = "to")
   }
 }
 
