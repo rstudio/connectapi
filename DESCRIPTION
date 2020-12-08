@@ -56,8 +56,6 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Remotes:
-    slopp/webshot
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.1.1
