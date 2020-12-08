@@ -135,7 +135,7 @@ connectapi_ptypes <- list(
     created_time = NA_datetime_,
     rendering_id = NA_integer_,
     render_time = NA_datetime_,
-    render_duration = NA_integer_,
+    render_duration = bit64::NA_integer64_,
     visibility = NA_character_,
     owner_id = NA_integer_
   ),
@@ -179,7 +179,7 @@ connectapi_ptypes <- list(
     origin = NA_character_,
     stdout = NA_list_,
     stderr = NA_list_,
-    logged_error = NA_character_,
+    logged_error = NA_list_,
     start_time = NA_datetime_,
     end_time = NA_datetime_,
     exit_code = NA_integer_,
