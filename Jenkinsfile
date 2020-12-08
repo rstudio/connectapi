@@ -42,7 +42,7 @@ ansiColor('xterm') {
         // Outputs
         archiveArtifacts artifacts: "test-results-*", fingerprint: true, allowEmptyArchive: true
         archiveArtifacts artifacts: "tests/integrated/integrated-results-*", fingerprint: true, allowEmptyArchive: false
-        junit "tests/*.xml"
+        junit "tests/integrated/*.xml"
       }
       print "Finished integration tests"
     }
