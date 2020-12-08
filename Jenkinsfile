@@ -37,10 +37,10 @@ ansiColor('xterm') {
           print "====> Cleanup environment"
           sh "make clean"
         }
-          
+
         // Outputs
         archiveArtifacts artifacts: "test-results-*", fingerprint: true, allowEmptyArchive: true
-        archiveArtifacts artifacts: "integrated-results-*", fingerprint: true, allowEmptyArchive: false
+        archiveArtifacts artifacts: "tests/integrated/integrated-results-*", fingerprint: true, allowEmptyArchive: false
         junit "*.xml"
       }
       print "Finished integration tests"
