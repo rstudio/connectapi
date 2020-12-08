@@ -36,12 +36,13 @@ ansiColor('xterm') {
         } finally {
           print "====> Cleanup environment"
           sh "make clean"
+          sh "ls -ltR"
         }
-          
+
         // Outputs
         archiveArtifacts artifacts: "test-results-*", fingerprint: true, allowEmptyArchive: true
-        archiveArtifacts artifacts: "integrated-results-*", fingerprint: true, allowEmptyArchive: false
-        junit "*.xml"
+        archiveArtifacts artifacts: "tests/integrated/integrated-results-*", fingerprint: true, allowEmptyArchive: false
+        junit "tests/integrated/*.xml"
       }
       print "Finished integration tests"
     }

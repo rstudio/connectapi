@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-RSC_VERSION=1.8.2-10
+RSC_VERSION=1.8.4-11
 
 #---------------------------------------------
 # Network
@@ -26,7 +26,6 @@ network-down:
 		docker network rm ${NETWORK}; \
 	fi;
 
-
 #---------------------------------------------
 # Helpers
 #---------------------------------------------
@@ -37,7 +36,7 @@ mail-up:
 mail-down:
 	NETWORK=${NETWORK} \
 	docker-compose -f inst/ci/mail.yml -f inst/ci/make-network.yml down
-	
+
 connect-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
@@ -47,7 +46,7 @@ connect-up:
 connect-down:
 	NETWORK=${NETWORK} \
 	docker-compose -f inst/ci/test-connect.yml -f inst/ci/make-network.yml down
-	
+
 connect-file-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
@@ -57,7 +56,7 @@ connect-file-up:
 connect-file-down:
 	NETWORK=${NETWORK} \
 	docker-compose -f inst/ci/test-connect-lic.yml -f inst/ci/make-network.yml down
-	
+
 test-env-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
