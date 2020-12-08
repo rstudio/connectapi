@@ -36,6 +36,7 @@ ansiColor('xterm') {
         } finally {
           print "====> Cleanup environment"
           sh "make clean"
+          sh "ls -ltR"
         }
 
         // Outputs
