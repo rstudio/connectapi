@@ -481,8 +481,7 @@ create_random_name <- function(length = 25) {
 #' @param connect A R6 Connect item, as returned by `connect()`
 #' @param bundle_id A specific bundle ID for a content item
 #'
-#' @rdname bundle
-#'
+#' @rdname get_bundles
 #' @family content functions
 #' @export
 get_bundles <- function(content, limit = Inf) {
@@ -492,8 +491,7 @@ get_bundles <- function(content, limit = Inf) {
   parse_connectapi_typed(bundles, !!!connectapi_ptypes$bundles)
 }
 
-#' @rdname bundle
-#'
+#' @rdname get_bundles
 #' @family content functions
 #' @export
 delete_bundle <- function(connect, bundle_id) {
