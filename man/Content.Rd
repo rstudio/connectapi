@@ -31,6 +31,7 @@ Other R6 classes:
 \item \href{#method-get_connect}{\code{Content$get_connect()}}
 \item \href{#method-get_content}{\code{Content$get_content()}}
 \item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
+\item \href{#method-get_bundles}{\code{Content$get_bundles()}}
 \item \href{#method-update}{\code{Content$update()}}
 \item \href{#method-runas}{\code{Content$runas()}}
 \item \href{#method-get_url}{\code{Content$get_url()}}
@@ -82,6 +83,15 @@ Other R6 classes:
 \subsection{Method \code{get_content_remote()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content_remote()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_bundles"></a>}}
+\if{latex}{\out{\hypertarget{method-get_bundles}{}}}
+\subsection{Method \code{get_bundles()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles(page_number = 1)}\if{html}{\out{</div>}}
 }
 
 }

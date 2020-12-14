@@ -32,6 +32,7 @@ Other R6 classes:
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment">}\href{../../connectapi/html/Content.html#method-environment}{\code{connectapi::Content$environment()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set">}\href{../../connectapi/html/Content.html#method-environment_set}{\code{connectapi::Content$environment_set()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles">}\href{../../connectapi/html/Content.html#method-get_bundles}{\code{connectapi::Content$get_bundles()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect">}\href{../../connectapi/html/Content.html#method-get_connect}{\code{connectapi::Content$get_connect()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content">}\href{../../connectapi/html/Content.html#method-get_content}{\code{connectapi::Content$get_content()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
