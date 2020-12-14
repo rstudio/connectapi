@@ -496,6 +496,7 @@ get_bundles <- function(content, limit = Inf) {
 #' @export
 delete_bundle <- function(connect, bundle_id) {
   validate_R6_class(connect, "Connect")
+  message(glue::glue("Deleting bundle {bundle_id}"))
   connect$bundle_delete(bundle_id)
   return(connect)
 }
