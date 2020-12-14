@@ -296,10 +296,16 @@ Connect <- R6::R6Class(
       )
     },
 
+    # TODO: rename to bundle_download...
     download_bundle = function(bundle_id, to_path = tempfile()) {
       path <- glue::glue("v1/experimental/bundles/{bundle_id}/download")
       self$GET(path, httr::write_disk(to_path), "raw")
       to_path
+    },
+
+    bundle_delete = function(bundle_id) {
+      path <- glue::glue("v1/experimental/bundles/{bundle_id}")
+      self$DELETE(path)
     },
 
     content_upload = function(bundle_path, guid) {

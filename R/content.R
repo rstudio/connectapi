@@ -30,6 +30,10 @@ Content <- R6::R6Class(
       self$content <- new_content_details
       self$get_content()
     },
+    get_bundles = function(page_number = 1) {
+      url <- glue::glue("v1/experimental/content/{self$get_content()$guid}/bundles?page_number={page_number}")
+      self$get_connect()$GET(url)
+    },
     update = function(...) {
       params <- rlang::list2(...)
       url <- glue::glue("v1/experimental/content/{self$get_content()$guid}")
@@ -468,3 +472,32 @@ create_random_name <- function(length = 25) {
   tolower(paste(sample(LETTERS, length, replace = TRUE), collapse = ""))
 }
 
+#' Get Bundles
+#'
+#' Lists bundles for a content item
+#'
+#' @param content A R6 Content item, as returned by `content_item()`
+#' @param limit Optional. Limit on number of bundles to return. Default Infinity.
+#' @param connect A R6 Connect item, as returned by `connect()`
+#' @param bundle_id A specific bundle ID for a content item
+#'
+#' @rdname bundle
+#'
+#' @family content functions
+#' @export
+get_bundles <- function(content, limit = Inf) {
+  validate_R6_class(content, "Content")
+  bundles <- page_offset(content$get_connect(), content$get_bundles(), limit = limit)
+
+  parse_connectapi_typed(bundles, !!!connectapi_ptypes$bundles)
+}
+
+#' @rdname bundle
+#'
+#' @family content functions
+#' @export
+delete_bundle <- function(connect, bundle_id) {
+  validate_R6_class(connect, "Connect")
+  connect$bundle_delete(bundle_id)
+  return(connect)
+}

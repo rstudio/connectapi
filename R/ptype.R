@@ -185,5 +185,14 @@ connectapi_ptypes <- list(
     exit_code = NA_integer_,
     app_guid = NA_character_,
     variant_key = NA_character_
+  ),
+  bundles = tibble::tibble(
+    id = NA_character_,
+    content_guid = NA_character_,
+    created_time = NA_datetime_,
+    r_version = NA_character_,
+    py_version = NA_character_,
+    active = NA,
+    size = fs::as_fs_bytes(NA_integer_)
   )
 )
