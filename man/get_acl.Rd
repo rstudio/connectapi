@@ -54,6 +54,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},
 \code{\link{get_jobs}()},

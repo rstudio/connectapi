@@ -62,6 +62,7 @@ Other content functions:
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
 \code{\link{get_acl_user}()},
+\code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},
 \code{\link{get_jobs}()},

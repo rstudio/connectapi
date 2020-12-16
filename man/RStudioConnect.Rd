@@ -65,6 +65,7 @@ Other R6 classes:
 \item \href{#method-get_schedule}{\code{Connect$get_schedule()}}
 \item \href{#method-content_create}{\code{Connect$content_create()}}
 \item \href{#method-download_bundle}{\code{Connect$download_bundle()}}
+\item \href{#method-bundle_delete}{\code{Connect$bundle_delete()}}
 \item \href{#method-content_upload}{\code{Connect$content_upload()}}
 \item \href{#method-content_deploy}{\code{Connect$content_deploy()}}
 \item \href{#method-content}{\code{Connect$content()}}
@@ -335,6 +336,15 @@ Other R6 classes:
 \subsection{Method \code{download_bundle()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile())}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-bundle_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-bundle_delete}{}}}
+\subsection{Method \code{bundle_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
 }
 
 }

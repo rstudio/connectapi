@@ -107,6 +107,8 @@ wait_for_process <- function(proc) {
     agg_error <- c(agg_error, proc$read_error_lines())
     Sys.sleep(0.05)
   }
+  agg_output <- c(agg_output, proc$read_output_lines())
+  agg_error <- c(agg_error, proc$read_error_lines())
   return(
     list(stdout = agg_output, stderr = agg_error)
   )

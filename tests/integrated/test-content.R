@@ -175,6 +175,26 @@ test_that("set_environment works", {
   expect_equal(rm4$env_vars, list(a = 1)[0])
 })
 
+test_that("get_bundles and delete_bundle work", {
+  bnd_name <- create_random_name()
+
+  bc1 <- deploy(test_conn_1, bund, bnd_name)
+  bc1 <- deploy(test_conn_1, bund, bnd_name)
+  bc1 <- deploy(test_conn_1, bund, bnd_name)
+
+  bnd_dat <- get_bundles(bc1)
+  expect_equal(nrow(bnd_dat), 3)
+  expect_is(bnd_dat, "tbl_df")
+
+  not_active_bundles <- bnd_dat[!bnd_dat$active,]
+
+  bnd_del <- delete_bundle(test_conn_1, not_active_bundles[["id"]][[1]])
+  expect_true(validate_R6_class(bnd_del, "Connect"))
+
+  bnd_dat2 <- get_bundles(bc1)
+  expect_equal(nrow(bnd_dat2), 2)
+})
+
 # Execution ----------------------------------------------------
 #
 # i.e. deploying real content...
