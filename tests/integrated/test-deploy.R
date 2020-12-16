@@ -243,3 +243,18 @@ test_that("dashboard_url resolves properly", {
 
   skip("not yet tested")
 })
+
+test_that("deployment timestamps respect timezone", {
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  myc <- deploy(test_conn_1, bnd)
+  myc_guid <- myc$get_content()$guid
+
+  # will fail without the png package
+  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e){}))
+
+  allusg <- get_usage_static(test_conn_1, content_guid = myc_guid)
+
+  # we just did this, so it should be less than 1 minute ago...
+  # (really protecting against being off by hours b/c of timezone differences)
+  expect_true(any((Sys.time() - allusg$time) < lubridate::make_difftime(60, "seconds")))
+})
