@@ -27,6 +27,7 @@ Connect <- R6::R6Class(
     api_key = NULL,
     tags = NULL,
     tag_map = NULL,
+    httr_additions = list(),
 
     get_connect = function() {
       self
@@ -36,6 +37,11 @@ Connect <- R6::R6Class(
       message(glue::glue("Defining Connect with host: {host}"))
       self$host <- base::sub("^(.*)/$", "\\1", host)
       self$api_key <- api_key
+    },
+
+    add_httr = function(...) {
+      self$httr_additions = rlang::list2(...)
+      invisible(self)
     },
 
     # helpers ----------------------------------------------------------
@@ -83,11 +89,17 @@ Connect <- R6::R6Class(
     },
 
     GET_RESULT_URL = function(url, writer = httr::write_memory(), ...) {
-      res <- httr::GET(
-        url,
-        self$add_auth(),
-        writer,
-        ...
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::GET,
+        !!!c(list(
+          url,
+          self$add_auth(),
+          writer
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(url, res)
       return(res)
