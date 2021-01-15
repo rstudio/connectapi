@@ -66,46 +66,48 @@ Connect <- R6::R6Class(
       httr::add_headers(Authorization = paste0("Key ", self$api_key))
     },
 
-    GET = function(path, writer = httr::write_memory(), parser = "parsed") {
+    GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
       req <- paste0(self$host, "/__api__/", path)
-      self$GET_URL(url = req, writer = writer, parser = parser)
+      self$GET_URL(url = req, writer = writer, parser = parser, ...)
     },
 
-    GET_RESULT = function(path, writer = httr::write_memory()) {
+    GET_RESULT = function(path, writer = httr::write_memory(), ...) {
       req <- paste0(self$host, "/__api__/", path)
-      self$GET_RESULT_URL(url = req, writer = writer)
+      self$GET_RESULT_URL(url = req, writer = writer, ...)
     },
 
-    GET_URL = function(url, writer = httr::write_memory(), parser = "parsed") {
-      res <- self$GET_RESULT_URL(url = url, writer = writer)
+    GET_URL = function(url, writer = httr::write_memory(), parser = "parsed", ...) {
+      res <- self$GET_RESULT_URL(url = url, writer = writer, ...)
       self$raise_error(res)
       httr::content(res, as = parser)
     },
 
-    GET_RESULT_URL = function(url, writer = httr::write_memory()) {
+    GET_RESULT_URL = function(url, writer = httr::write_memory(), ...) {
       res <- httr::GET(
         url,
         self$add_auth(),
-        writer
+        writer,
+        ...
       )
       check_debug(url, res)
       return(res)
     },
 
-    PUT = function(path, body, encode = "json") {
+    PUT = function(path, body, encode = "json", ...) {
       req <- paste0(self$host, "/__api__/", path)
       res <- httr::PUT(
         req,
         self$add_auth(),
         body = body,
-        encode = encode
+        encode = encode,
+        ...
       )
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = "parsed")
     },
 
-    HEAD = function(path) {
+    HEAD = function(path, ...) {
       req <- paste0(self$host, "/__api__/", path)
       res <- httr::HEAD(
         url = req,
