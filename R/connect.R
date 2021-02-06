@@ -125,6 +125,18 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/") {
+      req <- paste0(self$host, prefix, path)
+      res <- httr::PATCH(req,
+        self$add_auth(),
+        body = body,
+        encode = encode
+      )
+      self$raise_error(res)
+      check_debug(req, res)
+      httr::content(res, as = "parsed")
+    },
+
     POST = function(path, body, encode = "json", prefix = "/__api__/") {
       req <- paste0(self$host, prefix, path)
       res <- httr::POST(req,
