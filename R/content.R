@@ -36,8 +36,8 @@ Content <- R6::R6Class(
     },
     update = function(...) {
       params <- rlang::list2(...)
-      url <- glue::glue("v1/experimental/content/{self$get_content()$guid}")
-      res <- self$get_connect()$POST(
+      url <- glue::glue("v1/content/{self$get_content()$guid}")
+      res <- self$get_connect()$PATCH(
         url,
         params
       )
