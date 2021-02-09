@@ -34,6 +34,9 @@ Connect <- R6::R6Class(
 
     initialize = function(host, api_key) {
       message(glue::glue("Defining Connect with host: {host}"))
+      if (is.null(httr::parse_url(host)$scheme)) {
+        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {host}"))
+      }
       self$host <- base::sub("^(.*)/$", "\\1", host)
       self$api_key <- api_key
     },
