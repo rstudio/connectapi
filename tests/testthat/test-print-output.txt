@@ -2,7 +2,7 @@
 Connect
 ----------------------------
 RStudio Connect API Client: 
-  RStudio Connect Server: test_host
+  RStudio Connect Server: http://test_host
   RStudio Connect API Key: ***********_key
 
 ----------------------------
