@@ -1,5 +1,7 @@
 context("deploy")
 
+# setup ---------------------------------------------------
+
 # should connect with env vars
 test_conn_1 <- connect(prefix = "TEST_1")
 test_conn_2 <- connect(prefix = "TEST_2")
@@ -9,6 +11,8 @@ cont1_title <- "Test Content 1"
 cont1_guid <- NULL
 cont1_bundle <- NULL
 cont1_content <- NULL
+
+# bundle ---------------------------------------------------
 
 test_that("bundle_static deploys", {
   bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
@@ -64,6 +68,8 @@ test_that("bundle_path deploys", {
   expect_true(validate_R6_class(tsk, "Content"))
 })
 
+# deploy ---------------------------------------------------
+
 test_that("strange name re-casing does not break things", {
   bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
   testname <- "test_Test_45"
@@ -88,6 +94,8 @@ test_that(".pre_deploy hook works", {
     as.character(glue::glue("/pre_deploy_{active_bundle}/"))
   )
 })
+
+# iamge ---------------------------------------------------
 
 test_that("set_image_path works", {
   scoped_experimental_silence()
@@ -170,6 +178,8 @@ test_that("get_image returns NA if no image", {
 
 test_that("set_image_url works", {
   # need to find a reliable image URL that is small
+  # ... and we are willing to take a dependency on...
+  # or... we could use the Connect instance itself :p
   skip("not implemented yet")
 })
 
@@ -180,6 +190,8 @@ test_that("set_image_webshot works", {
 
   expect_true(validate_R6_class(res, "Content"))
 })
+
+# vanity_url ---------------------------------------------------
 
 test_that("set_vanity_url works", {
   scoped_experimental_silence()
@@ -212,6 +224,7 @@ test_that("get_vanity_url works", {
   expect_equal(existing_vanity$get_vanity()$path_prefix, paste0("/", tmp_content_name, "/"))
 })
 
+# misc functions ---------------------------------------------------
 
 test_that("poll_task works and returns its input", {
   expect_message(

@@ -129,6 +129,25 @@ test_that("content_title handles NULL titles gracefully", {
   expect_identical(null_title, "Test Title")
 })
 
+test_that("update owner_guid works", {
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  myc <- deploy(test_conn_1, bnd)
+
+  new_user <- test_conn_1$users_create(
+    username = "test_admin",
+    email = "example@example.com",
+    user_role = "administrator",
+    user_must_set_password = TRUE
+  )
+
+  new_owner_guid <- myc$update(owner_guid = new_user$guid)
+
+  expect_equal(
+    myc$get_content_remote()$owner_guid,
+    new_user$guid
+  )
+})
+
 test_that("get_environment works with no environment variables", {
   scoped_experimental_silence()
   env <- get_environment(rmd_content)
