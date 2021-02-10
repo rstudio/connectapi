@@ -134,7 +134,7 @@ test_that("update owner_guid works", {
   myc <- deploy(test_conn_1, bnd)
 
   new_user <- test_conn_1$users_create(
-    username = "test_admin",
+    username = glue::glue("test_admin_{create_random_name()}"),
     email = "example@example.com",
     user_role = "administrator",
     user_must_set_password = TRUE
