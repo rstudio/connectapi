@@ -29,7 +29,7 @@ test_that("error_if_less_than errors as expected", {
     expect_error(error_if_less_than(fake_client, "1.8.6"))
     expect_silent(error_if_less_than(fake_client, "1.8.6"))
     expect_silent(error_if_less_than(fake_client, "1.8.6"))
-  })
+  }, .env = "connectapi")
 })
 
 test_that("check_connect_version works", {
