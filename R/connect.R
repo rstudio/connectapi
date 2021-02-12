@@ -650,25 +650,9 @@ connect <- function(
   check_connect_license(con$host)
 
   # check Connect is accessible
-  srv <- tryCatch({
-      con$server_settings()
-    },
-    error = function(e) {
-      message(
-        glue::glue("Problem talking to RStudio Connect at {host}/__api__/server_settings")
-      )
-      stop(e)
-    }
-  )
+  srv <- safe_server_settings(con)
 
-  # validate version
-  if (is.null(srv$version)) {
-    message("Version information is not exposed by this RStudio Connect instance.")
-  } else if (nchar(srv$version) == 0) {
-    message("Version information is not exposed by this RStudio Connect instance.")
-  } else {
-    check_connect_version(using_version = srv$version)
-  }
+  check_connect_version(using_version = srv$version)
 
   con
 }

@@ -131,10 +131,50 @@ simplify_version <- function(version) {
   sub("([0-9]+\\.[0-9]+\\.[0-9]+).*", "\\1", version)
 }
 
+safe_server_settings <- function(client) {
+  srv <- tryCatch({
+    client$server_settings()
+  },
+  error = function(e) {
+    message(
+      glue::glue("Problem talking to RStudio Connect at {client$host}/__api__/server_settings")
+    )
+    stop(e)
+  }
+  )
+  return(srv)
+}
+
+safe_server_version <- function(client) {
+  srv <- safe_server_settings(client)
+  return(srv$version)
+}
+
+# TODO: switch compare_connect_version ordering...
+error_if_less_than <- function(client, tested_version) {
+  comp <- compare_connect_version(using_version = safe_server_version(client), tested_version = tested_version)
+  if (comp > 0) {
+    stop(glue::glue("ERROR: This API requires RStudio Connect version {tested_version}, but you are using {srv$version}. Please use a previous version of the `connectapi` package, upgrade RStudio Connect, or review the API documentation corresponding to your version."))
+  }
+  invisible()
+}
+
+compare_connect_version <- function(using_version, tested_version) {
+  if (is.null(using_version)) {
+    message("Version information is not exposed by this RStudio Connect instance.")
+    return(0)
+  } else if (nchar(using_version) == 0) {
+    message("Version information is not exposed by this RStudio Connect instance.")
+    return(0)
+  } else {
+    minor_using_version <- simplify_version(using_version)
+    minor_tested_version <- simplify_version(tested_version)
+    return(compareVersion(minor_tested_version, minor_using_version))
+  }
+}
+
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
-  minor_using_version <- simplify_version(using_version)
-  minor_tested_version <- simplify_version(tested_version)
-  comp <- compareVersion(minor_tested_version, minor_using_version)
+  comp <- compare_connect_version(using_version = using_version, tested_version=tested_version)
 
   msg <- switch(
     as.character(comp),
