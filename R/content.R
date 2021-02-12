@@ -35,9 +35,11 @@ Content <- R6::R6Class(
       self$get_connect()$GET(url)
     },
     update = function(...) {
+      con <- self$get_connect()
+      error_if_less_than(con, "1.8.6")
       params <- rlang::list2(...)
       url <- glue::glue("v1/content/{self$get_content()$guid}")
-      res <- self$get_connect()$PATCH(
+      res <- con$PATCH(
         url,
         params
       )
