@@ -22,6 +22,16 @@ test_that("simplify_version works", {
   expect_identical(simplify_version("10.0.0.0-4"), "10.0.0")
 })
 
+test_that("error_if_less_than errors as expected", {
+  m <- mockery::mock("1.8.2.1-4", "1.8.6.9-14", "2.9.0.0.4")
+  fake_client <- Connect$new("http://test", "api_key")
+  with_mock(safe_server_version = m, {
+    expect_error(error_if_less_than(fake_client, "1.8.6"))
+    expect_silent(error_if_less_than(fake_client, "1.8.6"))
+    expect_silent(error_if_less_than(fake_client, "1.8.6"))
+  })
+})
+
 test_that("check_connect_version works", {
   # silent for patch version changes
   expect_silent(check_connect_version("1.8.2-4", "1.8.2.1-10"))
