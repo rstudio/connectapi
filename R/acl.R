@@ -11,8 +11,10 @@
 #'
 #' - `get_acl_user()` returns user ACLs
 #' - `get_acl_group()` returns group ACLs
-#' - `get_acl_user_role()` returns the "role" for a particular user on a piece of content
-#' - `get_acl_group_role()` returns the "role" for a particular group on a piece of content
+#' - `get_acl_user_role()` returns the "role" for a
+#'    particular user on a piece of content
+#' - `get_acl_group_role()` returns the "role" for a
+#'    particular group on a piece of content
 #'
 #' `get_acl()` is deprecated.
 #'
@@ -74,7 +76,11 @@ get_acl_impl <- function(content) {
   if (content_info$access_type != "acl") {
     # we warn once per content item
     warn_once(
-      glue::glue("Content (guid: {content_info$guid}) has access type {content_info$access_type}: ACLs for viewers have no effect"),
+      glue::glue(
+        "Content (guid: {content_info$guid}) has access type ",
+        "{content_info$access_type}: ",
+        "ACLs for viewers have no effect"
+      ),
       glue::glue("get_acl_not_acl_{content_info$guid}")
     )
   }
