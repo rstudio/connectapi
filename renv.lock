@@ -484,6 +484,13 @@
       "Repository": "CRAN",
       "Hash": "e87a35ec73b157552814869f45a63aa3"
     },
+    "mockery": {
+      "Package": "mockery",
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "313fa6504824ba5aab9308412135fb5f"
+    },
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.0",
