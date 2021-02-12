@@ -5,7 +5,11 @@
 utils::globalVariables(
   c(
     "r_version",
-    "."
+    ".",
+    "parse_connectapi_typed",
+    "connectapi_ptypes",
+    "validate_R6_class",
+    "warn_experimental"
   )
 )
 

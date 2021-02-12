@@ -50,6 +50,7 @@ Other R6 classes:
 \item \href{#method-PUT}{\code{Connect$PUT()}}
 \item \href{#method-HEAD}{\code{Connect$HEAD()}}
 \item \href{#method-DELETE}{\code{Connect$DELETE()}}
+\item \href{#method-PATCH}{\code{Connect$PATCH()}}
 \item \href{#method-POST}{\code{Connect$POST()}}
 \item \href{#method-me}{\code{Connect$me()}}
 \item \href{#method-get_dashboard_url}{\code{Connect$get_dashboard_url()}}
@@ -201,6 +202,15 @@ Other R6 classes:
 \subsection{Method \code{DELETE()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PATCH"></a>}}
+\if{latex}{\out{\hypertarget{method-PATCH}{}}}
+\subsection{Method \code{PATCH()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
 }
 
 }
