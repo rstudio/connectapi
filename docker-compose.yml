@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  connect1:
+    hostname: connect1
+    image: rstudio/rstudio-connect:${RSC_VERSION}
+    ports:
+      - 3939
+    privileged: true
+    environment: 
+      - RSC_LICENSE
+  connect2:
+    hostname: connect2
+    image: rstudio/rstudio-connect:${RSC_VERSION}
+    ports:
+      - 3939
+    privileged: true
+    environment:
+      - RSC_LICENSE
+  test:
+    hostname: test
+    image: rstudio/r-base:3.6-bionic
+    volumes:
+      - "./:/test"
+    working_dir: "/test"
+    command:
+      - "Rscript"
+      - "/test/inst/ci/run_tests.R"
+  
+networks:
+  default:
+    external:
+      name: connectapi_default

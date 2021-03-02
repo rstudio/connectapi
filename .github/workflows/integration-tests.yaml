@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - master
+      - main
+      - ci_refactoring
+  pull_request:
+    branches:
+      - master
+      - main
+
+name: integration-tests
+
+jobs:
+  pkgdown:
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Compose Up
+        run: docker-compose up --remove-orphans
+
+      - name: Docker Compose Down
+        run: docker-compose down
