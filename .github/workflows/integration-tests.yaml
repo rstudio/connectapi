@@ -23,9 +23,9 @@ jobs:
 
       - name: Docker Network Creation
         run: docker network create connectapi_default
-        
+
       - name: Docker Compose Up
-        run: docker-compose up --remove-orphans
+        run: docker-compose up -d --remove-orphans
 
       - name: Docker Compose Down
         run: docker-compose down
