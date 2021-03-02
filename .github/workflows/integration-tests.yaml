@@ -12,10 +12,12 @@ on:
 name: integration-tests
 
 jobs:
-  pkgdown:
+  integration-tests:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_VERSION: 1.8.6
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
     steps:
       - uses: actions/checkout@v2
 
