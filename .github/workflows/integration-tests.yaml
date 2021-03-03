@@ -21,11 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Docker Network Creation
-        run: docker network create connectapi_default
-
-      - name: Docker Compose Up
-        run: docker-compose up -d --remove-orphans
-
-      - name: Docker Compose Down
-        run: docker-compose down
+      - name: Make Test
+        run: make test
+        
+      - name: Make Clean
+        run: make clean
