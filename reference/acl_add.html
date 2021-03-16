@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • connectapi</title>
+<title>ACL Add Users or Groups — acl_add_user • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::[\%&amp;gt;\%][magrittr::\%&amp;gt;\%] for details." />
+<meta property="og:title" content="ACL Add Users or Groups — acl_add_user" />
+<meta property="og:description" content="Add a user or group to the content as an &quot;owner&quot; (collaborator) or &quot;viewer&quot;" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -134,18 +134,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/utils-pipe.R'><code>R/utils-pipe.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>ACL Add Users or Groups</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/acl.R'><code>R/acl.R</code></a></small>
+    <div class="hidden name"><code>acl_add.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::[\%&gt;\%][magrittr::\%&gt;\%]</code> for details.</p>
+    <p>Add a user or group to the content as an "owner" (collaborator) or "viewer"</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>acl_add_user</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>user_guid</span>, <span class='va'>role</span><span class='op'>)</span>
 
+<span class='fu'>acl_add_group</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>group_guid</span>, <span class='va'>role</span><span class='op'>)</span>
 
+<span class='fu'>acl_add_collaborator</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>user_guid</span><span class='op'>)</span>
+
+<span class='fu'>acl_add_viewer</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>user_guid</span><span class='op'>)</span>
+
+<span class='fu'>acl_remove_user</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>user_guid</span><span class='op'>)</span>
+
+<span class='fu'>acl_add_self</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
+
+<span class='fu'>acl_remove_self</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
+
+<span class='fu'>acl_remove_group</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>group_guid</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>content</th>
+      <td><p>The R6 Content object (as returned by <code><a href='content_item.html'>content_item()</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>user_guid</th>
+      <td><p>The user's GUID. Use <code><a href='get_users.html'>get_users()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>role</th>
+      <td><p>One of "owner" or "viewer"</p></td>
+    </tr>
+    <tr>
+      <th>group_guid</th>
+      <td><p>The group's GUID. Use <code><a href='get_groups.html'>get_groups()</a></code></p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The R6 content object (for piping)</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p><code>acl_add_user()</code> allows you to add ACL for a user and specify role</p></li>
+<li><p><code>acl_add_group()</code> allows you to add ACL for a group and specify role</p></li>
+<li><p><code>acl_add_collaborator()</code> is a helper to add a <code>user</code> collaborators</p></li>
+<li><p><code>acl_add_viewer()</code> is a helper to add a <code>user</code> viewer</p></li>
+<li><p><code>acl_remove_user()</code> removes a user's ACLs from a piece of content</p></li>
+<li><p><code>acl_remove_group()</code> removes a group's ACLs from a piece of content</p></li>
+<li><p><code>acl_add_self()</code> is useful for admins and adds the current user as a collaborator</p></li>
+<li><p><code>acl_remove_self()</code> removes the current user's ACLs from a piece of content</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other content functions: 
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
+<code><a href='get_bundles.html'>get_bundles</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
+<code><a href='set_run_as.html'>set_run_as</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

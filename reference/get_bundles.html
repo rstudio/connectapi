@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • connectapi</title>
+<title>Get Bundles — get_bundles • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::[\%&amp;gt;\%][magrittr::\%&amp;gt;\%] for details." />
+<meta property="og:title" content="Get Bundles — get_bundles" />
+<meta property="og:description" content="Lists bundles for a content item" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -134,18 +134,76 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/utils-pipe.R'><code>R/utils-pipe.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Get Bundles</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <div class="hidden name"><code>get_bundles.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::[\%&gt;\%][magrittr::\%&gt;\%]</code> for details.</p>
+    <p>Lists bundles for a content item</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>get_bundles</span><span class='op'>(</span><span class='va'>content</span>, limit <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
 
+<span class='fu'>delete_bundle</span><span class='op'>(</span><span class='va'>connect</span>, <span class='va'>bundle_id</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>content</th>
+      <td><p>A R6 Content item, as returned by <code><a href='content_item.html'>content_item()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>limit</th>
+      <td><p>Optional. Limit on number of bundles to return. Default Infinity.</p></td>
+    </tr>
+    <tr>
+      <th>connect</th>
+      <td><p>A R6 Connect item, as returned by <code><a href='connect.html'>connect()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>bundle_id</th>
+      <td><p>A specific bundle ID for a content item</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other content functions: 
+<code><a href='acl_add_user.html'>acl_add_user</a>()</code>,
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
+<code><a href='set_run_as.html'>set_run_as</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p>
+<p>Other content functions: 
+<code><a href='acl_add_user.html'>acl_add_user</a>()</code>,
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
+<code><a href='set_run_as.html'>set_run_as</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

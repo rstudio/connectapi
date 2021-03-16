@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9018</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +116,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rstudio/connectapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -301,6 +301,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="verify_content_name.html">verify_content_name()</a></code> </p>
+        </td>
+        <td><p>Verify Content Name</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_image.html">get_image()</a></code> <code><a href="get_image.html">delete_image()</a></code> <code><a href="get_image.html">has_image()</a></code> </p>
         </td>
         <td><p>Get the Image</p></td>
@@ -334,6 +340,30 @@
           <p><code><a href="swap_vanity_url.html">swap_vanity_url()</a></code> </p>
         </td>
         <td><p>Swap the Vanity URL</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="acl_add.html">acl_add_user()</a></code> <code><a href="acl_add.html">acl_add_group()</a></code> <code><a href="acl_add.html">acl_add_collaborator()</a></code> <code><a href="acl_add.html">acl_add_viewer()</a></code> <code><a href="acl_add.html">acl_remove_user()</a></code> <code><a href="acl_add.html">acl_add_self()</a></code> <code><a href="acl_add.html">acl_remove_self()</a></code> <code><a href="acl_add.html">acl_remove_group()</a></code> </p>
+        </td>
+        <td><p>ACL Add Users or Groups</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_acl.html">get_acl_user()</a></code> <code><a href="get_acl.html">get_acl_group()</a></code> <code><a href="get_acl.html">get_acl()</a></code> <code><a href="get_acl.html">get_acl_user_role()</a></code> <code><a href="get_acl.html">get_acl_group_role()</a></code> </p>
+        </td>
+        <td><p>Get ACL Details</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_variant_schedule.html">get_variant_schedule()</a></code> </p>
+        </td>
+        <td><p>Get a Variant Schedule</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="set_schedule.html">set_schedule()</a></code> <code><a href="set_schedule.html">set_schedule_minute()</a></code> <code><a href="set_schedule.html">set_schedule_hour()</a></code> <code><a href="set_schedule.html">set_schedule_day()</a></code> <code><a href="set_schedule.html">set_schedule_weekday()</a></code> <code><a href="set_schedule.html">set_schedule_week()</a></code> <code><a href="set_schedule.html">set_schedule_dayofweek()</a></code> <code><a href="set_schedule.html">set_schedule_semimonth()</a></code> <code><a href="set_schedule.html">set_schedule_dayofmonth()</a></code> <code><a href="set_schedule.html">set_schedule_dayweekofmonth()</a></code> <code><a href="set_schedule.html">set_schedule_year()</a></code> <code><a href="set_schedule.html">set_schedule_remove()</a></code> </p>
+        </td>
+        <td><p>Set a Schedule</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -350,7 +380,13 @@
       <tr>
         
         <td>
-          <p><code><a href="get_acl.html">get_acl_user()</a></code> <code><a href="get_acl.html">get_acl_group()</a></code> <code><a href="get_acl.html">get_acl()</a></code> </p>
+          <p><code><a href="acl_add.html">acl_add_user()</a></code> <code><a href="acl_add.html">acl_add_group()</a></code> <code><a href="acl_add.html">acl_add_collaborator()</a></code> <code><a href="acl_add.html">acl_add_viewer()</a></code> <code><a href="acl_add.html">acl_remove_user()</a></code> <code><a href="acl_add.html">acl_add_self()</a></code> <code><a href="acl_add.html">acl_remove_self()</a></code> <code><a href="acl_add.html">acl_remove_group()</a></code> </p>
+        </td>
+        <td><p>ACL Add Users or Groups</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_acl.html">get_acl_user()</a></code> <code><a href="get_acl.html">get_acl_group()</a></code> <code><a href="get_acl.html">get_acl()</a></code> <code><a href="get_acl.html">get_acl_user_role()</a></code> <code><a href="get_acl.html">get_acl_group_role()</a></code> </p>
         </td>
         <td><p>Get ACL Details</p></td>
       </tr><tr>
@@ -402,6 +438,127 @@
           <p><code><a href="get_usage_shiny.html">get_usage_shiny()</a></code> </p>
         </td>
         <td><p>Get usage information for deployed shiny applications</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-reporting" class="hasAnchor"><a href="#section-reporting" class="anchor"></a>Reporting</h2>
+          <p class="section-desc"><p>Helpers to “get” data out of Connect</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="Environment.html">get_environment()</a></code> <code><a href="Environment.html">set_environment_new()</a></code> <code><a href="Environment.html">set_environment_remove()</a></code> </p>
+        </td>
+        <td><p>Manage Environment Variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Variant.html">get_variants()</a></code> <code><a href="Variant.html">get_variant_default()</a></code> <code><a href="Variant.html">get_variant()</a></code> </p>
+        </td>
+        <td><p>Get Variant</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_acl.html">get_acl_user()</a></code> <code><a href="get_acl.html">get_acl_group()</a></code> <code><a href="get_acl.html">get_acl()</a></code> <code><a href="get_acl.html">get_acl_user_role()</a></code> <code><a href="get_acl.html">get_acl_group_role()</a></code> </p>
+        </td>
+        <td><p>Get ACL Details</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_audit_logs.html">get_audit_logs()</a></code> </p>
+        </td>
+        <td><p>Get Audit Logs from RStudio Connect Server</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_bundles.html">get_bundles()</a></code> <code><a href="get_bundles.html">delete_bundle()</a></code> </p>
+        </td>
+        <td><p>Get Bundles</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_content.html">get_content()</a></code> </p>
+        </td>
+        <td><p>Get information about content on the RStudio Connect server</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_group_members.html">get_group_members()</a></code> </p>
+        </td>
+        <td><p>Get users within a specific group</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_groups.html">get_groups()</a></code> </p>
+        </td>
+        <td><p>Get group information from the RStudio Connect server</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_image.html">get_image()</a></code> <code><a href="get_image.html">delete_image()</a></code> <code><a href="get_image.html">has_image()</a></code> </p>
+        </td>
+        <td><p>Get the Image</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_procs.html">get_procs()</a></code> </p>
+        </td>
+        <td><p>Get Real-Time Process Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_usage_shiny.html">get_usage_shiny()</a></code> </p>
+        </td>
+        <td><p>Get usage information for deployed shiny applications</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_usage_static.html">get_usage_static()</a></code> </p>
+        </td>
+        <td><p>Get usage information from deployed static content</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_users.html">get_users()</a></code> </p>
+        </td>
+        <td><p>Get user information from the RStudio Connect server</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_vanity_url.html">get_vanity_url()</a></code> </p>
+        </td>
+        <td><p>Get the Vanity URL</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_variant_schedule.html">get_variant_schedule()</a></code> </p>
+        </td>
+        <td><p>Get a Variant Schedule</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="jobs.html">get_jobs()</a></code> <code><a href="jobs.html">get_job()</a></code> </p>
+        </td>
+        <td><p>Get Jobs</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="render.html">get_variant_renderings()</a></code> <code><a href="render.html">variant_render()</a></code> </p>
+        </td>
+        <td><p>Render a Variant</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tags.html">get_tags()</a></code> <code><a href="tags.html">get_tag_data()</a></code> <code><a href="tags.html">create_tag()</a></code> <code><a href="tags.html">create_tag_tree()</a></code> <code><a href="tags.html">delete_tag()</a></code> <code><a href="tags.html">get_content_tags()</a></code> <code><a href="tags.html">set_content_tag_tree()</a></code> <code><a href="tags.html">set_content_tags()</a></code> <code><a href="tags.html">filter_tag_tree_id()</a></code> <code><a href="tags.html">filter_tag_tree_chr()</a></code> </p>
+        </td>
+        <td><p>Get all Tags on the server</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -519,7 +676,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

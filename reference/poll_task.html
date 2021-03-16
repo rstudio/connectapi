@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9018</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,6 +103,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
       <a href="../articles/getting-started.html">Getting Started with connectapi</a>
     </li>
   </ul>
@@ -114,7 +117,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rstudio/connectapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,7 +143,7 @@
     <p>Polls a task, waiting for information about a deployment</p>
     </div>
 
-    <pre class="usage"><span class='fu'>poll_task</span>(<span class='no'>task</span>, <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>poll_task</span><span class='op'>(</span><span class='va'>task</span>, wait <span class='op'>=</span> <span class='fl'>1</span>, callback <span class='op'>=</span> <span class='va'>message</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +155,10 @@
     <tr>
       <th>wait</th>
       <td><p>The interval to wait between polling</p></td>
+    </tr>
+    <tr>
+      <th>callback</th>
+      <td><p>A function to be called for each message received</p></td>
     </tr>
     </table>
 
@@ -182,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

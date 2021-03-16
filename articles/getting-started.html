@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9018</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -61,6 +61,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
       <a href="../articles/getting-started.html">Getting Started with connectapi</a>
     </li>
   </ul>
@@ -72,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/rstudio/connectapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,13 +89,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="getting-started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started with connectapi</h1>
                         <h4 class="author">Cole Arendt</h4>
             
-            <h4 class="date">2020-06-11</h4>
+            <h4 class="date">2021-03-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/master/vignettes/getting-started.Rmd"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
@@ -106,50 +109,57 @@
 <a href="#connecting" class="anchor"></a>Connecting</h2>
 <p>The first thing that you need to accomplish when using the <code>connectapi</code> is getting connected to your RStudio Connect server. This requires the URL to your server and an API key. Directions on how to get an API key are <a href="https://docs.rstudio.com/connect/user/api-keys.html#api-keys">here</a>.</p>
 <p>Once you have your API key, you can create a Connect object in your code, like so:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span>(
-  <span class="kw">host</span> <span class="kw">=</span> <span class="st">"http://example.com:3939"</span>,
-  <span class="kw">api_key</span> <span class="kw">=</span> <span class="st">"aihgaahegiahgg"</span>
-)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi">connectapi</a></span><span class="op">)</span>
+<span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span>
+  host <span class="op">=</span> <span class="st">"http://example.com:3939"</span>,
+  api_key <span class="op">=</span> <span class="st">"aihgaahegiahgg"</span>
+<span class="op">)</span></code></pre></div>
 <p>The alternative is to define a <code>.Renviron</code> file, which specifies environment variables:</p>
 <pre><code>CONNECT_SERVER=http://example.com:3939
 CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <p>Then, those can be used in your code:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">connectapi</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi">connectapi</a></span><span class="op">)</span>
 
 <span class="co"># this happens by default if you restart your R session</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readRenviron.html">readRenviron</a></span>(<span class="st">".Renviron"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/readRenviron.html">readRenviron</a></span><span class="op">(</span><span class="st">".Renviron"</span><span class="op">)</span>
 
-<span class="no">client</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span>()</pre></body></html></div>
+<span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="content-management" class="section level2">
 <h2 class="hasAnchor">
 <a href="#content-management" class="anchor"></a>Content Management</h2>
 <p>The <code>connectapi</code> package has tools to help programmatically deploy and manage content. To get started, you need to use the <code>rsconnect</code> package, specifically the <code><a href="https://rdrr.io/pkg/rsconnect/man/writeManifest.html">rsconnect::writeManifest()</a></code> function, to build a <code>manifest.json</code> file for a directory of content that you want to deploy.</p>
 <p>Once the <code>manifest.json</code> file is present, you can reference the directory and deploy it directly:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">bnd</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bundle_dir.html">bundle_dir</a></span>(<span class="st">"./my/directory"</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_dir.html">bundle_dir</a></span><span class="op">(</span><span class="st">"./my/directory"</span><span class="op">)</span>
 
 <span class="co"># name must be unique on the server</span>
 <span class="co"># if you do not specify it, a random value will be provided</span>
-<span class="no">content_1</span> <span class="kw">&lt;-</span> <span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/deploy.html">deploy</a></span>(<span class="no">bnd</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"my-content"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Amazing Report!!"</span>)</pre></body></html></div>
+<span class="va">content_1</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bnd</span>, name <span class="op">=</span> <span class="st">"my-content"</span>, title <span class="op">=</span> <span class="st">"Amazing Report!!"</span><span class="op">)</span></code></pre></div>
 <p>The content object (<code>content_1</code>) includes information about the deployment that you just requested. This can be explored with:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">content_1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">content_1</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Alternatively, you can immediately begin altering the settings of the content object while you wait for deployment to complete:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">content_1</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/set_image.html">set_image_url</a></span>(<span class="st">"https://gph.is/29vyb0s"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/set_vanity_url.html">set_vanity_url</a></span>(<span class="st">"/my_clever_content"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">content_1</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/set_image_path.html">set_image_url</a></span><span class="op">(</span><span class="st">"https://gph.is/29vyb0s"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/set_vanity_url.html">set_vanity_url</a></span><span class="op">(</span><span class="st">"/my_clever_content"</span><span class="op">)</span>
 
 <span class="co"># ensure the vanity URL is set as expected</span>
-<span class="no">content_1</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/get_vanity_url.html">get_vanity_url</a></span>()</pre></body></html></div>
+<span class="va">content_1</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/get_vanity_url.html">get_vanity_url</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you have content that already exists and you want to update it, you can do so using the content GUID (which you can find within RStudio Connect in the Info pane).</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">content_2</span> <span class="kw">&lt;-</span> <span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/deploy.html">deploy</a></span>(<span class="no">bnd</span>, <span class="kw">guid</span> <span class="kw">=</span> <span class="st">"d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">content_2</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bnd</span>, guid <span class="op">=</span> <span class="st">"d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You can also use the RStudio Connect content GUID to retrieve information about existing content (if you want to examine or change settings)</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">content_3</span> <span class="kw">&lt;-</span> <span class="no">client</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/content_item.html">content_item</a></span>(<span class="kw">guid</span> <span class="kw">=</span> <span class="st">"96532fbc-725e-441b-9cc6-a5622535241b"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">content_3</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/content_item.html">content_item</a></span><span class="op">(</span>guid <span class="op">=</span> <span class="st">"96532fbc-725e-441b-9cc6-a5622535241b"</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
@@ -168,7 +178,7 @@ CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

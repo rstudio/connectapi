@@ -82,7 +82,7 @@ piece of content." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9018</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@ piece of content." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -105,6 +105,9 @@ piece of content." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
       <a href="../articles/getting-started.html">Getting Started with connectapi</a>
     </li>
   </ul>
@@ -116,7 +119,7 @@ piece of content." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rstudio/connectapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,21 +137,25 @@ piece of content." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get ACL Details</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/acl.R'><code>R/acl.R</code></a></small>
     <div class="hidden name"><code>get_acl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a>
  Retrieve the Access Controls associated with a given
 piece of content.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_acl_user</span>(<span class='no'>content</span>)
+    <pre class="usage"><span class='fu'>get_acl_user</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
 
-<span class='fu'>get_acl_group</span>(<span class='no'>content</span>)
+<span class='fu'>get_acl_group</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
 
-<span class='fu'>get_acl</span>(<span class='no'>content</span>)</pre>
+<span class='fu'>get_acl</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
+
+<span class='fu'>get_acl_user_role</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>user_guid</span><span class='op'>)</span>
+
+<span class='fu'>get_acl_group_role</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>group_guid</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +163,15 @@ piece of content.</p>
     <tr>
       <th>content</th>
       <td><p><a href='Content.html'>Content</a> An R6 Content item as returned from <code><a href='content_item.html'>content_item()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>user_guid</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> A user guid. Get user guids using <code><a href='get_users.html'>get_users()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>group_guid</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> A group guid. Get group guids using
+<code><a href='get_groups.html'>get_groups()</a></code></p></td>
     </tr>
     </table>
 
@@ -169,24 +185,30 @@ piece of content.</p>
 have no effect.</p><ul>
 <li><p><code>get_acl_user()</code> returns user ACLs</p></li>
 <li><p><code>get_acl_group()</code> returns group ACLs</p></li>
+<li><p><code>get_acl_user_role()</code> returns the "role" for a particular user on a piece of content</p></li>
+<li><p><code>get_acl_group_role()</code> returns the "role" for a particular group on a piece of content</p></li>
 </ul>
 
 <p><code>get_acl()</code> is deprecated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other content functions: 
+<code><a href='acl_add_user.html'>acl_add_user</a>()</code>,
 <code><a href='content_item.html'>content_item</a>()</code>,
 <code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
 <code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
 <code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
-<code><a href='Environment.html'>get_environment</a>()</code>,
+<code><a href='get_bundles.html'>get_bundles</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
 <code><a href='get_image.html'>get_image</a>()</code>,
-<code><a href='jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
 <code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
-<code><a href='set_image.html'>set_image_path</a>()</code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
 <code><a href='set_run_as.html'>set_run_as</a>()</code>,
 <code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
-<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code></p></div>
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -203,7 +225,7 @@ have no effect.</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

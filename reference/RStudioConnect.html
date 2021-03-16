@@ -81,7 +81,7 @@ Class representing a Connect API client" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9018</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ Class representing a Connect API client" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,6 +104,9 @@ Class representing a Connect API client" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
       <a href="../articles/getting-started.html">Getting Started with connectapi</a>
     </li>
   </ul>
@@ -115,7 +118,7 @@ Class representing a Connect API client" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rstudio/connectapi/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,10 +152,11 @@ Class representing a Connect API client" />
     
 
 <pre>
-<span class='no'>client</span> <span class='kw'>&lt;-</span> <span class='no'>Connect</span>$<span class='fu'>new</span>(<span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>'connect.example.com'</span>,
-  <span class='kw'>apiKey</span> <span class='kw'>=</span> <span class='st'>'mysecretkey'</span>)
-<span class='no'>client</span>$<span class='fu'>get_apps</span>()
-<span class='no'>client</span>$<span class='fu'>get_tags</span>()</pre>
+<span class='va'>client</span> <span class='op'>&lt;-</span> <span class='va'>Connect</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>host <span class='op'>=</span> <span class='st'>'connect.example.com'</span>,
+  apiKey <span class='op'>=</span> <span class='st'>'mysecretkey'</span><span class='op'>)</span>
+<span class='va'>client</span><span class='op'>$</span><span class='fu'>get_apps</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>client</span><span class='op'>$</span><span class='fu'>get_tags</span><span class='op'>(</span><span class='op'>)</span>
+</pre>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -172,7 +176,7 @@ API. Authentication is done by providing an API key.</p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
-<h3>Public methods</h3>
+<h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
 <li><p><a href='#method-get_connect'><code>Connect$get_connect()</code></a></p></li>
@@ -187,17 +191,23 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href='#method-PUT'><code>Connect$PUT()</code></a></p></li>
 <li><p><a href='#method-HEAD'><code>Connect$HEAD()</code></a></p></li>
 <li><p><a href='#method-DELETE'><code>Connect$DELETE()</code></a></p></li>
+<li><p><a href='#method-PATCH'><code>Connect$PATCH()</code></a></p></li>
 <li><p><a href='#method-POST'><code>Connect$POST()</code></a></p></li>
 <li><p><a href='#method-me'><code>Connect$me()</code></a></p></li>
+<li><p><a href='#method-get_dashboard_url'><code>Connect$get_dashboard_url()</code></a></p></li>
 <li><p><a href='#method-get_tags'><code>Connect$get_tags()</code></a></p></li>
 <li><p><a href='#method-get_tag_id'><code>Connect$get_tag_id()</code></a></p></li>
 <li><p><a href='#method-get_tag_tree'><code>Connect$get_tag_tree()</code></a></p></li>
-<li><p><a href='#method-create_tag'><code>Connect$create_tag()</code></a></p></li>
+<li><p><a href='#method-tag_create_safe'><code>Connect$tag_create_safe()</code></a></p></li>
+<li><p><a href='#method-tag_create'><code>Connect$tag_create()</code></a></p></li>
+<li><p><a href='#method-tag'><code>Connect$tag()</code></a></p></li>
+<li><p><a href='#method-tag_delete'><code>Connect$tag_delete()</code></a></p></li>
 <li><p><a href='#method-get_n_apps'><code>Connect$get_n_apps()</code></a></p></li>
 <li><p><a href='#method-get_apps'><code>Connect$get_apps()</code></a></p></li>
 <li><p><a href='#method-get_schedule'><code>Connect$get_schedule()</code></a></p></li>
 <li><p><a href='#method-content_create'><code>Connect$content_create()</code></a></p></li>
 <li><p><a href='#method-download_bundle'><code>Connect$download_bundle()</code></a></p></li>
+<li><p><a href='#method-bundle_delete'><code>Connect$bundle_delete()</code></a></p></li>
 <li><p><a href='#method-content_upload'><code>Connect$content_upload()</code></a></p></li>
 <li><p><a href='#method-content_deploy'><code>Connect$content_deploy()</code></a></p></li>
 <li><p><a href='#method-content'><code>Connect$content()</code></a></p></li>
@@ -228,338 +238,374 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href='#method-clone'><code>Connect$clone()</code></a></p></li>
 </ul>
 <p><hr>
-<a id="method-get_connect"></a></p><h3>Method <code>get_connect()</code></h3>
+<a id="method-get_connect"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_connect()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_connect</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-new"></a></p><h3>Method <code>new()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>new</span>(<span class='no'>host</span>, <span class='no'>api_key</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_connect</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
+<a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>...</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-raise_error"></a></p><h3>Method <code>raise_error()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>raise_error</span>(<span class='no'>res</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>host</span>, <span class='va'>api_key</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-add_auth"></a></p><h3>Method <code>add_auth()</code></h3>
+<a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>add_auth</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-GET"></a></p><h3>Method <code>GET()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>GET</span>(<span class='no'>path</span>, <span class='kw'>writer</span> <span class='kw'>=</span> <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span>(), <span class='kw'>parser</span> <span class='kw'>=</span> <span class='st'>"parsed"</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-GET_RESULT"></a></p><h3>Method <code>GET_RESULT()</code></h3>
+<a id="method-raise_error"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>raise_error()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>GET_RESULT</span>(<span class='no'>path</span>, <span class='kw'>writer</span> <span class='kw'>=</span> <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span>())</pre><p></div></p>
-
-<p><hr>
-<a id="method-GET_URL"></a></p><h3>Method <code>GET_URL()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>GET_URL</span>(<span class='no'>url</span>, <span class='kw'>writer</span> <span class='kw'>=</span> <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span>(), <span class='kw'>parser</span> <span class='kw'>=</span> <span class='st'>"parsed"</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>raise_error</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-GET_RESULT_URL"></a></p><h3>Method <code>GET_RESULT_URL()</code></h3>
+<a id="method-add_auth"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>add_auth()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>GET_RESULT_URL</span>(<span class='no'>url</span>, <span class='kw'>writer</span> <span class='kw'>=</span> <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span>())</pre><p></div></p>
-
-<p><hr>
-<a id="method-PUT"></a></p><h3>Method <code>PUT()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>PUT</span>(<span class='no'>path</span>, <span class='no'>body</span>, <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"json"</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>add_auth</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-HEAD"></a></p><h3>Method <code>HEAD()</code></h3>
+<a id="method-GET"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>GET()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>HEAD</span>(<span class='no'>path</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-DELETE"></a></p><h3>Method <code>DELETE()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>DELETE</span>(<span class='no'>path</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>GET</span><span class='op'>(</span><span class='va'>path</span>, writer <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span><span class='op'>(</span><span class='op'>)</span>, parser <span class='op'>=</span> <span class='st'>"parsed"</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-POST"></a></p><h3>Method <code>POST()</code></h3>
+<a id="method-GET_RESULT"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>GET_RESULT()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>POST</span>(<span class='no'>path</span>, <span class='no'>body</span>, <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"json"</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"/__api__/"</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-me"></a></p><h3>Method <code>me()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>me</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>GET_RESULT</span><span class='op'>(</span><span class='va'>path</span>, writer <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-get_tags"></a></p><h3>Method <code>get_tags()</code></h3>
+<a id="method-GET_URL"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>GET_URL()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_tags</span>(<span class='kw'>use_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-get_tag_id"></a></p><h3>Method <code>get_tag_id()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_tag_id</span>(<span class='no'>tagname</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>GET_URL</span><span class='op'>(</span><span class='va'>url</span>, writer <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span><span class='op'>(</span><span class='op'>)</span>, parser <span class='op'>=</span> <span class='st'>"parsed"</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-get_tag_tree"></a></p><h3>Method <code>get_tag_tree()</code></h3>
+<a id="method-GET_RESULT_URL"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>GET_RESULT_URL()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_tag_tree</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-create_tag"></a></p><h3>Method <code>create_tag()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>create_tag</span>(<span class='no'>name</span>, <span class='kw'>parent_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>GET_RESULT_URL</span><span class='op'>(</span><span class='va'>url</span>, writer <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/write_disk.html'>write_memory</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-get_n_apps"></a></p><h3>Method <code>get_n_apps()</code></h3>
+<a id="method-PUT"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>PUT()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_n_apps</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-get_apps"></a></p><h3>Method <code>get_apps()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_apps</span>(<span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.collapse</span> <span class='kw'>=</span> <span class='st'>"&amp;"</span>, <span class='kw'>.limit</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>25</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>PUT</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>body</span>, encode <span class='op'>=</span> <span class='st'>"json"</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-get_schedule"></a></p><h3>Method <code>get_schedule()</code></h3>
+<a id="method-HEAD"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>HEAD()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>get_schedule</span>(<span class='no'>schedule_id</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-content_create"></a></p><h3>Method <code>content_create()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>content_create</span>(<span class='no'>name</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='no'>...</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>HEAD</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-download_bundle"></a></p><h3>Method <code><a href='download_bundle.html'>download_bundle()</a></code></h3>
+<a id="method-DELETE"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>DELETE()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='download_bundle.html'>download_bundle</a></span>(<span class='no'>bundle_id</span>, <span class='kw'>to_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>())</pre><p></div></p>
-
-<p><hr>
-<a id="method-content_upload"></a></p><h3>Method <code>content_upload()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>content_upload</span>(<span class='no'>bundle_path</span>, <span class='no'>guid</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>DELETE</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-content_deploy"></a></p><h3>Method <code>content_deploy()</code></h3>
+<a id="method-PATCH"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>PATCH()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>content_deploy</span>(<span class='no'>guid</span>, <span class='no'>bundle_id</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-content"></a></p><h3>Method <code>content()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>content</span>(<span class='no'>guid</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>PATCH</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>body</span>, encode <span class='op'>=</span> <span class='st'>"json"</span>, prefix <span class='op'>=</span> <span class='st'>"/__api__/"</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-task"></a></p><h3>Method <code>task()</code></h3>
+<a id="method-POST"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>POST()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>task</span>(<span class='no'>task_id</span>, <span class='kw'>first</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>wait</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-set_content_tag"></a></p><h3>Method <code>set_content_tag()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>set_content_tag</span>(<span class='no'>content_id</span>, <span class='no'>tag_id</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>POST</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>body</span>, encode <span class='op'>=</span> <span class='st'>"json"</span>, prefix <span class='op'>=</span> <span class='st'>"/__api__/"</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-user"></a></p><h3>Method <code>user()</code></h3>
+<a id="method-me"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>me()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>user</span>(<span class='no'>guid</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-users"></a></p><h3>Method <code>users()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users</span>(<span class='kw'>page_number</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>me</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-users_remote"></a></p><h3>Method <code>users_remote()</code></h3>
+<a id="method-get_dashboard_url"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_dashboard_url()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users_remote</span>(<span class='no'>prefix</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-users_create"></a></p><h3>Method <code>users_create()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users_create</span>(
-  <span class='no'>username</span>,
-  <span class='no'>email</span>,
-  <span class='kw'>first_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>last_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>user_must_set_password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>user_role</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>unique_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_dashboard_url</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-users_create_remote"></a></p><h3>Method <code><a href='users_create_remote.html'>users_create_remote()</a></code></h3>
+<a id="method-get_tags"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='get_tags.html'>get_tags()</a></code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='users_create_remote.html'>users_create_remote</a></span>(<span class='no'>temp_ticket</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-users_lock"></a></p><h3>Method <code>users_lock()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users_lock</span>(<span class='no'>user_guid</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_tags</span><span class='op'>(</span>use_cache <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-users_unlock"></a></p><h3>Method <code>users_unlock()</code></h3>
+<a id="method-get_tag_id"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_tag_id()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users_unlock</span>(<span class='no'>user_guid</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-users_update"></a></p><h3>Method <code>users_update()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>users_update</span>(<span class='no'>user_guid</span>, <span class='no'>...</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_tag_id</span><span class='op'>(</span><span class='va'>tagname</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-groups"></a></p><h3>Method <code>groups()</code></h3>
+<a id="method-get_tag_tree"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_tag_tree()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>groups</span>(<span class='kw'>page_number</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>page_size</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-group_members"></a></p><h3>Method <code>group_members()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>group_members</span>(<span class='no'>guid</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_tag_tree</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-group_member_add"></a></p><h3>Method <code>group_member_add()</code></h3>
+<a id="method-tag_create_safe"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>tag_create_safe()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>group_member_add</span>(<span class='no'>group_guid</span>, <span class='no'>user_guid</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-group_member_remove"></a></p><h3>Method <code>group_member_remove()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>group_member_remove</span>(<span class='no'>group_guid</span>, <span class='no'>user_guid</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>tag_create_safe</span><span class='op'>(</span><span class='va'>name</span>, parent_id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-groups_create"></a></p><h3>Method <code>groups_create()</code></h3>
+<a id="method-tag_create"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>tag_create()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>groups_create</span>(<span class='no'>name</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-groups_create_remote"></a></p><h3>Method <code><a href='groups_create_remote.html'>groups_create_remote()</a></code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'><a href='groups_create_remote.html'>groups_create_remote</a></span>(<span class='no'>temp_ticket</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>tag_create</span><span class='op'>(</span><span class='va'>name</span>, parent_id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-groups_remote"></a></p><h3>Method <code>groups_remote()</code></h3>
+<a id="method-tag"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>tag()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>groups_remote</span>(<span class='kw'>prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-inst_content_visits"></a></p><h3>Method <code>inst_content_visits()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>inst_content_visits</span>(
-  <span class='kw'>content_guid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_data_version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>previous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nxt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>asc_order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>tag</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-inst_shiny_usage"></a></p><h3>Method <code>inst_shiny_usage()</code></h3>
+<a id="method-tag_delete"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>tag_delete()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>inst_shiny_usage</span>(
-  <span class='kw'>content_guid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>min_data_version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>previous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nxt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>asc_order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>tag_delete</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-procs"></a></p><h3>Method <code>procs()</code></h3>
+<a id="method-get_n_apps"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_n_apps()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>procs</span>()</pre><p></div></p>
-
-<p><hr>
-<a id="method-docs"></a></p><h3>Method <code>docs()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>docs</span>(<span class='kw'>docs</span> <span class='kw'>=</span> <span class='st'>"api"</span>, <span class='kw'>browse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_n_apps</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-audit_logs"></a></p><h3>Method <code>audit_logs()</code></h3>
+<a id="method-get_apps"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_apps()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>audit_logs</span>(<span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20L</span>, <span class='kw'>previous</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nxt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>asc_order</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
-
-<p><hr>
-<a id="method-server_settings_r"></a></p><h3>Method <code>server_settings_r()</code></h3>
-
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>server_settings_r</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_apps</span><span class='op'>(</span>filter <span class='op'>=</span> <span class='cn'>NULL</span>, .collapse <span class='op'>=</span> <span class='st'>"&amp;"</span>, .limit <span class='op'>=</span> <span class='cn'>Inf</span>, page_size <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-server_settings"></a></p><h3>Method <code>server_settings()</code></h3>
+<a id="method-get_schedule"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_schedule()</code></h3>
 
-<h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>server_settings</span>()</pre><p></div></p>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>get_schedule</span><span class='op'>(</span><span class='va'>schedule_id</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
-<a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
-<p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre><span class='no'>Connect</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
+<a id="method-content_create"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>content_create()</code></h3>
 
-<h3>Arguments</h3>
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>content_create</span><span class='op'>(</span><span class='va'>name</span>, title <span class='op'>=</span> <span class='va'>name</span>, <span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-download_bundle"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='download_bundle.html'>download_bundle()</a></code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>download_bundle</span><span class='op'>(</span><span class='va'>bundle_id</span>, to_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-bundle_delete"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>bundle_delete()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>bundle_delete</span><span class='op'>(</span><span class='va'>bundle_id</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-content_upload"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>content_upload()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>content_upload</span><span class='op'>(</span><span class='va'>bundle_path</span>, <span class='va'>guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-content_deploy"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>content_deploy()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>content_deploy</span><span class='op'>(</span><span class='va'>guid</span>, <span class='va'>bundle_id</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-content"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>content()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>content</span><span class='op'>(</span><span class='va'>guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-task"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>task()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>task</span><span class='op'>(</span><span class='va'>task_id</span>, first <span class='op'>=</span> <span class='fl'>0</span>, wait <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-set_content_tag"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>set_content_tag()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>set_content_tag</span><span class='op'>(</span><span class='va'>content_id</span>, <span class='va'>tag_id</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-user"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>user()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>user</span><span class='op'>(</span><span class='va'>guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users</span><span class='op'>(</span>page_number <span class='op'>=</span> <span class='fl'>1</span>, prefix <span class='op'>=</span> <span class='cn'>NULL</span>, page_size <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_remote"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users_remote()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_remote</span><span class='op'>(</span><span class='va'>prefix</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_create"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users_create()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_create</span><span class='op'>(</span>
+  <span class='va'>username</span>,
+  <span class='va'>email</span>,
+  first_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  last_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  password <span class='op'>=</span> <span class='cn'>NULL</span>,
+  user_must_set_password <span class='op'>=</span> <span class='cn'>NULL</span>,
+  user_role <span class='op'>=</span> <span class='cn'>NULL</span>,
+  unique_id <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_create_remote"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='users_create_remote.html'>users_create_remote()</a></code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_create_remote</span><span class='op'>(</span><span class='va'>temp_ticket</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_lock"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users_lock()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_lock</span><span class='op'>(</span><span class='va'>user_guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_unlock"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users_unlock()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_unlock</span><span class='op'>(</span><span class='va'>user_guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-users_update"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>users_update()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>users_update</span><span class='op'>(</span><span class='va'>user_guid</span>, <span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-groups"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>groups()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>groups</span><span class='op'>(</span>page_number <span class='op'>=</span> <span class='fl'>1</span>, prefix <span class='op'>=</span> <span class='cn'>NULL</span>, page_size <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-group_members"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>group_members()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>group_members</span><span class='op'>(</span><span class='va'>guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-group_member_add"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>group_member_add()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>group_member_add</span><span class='op'>(</span><span class='va'>group_guid</span>, <span class='va'>user_guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-group_member_remove"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>group_member_remove()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>group_member_remove</span><span class='op'>(</span><span class='va'>group_guid</span>, <span class='va'>user_guid</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_create"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>groups_create()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>groups_create</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_create_remote"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='groups_create_remote.html'>groups_create_remote()</a></code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>groups_create_remote</span><span class='op'>(</span><span class='va'>temp_ticket</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-groups_remote"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>groups_remote()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>groups_remote</span><span class='op'>(</span>prefix <span class='op'>=</span> <span class='cn'>NULL</span>, limit <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-inst_content_visits"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>inst_content_visits()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>inst_content_visits</span><span class='op'>(</span>
+  content_guid <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_data_version <span class='op'>=</span> <span class='cn'>NULL</span>,
+  from <span class='op'>=</span> <span class='cn'>NULL</span>,
+  to <span class='op'>=</span> <span class='cn'>NULL</span>,
+  limit <span class='op'>=</span> <span class='fl'>20</span>,
+  previous <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nxt <span class='op'>=</span> <span class='cn'>NULL</span>,
+  asc_order <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-inst_shiny_usage"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>inst_shiny_usage()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>inst_shiny_usage</span><span class='op'>(</span>
+  content_guid <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_data_version <span class='op'>=</span> <span class='cn'>NULL</span>,
+  from <span class='op'>=</span> <span class='cn'>NULL</span>,
+  to <span class='op'>=</span> <span class='cn'>NULL</span>,
+  limit <span class='op'>=</span> <span class='fl'>20</span>,
+  previous <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nxt <span class='op'>=</span> <span class='cn'>NULL</span>,
+  asc_order <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-procs"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>procs()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>procs</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-docs"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>docs()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>docs</span><span class='op'>(</span>docs <span class='op'>=</span> <span class='st'>"api"</span>, browse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-audit_logs"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>audit_logs()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>audit_logs</span><span class='op'>(</span>limit <span class='op'>=</span> <span class='fl'>20L</span>, previous <span class='op'>=</span> <span class='cn'>NULL</span>, nxt <span class='op'>=</span> <span class='cn'>NULL</span>, asc_order <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-server_settings_r"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>server_settings_r()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>server_settings_r</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-server_settings"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>server_settings()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>server_settings</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
+<p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Connect</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
@@ -582,7 +628,7 @@ API. Authentication is done by providing an API key.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
