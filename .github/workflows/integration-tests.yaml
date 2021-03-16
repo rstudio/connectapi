@@ -3,7 +3,6 @@ on:
     branches:
       - master
       - main
-      - ci_refactoring
   pull_request:
     branches:
       - master
@@ -13,9 +12,8 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-2004
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_VERSION: 1.8.6.2
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
     steps:
