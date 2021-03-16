@@ -12,7 +12,7 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: ubuntu-2004
+    runs-on: ubuntu-latest
     env:
       RSC_VERSION: 1.8.6.2
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
