@@ -45,7 +45,7 @@ jobs:
 
       - name: Start Connect
         run: |
-          Rscript -e 'connectapi::build_test_env()'
+          Rscript -e 'connectapi:::build_test_env()'
 
       - name: Deploy package
         run: |
