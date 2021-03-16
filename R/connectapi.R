@@ -9,6 +9,7 @@ utils::globalVariables(
     "parse_connectapi_typed",
     "connectapi_ptypes",
     "validate_R6_class",
+    "scoped_experimental_silence",
     "warn_experimental"
   )
 )

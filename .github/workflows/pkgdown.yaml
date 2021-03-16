@@ -11,6 +11,8 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_VERSION: 1.8.6.2
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
     steps:
       - uses: actions/checkout@v2
 
@@ -40,6 +42,10 @@ jobs:
 
       - name: Install package
         run: R CMD INSTALL .
+
+      - name: Start Connect
+        run: |
+          Rscript -e 'connectapi:::build_test_env()'
 
       - name: Deploy package
         run: |
