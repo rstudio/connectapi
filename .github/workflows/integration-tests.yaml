@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+name: integration-tests
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    env:
+      RSC_VERSION: 1.8.6.2
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Make Test
+        run: make test
+
+      - name: Make Clean
+        run: make clean
