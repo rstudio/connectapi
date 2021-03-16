@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - master
       - pkgdown
 
 name: pkgdown
@@ -39,6 +38,9 @@ jobs:
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
+          ## manual deps that get missed
+          apt-get update && apt-get install -y libharfbuzz-dev libfribidi-dev
+
           while read -r cmd
           do
             eval sudo $cmd
