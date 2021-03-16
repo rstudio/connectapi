@@ -13,16 +13,16 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RSC_VERSION: 1.8.6
+      RSC_VERSION: 1.8.6.2
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
     steps:
       - uses: actions/checkout@v2
 
       - name: Make Test
         run: make test
-        
+
       - name: Make Clean
         run: make clean
