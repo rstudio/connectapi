@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9020</span>
       </span>
     </div>
 
@@ -215,6 +215,38 @@
 <span class="va">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_dashboard</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_solo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
+</div>
+<div id="troubleshooting-and-faq" class="section level2">
+<h2 class="hasAnchor">
+<a href="#troubleshooting-and-faq" class="anchor"></a>Troubleshooting and FAQ</h2>
+<p><strong>Access Denied Errors?</strong></p>
+<p>This is likely due to either (1) <code>Connect$host</code> or <code>Connect$api_key</code> being defined improperly or (2) you do no thave access to the RStudio Connect cluster to do the operation in question</p>
+<p><strong>Constant warning about version numbers</strong></p>
+<p>This warning is intentionally chatty. While version number mismatches between RStudio Connect and <code>connectapi</code> can be benign, we want you to be clear that <code>connectapi</code> is tightly coupled to a version of RStudio Connect (because RStudio Connect’s APIs change over time).</p>
+<p>We strive to:</p>
+<ul>
+<li>track the latest version of the RStudio Connect API</li>
+<li>add new features as they come available and have demand</li>
+<li>maintain backwards compatibility</li>
+</ul>
+<p>These priorities are sometimes at odds, and sometimes they create inconsistencies between versions as a result. To mitigate this, we recommend:</p>
+<ul>
+<li>Track the version of <code>connectapi</code> in use for your applications by using <code>renv</code>
+</li>
+<li>Test high value content that uses <code>connectapi</code> before updating <code>connectapi</code> or RStudio Connect</li>
+<li>Update RStudio Connect to the latest version <em>first</em> when an update to <code>connectapi</code> is needed</li>
+</ul>
+<p><strong>Error - Need to update RStudio Connect</strong></p>
+<p>As a helpful clarification for users, we have added error messages to API requests when the version implemented in the package specifically introduces a backwards incompatible dependency on older versions of RStudio Connect.</p>
+<p>If you get this error message, our recommendation would be:</p>
+<ul>
+<li>Look at <a href="./NEWS.html"><code>NEWS.md</code></a> to find the moment the change was introduced</li>
+<li>Downgrade <code>connectapi</code> to the previous version of the package</li>
+<li>(Advanced) Use the “blame” feature on GitHub to track commits and find out when the error was introduced</li>
+</ul>
+<p>Please feel free to open an Issue if you think there is a bug, or ask a free-form question on <a href="https://community.rstudio.com/c/r-admin/rstudio-connect/27">RStudio Community</a></p>
+<p><strong>Other ideas for FAQs or Common Issues?</strong></p>
+<p>Please submit a PR! We would love to have your contribution!</p>
 </div>
 </div>
 <div id="code-of-conduct" class="section level1">
