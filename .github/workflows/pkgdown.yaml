@@ -2,15 +2,18 @@ on:
   push:
     branches:
       - main
-      - master
+      - pkgdown
 
 name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: macOS-latest
+    runs-on: ubuntu-18.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_VERSION: 1.8.6.2
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
     steps:
       - uses: actions/checkout@v2
 
@@ -32,14 +35,30 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          ## manual deps that get missed
+          sudo apt-get update
+          sudo apt-get install -y libharfbuzz-dev libfribidi-dev
+
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "18.04"), sep = "\n")')
+
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          install.packages("pkgdown", type = "binary")
+          install.packages("pkgdown")
         shell: Rscript {0}
 
       - name: Install package
         run: R CMD INSTALL .
+
+      - name: Start Connect
+        run: |
+          Rscript -e 'connectapi:::build_test_env()'
 
       - name: Deploy package
         run: |

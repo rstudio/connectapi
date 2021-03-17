@@ -35,6 +35,9 @@ Connect <- R6::R6Class(
 
     initialize = function(host, api_key) {
       message(glue::glue("Defining Connect with host: {host}"))
+      if (is.null(httr::parse_url(host)$scheme)) {
+        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {host}"))
+      }
       self$host <- base::sub("^(.*)/$", "\\1", host)
       self$api_key <- api_key
     },
@@ -137,6 +140,18 @@ Connect <- R6::R6Class(
       )
       check_debug(req, res)
       return(res)
+    },
+
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/") {
+      req <- paste0(self$host, prefix, path)
+      res <- httr::PATCH(req,
+        self$add_auth(),
+        body = body,
+        encode = encode
+      )
+      self$raise_error(res)
+      check_debug(req, res)
+      httr::content(res, as = "parsed")
     },
 
     POST = function(path, body, encode = "json", prefix = "/__api__/") {
@@ -649,25 +664,9 @@ connect <- function(
   check_connect_license(con$host)
 
   # check Connect is accessible
-  srv <- tryCatch({
-      con$server_settings()
-    },
-    error = function(e) {
-      message(
-        glue::glue("Problem talking to RStudio Connect at {host}/__api__/server_settings")
-      )
-      stop(e)
-    }
-  )
+  srv <- safe_server_settings(con)
 
-  # validate version
-  if (is.null(srv$version)) {
-    message("Version information is not exposed by this RStudio Connect instance.")
-  } else if (nchar(srv$version) == 0) {
-    message("Version information is not exposed by this RStudio Connect instance.")
-  } else {
-    check_connect_version(using_version = srv$version)
-  }
+  check_connect_version(using_version = srv$version)
 
   con
 }

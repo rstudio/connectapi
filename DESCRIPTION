@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9017
+Version: 0.1.0.9020
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -51,7 +51,8 @@ Suggests:
     testthat,
     webshot,
     rsconnect,
-    covr
+    covr,
+    mockery
 VignetteBuilder:
     knitr
 RdMacros:

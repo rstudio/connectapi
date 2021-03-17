@@ -161,6 +161,61 @@ client_prod %>% browse_dashboard()
 client_prod %>% browse_solo()
 ```
 
+## Troubleshooting and FAQ
+
+**Access Denied Errors?**
+
+This is likely due to either (1) `Connect$host` or `Connect$api_key`
+being defined improperly or (2) you do no thave access to the RStudio
+Connect cluster to do the operation in question
+
+**Constant warning about version numbers**
+
+This warning is intentionally chatty. While version number mismatches
+between RStudio Connect and `connectapi` can be benign, we want you to
+be clear that `connectapi` is tightly coupled to a version of RStudio
+Connect (because RStudio Connect’s APIs change over time).
+
+We strive to:
+
+  - track the latest version of the RStudio Connect API
+  - add new features as they come available and have demand
+  - maintain backwards compatibility
+
+These priorities are sometimes at odds, and sometimes they create
+inconsistencies between versions as a result. To mitigate this, we
+recommend:
+
+  - Track the version of `connectapi` in use for your applications by
+    using `renv`
+  - Test high value content that uses `connectapi` before updating
+    `connectapi` or RStudio Connect
+  - Update RStudio Connect to the latest version *first* when an update
+    to `connectapi` is needed
+
+**Error - Need to update RStudio Connect**
+
+As a helpful clarification for users, we have added error messages to
+API requests when the version implemented in the package specifically
+introduces a backwards incompatible dependency on older versions of
+RStudio Connect.
+
+If you get this error message, our recommendation would be:
+
+  - Look at [`NEWS.md`](./NEWS.md) to find the moment the change was
+    introduced
+  - Downgrade `connectapi` to the previous version of the package
+  - (Advanced) Use the “blame” feature on GitHub to track commits and
+    find out when the error was introduced
+
+Please feel free to open an Issue if you think there is a bug, or ask a
+free-form question on [RStudio
+Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+
+**Other ideas for FAQs or Common Issues?**
+
+Please submit a PR\! We would love to have your contribution\!
+
 # Code of Conduct
 
 Please note that the `connectapi` project is released with a

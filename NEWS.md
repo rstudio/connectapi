@@ -1,5 +1,14 @@
 # connectapi (development version)
 
+# connectapi 0.1.0.9018
+
+- Add a `client$PATCH` verb
+- Switch `Content$update()` to use `PATCH` (which depends on RStudio Connect 1.8.6+)
+- Add error messaging for new API endpoints when using older versions of Connect
+- Fail more gracefully if/when protocol `http`/`https` is not defined
+
+# connectapi 0.1.0.9017
+
 BREAKING: 
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
 * Rename a handful of functions:

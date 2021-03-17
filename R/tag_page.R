@@ -28,6 +28,10 @@ tag_page <- function(connect,
 
   apps <- get_apps_by_tag(connect = connect, tag = tag)
 
+  if (!requireNamespace("flexdashboard", quietly = TRUE)) {
+    stop("ERROR: the `flexdashboard` package needs to be installed to use this function")
+  }
+
   if (is.null(description)) {
     description <- sprintf("Content on %s tagged with %s", connect$host, tag)
   }
@@ -112,6 +116,10 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
 #' @keywords internal
 tag_page_iframe <- function(connect, tag, metadata = NULL, quiet = FALSE) {
   warn_experimental("tag_page_iframe")
+
+  if (!requireNamespace("flexdashboard", quietly = TRUE)) {
+    stop("ERROR: the `flexdashboard` package needs to be installed to use this function")
+  }
 
   apps <- get_apps_by_tag(connect = connect, tag = tag)
 

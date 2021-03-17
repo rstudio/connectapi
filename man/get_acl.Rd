@@ -40,8 +40,10 @@ have no effect.
 \itemize{
 \item \code{get_acl_user()} returns user ACLs
 \item \code{get_acl_group()} returns group ACLs
-\item \code{get_acl_user_role()} returns the "role" for a particular user on a piece of content
-\item \code{get_acl_group_role()} returns the "role" for a particular group on a piece of content
+\item \code{get_acl_user_role()} returns the "role" for a
+particular user on a piece of content
+\item \code{get_acl_group_role()} returns the "role" for a
+particular group on a piece of content
 }
 
 \code{get_acl()} is deprecated.
