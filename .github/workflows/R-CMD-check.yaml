@@ -68,8 +68,8 @@ jobs:
       - name: Install missed sysdeps
         if: runner.os == 'Linux'
         run: |
-          apt update
-          apt install -y libicu-dev
+          sudo apt-get update
+          sudo apt-get install -y libicu-dev
 
       - name: Install dependencies
         run: |
