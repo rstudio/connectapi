@@ -71,8 +71,8 @@ jobs:
       - name: Test coverage
         id: coverage
         run: |
-          covr::codecov(quiet = FALSE)
           message(paste0("::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
+          covr::codecov(quiet = FALSE)
         shell: Rscript {0}
 
       - name: Archive tempdir artifacts
