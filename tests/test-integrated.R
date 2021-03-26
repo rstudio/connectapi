@@ -34,8 +34,8 @@ if (nchar(Sys.getenv("CONNECTAPI_INTEGRATED")) > 0) {
   }
 
 
-  env <- testthat:::test_pkg_env("connectapi")
-  test_dir(rprojroot::find_package_root_file("tests/integrated"), reporter = multi_reporter, env = env)
+  devtools::load_all(rprojroot::find_package_root_file())
+  test_dir(rprojroot::find_package_root_file("tests/integrated"), reporter = multi_reporter)
 } else {
   message("Not running integrated tests. Set environment variable CONNECTAPI_INTEGRATED=true to run integration tests")
 }
