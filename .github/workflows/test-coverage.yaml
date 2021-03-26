@@ -73,7 +73,7 @@ jobs:
         run: |
           system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("R_SESSION_TMPDIR")))
           tryCatch({
-            covr::codecov(quiet = FALSE)
+            covr::codecov(clean = FALSE, quiet = FALSE)
           }, error = function(e) {
             message(e)
           })
@@ -86,5 +86,4 @@ jobs:
         with:
           name: tmpdir artifacts
           path: |
-            ${{ steps.coverage.outputs.OUTDIR }}
             /tmp/outputs
