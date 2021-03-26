@@ -69,9 +69,10 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
+        id: coverage
         run: |
           covr::codecov(quiet = FALSE)
-          message(paste0("::set-env name=OUTDIR::", Sys.getenv("TMPDIR")))
+          message(paste0("::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
         shell: Rscript {0}
 
       - name: Archive tempdir artifacts
@@ -80,4 +81,4 @@ jobs:
         with:
           name: tmpdir artifacts
           path: |
-            ${OUTDIR}
+            ${{ steps.coverage.output.OUTDIR }}
