@@ -19,7 +19,10 @@ clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml"
     stderr = "|"
   )
   while (compose_down$is_alive()) Sys.sleep(0.05)
-  stopifnot(compose_down$get_exit_status() == 0)
+  if (compose_down$get_exit_status() != 0) {
+    message(paste(compose_down$read_all_error_lines(), collapse = "\n"))
+    stop("Error cleaning up docker-compose directory")
+  }
   cat_line("docker-compose: clean!")
   invisible()
 }
