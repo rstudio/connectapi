@@ -13,6 +13,8 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_VERSION: 1.8.6.2
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
     steps:
       - uses: actions/checkout@v2
 
@@ -40,6 +42,13 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Setup test environment
+        run: |
+          connectapi:::build_test_env()
 
       - name: Test coverage
         run: covr::codecov()
