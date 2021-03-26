@@ -85,4 +85,4 @@ jobs:
         with:
           name: tmpdir artifacts
           path: |
-            ${{ steps.coverage.output.OUTDIR }}
+            ${{ steps.coverage.outputs.OUTDIR }}
