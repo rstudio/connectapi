@@ -77,6 +77,7 @@ jobs:
           }, error = function(e) {
             message(e)
           })
+          fs::dir_copy(Sys.getenv("TMPDIR"), "/tmp/outputs")
         shell: Rscript {0}
 
       - name: Archive tempdir artifacts
@@ -86,4 +87,4 @@ jobs:
           name: tmpdir artifacts
           path: |
             ${{ steps.coverage.outputs.OUTDIR }}
-            /tmp/**/*Rout.fail
+            /tmp/outputs
