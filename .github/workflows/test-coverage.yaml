@@ -71,13 +71,13 @@ jobs:
       - name: Test coverage
         id: coverage
         run: |
-          system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
+          system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("R_SESSION_TMPDIR")))
           tryCatch({
             covr::codecov(quiet = FALSE)
           }, error = function(e) {
             message(e)
           })
-          fs::dir_copy(Sys.getenv("TMPDIR"), "/tmp/outputs")
+          fs::dir_copy(Sys.getenv("R_SESSION_TMPDIR"), "/tmp/outputs")
         shell: Rscript {0}
 
       - name: Archive tempdir artifacts
