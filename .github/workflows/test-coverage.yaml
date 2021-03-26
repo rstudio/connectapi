@@ -72,7 +72,11 @@ jobs:
         id: coverage
         run: |
           system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
-          covr::codecov(quiet = FALSE)
+          tryCatch({
+            covr::codecov(quiet = FALSE)
+          }, error = function(e) {
+            message(e)
+          })
         shell: Rscript {0}
 
       - name: Archive tempdir artifacts
