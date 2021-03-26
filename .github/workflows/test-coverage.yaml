@@ -71,7 +71,7 @@ jobs:
       - name: Test coverage
         id: coverage
         run: |
-          message(paste0("::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
+          system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("TMPDIR")))
           covr::codecov(quiet = FALSE)
         shell: Rscript {0}
 
