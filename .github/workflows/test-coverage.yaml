@@ -86,4 +86,4 @@ jobs:
           name: tmpdir artifacts
           path: |
             ${{ steps.coverage.outputs.OUTDIR }}
-            /tmp/Rtmp*
+            /tmp/**/*Rout.fail
