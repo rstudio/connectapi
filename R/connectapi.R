@@ -14,4 +14,4 @@ utils::globalVariables(
   )
 )
 
-current_connect_version <- "1.8.6"
+current_connect_version <- '1.8.8'
