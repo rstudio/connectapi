@@ -12,6 +12,7 @@ browseURL
 cloneable
 Codecov
 Connect's
+Connect’s
 ConnectionTimeout
 conns
 cpuCurrent
@@ -27,6 +28,7 @@ getShinyAppUsage
 getUsers
 guid
 GUID
+guids
 gz
 hostname
 https
@@ -38,6 +40,7 @@ InitTimeout
 JQuery
 JSON
 Jupyter
+Kerberos
 LDAP
 lifecycle
 Lifecycle
@@ -58,6 +61,7 @@ Rmarkdown
 rmd
 rstudio
 RunAs
+SPNEGO
 stderr
 stdout
 th

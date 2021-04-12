@@ -167,7 +167,7 @@ client_prod %>% browse_solo()
 **Access Denied Errors?**
 
 This is likely due to either (1) `Connect$host` or `Connect$api_key` being
-defined improperly or (2) you do no thave access to the RStudio Connect cluster
+defined improperly or (2) you do not have access to the RStudio Connect cluster
 to do the operation in question
 
 **Constant warning about version numbers**
