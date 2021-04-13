@@ -52,6 +52,9 @@ tag_page <- function(connect,
   rmarkdown::render(template,
     output_dir = out_dir,
     output_file = out_file,
+    output_options = list(
+      resources = dir
+    ),
     quiet = quiet
   )
 
