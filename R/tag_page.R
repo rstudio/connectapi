@@ -41,6 +41,8 @@ tag_page <- function(connect,
     stop(sprintf("Error creating directory for screenshots"))
   }
 
+  abs_dir <- normalizePath(dir)
+
   apps <- lapply(apps, function(a) {
     a$screenshot <- take_screenshot(a, tag, connect, screenshot = screenshot)
     a
@@ -53,7 +55,7 @@ tag_page <- function(connect,
     output_dir = out_dir,
     output_file = out_file,
     output_options = list(
-      resource_files = list(normalizePath(dir))
+      resource_files = list(abs_dir)
     ),
     quiet = quiet
   )
