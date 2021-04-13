@@ -53,7 +53,7 @@ tag_page <- function(connect,
     output_dir = out_dir,
     output_file = out_file,
     output_options = list(
-      resources = normalizePath(dir)
+      resource_files = list(normalizePath(dir))
     ),
     quiet = quiet
   )
