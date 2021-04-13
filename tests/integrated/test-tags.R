@@ -25,6 +25,8 @@ check_tag_exists <- function(con, id) {
   }
 }
 
+# Tests ---------------------------------------
+
 test_that("create tags works", {
   scoped_experimental_silence()
   parent_tag <<- test_conn_1$tag_create(parent_tag_name)
@@ -259,6 +261,8 @@ test_that("identical tag names are searched properly", {
   guids <- purrr::map_chr(res2, ~ .x$guid)
   expect_true(length(guids[guids == tag_content_guid]) == 1)
 })
+
+# Tag Page -------------------------------------
 
 context("tag_page")
 
