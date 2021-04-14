@@ -62,6 +62,7 @@ tag_page <- function(connect,
 }
 
 take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
+  message(glue::glue("Taking image {fname}"))
   fname <- sprintf("%s-screenshots/%s.png", tag, app$name)
   if (fs::file_exists(fname)) {
     message(glue::glue("{fname} already exists. Using cached file."))
@@ -75,6 +76,7 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
       cliprect = "viewport",
       key = connect$api_key
     )
+    message(glue::glue("File exists? {fs::file_exists(fname)}"))
   }
   fs::path_abs(fname)
 }
