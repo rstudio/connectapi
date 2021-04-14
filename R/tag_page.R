@@ -25,7 +25,6 @@ tag_page <- function(connect,
                      screenshot = FALSE,
                      quiet = FALSE) {
   warn_experimental("tag_page")
-  scoped_experimental_silence()
 
   apps <- get_apps_by_tag(connect = connect, tag = tag)
 
@@ -42,30 +41,24 @@ tag_page <- function(connect,
     stop(sprintf("Error creating directory for screenshots"))
   }
 
+  abs_dir <- normalizePath(dir)
+
   apps <- lapply(apps, function(a) {
     a$screenshot <- take_screenshot(a, tag, connect, screenshot = screenshot)
     a
   })
 
-  template_dir <- system.file("tag_page", package = "connectapi")
-  temp_dir <- fs::file_temp("tag_page")
-  dir.create(temp_dir)
-
-  # copy relevant input file and resources to working directory
-  template_files <- fs::dir_ls(template_dir)
-  fs::file_copy(template_files, temp_dir)
-  fs::dir_copy(dir, fs::path(temp_dir, fs::path_file(dir)))
-
+  template <- system.file("tag_page", "tag_page_template.Rmd", package = "connectapi")
   out_file <- sprintf("%s.html", tag)
   out_dir <- getwd()
-  rmarkdown::render(fs::path(temp_dir, "tag_page_template.Rmd"),
-    output_dir = temp_dir,
+  rmarkdown::render(template,
+    output_dir = out_dir,
     output_file = out_file,
+    output_options = list(
+      resource_files = list(abs_dir)
+    ),
     quiet = quiet
   )
-
-  # copy result to out directory
-  fs::file_copy(fs::path(temp_dir, out_file), out_dir, overwrite = TRUE)
 
   list(
     LANDING_PAGE = normalizePath(sprintf("%s/%s", out_dir, out_file)),
