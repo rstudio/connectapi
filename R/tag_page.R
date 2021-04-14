@@ -76,7 +76,7 @@ take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
       key = connect$api_key
     )
   }
-  fs::path_abs(fname)
+  fname
 }
 
 #' Tag Page iframe
