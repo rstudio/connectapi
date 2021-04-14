@@ -62,8 +62,8 @@ tag_page <- function(connect,
 }
 
 take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
-  message(glue::glue("Taking image {fname}"))
   fname <- sprintf("%s-screenshots/%s.png", tag, app$name)
+  message(glue::glue("Taking image {fname}"))
   if (fs::file_exists(fname)) {
     message(glue::glue("{fname} already exists. Using cached file."))
   } else if (!screenshot) {
