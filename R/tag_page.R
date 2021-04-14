@@ -62,6 +62,11 @@ tag_page <- function(connect,
 }
 
 take_screenshot <- function(app, tag, connect, screenshot = FALSE) {
+  if (!requireNamespace("webshot", quietly = TRUE)) {
+    stop("ERROR: the webshot package must be installed to use screenshots")
+  } else if (utils::packageDescription("webshot", fields = "GithubUsername") != "slopp") {
+    warn_once("WARNING: the webshot package should be installed from slopp/webshot with `remotes::install_github('slopp/webshot')`")
+  }
   fname <- sprintf("%s-screenshots/%s.png", tag, app$name)
   if (fs::file_exists(fname)) {
     message(glue::glue("{fname} already exists. Using cached file."))
