@@ -1,3 +1,6 @@
+# Today set to 100MB. Should see if we can get this from Connect
+max_bundle_size <- "100M"
+
 #' Bundle
 #'
 #' An R6 class that represents a bundle
@@ -8,14 +11,20 @@ Bundle <- R6::R6Class(
   "Bundle",
   public = list(
     path = NULL,
+    size = NULL,
 
     initialize = function(path) {
       self$path <- path
+      self$size <- fs::file_size(path = path)
+      if (self$size > fs::as_fs_bytes(max_bundle_size)) {
+        warn_once(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."), "bundle_size_max_limit")
+      }
     },
 
     print = function(...) {
       cat("RStudio Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
+      cat("  Size: ", capture.output(self$size), "\n", sep = "")
       cat("\n")
       cat('bundle_path("', self$path, '")', "\n", sep = "")
       cat("\n")
@@ -50,6 +59,7 @@ Task <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
