@@ -1,3 +1,5 @@
+# nocov start
+
 # TODO: A nicer way to execute these system commands...
 # - debug output... better error handling... etc.
 
@@ -283,3 +285,5 @@ HackyConnect <- R6::R6Class(
     }
   )
 )
+
+# nocov end
