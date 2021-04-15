@@ -130,7 +130,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 }
 
 check_bundle_contents <- function(dir) {
-  all_contents <- fs::dir_ls(dir)
+  all_contents <- fs::path_file(fs::dir_ls(dir))
   if (! "manifest.json" %in% all_contents) {
     stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
   }
