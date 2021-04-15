@@ -121,11 +121,25 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   on.exit(expr = setwd(before_wd), add = TRUE)
 
   message(glue::glue("Bundling directory {path}"))
+  check_bundle_contents(path)
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
   tar_path <- fs::path_abs(filename)
 
   Bundle$new(path = tar_path)
+}
+
+check_bundle_contents <- function(dir) {
+  all_contents <- fs::dir_ls(dir)
+  if (! "manifest.json" %in% all_contents) {
+    stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
+  }
+  if ("packrat.lock" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat.lock` file found in {dir}. This can have unexpected consequences."))
+  }
+  if ("packrat" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat` directory found in {dir}. This can have unexpected consequences"))
+  }
 }
 
 #' Define a bundle from a static file (or files)
@@ -156,7 +170,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   bundle_dir(tmpdir, filename = filename)
 }
 
-#' Define a bundle from a path (a tar.gz file)
+#' Define a bundle from a path (a path directly to a tar.gz file)
 #'
 #' @param path The path to a .tar.gz file
 #'
