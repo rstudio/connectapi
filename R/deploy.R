@@ -367,6 +367,8 @@ set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
+
+  check_webshot()
   webshot::webshot(content$get_content()$url,
     file = imgfile,
     vwidth = 800,
