@@ -16,8 +16,8 @@ Bundle <- R6::R6Class(
     initialize = function(path) {
       self$path <- path
       self$size <- fs::file_size(path = path)
-      if (self$size > fs::as_fs_bytes(max_bundle_size)) {
-        warn_once(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."), "bundle_size_max_limit")
+      if (fs::file_exists(path) && self$size > fs::as_fs_bytes(max_bundle_size)) {
+        warning(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."))
       }
     },
 
