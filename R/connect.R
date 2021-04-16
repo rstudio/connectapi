@@ -645,6 +645,9 @@ connect <- function(
   ) {
     stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
   }
+  if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
+    stop("ERROR: Invalid (empty) API key. Please provide a valid API key")
+  }
   con <- Connect$new(host = host, api_key = api_key)
 
   check_connect_license(con$host)
