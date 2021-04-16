@@ -101,7 +101,7 @@ usage_static <- get_usage_static(client)
 some_content <- get_content(client)
 
 # get all content
-all_content <- get_content(client, n = Inf)
+all_content <- get_content(client, limit = Inf)
 ```
 
 ### Deployment
