@@ -2,7 +2,7 @@
 % Please edit documentation in R/deploy.R
 \name{bundle_path}
 \alias{bundle_path}
-\title{Define a bundle from a path (a tar.gz file)}
+\title{Define a bundle from a path (a path directly to a tar.gz file)}
 \usage{
 bundle_path(path)
 }
@@ -13,7 +13,7 @@ bundle_path(path)
 Bundle A bundle object
 }
 \description{
-Define a bundle from a path (a tar.gz file)
+Define a bundle from a path (a path directly to a tar.gz file)
 }
 \seealso{
 Other deployment functions: 

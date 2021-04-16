@@ -1,3 +1,6 @@
+# Today set to 100MB. Should see if we can get this from Connect
+max_bundle_size <- "100M"
+
 #' Bundle
 #'
 #' An R6 class that represents a bundle
@@ -8,14 +11,20 @@ Bundle <- R6::R6Class(
   "Bundle",
   public = list(
     path = NULL,
+    size = NULL,
 
     initialize = function(path) {
       self$path <- path
+      self$size <- fs::file_size(path = path)
+      if (fs::file_exists(path) && self$size > fs::as_fs_bytes(max_bundle_size)) {
+        warning(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."))
+      }
     },
 
     print = function(...) {
       cat("RStudio Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
+      cat("  Size: ", capture.output(self$size), "\n", sep = "")
       cat("\n")
       cat('bundle_path("', self$path, '")', "\n", sep = "")
       cat("\n")
@@ -50,6 +59,7 @@ Task <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
@@ -111,11 +121,25 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   on.exit(expr = setwd(before_wd), add = TRUE)
 
   message(glue::glue("Bundling directory {path}"))
+  check_bundle_contents(path)
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
   tar_path <- fs::path_abs(filename)
 
   Bundle$new(path = tar_path)
+}
+
+check_bundle_contents <- function(dir) {
+  all_contents <- fs::path_file(fs::dir_ls(dir))
+  if (! "manifest.json" %in% all_contents) {
+    stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
+  }
+  if ("packrat.lock" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat.lock` file found in {dir}. This can have unexpected consequences."))
+  }
+  if ("packrat" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat` directory found in {dir}. This can have unexpected consequences"))
+  }
 }
 
 #' Define a bundle from a static file (or files)
@@ -146,7 +170,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   bundle_dir(tmpdir, filename = filename)
 }
 
-#' Define a bundle from a path (a tar.gz file)
+#' Define a bundle from a path (a path directly to a tar.gz file)
 #'
 #' @param path The path to a .tar.gz file
 #'
@@ -367,6 +391,8 @@ set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
+
+  check_webshot()
   webshot::webshot(content$get_content()$url,
     file = imgfile,
     vwidth = 800,
