@@ -1,5 +1,11 @@
 # connectapi (development version)
 
+- Improve several print methods
+([#18](https://github.com/rstudio/connectapi/issues/18),
+[#19](https://github.com/rstudio/connectapi/issues/19))
+- Protect against bad bundles
+([#13](https://github.com/rstudio/connectapi/issues/13))
+
 # connectapi 0.1.0.9018
 
 - Add a `client$PATCH` verb
