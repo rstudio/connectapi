@@ -42,8 +42,12 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 
   # TODO: why does vanities not work?
   urls <- get_field(apps, "url")
+  parse_server <- httr::parse_url(server_url)
+  if (is.null(parse_server$scheme)) {
+    stop(glue::glue("ERROR: protocol (i.e. http:// or https://) not defined on server_url={server_url}"))
+  }
   content <- sapply(urls, function(u) {
-    sub(server_url, "", u, fixed = )
+    trim_vanity(u, parse_server$path)
   })
 
   vanities <- content[!grepl("content/\\d+", content)]
@@ -54,6 +58,20 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
     )
   }
   vanities
+}
+
+trim_vanity <- function(url, server_path) {
+    parsed_url <- httr::parse_url(url)
+    if (nchar(server_path) > 0) {
+      # remove the trailing slash
+      server_path <- base::sub("^(.*)/$", "\\1", server_path)
+      vanity <- sub(server_path, "", parsed_url$path)
+    } else {
+      vanity <- parsed_url$path
+    }
+
+    # ensure leading and trailing slash
+    base::sub("^/?(.*[^/])/?$", "/\\1/", vanity)
 }
 
 
