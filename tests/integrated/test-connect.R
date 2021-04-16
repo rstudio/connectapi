@@ -33,3 +33,20 @@ test_that("connect fails for good server, bad api key", {
     )
   })
 })
+
+test_that("error if API key is empty", {
+  expect_error(
+    connect(host = Sys.getenv("TEST_1_SERVER"), api_key = ""),
+    "provide a valid API key"
+  )
+
+  expect_error(
+    connect(host = Sys.getenv("TEST_1_SERVER"), api_key = NA_character_),
+    "provide a valid API key"
+  )
+
+  expect_error(
+    connect(host = Sys.getenv("TEST_1_SERVER"), api_key = NULL),
+    "provide a valid API key"
+  )
+})
