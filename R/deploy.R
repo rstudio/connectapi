@@ -411,6 +411,7 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @param content A Content object
 #' @param url The path component of the URL
+#' @param force optional. Default FALSE. Whether to force-reassign a vanity URL that already exists
 #'
 #' @return An updated Content object
 #'
@@ -424,9 +425,10 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @family content functions
 #' @export
-set_vanity_url <- function(content, url) {
-  warn_experimental("set_vanity_url")
+set_vanity_url <- function(content, url, force = FALSE) {
   validate_R6_class(content, "Content")
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
   scoped_experimental_silence()
@@ -434,7 +436,6 @@ set_vanity_url <- function(content, url) {
 
   current_vanity <- get_vanity_url(content)
 
-  con <- content$get_connect()
 
   if (!inherits(current_vanity, "Vanity")) {
     # new
