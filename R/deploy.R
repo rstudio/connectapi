@@ -468,6 +468,23 @@ set_vanity_url <- function(content, url, force = FALSE) {
   van
 }
 
+#' Delete the Vanity URL
+#'
+#' Deletes the Vanity URL for a piece of content.
+#'
+#' @param content A Content object
+#'
+#' @family content functions
+#' @export
+delete_vanity_url <- function(content) {
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
+  guid <- content$get_content()$guid
+
+  con$DELETE(glue::glue("/v1/content/{guid}/vanity"))
+
+  content
+}
 
 #' Get the Vanity URL
 #'
@@ -478,15 +495,14 @@ set_vanity_url <- function(content, url, force = FALSE) {
 #' @family content functions
 #' @export
 get_vanity_url <- function(content) {
-  warn_experimental("get_vanity_url")
+  validate_R6_class(content, "Content")
   con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  res <- con$GET(glue::glue("/applications/{guid}"))
+  van <- con$GET(glue::glue("/v1/content/{guid}/vanity"))
 
-  # just grab the first?
-  van <- res$vanities[[1]]
-
+  # TODO: verify the shape of a "not defined vanity URL"
   if (is.null(van)) {
     content
   } else {
