@@ -325,14 +325,19 @@ content_title <- function(connect, guid, default = "Unknown Content") {
   return(content_title)
 }
 
-content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ...) {
+content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ..., .permitted = c("new", "existing")) {
   if (!is.null(guid)) {
     # guid-based deployment
     # just in case we get a 404 back...
-    content <- tryCatch(connect$content(guid = guid), error = function(e) {
-      return(NULL)
-    })
+    content <- tryCatch(
+      suppressMessages(connect$content(guid = guid)),
+      error = function(e) {
+        return(NULL)
+      })
     if (is.null(content)) {
+      if (!"new" %in% .permitted) {
+        stop(glue::glue("guid {guid} was not found on {connect$host}"))
+      }
       warning(glue::glue(
         "guid {guid} was not found on {connect$host}.",
         "Creating new content with name {name}"
@@ -353,23 +358,29 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
         ", content must have a unique name."
       ))
     } else if (length(content) == 0) {
+      if (!"new" %in% .permitted) {
+        stop(glue::glue("Content with name {name} was not found on {connect$host}"))
+      }
+      message(glue::glue(
+        "Creating NEW content {content$guid} ",
+        "with name {name} on {connect$host}"
+      ))
       # create app
       content <- connect$content_create(
         name = name,
         title = title,
         ...
       )
-      message(glue::glue(
-        "Creating NEW content {content$guid} ",
-        "with name {name} on {connect$host}"
-      ))
     } else {
       content <- content[[1]]
+      if (!"existing" %in% .permitted) {
+        stop(glue::glue("Content with name {name} already exists at {dashboard_url_chr(connect$host, content$guid)}"))
+      }
       message(glue::glue(
         "Found EXISTING content {content$guid} with ",
         "name {name} on {connect$host}"
       ))
-      # update values...? need a PUT endpoint
+      # TODO: update values...? need a PUT endpoint
     }
   }
   return(content)
