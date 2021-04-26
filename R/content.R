@@ -147,6 +147,23 @@ Content <- R6::R6Class(
       )
       invisible()
     },
+    deploy = function() {
+      self$get_connect()$POST(
+        glue::glue("applications/{self$get_content()$guid}/deploy"),
+        body = list()
+      )
+    },
+    repo_set = function(repository, branch, subdirectory) {
+      warn_experimental("repo_set")
+      self$get_connect()$POST(
+        glue::glue("applications/{self$get_content()$guid}/repo"),
+        body = list(
+          repository = repository,
+          branch = branch,
+          subdirectory = subdirectory
+        )
+      )
+    },
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
