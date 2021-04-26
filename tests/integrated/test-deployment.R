@@ -92,3 +92,22 @@ test_that("content_ensure works with name", {
   expect_identical(c_title, c_diff[["title"]])
   expect_identical(c_desc, c_diff[["description"]])
 })
+
+test_that("content_ensure fails when not permitted", {
+  permit_guid <- uuid::UUIDgenerate()
+  permit_name <- create_random_name()
+
+  # duplicates to ensure it does not create
+  expect_error(content_ensure(test_conn_1, guid = permit_guid, .permitted = c("existing")), "not found on")
+  expect_error(content_ensure(test_conn_1, guid = permit_guid, .permitted = c("existing")), "not found on")
+
+  # duplicates to ensure it does not create
+  expect_error(content_ensure(test_conn_1, name = permit_name, .permitted = c("existing")), "not found on")
+  expect_error(content_ensure(test_conn_1, name = permit_name, .permitted = c("existing")), "not found on")
+
+  # actually create
+  invisible(content_ensure(test_conn_1, name = permit_name))
+
+  # error because we expect new
+  expect_error(content_ensure(test_conn_1, name = permit_name, .permitted = c("new")), "already exists")
+})
