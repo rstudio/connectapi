@@ -575,6 +575,28 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    # repo ------------------------------------------------------
+
+    repo_account = function(host) {
+      warn_experimental("repo_account")
+      parsed_url <- httr::parse_url(host)
+      if (is.null(parsed_url$scheme) || is.null(parsed_url$hostname)) {
+        stop(glue::glue("Scheme and hostname must be provided (i.e. 'https://github.com'). You provided '{host}'"))
+      }
+      host <- glue::glue(parsed_ur$schemel, "://", parsed_url$hostname)
+      self$GET(glue::glue("repo/account?url={host}"))
+    },
+
+    repo_branches = function(repo) {
+      warn_experimental("repo_branches")
+      client$GET(glue::glue("repo/branches?url={repo}"))
+    },
+
+    repo_manifest_dirs = function(repo, branch) {
+      warn_experimental("repo_manifest_dirs")
+      client$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
+    },
+
     # misc utilities --------------------------------------------
 
     docs = function(docs = "api", browse = TRUE) {
