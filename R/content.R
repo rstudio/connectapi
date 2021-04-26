@@ -149,8 +149,8 @@ Content <- R6::R6Class(
     },
     deploy = function() {
       self$get_connect()$POST(
-        glue::glue("applications/{self$get_content()$guid}/deploy"),
-        body = list()
+        glue::glue("v1/experimental/content/{self$get_content()$guid}/deploy"),
+        body = "{}"
       )
     },
     repo_set = function(repository, branch, subdirectory) {
