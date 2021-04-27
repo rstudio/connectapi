@@ -255,6 +255,7 @@ get_group_members <- function(src, guid) {
 #'    administrators who cannot view the content but are permitted to view
 #'    its configuration. Computed at the time of the request.}
 #'    \item{\strong{id}}{The internal numeric identifier of this content item}
+#'  }
 #'
 #' @details
 #' Please see https://docs.rstudio.com/connect/api/#get-/v1/content for more information

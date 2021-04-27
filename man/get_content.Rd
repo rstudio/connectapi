@@ -7,6 +7,8 @@
 get_content(src, guid = NULL, owner_guid = NULL, name = NULL)
 }
 \arguments{
+\item{src}{A Connect object}
+
 \item{guid}{The guid for a particular content item}
 
 \item{owner_guid}{The unique identifier of the user who owns the content}
@@ -109,6 +111,7 @@ permitted to view the content. A none role is returned for
 administrators who cannot view the content but are permitted to view
 its configuration. Computed at the time of the request.}
 \item{\strong{id}}{The internal numeric identifier of this content item}
+}
 }
 \description{
 Get information about content on the RStudio Connect server
