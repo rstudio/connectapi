@@ -8,7 +8,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 [![CRAN
 status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
 [![Codecov test
-coverage](https://codecov.io/gh/rstudio/connectapi/branch/master/graph/badge.svg)](https://codecov.io/gh/rstudio/connectapi?branch=master)
+coverage](https://codecov.io/gh/rstudio/connectapi/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/connectapi?branch=main)
 [![R build
 status](https://github.com/rstudio/connectapi/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/connectapi/actions)
 <!-- badges: end -->
@@ -99,7 +99,7 @@ usage_static <- get_usage_static(client)
 some_content <- get_content(client)
 
 # get all content
-all_content <- get_content(client, n = Inf)
+all_content <- get_content(client, limit = Inf)
 ```
 
 ### Deployment

@@ -150,7 +150,7 @@ Content <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Content URL: ", self$get_content()$url, "\n", sep = "")
+      cat("  Content URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
       cat("\n")
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")

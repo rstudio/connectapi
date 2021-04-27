@@ -10,6 +10,7 @@ Bundle
 ----------------------------
 RStudio Connect Bundle: 
   Path: /test/path
+  Size: NA
 
 bundle_path("/test/path")
 
@@ -18,7 +19,7 @@ Content
 ----------------------------
 RStudio Connect Content: 
   Content GUID: content-guid
-  Content URL: http://content-url
+  Content URL: http://test_host/connect/#/apps/content-guid/
   Content Title: content-title
 
 content_item(client, guid = "content-guid")
@@ -28,6 +29,7 @@ Task
 ----------------------------
 RStudio Connect Task: 
   Content GUID: content-guid
+  URL: http://test_host/connect/#/apps/content-guid/
   Task ID: task-id
 
 ----------------------------
