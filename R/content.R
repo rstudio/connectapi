@@ -59,7 +59,7 @@ Content <- R6::R6Class(
       return(res)
     },
     get_url = function() {
-      self$get_content()$url
+      self$get_content()$content_url
     },
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
