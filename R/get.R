@@ -274,17 +274,17 @@ get_group_members <- function(src, guid) {
 #' library(connectapi)
 #' client <- connect()
 #'
-#' get_content(client, limit = 20)
+#' get_content_old(client, limit = 20)
 #' }
 #'
 #' @export
-get_content <- function(src, filter = NULL, limit = 25, page_size = 25) {
+get_content_old <- function(src, filter = NULL, limit = 25, page_size = 25) {
   validate_R6_class(src, "Connect")
 
-  warn_experimental("get_content")
+  lifecycle::deprecate_warn("0.1.0.9023", "get_content_old()", "get_content()", details = "The filter argument is deprecated and the structure of the response has changed with the public API")
 
   ## TODO Add more arguments that can build the filter function for users
-  ## so that they know explicitely what arguments that can pass
+  ## so that they know explicitly what arguments that can pass
 
   res <- src$get_apps(
     filter = filter,
@@ -292,7 +292,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25) {
     page_size = page_size
   )
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content_old)
 
   return(out)
 }
