@@ -336,8 +336,15 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    content = function(guid) {
-      path <- sprintf("v1/experimental/content/%s", guid)
+    content = function(guid = NULL, owner_guid = NULL, name = NULL) {
+      if (!is.null(guid)) {
+        path <- glue::glue("v1/content/{guid}")
+      } else {
+        filter_args <- list(owner_guid = owner_guid, name = name)
+        path <- glue::glue(
+          "v1/content{query_args(!!!filter_args)}"
+        )
+      }
       res <- self$GET(path)
       return(res)
     },
