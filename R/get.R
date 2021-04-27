@@ -154,6 +154,7 @@ get_group_members <- function(src, guid) {
 
 #' Get information about content on the RStudio Connect server
 #'
+#' @param src A Connect object
 #' @param guid The guid for a particular content item
 #' @param owner_guid The unique identifier of the user who owns the content
 #' @param name The content name specified when the content was created
