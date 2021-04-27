@@ -114,6 +114,33 @@ Content <- R6::R6Class(
       url <- glue::glue("applications/{self$get_content()$guid}/tags")
       self$get_connect()$GET(url)
     },
+    permissions_add = function(principal_guid, principal_type, role) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+      self$get_connect()$POST(url, body = list(
+        principal_guid = principal_guid,
+        principal_type = principal_type,
+        role = role
+      ))
+    },
+    permissions_update = function(id, principal_guid, principal_type, role) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      self$get_connect()$PUT(url, body = list(
+        principal_guid = principal_guid,
+        principal_type = principal_type,
+        role = role
+      ))
+    },
+    permissions_delete = function(id) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      self$get_connect()$DELETE(url)
+    },
+    permissions = function(id = NULL) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+      if (!is.null(id)) {
+        url <- glue::glue("{url}/{id}")
+      }
+      self$get_connect()$GET(url)
+    },
     environment = function() {
       warn_experimental("environment")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
