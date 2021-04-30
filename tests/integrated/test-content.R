@@ -638,6 +638,7 @@ test_that("acl_remove_self works", {
 
 # ACLs - Groups ---------------------------------------------------
 
+# TODO: Beware... this state can get muddy if the content has been modified
 test_that("acl_add_group works", {
   scoped_experimental_silence()
   grp <- test_conn_1$groups_create(name = create_random_name())
@@ -670,3 +671,4 @@ test_that("get_acl_group_role with no role returns NULL", {
   acl_remove_user(cont1_content, viewer_guid)
   expect_null(get_acl_group_role(cont1_content, viewer_guid))
 })
+
