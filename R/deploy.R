@@ -120,8 +120,8 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
 
-  message(glue::glue("Bundling directory {path}"))
-  check_bundle_contents(path)
+  message(glue::glue("Bundling current directory ({path})"))
+  check_bundle_contents(".")
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
   tar_path <- fs::path_abs(filename)
