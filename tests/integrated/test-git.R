@@ -10,16 +10,17 @@ cont1_guid <- NULL
 cont1_bundle <- NULL
 
 test_that("git deployment works", {
+  scoped_experimental_silence()
   cont0 <- deploy_repo(test_conn_1, "https://github.com/colearendt/shiny-shell", "master", ".")
   expect_true(validate_R6_class(cont0, "Content"))
-  expect_true(validate_R6_class(cont0, "Task"))
+  expect_true(validate_R6_class(cont0, "ContentTask"))
 
   cont1 <- deploy_repo(test_conn_1, "https://github.com/colearendt/shiny-shell", "master", ".", cont1_name, cont1_title)
   expect_true(validate_R6_class(cont1, "Content"))
-  expect_true(validate_R6_class(cont1, "Task"))
+  expect_true(validate_R6_class(cont1, "ContentTask"))
 
   deploy_again <- deploy_current(cont1)
   expect_true(validate_R6_class(deploy_again, "Content"))
-  expect_true(validate_R6_class(deploy_again, "Task"))
+  expect_true(validate_R6_class(deploy_again, "ContentTask"))
 })
 
