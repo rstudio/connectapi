@@ -443,7 +443,7 @@ get_job <- function(content, key) {
 #'
 #' @return a Content object, updated with new details
 #'
-#' @seealso get_content
+#' @seealso connectapi::get_content
 #'
 #' @family content functions
 #' @export
