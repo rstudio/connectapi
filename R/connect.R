@@ -583,7 +583,7 @@ Connect <- R6::R6Class(
       if (is.null(parsed_url$scheme) || is.null(parsed_url$hostname)) {
         stop(glue::glue("Scheme and hostname must be provided (i.e. 'https://github.com'). You provided '{host}'"))
       }
-      host <- glue::glue(parsed_ur$schemel, "://", parsed_url$hostname)
+      host <- glue::glue(parsed_url$scheme, "://", parsed_url$hostname)
       self$GET(glue::glue("repo/account?url={host}"))
     },
 
