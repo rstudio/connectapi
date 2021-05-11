@@ -14,6 +14,7 @@
 #' @param branch The git branch to explore for subdirectories
 #'
 #' @rdname git
+#' @name git
 #' @seealso connectapi::deploy_repo
 #' @family content functions
 #' @export
