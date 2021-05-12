@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bundle — Bundle • connectapi</title>
+<title>ContentTask — ContentTask • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Bundle — Bundle" />
-<meta property="og:description" content="An R6 class that represents a bundle" />
+<meta property="og:title" content="ContentTask — ContentTask" />
+<meta property="og:description" content="An R6 class that represents a Task for a piece of Content" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -134,13 +134,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bundle</h1>
+    <h1>ContentTask</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/deploy.R'><code>R/deploy.R</code></a></small>
-    <div class="hidden name"><code>Bundle.Rd</code></div>
+    <div class="hidden name"><code>ContentTask.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An R6 class that represents a bundle</p>
+    <p>An R6 class that represents a Task for a piece of Content</p>
     </div>
 
 
@@ -148,38 +148,87 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other R6 classes: 
-<code><a href='ContentTask.html'>ContentTask</a></code>,
+<code><a href='Bundle.html'>Bundle</a></code>,
 <code><a href='Content.html'>Content</a></code>,
 <code><a href='RStudioConnect.html'>RStudioConnect</a></code>,
 <code><a href='Task.html'>Task</a></code>,
 <code><a href='Vanity.html'>Vanity</a></code>,
 <code><a href='VariantTask.html'>VariantTask</a></code></p></div>
+    <h2 class="hasAnchor" id="super-class"><a class="anchor" href="#super-class"></a>Super class</h2>
+
+    <p><code><a href='Content.html'>connectapi::Content</a></code> -&gt; <code>ContentTask</code></p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
     
 <h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Public methods</h3>
 
 <ul>
-<li><p><a href='#method-new'><code>Bundle$new()</code></a></p></li>
-<li><p><a href='#method-print'><code>Bundle$print()</code></a></p></li>
-<li><p><a href='#method-clone'><code>Bundle$clone()</code></a></p></li>
+<li><p><a href='#method-new'><code>ContentTask$new()</code></a></p></li>
+<li><p><a href='#method-get_task'><code>ContentTask$get_task()</code></a></p></li>
+<li><p><a href='#method-add_data'><code>ContentTask$add_data()</code></a></p></li>
+<li><p><a href='#method-get_data'><code>ContentTask$get_data()</code></a></p></li>
+<li><p><a href='#method-print'><code>ContentTask$print()</code></a></p></li>
+<li><p><a href='#method-clone'><code>ContentTask$clone()</code></a></p></li>
 </ul>
-<p><hr>
+<p><details ><summary>Inherited methods</summary>
+<ul>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-deploy'><code>connectapi::Content$deploy()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment"><a href='../../connectapi/html/Content.html#method-environment'><code>connectapi::Content$environment()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set"><a href='../../connectapi/html/Content.html#method-environment_set'><code>connectapi::Content$environment_set()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-get_bundles'><code>connectapi::Content$get_bundles()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect"><a href='../../connectapi/html/Content.html#method-get_connect'><code>connectapi::Content$get_connect()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content"><a href='../../connectapi/html/Content.html#method-get_content'><code>connectapi::Content$get_content()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url"><a href='../../connectapi/html/Content.html#method-get_dashboard_url'><code>connectapi::Content$get_dashboard_url()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job"><a href='../../connectapi/html/Content.html#method-get_job'><code>connectapi::Content$get_job()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs"><a href='../../connectapi/html/Content.html#method-get_jobs'><code>connectapi::Content$get_jobs()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url"><a href='../../connectapi/html/Content.html#method-get_url'><code>connectapi::Content$get_url()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job"><a href='../../connectapi/html/Content.html#method-job'><code>connectapi::Content$job()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs"><a href='../../connectapi/html/Content.html#method-jobs'><code>connectapi::Content$jobs()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-repo_set'><code>connectapi::Content$repo_set()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas"><a href='../../connectapi/html/Content.html#method-runas'><code>connectapi::Content$runas()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-tag_set'><code>connectapi::Content$tag_set()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-tags'><code>connectapi::Content$tags()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-update'><code>connectapi::Content$update()</code></a></span></p></li>
+<li><p><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-variants'><code>connectapi::Content$variants()</code></a></span></p></li>
+</ul>
+</details>
+
+<hr>
 <a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>Bundle</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span><span class='va'>connect</span>, <span class='va'>content</span>, <span class='va'>task</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-get_task"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_task()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>get_task</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-add_data"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>add_data()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>add_data</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-get_data"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>get_data()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>get_data</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
 <a id="method-print"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>Bundle</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>Bundle</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>ContentTask</span><span class='op'>$</span><span class='fu'>clone</span><span class='op'>(</span>deep <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>

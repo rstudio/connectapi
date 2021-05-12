@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9022</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9023</span>
       </span>
     </div>
 
@@ -137,8 +137,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree_project_1</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
-##   RStudio Connect Server: http://localhost:49153
-##   RStudio Connect API Key: ***********oxC4</code></pre>
+##   RStudio Connect Server: http://localhost:49154
+##   RStudio Connect API Key: ***********IDg8</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span>
 
@@ -149,8 +149,8 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree_project_2</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
-##   RStudio Connect Server: http://localhost:49153
-##   RStudio Connect API Key: ***********oxC4</code></pre>
+##   RStudio Connect Server: http://localhost:49154
+##   RStudio Connect API Key: ***********IDg8</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (filtered)
@@ -177,17 +177,17 @@
 <p>In order to show how tags work, we need some content to work with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Bundling directory /tmp/RtmpCjtzfr/bundledir4b0f35df12be</code></pre>
+<pre><code>## Bundling directory /tmp/RtmpUD21TG/bundledir49f47c47213b</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></code></pre></div>
 <pre><code>## Getting content endpoint</code></pre>
-<pre><code>## Creating NEW content 1bc6fe65-1a58-4810-82b2-23d0f0479af4 with name rpxuswspipvmaahukxzodecwp on http://localhost:49153</code></pre>
+<pre><code>## </code></pre>
 <pre><code>## Uploading bundle</code></pre>
 <pre><code>## Deploying bundle</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></code></pre></div>
 <pre><code>## Getting content endpoint</code></pre>
-<pre><code>## Creating NEW content 49878f23-6c6a-4946-b706-3251680001a4 with name ljwjsyrasizmtgqhmzwhrstsl on http://localhost:49153</code></pre>
+<pre><code>## </code></pre>
 <pre><code>## Uploading bundle</code></pre>
 <pre><code>## Deploying bundle</code></pre>
 <div id="set-tags" class="section level2">
@@ -201,10 +201,10 @@
 <pre><code>## RStudio Connect Tag Tree (content)
 ## └── DemoProject
 ##    └── project_1</code></pre>
-<pre><code>## RStudio Connect Task: 
-##   Content GUID: 1bc6fe65-1a58-4810-82b2-23d0f0479af4
-##   URL: http://localhost:49153/connect/#/apps/1bc6fe65-1a58-4810-82b2-23d0f0479af4/
-##   Task ID: LMdjBHl7C4NVf6l8</code></pre>
+<pre><code>## RStudio Connect Content Task: 
+##   Content GUID: c19e9501-f05e-4aab-8f9a-a56732514364
+##   URL: http://localhost:49154/connect/#/apps/c19e9501-f05e-4aab-8f9a-a56732514364/
+##   Task ID: pv4sKXYukVSHRYRX</code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (content)
@@ -212,10 +212,10 @@
 ## │   └── project_1
 ## └── DemoAudience
 ##    └── Sales</code></pre>
-<pre><code>## RStudio Connect Task: 
-##   Content GUID: 1bc6fe65-1a58-4810-82b2-23d0f0479af4
-##   URL: http://localhost:49153/connect/#/apps/1bc6fe65-1a58-4810-82b2-23d0f0479af4/
-##   Task ID: LMdjBHl7C4NVf6l8</code></pre>
+<pre><code>## RStudio Connect Content Task: 
+##   Content GUID: c19e9501-f05e-4aab-8f9a-a56732514364
+##   URL: http://localhost:49154/connect/#/apps/c19e9501-f05e-4aab-8f9a-a56732514364/
+##   Task ID: pv4sKXYukVSHRYRX</code></pre>
 <p>Content 2 is for <code>project_2</code> and both Audiences (<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span>
@@ -230,10 +230,10 @@
 ## └── DemoAudience
 ##    ├── Sales
 ##    └── Finance</code></pre>
-<pre><code>## RStudio Connect Task: 
-##   Content GUID: 49878f23-6c6a-4946-b706-3251680001a4
-##   URL: http://localhost:49153/connect/#/apps/49878f23-6c6a-4946-b706-3251680001a4/
-##   Task ID: vODxCFJIx24oTZKn</code></pre>
+<pre><code>## RStudio Connect Content Task: 
+##   Content GUID: 4bd64f72-6cc3-484d-be6e-628850deae5b
+##   URL: http://localhost:49154/connect/#/apps/4bd64f72-6cc3-484d-be6e-628850deae5b/
+##   Task ID: MbB6qfIfoZKFlDye</code></pre>
 </div>
 <div id="see-the-tags-associated-with-content" class="section level2">
 <h2 class="hasAnchor">
@@ -267,8 +267,8 @@
 <pre><code>## # A tibble: 2 x 36
 ##      id guid              access_type connection_time… read_timeout init_timeout
 ##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     2 49878f23-6c6a-49… acl                       NA           NA           NA
-## 2     1 1bc6fe65-1a58-48… acl                       NA           NA           NA
+## 1     2 4bd64f72-6cc3-48… acl                       NA           NA           NA
+## 2     1 c19e9501-f05e-4a… acl                       NA           NA           NA
 ## # … with 30 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
 ## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
 ## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
@@ -284,7 +284,7 @@
 <pre><code>## # A tibble: 1 x 36
 ##      id guid              access_type connection_time… read_timeout init_timeout
 ##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     1 1bc6fe65-1a58-48… acl                       NA           NA           NA
+## 1     1 c19e9501-f05e-4a… acl                       NA           NA           NA
 ## # … with 30 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
 ## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
 ## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
@@ -322,13 +322,13 @@
 <span class="va">latest_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
-##   RStudio Connect Server: http://localhost:49153
-##   RStudio Connect API Key: ***********oxC4</code></pre>
+##   RStudio Connect Server: http://localhost:49154
+##   RStudio Connect API Key: ***********IDg8</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
-##   RStudio Connect Server: http://localhost:49153
-##   RStudio Connect API Key: ***********oxC4</code></pre>
+##   RStudio Connect Server: http://localhost:49154
+##   RStudio Connect API Key: ***********IDg8</code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: delete content</span></code></pre></div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get group information from the RStudio Connect server — get_groups • connectapi</title>
+<title>Deploy a Git Repository — deploy_repo • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="Get group information from the RStudio Connect server — get_groups" />
-<meta property="og:description" content="Get group information from the RStudio Connect server" />
+<meta property="og:title" content="Deploy a Git Repository — deploy_repo" />
+<meta property="og:description" content="
+ Deploy a git repository directly to RStudio Connect,
+using RStudio Connect's &quot;pull-based&quot; &quot;git-polling&quot; method of deployment." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -134,63 +136,86 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get group information from the RStudio Connect server</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/get.R'><code>R/get.R</code></a></small>
-    <div class="hidden name"><code>get_groups.Rd</code></div>
+    <h1>Deploy a Git Repository</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/git.R'><code>R/git.R</code></a></small>
+    <div class="hidden name"><code>deploy_repo.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get group information from the RStudio Connect server</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a>
+ Deploy a git repository directly to RStudio Connect,
+using RStudio Connect's "pull-based" "git-polling" method of deployment.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_groups</span><span class='op'>(</span><span class='va'>src</span>, page_size <span class='op'>=</span> <span class='fl'>20</span>, prefix <span class='op'>=</span> <span class='cn'>NULL</span>, limit <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>deploy_repo</span><span class='op'>(</span>
+  <span class='va'>client</span>,
+  <span class='va'>repository</span>,
+  <span class='va'>branch</span>,
+  <span class='va'>subdirectory</span>,
+  name <span class='op'>=</span> <span class='fu'><a href='create_random_name.html'>create_random_name</a></span><span class='op'>(</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='va'>name</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>src</th>
-      <td><p>The source object</p></td>
+      <th>client</th>
+      <td><p>A Connect R6 object</p></td>
     </tr>
     <tr>
-      <th>page_size</th>
-      <td><p>the number of records to return per page (max 500)</p></td>
+      <th>repository</th>
+      <td><p>The git repository to deploy</p></td>
     </tr>
     <tr>
-      <th>prefix</th>
-      <td><p>Filters groups by prefix (group name).
-The filter is case insensitive.</p></td>
+      <th>branch</th>
+      <td><p>The git branch to deploy</p></td>
     </tr>
     <tr>
-      <th>limit</th>
-      <td><p>The max number of groups to return</p></td>
+      <th>subdirectory</th>
+      <td><p>The subdirectory to deploy (must contain a <code>manifest.json</code>)</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>The "name" / unique identifier for the content. Defaults to a random character string</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>The "title" of the content</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional options for defining / specifying content attributes</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble with the following columns:</p><ul>
-<li><p><strong>guid</strong>The unique identifier of the group</p></li>
-<li><p><strong>name</strong>The group name</p></li>
-<li><p><strong>owner_guid</strong>The group owner's unique identifier.
-When using LDAP, or Proxied authentication with group provisioning
-enabled this property will always be null.</p></li>
-</ul>
+    <p>A ContentTask object, for use with <code><a href='poll_task.html'>poll_task()</a></code> (if you want to follow the logs)</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <div class='dont-index'><p>connectapi::poll_task, connectapi::repo_check_branches, connectapi::repo_check_manifest_dirs</p>
+<p>Other content functions: 
+<code><a href='acl_add_user.html'>acl_add_user</a>()</code>,
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
+<code><a href='get_bundles.html'>get_bundles</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='git.html'>git</a></code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
+<code><a href='set_run_as.html'>set_run_as</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p></div>
 
-    <p>Please see https://docs.rstudio.com/connect/api/#getGroups for more information</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/connectapi'>connectapi</a></span><span class='op'>)</span>
-<span class='va'>client</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># get all groups</span>
-<span class='fu'>get_groups</span><span class='op'>(</span><span class='va'>client</span>, limit <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
