@@ -138,7 +138,7 @@
 <code class="sourceCode R"><span class="va">tree_project_1</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********IDg8</code></pre>
+##   RStudio Connect API Key: ***********RsUj</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span>
 
@@ -150,7 +150,7 @@
 <code class="sourceCode R"><span class="va">tree_project_2</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********IDg8</code></pre>
+##   RStudio Connect API Key: ***********RsUj</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (filtered)
@@ -177,7 +177,7 @@
 <p>In order to show how tags work, we need some content to work with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Bundling directory /tmp/RtmpUD21TG/bundledir49f47c47213b</code></pre>
+<pre><code>## Bundling directory /tmp/RtmphUw9Wl/bundledir3f117faea6da</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></code></pre></div>
 <pre><code>## Getting content endpoint</code></pre>
@@ -202,9 +202,9 @@
 ## └── DemoProject
 ##    └── project_1</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: c19e9501-f05e-4aab-8f9a-a56732514364
-##   URL: http://localhost:49154/connect/#/apps/c19e9501-f05e-4aab-8f9a-a56732514364/
-##   Task ID: pv4sKXYukVSHRYRX</code></pre>
+##   Content GUID: e0bbcf44-c4ca-40a5-8119-b1a996d2eb03
+##   URL: http://localhost:49154/connect/#/apps/e0bbcf44-c4ca-40a5-8119-b1a996d2eb03/
+##   Task ID: xMm5XmTHr0LnnsCK</code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (content)
@@ -213,9 +213,9 @@
 ## └── DemoAudience
 ##    └── Sales</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: c19e9501-f05e-4aab-8f9a-a56732514364
-##   URL: http://localhost:49154/connect/#/apps/c19e9501-f05e-4aab-8f9a-a56732514364/
-##   Task ID: pv4sKXYukVSHRYRX</code></pre>
+##   Content GUID: e0bbcf44-c4ca-40a5-8119-b1a996d2eb03
+##   URL: http://localhost:49154/connect/#/apps/e0bbcf44-c4ca-40a5-8119-b1a996d2eb03/
+##   Task ID: xMm5XmTHr0LnnsCK</code></pre>
 <p>Content 2 is for <code>project_2</code> and both Audiences (<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span>
@@ -231,9 +231,9 @@
 ##    ├── Sales
 ##    └── Finance</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: 4bd64f72-6cc3-484d-be6e-628850deae5b
-##   URL: http://localhost:49154/connect/#/apps/4bd64f72-6cc3-484d-be6e-628850deae5b/
-##   Task ID: MbB6qfIfoZKFlDye</code></pre>
+##   Content GUID: 8463e158-31c2-4842-be3b-f15214cf4647
+##   URL: http://localhost:49154/connect/#/apps/8463e158-31c2-4842-be3b-f15214cf4647/
+##   Task ID: NRxJS3gwUetnES1l</code></pre>
 </div>
 <div id="see-the-tags-associated-with-content" class="section level2">
 <h2 class="hasAnchor">
@@ -264,34 +264,34 @@
 <p>Once tags have been defined, you can also search for all of the content associated with a tag. This is not, by any means, “first class” search functionality, yet. (See <code><a href="../../reference/get_content.html">?get_content</a></code> for help)</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_content.html">get_content</a></span><span class="op">(</span><span class="va">client</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 2 x 36
+<pre><code>## # A tibble: 2 x 38
 ##      id guid              access_type connection_time… read_timeout init_timeout
 ##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     2 4bd64f72-6cc3-48… acl                       NA           NA           NA
-## 2     1 c19e9501-f05e-4a… acl                       NA           NA           NA
-## # … with 30 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
+## 1     2 8463e158-31c2-48… acl                       NA           NA           NA
+## 2     1 e0bbcf44-c4ca-40… acl                       NA           NA           NA
+## # … with 32 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
 ## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
 ## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
 ## #   app_mode &lt;int&gt;, content_category &lt;chr&gt;, has_parameters &lt;lgl&gt;,
-## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, r_version &lt;chr&gt;,
-## #   py_version &lt;chr&gt;, build_status &lt;int&gt;, run_as &lt;chr&gt;,
-## #   run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, app_role &lt;chr&gt;,
+## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, cluster_name &lt;lgl&gt;,
+## #   image_name &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, build_status &lt;int&gt;,
+## #   run_as &lt;chr&gt;, run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, app_role &lt;chr&gt;,
 ## #   owner_first_name &lt;chr&gt;, owner_last_name &lt;chr&gt;, owner_username &lt;chr&gt;,
 ## #   owner_guid &lt;chr&gt;, owner_email &lt;chr&gt;, owner_locked &lt;lgl&gt;,
 ## #   is_scheduled &lt;lgl&gt;, git &lt;list&gt;</code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_content.html">get_content</a></span><span class="op">(</span><span class="va">client</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">project_1</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 36
+<pre><code>## # A tibble: 1 x 38
 ##      id guid              access_type connection_time… read_timeout init_timeout
 ##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     1 c19e9501-f05e-4a… acl                       NA           NA           NA
-## # … with 30 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
+## 1     1 e0bbcf44-c4ca-40… acl                       NA           NA           NA
+## # … with 32 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
 ## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
 ## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
 ## #   app_mode &lt;int&gt;, content_category &lt;chr&gt;, has_parameters &lt;lgl&gt;,
-## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, r_version &lt;chr&gt;,
-## #   py_version &lt;chr&gt;, build_status &lt;int&gt;, run_as &lt;chr&gt;,
-## #   run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, app_role &lt;chr&gt;,
+## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, cluster_name &lt;lgl&gt;,
+## #   image_name &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, build_status &lt;int&gt;,
+## #   run_as &lt;chr&gt;, run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, app_role &lt;chr&gt;,
 ## #   owner_first_name &lt;chr&gt;, owner_last_name &lt;chr&gt;, owner_username &lt;chr&gt;,
 ## #   owner_guid &lt;chr&gt;, owner_email &lt;chr&gt;, owner_locked &lt;lgl&gt;,
 ## #   is_scheduled &lt;lgl&gt;, git &lt;list&gt;</code></pre>
@@ -323,12 +323,12 @@
 <span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********IDg8</code></pre>
+##   RStudio Connect API Key: ***********RsUj</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********IDg8</code></pre>
+##   RStudio Connect API Key: ***********RsUj</code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: delete content</span></code></pre></div>
 </div>
