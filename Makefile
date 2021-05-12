@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-RSC_VERSION=1.8.6
+RSC_VERSION=1.8.8.1
 
 #---------------------------------------------
 # Network
@@ -25,6 +25,15 @@ network-down:
 		echo "Removing network: ${NETWORK}"; \
 		docker network rm ${NETWORK}; \
 	fi;
+
+#---------------------------------------------
+# Update versions
+#---------------------------------------------
+update-versions:
+	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/pkgdown.yaml
+	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/test-coverage.yaml
+	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/integration-tests.yaml
+	@sed -i '' "s/^current_connect_version <- .*/current_connect_version <- '${RSC_VERSION}'/g" R/connectapi.R
 
 #---------------------------------------------
 # Helpers
