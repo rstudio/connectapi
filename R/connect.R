@@ -589,12 +589,12 @@ Connect <- R6::R6Class(
 
     repo_branches = function(repo) {
       warn_experimental("repo_branches")
-      client$GET(glue::glue("repo/branches?url={repo}"))
+      self$GET(glue::glue("repo/branches?url={repo}"))
     },
 
     repo_manifest_dirs = function(repo, branch) {
       warn_experimental("repo_manifest_dirs")
-      client$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
+      self$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
     },
 
     # misc utilities --------------------------------------------
