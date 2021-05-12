@@ -159,6 +159,7 @@ VariantTask <- R6::R6Class(
   inherit = Variant,
   public = list(
     task = NULL,
+    data = NULL,
     initialize = function(connect, content, key, task) {
       super$initialize(connect = connect, content = content, key = key)
       # TODO: need to validate task (needs task_id)
@@ -166,6 +167,13 @@ VariantTask <- R6::R6Class(
     },
     get_task = function() {
       self$task
+    },
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
     },
 
     print = function(...) {

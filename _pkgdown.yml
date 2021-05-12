@@ -47,6 +47,12 @@ reference:
     contents:
       - matches("shiny")
 
+  - title: "git"
+    desc: >
+      Git repository functions
+    contents:
+      - matches("repo")
+
   - title: "Reporting"
     desc: >
       Helpers to "get" data out of Connect
@@ -75,6 +81,8 @@ reference:
       - Connect
       - Bundle
       - Task
+      - ContentTask
+      - VariantTask
       - Vanity
-      - RStudioConnect
       - Content
+      - RStudioConnect

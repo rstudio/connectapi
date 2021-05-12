@@ -41,7 +41,7 @@ generate_R6_print_output <- function() {
   cnt1 <- Content$new(connect = con, ex_content)
 
   ex_task <- list(task_id = "task-id")
-  tsk1 <- Task$new(connect = con, content = ex_content, task = ex_task)
+  tsk1 <- ContentTask$new(connect = con, content = ex_content, task = ex_task)
 
   ex_vanity <- list(path_prefix = "vanity-prefix")
   van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)

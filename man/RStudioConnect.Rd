@@ -29,6 +29,7 @@ API. Authentication is done by providing an API key.
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
+\code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{Task}},
 \code{\link{Vanity}},
@@ -90,6 +91,9 @@ Other R6 classes:
 \item \href{#method-inst_content_visits}{\code{Connect$inst_content_visits()}}
 \item \href{#method-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
 \item \href{#method-procs}{\code{Connect$procs()}}
+\item \href{#method-repo_account}{\code{Connect$repo_account()}}
+\item \href{#method-repo_branches}{\code{Connect$repo_branches()}}
+\item \href{#method-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
 \item \href{#method-docs}{\code{Connect$docs()}}
 \item \href{#method-audit_logs}{\code{Connect$audit_logs()}}
 \item \href{#method-server_settings_r}{\code{Connect$server_settings_r()}}
@@ -589,6 +593,33 @@ Other R6 classes:
 \subsection{Method \code{procs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$procs()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_account"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_account}{}}}
+\subsection{Method \code{repo_account()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_account(host)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_branches"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_branches}{}}}
+\subsection{Method \code{repo_branches()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_branches(repo)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_manifest_dirs"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_manifest_dirs}{}}}
+\subsection{Method \code{repo_manifest_dirs()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_manifest_dirs(repo, branch)}\if{html}{\out{</div>}}
 }
 
 }
