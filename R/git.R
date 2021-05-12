@@ -37,7 +37,7 @@ repo_check_branches <- function(client, repository) {
   branches_raw <- client$repo_branches(repository)
   branches_task <- Task$new(connect = client, task = branches_raw)
 
-  task_res <- poll_task(branches_task, callback = identity)
+  task_res <- poll_task(branches_task, callback = NULL)
   task_data <- task_res$get_data()
   stopifnot(identical(task_data$type, "git-repo-ref-branch-array"))
   branches <- purrr::map(task_data$data, ~ .x$branch)
@@ -51,7 +51,7 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
   manifest_dirs_raw <- client$repo_manifest_dirs(repo = repository, branch = branch)
   manifest_dirs_task <- Task$new(connect = client, task = manifest_dirs_raw)
 
-  task_res <- poll_task(manifest_dirs_task, callback = identity)
+  task_res <- poll_task(manifest_dirs_task, callback = NULL)
   task_data <- task_res$get_data()
   stopifnot(identical(task_data$type, "git-repo-branch-manifest-dirs-array"))
   manifest_dirs <- purrr::map(task_data$data, ~ .x)
