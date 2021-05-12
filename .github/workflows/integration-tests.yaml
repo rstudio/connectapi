@@ -12,8 +12,8 @@ jobs:
   integration-tests:
     runs-on: ubuntu-16.04
     env:
+      RSC_VERSION: 1.8.8.1
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RSC_VERSION: 1.8.6.2
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
       CONNECTAPI_INTEGRATED: true
       RSPM: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"
