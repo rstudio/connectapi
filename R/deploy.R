@@ -618,11 +618,11 @@ swap_vanity_url <- function(from_content, to_content) {
 #' results, the output will be a modified "Task" object with `task$get_data()`
 #' available to retrieve the results.
 #'
-#' For a simple way to silence messages, set `callback = identity`
+#' For a simple way to silence messages, set `callback = NULL`
 #'
 #' @param task A Task object
 #' @param wait The interval to wait between polling
-#' @param callback A function to be called for each message received
+#' @param callback A function to be called for each message received. Set to NULL for no callback
 #'
 #' @return Task The Task object that was input
 #'
@@ -631,6 +631,8 @@ swap_vanity_url <- function(from_content, to_content) {
 poll_task <- function(task, wait = 1, callback = message) {
   validate_R6_class(task, c("Task", "ContentTask", "VariantTask"))
   con <- task$get_connect()
+
+  all_task_data <- list()
 
   finished <- FALSE
   code <- -1
@@ -641,11 +643,18 @@ poll_task <- function(task, wait = 1, callback = message) {
     code <- task_data[["code"]]
     first <- task_data[["last"]]
 
-    lapply(task_data[["output"]], callback)
+    if (!is.null(callback)) {
+      lapply(task_data[["output"]], callback)
+    }
+    all_task_data <- c(all_task_data, task_data[["output"]])
   }
 
   if (code != 0) {
     msg <- task_data[["error"]]
+    # print the logs if there is no callback
+    if (is.null(callback)) {
+      lapply(all_task_data, message)
+    }
     stop(msg)
   }
   if (!is.null(task_data[["result"]])) {
