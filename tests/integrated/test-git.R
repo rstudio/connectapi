@@ -11,12 +11,12 @@ cont1_bundle <- NULL
 
 test_that("git deployment works", {
   scoped_experimental_silence()
-  cont0 <- deploy_repo(test_conn_1, "https://github.com/colearendt/shiny-shell", "master", ".")
+  cont0 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "main", "tests/testthat/examples/static")
   expect_true(validate_R6_class(cont0, "Content"))
   expect_true(validate_R6_class(cont0, "ContentTask"))
 
   new_name <- uuid::UUIDgenerate()
-  cont1 <- deploy_repo(test_conn_1, "https://github.com/colearendt/shiny-shell", "master", ".", new_name, cont1_title)
+  cont1 <- deploy_repo(test_conn_1, "https://github.com/colearendt/connectapi", "main", "tests/testthat/examples/static", new_name, cont1_title)
   expect_true(validate_R6_class(cont1, "Content"))
   expect_true(validate_R6_class(cont1, "ContentTask"))
 
