@@ -41,23 +41,75 @@ Bundle <- R6::R6Class(
 #' @export
 Task <- R6::R6Class(
   "Task",
+  public = list(
+    connect = NULL,
+    task = NULL,
+    data = NULL,
+    initialize = function(connect, task) {
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      # TODO: need to validate task (needs task_id)
+      if ("id" %in% names(task) && ! "task_id" %in% names(task)) {
+        # deal with different task interfaces on Connect
+        task$task_id <- task$id
+      }
+      self$task <- task
+    },
+    get_connect = function() {
+      self$connect
+    },
+    get_task = function() {
+      self$task
+    },
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
+  )
+)
+
+#' ContentTask
+#'
+#' An R6 class that represents a Task for a piece of Content
+#'
+#' @family R6 classes
+#' @export
+ContentTask <- R6::R6Class(
+  "ContentTask",
   inherit = Content,
+  # implements the "Task" interface too
   public = list(
     task = NULL,
+    data = NULL,
     initialize = function(connect, content, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate content
       self$content <- content
-      # TODO: need to validate task (needs id)
+      # TODO: need to validate task (needs task_id)
       self$task <- task
     },
     get_task = function() {
       self$task
     },
-
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
     print = function(...) {
-      cat("RStudio Connect Task: \n")
+      cat("RStudio Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
@@ -254,7 +306,7 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
 
-  Task$new(connect = con, content = content, task = task)
+  ContentTask$new(connect = con, content = content, task = task)
 }
 
 #' Get the Image
@@ -579,19 +631,25 @@ swap_vanity_url <- function(from_content, to_content) {
 
 #' Poll Task
 #'
-#' Polls a task, waiting for information about a deployment
+#' Polls a task, waiting for information about a deployment. If the task has
+#' results, the output will be a modified "Task" object with `task$get_data()`
+#' available to retrieve the results.
+#'
+#' For a simple way to silence messages, set `callback = NULL`
 #'
 #' @param task A Task object
 #' @param wait The interval to wait between polling
-#' @param callback A function to be called for each message received
+#' @param callback A function to be called for each message received. Set to NULL for no callback
 #'
 #' @return Task The Task object that was input
 #'
 #' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1, callback = message) {
-  validate_R6_class(task, c("Task", "VariantTask"))
+  validate_R6_class(task, c("Task", "ContentTask", "VariantTask"))
   con <- task$get_connect()
+
+  all_task_data <- list()
 
   finished <- FALSE
   code <- -1
@@ -602,12 +660,22 @@ poll_task <- function(task, wait = 1, callback = message) {
     code <- task_data[["code"]]
     first <- task_data[["last"]]
 
-    lapply(task_data[["output"]], callback)
+    if (!is.null(callback)) {
+      lapply(task_data[["output"]], callback)
+    }
+    all_task_data <- c(all_task_data, task_data[["output"]])
   }
 
   if (code != 0) {
     msg <- task_data[["error"]]
+    # print the logs if there is no callback
+    if (is.null(callback)) {
+      lapply(all_task_data, message)
+    }
     stop(msg)
+  }
+  if (!is.null(task_data[["result"]])) {
+    task$add_data(task_data[["result"]])
   }
   task
 }

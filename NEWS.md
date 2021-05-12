@@ -1,5 +1,9 @@
 # connectapi (development version)
 
+- Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))
+- Switch `Task` class to `ContentTask`
+    - R6 does not support multiple inheritance, so we keep the `Task` interface up-to-date on
+      `ContentTask` and `VariantTask` manually
 - Improve several print methods
 ([#18](https://github.com/rstudio/connectapi/issues/18),
 [#19](https://github.com/rstudio/connectapi/issues/19))

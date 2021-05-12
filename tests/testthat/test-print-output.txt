@@ -25,9 +25,9 @@ RStudio Connect Content:
 content_item(client, guid = "content-guid")
 
 ----------------------------
-Task
+ContentTask
 ----------------------------
-RStudio Connect Task: 
+RStudio Connect Content Task: 
   Content GUID: content-guid
   URL: http://test_host/connect/#/apps/content-guid/
   Task ID: task-id
