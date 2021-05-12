@@ -9,6 +9,7 @@ An R6 class that represents content
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
+\code{\link{ContentTask}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
@@ -46,6 +47,8 @@ Other R6 classes:
 \item \href{#method-tags}{\code{Content$tags()}}
 \item \href{#method-environment}{\code{Content$environment()}}
 \item \href{#method-environment_set}{\code{Content$environment_set()}}
+\item \href{#method-deploy}{\code{Content$deploy()}}
+\item \href{#method-repo_set}{\code{Content$repo_set()}}
 \item \href{#method-print}{\code{Content$print()}}
 \item \href{#method-clone}{\code{Content$clone()}}
 }
@@ -218,6 +221,24 @@ Other R6 classes:
 \subsection{Method \code{environment_set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(..., .version = 0)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-deploy"></a>}}
+\if{latex}{\out{\hypertarget{method-deploy}{}}}
+\subsection{Method \code{deploy()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$deploy()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_set"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_set}{}}}
+\subsection{Method \code{repo_set()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$repo_set(repository, branch, subdirectory)}\if{html}{\out{</div>}}
 }
 
 }
