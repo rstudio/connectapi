@@ -28,6 +28,7 @@ Connect <- R6::R6Class(
     tags = NULL,
     tag_map = NULL,
     httr_additions = list(),
+    using_auth = TRUE,
 
     get_connect = function() {
       self
@@ -72,7 +73,11 @@ Connect <- R6::R6Class(
     },
 
     add_auth = function() {
-      httr::add_headers(Authorization = paste0("Key ", self$api_key))
+      if (self$using_auth) {
+        httr::add_headers(Authorization = paste0("Key ", self$api_key))
+      } else {
+        NULL
+      }
     },
 
     GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
