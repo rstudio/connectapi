@@ -712,7 +712,9 @@ Connect <- R6::R6Class(
 #'   to environment variable CONNECT_API_KEY
 #' @param prefix The prefix used to determine environment variables
 #' @param ... Additional arguments. Not used at present
-#' @param .check_is_fatal Whether to fail if "check" requests fail
+#' @param .check_is_fatal Whether to fail if "check" requests fail. Useful in
+#'   rare cases where more http request customization is needed for requests to
+#'   succeed.
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #'
 #' @rdname connect
