@@ -82,7 +82,7 @@ compatible with the current version of the package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9023</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9024</span>
       </span>
     </div>
 
@@ -106,6 +106,9 @@ compatible with the current version of the package." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
+      <a href="../articles/customize-http.html">Customize HTTP Requests</a>
     </li>
     <li>
       <a href="../articles/getting-started.html">Getting Started with connectapi</a>
@@ -150,7 +153,9 @@ compatible with the current version of the package.</p>
     <pre class="usage"><span class='fu'>connect</span><span class='op'>(</span>
   host <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>prefix</span>, <span class='st'>"_SERVER"</span><span class='op'>)</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
   api_key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>prefix</span>, <span class='st'>"_API_KEY"</span><span class='op'>)</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
-  prefix <span class='op'>=</span> <span class='st'>"CONNECT"</span>
+  prefix <span class='op'>=</span> <span class='st'>"CONNECT"</span>,
+  <span class='va'>...</span>,
+  .check_is_fatal <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -169,6 +174,16 @@ to environment variable CONNECT_API_KEY</p></td>
     <tr>
       <th>prefix</th>
       <td><p>The prefix used to determine environment variables</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments. Not used at present</p></td>
+    </tr>
+    <tr>
+      <th>.check_is_fatal</th>
+      <td><p>Whether to fail if "check" requests fail. Useful in
+rare cases where more http request customization is needed for requests to
+succeed.</p></td>
     </tr>
     </table>
 

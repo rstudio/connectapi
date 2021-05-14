@@ -3,6 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   articles/connectapi_tags: connectapi_tags.html
+  customize-http: customize-http.html
   getting-started: getting-started.html
-last_built: 2021-05-12T19:38Z
+last_built: 2021-05-14T21:03Z
 
