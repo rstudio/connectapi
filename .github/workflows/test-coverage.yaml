@@ -10,9 +10,13 @@ name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: macOS-latest
+    runs-on: ubuntu-16.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_VERSION: 1.8.8.1
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      CONNECTAPI_INTEGRATED: true
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"
     steps:
       - uses: actions/checkout@v2
 
@@ -34,6 +38,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "16.04"), sep = "\n")')
+
       - name: Install dependencies
         run: |
           install.packages(c("remotes"))
@@ -41,6 +53,37 @@ jobs:
           remotes::install_cran("covr")
         shell: Rscript {0}
 
-      - name: Test coverage
-        run: covr::codecov()
+      - name: Session info
+        run: |
+          options(width = 100)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Setup test environment
+        run: |
+          connectapi:::build_test_env()
+        shell: Rscript {0}
+
+      - name: Test coverage
+        id: coverage
+        run: |
+          system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("R_SESSION_TMPDIR")))
+          tryCatch({
+            covr::codecov(clean = FALSE, quiet = FALSE)
+          }, error = function(e) {
+            message(e)
+          })
+          fs::dir_copy(Sys.getenv("R_SESSION_TMPDIR"), "/tmp/outputs")
+        shell: Rscript {0}
+
+      - name: Archive tempdir artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: tmpdir artifacts
+          path: |
+            /tmp/outputs

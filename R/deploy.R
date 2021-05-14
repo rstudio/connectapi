@@ -1,3 +1,6 @@
+# Today set to 100MB. Should see if we can get this from Connect
+max_bundle_size <- "100M"
+
 #' Bundle
 #'
 #' An R6 class that represents a bundle
@@ -8,14 +11,20 @@ Bundle <- R6::R6Class(
   "Bundle",
   public = list(
     path = NULL,
+    size = NULL,
 
     initialize = function(path) {
       self$path <- path
+      self$size <- fs::file_size(path = path)
+      if (fs::file_exists(path) && self$size > fs::as_fs_bytes(max_bundle_size)) {
+        warning(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."))
+      }
     },
 
     print = function(...) {
       cat("RStudio Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
+      cat("  Size: ", capture.output(self$size), "\n", sep = "")
       cat("\n")
       cat('bundle_path("', self$path, '")', "\n", sep = "")
       cat("\n")
@@ -32,24 +41,77 @@ Bundle <- R6::R6Class(
 #' @export
 Task <- R6::R6Class(
   "Task",
+  public = list(
+    connect = NULL,
+    task = NULL,
+    data = NULL,
+    initialize = function(connect, task) {
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      # TODO: need to validate task (needs task_id)
+      if ("id" %in% names(task) && ! "task_id" %in% names(task)) {
+        # deal with different task interfaces on Connect
+        task$task_id <- task$id
+      }
+      self$task <- task
+    },
+    get_connect = function() {
+      self$connect
+    },
+    get_task = function() {
+      self$task
+    },
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
+  )
+)
+
+#' ContentTask
+#'
+#' An R6 class that represents a Task for a piece of Content
+#'
+#' @family R6 classes
+#' @export
+ContentTask <- R6::R6Class(
+  "ContentTask",
   inherit = Content,
+  # implements the "Task" interface too
   public = list(
     task = NULL,
+    data = NULL,
     initialize = function(connect, content, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate content
       self$content <- content
-      # TODO: need to validate task (needs id)
+      # TODO: need to validate task (needs task_id)
       self$task <- task
     },
     get_task = function() {
       self$task
     },
-
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
     print = function(...) {
-      cat("RStudio Connect Task: \n")
+      cat("RStudio Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
+      cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
@@ -111,11 +173,25 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
   on.exit(expr = setwd(before_wd), add = TRUE)
 
   message(glue::glue("Bundling directory {path}"))
+  check_bundle_contents(path)
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
   tar_path <- fs::path_abs(filename)
 
   Bundle$new(path = tar_path)
+}
+
+check_bundle_contents <- function(dir) {
+  all_contents <- fs::path_file(fs::dir_ls(dir))
+  if (! "manifest.json" %in% all_contents) {
+    stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
+  }
+  if ("packrat.lock" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat.lock` file found in {dir}. This can have unexpected consequences."))
+  }
+  if ("packrat" %in% all_contents) {
+    warning(glue::glue("WARNING: `packrat` directory found in {dir}. This can have unexpected consequences"))
+  }
 }
 
 #' Define a bundle from a static file (or files)
@@ -146,7 +222,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   bundle_dir(tmpdir, filename = filename)
 }
 
-#' Define a bundle from a path (a tar.gz file)
+#' Define a bundle from a path (a path directly to a tar.gz file)
 #'
 #' @param path The path to a .tar.gz file
 #'
@@ -230,7 +306,7 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
 
-  Task$new(connect = con, content = content, task = task)
+  ContentTask$new(connect = con, content = content, task = task)
 }
 
 #' Get the Image
@@ -367,6 +443,8 @@ set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "image", ext = ".png")
+
+  check_webshot()
   webshot::webshot(content$get_content()$url,
     file = imgfile,
     vwidth = 800,
@@ -536,19 +614,25 @@ swap_vanity_url <- function(from_content, to_content) {
 
 #' Poll Task
 #'
-#' Polls a task, waiting for information about a deployment
+#' Polls a task, waiting for information about a deployment. If the task has
+#' results, the output will be a modified "Task" object with `task$get_data()`
+#' available to retrieve the results.
+#'
+#' For a simple way to silence messages, set `callback = NULL`
 #'
 #' @param task A Task object
 #' @param wait The interval to wait between polling
-#' @param callback A function to be called for each message received
+#' @param callback A function to be called for each message received. Set to NULL for no callback
 #'
 #' @return Task The Task object that was input
 #'
 #' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1, callback = message) {
-  validate_R6_class(task, c("Task", "VariantTask"))
+  validate_R6_class(task, c("Task", "ContentTask", "VariantTask"))
   con <- task$get_connect()
+
+  all_task_data <- list()
 
   finished <- FALSE
   code <- -1
@@ -559,12 +643,22 @@ poll_task <- function(task, wait = 1, callback = message) {
     code <- task_data[["code"]]
     first <- task_data[["last"]]
 
-    lapply(task_data[["output"]], callback)
+    if (!is.null(callback)) {
+      lapply(task_data[["output"]], callback)
+    }
+    all_task_data <- c(all_task_data, task_data[["output"]])
   }
 
   if (code != 0) {
     msg <- task_data[["error"]]
+    # print the logs if there is no callback
+    if (is.null(callback)) {
+      lapply(all_task_data, message)
+    }
     stop(msg)
+  }
+  if (!is.null(task_data[["result"]])) {
+    task$add_data(task_data[["result"]])
   }
   task
 }

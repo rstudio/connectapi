@@ -23,4 +23,7 @@ test_that("basic behavior works", {
 
   access_open <- audit_access_open(all_apps)
   expect_is(access_open, "character")
+
+  r_versions <- suppressWarnings(audit_r_versions(all_apps))
+  expect_is(r_versions, "gtable")
 })

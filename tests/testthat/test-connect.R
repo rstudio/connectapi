@@ -31,7 +31,6 @@ test_that("error if protocol not defined", {
   )
 })
 
-
 context("connect")
 
 test_that("version is validated", {

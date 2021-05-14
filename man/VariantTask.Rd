@@ -9,6 +9,7 @@ An R6 class that represents a Variant Task
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
+\code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
@@ -23,6 +24,8 @@ Other R6 classes:
 \itemize{
 \item \href{#method-new}{\code{VariantTask$new()}}
 \item \href{#method-get_task}{\code{VariantTask$get_task()}}
+\item \href{#method-add_data}{\code{VariantTask$add_data()}}
+\item \href{#method-get_data}{\code{VariantTask$get_data()}}
 \item \href{#method-print}{\code{VariantTask$print()}}
 \item \href{#method-clone}{\code{VariantTask$clone()}}
 }
@@ -30,6 +33,7 @@ Other R6 classes:
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy">}\href{../../connectapi/html/Content.html#method-deploy}{\code{connectapi::Content$deploy()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment">}\href{../../connectapi/html/Content.html#method-environment}{\code{connectapi::Content$environment()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set">}\href{../../connectapi/html/Content.html#method-environment_set}{\code{connectapi::Content$environment_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles">}\href{../../connectapi/html/Content.html#method-get_bundles}{\code{connectapi::Content$get_bundles()}}\out{</span>}
@@ -38,6 +42,7 @@ Other R6 classes:
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set">}\href{../../connectapi/html/Content.html#method-repo_set}{\code{connectapi::Content$repo_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set">}\href{../../connectapi/html/Content.html#method-tag_set}{\code{connectapi::Content$tag_set()}}\out{</span>}
@@ -78,6 +83,24 @@ Other R6 classes:
 \subsection{Method \code{get_task()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$get_task()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-add_data"></a>}}
+\if{latex}{\out{\hypertarget{method-add_data}{}}}
+\subsection{Method \code{add_data()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VariantTask$add_data(data)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_data"></a>}}
+\if{latex}{\out{\hypertarget{method-get_data}{}}}
+\subsection{Method \code{get_data()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VariantTask$get_data()}\if{html}{\out{</div>}}
 }
 
 }

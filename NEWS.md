@@ -1,5 +1,16 @@
 # connectapi (development version)
 
+- Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))
+- Switch `Task` class to `ContentTask`
+    - R6 does not support multiple inheritance, so we keep the `Task` interface up-to-date on
+      `ContentTask` and `VariantTask` manually
+- Improve several print methods
+([#18](https://github.com/rstudio/connectapi/issues/18),
+[#19](https://github.com/rstudio/connectapi/issues/19))
+- Protect against bad bundles
+([#13](https://github.com/rstudio/connectapi/issues/13))
+- Error if an empty API key is defined ([#16](https://github.com/rstudio/connectapi/issues/16))
+
 # connectapi 0.1.0.9018
 
 - Add a `client$PATCH` verb
