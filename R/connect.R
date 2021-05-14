@@ -110,12 +110,18 @@ Connect <- R6::R6Class(
 
     PUT = function(path, body, encode = "json", ...) {
       req <- paste0(self$host, "/__api__/", path)
-      res <- httr::PUT(
-        req,
-        self$add_auth(),
-        body = body,
-        encode = encode,
-        ...
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::PUT,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
@@ -124,42 +130,72 @@ Connect <- R6::R6Class(
 
     HEAD = function(path, ...) {
       req <- paste0(self$host, "/__api__/", path)
-      res <- httr::HEAD(
-        url = req,
-        self$add_auth()
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::HEAD,
+        !!!c(list(
+          url = req,
+          self$add_auth()
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(req, res)
       return(res)
     },
 
-    DELETE = function(path) {
+    DELETE = function(path, ...) {
       req <- paste0(self$host, "/__api__/", path)
-      res <- httr::DELETE(
-        url = req,
-        self$add_auth()
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::DELETE,
+        !!!c(list(
+          url = req,
+          self$add_auth()
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(req, res)
       return(res)
     },
 
-    PATCH = function(path, body, encode = "json", prefix = "/__api__/") {
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ...) {
       req <- paste0(self$host, prefix, path)
-      res <- httr::PATCH(req,
-        self$add_auth(),
-        body = body,
-        encode = encode
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::PATCH,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = "parsed")
     },
 
-    POST = function(path, body, encode = "json", prefix = "/__api__/") {
+    POST = function(path, body, encode = "json", prefix = "/__api__/", ...) {
       req <- paste0(self$host, prefix, path)
-      res <- httr::POST(req,
-        self$add_auth(),
-        body = body,
-        encode = encode
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::POST,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
