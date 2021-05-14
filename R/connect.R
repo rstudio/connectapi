@@ -732,8 +732,14 @@ connect <- function(
   ) {
     stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
   }
+
   if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
-    stop("ERROR: Invalid (empty) API key. Please provide a valid API key")
+    msg <- "Invalid (empty) API key. Please provide a valid API key"
+    if (.check_is_fatal) {
+      stop(glue::glue("ERROR: {msg}"))
+    } else {
+      message(msg)
+    }
   }
   con <- Connect$new(host = host, api_key = api_key)
 
@@ -743,15 +749,14 @@ connect <- function(
     # check Connect is accessible
     srv <- safe_server_settings(con)
 
+    check_connect_version(using_version = srv$version)
   }, error = function(err) {
-    if (.check) {
+    if (.check_is_fatal) {
       stop(err)
     } else {
       message(err)
     }
   })
-
-  check_connect_version(using_version = srv$version)
 
   con
 }
