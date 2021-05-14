@@ -711,14 +711,19 @@ Connect <- R6::R6Class(
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable CONNECT_API_KEY
 #' @param prefix The prefix used to determine environment variables
+#' @param ... Additional arguments. Not used at present
+#' @param .check_is_fatal Whether to fail if "check" requests fail
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #'
 #' @rdname connect
 #' @export
 connect <- function(
-                    host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
-                    api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
-                    prefix = "CONNECT") {
+   host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+   prefix = "CONNECT",
+   ...,
+   .check_is_fatal = TRUE
+   ) {
   if (
     prefix == "CONNECT" &&
       is.na(host) && is.na(api_key) &&
@@ -732,10 +737,19 @@ connect <- function(
   }
   con <- Connect$new(host = host, api_key = api_key)
 
-  check_connect_license(con$host)
+  tryCatch({
+    check_connect_license(con$host)
 
-  # check Connect is accessible
-  srv <- safe_server_settings(con)
+    # check Connect is accessible
+    srv <- safe_server_settings(con)
+
+  }, error = function(err) {
+    if (.check) {
+      stop(err)
+    } else {
+      message(err)
+    }
+  })
 
   check_connect_version(using_version = srv$version)
 
