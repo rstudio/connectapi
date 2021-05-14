@@ -72,7 +72,7 @@ httr::set_config(httr::config(ssl_verifypeer = 0))
 get_users(client)
 ```
 
-### Custom Headers
+### Custom Headers, Cookies, Proxy, etc.
 
 `httr` has some helpers for common tasks like `httr::add_headers()`,
 `httr::set_cookies()`, `httr::use_proxy()`, etc. Using them is a bit tricky,
@@ -93,6 +93,9 @@ client$httr_config(handle = httr::handle(''))
 
 # now you have a chance to get a new host
 client$server_settings()$hostname
+
+# use an outbound proxy
+client$httr_config(httr::use_proxy("http://myproxy.example.com"))
 ```
 
 > NOTE: these values are completely overwritten each time you call
@@ -104,5 +107,13 @@ time
 Suffice it to say that effectively using Kerberos for HTTP is a bit of an
 advanced topic. However, it _is_ possible with `httr`.
 
+It is worth noting that today, this interferes with API key authentication, which we
+are hoping to improve in a future release of RStudio Connect.
+
 ```{r}
+# disables authentication header that is included by default
+client$using_auth = FALSE
+
+# use Kerberos authentication mechanism (requires local credential cache)
+client$httr_config(httr::authenticate(":", "", type="gssnegotiate"))
 ```
