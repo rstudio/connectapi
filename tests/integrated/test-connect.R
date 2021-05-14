@@ -50,3 +50,26 @@ test_that("error if API key is empty", {
     "provide a valid API key"
   )
 })
+
+test_that(".check_is_fatal toggle works", {
+  expect_error(
+    connect(host = Sys.getenv("TEST_1_SERVER"), api_key = ""),
+    "provide a valid API key"
+  )
+
+  rsc <- connect(host = Sys.getenv("TEST_1_SERVER"), api_key = "", .check_is_fatal = FALSE)
+  expect_true(
+    validate_R6_class(rsc, "Connect")
+  )
+
+  expect_error(
+    suppressMessages(connect(host = "http://fake-value.example.com", api_key = "fake-value")),
+    "Could not resolve host"
+  )
+
+  # TODO: suppressing the message in the tryCatch handler does not work...?
+  rsc1 <- suppressMessages(connect(host = "http://fake-value.example.com", api_key = "fake-value", .check_is_fatal = FALSE))
+  expect_true(
+    validate_R6_class(rsc1, "Connect")
+  )
+})
