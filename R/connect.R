@@ -756,7 +756,11 @@ connect <- function(
     if (.check_is_fatal) {
       stop(err)
     } else {
-      message(err)
+      if (inherits(err, "error")) {
+        message(err$message)
+      } else {
+        message(err)
+      }
     }
   })
 
