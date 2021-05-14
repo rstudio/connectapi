@@ -26,7 +26,7 @@ instance, some common use cases are:
 - using Kerberos (SPNEGO)
 
 This is possible with `connectapi` thanks to the underlying library in use,
-[`httr`](todo).
+[`httr`](https://httr.r-lib.org/).
 
 ## Getting Started
 
@@ -84,7 +84,7 @@ the "raw" `curl` options for now.
 
 ### Using Kerberos
 
-Suffice it to say that using Kerberos for HTTP effectively is a bit of an
+Suffice it to say that effectively using Kerberos for HTTP is a bit of an
 advanced topic. However, it _is_ possible with `httr`.
 
 ```{r}
