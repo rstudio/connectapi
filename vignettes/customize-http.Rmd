@@ -1,0 +1,91 @@
+---
+title: "Customize HTTP Requests"
+author: "Cole Arendt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Customize HTTP Requests}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+Sometimes when using `connectapi`, customizing HTTP requests is desirable. For
+instance, some common use cases are:
+
+- using a custom certificate bundle
+- turn off certificate trust verification (**ONLY FOR TESTING**)
+- setting custom headers
+- using Kerberos (SPNEGO)
+
+This is possible with `connectapi` thanks to the underlying library in use,
+[`httr`](todo).
+
+## Getting Started
+
+When you initialize a `connectapi` API client, you implicitly create a `httr`
+HTTP client. The `httr` package allows you to configure your HTTP requests
+globally using `set_config()` or in a scoped variant `with_config`. We will walk
+through a few examples below.
+
+### Custom CA Bundle
+
+```{r}
+library(httr)
+library(connectapi)
+
+client <- connect()
+
+# notice that TLS verification fails
+get_users(client)
+
+# use a custom Certificate Authority to verify SSL/TLS requests
+httr::set_config(httr::config(cainfo = "/path/to/my.pem"))
+
+# now it should succeed!
+get_users(client)
+```
+
+### Turn Off Certificate Trust Verification - ONLY FOR TESTING
+
+Sometimes when first setting up a server, it is common to use self-signed
+certificates. This is generally bad for reliable communication and security (as
+there is no reason for any computer to trust this server as a "self-declared"
+trustworthy actor).
+
+However, it can be useful while the organization's Certificate Authority (CA) is
+in the process of issuing a valid certificate, or while a certificate is
+procured from a public CA.
+
+```{r}
+# disabling certificate trust (can allow man-in-the-middle attacks, etc.)
+httr::set_config(httr::config(ssl_verifypeer = 0))
+
+# should work 
+get_users(client)
+```
+
+### Custom Headers
+
+`httr` has some helpers for common tasks like `httr::add_headers()`,
+`httr::set_cookies()`, `httr::use_proxy()`, etc. Unfortunately, we
+have not yet integrated these into `connectapi`, so you need to use 
+the "raw" `curl` options for now.
+
+```{r}
+```
+
+### Using Kerberos
+
+Suffice it to say that using Kerberos for HTTP effectively is a bit of an
+advanced topic. However, it _is_ possible with `httr`.
+
+```{r}
+```
