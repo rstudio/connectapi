@@ -42,7 +42,7 @@ Connect <- R6::R6Class(
       self$api_key <- api_key
     },
 
-    add_httr = function(...) {
+    httr_config = function(...) {
       self$httr_additions = rlang::list2(...)
       invisible(self)
     },
