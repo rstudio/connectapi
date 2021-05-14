@@ -44,7 +44,7 @@ test_that("bundle_dir deploys", {
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
 
-  expect_true(validate_R6_class(tsk, "Task"))
+  expect_true(validate_R6_class(tsk, "ContentTask"))
   expect_gt(nchar(tsk$get_task()$task_id), 0)
 
   # with a guid

@@ -8,6 +8,7 @@ An R6 class that represents a bundle
 }
 \seealso{
 Other R6 classes: 
+\code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
