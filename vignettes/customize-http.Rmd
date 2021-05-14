@@ -75,12 +75,29 @@ get_users(client)
 ### Custom Headers
 
 `httr` has some helpers for common tasks like `httr::add_headers()`,
-`httr::set_cookies()`, `httr::use_proxy()`, etc. Unfortunately, we
-have not yet integrated these into `connectapi`, so you need to use 
-the "raw" `curl` options for now.
+`httr::set_cookies()`, `httr::use_proxy()`, etc. Using them is a bit tricky,
+but can be done by way of the `client$httr_config()` function.
+
+Pass any usual `httr` arguments to `client$httr_config()`, and those arguments
+will then be saved and passed to any subsequent `GET`, `PUT`, `POST`, `PATCH`,
+`HEAD`, `DELETE` requests you send with that client.
 
 ```{r}
+# for instance, to set custom headers (i.e. to get through a proxy)
+client$httr_config(httr::add_headers(MY_MAGIC_HEADER="value"))
+
+# or to clear sticky cookies if you want to switch nodes in an HA cluster
+client <- connect()
+client$server_settings()$hostname
+client$httr_config(handle = httr::handle(''))
+
+# now you have a chance to get a new host
+client$server_settings()$hostname
 ```
+
+> NOTE: these values are completely overwritten each time you call
+`client$httr_config()`, so ensure that you > pass all desired values at the same
+time
 
 ### Using Kerberos
 
