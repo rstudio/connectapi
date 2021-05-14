@@ -41,6 +41,7 @@ Other R6 classes:
 \itemize{
 \item \href{#method-get_connect}{\code{Connect$get_connect()}}
 \item \href{#method-new}{\code{Connect$new()}}
+\item \href{#method-httr_config}{\code{Connect$httr_config()}}
 \item \href{#method-print}{\code{Connect$print()}}
 \item \href{#method-raise_error}{\code{Connect$raise_error()}}
 \item \href{#method-add_auth}{\code{Connect$add_auth()}}
@@ -120,6 +121,15 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-httr_config"></a>}}
+\if{latex}{\out{\hypertarget{method-httr_config}{}}}
+\subsection{Method \code{httr_config()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$httr_config(...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
@@ -151,7 +161,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET}{}}}
 \subsection{Method \code{GET()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -160,7 +170,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_RESULT}{}}}
 \subsection{Method \code{GET_RESULT()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -169,7 +179,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_URL}{}}}
 \subsection{Method \code{GET_URL()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -178,7 +188,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_RESULT_URL}{}}}
 \subsection{Method \code{GET_RESULT_URL()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -187,7 +197,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PUT}{}}}
 \subsection{Method \code{PUT()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -196,7 +206,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-HEAD}{}}}
 \subsection{Method \code{HEAD()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -205,7 +215,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-DELETE}{}}}
 \subsection{Method \code{DELETE()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -214,7 +224,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PATCH}{}}}
 \subsection{Method \code{PATCH()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -223,7 +233,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-POST}{}}}
 \subsection{Method \code{POST()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
 }
 
 }
