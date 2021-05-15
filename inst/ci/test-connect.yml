@@ -10,3 +10,4 @@ services:
     privileged: true
     environment:
       - RSC_LICENSE
+      - RSC_HASTE_ENABLED=true

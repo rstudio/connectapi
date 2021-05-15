@@ -1,5 +1,7 @@
 # connectapi (development version)
 
+- Add HTTP request customization options, and related documentation
+  ([#101](https://github.com/rstudio/connectapi/pull/101))
 - Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))
 - Switch `Task` class to `ContentTask`
     - R6 does not support multiple inheritance, so we keep the `Task` interface up-to-date on
