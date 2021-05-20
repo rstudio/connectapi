@@ -494,16 +494,7 @@ set_vanity_url <- function(content, url, force = FALSE) {
     )
   )
 
-  # update content/vanity definition
-  updated_content <- con$content(guid = guid)
-  updated_van_res <- con$GET(glue::glue("/applications/{guid}"))
-  updated_van <- updated_van_res$vanities[[1]]
-  updated_van$app_id <- NULL
-  updated_van$app_guid <- guid
-
-  van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
-
-  van
+  Vanity$new(connect = con, content = content$get_content_remote(), vanity = res)
 }
 
 #' Delete the Vanity URL
@@ -542,8 +533,11 @@ get_vanity_url <- function(content) {
     con$GET(glue::glue("/v1/content/{guid}/vanity"))
   }, error = function(e) {
     # TODO: check to ensure that this error was expected
-    return(content)
+    return(NULL)
   })
+  if (is.null(van)) {
+    return(content)
+  }
 
   Vanity$new(connect = con, content = content$get_content(), vanity = van)
 }
