@@ -211,7 +211,7 @@ test_that("set_vanity_url force works", {
   new_name <- uuid::UUIDgenerate()
   bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
   cont <- deploy(test_conn_1, bnd, name = new_name)
-  res <- set_vanity_url(cont1, new_name)
+  res <- set_vanity_url(cont, new_name)
 
   another_name <- uuid::UUIDgenerate()
   cont2 <- deploy(test_conn_1, bnd, name = another_name)
