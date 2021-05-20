@@ -521,6 +521,8 @@ delete_vanity_url <- function(content) {
 #'
 #' @param content A Content object
 #'
+#' @return A character string (or NULL if not defined)
+#'
 #' @family content functions
 #' @export
 get_vanity_url <- function(content) {
@@ -536,10 +538,10 @@ get_vanity_url <- function(content) {
     return(NULL)
   })
   if (is.null(van)) {
-    return(content)
+    return(NULL)
   }
 
-  Vanity$new(connect = con, content = content$get_content(), vanity = van)
+  return(van$path)
 }
 
 #' Swap the Vanity URL

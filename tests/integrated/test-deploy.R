@@ -90,7 +90,7 @@ test_that(".pre_deploy hook works", {
 
   active_bundle <- deployed$get_content_remote()$bundle_id
   expect_equal(
-    get_vanity_url(deployed)$vanity$path,
+    get_vanity_url(deployed),
     as.character(glue::glue("/pre_deploy_{active_bundle}/"))
   )
 })
@@ -215,14 +215,13 @@ test_that("get_vanity_url works", {
 
   # without a vanity
   curr_vanity <- suppressMessages(get_vanity_url(tmp_content))
-  expect_true(validate_R6_class(curr_vanity, "Content"))
-  expect_error(validate_R6_class(curr_vanity, "Vanity"), regexp = "R6 Vanity")
+  expect_null(curr_vanity)
 
   # with a vanity
   res <- set_vanity_url(tmp_content, tmp_content_name)
   existing_vanity <- get_vanity_url(tmp_content)
-  expect_true(validate_R6_class(existing_vanity, "Vanity"))
-  expect_equal(existing_vanity$get_vanity()$path, paste0("/", tmp_content_name, "/"))
+  expect_is(existing_vanity, "character")
+  expect_equal(existing_vanity, paste0("/", tmp_content_name, "/"))
 })
 
 test_that("delete_vanity_url works", {
@@ -242,8 +241,7 @@ test_that("delete_vanity_url works", {
 
   # get the vanity
   res <- get_vanity_url(tmp_content)
-  expect_true(validate_R6_class(res, "Content"))
-  expect_error(validate_R6_class(res, "Vanity"), "R6 Vanity")
+  expect_null(res)
 })
 
 # misc functions ---------------------------------------------------
