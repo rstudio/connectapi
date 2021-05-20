@@ -4,12 +4,14 @@
 \alias{set_vanity_url}
 \title{Set the Vanity URL}
 \usage{
-set_vanity_url(content, url)
+set_vanity_url(content, url, force = FALSE)
 }
 \arguments{
 \item{content}{A Content object}
 
 \item{url}{The path component of the URL}
+
+\item{force}{optional. Default FALSE. Whether to force-reassign a vanity URL that already exists}
 }
 \value{
 An updated Content object
@@ -34,6 +36,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
