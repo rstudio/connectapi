@@ -9,6 +9,9 @@ get_vanity_url(content)
 \arguments{
 \item{content}{A Content object}
 }
+\value{
+A character string (or NULL if not defined)
+}
 \description{
 Gets the Vanity URL for a piece of content.
 }
