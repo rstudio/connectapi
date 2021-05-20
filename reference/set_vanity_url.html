@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9024</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9025</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
  Sets the Vanity URL for a piece of content.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_vanity_url</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>url</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>set_vanity_url</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>url</span>, force <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,6 +160,10 @@
     <tr>
       <th>url</th>
       <td><p>The path component of the URL</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p>optional. Default FALSE. Whether to force-reassign a vanity URL that already exists</p></td>
     </tr>
     </table>
 
@@ -175,6 +179,7 @@
 <code><a href='create_random_name.html'>create_random_name</a>()</code>,
 <code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
 <code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='delete_vanity_url.html'>delete_vanity_url</a>()</code>,
 <code><a href='deploy_repo.html'>deploy_repo</a>()</code>,
 <code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
 <code><a href='get_bundles.html'>get_bundles</a>()</code>,

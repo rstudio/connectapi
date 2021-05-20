@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9024</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9025</span>
       </span>
     </div>
 
@@ -144,6 +144,15 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#connectapi-development-version" class="anchor"></a>connectapi (development version)</h1>
 <ul>
+<li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. However:
+<ul>
+<li>
+<code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> now returns a character string representing the vanity url in use (or NULL if not defined)</li>
+<li>
+<code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> still returns a <code>Vanity</code> R6 object, but <code>vanity$get_vanity()$path_prefix</code> is now <code>vanity$get_vanity()$path</code>
+</li>
+</ul>
+</li>
 <li>Add HTTP request customization options, and related documentation (<a href="https://github.com/rstudio/connectapi/pull/101"><a href='https://github.com/rstudio/connectapi/issues/101'>#101</a></a>)</li>
 <li>Add git deployment (<a href="https://github.com/rstudio/connectapi/issues/112"><a href='https://github.com/rstudio/connectapi/issues/112'>#112</a></a>)</li>
 <li>Switch <code>Task</code> class to <code>ContentTask</code>
