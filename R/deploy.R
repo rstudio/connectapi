@@ -145,7 +145,7 @@ Vanity <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path, "\n", sep = "")
       cat("\n")
       invisible(self)
     }
@@ -486,27 +486,13 @@ set_vanity_url <- function(content, url, force = FALSE) {
   scoped_experimental_silence()
   # TODO: Check that the URL provided is appropriate
 
-  current_vanity <- get_vanity_url(content)
-
-
-  if (!inherits(current_vanity, "Vanity")) {
-    # new
-    res <- con$POST(
-      path = "vanities",
-      body = list(
-        app_guid = guid,
-        path_prefix = url
-      )
+  res <- con$PUT(
+    path = glue::glue("v1/content/{guid}/vanity"),
+    body = list(
+      path = url,
+      force = force
     )
-  } else {
-    # update
-    res <- con$PUT(
-      path = glue::glue("vanities/{current_vanity$get_vanity()$id}"),
-      body = list(
-        path_prefix = url
-      )
-    )
-  }
+  )
 
   # update content/vanity definition
   updated_content <- con$content(guid = guid)
@@ -540,7 +526,7 @@ delete_vanity_url <- function(content) {
 
 #' Get the Vanity URL
 #'
-#' \lifecycle{experimental} Gets the Vanity URL for a piece of content.
+#' Gets the Vanity URL for a piece of content.
 #'
 #' @param content A Content object
 #'
@@ -552,16 +538,14 @@ get_vanity_url <- function(content) {
   error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  van <- con$GET(glue::glue("/v1/content/{guid}/vanity"))
+  van <- tryCatch({
+    con$GET(glue::glue("/v1/content/{guid}/vanity"))
+  }, error = function(e) {
+    # TODO: check to ensure that this error was expected
+    return(content)
+  })
 
-  # TODO: verify the shape of a "not defined vanity URL"
-  if (is.null(van)) {
-    content
-  } else {
-    van$app_id <- NULL
-    van$app_guid <- guid
-    Vanity$new(connect = con, content = content$get_content(), vanity = van)
-  }
+  Vanity$new(connect = con, content = content$get_content(), vanity = van)
 }
 
 #' Swap the Vanity URL
