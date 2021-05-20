@@ -207,6 +207,26 @@ test_that("set_vanity_url works", {
   expect_equal(res2$get_vanity()$path, paste0("/", new_name, "update/"))
 })
 
+test_that("set_vanity_url force works", {
+  new_name <- uuid::UUIDgenerate()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  cont <- deploy(test_conn_1, bnd, name = new_name)
+  res <- set_vanity_url(cont1, new_name)
+
+  another_name <- uuid::UUIDgenerate()
+  cont2 <- deploy(test_conn_1, bnd, name = another_name)
+
+  expect_error(suppressMessages(set_vanity_url(cont2, new_name, force = FALSE), "409"))
+
+  res2 <- set_vanity_url(cont2, new_name, force = TRUE)
+  expect_identical(
+    get_vanity_url(cont2),
+    paste0("/", new_name, "/")
+  )
+
+  expect_null(suppressMessages(get_vanity_url(cont)))
+})
+
 
 test_that("get_vanity_url works", {
   tmp_content_name <- uuid::UUIDgenerate()
