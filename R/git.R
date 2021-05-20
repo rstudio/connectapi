@@ -55,7 +55,7 @@ repo_check_branches_ref <- function(client, repository) {
   task_data <- task_res$get_data()
   stopifnot(identical(task_data$type, "git-repo-ref-branch-array"))
   branches <- purrr::map(task_data$data, ~ .x$branch)
-  refs <- purrr::map(task_data$data, ~ .x$ref)
+  refs <- purrr::map_chr(task_data$data, ~ .x$ref)
   purrr::set_names(refs, branches)
 }
 
@@ -77,6 +77,9 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 #'
 #' \lifecycle{experimental} Deploy a git repository directly to RStudio Connect,
 #' using RStudio Connect's "pull-based" "git-polling" method of deployment.
+#'
+#' - `deploy_repo_enable()` enables (or disables) RStudio Connect's git polling for a piece of content
+#' - `deploy_repo_update()` triggers an update of the content from its git repository, if any are present
 #'
 #' @param client A Connect R6 object
 #' @param repository The git repository to deploy
