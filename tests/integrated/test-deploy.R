@@ -90,7 +90,7 @@ test_that(".pre_deploy hook works", {
 
   active_bundle <- deployed$get_content_remote()$bundle_id
   expect_equal(
-    get_vanity_url(deployed)$vanity$path_prefix,
+    get_vanity_url(deployed)$vanity$path,
     as.character(glue::glue("/pre_deploy_{active_bundle}/"))
   )
 })
