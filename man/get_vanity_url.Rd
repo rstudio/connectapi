@@ -10,7 +10,7 @@ get_vanity_url(content)
 \item{content}{A Content object}
 }
 \description{
-\lifecycle{experimental} Gets the Vanity URL for a piece of content.
+Gets the Vanity URL for a piece of content.
 }
 \seealso{
 Other content functions: 
@@ -20,6 +20,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
