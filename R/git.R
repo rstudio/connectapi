@@ -46,6 +46,21 @@ repo_check_branches <- function(client, repository) {
 
 #' @rdname git
 #' @export
+repo_check_branches_ref <- function(client, repository) {
+  validate_R6_class(client, "Connect")
+  branches_raw <- client$repo_branches(repository)
+  branches_task <- Task$new(connect = client, task = branches_raw)
+
+  task_res <- poll_task(branches_task, callback = NULL)
+  task_data <- task_res$get_data()
+  stopifnot(identical(task_data$type, "git-repo-ref-branch-array"))
+  branches <- purrr::map(task_data$data, ~ .x$branch)
+  refs <- purrr::map(task_data$data, ~ .x$ref)
+  purrr::set_names(refs, branches)
+}
+
+#' @rdname git
+#' @export
 repo_check_manifest_dirs <- function(client, repository, branch) {
   validate_R6_class(client, "Connect")
   manifest_dirs_raw <- client$repo_manifest_dirs(repo = repository, branch = branch)
@@ -69,6 +84,8 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 #' @param subdirectory The subdirectory to deploy (must contain a `manifest.json`)
 #' @param name The "name" / unique identifier for the content. Defaults to a random character string
 #' @param title The "title" of the content
+#' @param content An R6 Content object (i.e. the result of `content_item()`)
+#' @param enabled Whether Connect will enable automatic polling for repository updates
 #' @param ... Additional options for defining / specifying content attributes
 #'
 #' @return A ContentTask object, for use with `poll_task()` (if you want to follow the logs)
@@ -76,6 +93,7 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 #' @seealso connectapi::poll_task, connectapi::repo_check_branches, connectapi::repo_check_manifest_dirs
 #'
 #' @family content functions
+#' @rdname deploy_repo
 #' @export
 deploy_repo <- function(client, repository, branch, subdirectory, name = create_random_name(), title = name, ...) {
   validate_R6_class(client, "Connect")
@@ -88,4 +106,44 @@ deploy_repo <- function(client, repository, branch, subdirectory, name = create_
   task <- deployed_content$deploy()
 
   ContentTask$new(connect = client, content = content_metadata, task = task)
+}
+
+#' @rdname deploy_repo
+#' @export
+deploy_repo_enable <- function(content, enabled = TRUE) {
+  validate_R6_class(content, "Content")
+
+  invisible(content$repo_enable(enabled))
+  invisible(content$get_content_remote())
+  return(content)
+}
+
+#' @rdname deploy_repo
+#' @export
+deploy_repo_update <- function(content) {
+  validate_R6_class(content, "Content")
+
+  con <- content$get_connect()
+  internal_meta <- content$internal_content()
+  repo_data <- tryCatch({
+    internal_meta$git
+  }, error = function(e){
+    message(e)
+    return(NULL)
+  })
+  if (is.null(repo_data)) {
+    stop(glue::glue("Content item '{internal_meta$guid}' is not git-backed content"))
+  }
+  branch_status <- repo_check_branches_ref(con, repo_data$repository_url)
+
+  if (!repo_data$branch %in% names(branch_status)) {
+    stop(glue::glue("Branch '{repo_data$branch}' was no longer found on repository '{repo_data$repository_url}'"))
+  }
+  if (identical(repo_data$last_known_commit, branch_status[[repo_data$branch]])) {
+    message(glue::glue("No changes were found in the Git repository: {repo_data$repository_url}@{repo_data$branch}"))
+    return(content)
+  }
+  task <- content$deploy()
+
+  ContentTask$new(connect = con, content = content$get_content(), task = task)
 }
