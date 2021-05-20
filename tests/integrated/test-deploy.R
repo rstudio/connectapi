@@ -194,14 +194,17 @@ test_that("set_image_webshot works", {
 # vanity_url ---------------------------------------------------
 
 test_that("set_vanity_url works", {
-  res <- set_vanity_url(cont1_content, cont1_name)
+  new_name <- uuid::UUIDgenerate()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  cont1 <- deploy(test_conn_1, bnd, name = new_name)
+  res <- set_vanity_url(cont1, new_name)
 
   expect_true(validate_R6_class(res, "Vanity"))
-  expect_equal(res$get_vanity()$path, paste0("/", cont1_name, "/"))
+  expect_equal(res$get_vanity()$path, paste0("/", new_name, "/"))
 
-  res2 <- set_vanity_url(cont1_content, paste0(cont1_name, "update"))
+  res2 <- set_vanity_url(cont1, paste0(new_name, "update"))
   expect_true(validate_R6_class(res2, "Vanity"))
-  expect_equal(res2$get_vanity()$path, paste0("/", cont1_name, "update/"))
+  expect_equal(res2$get_vanity()$path, paste0("/", new_name, "update/"))
 })
 
 
@@ -211,7 +214,7 @@ test_that("get_vanity_url works", {
   tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
 
   # without a vanity
-  curr_vanity <- get_vanity_url(tmp_content)
+  curr_vanity <- suppressMessages(get_vanity_url(tmp_content))
   expect_true(validate_R6_class(curr_vanity, "Content"))
   expect_error(validate_R6_class(curr_vanity, "Vanity"), regexp = "R6 Vanity")
 
