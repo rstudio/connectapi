@@ -37,6 +37,8 @@ An R6 class that represents a Schedule
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="internal_content">}\href{../../connectapi/html/Content.html#method-internal_content}{\code{connectapi::Content$internal_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable">}\href{../../connectapi/html/Content.html#method-repo_enable}{\code{connectapi::Content$repo_enable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set">}\href{../../connectapi/html/Content.html#method-repo_set}{\code{connectapi::Content$repo_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}

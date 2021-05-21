@@ -4,12 +4,15 @@
 \alias{git}
 \alias{repo_check_account}
 \alias{repo_check_branches}
+\alias{repo_check_branches_ref}
 \alias{repo_check_manifest_dirs}
 \title{Git Repository Helpers}
 \usage{
 repo_check_account(client, host)
 
 repo_check_branches(client, repository)
+
+repo_check_branches_ref(client, repository)
 
 repo_check_manifest_dirs(client, repository, branch)
 }

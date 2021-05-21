@@ -42,8 +42,10 @@ Other R6 classes:
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url">}\href{../../connectapi/html/Content.html#method-get_url}{\code{connectapi::Content$get_url()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="internal_content">}\href{../../connectapi/html/Content.html#method-internal_content}{\code{connectapi::Content$internal_content()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job">}\href{../../connectapi/html/Content.html#method-job}{\code{connectapi::Content$job()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs">}\href{../../connectapi/html/Content.html#method-jobs}{\code{connectapi::Content$jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable">}\href{../../connectapi/html/Content.html#method-repo_enable}{\code{connectapi::Content$repo_enable()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set">}\href{../../connectapi/html/Content.html#method-repo_set}{\code{connectapi::Content$repo_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
