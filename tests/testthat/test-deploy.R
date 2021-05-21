@@ -52,3 +52,12 @@ test_that("bundle_dir works with relative paths", {
   bnd <- suppressMessages(bundle_dir(fs::path_rel(rprojroot::find_testthat_root_file("examples", "doc"))))
   expect_true(fs::file_exists(bnd$path))
 })
+
+test_that("bundle_dir errors for nonexistent paths", {
+  expect_error(
+    suppressMessages(
+      bundle_dir(rprojroot::find_testthat_root_file("examples", "does_not_exist_not_real"))
+    ),
+    "not TRUE"
+  )
+})
