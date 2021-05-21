@@ -472,10 +472,10 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "0.2.0",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "361811f31f71f8a617a9a68bf63f1f42"
+      "Hash": "3471fb65971f1a7b2d4ae7848cf2db8d"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -888,10 +888,15 @@
     },
     "webshot": {
       "Package": "webshot",
-      "Version": "0.5.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "e99d80ad34457a4853674e89d5e806de"
+      "Version": "0.5.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "slopp",
+      "RemoteRepo": "webshot",
+      "RemoteRef": "master",
+      "RemoteSha": "5f96b1ad0db53021e6a97de3a18f71570b0a526f",
+      "Hash": "244d86161b32affe246c831c224011f6"
     },
     "whisker": {
       "Package": "whisker",

@@ -33,7 +33,7 @@ Set to \code{NULL} to use the default RunAs user / unset any current configurati
 To "read" the current RunAs user, use the \code{Content} object or \code{get_content()} function.
 }
 \seealso{
-get_content
+connectapi::get_content
 
 Other content functions: 
 \code{\link{acl_add_user}()},
@@ -42,12 +42,15 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{delete_vanity_url}()},
+\code{\link{deploy_repo}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},
 \code{\link{get_jobs}()},
 \code{\link{get_vanity_url}()},
+\code{\link{git}},
 \code{\link{set_image_path}()},
 \code{\link{set_vanity_url}()},
 \code{\link{swap_vanity_url}()},

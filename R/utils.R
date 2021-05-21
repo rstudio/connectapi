@@ -11,6 +11,25 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
+query_args <- function(...) {
+  args <- rlang::list2(...)
+
+  prep <- purrr::map2_chr(
+    names(args),
+    args,
+    function(name, arg) {
+      glue::glue("{name}={arg}")
+    }
+  )
+
+  joined <- glue::glue_collapse(prep, sep = "&")
+
+  if (length(joined) > 0 && nchar(joined) > 0) {
+    return(paste0("?", joined))
+  }
+  return("")
+}
+
 generate_R6_print_output <- function() {
   con <- Connect$new(host = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
@@ -19,7 +38,7 @@ generate_R6_print_output <- function() {
   cnt1 <- Content$new(connect = con, ex_content)
 
   ex_task <- list(task_id = "task-id")
-  tsk1 <- Task$new(connect = con, content = ex_content, task = ex_task)
+  tsk1 <- ContentTask$new(connect = con, content = ex_content, task = ex_task)
 
   ex_vanity <- list(path_prefix = "vanity-prefix")
   van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)

@@ -11,13 +11,18 @@ poll_task(task, wait = 1, callback = message)
 
 \item{wait}{The interval to wait between polling}
 
-\item{callback}{A function to be called for each message received}
+\item{callback}{A function to be called for each message received. Set to NULL for no callback}
 }
 \value{
 Task The Task object that was input
 }
 \description{
-Polls a task, waiting for information about a deployment
+Polls a task, waiting for information about a deployment. If the task has
+results, the output will be a modified "Task" object with \code{task$get_data()}
+available to retrieve the results.
+}
+\details{
+For a simple way to silence messages, set \code{callback = NULL}
 }
 \seealso{
 Other deployment functions: 

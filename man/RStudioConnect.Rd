@@ -29,6 +29,7 @@ API. Authentication is done by providing an API key.
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
+\code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{Task}},
 \code{\link{Vanity}},
@@ -40,6 +41,7 @@ Other R6 classes:
 \itemize{
 \item \href{#method-get_connect}{\code{Connect$get_connect()}}
 \item \href{#method-new}{\code{Connect$new()}}
+\item \href{#method-httr_config}{\code{Connect$httr_config()}}
 \item \href{#method-print}{\code{Connect$print()}}
 \item \href{#method-raise_error}{\code{Connect$raise_error()}}
 \item \href{#method-add_auth}{\code{Connect$add_auth()}}
@@ -90,6 +92,9 @@ Other R6 classes:
 \item \href{#method-inst_content_visits}{\code{Connect$inst_content_visits()}}
 \item \href{#method-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
 \item \href{#method-procs}{\code{Connect$procs()}}
+\item \href{#method-repo_account}{\code{Connect$repo_account()}}
+\item \href{#method-repo_branches}{\code{Connect$repo_branches()}}
+\item \href{#method-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
 \item \href{#method-docs}{\code{Connect$docs()}}
 \item \href{#method-audit_logs}{\code{Connect$audit_logs()}}
 \item \href{#method-server_settings_r}{\code{Connect$server_settings_r()}}
@@ -112,6 +117,15 @@ Other R6 classes:
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$new(host, api_key)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-httr_config"></a>}}
+\if{latex}{\out{\hypertarget{method-httr_config}{}}}
+\subsection{Method \code{httr_config()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$httr_config(...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -147,7 +161,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET}{}}}
 \subsection{Method \code{GET()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -156,7 +170,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_RESULT}{}}}
 \subsection{Method \code{GET_RESULT()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -165,7 +179,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_URL}{}}}
 \subsection{Method \code{GET_URL()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -174,7 +188,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-GET_RESULT_URL}{}}}
 \subsection{Method \code{GET_RESULT_URL()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -183,7 +197,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PUT}{}}}
 \subsection{Method \code{PUT()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -192,7 +206,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-HEAD}{}}}
 \subsection{Method \code{HEAD()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -201,7 +215,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-DELETE}{}}}
 \subsection{Method \code{DELETE()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -210,7 +224,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PATCH}{}}}
 \subsection{Method \code{PATCH()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -219,7 +233,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-POST}{}}}
 \subsection{Method \code{POST()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
 }
 
 }
@@ -589,6 +603,33 @@ Other R6 classes:
 \subsection{Method \code{procs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$procs()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_account"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_account}{}}}
+\subsection{Method \code{repo_account()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_account(host)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_branches"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_branches}{}}}
+\subsection{Method \code{repo_branches()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_branches(repo)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_manifest_dirs"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_manifest_dirs}{}}}
+\subsection{Method \code{repo_manifest_dirs()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_manifest_dirs(repo, branch)}\if{html}{\out{</div>}}
 }
 
 }

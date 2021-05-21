@@ -41,23 +41,75 @@ Bundle <- R6::R6Class(
 #' @export
 Task <- R6::R6Class(
   "Task",
+  public = list(
+    connect = NULL,
+    task = NULL,
+    data = NULL,
+    initialize = function(connect, task) {
+      validate_R6_class(connect, "Connect")
+      self$connect <- connect
+      # TODO: need to validate task (needs task_id)
+      if ("id" %in% names(task) && ! "task_id" %in% names(task)) {
+        # deal with different task interfaces on Connect
+        task$task_id <- task$id
+      }
+      self$task <- task
+    },
+    get_connect = function() {
+      self$connect
+    },
+    get_task = function() {
+      self$task
+    },
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
+    print = function(...) {
+      cat("RStudio Connect Task: \n")
+      cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
+      cat("\n")
+      invisible(self)
+    }
+  )
+)
+
+#' ContentTask
+#'
+#' An R6 class that represents a Task for a piece of Content
+#'
+#' @family R6 classes
+#' @export
+ContentTask <- R6::R6Class(
+  "ContentTask",
   inherit = Content,
+  # implements the "Task" interface too
   public = list(
     task = NULL,
+    data = NULL,
     initialize = function(connect, content, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate content
       self$content <- content
-      # TODO: need to validate task (needs id)
+      # TODO: need to validate task (needs task_id)
       self$task <- task
     },
     get_task = function() {
       self$task
     },
-
+    add_data = function(data) {
+      self$data <- data
+      invisible(self)
+    },
+    get_data = function() {
+      self$data
+    },
     print = function(...) {
-      cat("RStudio Connect Task: \n")
+      cat("RStudio Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
@@ -93,7 +145,7 @@ Vanity <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path, "\n", sep = "")
       cat("\n")
       invisible(self)
     }
@@ -255,7 +307,7 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   # deploy
   task <- con$content_deploy(guid = content$guid, bundle_id = new_bundle_id)
 
-  Task$new(connect = con, content = content, task = task)
+  ContentTask$new(connect = con, content = content, task = task)
 }
 
 #' Get the Image
@@ -412,6 +464,7 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @param content A Content object
 #' @param url The path component of the URL
+#' @param force optional. Default FALSE. Whether to force-reassign a vanity URL that already exists
 #'
 #' @return An updated Content object
 #'
@@ -425,75 +478,71 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @family content functions
 #' @export
-set_vanity_url <- function(content, url) {
-  warn_experimental("set_vanity_url")
+set_vanity_url <- function(content, url, force = FALSE) {
   validate_R6_class(content, "Content")
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
   scoped_experimental_silence()
   # TODO: Check that the URL provided is appropriate
 
-  current_vanity <- get_vanity_url(content)
-
-  con <- content$get_connect()
-
-  if (!inherits(current_vanity, "Vanity")) {
-    # new
-    res <- con$POST(
-      path = "vanities",
-      body = list(
-        app_guid = guid,
-        path_prefix = url
-      )
+  res <- con$PUT(
+    path = glue::glue("v1/content/{guid}/vanity"),
+    body = list(
+      path = url,
+      force = force
     )
-  } else {
-    # update
-    res <- con$PUT(
-      path = glue::glue("vanities/{current_vanity$get_vanity()$id}"),
-      body = list(
-        path_prefix = url
-      )
-    )
-  }
+  )
 
-  # update content/vanity definition
-  updated_content <- con$content(guid = guid)
-  updated_van_res <- con$GET(glue::glue("/applications/{guid}"))
-  updated_van <- updated_van_res$vanities[[1]]
-  updated_van$app_id <- NULL
-  updated_van$app_guid <- guid
-
-  van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
-
-  van
+  Vanity$new(connect = con, content = content$get_content_remote(), vanity = res)
 }
 
-
-#' Get the Vanity URL
+#' Delete the Vanity URL
 #'
-#' \lifecycle{experimental} Gets the Vanity URL for a piece of content.
+#' Deletes the Vanity URL for a piece of content.
 #'
 #' @param content A Content object
 #'
 #' @family content functions
 #' @export
-get_vanity_url <- function(content) {
-  warn_experimental("get_vanity_url")
+delete_vanity_url <- function(content) {
   con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  res <- con$GET(glue::glue("/applications/{guid}"))
+  con$DELETE(glue::glue("/v1/content/{guid}/vanity"))
 
-  # just grab the first?
-  van <- res$vanities[[1]]
+  content
+}
 
+#' Get the Vanity URL
+#'
+#' Gets the Vanity URL for a piece of content.
+#'
+#' @param content A Content object
+#'
+#' @return A character string (or NULL if not defined)
+#'
+#' @family content functions
+#' @export
+get_vanity_url <- function(content) {
+  validate_R6_class(content, "Content")
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
+  guid <- content$get_content()$guid
+
+  van <- tryCatch({
+    con$GET(glue::glue("/v1/content/{guid}/vanity"))
+  }, error = function(e) {
+    # TODO: check to ensure that this error was expected
+    return(NULL)
+  })
   if (is.null(van)) {
-    content
-  } else {
-    van$app_id <- NULL
-    van$app_guid <- guid
-    Vanity$new(connect = con, content = content$get_content(), vanity = van)
+    return(NULL)
   }
+
+  return(van$path)
 }
 
 #' Swap the Vanity URL
@@ -563,19 +612,25 @@ swap_vanity_url <- function(from_content, to_content) {
 
 #' Poll Task
 #'
-#' Polls a task, waiting for information about a deployment
+#' Polls a task, waiting for information about a deployment. If the task has
+#' results, the output will be a modified "Task" object with `task$get_data()`
+#' available to retrieve the results.
+#'
+#' For a simple way to silence messages, set `callback = NULL`
 #'
 #' @param task A Task object
 #' @param wait The interval to wait between polling
-#' @param callback A function to be called for each message received
+#' @param callback A function to be called for each message received. Set to NULL for no callback
 #'
 #' @return Task The Task object that was input
 #'
 #' @family deployment functions
 #' @export
 poll_task <- function(task, wait = 1, callback = message) {
-  validate_R6_class(task, c("Task", "VariantTask"))
+  validate_R6_class(task, c("Task", "ContentTask", "VariantTask"))
   con <- task$get_connect()
+
+  all_task_data <- list()
 
   finished <- FALSE
   code <- -1
@@ -586,12 +641,22 @@ poll_task <- function(task, wait = 1, callback = message) {
     code <- task_data[["code"]]
     first <- task_data[["last"]]
 
-    lapply(task_data[["output"]], callback)
+    if (!is.null(callback)) {
+      lapply(task_data[["output"]], callback)
+    }
+    all_task_data <- c(all_task_data, task_data[["output"]])
   }
 
   if (code != 0) {
     msg <- task_data[["error"]]
+    # print the logs if there is no callback
+    if (is.null(callback)) {
+      lapply(all_task_data, message)
+    }
     stop(msg)
+  }
+  if (!is.null(task_data[["result"]])) {
+    task$add_data(task_data[["result"]])
   }
   task
 }

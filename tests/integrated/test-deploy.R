@@ -44,7 +44,7 @@ test_that("bundle_dir deploys", {
   expect_equal(tsk$get_content()$name, cont1_name)
   expect_equal(tsk$get_content()$title, cont1_title)
 
-  expect_true(validate_R6_class(tsk, "Task"))
+  expect_true(validate_R6_class(tsk, "ContentTask"))
   expect_gt(nchar(tsk$get_task()$task_id), 0)
 
   # with a guid
@@ -90,7 +90,7 @@ test_that(".pre_deploy hook works", {
 
   active_bundle <- deployed$get_content_remote()$bundle_id
   expect_equal(
-    get_vanity_url(deployed)$vanity$path_prefix,
+    get_vanity_url(deployed),
     as.character(glue::glue("/pre_deploy_{active_bundle}/"))
   )
 })
@@ -194,34 +194,74 @@ test_that("set_image_webshot works", {
 # vanity_url ---------------------------------------------------
 
 test_that("set_vanity_url works", {
-  scoped_experimental_silence()
-  res <- set_vanity_url(cont1_content, cont1_name)
+  new_name <- uuid::UUIDgenerate()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  cont1 <- deploy(test_conn_1, bnd, name = new_name)
+  res <- set_vanity_url(cont1, new_name)
 
   expect_true(validate_R6_class(res, "Vanity"))
-  expect_equal(res$get_vanity()$path_prefix, paste0("/", cont1_name, "/"))
+  expect_equal(res$get_vanity()$path, paste0("/", new_name, "/"))
 
-  res2 <- set_vanity_url(cont1_content, paste0(cont1_name, "update"))
+  res2 <- set_vanity_url(cont1, paste0(new_name, "update"))
   expect_true(validate_R6_class(res2, "Vanity"))
-  expect_equal(res2$get_vanity()$path_prefix, paste0("/", cont1_name, "update/"))
+  expect_equal(res2$get_vanity()$path, paste0("/", new_name, "update/"))
+})
+
+test_that("set_vanity_url force works", {
+  new_name <- uuid::UUIDgenerate()
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  cont <- deploy(test_conn_1, bnd, name = new_name)
+  res <- set_vanity_url(cont, new_name)
+
+  another_name <- uuid::UUIDgenerate()
+  cont2 <- deploy(test_conn_1, bnd, name = another_name)
+
+  expect_error(suppressMessages(set_vanity_url(cont2, new_name, force = FALSE), "409"))
+
+  res2 <- set_vanity_url(cont2, new_name, force = TRUE)
+  expect_identical(
+    get_vanity_url(cont2),
+    paste0("/", new_name, "/")
+  )
+
+  expect_null(suppressMessages(get_vanity_url(cont)))
 })
 
 
 test_that("get_vanity_url works", {
-  scoped_experimental_silence()
   tmp_content_name <- uuid::UUIDgenerate()
   tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
   tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
 
   # without a vanity
-  curr_vanity <- get_vanity_url(tmp_content)
-  expect_true(validate_R6_class(curr_vanity, "Content"))
-  expect_error(validate_R6_class(curr_vanity, "Vanity"), regexp = "R6 Vanity")
+  curr_vanity <- suppressMessages(get_vanity_url(tmp_content))
+  expect_null(curr_vanity)
 
   # with a vanity
   res <- set_vanity_url(tmp_content, tmp_content_name)
   existing_vanity <- get_vanity_url(tmp_content)
-  expect_true(validate_R6_class(existing_vanity, "Vanity"))
-  expect_equal(existing_vanity$get_vanity()$path_prefix, paste0("/", tmp_content_name, "/"))
+  expect_is(existing_vanity, "character")
+  expect_equal(existing_vanity, paste0("/", tmp_content_name, "/"))
+})
+
+test_that("delete_vanity_url works", {
+  tmp_content_name <- uuid::UUIDgenerate()
+  tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
+  tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
+
+  # create a vanity
+  res <- set_vanity_url(tmp_content, tmp_content_name)
+  expect_true(validate_R6_class(res, "Vanity"))
+  expect_equal(res$get_vanity()$path, paste0("/", tmp_content_name, "/"))
+
+  # delete the vanity
+  res <- delete_vanity_url(tmp_content)
+  expect_true(validate_R6_class(res, "Content"))
+  expect_error(validate_R6_class(res, "Vanity"), "R6 Vanity")
+
+  # get the vanity
+  res <- get_vanity_url(tmp_content)
+  expect_null(res)
 })
 
 # misc functions ---------------------------------------------------
