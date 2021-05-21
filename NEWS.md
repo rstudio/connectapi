@@ -1,5 +1,8 @@
 # connectapi (development version)
 
+- BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
+    - The same is true of the `connect()` function, although we warn
+      about argument deprecation in that case.
 - BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer experimental functions. However:
     - `get_vanity_url()` now returns a character string representing the vanity
     url in use (or NULL if not defined)
