@@ -1,5 +1,10 @@
 # connectapi (development version)
 
+- BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer experimental functions. However:
+    - `get_vanity_url()` now returns a character string representing the vanity
+    url in use (or NULL if not defined)
+    - `set_vanity_url()` still returns a `Vanity` R6 object, but
+    `vanity$get_vanity()$path_prefix` is now `vanity$get_vanity()$path`
 - Add HTTP request customization options, and related documentation
   ([#101](https://github.com/rstudio/connectapi/pull/101))
 - Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))

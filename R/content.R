@@ -34,6 +34,10 @@ Content <- R6::R6Class(
       url <- glue::glue("v1/experimental/content/{self$get_content()$guid}/bundles?page_number={page_number}")
       self$get_connect()$GET(url)
     },
+    internal_content = function() {
+      url <- glue::glue("applications/{self$get_content()$guid}")
+      self$get_connect()$GET(url)
+    },
     update = function(...) {
       con <- self$get_connect()
       error_if_less_than(con, "1.8.6")
@@ -151,6 +155,15 @@ Content <- R6::R6Class(
       self$get_connect()$POST(
         glue::glue("v1/experimental/content/{self$get_content()$guid}/deploy"),
         body = "{}"
+      )
+    },
+    repo_enable = function(enabled = TRUE) {
+      warn_experimental("repo_enable")
+      self$get_connect()$PUT(
+        glue::glue("applications/{self$get_content()$guid}/repo"),
+        body = list(
+          enabled = enabled
+        )
       )
     },
     repo_set = function(repository, branch, subdirectory) {

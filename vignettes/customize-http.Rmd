@@ -99,8 +99,8 @@ client$httr_config(httr::use_proxy("http://myproxy.example.com"))
 ```
 
 > NOTE: these values are completely overwritten each time you call
-`client$httr_config()`, so ensure that you > pass all desired values at the same
-time
+>`client$httr_config()`, so ensure that you pass all desired values at the same
+> time
 
 ### Using Kerberos
 
