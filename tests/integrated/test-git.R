@@ -79,6 +79,7 @@ test_that("deploy_repo_enable works", {
   expect_true(validate_R6_class(cont1, "Content"))
   expect_true(validate_R6_class(cont1, "ContentTask"))
 
+  # TODO: flaky... how to be safer?
   Sys.sleep(5) # sleep for deployment...?
   expect_true(cont1$internal_content()$git$enabled)
   res <- deploy_repo_enable(cont1, FALSE)
