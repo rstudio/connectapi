@@ -31,7 +31,7 @@ query_args <- function(...) {
 }
 
 generate_R6_print_output <- function() {
-  con <- Connect$new(host = "http://test_host", api_key = "test_key")
+  con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
 
   ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
