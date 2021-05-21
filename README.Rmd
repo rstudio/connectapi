@@ -62,7 +62,7 @@ To create a client:
 ```{r, eval = FALSE}
 library(connectapi)
 client <- connect(
-  host = 'https://connect.example.com',
+  server = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
 )
 ```
@@ -145,7 +145,7 @@ client %>%
 # migrate content to another server
 
 client_prod <- connect(
-  host = "prod.example.com",
+  server = "prod.example.com",
   api_key = "my-secret-key"
 )
 
@@ -166,7 +166,7 @@ client_prod %>% browse_solo()
 
 **Access Denied Errors?**
 
-This is likely due to either (1) `Connect$host` or `Connect$api_key` being
+This is likely due to either (1) `Connect$server` or `Connect$api_key` being
 defined improperly or (2) you do not have access to the RStudio Connect cluster
 to do the operation in question
 
