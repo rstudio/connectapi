@@ -156,7 +156,7 @@ safe_server_settings <- function(client) {
   },
   error = function(e) {
     message(
-      glue::glue("Problem talking to RStudio Connect at {client$host}/__api__/server_settings")
+      glue::glue("Problem talking to RStudio Connect at {client$server}/__api__/server_settings")
     )
     stop(e)
   }

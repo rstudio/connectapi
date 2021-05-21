@@ -39,7 +39,7 @@ browse_api_docs <- function(connect) {
 #' @export
 browse_connect <- function(connect) {
   validate_R6_class(connect, "Connect")
-  url <- connect$host
+  url <- connect$server
   utils::browseURL(url)
   return(url)
 }

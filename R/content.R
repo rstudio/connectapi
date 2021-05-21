@@ -66,7 +66,7 @@ Content <- R6::R6Class(
       self$get_content()$url
     },
     get_dashboard_url = function(pane = "") {
-      dashboard_url_chr(self$connect$host, self$content$guid, pane = pane)
+      dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
     },
     get_jobs = function() {
       lifecycle::deprecate_warn("0.1.0.9005", what = "get_jobs()", with = "jobs()")
@@ -180,7 +180,7 @@ Content <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Content URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
+      cat("  Content URL: ", dashboard_url_chr(self$get_connect()$server, self$get_content()$guid), "\n", sep = "")
       cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
       cat("\n")
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
@@ -349,10 +349,10 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
       })
     if (is.null(content)) {
       if (!"new" %in% .permitted) {
-        stop(glue::glue("guid {guid} was not found on {connect$host}"))
+        stop(glue::glue("guid {guid} was not found on {connect$server}"))
       }
       warning(glue::glue(
-        "guid {guid} was not found on {connect$host}.",
+        "guid {guid} was not found on {connect$server}.",
         "Creating new content with name {name}"
       ))
       content <- connect$content_create(
@@ -367,16 +367,16 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
     if (length(content) > 1) {
       stop(glue::glue(
         "Found {length(to_content)} content items ",
-        "matching {name} on {connect$host}",
+        "matching {name} on {connect$server}",
         ", content must have a unique name."
       ))
     } else if (length(content) == 0) {
       if (!"new" %in% .permitted) {
-        stop(glue::glue("Content with name {name} was not found on {connect$host}"))
+        stop(glue::glue("Content with name {name} was not found on {connect$server}"))
       }
       message(glue::glue(
         "Creating NEW content {content$guid} ",
-        "with name {name} on {connect$host}"
+        "with name {name} on {connect$server}"
       ))
       # create app
       content <- connect$content_create(
@@ -387,11 +387,11 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
     } else {
       content <- content[[1]]
       if (!"existing" %in% .permitted) {
-        stop(glue::glue("Content with name {name} already exists at {dashboard_url_chr(connect$host, content$guid)}"))
+        stop(glue::glue("Content with name {name} already exists at {dashboard_url_chr(connect$server, content$guid)}"))
       }
       message(glue::glue(
         "Found EXISTING content {content$guid} with ",
-        "name {name} on {connect$host}"
+        "name {name} on {connect$server}"
       ))
       # TODO: update values...? need a PUT endpoint
     }
