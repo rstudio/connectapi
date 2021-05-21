@@ -737,7 +737,7 @@ connect <- function(
 
   params <- rlang::list2(...)
   if ("host" %in% names(params)) {
-    warning("The `host` parameter is deprecated. Please use `server` instead")
+    lifecycle::deprecate_warn("0.1.0.9026", "connect(host)", "connect(server)")
     server <- params[["host"]]
   }
 
