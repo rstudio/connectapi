@@ -115,12 +115,13 @@ Vanity <- R6::R6Class(
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
 
   # TODO: check for manifest.json
+  stopifnot(fs::dir_exists(path))
+  message(glue::glue("Bundling directory ({path})"))
 
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
 
-  message(glue::glue("Bundling current directory ({path})"))
   check_bundle_contents(".")
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
