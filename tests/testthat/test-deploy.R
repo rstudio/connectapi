@@ -47,3 +47,8 @@ test_that("bundle_dir not fooled by subfolders", {
     "no `manifest.json`"
   )
 })
+
+test_that("bundle_dir works with relative paths", {
+  bnd <- suppressMessages(bundle_dir(fs::path_rel(rprojroot::find_testthat_root_file("examples", "doc"))))
+  expect_true(fs::file_exists(bnd$path))
+})
