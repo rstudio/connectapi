@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Create a connection to RStudio Connect — connect" />
-<meta property="og:description" content="Creates a connection to RStudio Connect using the hostname and an api key.
+<meta property="og:description" content="Creates a connection to RStudio Connect using the server URL and an api key.
 Validates the connection and checks that the version of the server is
 compatible with the current version of the package." />
 <meta property="og:image" content="/logo.svg" />
@@ -82,7 +82,7 @@ compatible with the current version of the package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9026</span>
       </span>
     </div>
 
@@ -145,13 +145,13 @@ compatible with the current version of the package." />
     </div>
 
     <div class="ref-description">
-    <p>Creates a connection to RStudio Connect using the hostname and an api key.
+    <p>Creates a connection to RStudio Connect using the server URL and an api key.
 Validates the connection and checks that the version of the server is
 compatible with the current version of the package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>connect</span><span class='op'>(</span>
-  host <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>prefix</span>, <span class='st'>"_SERVER"</span><span class='op'>)</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
+  server <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>prefix</span>, <span class='st'>"_SERVER"</span><span class='op'>)</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
   api_key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>prefix</span>, <span class='st'>"_API_KEY"</span><span class='op'>)</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
   prefix <span class='op'>=</span> <span class='st'>"CONNECT"</span>,
   <span class='va'>...</span>,
@@ -162,7 +162,7 @@ compatible with the current version of the package.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>host</th>
+      <th>server</th>
       <td><p>The URL for accessing RStudio Connect. Defaults to environment
 variable CONNECT_SERVER</p></td>
     </tr>
