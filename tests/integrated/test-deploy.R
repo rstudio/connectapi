@@ -264,6 +264,44 @@ test_that("delete_vanity_url works", {
   expect_null(res)
 })
 
+test_that("swap_vanity_url works", {
+  tmp_content_name <- uuid::UUIDgenerate()
+  tmp_content_prep <- content_ensure(test_conn_1, name = tmp_content_name)
+  tmp_content <- Content$new(connect = test_conn_1, content = tmp_content_prep)
+
+  tmp_content2_name <- uuid::UUIDgenerate()
+  tmp_content2_prep <- content_ensure(test_conn_1, name = tmp_content2_name)
+  tmp_content2 <- Content$new(connect = test_conn_1, content = tmp_content2_prep)
+
+  # warns with no vanity urls
+  res <- suppressMessages(expect_warning(swap_vanity_url(tmp_content, tmp_content2)))
+  expect_null(res[["from"]])
+  expect_null(res[["to"]])
+
+  # works with just one vanity url (from)
+  set_from <- set_vanity_url(tmp_content, tmp_content_name)
+  swap_res <- suppressMessages(swap_vanity_url(tmp_content, tmp_content2))
+
+  expect_identical(swap_res$to, paste0("/", tmp_content_name, "/"))
+  expect_true(grepl("vanity-url", swap_res$from))
+
+  # works with both vanity urls
+  swap_res2 <- suppressMessages(swap_vanity_url(tmp_content, tmp_content2))
+
+  expect_identical(swap_res2$from, paste0("/", tmp_content_name, "/"))
+  expect_identical(swap_res2$to, swap_res$from)
+
+  # works with just one vanity url (to)
+  delete_vanity_url(tmp_content)
+  expect_null(get_vanity_url(tmp_content))
+
+  swap_res3 <- swap_vanity_url(tmp_content, tmp_content2)
+
+  expect_identical(swap_res3$from, swap_res$from)
+  expect_false(identical(swap_res3$to, swap_res2$from))
+  expect_true(grepl("vanity-url", swap_res3$to))
+})
+
 # misc functions ---------------------------------------------------
 
 test_that("poll_task works and returns its input", {
