@@ -472,10 +472,15 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "1.0.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3471fb65971f1a7b2d4ae7848cf2db8d"
+      "Version": "1.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "lifecycle",
+      "RemoteRef": "master",
+      "RemoteSha": "19781f7d003383f2c6a155b1a8fd725557eb8103",
+      "Hash": "0d7bb2e3d89e593303cee5e26456f193"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -687,7 +692,8 @@
       "Package": "renv",
       "Version": "0.13.2",
       "Source": "Repository",
-      "Repository": "CRAN"
+      "Repository": "RSPM",
+      "Hash": "079cb1f03ff972b30401ed05623cbe92"
     },
     "reprex": {
       "Package": "reprex",
