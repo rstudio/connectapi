@@ -147,7 +147,7 @@ compose_find_hosts <- function(prefix) {
 }
 
 
-update_renviron_creds <- function(host, api_key, prefix, .file = ".Renviron") {
+update_renviron_creds <- function(server, api_key, prefix, .file = ".Renviron") {
   cat_line(glue::glue("connect: writing values for {prefix} to {.file}"))
   curr_environ <- tryCatch(readLines(.file), error = function(e) {
     print(e)
@@ -158,7 +158,7 @@ update_renviron_creds <- function(host, api_key, prefix, .file = ".Renviron") {
   curr_environ <- curr_environ[!grepl(glue::glue("^{prefix}_API_KEY="), curr_environ)]
   output_environ <- glue::glue(
     paste(curr_environ, collapse = "\n"),
-    "{prefix}_SERVER={host}",
+    "{prefix}_SERVER={server}",
     "{prefix}_API_KEY={api_key}",
     .sep = "\n"
   )
@@ -189,8 +189,8 @@ build_test_env <- function(
     "admin", "admin0", "admin@example.com"
   )
 
-  update_renviron_creds(a1$host, a1$api_key, "TEST_1")
-  update_renviron_creds(a2$host, a2$api_key, "TEST_2")
+  update_renviron_creds(a1$server, a1$api_key, "TEST_1")
+  update_renviron_creds(a2$server, a2$api_key, "TEST_2")
 
   cat_line("connect: done")
 
@@ -220,7 +220,7 @@ create_first_admin <- function(
   warn_dire("create_first_admin")
   check_connect_license(url)
 
-  client <- HackyConnect$new(host = url, api_key = NULL)
+  client <- HackyConnect$new(server = url, api_key = NULL)
 
   if (provider == "password") {
     tryCatch(
@@ -269,7 +269,7 @@ HackyConnect <- R6::R6Class(
     login = function(user, password) {
       warn_dire("HackyConnect")
       res <- httr::POST(
-        glue::glue("{self$host}/__login__"),
+        glue::glue("{self$server}/__login__"),
         body = list(username = user, password = password),
         encode = "json"
       )

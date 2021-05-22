@@ -12,7 +12,7 @@ Class representing a Connect API client
 \section{Usage}{
 
 \preformatted{
-client <- Connect$new(host = 'connect.example.com',
+client <- Connect$new(server = 'connect.example.com',
   apiKey = 'mysecretkey')
 client$get_apps()
 client$get_tags()
@@ -116,7 +116,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$new(host, api_key)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$new(server, api_key)}\if{html}{\out{</div>}}
 }
 
 }

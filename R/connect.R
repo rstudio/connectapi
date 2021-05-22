@@ -4,7 +4,7 @@
 #'
 #' @section Usage:
 #' \preformatted{
-#' client <- Connect$new(host = 'connect.example.com',
+#' client <- Connect$new(server = 'connect.example.com',
 #'   apiKey = 'mysecretkey')
 #' client$get_apps()
 #' client$get_tags()
@@ -23,7 +23,7 @@
 Connect <- R6::R6Class(
   "Connect",
   public = list(
-    host = NULL,
+    server = NULL,
     api_key = NULL,
     tags = NULL,
     tag_map = NULL,
@@ -34,12 +34,12 @@ Connect <- R6::R6Class(
       self
     },
 
-    initialize = function(host, api_key) {
-      message(glue::glue("Defining Connect with host: {host}"))
-      if (is.null(httr::parse_url(host)$scheme)) {
-        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {host}"))
+    initialize = function(server, api_key) {
+      message(glue::glue("Defining Connect with server: {server}"))
+      if (is.null(httr::parse_url(server)$scheme)) {
+        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {server}"))
       }
-      self$host <- base::sub("^(.*)/$", "\\1", host)
+      self$server <- base::sub("^(.*)/$", "\\1", server)
       self$api_key <- api_key
     },
 
@@ -52,7 +52,7 @@ Connect <- R6::R6Class(
 
     print = function(...) {
       cat("RStudio Connect API Client: \n")
-      cat("  RStudio Connect Server: ", self$host, "\n", sep = "")
+      cat("  RStudio Connect Server: ", self$server, "\n", sep = "")
       cat("  RStudio Connect API Key: ", paste0(strrep("*", 11), substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))), "\n", sep = "")
       # TODO: something about API key... role... ?
       # TODO: point to docs on methods... how to see methods?
@@ -86,12 +86,12 @@ Connect <- R6::R6Class(
     },
 
     GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
-      req <- paste0(self$host, "/__api__/", path)
+      req <- paste0(self$server, "/__api__/", path)
       self$GET_URL(url = req, writer = writer, parser = parser, ...)
     },
 
     GET_RESULT = function(path, writer = httr::write_memory(), ...) {
-      req <- paste0(self$host, "/__api__/", path)
+      req <- paste0(self$server, "/__api__/", path)
       self$GET_RESULT_URL(url = req, writer = writer, ...)
     },
 
@@ -119,7 +119,7 @@ Connect <- R6::R6Class(
     },
 
     PUT = function(path, body, encode = "json", ...) {
-      req <- paste0(self$host, "/__api__/", path)
+      req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::PUT,
@@ -139,7 +139,7 @@ Connect <- R6::R6Class(
     },
 
     HEAD = function(path, ...) {
-      req <- paste0(self$host, "/__api__/", path)
+      req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::HEAD,
@@ -156,7 +156,7 @@ Connect <- R6::R6Class(
     },
 
     DELETE = function(path, ...) {
-      req <- paste0(self$host, "/__api__/", path)
+      req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::DELETE,
@@ -173,7 +173,7 @@ Connect <- R6::R6Class(
     },
 
     PATCH = function(path, body, encode = "json", prefix = "/__api__/", ...) {
-      req <- paste0(self$host, prefix, path)
+      req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::PATCH,
@@ -193,7 +193,7 @@ Connect <- R6::R6Class(
     },
 
     POST = function(path, body, encode = "json", prefix = "/__api__/", ...) {
-      req <- paste0(self$host, prefix, path)
+      req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::POST,
@@ -217,7 +217,7 @@ Connect <- R6::R6Class(
     },
 
     get_dashboard_url = function() {
-      self$host
+      self$server
     },
 
     # tags ----------------------------------------------------------
@@ -243,7 +243,7 @@ Connect <- R6::R6Class(
     get_tag_id = function(tagname) {
       self$get_tags()
       if (!any(self$tag_map$name == tagname)) {
-        stop(sprintf("Tag %s not found on server %s", tagname, self$host))
+        stop(sprintf("Tag %s not found on server %s", tagname, self$server))
       }
       self$tag_map[which(self$tag_map$name == tagname), "id"]
     },
@@ -661,7 +661,7 @@ Connect <- R6::R6Class(
 
     docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
-      url <- paste0(self$host, "/__docs__/", docs)
+      url <- paste0(self$server, "/__docs__/", docs)
       if (browse) utils::browseURL(url)
       return(url)
     },
@@ -702,11 +702,11 @@ Connect <- R6::R6Class(
 
 #' Create a connection to RStudio Connect
 #'
-#' Creates a connection to RStudio Connect using the hostname and an api key.
+#' Creates a connection to RStudio Connect using the server URL and an api key.
 #' Validates the connection and checks that the version of the server is
 #' compatible with the current version of the package.
 #'
-#' @param host The URL for accessing RStudio Connect. Defaults to environment
+#' @param server The URL for accessing RStudio Connect. Defaults to environment
 #'   variable CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable CONNECT_API_KEY
@@ -720,7 +720,7 @@ Connect <- R6::R6Class(
 #' @rdname connect
 #' @export
 connect <- function(
-   host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+   server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
    api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
    prefix = "CONNECT",
    ...,
@@ -728,11 +728,17 @@ connect <- function(
    ) {
   if (
     prefix == "CONNECT" &&
-      is.na(host) && is.na(api_key) &&
+      is.na(server) && is.na(api_key) &&
       !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
       !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
   ) {
     stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
+  }
+
+  params <- rlang::list2(...)
+  if ("host" %in% names(params)) {
+    lifecycle::deprecate_warn("0.1.0.9026", "connect(host)", "connect(server)")
+    server <- params[["host"]]
   }
 
   if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
@@ -743,10 +749,10 @@ connect <- function(
       message(msg)
     }
   }
-  con <- Connect$new(host = host, api_key = api_key)
+  con <- Connect$new(server = server, api_key = api_key)
 
   tryCatch({
-    check_connect_license(con$host)
+    check_connect_license(con$server)
 
     # check Connect is accessible
     srv <- safe_server_settings(con)

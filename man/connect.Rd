@@ -5,7 +5,7 @@
 \title{Create a connection to RStudio Connect}
 \usage{
 connect(
-  host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+  server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
   prefix = "CONNECT",
   ...,
@@ -13,7 +13,7 @@ connect(
 )
 }
 \arguments{
-\item{host}{The URL for accessing RStudio Connect. Defaults to environment
+\item{server}{The URL for accessing RStudio Connect. Defaults to environment
 variable CONNECT_SERVER}
 
 \item{api_key}{The API Key to authenticate to RStudio Connect with. Defaults
@@ -31,7 +31,7 @@ succeed.}
 An RStudio Connect R6 object that can be passed along to methods
 }
 \description{
-Creates a connection to RStudio Connect using the hostname and an api key.
+Creates a connection to RStudio Connect using the server URL and an api key.
 Validates the connection and checks that the version of the server is
 compatible with the current version of the package.
 }
