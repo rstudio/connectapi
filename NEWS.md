@@ -1,5 +1,8 @@
 # connectapi (development version)
 
+- BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release).
+    - `set_vanity_url()`, `get_vanity_url()`, `swap_vanity_url()`
+    - `get_tags()`, `get_tag_data`, `get_content_tags()`
 - BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
     - The same is true of the `connect()` function, although we warn
       about argument deprecation in that case.
