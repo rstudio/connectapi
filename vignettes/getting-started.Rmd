@@ -28,7 +28,7 @@ Once you have your API key, you can create a Connect object in your code, like s
 ```r
 library(connectapi)
 client <- connect(
-  host = "http://example.com:3939",
+  server = "http://example.com:3939",
   api_key = "aihgaahegiahgg"
 )
 ```

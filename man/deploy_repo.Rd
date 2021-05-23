@@ -2,6 +2,8 @@
 % Please edit documentation in R/git.R
 \name{deploy_repo}
 \alias{deploy_repo}
+\alias{deploy_repo_enable}
+\alias{deploy_repo_update}
 \title{Deploy a Git Repository}
 \usage{
 deploy_repo(
@@ -13,6 +15,10 @@ deploy_repo(
   title = name,
   ...
 )
+
+deploy_repo_enable(content, enabled = TRUE)
+
+deploy_repo_update(content)
 }
 \arguments{
 \item{client}{A Connect R6 object}
@@ -28,6 +34,10 @@ deploy_repo(
 \item{title}{The "title" of the content}
 
 \item{...}{Additional options for defining / specifying content attributes}
+
+\item{content}{An R6 Content object (i.e. the result of \code{content_item()})}
+
+\item{enabled}{Whether Connect will enable automatic polling for repository updates}
 }
 \value{
 A ContentTask object, for use with \code{poll_task()} (if you want to follow the logs)
@@ -35,6 +45,12 @@ A ContentTask object, for use with \code{poll_task()} (if you want to follow the
 \description{
 \lifecycle{experimental} Deploy a git repository directly to RStudio Connect,
 using RStudio Connect's "pull-based" "git-polling" method of deployment.
+}
+\details{
+\itemize{
+\item \code{deploy_repo_enable()} enables (or disables) RStudio Connect's git polling for a piece of content
+\item \code{deploy_repo_update()} triggers an update of the content from its git repository, if any are present
+}
 }
 \seealso{
 connectapi::poll_task, connectapi::repo_check_branches, connectapi::repo_check_manifest_dirs
@@ -46,6 +62,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{delete_vanity_url}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},

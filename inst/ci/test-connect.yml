@@ -3,10 +3,11 @@ services:
 
   connect:
     hostname: connect
-    image: rstudio/rstudio-connect-preview:${RSC_VERSION}
+    image: rstudio/rstudio-connect:${RSC_VERSION}
     scale: 2
     ports:
       - 3939
     privileged: true
     environment:
       - RSC_LICENSE
+      - RSC_HASTE_ENABLED=true

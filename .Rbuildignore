@@ -12,3 +12,4 @@
 ^Makefile$
 ^Jenkinsfile$
 ^codecov\.yml$
+^LICENSE\.md$

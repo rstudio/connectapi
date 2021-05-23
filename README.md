@@ -1,6 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
 [![Lifecycle:
@@ -30,18 +29,18 @@ cautious about (1) upgrading the package, (2) upgrading RStudio Connect
 when you care about the reproducibility of workflows that use
 `connectapi`. As a result, we would advise:
 
-  - managing package versions with
+-   managing package versions with
     [`renv`](https://rstudio.github.io/renv/)
-  - test your dependent content before and after upgrading RStudio
+-   test your dependent content before and after upgrading RStudio
     Connect
 
 Please pay careful attention to the lifecycle badges of the various
 functions and warnings present when you are using experimental features.
 
 **Also, [please share
-feedback\!\!](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+feedback!!](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
 We love hearing how the RStudio Connect Server API is helpful and what
-additional endpoints would be useful\!\!**
+additional endpoints would be useful!!**
 
 ## Installation
 
@@ -58,7 +57,7 @@ To create a client:
 ``` r
 library(connectapi)
 client <- connect(
-  host = 'https://connect.example.com',
+  server = 'https://connect.example.com',
   api_key = '<SUPER SECRET API KEY>'
 )
 ```
@@ -107,7 +106,7 @@ all_content <- get_content(client, limit = Inf)
 The `rsconnect` package is usually used for deploying content to
 Connect. However, if you want to use programmatic deployment with the
 RStudio Connect Server API, then these `connectapi` helpers should be
-useful\!
+useful!
 
 ``` r
 library(connectapi)
@@ -144,7 +143,7 @@ client %>%
 # migrate content to another server
 
 client_prod <- connect(
-  host = "prod.example.com",
+  server = "prod.example.com",
   api_key = "my-secret-key"
 )
 
@@ -165,7 +164,7 @@ client_prod %>% browse_solo()
 
 **Access Denied Errors?**
 
-This is likely due to either (1) `Connect$host` or `Connect$api_key`
+This is likely due to either (1) `Connect$server` or `Connect$api_key`
 being defined improperly or (2) you do not have access to the RStudio
 Connect cluster to do the operation in question
 
@@ -178,19 +177,19 @@ Connect (because RStudio Connect’s APIs change over time).
 
 We strive to:
 
-  - track the latest version of the RStudio Connect API
-  - add new features as they come available and have demand
-  - maintain backwards compatibility
+-   track the latest version of the RStudio Connect API
+-   add new features as they come available and have demand
+-   maintain backwards compatibility
 
 These priorities are sometimes at odds, and sometimes they create
 inconsistencies between versions as a result. To mitigate this, we
 recommend:
 
-  - Track the version of `connectapi` in use for your applications by
+-   Track the version of `connectapi` in use for your applications by
     using `renv`
-  - Test high value content that uses `connectapi` before updating
+-   Test high value content that uses `connectapi` before updating
     `connectapi` or RStudio Connect
-  - Update RStudio Connect to the latest version *first* when an update
+-   Update RStudio Connect to the latest version *first* when an update
     to `connectapi` is needed
 
 **Error - Need to update RStudio Connect**
@@ -202,10 +201,10 @@ RStudio Connect.
 
 If you get this error message, our recommendation would be:
 
-  - Look at [`NEWS.md`](./NEWS.md) to find the moment the change was
+-   Look at [`NEWS.md`](./NEWS.md) to find the moment the change was
     introduced
-  - Downgrade `connectapi` to the previous version of the package
-  - (Advanced) Use the “blame” feature on GitHub to track commits and
+-   Downgrade `connectapi` to the previous version of the package
+-   (Advanced) Use the “blame” feature on GitHub to track commits and
     find out when the error was introduced
 
 Please feel free to open an Issue if you think there is a bug, or ask a
@@ -214,7 +213,7 @@ Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
 
 **Other ideas for FAQs or Common Issues?**
 
-Please submit a PR\! We would love to have your contribution\!
+Please submit a PR! We would love to have your contribution!
 
 # Code of Conduct
 

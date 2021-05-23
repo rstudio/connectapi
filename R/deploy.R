@@ -111,7 +111,7 @@ ContentTask <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  URL: ", dashboard_url_chr(self$get_connect()$host, self$get_content()$guid), "\n", sep = "")
+      cat("  URL: ", dashboard_url_chr(self$get_connect()$server, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
@@ -145,7 +145,7 @@ Vanity <- R6::R6Class(
     print = function(...) {
       cat("RStudio Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
-      cat("  Vanity URL: ", self$get_vanity()$path_prefix, "\n", sep = "")
+      cat("  Vanity URL: ", self$get_vanity()$path, "\n", sep = "")
       cat("\n")
       invisible(self)
     }
@@ -167,13 +167,14 @@ Vanity <- R6::R6Class(
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
 
   # TODO: check for manifest.json
+  stopifnot(fs::dir_exists(path))
+  message(glue::glue("Bundling directory ({path})"))
 
   before_wd <- getwd()
   setwd(path)
   on.exit(expr = setwd(before_wd), add = TRUE)
 
-  message(glue::glue("Bundling directory {path}"))
-  check_bundle_contents(path)
+  check_bundle_contents(".")
   utils::tar(tarfile = filename, files = ".", compression = "gzip", tar = "internal")
 
   tar_path <- fs::path_abs(filename)
@@ -463,6 +464,7 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @param content A Content object
 #' @param url The path component of the URL
+#' @param force optional. Default FALSE. Whether to force-reassign a vanity URL that already exists
 #'
 #' @return An updated Content object
 #'
@@ -476,75 +478,71 @@ set_image_webshot <- function(content, ...) {
 #'
 #' @family content functions
 #' @export
-set_vanity_url <- function(content, url) {
-  warn_experimental("set_vanity_url")
+set_vanity_url <- function(content, url, force = FALSE) {
   validate_R6_class(content, "Content")
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
   scoped_experimental_silence()
   # TODO: Check that the URL provided is appropriate
 
-  current_vanity <- get_vanity_url(content)
-
-  con <- content$get_connect()
-
-  if (!inherits(current_vanity, "Vanity")) {
-    # new
-    res <- con$POST(
-      path = "vanities",
-      body = list(
-        app_guid = guid,
-        path_prefix = url
-      )
+  res <- con$PUT(
+    path = glue::glue("v1/content/{guid}/vanity"),
+    body = list(
+      path = url,
+      force = force
     )
-  } else {
-    # update
-    res <- con$PUT(
-      path = glue::glue("vanities/{current_vanity$get_vanity()$id}"),
-      body = list(
-        path_prefix = url
-      )
-    )
-  }
+  )
 
-  # update content/vanity definition
-  updated_content <- con$content(guid = guid)
-  updated_van_res <- con$GET(glue::glue("/applications/{guid}"))
-  updated_van <- updated_van_res$vanities[[1]]
-  updated_van$app_id <- NULL
-  updated_van$app_guid <- guid
-
-  van <- Vanity$new(connect = con, content = updated_content, vanity = updated_van)
-
-  van
+  Vanity$new(connect = con, content = content$get_content_remote(), vanity = res)
 }
 
-
-#' Get the Vanity URL
+#' Delete the Vanity URL
 #'
-#' \lifecycle{experimental} Gets the Vanity URL for a piece of content.
+#' Deletes the Vanity URL for a piece of content.
 #'
 #' @param content A Content object
 #'
 #' @family content functions
 #' @export
-get_vanity_url <- function(content) {
-  warn_experimental("get_vanity_url")
+delete_vanity_url <- function(content) {
   con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  res <- con$GET(glue::glue("/applications/{guid}"))
+  con$DELETE(glue::glue("/v1/content/{guid}/vanity"))
 
-  # just grab the first?
-  van <- res$vanities[[1]]
+  content
+}
 
+#' Get the Vanity URL
+#'
+#' Gets the Vanity URL for a piece of content.
+#'
+#' @param content A Content object
+#'
+#' @return A character string (or NULL if not defined)
+#'
+#' @family content functions
+#' @export
+get_vanity_url <- function(content) {
+  validate_R6_class(content, "Content")
+  con <- content$get_connect()
+  error_if_less_than(con, "1.8.6")
+  guid <- content$get_content()$guid
+
+  van <- tryCatch({
+    con$GET(glue::glue("/v1/content/{guid}/vanity"))
+  }, error = function(e) {
+    # TODO: check to ensure that this error was expected
+    return(NULL)
+  })
   if (is.null(van)) {
-    content
-  } else {
-    van$app_id <- NULL
-    van$app_guid <- guid
-    Vanity$new(connect = con, content = content$get_content(), vanity = van)
+    return(NULL)
   }
+
+  return(van$path)
 }
 
 #' Swap the Vanity URL

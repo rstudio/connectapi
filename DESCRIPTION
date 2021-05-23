@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9023
+Version: 0.1.0.9026
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -16,7 +16,7 @@ Authors@R:
              role = c("cph", "fnd")))
 Description: Provides a helpful R6 class for interacting with the RStudio
     Connect Server API along with some meaningful utility functions.
-License: GPL-2
+License: MIT + file LICENSE
 URL: https://github.com/rstudio/connectapi
 Imports: 
     config,

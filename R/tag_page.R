@@ -33,7 +33,7 @@ tag_page <- function(connect,
   }
 
   if (is.null(description)) {
-    description <- sprintf("Content on %s tagged with %s", connect$host, tag)
+    description <- sprintf("Content on %s tagged with %s", connect$server, tag)
   }
 
   dir <- fs::dir_create(sprintf("./%s-screenshots", tag))
@@ -176,7 +176,7 @@ get_apps_by_tag <- function(connect, tag) {
   )
 
   if (length(apps) < 1) {
-    stop(sprintf("No applications found on %s matching tag %s", connect$host, tag))
+    stop(sprintf("No applications found on %s matching tag %s", connect$server, tag))
   }
 
   return(apps)
