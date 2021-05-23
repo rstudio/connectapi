@@ -1,5 +1,19 @@
 # connectapi (development version)
 
+- BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
+    - The same is true of the `connect()` function, although we warn
+      about argument deprecation in that case.
+- BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer experimental functions. However:
+    - `get_vanity_url()` now returns a character string representing the vanity
+    url in use (or NULL if not defined)
+    - `set_vanity_url()` still returns a `Vanity` R6 object, but
+    `vanity$get_vanity()$path_prefix` is now `vanity$get_vanity()$path`
+- Fix an issue with relative paths in `bundle_dir()`
+  ([`@slodge`](https://github.com/slodge))
+  ([#118](https://github.com/rstudio/connectapi/issues/118),
+  [#121](https://github.com/rstudio/connectapi/issues/121))
+- Add HTTP request customization options, and related documentation
+  ([#101](https://github.com/rstudio/connectapi/pull/101))
 - Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))
 - Switch `Task` class to `ContentTask`
     - R6 does not support multiple inheritance, so we keep the `Task` interface up-to-date on

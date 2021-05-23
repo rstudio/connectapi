@@ -11,8 +11,27 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
+query_args <- function(...) {
+  args <- rlang::list2(...)
+
+  prep <- purrr::map2_chr(
+    names(args),
+    args,
+    function(name, arg) {
+      glue::glue("{name}={arg}")
+    }
+  )
+
+  joined <- glue::glue_collapse(prep, sep = "&")
+
+  if (length(joined) > 0 && nchar(joined) > 0) {
+    return(paste0("?", joined))
+  }
+  return("")
+}
+
 generate_R6_print_output <- function() {
-  con <- Connect$new(host = "http://test_host", api_key = "test_key")
+  con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
 
   ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
@@ -137,7 +156,7 @@ safe_server_settings <- function(client) {
   },
   error = function(e) {
     message(
-      glue::glue("Problem talking to RStudio Connect at {client$host}/__api__/server_settings")
+      glue::glue("Problem talking to RStudio Connect at {client$server}/__api__/server_settings")
     )
     stop(e)
   }

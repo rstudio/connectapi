@@ -31,6 +31,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
 \code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},

@@ -4,7 +4,7 @@
 #'
 #' @section Usage:
 #' \preformatted{
-#' client <- Connect$new(host = 'connect.example.com',
+#' client <- Connect$new(server = 'connect.example.com',
 #'   apiKey = 'mysecretkey')
 #' client$get_apps()
 #' client$get_tags()
@@ -23,29 +23,36 @@
 Connect <- R6::R6Class(
   "Connect",
   public = list(
-    host = NULL,
+    server = NULL,
     api_key = NULL,
     tags = NULL,
     tag_map = NULL,
+    httr_additions = list(),
+    using_auth = TRUE,
 
     get_connect = function() {
       self
     },
 
-    initialize = function(host, api_key) {
-      message(glue::glue("Defining Connect with host: {host}"))
-      if (is.null(httr::parse_url(host)$scheme)) {
-        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {host}"))
+    initialize = function(server, api_key) {
+      message(glue::glue("Defining Connect with server: {server}"))
+      if (is.null(httr::parse_url(server)$scheme)) {
+        stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {server}"))
       }
-      self$host <- base::sub("^(.*)/$", "\\1", host)
+      self$server <- base::sub("^(.*)/$", "\\1", server)
       self$api_key <- api_key
+    },
+
+    httr_config = function(...) {
+      self$httr_additions = rlang::list2(...)
+      invisible(self)
     },
 
     # helpers ----------------------------------------------------------
 
     print = function(...) {
       cat("RStudio Connect API Client: \n")
-      cat("  RStudio Connect Server: ", self$host, "\n", sep = "")
+      cat("  RStudio Connect Server: ", self$server, "\n", sep = "")
       cat("  RStudio Connect API Key: ", paste0(strrep("*", 11), substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))), "\n", sep = "")
       # TODO: something about API key... role... ?
       # TODO: point to docs on methods... how to see methods?
@@ -60,92 +67,145 @@ Connect <- R6::R6Class(
           res$request$url,
           httr::http_status(res)$message
         )
-        message(capture.output(str(httr::content(res))))
+        tryCatch({
+          message(capture.output(str(httr::content(res))))
+        },
+        error = function(e) {
+          message(e)
+        })
         stop(err)
       }
     },
 
     add_auth = function() {
-      httr::add_headers(Authorization = paste0("Key ", self$api_key))
+      if (self$using_auth) {
+        httr::add_headers(Authorization = paste0("Key ", self$api_key))
+      } else {
+        NULL
+      }
     },
 
-    GET = function(path, writer = httr::write_memory(), parser = "parsed") {
-      req <- paste0(self$host, "/__api__/", path)
-      self$GET_URL(url = req, writer = writer, parser = parser)
+    GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
+      req <- paste0(self$server, "/__api__/", path)
+      self$GET_URL(url = req, writer = writer, parser = parser, ...)
     },
 
-    GET_RESULT = function(path, writer = httr::write_memory()) {
-      req <- paste0(self$host, "/__api__/", path)
-      self$GET_RESULT_URL(url = req, writer = writer)
+    GET_RESULT = function(path, writer = httr::write_memory(), ...) {
+      req <- paste0(self$server, "/__api__/", path)
+      self$GET_RESULT_URL(url = req, writer = writer, ...)
     },
 
-    GET_URL = function(url, writer = httr::write_memory(), parser = "parsed") {
-      res <- self$GET_RESULT_URL(url = url, writer = writer)
+    GET_URL = function(url, writer = httr::write_memory(), parser = "parsed", ...) {
+      res <- self$GET_RESULT_URL(url = url, writer = writer, ...)
       self$raise_error(res)
       httr::content(res, as = parser)
     },
 
-    GET_RESULT_URL = function(url, writer = httr::write_memory()) {
-      res <- httr::GET(
-        url,
-        self$add_auth(),
-        writer
+    GET_RESULT_URL = function(url, writer = httr::write_memory(), ...) {
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::GET,
+        !!!c(list(
+          url,
+          self$add_auth(),
+          writer
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(url, res)
       return(res)
     },
 
-    PUT = function(path, body, encode = "json") {
-      req <- paste0(self$host, "/__api__/", path)
-      res <- httr::PUT(
-        req,
-        self$add_auth(),
-        body = body,
-        encode = encode
+    PUT = function(path, body, encode = "json", ...) {
+      req <- paste0(self$server, "/__api__/", path)
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::PUT,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = "parsed")
     },
 
-    HEAD = function(path) {
-      req <- paste0(self$host, "/__api__/", path)
-      res <- httr::HEAD(
-        url = req,
-        self$add_auth()
+    HEAD = function(path, ...) {
+      req <- paste0(self$server, "/__api__/", path)
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::HEAD,
+        !!!c(list(
+          url = req,
+          self$add_auth()
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(req, res)
       return(res)
     },
 
-    DELETE = function(path) {
-      req <- paste0(self$host, "/__api__/", path)
-      res <- httr::DELETE(
-        url = req,
-        self$add_auth()
+    DELETE = function(path, ...) {
+      req <- paste0(self$server, "/__api__/", path)
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::DELETE,
+        !!!c(list(
+          url = req,
+          self$add_auth()
+        ),
+        params,
+        self$httr_additions
+        )
       )
       check_debug(req, res)
       return(res)
     },
 
-    PATCH = function(path, body, encode = "json", prefix = "/__api__/") {
-      req <- paste0(self$host, prefix, path)
-      res <- httr::PATCH(req,
-        self$add_auth(),
-        body = body,
-        encode = encode
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+      req <- paste0(self$server, prefix, path)
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::PATCH,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
       httr::content(res, as = "parsed")
     },
 
-    POST = function(path, body, encode = "json", prefix = "/__api__/") {
-      req <- paste0(self$host, prefix, path)
-      res <- httr::POST(req,
-        self$add_auth(),
-        body = body,
-        encode = encode
+    POST = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+      req <- paste0(self$server, prefix, path)
+      params <- rlang::list2(...)
+      res <- rlang::exec(
+        httr::POST,
+        !!!c(list(
+          req,
+          self$add_auth(),
+          body = body,
+          encode = encode
+        ),
+        params,
+        self$httr_additions
+        )
       )
       self$raise_error(res)
       check_debug(req, res)
@@ -157,7 +217,7 @@ Connect <- R6::R6Class(
     },
 
     get_dashboard_url = function() {
-      self$host
+      self$server
     },
 
     # tags ----------------------------------------------------------
@@ -183,7 +243,7 @@ Connect <- R6::R6Class(
     get_tag_id = function(tagname) {
       self$get_tags()
       if (!any(self$tag_map$name == tagname)) {
-        stop(sprintf("Tag %s not found on server %s", tagname, self$host))
+        stop(sprintf("Tag %s not found on server %s", tagname, self$server))
       }
       self$tag_map[which(self$tag_map$name == tagname), "id"]
     },
@@ -601,7 +661,7 @@ Connect <- R6::R6Class(
 
     docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
-      url <- paste0(self$host, "/__docs__/", docs)
+      url <- paste0(self$server, "/__docs__/", docs)
       if (browse) utils::browseURL(url)
       return(url)
     },
@@ -642,42 +702,73 @@ Connect <- R6::R6Class(
 
 #' Create a connection to RStudio Connect
 #'
-#' Creates a connection to RStudio Connect using the hostname and an api key.
+#' Creates a connection to RStudio Connect using the server URL and an api key.
 #' Validates the connection and checks that the version of the server is
 #' compatible with the current version of the package.
 #'
-#' @param host The URL for accessing RStudio Connect. Defaults to environment
+#' @param server The URL for accessing RStudio Connect. Defaults to environment
 #'   variable CONNECT_SERVER
 #' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
 #'   to environment variable CONNECT_API_KEY
 #' @param prefix The prefix used to determine environment variables
+#' @param ... Additional arguments. Not used at present
+#' @param .check_is_fatal Whether to fail if "check" requests fail. Useful in
+#'   rare cases where more http request customization is needed for requests to
+#'   succeed.
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #'
 #' @rdname connect
 #' @export
 connect <- function(
-                    host = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
-                    api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
-                    prefix = "CONNECT") {
+   server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+   prefix = "CONNECT",
+   ...,
+   .check_is_fatal = TRUE
+   ) {
   if (
     prefix == "CONNECT" &&
-      is.na(host) && is.na(api_key) &&
+      is.na(server) && is.na(api_key) &&
       !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
       !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
   ) {
     stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
   }
-  if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
-    stop("ERROR: Invalid (empty) API key. Please provide a valid API key")
+
+  params <- rlang::list2(...)
+  if ("host" %in% names(params)) {
+    lifecycle::deprecate_warn("0.1.0.9026", "connect(host)", "connect(server)")
+    server <- params[["host"]]
   }
-  con <- Connect$new(host = host, api_key = api_key)
 
-  check_connect_license(con$host)
+  if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
+    msg <- "Invalid (empty) API key. Please provide a valid API key"
+    if (.check_is_fatal) {
+      stop(glue::glue("ERROR: {msg}"))
+    } else {
+      message(msg)
+    }
+  }
+  con <- Connect$new(server = server, api_key = api_key)
 
-  # check Connect is accessible
-  srv <- safe_server_settings(con)
+  tryCatch({
+    check_connect_license(con$server)
 
-  check_connect_version(using_version = srv$version)
+    # check Connect is accessible
+    srv <- safe_server_settings(con)
+
+    check_connect_version(using_version = srv$version)
+  }, error = function(err) {
+    if (.check_is_fatal) {
+      stop(err)
+    } else {
+      if (inherits(err, "error")) {
+        message(err$message)
+      } else {
+        message(err)
+      }
+    }
+  })
 
   con
 }

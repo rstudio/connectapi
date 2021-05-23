@@ -33,6 +33,7 @@ Other R6 classes:
 \item \href{#method-get_content}{\code{Content$get_content()}}
 \item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
 \item \href{#method-get_bundles}{\code{Content$get_bundles()}}
+\item \href{#method-internal_content}{\code{Content$internal_content()}}
 \item \href{#method-update}{\code{Content$update()}}
 \item \href{#method-runas}{\code{Content$runas()}}
 \item \href{#method-get_url}{\code{Content$get_url()}}
@@ -48,6 +49,7 @@ Other R6 classes:
 \item \href{#method-environment}{\code{Content$environment()}}
 \item \href{#method-environment_set}{\code{Content$environment_set()}}
 \item \href{#method-deploy}{\code{Content$deploy()}}
+\item \href{#method-repo_enable}{\code{Content$repo_enable()}}
 \item \href{#method-repo_set}{\code{Content$repo_set()}}
 \item \href{#method-print}{\code{Content$print()}}
 \item \href{#method-clone}{\code{Content$clone()}}
@@ -95,6 +97,15 @@ Other R6 classes:
 \subsection{Method \code{get_bundles()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles(page_number = 1)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-internal_content"></a>}}
+\if{latex}{\out{\hypertarget{method-internal_content}{}}}
+\subsection{Method \code{internal_content()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$internal_content()}\if{html}{\out{</div>}}
 }
 
 }
@@ -230,6 +241,15 @@ Other R6 classes:
 \subsection{Method \code{deploy()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$deploy()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repo_enable"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_enable}{}}}
+\subsection{Method \code{repo_enable()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$repo_enable(enabled = TRUE)}\if{html}{\out{</div>}}
 }
 
 }
