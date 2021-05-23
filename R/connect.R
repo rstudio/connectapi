@@ -223,6 +223,7 @@ Connect <- R6::R6Class(
     # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
+      error_if_less_than(self, "1.8.6")
       # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$GET("v1/tags")
@@ -265,6 +266,7 @@ Connect <- R6::R6Class(
     },
 
     tag_create = function(name, parent_id = NULL) {
+      error_if_less_than(self, "1.8.6")
       dat <- list(
         name = name
       )
@@ -281,6 +283,7 @@ Connect <- R6::R6Class(
     },
 
     tag = function(id) {
+      error_if_less_than(self, "1.8.6")
       path <- glue::glue("v1/tags/{id}")
       self$GET(path)
     },
