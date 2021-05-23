@@ -223,10 +223,9 @@ Connect <- R6::R6Class(
     # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
-      warn_experimental("get_tags")
       # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
-        self$tags <- self$GET("/tags")
+        self$tags <- self$GET("v1/tags")
       }
       self$tag_map <- data.frame(
         id = sapply(self$tags, function(x) {
@@ -266,7 +265,6 @@ Connect <- R6::R6Class(
     },
 
     tag_create = function(name, parent_id = NULL) {
-      warn_experimental("create_tag")
       dat <- list(
         name = name
       )
@@ -277,13 +275,13 @@ Connect <- R6::R6Class(
         )
       }
       self$POST(
-        "tags",
+        "v1/tags",
         body = dat
       )
     },
 
     tag = function(id) {
-      path <- glue::glue("tags/{id}")
+      path <- glue::glue("v1/tags/{id}")
       self$GET(path)
     },
 
