@@ -586,53 +586,11 @@ delete_bundle <- function(connect, bundle_id) {
 #' @export
 content_add_user <- function(content, guid, role = c("viewer", "collaborator")) {
   validate_R6_class(content, "Content")
-  existing <- .get_permission(content, "user", guid)
   role <- .define_role(role)
-  if (length(existing) > 0) {
-    message(glue::glue("Updating permission for user '{guid}' with role '{role}'"))
-    res <- content$permissions_update(
-      id = existing[[1]]$id,
-      principal_guid = guid,
-      principal_type = "user",
-      role = role
-      )
-  } else {
-    message(glue::glue("Adding permission for user '{guid}' with role '{role}'"))
-    res <- content$permissions_add(
-      principal_guid = guid,
-      principal_type = "user",
-      role = role
-    )
-  }
+
+  res <- purrr::map(guid, ~ .content_add_permission_impl(content, "user", .x, role))
+
   return(content)
-}
-
-#' @rdname permissions
-#' @export
-content_delete_user <- function(content, guid) {
-  validate_R6_class(content, "Content")
-  res <- .get_permission(content, "user", guid)
-  if (length(res) > 0) {
-    remove_permission <- content$permissions_delete(res[[1]]$id)
-    return(content)
-  } else {
-    message(glue::glue("User '{guid}' already does not have access. No permission being removed"))
-    return(content)
-  }
-}
-
-#' @rdname permissions
-#' @export
-content_delete_group <- function(content, guid) {
-  validate_R6_class(content, "Content")
-  res <- .get_permission(content, "group", guid)
-  if (length(res) > 0) {
-    remove_permission <- content$permissions_delete(res[[1]]$id)
-    return(content)
-  } else {
-    message(glue::glue("Group '{guid}' already does not have access. No permission being removed"))
-    return(content)
-  }
 }
 
 #' @rdname permissions
@@ -641,22 +599,57 @@ content_add_group <- function(content, guid, role = c("viewer", "collaborator"))
   validate_R6_class(content, "Content")
   existing <- .get_permission(content, "group", guid)
   role <- .define_role(role)
+
+  res <- purrr::map(guid, ~ .content_add_permission_impl(content = content, type = "group", guid = .x, role = role))
+
+  return(content)
+}
+
+.content_delete_permission_impl <- function(content, type, guid) {
+  res <- .get_permission(content, type, guid)
+  if (length(res) > 0) {
+    remove_permission <- content$permissions_delete(res[[1]]$id)
+    return(remove_permission)
+  } else {
+    message(glue::glue("{type} '{guid}' already does not have access. No permission being removed"))
+    return(NULL)
+  }
+}
+
+.content_add_permission_impl <- function(content, type, guid, role) {
+  existing <- .get_permission(content, type, guid)
   if (length(existing) > 0) {
-    message(glue::glue("Updating permission for group '{guid}' with role '{role}'"))
+    message(glue::glue("Updating permission for {type} '{guid}' with role '{role}'"))
     res <- content$permissions_update(
       id = existing[[1]]$id,
       principal_guid = guid,
-      principal_type = "group",
+      principal_type = type,
       role = role
       )
   } else {
-    message(glue::glue("Adding permission for group '{guid}' with role '{role}'"))
+    message(glue::glue("Adding permission for {type} '{guid}' with role '{role}'"))
     res <- content$permissions_add(
       principal_guid = guid,
-      principal_type = "group",
+      principal_type = type,
       role = role
     )
   }
+  return(res)
+}
+
+#' @rdname permissions
+#' @export
+content_delete_user <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "user", guid = .x))
+  return(content)
+}
+
+#' @rdname permissions
+#' @export
+content_delete_group <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "group", guid = .x))
   return(content)
 }
 
