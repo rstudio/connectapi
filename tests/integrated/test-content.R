@@ -686,7 +686,7 @@ test_that("add a collaborator works", {
   collab_guid <<- collab$guid
 
   # add a collaborator
-  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
+  invisible(content_add_user(cont1_content, collab_guid, "owner"))
 
   expect_equal(get_user_permission(cont1_content, collab_guid)$role, "owner")
 
@@ -697,13 +697,13 @@ test_that("add a collaborator works", {
 
 test_that("add collaborator twice works", {
   # add a collaborator
-  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
-  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
+  invisible(content_add_user(cont1_content, collab_guid, "owner"))
+  invisible(content_add_user(cont1_content, collab_guid, "owner"))
 
   # get acl
   acls <- get_content_permissions(cont1_content)
 
-  which_match <- purrr::map2_lgl(acls$guid, acls$role, function(.x, .y) {
+  which_match <- purrr::map2_lgl(acls$principal_guid, acls$role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
   })
   expect_true(any(which_match))
@@ -721,7 +721,7 @@ test_that("add a viewer works", {
   # get acl
   acls <- get_content_permissions(cont1_content)
 
-  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+  which_match <- purrr::map2_lgl(acls$principal_guid, acls$role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
   })
   expect_true(any(which_match))
@@ -736,21 +736,21 @@ test_that("add a viewer twice works", {
   # get acl
   acls <- get_content_permissions(cont1_content)
 
-  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+  which_match <- purrr::map2_lgl(acls$principal_guid, acls$role, function(.x, .y) {
     .x == viewer_guid && .y == "viewer"
   })
   expect_true(any(which_match))
   expect_equal(sum(which_match), 1)
 })
 
-test_that("remove a collaborator works", {
+test_that("remove an owner works", {
   # remove a collaborator
   invisible(content_delete_user(cont1_content, collab_guid))
 
   # get acl
   acls <- get_content_permissions(cont1_content)
 
-  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+  which_match <- purrr::map2_lgl(acls$principal_guid, acls$role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
   })
   expect_false(any(which_match))
@@ -764,7 +764,7 @@ test_that("remove a collaborator twice works", {
   # get acl
   acls <- get_content_permissions(cont1_content)
 
-  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+  which_match <- purrr::map2_lgl(acls$principal_guid, acls$role, function(.x, .y) {
     .x == collab_guid && .y == "owner"
   })
   expect_false(any(which_match))
