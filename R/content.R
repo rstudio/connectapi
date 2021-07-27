@@ -578,13 +578,13 @@ delete_bundle <- function(connect, bundle_id) {
 #'
 #' @param content An R6 content object
 #' @param guid The guid associated with either a user (for `content_add_user`) or group (for `content_add_group`)
-#' @param role The role to assign to a user. Either "viewer" or "collaborator." Defaults to "viewer"
+#' @param role The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"
 #'
 #' @name permissions
 #' @rdname permissions
 #' @family content functions
 #' @export
-content_add_user <- function(content, guid, role = c("viewer", "collaborator")) {
+content_add_user <- function(content, guid, role = c("viewer", "owner")) {
   validate_R6_class(content, "Content")
   role <- .define_role(role)
 
@@ -595,7 +595,7 @@ content_add_user <- function(content, guid, role = c("viewer", "collaborator")) 
 
 #' @rdname permissions
 #' @export
-content_add_group <- function(content, guid, role = c("viewer", "collaborator")) {
+content_add_group <- function(content, guid, role = c("viewer", "owner")) {
   validate_R6_class(content, "Content")
   existing <- .get_permission(content, "group", guid)
   role <- .define_role(role)
@@ -608,6 +608,7 @@ content_add_group <- function(content, guid, role = c("viewer", "collaborator"))
 .content_delete_permission_impl <- function(content, type, guid) {
   res <- .get_permission(content, type, guid)
   if (length(res) > 0) {
+    message(glue::glule("Removing {type} permission for '{guid}'"))
     remove_permission <- content$permissions_delete(res[[1]]$id)
     return(remove_permission)
   } else {
@@ -658,10 +659,10 @@ content_delete_group <- function(content, guid) {
     # use default
     return("viewer")
   } else {
-    if (role %in% c("viewer", "collaborator")) {
+    if (role %in% c("viewer", "owner")) {
       return(role)
     } else {
-      stop(glue::glue("ERROR: invalid role. Expected 'viewer' or 'collaborator,' instead got {{ role }}"))
+      stop(glue::glue("ERROR: invalid role. Expected 'viewer' or 'owner', instead got {{ role }}"))
     }
   }
 }
