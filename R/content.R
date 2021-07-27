@@ -608,7 +608,7 @@ content_add_group <- function(content, guid, role = c("viewer", "owner")) {
 .content_delete_permission_impl <- function(content, type, guid) {
   res <- .get_permission(content, type, guid)
   if (length(res) > 0) {
-    message(glue::glule("Removing {type} permission for '{guid}'"))
+    message(glue::glue("Removing {type} permission for '{guid}'"))
     remove_permission <- content$permissions_delete(res[[1]]$id)
     return(remove_permission)
   } else {
