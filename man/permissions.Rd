@@ -3,21 +3,21 @@
 \name{permissions}
 \alias{permissions}
 \alias{content_add_user}
+\alias{content_add_group}
 \alias{content_delete_user}
 \alias{content_delete_group}
-\alias{content_add_group}
 \alias{get_user_permission}
 \alias{get_group_permission}
 \alias{get_content_permissions}
 \title{Content permissions}
 \usage{
-content_add_user(content, guid, role = c("viewer", "collaborator"))
+content_add_user(content, guid, role = c("viewer", "owner"))
+
+content_add_group(content, guid, role = c("viewer", "owner"))
 
 content_delete_user(content, guid)
 
 content_delete_group(content, guid)
-
-content_add_group(content, guid, role = c("viewer", "collaborator"))
 
 get_user_permission(content, guid)
 
@@ -30,7 +30,7 @@ get_content_permissions(content)
 
 \item{guid}{The guid associated with either a user (for \code{content_add_user}) or group (for \code{content_add_group})}
 
-\item{role}{The role to assign to a user. Either "viewer" or "collaborator." Defaults to "viewer"}
+\item{role}{The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"}
 }
 \description{
 Get or set content permissions for a content item
