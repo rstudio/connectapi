@@ -609,22 +609,50 @@ content_add_user <- function(content, guid, role = c("viewer", "collaborator")) 
 
 #' @rdname permissions
 #' @export
-content_add_group <- function(content, group_guid, role = c("viewer", "collaborator")) {
+content_delete_user <- function(content, guid) {
   validate_R6_class(content, "Content")
-  existing <- .get_permission(content, "group", group_guid)
+  res <- .get_permission(content, "user", guid)
+  if (length(res) > 0) {
+    remove_permission <- content$permissions_delete(res[[1]]$id)
+    return(content)
+  } else {
+    message(glue::glue("User '{guid}' already does not have access. No permission being removed"))
+    return(content)
+  }
+}
+
+#' @rdname permissions
+#' @export
+content_delete_group <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- .get_permission(content, "group", guid)
+  if (length(res) > 0) {
+    remove_permission <- content$permissions_delete(res[[1]]$id)
+    return(content)
+  } else {
+    message(glue::glue("Group '{guid}' already does not have access. No permission being removed"))
+    return(content)
+  }
+}
+
+#' @rdname permissions
+#' @export
+content_add_group <- function(content, guid, role = c("viewer", "collaborator")) {
+  validate_R6_class(content, "Content")
+  existing <- .get_permission(content, "group", guid)
   role <- .define_role(role)
   if (length(existing) > 0) {
-    message(glue::glue("Updating permission for group '{group_guid}' with role '{role}'"))
+    message(glue::glue("Updating permission for group '{guid}' with role '{role}'"))
     res <- content$permissions_update(
       id = existing[[1]]$id,
-      principal_guid = group_guid,
+      principal_guid = guid,
       principal_type = "group",
       role = role
       )
   } else {
-    message(glue::glue("Adding permission for group '{group_guid}' with role '{role}'"))
+    message(glue::glue("Adding permission for group '{guid}' with role '{role}'"))
     res <- content$permissions_add(
-      principal_guid = group_guid,
+      principal_guid = guid,
       principal_type = "group",
       role = role
     )
@@ -652,8 +680,36 @@ content_add_group <- function(content, group_guid, role = c("viewer", "collabora
 
 #' @rdname permissions
 #' @export
+get_user_permission <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- .get_permission(content, "user", guid)
+  if (length(res) > 0) {
+    return(res[[1]])
+  } else {
+    return(NULL)
+  }
+}
+
+#' @rdname permissions
+#' @export
+get_group_permission <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- .get_permission(content, "group", guid)
+  if (length(res) > 0) {
+    return(res[[1]])
+  } else {
+    return(NULL)
+  }
+}
+
+
+#' @rdname permissions
+#' @export
 get_content_permissions <- function(content) {
   validate_R6_class(content, "Content")
-  return(content$permissions())
+  res <- content$permissions()
+  connectapi::parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
 }
+
+
 

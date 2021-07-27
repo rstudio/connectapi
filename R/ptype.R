@@ -194,5 +194,12 @@ connectapi_ptypes <- list(
     py_version = NA_character_,
     active = NA,
     size = fs::as_fs_bytes(NA_integer_)
+  ),
+  permissions = tibble::tibble(
+    id = NA_character_,
+    content_guid = NA_character_,
+    principal_guid = NA_character_,
+    principal_type = NA_character_,
+    role = NA_character_
   )
 )
