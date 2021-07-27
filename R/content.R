@@ -570,3 +570,90 @@ delete_bundle <- function(connect, bundle_id) {
   connect$bundle_delete(bundle_id)
   return(connect)
 }
+
+
+#' Content permissions
+#'
+#' Get or set content permissions for a content item
+#'
+#' @param content An R6 content object
+#' @param guid The guid associated with either a user (for `content_add_user`) or group (for `content_add_group`)
+#' @param role The role to assign to a user. Either "viewer" or "collaborator." Defaults to "viewer"
+#'
+#' @name permissions
+#' @rdname permissions
+#' @family content functions
+#' @export
+content_add_user <- function(content, guid, role = c("viewer", "collaborator")) {
+  validate_R6_class(content, "Content")
+  existing <- .get_permission(content, "user", guid)
+  role <- .define_role(role)
+  if (length(existing) > 0) {
+    message(glue::glue("Updating permission for user '{guid}' with role '{role}'"))
+    res <- content$permissions_update(
+      id = existing[[1]]$id,
+      principal_guid = guid,
+      principal_type = "user",
+      role = role
+      )
+  } else {
+    message(glue::glue("Adding permission for user '{guid}' with role '{role}'"))
+    res <- content$permissions_add(
+      principal_guid = guid,
+      principal_type = "user",
+      role = role
+    )
+  }
+  return(content)
+}
+
+#' @rdname permissions
+#' @export
+content_add_group <- function(content, group_guid, role = c("viewer", "collaborator")) {
+  validate_R6_class(content, "Content")
+  existing <- .get_permission(content, "group", group_guid)
+  role <- .define_role(role)
+  if (length(existing) > 0) {
+    message(glue::glue("Updating permission for group '{group_guid}' with role '{role}'"))
+    res <- content$permissions_update(
+      id = existing[[1]]$id,
+      principal_guid = group_guid,
+      principal_type = "group",
+      role = role
+      )
+  } else {
+    message(glue::glue("Adding permission for group '{group_guid}' with role '{role}'"))
+    res <- content$permissions_add(
+      principal_guid = group_guid,
+      principal_type = "group",
+      role = role
+    )
+  }
+  return(content)
+}
+
+.define_role <- function(role) {
+  if (length(role) > 0) {
+    # use default
+    return("viewer")
+  } else {
+    if (role %in% c("viewer", "collaborator")) {
+      return(role)
+    } else {
+      stop(glue::glue("ERROR: invalid role. Expected 'viewer' or 'collaborator,' instead got {{ role }}"))
+    }
+  }
+}
+
+.get_permission <- function(content, type, guid) {
+  res <- get_content_permissions(content)
+  purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
+}
+
+#' @rdname permissions
+#' @export
+get_content_permissions <- function(content) {
+  validate_R6_class(content, "Content")
+  return(content$permissions())
+}
+
