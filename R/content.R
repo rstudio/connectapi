@@ -708,7 +708,7 @@ get_group_permission <- function(content, guid) {
 get_content_permissions <- function(content) {
   validate_R6_class(content, "Content")
   res <- content$permissions()
-  connectapi::parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
+  parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
 }
 
 
