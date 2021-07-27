@@ -672,3 +672,100 @@ test_that("get_acl_group_role with no role returns NULL", {
   expect_null(get_acl_group_role(cont1_content, viewer_guid))
 })
 
+# Permissions ---------------------------------------
+
+context("permissions")
+
+test_that("returns owner permission", {
+  skip("not currently implemented")
+})
+
+test_that("add a collaborator works", {
+  # create a user
+  collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab_guid <<- collab$guid
+
+  # add a collaborator
+  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
+
+  expect_equal(get_user_permission(cont1_content, collab_guid)$role, "owner")
+
+  # # owner is present
+  # my_guid <- test_conn_1$GET("me")$guid
+  # expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
+})
+
+test_that("add collaborator twice works", {
+  # add a collaborator
+  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
+  invisible(content_add_user(cont1_content, collab_guid, "collaborator"))
+
+  # get acl
+  acls <- get_content_permissions(cont1_content)
+
+  which_match <- purrr::map2_lgl(acls$guid, acls$role, function(.x, .y) {
+    .x == collab_guid && .y == "owner"
+  })
+  expect_true(any(which_match))
+  expect_equal(sum(which_match), 1)
+})
+
+test_that("add a viewer works", {
+  # create a user
+  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  viewer_guid <<- view_user$guid
+
+  # add a viewer
+  invisible(content_add_user(cont1_content, viewer_guid, "viewer"))
+
+  # get acl
+  acls <- get_content_permissions(cont1_content)
+
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+    .x == viewer_guid && .y == "viewer"
+  })
+  expect_true(any(which_match))
+  expect_equal(sum(which_match), 1)
+})
+
+test_that("add a viewer twice works", {
+  # add a viewer
+  invisible(content_add_user(cont1_content, viewer_guid, "viewer"))
+  invisible(content_add_user(cont1_content, viewer_guid, "viewer"))
+
+  # get acl
+  acls <- get_content_permissions(cont1_content)
+
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+    .x == viewer_guid && .y == "viewer"
+  })
+  expect_true(any(which_match))
+  expect_equal(sum(which_match), 1)
+})
+
+test_that("remove a collaborator works", {
+  # remove a collaborator
+  invisible(content_delete_user(cont1_content, collab_guid))
+
+  # get acl
+  acls <- get_content_permissions(cont1_content)
+
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+    .x == collab_guid && .y == "owner"
+  })
+  expect_false(any(which_match))
+})
+
+test_that("remove a collaborator twice works", {
+  # remove a collaborator
+  invisible(content_delete_user(cont1_content, collab_guid))
+  invisible(content_delete_user(cont1_content, collab_guid))
+
+  # get acl
+  acls <- get_content_permissions(cont1_content)
+
+  which_match <- purrr::map2_lgl(acls$guid, acls$app_role, function(.x, .y) {
+    .x == collab_guid && .y == "owner"
+  })
+  expect_false(any(which_match))
+})
