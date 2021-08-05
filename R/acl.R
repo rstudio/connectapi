@@ -31,6 +31,7 @@
 #' @rdname get_acl
 get_acl_user <- function(content) {
   warn_experimental("get_acl")
+  lifecycle::deprecate_warn("0.1.0.9027", "get_acl_user()", "get_content_permissions()")
 
   content_info <- content$get_content_remote()
   prep <- get_acl_user_impl(content)
@@ -45,6 +46,7 @@ get_acl_user <- function(content) {
 #' @export
 get_acl_group <- function(content) {
   warn_experimental("get_acl")
+  lifecycle::deprecate_warn("0.1.0.9027", "get_acl_group()", "get_content_permissions()")
 
   content_info <- content$get_content_remote()
   prep <- get_acl_group_impl(content)
@@ -60,9 +62,7 @@ get_acl_group <- function(content) {
 #' @rdname get_acl
 #' @export
 get_acl <- function(content) {
-  lifecycle::deprecate_warn(
-    "0.1.0.9007", "get_acl()", "get_acl_user()"
-    )
+  lifecycle::deprecate_warn("0.1.0.9027", "get_acl()", "get_content_permissions()")
   get_acl_user(content)
 }
 
@@ -120,6 +120,7 @@ get_acl_group_impl <- function(content) {
 #' @export
 get_acl_user_role <- function(content, user_guid) {
   warn_experimental("acl_user_role")
+  lifecycle::deprecate_warn("0.1.0.9027", "get_acl_user_role()", "get_user_permission()")
   scoped_experimental_silence()
   acls <- get_acl_user_impl(content)
   if (is.null(user_guid) || is.na(user_guid)) {
@@ -135,6 +136,7 @@ get_acl_user_role <- function(content, user_guid) {
 #' @export
 get_acl_group_role <- function(content, group_guid) {
   warn_experimental("acl_group_role")
+  lifecycle::deprecate_warn("0.1.0.9027", "get_acl_user_role()", "get_group_permission()")
   scoped_experimental_silence()
   acls <- get_acl_group_impl(content)
   if (is.null(group_guid) || is.na(group_guid)) {
@@ -175,6 +177,7 @@ get_acl_group_role <- function(content, group_guid) {
 #' @export
 acl_add_user <- function(content, user_guid, role) {
   warn_experimental("acl_add")
+  lifecycle::deprecate_warn("0.1.0.9027", "acl_add_user()", "content_add_user()")
   stopifnot(role %in% c("owner", "viewer"))
   res <- content$get_connect()$POST(
     glue::glue("applications/{content$get_content()$guid}/users"),
@@ -190,6 +193,8 @@ acl_add_user <- function(content, user_guid, role) {
 #' @export
 acl_add_group <- function(content, group_guid, role) {
   warn_experimental("acl_add")
+  lifecycle::deprecate_warn("0.1.0.9027", "acl_add_group()", "content_add_group()")
+  stopifnot(role %in% c("owner", "viewer"))
   res <- content$get_connect()$POST(
     glue::glue("applications/{content$get_content()$guid}/groups"),
     body = list(
@@ -222,6 +227,7 @@ acl_add_viewer <- function(content, user_guid) {
 #' @export
 acl_remove_user <- function(content, user_guid) {
   warn_experimental("acl_remove")
+  lifecycle::deprecate_warn("0.1.0.9027", "acl_remove_user()", "content_delete_user()")
   res <- content$get_connect()$DELETE(
     glue::glue("applications/{content$get_content()$guid}/users/{user_guid}")
   )
@@ -244,6 +250,7 @@ acl_remove_self <- function(content) {
 #' @export
 acl_remove_group <- function(content, group_guid) {
   warn_experimental("acl_remove")
+  lifecycle::deprecate_warn("0.1.0.9027", "acl_remove_group()", "content_delete_group()")
   res <- content$get_connect()$DELETE(
     glue::glue("applications/{content$get_content()$guid}/groups/{group_guid}")
   )

@@ -31,6 +31,7 @@ Other content functions:
 \code{\link{get_image}()},
 \code{\link{get_jobs}()},
 \code{\link{git}},
+\code{\link{permissions}},
 \code{\link{set_image_path}()},
 \code{\link{set_run_as}()},
 \code{\link{set_vanity_url}()},
