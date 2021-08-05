@@ -655,7 +655,7 @@ content_delete_group <- function(content, guid) {
 }
 
 .define_role <- function(role) {
-  if (length(role) > 0) {
+  if (length(role) > 1) {
     # use default
     return("viewer")
   } else {
@@ -668,7 +668,7 @@ content_delete_group <- function(content, guid) {
 }
 
 .get_permission <- function(content, type, guid) {
-  res <- get_content_permissions(content)
+  res <- content$permissions()
   purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
 }
 
