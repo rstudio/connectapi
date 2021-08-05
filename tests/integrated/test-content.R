@@ -743,7 +743,7 @@ test_that("add a viewer twice works", {
   expect_equal(sum(which_match), 1)
 })
 
-test_that("remove an owner works", {
+test_that("remove a collaborator works", {
   # remove a collaborator
   invisible(content_delete_user(cont1_content, collab_guid))
 
