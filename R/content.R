@@ -118,6 +118,33 @@ Content <- R6::R6Class(
       url <- glue::glue("applications/{self$get_content()$guid}/tags")
       self$get_connect()$GET(url)
     },
+    permissions_add = function(principal_guid, principal_type, role) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+      self$get_connect()$POST(url, body = list(
+        principal_guid = principal_guid,
+        principal_type = principal_type,
+        role = role
+      ))
+    },
+    permissions_update = function(id, principal_guid, principal_type, role) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      self$get_connect()$PUT(url, body = list(
+        principal_guid = principal_guid,
+        principal_type = principal_type,
+        role = role
+      ))
+    },
+    permissions_delete = function(id) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      self$get_connect()$DELETE(url)
+    },
+    permissions = function(id = NULL) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+      if (!is.null(id)) {
+        url <- glue::glue("{url}/{id}")
+      }
+      self$get_connect()$GET(url)
+    },
     environment = function() {
       warn_experimental("environment")
       url <- glue::glue("applications/{self$get_content()$guid}/environment")
@@ -543,3 +570,140 @@ delete_bundle <- function(connect, bundle_id) {
   connect$bundle_delete(bundle_id)
   return(connect)
 }
+
+
+#' Content permissions
+#'
+#' Get or set content permissions for a content item
+#'
+#' @param content An R6 content object
+#' @param guid The guid associated with either a user (for `content_add_user`) or group (for `content_add_group`)
+#' @param role The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"
+#'
+#' @name permissions
+#' @rdname permissions
+#' @family content functions
+#' @export
+content_add_user <- function(content, guid, role = c("viewer", "owner")) {
+  validate_R6_class(content, "Content")
+  role <- .define_role(role)
+
+  res <- purrr::map(guid, ~ .content_add_permission_impl(content, "user", .x, role))
+
+  return(content)
+}
+
+#' @rdname permissions
+#' @export
+content_add_group <- function(content, guid, role = c("viewer", "owner")) {
+  validate_R6_class(content, "Content")
+  existing <- .get_permission(content, "group", guid)
+  role <- .define_role(role)
+
+  res <- purrr::map(guid, ~ .content_add_permission_impl(content = content, type = "group", guid = .x, role = role))
+
+  return(content)
+}
+
+.content_delete_permission_impl <- function(content, type, guid) {
+  res <- .get_permission(content, type, guid)
+  if (length(res) > 0) {
+    message(glue::glue("Removing {type} permission for '{guid}'"))
+    remove_permission <- content$permissions_delete(res[[1]]$id)
+    return(remove_permission)
+  } else {
+    message(glue::glue("{type} '{guid}' already does not have access. No permission being removed"))
+    return(NULL)
+  }
+}
+
+.content_add_permission_impl <- function(content, type, guid, role) {
+  existing <- .get_permission(content, type, guid)
+  if (length(existing) > 0) {
+    message(glue::glue("Updating permission for {type} '{guid}' with role '{role}'"))
+    res <- content$permissions_update(
+      id = existing[[1]]$id,
+      principal_guid = guid,
+      principal_type = type,
+      role = role
+      )
+  } else {
+    message(glue::glue("Adding permission for {type} '{guid}' with role '{role}'"))
+    res <- content$permissions_add(
+      principal_guid = guid,
+      principal_type = type,
+      role = role
+    )
+  }
+  return(res)
+}
+
+#' @rdname permissions
+#' @export
+content_delete_user <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "user", guid = .x))
+  return(content)
+}
+
+#' @rdname permissions
+#' @export
+content_delete_group <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "group", guid = .x))
+  return(content)
+}
+
+.define_role <- function(role) {
+  if (length(role) > 1) {
+    # use default
+    return("viewer")
+  } else {
+    if (role %in% c("viewer", "owner")) {
+      return(role)
+    } else {
+      stop(glue::glue("ERROR: invalid role. Expected 'viewer' or 'owner', instead got {{ role }}"))
+    }
+  }
+}
+
+.get_permission <- function(content, type, guid) {
+  res <- content$permissions()
+  purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
+}
+
+#' @rdname permissions
+#' @export
+get_user_permission <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- .get_permission(content, "user", guid)
+  if (length(res) > 0) {
+    return(res[[1]])
+  } else {
+    return(NULL)
+  }
+}
+
+#' @rdname permissions
+#' @export
+get_group_permission <- function(content, guid) {
+  validate_R6_class(content, "Content")
+  res <- .get_permission(content, "group", guid)
+  if (length(res) > 0) {
+    return(res[[1]])
+  } else {
+    return(NULL)
+  }
+}
+
+
+#' @rdname permissions
+#' @export
+get_content_permissions <- function(content) {
+  validate_R6_class(content, "Content")
+  res <- content$permissions()
+  parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
+}
+
+
+
