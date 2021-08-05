@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Real-Time Process Data — get_procs • connectapi</title>
+<title>Content permissions — permissions • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,8 @@
 
 
 
-<meta property="og:title" content="Get Real-Time Process Data — get_procs" />
-<meta property="og:description" content="
-
-This returns real-time process data from the RStudio Connect API. It requires
-administrator privileges to use. NOTE that this only returns data for the
-server that responds to the request (i.e. in a Highly Available cluster)" />
+<meta property="og:title" content="Content permissions — permissions" />
+<meta property="og:description" content="Get or set content permissions for a content item" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -141,45 +137,69 @@ server that responds to the request (i.e. in a Highly Available cluster)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Real-Time Process Data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/get.R'><code>R/get.R</code></a></small>
-    <div class="hidden name"><code>get_procs.Rd</code></div>
+    <h1>Content permissions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/content.R'><code>R/content.R</code></a></small>
+    <div class="hidden name"><code>permissions.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a>
-
-This returns real-time process data from the RStudio Connect API. It requires
-administrator privileges to use. NOTE that this only returns data for the
-server that responds to the request (i.e. in a Highly Available cluster)</p>
+    <p>Get or set content permissions for a content item</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_procs</span><span class='op'>(</span><span class='va'>src</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>content_add_user</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span>, role <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"viewer"</span>, <span class='st'>"owner"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>content_add_group</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span>, role <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"viewer"</span>, <span class='st'>"owner"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>content_delete_user</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span><span class='op'>)</span>
+
+<span class='fu'>content_delete_group</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span><span class='op'>)</span>
+
+<span class='fu'>get_user_permission</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span><span class='op'>)</span>
+
+<span class='fu'>get_group_permission</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>guid</span><span class='op'>)</span>
+
+<span class='fu'>get_content_permissions</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>src</th>
-      <td><p>The source object</p></td>
+      <th>content</th>
+      <td><p>An R6 content object</p></td>
+    </tr>
+    <tr>
+      <th>guid</th>
+      <td><p>The guid associated with either a user (for <code>content_add_user</code>) or group (for <code>content_add_group</code>)</p></td>
+    </tr>
+    <tr>
+      <th>role</th>
+      <td><p>The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>A tibble with the following columns:</p><ul>
-<li><p><strong>pid</strong>The PID of the current process</p></li>
-<li><p><strong>appId</strong>The application ID</p></li>
-<li><p><strong>appGuid</strong>The application GUID</p></li>
-<li><p><strong>appName</strong>The application name</p></li>
-<li><p><strong>appUrl</strong>The application URL</p></li>
-<li><p><strong>appRunAs</strong>The application RunAs user</p></li>
-<li><p><strong>type</strong>The type of process</p></li>
-<li><p><strong>cpuCurrent</strong>The current CPU usage</p></li>
-<li><p><strong>cpuTotal</strong>The total CPU usage</p></li>
-<li><p><strong>ram</strong>The current RAM usage</p></li>
-</ul>
-
+    <div class='dont-index'><p>Other content functions: 
+<code><a href='acl_add_user.html'>acl_add_user</a>()</code>,
+<code><a href='content_item.html'>content_item</a>()</code>,
+<code><a href='content_title.html'>content_title</a>()</code>,
+<code><a href='create_random_name.html'>create_random_name</a>()</code>,
+<code><a href='dashboard_url_chr.html'>dashboard_url_chr</a>()</code>,
+<code><a href='dashboard_url.html'>dashboard_url</a>()</code>,
+<code><a href='delete_vanity_url.html'>delete_vanity_url</a>()</code>,
+<code><a href='deploy_repo.html'>deploy_repo</a>()</code>,
+<code><a href='get_acl_user.html'>get_acl_user</a>()</code>,
+<code><a href='get_bundles.html'>get_bundles</a>()</code>,
+<code><a href='get_environment.html'>get_environment</a>()</code>,
+<code><a href='get_image.html'>get_image</a>()</code>,
+<code><a href='get_jobs.html'>get_jobs</a>()</code>,
+<code><a href='get_vanity_url.html'>get_vanity_url</a>()</code>,
+<code><a href='git.html'>git</a></code>,
+<code><a href='set_image_path.html'>set_image_path</a>()</code>,
+<code><a href='set_run_as.html'>set_run_as</a>()</code>,
+<code><a href='set_vanity_url.html'>set_vanity_url</a>()</code>,
+<code><a href='swap_vanity_url.html'>swap_vanity_url</a>()</code>,
+<code><a href='verify_content_name.html'>verify_content_name</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9027</span>
       </span>
     </div>
 
@@ -189,6 +189,10 @@
 <li><p><a href='#method-tag_set'><code>Content$tag_set()</code></a></p></li>
 <li><p><a href='#method-tag_delete'><code>Content$tag_delete()</code></a></p></li>
 <li><p><a href='#method-tags'><code>Content$tags()</code></a></p></li>
+<li><p><a href='#method-permissions_add'><code>Content$permissions_add()</code></a></p></li>
+<li><p><a href='#method-permissions_update'><code>Content$permissions_update()</code></a></p></li>
+<li><p><a href='#method-permissions_delete'><code>Content$permissions_delete()</code></a></p></li>
+<li><p><a href='#method-permissions'><code>Content$permissions()</code></a></p></li>
 <li><p><a href='#method-environment'><code>Content$environment()</code></a></p></li>
 <li><p><a href='#method-environment_set'><code>Content$environment_set()</code></a></p></li>
 <li><p><a href='#method-deploy'><code>Content$deploy()</code></a></p></li>
@@ -304,6 +308,30 @@
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
 <p><div class="r"></p><pre><span class='va'>Content</span><span class='op'>$</span><span class='fu'>tags</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-permissions_add"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>permissions_add()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Content</span><span class='op'>$</span><span class='fu'>permissions_add</span><span class='op'>(</span><span class='va'>principal_guid</span>, <span class='va'>principal_type</span>, <span class='va'>role</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-permissions_update"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>permissions_update()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Content</span><span class='op'>$</span><span class='fu'>permissions_update</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>principal_guid</span>, <span class='va'>principal_type</span>, <span class='va'>role</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-permissions_delete"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>permissions_delete()</code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Content</span><span class='op'>$</span><span class='fu'>permissions_delete</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-permissions"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='permissions.html'>permissions()</a></code></h3>
+
+<h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Content</span><span class='op'>$</span><span class='fu'>permissions</span><span class='op'>(</span>id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
 <a id="method-environment"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/environment.html'>environment()</a></code></h3>
