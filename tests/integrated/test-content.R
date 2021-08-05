@@ -340,8 +340,16 @@ test_that("run_as_current_user fails for rmd", {
 
 context("acl")
 
+test_that("acl methods are deprecated", {
+  scoped_experimental_silence()
+
+  lifecycle::expect_deprecated(get_acl_user(cont1_content))
+  lifecycle::expect_deprecated(get_acl_group(cont1_content))
+})
+
 test_that("acl returns owner once and only once", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   # get acl
   acls <- get_acl_user(cont1_content)
@@ -354,6 +362,7 @@ test_that("acl returns owner once and only once", {
 
 test_that("add a collaborator works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   # create a user
   collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
@@ -371,6 +380,7 @@ test_that("add a collaborator works", {
 
 test_that("add collaborator twice works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # add a collaborator
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   invisible(acl_add_collaborator(cont1_content, collab_guid))
@@ -387,6 +397,7 @@ test_that("add collaborator twice works", {
 
 test_that("add a viewer works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # create a user
   view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_guid <<- view_user$guid
@@ -406,6 +417,7 @@ test_that("add a viewer works", {
 
 test_that("add a viewer twice works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # add a viewer
   invisible(acl_add_viewer(cont1_content, viewer_guid))
   invisible(acl_add_viewer(cont1_content, viewer_guid))
@@ -422,6 +434,7 @@ test_that("add a viewer twice works", {
 
 test_that("remove a collaborator works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove a collaborator
   invisible(acl_remove_user(cont1_content, collab_guid))
 
@@ -436,6 +449,7 @@ test_that("remove a collaborator works", {
 
 test_that("remove a collaborator twice works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove a collaborator
   invisible(acl_remove_user(cont1_content, collab_guid))
   invisible(acl_remove_user(cont1_content, collab_guid))
@@ -455,6 +469,7 @@ test_that("remove a collaborator twice works", {
 #
 test_that("a collaborator does not affect other collaborators", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # create a user
   collab_alt <- test_conn_1$users_create(username = glue::glue("test_collab_alt{create_random_name()}"), email = "collab_alt@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_alt_guid <<- collab_alt$guid
@@ -478,6 +493,7 @@ test_that("a collaborator does not affect other collaborators", {
 
 test_that("a collaborator and a viewer do not affect each other", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   invisible(acl_add_viewer(cont1_content, viewer_guid))
   invisible(acl_add_collaborator(cont1_content, collab_guid))
   invisible(acl_add_viewer(cont1_content, viewer_guid))
@@ -513,6 +529,7 @@ test_that("a collaborator and a viewer do not affect each other", {
 
 test_that("a viewer does not affect other viewers", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # create a user
   view_user_alt <- test_conn_1$users_create(username = glue::glue("test_viewer_alt{create_random_name()}"), email = "viewer_alt@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_alt_guid <<- view_user_alt$guid
@@ -537,6 +554,7 @@ test_that("a viewer does not affect other viewers", {
 
 test_that("a collaborator can be added as a viewer (overwrites)", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove user to be sure
   invisible(acl_remove_user(cont1_content, collab_guid))
 
@@ -557,6 +575,7 @@ test_that("a collaborator can be added as a viewer (overwrites)", {
 
 test_that("a viewer can be added as a collaborator", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove user to be sure
   invisible(acl_remove_user(cont1_content, collab_guid))
 
@@ -576,6 +595,7 @@ test_that("a viewer can be added as a collaborator", {
 
 test_that("remove a viewer works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove a viewer
   invisible(acl_add_viewer(cont1_content, viewer_guid))
   invisible(acl_remove_user(cont1_content, viewer_guid))
@@ -591,6 +611,7 @@ test_that("remove a viewer works", {
 
 test_that("remove a viewer twice works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   # remove a viewer
   invisible(acl_remove_user(cont1_content, viewer_guid))
   invisible(acl_remove_user(cont1_content, viewer_guid))
@@ -606,6 +627,7 @@ test_that("remove a viewer twice works", {
 
 test_that("get_acl_user_role works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   acl_remove_user(cont1_content, collab_guid)
   acl_remove_user(cont1_content, viewer_guid)
 
@@ -619,11 +641,13 @@ test_that("get_acl_user_role works", {
 
 test_that("get_acl_user_role with null user_guid returns NULL", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_null(get_acl_user_role(cont1_content, NULL))
 })
 
 test_that("get_acl_user_role with no role returns NULL", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   acl_remove_user(cont1_content, viewer_guid)
   expect_null(get_acl_user_role(cont1_content, viewer_guid))
 })
@@ -641,6 +665,7 @@ test_that("acl_remove_self works", {
 # TODO: Beware... this state can get muddy if the content has been modified
 test_that("acl_add_group works", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   grp <- test_conn_1$groups_create(name = create_random_name())
 
   content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
@@ -663,11 +688,13 @@ test_that("acl_add_group works", {
 
 test_that("get_acl_group_role with null user_guid returns NULL", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_null(get_acl_group_role(cont1_content, NULL))
 })
 
 test_that("get_acl_group_role with no role returns NULL", {
   scoped_experimental_silence()
+  withr::local_options(lifecycle_verbosity = "quiet")
   acl_remove_user(cont1_content, viewer_guid)
   expect_null(get_acl_group_role(cont1_content, viewer_guid))
 })
