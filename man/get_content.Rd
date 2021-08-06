@@ -4,7 +4,7 @@
 \alias{get_content}
 \title{Get information about content on the RStudio Connect server}
 \usage{
-get_content(src, guid = NULL, owner_guid = NULL, name = NULL)
+get_content(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .p = NULL)
 }
 \arguments{
 \item{src}{A Connect object}
@@ -14,6 +14,10 @@ get_content(src, guid = NULL, owner_guid = NULL, name = NULL)
 \item{owner_guid}{The unique identifier of the user who owns the content}
 
 \item{name}{The content name specified when the content was created}
+
+\item{...}{Extra arguments. Currently not used}
+
+\item{.p}{Optional. A predicate function, passed as-is to \code{purrr::keep()} before turning the response into a tibble. Can be useful for performance}
 }
 \value{
 A tibble with the following columns:
