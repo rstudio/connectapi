@@ -158,6 +158,8 @@ get_group_members <- function(src, guid) {
 #' @param guid The guid for a particular content item
 #' @param owner_guid The unique identifier of the user who owns the content
 #' @param name The content name specified when the content was created
+#' @param ... Extra arguments. Currently not used
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()` before turning the response into a tibble. Can be useful for performance
 #'
 #' @return
 #' A tibble with the following columns:
@@ -269,7 +271,7 @@ get_group_members <- function(src, guid) {
 #' }
 #'
 #' @export
-get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL) {
+get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .p = NULL) {
   validate_R6_class(src, "Connect")
 
   res <- src$content(guid = guid, owner_guid = owner_guid, name = name)
@@ -279,9 +281,84 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL) {
     res <- list(res)
   }
 
+  if (!is.null(.p)) {
+    res <- res %>% purrr::keep(.p = .p)
+  }
+
   out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
 
   return(out)
+}
+
+.make_predicate <- function(.expr) {
+  function(.x) {
+    masked_expr <- rlang::enexpr(.expr)
+
+  }
+}
+
+.get_content_permission_with_progress <- function(src, guid, .pb = NULL) {
+  if (!is.null(.pb)) {
+    if (!.pb$finished) .pb$tick()
+  }
+  get_content_permissions(content_item(src, guid))
+}
+
+#' Get Content List with Permissions
+#'
+#' \lifecycle{experimental} These functions are experimental placeholders until the API supports
+#' this behavior.
+#'
+#' `content_list_with_permissions` loops through content and retrieves
+#' permissions for each item (with a progress bar). This can take a long time
+#' for lots of content! Make sure to use the optional `.p` argument as a predicate
+#' function that filters the content list before it is transformed.
+#'
+#' `content_list_guid_has_access` works with a `content_list_with_permissions`
+#' dataset by checking whether a given GUID (either user or group) has access to
+#' the content by:
+#' - checking if the content has access_type == "all"
+#' - checking if the content has access_type == "logged_in"
+#' - checking if the provided guid is the content owner
+#' - checking if the provided guid is in the list of content permissions (in the "permissions" column)
+#'
+#' @param src A Connect R6 object
+#' @param ... Extra arguments. Currently not used
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()`. See
+#'   `get_content()` for more details. Can greatly help performance by reducing
+#'   how many items to get permissions for
+#' @param content_list A "content list with permissions" as returned by `content_list_with_permissions()`
+#' @param guid A user or group GUID to filter the content list by whether they have access
+#'
+#' @rdname content_list_with_permissions
+#'
+#' @export
+content_list_with_permissions <- function(src, ..., .p = NULL) {
+  warn_experimental("content_list_with_permissions")
+
+  message("Getting content list")
+  content_list <- get_content(src, .filter_expr = .p)
+
+  message("Getting permission list")
+  pb <- progress::progress_bar$new(total = nrow(content_list), format="[:bar] :percent :eta")
+  updated_list <- content_list %>% dplyr::mutate(
+    permission = purrr::map(guid, function(.x) list(.get_content_permission_with_progress(src, .x, pb)))
+  )
+
+  return(updated_list)
+}
+
+#' @rdname content_list_with_permissions
+#' @export
+content_list_guid_has_access <- function(content_list, guid) {
+  warn_experimental("content_list_filter_by_guid")
+  filtered <- content_list %>% filter(
+    access_type == "all" ||
+      access_type == "logged_in" ||
+      owner_guid == {{guid}} ||
+      {{guid}} %in% permission$principal_guid
+  )
+  return(filtered)
 }
 
 #' Get information about content on the RStudio Connect server
