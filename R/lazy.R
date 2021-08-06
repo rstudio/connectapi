@@ -79,8 +79,8 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else if (op$x == "groups") {
     res <- page_offset(con, con$groups(), limit = n)
   } else if (op$x == "content") {
-    warn_experimental("tbl_connect 'content'")
-    res <- con$get_apps(.limit = n)
+    # TODO: no limit notion here... we just pull all of them...
+    res <- con$content()
   } else if (op$x == "usage_shiny") {
     res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
   } else if (op$x == "usage_static") {
