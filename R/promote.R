@@ -52,7 +52,7 @@ promote <- function(from,
 
   poll_task(task)
 
-  to_app_url <- to_app$get_content()$url
+  to_app_url <- to_app$get_url()
 
   return(to_app_url)
 }

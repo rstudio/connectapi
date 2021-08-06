@@ -395,7 +395,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-content}{}}}
 \subsection{Method \code{content()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content(guid)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$content(guid = NULL, owner_guid = NULL, name = NULL)}\if{html}{\out{</div>}}
 }
 
 }

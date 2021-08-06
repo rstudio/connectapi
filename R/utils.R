@@ -14,6 +14,9 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
 query_args <- function(...) {
   args <- rlang::list2(...)
 
+  args <- purrr::discard(args, ~ is.null(.x))
+  args <- purrr::discard(args, ~ is.na(.x))
+
   prep <- purrr::map2_chr(
     names(args),
     args,
