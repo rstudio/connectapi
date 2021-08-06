@@ -30,8 +30,8 @@ Content <- R6::R6Class(
       self$content <- new_content_details
       self$get_content()
     },
-    get_bundles = function(page_number = 1) {
-      url <- glue::glue("v1/experimental/content/{self$get_content()$guid}/bundles?page_number={page_number}")
+    get_bundles = function() {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/bundles")
       self$get_connect()$GET(url)
     },
     internal_content = function() {
@@ -556,7 +556,7 @@ create_random_name <- function(length = 25) {
 #' @export
 get_bundles <- function(content, limit = Inf) {
   validate_R6_class(content, "Content")
-  bundles <- page_offset(content$get_connect(), content$get_bundles(), limit = limit)
+  bundles <- content$get_bundles()
 
   parse_connectapi_typed(bundles, !!!connectapi_ptypes$bundles)
 }
