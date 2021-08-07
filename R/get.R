@@ -352,7 +352,7 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
 #' @export
 content_list_guid_has_access <- function(content_list, guid) {
   warn_experimental("content_list_filter_by_guid")
-  filtered <- content_list %>% filter(
+  filtered <- content_list %>% dplyr::filter(
     access_type == "all" ||
       access_type == "logged_in" ||
       owner_guid == {{guid}} ||
