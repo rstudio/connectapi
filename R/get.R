@@ -337,7 +337,7 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   warn_experimental("content_list_with_permissions")
 
   message("Getting content list")
-  content_list <- get_content(src, .filter_expr = .p)
+  content_list <- get_content(src, .p = .p)
 
   message("Getting permission list")
   pb <- progress::progress_bar$new(total = nrow(content_list), format="[:bar] :percent :eta")
