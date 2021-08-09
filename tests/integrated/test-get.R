@@ -79,6 +79,21 @@ test_that("content_list_with_permissions works", {
 
 })
 
+test_that("content_list_with_permissions predicate works", {
+  scoped_experimental_silence()
+
+  # deploy a static app so we know it is not empty
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  uniq_id <- uuid::UUIDgenerate()
+  deployed <- deploy(test_conn_1, bnd, uniq_id)
+
+  rlang::with_options(progress_enabled = FALSE, cl <- content_list_with_permissions(test_conn_1, .p = ~ .x$guid == deployed$get_content()$guid))
+
+  expect_true("permission" %in% names(cl))
+  expect_is(cl, "tbl_df")
+  expect_equal(nrow(cl), 1)
+})
+
 test_that("content_list_guid_has_access works", {
   scoped_experimental_silence()
 
