@@ -85,5 +85,5 @@ content_list_guid_has_access(c_with_p, user_all$guid) %>% .$title
 
 We plan to build a full example in Shiny (and to show example code below).
 However, suffice it to say that for RStudio Connect version 1.9.0 or newer,
-[`connectwidgets`]() is a great way to plan to display your data, and provides
-several helpers for doing so!
+[`connectwidgets`](https://pkgs.rstudio.com/connectwidgets/) is a great way to
+plan to display your data, and provides several helpers for doing so!
