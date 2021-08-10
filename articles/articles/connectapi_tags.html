@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9027</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9030</span>
       </span>
     </div>
 
@@ -62,6 +62,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
+      <a href="../../articles/articles/content_permissions.html">Content Permissions</a>
     </li>
     <li>
       <a href="../../articles/customize-http.html">Customize HTTP Requests</a>
@@ -141,7 +144,7 @@
 <code class="sourceCode R"><span class="va">tree_project_1</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********45FN</code></pre>
+##   RStudio Connect API Key: ***********41Am</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span>
 
@@ -153,7 +156,7 @@
 <code class="sourceCode R"><span class="va">tree_project_2</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********45FN</code></pre>
+##   RStudio Connect API Key: ***********41Am</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/get_tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (filtered)
@@ -180,7 +183,7 @@
 <p>In order to show how tags work, we need some content to work with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Bundling directory (/tmp/RtmpC967ei/bundledir46197f73758c)</code></pre>
+<pre><code>## Bundling directory (/tmp/RtmpGo6pFX/bundledir3ce56eee30b6)</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></code></pre></div>
 <pre><code>## Getting content endpoint</code></pre>
@@ -205,9 +208,9 @@
 ## └── DemoProject
 ##    └── project_1</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: 5ca0c80a-bc86-4289-acb5-5965b4fdcf6c
-##   URL: http://localhost:49154/connect/#/apps/5ca0c80a-bc86-4289-acb5-5965b4fdcf6c/
-##   Task ID: s1FeXBYmYepZzZ8a</code></pre>
+##   Content GUID: c231878c-7d7b-40a5-82d4-bc0228677a66
+##   URL: http://localhost:49154/connect/#/apps/c231878c-7d7b-40a5-82d4-bc0228677a66/
+##   Task ID: RnHP1tSWEIuqbsru</code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect Tag Tree (content)
@@ -216,9 +219,9 @@
 ## └── DemoAudience
 ##    └── Sales</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: 5ca0c80a-bc86-4289-acb5-5965b4fdcf6c
-##   URL: http://localhost:49154/connect/#/apps/5ca0c80a-bc86-4289-acb5-5965b4fdcf6c/
-##   Task ID: s1FeXBYmYepZzZ8a</code></pre>
+##   Content GUID: c231878c-7d7b-40a5-82d4-bc0228677a66
+##   URL: http://localhost:49154/connect/#/apps/c231878c-7d7b-40a5-82d4-bc0228677a66/
+##   Task ID: RnHP1tSWEIuqbsru</code></pre>
 <p>Content 2 is for <code>project_2</code> and both Audiences (<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">set_content_tags</a></span><span class="op">(</span>
@@ -234,9 +237,9 @@
 ##    ├── Sales
 ##    └── Finance</code></pre>
 <pre><code>## RStudio Connect Content Task: 
-##   Content GUID: bc69ffb1-f3dc-4b19-a44b-6c1f48ce5a8f
-##   URL: http://localhost:49154/connect/#/apps/bc69ffb1-f3dc-4b19-a44b-6c1f48ce5a8f/
-##   Task ID: ooSuMHKc1NzwDnGH</code></pre>
+##   Content GUID: a7f9e70d-79bc-4b81-a122-0893a0c6cb9c
+##   URL: http://localhost:49154/connect/#/apps/a7f9e70d-79bc-4b81-a122-0893a0c6cb9c/
+##   Task ID: BoE1bmrZiECStnI8</code></pre>
 </div>
 <div id="see-the-tags-associated-with-content" class="section level2">
 <h2 class="hasAnchor">
@@ -264,44 +267,44 @@
 <div id="list-all-content-associated-with-a-tag" class="section level1">
 <h1 class="hasAnchor">
 <a href="#list-all-content-associated-with-a-tag" class="anchor"></a>List all content associated with a tag</h1>
-<p>Once tags have been defined, you can also search for all of the content associated with a tag. This is not, by any means, “first class” search functionality, yet. (See <code><a href="../../reference/get_content.html">?get_content</a></code> for help)</p>
+<p>Once tags have been defined, you can also search for all of the content associated with a tag.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/get_content.html">get_content</a></span><span class="op">(</span><span class="va">client</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 38
-##      id guid              access_type connection_time… read_timeout init_timeout
-##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     2 bc69ffb1-f3dc-4b… acl                       NA           NA           NA
-## 2     1 5ca0c80a-bc86-42… acl                       NA           NA           NA
-## # … with 32 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
-## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
-## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
-## #   app_mode &lt;int&gt;, content_category &lt;chr&gt;, has_parameters &lt;lgl&gt;,
-## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, cluster_name &lt;lgl&gt;,
-## #   image_name &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, build_status &lt;int&gt;,
-## #   run_as &lt;chr&gt;, run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, …</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/content_list_by_tag.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 30
+##   guid     name    title   description access_type connection_time… read_timeout
+##   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;                  &lt;int&gt;        &lt;int&gt;
+## 1 a7f9e70… maxkhf… maxkhf… ""          acl                       NA           NA
+## 2 c231878… rlfjhv… rlfjhv… ""          acl                       NA           NA
+## # … with 23 more variables: init_timeout &lt;int&gt;, idle_timeout &lt;int&gt;,
+## #   max_processes &lt;int&gt;, min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,
+## #   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,
+## #   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,
+## #   parameterized &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, run_as &lt;chr&gt;,
+## #   run_as_current_user &lt;lgl&gt;, owner_guid &lt;chr&gt;, content_url &lt;chr&gt;,
+## #   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, cluster_name &lt;chr&gt;, …</code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/get_content.html">get_content</a></span><span class="op">(</span><span class="va">client</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">project_1</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 38
-##      id guid              access_type connection_time… read_timeout init_timeout
-##   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     1 5ca0c80a-bc86-42… acl                       NA           NA           NA
-## # … with 32 more variables: idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;,
-## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
-## #   url &lt;chr&gt;, vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;,
-## #   app_mode &lt;int&gt;, content_category &lt;chr&gt;, has_parameters &lt;lgl&gt;,
-## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, cluster_name &lt;lgl&gt;,
-## #   image_name &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, build_status &lt;int&gt;,
-## #   run_as &lt;chr&gt;, run_as_current_user &lt;lgl&gt;, description &lt;chr&gt;, …</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/content_list_by_tag.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">project_1</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 30
+##   guid     name    title   description access_type connection_time… read_timeout
+##   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;                  &lt;int&gt;        &lt;int&gt;
+## 1 c231878… rlfjhv… rlfjhv… ""          acl                       NA           NA
+## # … with 23 more variables: init_timeout &lt;int&gt;, idle_timeout &lt;int&gt;,
+## #   max_processes &lt;int&gt;, min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,
+## #   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,
+## #   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,
+## #   parameterized &lt;lgl&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, run_as &lt;chr&gt;,
+## #   run_as_current_user &lt;lgl&gt;, owner_guid &lt;chr&gt;, content_url &lt;chr&gt;,
+## #   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, cluster_name &lt;chr&gt;, …</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../../reference/get_content.html">get_content</a></span><span class="op">(</span><span class="va">client</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tag <span class="op">=</span> <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 0 × 36
-## # … with 36 variables: id &lt;int&gt;, guid &lt;chr&gt;, access_type &lt;chr&gt;,
-## #   connection_timeout &lt;dbl&gt;, read_timeout &lt;dbl&gt;, init_timeout &lt;dbl&gt;,
-## #   idle_timeout &lt;dbl&gt;, max_processes &lt;int&gt;, min_processes &lt;int&gt;,
-## #   max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;, url &lt;chr&gt;,
-## #   vanity_url &lt;lgl&gt;, name &lt;chr&gt;, title &lt;chr&gt;, bundle_id &lt;int&gt;, app_mode &lt;int&gt;,
-## #   content_category &lt;chr&gt;, has_parameters &lt;lgl&gt;, created_time &lt;dttm&gt;,
-## #   last_deployed_time &lt;dttm&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, …</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../../reference/content_list_by_tag.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 0 × 30
+## # … with 30 variables: guid &lt;chr&gt;, name &lt;chr&gt;, title &lt;chr&gt;, description &lt;chr&gt;,
+## #   access_type &lt;chr&gt;, connection_timeout &lt;int&gt;, read_timeout &lt;int&gt;,
+## #   init_timeout &lt;int&gt;, idle_timeout &lt;int&gt;, max_processes &lt;int&gt;,
+## #   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,
+## #   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, bundle_id &lt;chr&gt;,
+## #   app_mode &lt;chr&gt;, content_category &lt;chr&gt;, parameterized &lt;lgl&gt;,
+## #   r_version &lt;chr&gt;, py_version &lt;chr&gt;, run_as &lt;chr&gt;, …</code></pre>
 </div>
 <div id="cleanup" class="section level1">
 <h1 class="hasAnchor">
@@ -316,12 +319,12 @@
 <span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********45FN</code></pre>
+##   RStudio Connect API Key: ***********41Am</code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/get_tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></code></pre></div>
 <pre><code>## RStudio Connect API Client: 
 ##   RStudio Connect Server: http://localhost:49154
-##   RStudio Connect API Key: ***********45FN</code></pre>
+##   RStudio Connect API Key: ***********41Am</code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO: delete content</span></code></pre></div>
 </div>

@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9027</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9030</span>
       </span>
     </div>
 
@@ -103,6 +103,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/articles/connectapi_tags.html">connectapi Tags</a>
+    </li>
+    <li>
+      <a href="../articles/articles/content_permissions.html">Content Permissions</a>
     </li>
     <li>
       <a href="../articles/customize-http.html">Customize HTTP Requests</a>
@@ -146,16 +149,22 @@
 <ul>
 <li>BREAKING: <code>Connect$new()</code> now takes a <code>server</code> argument (instead of <code>host</code>)
 <ul>
-<li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case.</li>
+<li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case. (<a href="https://github.com/rstudio/connectapi/pulls/125"><a href='https://github.com/rstudio/connectapi/issues/125'>#125</a></a>)</li>
 </ul>
 </li>
-<li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. However:
+<li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. (<a href="https://github.com/rstudio/connectapi/pulls/113"><a href='https://github.com/rstudio/connectapi/issues/113'>#113</a></a>) However:
 <ul>
 <li>
 <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> now returns a character string representing the vanity url in use (or NULL if not defined)</li>
 <li>
 <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> still returns a <code>Vanity</code> R6 object, but <code>vanity$get_vanity()$path_prefix</code> is now <code>vanity$get_vanity()$path</code>
 </li>
+</ul>
+</li>
+<li>BREAKING: Several <code>content_*</code> and other APIs have moved from experimental to “v1” variants. This means they have stabilized, but with several subtle breaking changes that could impact your scripts. (<a href="https://github.com/rstudio/connectapi/pulls/115"><a href='https://github.com/rstudio/connectapi/issues/115'>#115</a></a>)
+<ul>
+<li>i.e. <code>bundle_id</code> has become <code>id</code> in some response data. In others, <code>url</code> has become <code>content_url</code>.</li>
+<li>The R6 method <code>content$get_bundles()</code> no longer takes a <code>page_number</code> argument, and the <code><a href="../reference/get_bundles.html">get_bundles(limit)</a></code> argument is now deprecated (<a href="https://github.com/rstudio/connectapi/pulls/129"><a href='https://github.com/rstudio/connectapi/issues/129'>#129</a></a>)</li>
 </ul>
 </li>
 <li>Fix an issue with relative paths in <code><a href="../reference/bundle_dir.html">bundle_dir()</a></code> (<a href="https://github.com/slodge"><code>@slodge</code></a>) (<a href="https://github.com/rstudio/connectapi/issues/118"><a href='https://github.com/rstudio/connectapi/issues/118'>#118</a></a>, <a href="https://github.com/rstudio/connectapi/issues/121"><a href='https://github.com/rstudio/connectapi/issues/121'>#121</a></a>)</li>
@@ -169,6 +178,17 @@
 <li>Improve several print methods (<a href="https://github.com/rstudio/connectapi/issues/18"><a href='https://github.com/rstudio/connectapi/issues/18'>#18</a></a>, <a href="https://github.com/rstudio/connectapi/issues/19"><a href='https://github.com/rstudio/connectapi/issues/19'>#19</a></a>)</li>
 <li>Protect against bad bundles (<a href="https://github.com/rstudio/connectapi/issues/13"><a href='https://github.com/rstudio/connectapi/issues/13'>#13</a></a>)</li>
 <li>Error if an empty API key is defined (<a href="https://github.com/rstudio/connectapi/issues/16"><a href='https://github.com/rstudio/connectapi/issues/16'>#16</a></a>)</li>
+<li>Add a few <code>content_list_*</code> helpers (<a href="https://github.com/rstudio/connectapi/pulls/130"><a href='https://github.com/rstudio/connectapi/issues/130'>#130</a></a>):
+<ul>
+<li>
+<code>content_list_with_permissions</code> returns a <code>content_list</code> with a “permission” column that includes who has access</li>
+<li>
+<code>content_list_by_tag</code> allows fetching just a <code>content_list</code> for a particular tag</li>
+<li>
+<code>content_list_guid_has_access</code> filters a “content list with permission” by whether a user or group GUID has access</li>
+</ul>
+</li>
+<li>Add a <code><a href="../reference/user_guid_from_username.html">user_guid_from_username()</a></code> function to convert <code>session$user</code> or other usernames to a user GUID (<a href="https://github.com/rstudio/connectapi/pulls/130"><a href='https://github.com/rstudio/connectapi/issues/130'>#130</a></a>)</li>
 </ul>
 </div>
     <div id="connectapi-0109018" class="section level1">

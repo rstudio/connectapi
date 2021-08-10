@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get information about content on the RStudio Connect server — get_content • connectapi</title>
+<title>Get information about content on the RStudio Connect server — get_content_old • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Get information about content on the RStudio Connect server — get_content" />
+<meta property="og:title" content="Get information about content on the RStudio Connect server — get_content_old" />
 <meta property="og:description" content="Get information about content on the RStudio Connect server" />
 <meta property="og:image" content="/logo.svg" />
 
@@ -142,52 +142,41 @@
     <div class="page-header">
     <h1>Get information about content on the RStudio Connect server</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/get.R'><code>R/get.R</code></a></small>
-    <div class="hidden name"><code>get_content.Rd</code></div>
+    <div class="hidden name"><code>get_content_old.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Get information about content on the RStudio Connect server</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_content</span><span class='op'>(</span><span class='va'>src</span>, guid <span class='op'>=</span> <span class='cn'>NULL</span>, owner_guid <span class='op'>=</span> <span class='cn'>NULL</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, .p <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_content_old</span><span class='op'>(</span><span class='va'>src</span>, filter <span class='op'>=</span> <span class='cn'>NULL</span>, limit <span class='op'>=</span> <span class='fl'>25</span>, page_size <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>src</th>
-      <td><p>A Connect object</p></td>
+      <td><p>The source object</p></td>
     </tr>
     <tr>
-      <th>guid</th>
-      <td><p>The guid for a particular content item</p></td>
+      <th>filter</th>
+      <td><p>a named list of filter options, e.g. list(name = 'appname')</p></td>
     </tr>
     <tr>
-      <th>owner_guid</th>
-      <td><p>The unique identifier of the user who owns the content</p></td>
+      <th>limit</th>
+      <td><p>the maximum number of records to return</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>The content name specified when the content was created</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Extra arguments. Currently not used</p></td>
-    </tr>
-    <tr>
-      <th>.p</th>
-      <td><p>Optional. A predicate function, passed as-is to <code><a href='https://purrr.tidyverse.org/reference/keep.html'>purrr::keep()</a></code> before turning the response into a tibble. Can be useful for performance</p></td>
+      <th>page_size</th>
+      <td><p>the number of records to return per page</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble with the following columns:</p><ul>
+<li><p><strong>id</strong>The application ID</p></li>
 <li><p><strong>guid</strong>The unique identifier of this content item.</p></li>
-<li><p><strong>name</strong>A simple, URL-friendly identifier. Allows
-alpha-numeric characters, hyphens ("-"), and underscores ("_").</p></li>
-<li><p><strong>title</strong>The title of this content.</p></li>
-<li><p><strong>description</strong>A rich description of this content</p></li>
 <li><p><strong>access_type</strong>Access type describes how this content manages
 its viewers. The value all is the most permissive; any visitor to RStudio
 Connect will be able to view this content. The value logged_in indicates
@@ -230,24 +219,29 @@ only to content types that are executed on demand.</p></li>
 <li><p><strong>load_factor</strong>Controls how aggressively new processes are spawned.
 When null, the default Scheduler.LoadFactor is used. Applies only to
 content types that are executed on demand.</p></li>
-<li><p><strong>created_time</strong>The timestamp (RFC3339) indicating when this
-content was created.</p></li>
-<li><p><strong>last_deployed_time</strong>The timestamp (RFC3339) indicating when
-this content last had a successful bundle deployment performed.</p></li>
+<li><p><strong>url</strong>The URL associated with this content. Computed from
+the associated vanity URL or the identifiers for this content.</p></li>
+<li><p><strong>vanity_url</strong>The vanity url assigned to this app by an
+administrator</p></li>
+<li><p><strong>name</strong>A simple, URL-friendly identifier. Allows
+alpha-numeric characters, hyphens ("-"), and underscores ("_").</p></li>
+<li><p><strong>title</strong>The title of this content.</p></li>
 <li><p><strong>bundle_id</strong>The identifier for the active deployment bundle.
 Automatically assigned upon the successful deployment of that bundle.</p></li>
 <li><p><strong>app_mode</strong>The runtime model for this content. Has a value
 of unknown before data is deployed to this item. Automatically assigned
-upon the first successful bundle deployment. Allowed: api, jupyter-static,
-python-api, python-bokeh, python-dash, python-streamlit, rmd-shiny,
-rmd-static, shiny, static, tensorflow-saved-model, unknown</p></li>
+upon the first successful bundle deployment.</p></li>
 <li><p><strong>content_category</strong>Describes the specialization of the content
 runtime model. Automatically assigned upon the first successful bundle
 deployment.</p></li>
-<li><p><strong>parameterized</strong>True when R Markdown rendered content
+<li><p><strong>has_parameters</strong>True when R Markdown rendered content
 allows parameter configuration. Automatically assigned upon the first
 successful bundle deployment. Applies only to content with an app_mode
 of rmd-static.</p></li>
+<li><p><strong>created_time</strong>The timestamp (RFC3339) indicating when this
+content was created.</p></li>
+<li><p><strong>last_deployed_time</strong>The timestamp (RFC3339) indicating when
+this content last had a successful bundle deployment performed.</p></li>
 <li><p><strong>r_version</strong>The version of the R interpreter associated
 with this content. The value null represents that an R interpreter is
 not used by this content or that the R package environment has not been
@@ -258,36 +252,43 @@ associated with this content. The value null represents that a Python
 interpreter is not used by this content or that the Python package
 environment has not been successfully restored. Automatically assigned
 upon the successful deployment of a bundle.</p></li>
+<li><p><strong>build_status</strong></p></li>
 <li><p><strong>run_as</strong>The UNIX user that executes this content.
 When null, the default Applications.RunAs is used. Applies
 only to executable content types - not static.</p></li>
 <li><p><strong>run_as_current_user</strong>Indicates if this content is allowed
 to execute as the logged-in user when using PAM authentication.
 Applies only to executable content types - not static.</p></li>
-<li><p><strong>owner_guid</strong>The unique identifier for the owner</p></li>
-<li><p><strong>content_url</strong>The URL associated with this content. Computed
-from the associated vanity URL or GUID for this content.</p></li>
-<li><p><strong>dashboard_url</strong>The URL within the Connect dashboard where
-this content can be configured. Computed from the GUID for this content.</p></li>
-<li><p><strong>role</strong>The relationship of the accessing user to this
+<li><p><strong>description</strong>A rich description of this content</p></li>
+<li><p><strong>app_role</strong>The relationship of the accessing user to this
 content. A value of owner is returned for the content owner. editor
 indicates a collaborator. The viewer value is given to users who are
 permitted to view the content. A none role is returned for
 administrators who cannot view the content but are permitted to view
 its configuration. Computed at the time of the request.</p></li>
-<li><p><strong>id</strong>The internal numeric identifier of this content item</p></li>
+<li><p><strong>owner_first_name</strong>The first name of the owner of the
+content.</p></li>
+<li><p><strong>owner_last_name</strong>The last name of the owner of the
+content.</p></li>
+<li><p><strong>owner_username</strong>The username of the owner of the
+content.</p></li>
+<li><p><strong>owner_guid</strong>The unique identifier for the owner</p></li>
+<li><p><strong>owner_email</strong>The email of the content owner</p></li>
+<li><p><strong>owner_locked</strong>Is the owners user account locked?</p></li>
+<li><p><strong>is_scheduled</strong>Is this content scheduled?</p></li>
+<li><p><strong>git</strong>Is this content deployed via git or GitHub?</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Please see https://docs.rstudio.com/connect/api/#get-/v1/content for more information</p>
+    <p>Please see https://docs.rstudio.com/connect/api/#getContent for more information</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/connectapi'>connectapi</a></span><span class='op'>)</span>
 <span class='va'>client</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>get_content</span><span class='op'>(</span><span class='va'>client</span><span class='op'>)</span>
+<span class='fu'>get_content_old</span><span class='op'>(</span><span class='va'>client</span>, limit <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></pre>

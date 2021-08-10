@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get all Tags on the server — get_tags • connectapi</title>
+<title>Content List — content_list_by_tag • connectapi</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Get all Tags on the server — get_tags" />
+<meta property="og:title" content="Content List — content_list_by_tag" />
 <meta property="og:description" content="
- Tag manipulation and assignment functions" />
+ Get a content list" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -141,101 +141,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get all Tags on the server</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/tags.R'><code>R/tags.R</code></a></small>
-    <div class="hidden name"><code>tags.Rd</code></div>
+    <h1>Content List</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/connectapi/blob/master/R/get.R'><code>R/get.R</code></a></small>
+    <div class="hidden name"><code>content_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a>
- Tag manipulation and assignment functions</p>
+ Get a content list</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_tags</span><span class='op'>(</span><span class='va'>src</span><span class='op'>)</span>
-
-<span class='fu'>get_tag_data</span><span class='op'>(</span><span class='va'>src</span><span class='op'>)</span>
-
-<span class='fu'>create_tag</span><span class='op'>(</span><span class='va'>src</span>, <span class='va'>name</span>, parent <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-
-<span class='fu'>create_tag_tree</span><span class='op'>(</span><span class='va'>src</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>delete_tag</span><span class='op'>(</span><span class='va'>src</span>, <span class='va'>tag</span><span class='op'>)</span>
-
-<span class='fu'>get_content_tags</span><span class='op'>(</span><span class='va'>content</span><span class='op'>)</span>
-
-<span class='fu'>set_content_tag_tree</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>set_content_tags</span><span class='op'>(</span><span class='va'>content</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>filter_tag_tree_id</span><span class='op'>(</span><span class='va'>tags</span>, <span class='va'>ids</span><span class='op'>)</span>
-
-<span class='fu'>filter_tag_tree_chr</span><span class='op'>(</span><span class='va'>tags</span>, <span class='va'>pattern</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>content_list_by_tag</span><span class='op'>(</span><span class='va'>src</span>, <span class='va'>tag</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>src</th>
-      <td><p>The source object</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>The name of the tag to create</p></td>
-    </tr>
-    <tr>
-      <th>parent</th>
-      <td><p>optional. A <code>connect_tag_tree</code> object (as returned by <code>get_tags()</code>) pointed at the parent tag</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments</p>
-<p>Manage tags (requires Administrator role):</p><ul>
-<li><p><code>get_tags()</code> - returns a "tag tree" object that can be traversed with <code>tag_tree$tag1$childtag</code></p></li>
-<li><p><code>get_tag_data()</code> - returns a tibble of tag data</p></li>
-<li><p><code>create_tag()</code> - create a tag by specifying the Parent directly</p></li>
-<li><p><code>create_tag_tree()</code> - create tag(s) by specifying the "desired" tag tree
-hierarchy</p></li>
-<li><p><code>delete_tag()</code> - delete a tag (and its children). WARNING: will
-disassociate any content automatically</p></li>
-</ul>
-
-<p>Manage content tags:</p><ul>
-<li><p><code>get_content_tags()</code> - return a <code>connect_tag_tree</code> object corresponding to
-the tags for a piece of content.</p></li>
-<li><p><code>set_content_tag_tree()</code> - attach a tag to content by specifying the
-desired tag tree</p></li>
-<li><p><code>set_content_tags()</code> - Set multiple tags at once by providing
-<code>connect_tag_tree</code> objects</p></li>
-</ul>
-
-<p>Search a tag tree:</p><ul>
-<li><p><code>filter_tag_tree_chr()</code> - filters a tag tree based on a regex</p></li>
-<li><p><code>filter_tag_tree_id()</code> - filters a tag tree based on an id</p></li>
-<li><p></p></li>
-</ul></td>
+      <td><p>An R6 Connect object</p></td>
     </tr>
     <tr>
       <th>tag</th>
-      <td><p>A <code>connect_tag_tree</code> object (as returned by <code>get_tags()</code>)</p></td>
-    </tr>
-    <tr>
-      <th>content</th>
-      <td><p>An R6 Content object, as returned by <code><a href='content_item.html'>content_item()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>tags</th>
-      <td><p>A <code>connect_tag_tree</code> object (as returned by <code>get_tags()</code>)</p></td>
-    </tr>
-    <tr>
-      <th>ids</th>
-      <td><p>A list of <code>id</code>s to filter the tag tree by</p></td>
-    </tr>
-    <tr>
-      <th>pattern</th>
-      <td><p>A regex to filter the tag tree by (it is passed to <code>grepl</code>)</p></td>
+      <td><p>A <code>connect_tag_tree</code> object or tag ID</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>content_list_by_tag()</code> retrieves a content list by tag</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
