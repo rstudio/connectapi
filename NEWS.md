@@ -8,9 +8,12 @@
     url in use (or NULL if not defined)
     - `set_vanity_url()` still returns a `Vanity` R6 object, but
     `vanity$get_vanity()$path_prefix` is now `vanity$get_vanity()$path`
-- BREAKING: Several `content_*` APIs have moved from experimental to "v1" variants. This means they have
-  stabilized, but with several subtle breaking changes that could impact your scripts.
+- BREAKING: Several `content_*` and other APIs have moved from experimental to
+"v1" variants. This means they have stabilized, but with several subtle breaking
+changes that could impact your scripts.
     - i.e. `bundle_id` has become `id` in some response data. In others, `url` has become `content_url`.
+    - The R6 method `content$get_bundles()` no longer takes a `page_number`
+    argument, and the `get_bundles(limit)` argument is now deprecated
 - Fix an issue with relative paths in `bundle_dir()`
   ([`@slodge`](https://github.com/slodge))
   ([#118](https://github.com/rstudio/connectapi/issues/118),

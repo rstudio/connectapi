@@ -225,7 +225,8 @@ connectapi_ptypes <- list(
     r_version = NA_character_,
     py_version = NA_character_,
     active = NA,
-    size = fs::as_fs_bytes(NA_integer_)
+    size = fs::as_fs_bytes(NA_integer_),
+    metadata = NA_list_,
   ),
   permissions = tibble::tibble(
     id = NA_character_,
