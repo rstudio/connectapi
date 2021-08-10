@@ -28,3 +28,18 @@ test_that("users works", {
 
   expect_gt(length(users$results), 0)
 })
+
+test_that("user_guid_from_username works", {
+  expect_error(user_guid_from_username(test_conn_1, "this-user-prefix-does-not-exist"), "user not found")
+
+  user_username <- create_random_name(20)
+  user_res <- test_conn_1$users_create(user_username, "example@example.com", password = user_username)
+
+  user_username_2 <- paste0(user_username, "X")
+  user_res_2 <- test_conn_1$users_create(user_username_2, "example@example.com", password = user_username_2)
+
+  expect_warning(user_guid_from_username(test_conn_1, substr(user_username, 0, 19)), "multiple users found")
+
+  expect_equal(user_guid_from_username(test_conn_1, user_username), user_res$guid)
+  expect_equal(user_guid_from_username(test_conn_1, user_username_2), user_res_2$guid)
+})

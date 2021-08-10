@@ -120,15 +120,14 @@ c2_tags
 # List all content associated with a tag
 
 Once tags have been defined, you can also search for all of the content
-associated with a tag. This is not, by any means, "first class" search
-functionality, yet. (See `?get_content` for help)
+associated with a tag. 
 
 ```{r}
-get_content(client, filter = list(tag = all_tags$DemoAudience$Sales$id))
+content_list_by_tag(client, all_tags$DemoAudience$Sales)
 
-get_content(client, filter = list(tag = all_tags$DemoProject$project_1$id))
+content_list_by_tag(client, all_tags$DemoProject$project_1)
 
-get_content(client, filter = list(tag = all_tags$DemoProject$id))
+content_list_by_tag(client, all_tags$DemoProject)
 ```
 
 # Cleanup

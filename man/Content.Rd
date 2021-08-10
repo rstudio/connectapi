@@ -100,7 +100,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-get_bundles}{}}}
 \subsection{Method \code{get_bundles()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles(page_number = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles()}\if{html}{\out{</div>}}
 }
 
 }

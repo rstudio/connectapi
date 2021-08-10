@@ -1,9 +1,12 @@
 # connectapi (development version)
 
 - BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
-    - The same is true of the `connect()` function, although we warn
-      about argument deprecation in that case.
-- BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer experimental functions. However:
+    - The same is true of the `connect()` function, although we warn about
+    argument deprecation in that case.
+    ([#125](https://github.com/rstudio/connectapi/pulls/125))
+- BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer
+experimental functions.
+([#113](https://github.com/rstudio/connectapi/pulls/113)) However:
     - `get_vanity_url()` now returns a character string representing the vanity
     url in use (or NULL if not defined)
     - `set_vanity_url()` still returns a `Vanity` R6 object, but
@@ -11,9 +14,11 @@
 - BREAKING: Several `content_*` and other APIs have moved from experimental to
 "v1" variants. This means they have stabilized, but with several subtle breaking
 changes that could impact your scripts.
+([#115](https://github.com/rstudio/connectapi/pulls/115))
     - i.e. `bundle_id` has become `id` in some response data. In others, `url` has become `content_url`.
     - The R6 method `content$get_bundles()` no longer takes a `page_number`
     argument, and the `get_bundles(limit)` argument is now deprecated
+    ([#129](https://github.com/rstudio/connectapi/pulls/129))
 - Fix an issue with relative paths in `bundle_dir()`
   ([`@slodge`](https://github.com/slodge))
   ([#118](https://github.com/rstudio/connectapi/issues/118),
@@ -30,6 +35,11 @@ changes that could impact your scripts.
 - Protect against bad bundles
 ([#13](https://github.com/rstudio/connectapi/issues/13))
 - Error if an empty API key is defined ([#16](https://github.com/rstudio/connectapi/issues/16))
+- Add a few `content_list_*` helpers ([#130](https://github.com/rstudio/connectapi/pulls/130)):
+  - `content_list_with_permissions` returns a `content_list` with a "permission" column that includes who has access
+  - `content_list_by_tag` allows fetching just a `content_list` for a particular tag
+  - `content_list_guid_has_access` filters a "content list with permission" by whether a user or group GUID has access
+- Add a `user_guid_from_username()` function to convert `session$user` or other usernames to a user GUID ([#130](https://github.com/rstudio/connectapi/pulls/130))
 
 # connectapi 0.1.0.9018
 
