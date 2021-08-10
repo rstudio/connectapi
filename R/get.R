@@ -342,10 +342,31 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   message("Getting permission list")
   pb <- progress::progress_bar$new(total = nrow(content_list), format="[:bar] :percent :eta")
   updated_list <- content_list %>% dplyr::mutate(
-    permission = purrr::map(guid, function(.x) list(.get_content_permission_with_progress(src, .x, pb)))
+    permission = purrr::map(guid, function(.x) .get_content_permission_with_progress(src, .x, pb))
   )
 
   return(updated_list)
+}
+
+#' Content List
+#'
+#' \lifecycle{experimental} Get a content list
+#'
+#' @param src An R6 Connect object
+#' @param tag A `connect_tag_tree` object or tag ID
+#'
+#' `content_list_by_tag()` retrieves a content list by tag
+#'
+#' @rdname content_list
+#' @export
+content_list_by_tag <- function(src, tag) {
+  validate_R6_class(src, "Connect")
+  tag_id <- .get_tag_id(tag)
+
+  res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
+
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  return(out)
 }
 
 #' @rdname content_list_with_permissions
@@ -356,7 +377,7 @@ content_list_guid_has_access <- function(content_list, guid) {
     access_type == "all" |
       access_type == "logged_in" |
       owner_guid == {{guid}} |
-      {{guid}} %in% permission$principal_guid
+      purrr::map_lgl(permission, ~ {{guid}} %in% .x$principal_guid)
   )
   return(filtered)
 }
