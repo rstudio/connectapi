@@ -352,10 +352,10 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
 #'
 #' \lifecycle{experimental} Get a content list
 #'
+#' `content_list_by_tag()` retrieves a content list by tag
+#'
 #' @param src An R6 Connect object
 #' @param tag A `connect_tag_tree` object or tag ID
-#'
-#' `content_list_by_tag()` retrieves a content list by tag
 #'
 #' @rdname content_list
 #' @export
