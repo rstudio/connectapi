@@ -112,3 +112,7 @@ test_that("content_list_guid_has_access works", {
   expect_true(nrow(filt) > 0)
   expect_true(deployed$get_content()$guid %in% filt$guid)
 })
+
+test_that("content_list_by_tag works", {
+  skip("not yet tested")
+})
