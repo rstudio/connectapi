@@ -62,6 +62,9 @@ c_with_p <- content_list_with_permissions(client, .p = ~.x$guid %in% content_gui
 
 # another approach, with a function
 # content_list_with_permissions(client, .p = function(.x) {.x$guid %in% content_guids})
+
+# notice the "permission" column:
+c_with_p$permission
 ```
 
 # Filter the Content List
