@@ -236,20 +236,24 @@ set_content_tags <- function(content, ...) {
   tmp <- purrr::map(
     new_tags,
     function(.x) {
-      if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
-        print(.x)
-        stop("this tag does not have an 'id'. Is it a tag list?")
-      }
-      if (inherits(.x, "connect_tag_tree")) {
-        content$tag_set(.x[["id"]])
-      } else {
-        content$tag_set(.x)
-      }
+      content$tag_set(.get_tag_id(.x))
     }
   )
   print(get_content_tags(content))
   cat("\n")
   content
+}
+
+.get_tag_id <- function(.x) {
+  if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
+    print(.x)
+    stop("this tag does not have an 'id'. Is it a tag list?")
+  }
+  if (inherits(.x, "connect_tag_tree")) {
+    return(.x[["id"]])
+  } else {
+    return(.x)
+  }
 }
 
 set_content_tags_remove <- function() {
