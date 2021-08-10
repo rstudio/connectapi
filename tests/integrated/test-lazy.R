@@ -80,8 +80,6 @@ test_that("content works", {
   expect_is(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
 
-  # https://github.com/r-lib/testthat/issues/985
-  skip("currently segfaults")
   expect_equal(vctrs::vec_ptype(content_list_local), vctrs::vec_ptype(connectapi_ptypes$content))
 })
 
@@ -114,3 +112,4 @@ test_that("audit_logs works", {
 
   expect_equal(vctrs::vec_ptype(audit_list_local), vctrs::vec_ptype(connectapi_ptypes$audit_logs))
 })
+

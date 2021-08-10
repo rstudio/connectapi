@@ -10,6 +10,8 @@ cont1_guid <- NULL
 cont1_bundle <- NULL
 cont1_content <- NULL
 
+# get --------------------------------------------
+
 test_that("get_users works", {
   users <- get_users(test_conn_1)
 
@@ -63,4 +65,54 @@ test_that("get_procs works", {
   # we could always start a content restoration...
   expect_is(proc_data, "tbl_df")
   expect_equal(vctrs::vec_ptype(proc_data), vctrs::vec_ptype(connectapi_ptypes$procs))
+})
+
+# experimental --------------------------------------------
+
+test_that("content_list_with_permissions works", {
+  scoped_experimental_silence()
+
+  rlang::with_options(progress_enabled = FALSE, cl <- content_list_with_permissions(test_conn_1))
+
+  expect_true("permission" %in% names(cl))
+  expect_is(cl, "tbl_df")
+
+})
+
+test_that("content_list_with_permissions predicate works", {
+  scoped_experimental_silence()
+
+  # deploy a static app so we know it is not empty
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  uniq_id <- uuid::UUIDgenerate()
+  deployed <- deploy(test_conn_1, bnd, uniq_id)
+
+  rlang::with_options(progress_enabled = FALSE, cl <- content_list_with_permissions(test_conn_1, .p = ~ .x$guid == deployed$get_content()$guid))
+
+  expect_true("permission" %in% names(cl))
+  expect_is(cl, "tbl_df")
+  expect_equal(nrow(cl), 1)
+})
+
+test_that("content_list_guid_has_access works", {
+  scoped_experimental_silence()
+
+  # deploy a static app so we know it is not empty
+  bnd <- bundle_static(path = rprojroot::find_package_root_file("tests/testthat/examples/static/test.png"))
+  uniq_id <- uuid::UUIDgenerate()
+  deployed <- deploy(test_conn_1, bnd, uniq_id)
+
+  rlang::with_options(progress_enabled = FALSE, cl <- content_list_with_permissions(test_conn_1))
+
+  my_guid <- test_conn_1$me()$guid
+  filt <- content_list_guid_has_access(cl, my_guid)
+  expect_true("permission" %in% names(filt))
+  expect_true(nrow(filt) <= nrow(cl))
+
+  expect_true(nrow(filt) > 0)
+  expect_true(deployed$get_content()$guid %in% filt$guid)
+})
+
+test_that("content_list_by_tag works", {
+  skip("not yet tested")
 })

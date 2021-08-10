@@ -298,7 +298,7 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
 
   message("Uploading bundle")
   # upload
-  new_bundle_id <- con$content_upload(bundle_path = bundle$path, guid = content$guid)[["bundle_id"]]
+  new_bundle_id <- con$content_upload(bundle_path = bundle$path, guid = content$guid)[["id"]]
 
   pre_deploy_expr <- rlang::enexpr(.pre_deploy)
   rlang::eval_bare(pre_deploy_expr, env = rlang::env(content = content_item(con, content$guid), bundle_id = new_bundle_id))

@@ -46,6 +46,10 @@ Other R6 classes:
 \item \href{#method-tag_set}{\code{Content$tag_set()}}
 \item \href{#method-tag_delete}{\code{Content$tag_delete()}}
 \item \href{#method-tags}{\code{Content$tags()}}
+\item \href{#method-permissions_add}{\code{Content$permissions_add()}}
+\item \href{#method-permissions_update}{\code{Content$permissions_update()}}
+\item \href{#method-permissions_delete}{\code{Content$permissions_delete()}}
+\item \href{#method-permissions}{\code{Content$permissions()}}
 \item \href{#method-environment}{\code{Content$environment()}}
 \item \href{#method-environment_set}{\code{Content$environment_set()}}
 \item \href{#method-deploy}{\code{Content$deploy()}}
@@ -96,7 +100,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-get_bundles}{}}}
 \subsection{Method \code{get_bundles()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles(page_number = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles()}\if{html}{\out{</div>}}
 }
 
 }
@@ -214,6 +218,42 @@ Other R6 classes:
 \subsection{Method \code{tags()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tags()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-permissions_add"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_add}{}}}
+\subsection{Method \code{permissions_add()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$permissions_add(principal_guid, principal_type, role)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-permissions_update"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_update}{}}}
+\subsection{Method \code{permissions_update()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$permissions_update(id, principal_guid, principal_type, role)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-permissions_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_delete}{}}}
+\subsection{Method \code{permissions_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$permissions_delete(id)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-permissions"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions}{}}}
+\subsection{Method \code{permissions()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$permissions(id = NULL)}\if{html}{\out{</div>}}
 }
 
 }

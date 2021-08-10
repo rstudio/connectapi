@@ -359,7 +359,7 @@ Connect <- R6::R6Class(
     # content ----------------------------------------------------------
 
     content_create = function(name, title = name, ...) {
-      path <- sprintf("v1/experimental/content")
+      path <- sprintf("v1/content")
       other_params <- rlang::dots_list(...)
 
       verify_content_name(name)
@@ -386,19 +386,26 @@ Connect <- R6::R6Class(
 
     content_upload = function(bundle_path, guid) {
       # todo : add X-Content-Checksum
-      path <- glue::glue("v1/experimental/content/{guid}/upload")
+      path <- glue::glue("v1/content/{guid}/bundles")
       res <- self$POST(path, httr::upload_file(bundle_path), "raw")
       return(res)
     },
 
     content_deploy = function(guid, bundle_id) {
-      path <- sprintf("v1/experimental/content/%s/deploy", guid)
+      path <- sprintf("v1/content/%s/deploy", guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
       return(res)
     },
 
-    content = function(guid) {
-      path <- sprintf("v1/experimental/content/%s", guid)
+    content = function(guid = NULL, owner_guid = NULL, name = NULL) {
+      if (!is.null(guid)) {
+        path <- glue::glue("v1/content/{guid}")
+      } else {
+        filter_args <- list(owner_guid = owner_guid, name = name)
+        path <- glue::glue(
+          "v1/content{query_args(!!!filter_args)}"
+        )
+      }
       res <- self$GET(path)
       return(res)
     },

@@ -154,6 +154,236 @@ get_group_members <- function(src, guid) {
 
 #' Get information about content on the RStudio Connect server
 #'
+#' @param src A Connect object
+#' @param guid The guid for a particular content item
+#' @param owner_guid The unique identifier of the user who owns the content
+#' @param name The content name specified when the content was created
+#' @param ... Extra arguments. Currently not used
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()` before turning the response into a tibble. Can be useful for performance
+#'
+#' @return
+#' A tibble with the following columns:
+#' \itemize{
+#'    \item{\strong{guid}}{The unique identifier of this content item.}
+#'    \item{\strong{name}}{A simple, URL-friendly identifier. Allows
+#'    alpha-numeric characters, hyphens ("-"), and underscores ("_").}
+#'    \item{\strong{title}}{The title of this content.}
+#'    \item{\strong{description}}{A rich description of this content}
+#'    \item{\strong{access_type}}{Access type describes how this content manages
+#'    its viewers. The value all is the most permissive; any visitor to RStudio
+#'    Connect will be able to view this content. The value logged_in indicates
+#'    that all RStudio Connect accounts may view the content. The acl value
+#'    lets specifically enumerated users and groups view the content. Users
+#'    configured as collaborators may always view content. It may have a
+#'    value of all, logged_in or acl.}
+#'    \item{\strong{connection_timeout}}{Maximum number of seconds allowed
+#'    without data sent or received across a client connection. A value of 0
+#'    means connections will never time-out (not recommended). When null, the
+#'    default Scheduler.ConnectionTimeout is used. Applies only to content
+#'    types that are executed on demand.}
+#'    \item{\strong{read_timeout}}{Maximum number of seconds allowed without
+#'    data received from a client connection. A value of 0 means a lack of client
+#'    (browser) interaction never causes the connection to close. When null,
+#'    the default Scheduler.ReadTimeout is used. Applies only to content types
+#'    that are executed on demand.}
+#'    \item{\strong{init_timeout}}{The maximum number of seconds allowed for an
+#'    interactive application to start. RStudio Connect must be able to connect
+#'    to a newly launched Shiny application, for example, before this threshold
+#'    has elapsed. When null, the default Scheduler.InitTimeout is used. Applies
+#'    only to content types that are executed on demand.}
+#'    \item{\strong{idle_timeout}}{The maximum number of seconds a worker process
+#'    for an interactive application to remain alive after it goes idle (no
+#'    active connections). When null, the default Scheduler.IdleTimeout is used.
+#'    Applies only to content types that are executed on demand.}
+#'    \item{\strong{max_processes}}{Specifies the total number of concurrent
+#'    processes allowed for a single interactive application. When null, the
+#'    default Scheduler.MaxProcesses is used. Applies only to content types
+#'    that are executed on demand.}
+#'    \item{\strong{min_processes}}{Specifies the minimum number of concurrent
+#'    processes allowed for a single interactive application. When null, the
+#'    default Scheduler.MinProcesses is used. Applies only to content types
+#'    that are executed on demand.}
+#'    \item{\strong{max_conns_per_process}}{Specifies the maximum number of
+#'    client connections allowed to an individual process. Incoming connections
+#'    which will exceed this limit are routed to a new process or rejected.
+#'    When null, the default Scheduler.MaxConnsPerProcess is used. Applies
+#'    only to content types that are executed on demand.}
+#'    \item{\strong{load_factor}}{Controls how aggressively new processes are spawned.
+#'    When null, the default Scheduler.LoadFactor is used. Applies only to
+#'    content types that are executed on demand.}
+#'    \item{\strong{created_time}}{The timestamp (RFC3339) indicating when this
+#'    content was created.}
+#'    \item{\strong{last_deployed_time}}{The timestamp (RFC3339) indicating when
+#'    this content last had a successful bundle deployment performed.}
+#'    \item{\strong{bundle_id}}{The identifier for the active deployment bundle.
+#'    Automatically assigned upon the successful deployment of that bundle.}
+#'    \item{\strong{app_mode}}{The runtime model for this content. Has a value
+#'    of unknown before data is deployed to this item. Automatically assigned
+#'    upon the first successful bundle deployment. Allowed: api, jupyter-static,
+#'    python-api, python-bokeh, python-dash, python-streamlit, rmd-shiny,
+#'    rmd-static, shiny, static, tensorflow-saved-model, unknown}
+#'    \item{\strong{content_category}}{Describes the specialization of the content
+#'    runtime model. Automatically assigned upon the first successful bundle
+#'    deployment.}
+#'    \item{\strong{parameterized}}{True when R Markdown rendered content
+#'    allows parameter configuration. Automatically assigned upon the first
+#'    successful bundle deployment. Applies only to content with an app_mode
+#'    of rmd-static.}
+#'    \item{\strong{r_version}}{The version of the R interpreter associated
+#'    with this content. The value null represents that an R interpreter is
+#'    not used by this content or that the R package environment has not been
+#'    successfully restored. Automatically assigned upon the successful
+#'    deployment of a bundle.}
+#'    \item{\strong{py_version}}{The version of the Python interpreter
+#'    associated with this content. The value null represents that a Python
+#'    interpreter is not used by this content or that the Python package
+#'    environment has not been successfully restored. Automatically assigned
+#'    upon the successful deployment of a bundle.}
+#'    \item{\strong{run_as}}{The UNIX user that executes this content.
+#'    When null, the default Applications.RunAs is used. Applies
+#'    only to executable content types - not static.}
+#'    \item{\strong{run_as_current_user}}{Indicates if this content is allowed
+#'    to execute as the logged-in user when using PAM authentication.
+#'    Applies only to executable content types - not static.}
+#'    \item{\strong{owner_guid}}{The unique identifier for the owner}
+#'    \item{\strong{content_url}}{The URL associated with this content. Computed
+#'    from the associated vanity URL or GUID for this content.}
+#'    \item{\strong{dashboard_url}}{The URL within the Connect dashboard where
+#'    this content can be configured. Computed from the GUID for this content.}
+#'    \item{\strong{role}}{The relationship of the accessing user to this
+#'    content. A value of owner is returned for the content owner. editor
+#'    indicates a collaborator. The viewer value is given to users who are
+#'    permitted to view the content. A none role is returned for
+#'    administrators who cannot view the content but are permitted to view
+#'    its configuration. Computed at the time of the request.}
+#'    \item{\strong{id}}{The internal numeric identifier of this content item}
+#'  }
+#'
+#' @details
+#' Please see https://docs.rstudio.com/connect/api/#get-/v1/content for more information
+#'
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' client <- connect()
+#'
+#' get_content(client)
+#' }
+#'
+#' @export
+get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .p = NULL) {
+  validate_R6_class(src, "Connect")
+
+  res <- src$content(guid = guid, owner_guid = owner_guid, name = name)
+
+  if (!is.null(guid)) {
+    # convert a single item to a list
+    res <- list(res)
+  }
+
+  if (!is.null(.p)) {
+    res <- res %>% purrr::keep(.p = .p)
+  }
+
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+
+  return(out)
+}
+
+.make_predicate <- function(.expr) {
+  function(.x) {
+    masked_expr <- rlang::enexpr(.expr)
+
+  }
+}
+
+.get_content_permission_with_progress <- function(src, guid, .pb = NULL) {
+  if (!is.null(.pb)) {
+    if (!.pb$finished) .pb$tick()
+  }
+  get_content_permissions(content_item(src, guid))
+}
+
+#' Get Content List with Permissions
+#'
+#' \lifecycle{experimental} These functions are experimental placeholders until the API supports
+#' this behavior.
+#'
+#' `content_list_with_permissions` loops through content and retrieves
+#' permissions for each item (with a progress bar). This can take a long time
+#' for lots of content! Make sure to use the optional `.p` argument as a predicate
+#' function that filters the content list before it is transformed.
+#'
+#' `content_list_guid_has_access` works with a `content_list_with_permissions`
+#' dataset by checking whether a given GUID (either user or group) has access to
+#' the content by:
+#' - checking if the content has access_type == "all"
+#' - checking if the content has access_type == "logged_in"
+#' - checking if the provided guid is the content owner
+#' - checking if the provided guid is in the list of content permissions (in the "permissions" column)
+#'
+#' @param src A Connect R6 object
+#' @param ... Extra arguments. Currently not used
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()`. See
+#'   `get_content()` for more details. Can greatly help performance by reducing
+#'   how many items to get permissions for
+#' @param content_list A "content list with permissions" as returned by `content_list_with_permissions()`
+#' @param guid A user or group GUID to filter the content list by whether they have access
+#'
+#' @rdname content_list_with_permissions
+#'
+#' @export
+content_list_with_permissions <- function(src, ..., .p = NULL) {
+  warn_experimental("content_list_with_permissions")
+
+  message("Getting content list")
+  content_list <- get_content(src, .p = .p)
+
+  message("Getting permission list")
+  pb <- progress::progress_bar$new(total = nrow(content_list), format="[:bar] :percent :eta")
+  updated_list <- content_list %>% dplyr::mutate(
+    permission = purrr::map(guid, function(.x) .get_content_permission_with_progress(src, .x, pb))
+  )
+
+  return(updated_list)
+}
+
+#' Content List
+#'
+#' \lifecycle{experimental} Get a content list
+#'
+#' `content_list_by_tag()` retrieves a content list by tag
+#'
+#' @param src An R6 Connect object
+#' @param tag A `connect_tag_tree` object or tag ID
+#'
+#' @rdname content_list
+#' @export
+content_list_by_tag <- function(src, tag) {
+  validate_R6_class(src, "Connect")
+  tag_id <- .get_tag_id(tag)
+
+  res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
+
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  return(out)
+}
+
+#' @rdname content_list_with_permissions
+#' @export
+content_list_guid_has_access <- function(content_list, guid) {
+  warn_experimental("content_list_filter_by_guid")
+  filtered <- content_list %>% dplyr::filter(
+    access_type == "all" |
+      access_type == "logged_in" |
+      owner_guid == {{guid}} |
+      purrr::map_lgl(permission, ~ {{guid}} %in% .x$principal_guid)
+  )
+  return(filtered)
+}
+
+#' Get information about content on the RStudio Connect server
+#'
 #' @param src The source object
 #' @param filter a named list of filter options, e.g. list(name = 'appname')
 #' @param limit the maximum number of records to return
@@ -274,17 +504,17 @@ get_group_members <- function(src, guid) {
 #' library(connectapi)
 #' client <- connect()
 #'
-#' get_content(client, limit = 20)
+#' get_content_old(client, limit = 20)
 #' }
 #'
 #' @export
-get_content <- function(src, filter = NULL, limit = 25, page_size = 25) {
+get_content_old <- function(src, filter = NULL, limit = 25, page_size = 25) {
   validate_R6_class(src, "Connect")
 
-  warn_experimental("get_content")
+  lifecycle::deprecate_warn("0.1.0.9023", "get_content_old()", "get_content()", details = "The filter argument is deprecated and the structure of the response has changed with the public API")
 
   ## TODO Add more arguments that can build the filter function for users
-  ## so that they know explicitely what arguments that can pass
+  ## so that they know explicitly what arguments that can pass
 
   res <- src$get_apps(
     filter = filter,
@@ -292,7 +522,7 @@ get_content <- function(src, filter = NULL, limit = 25, page_size = 25) {
     page_size = page_size
   )
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content_old)
 
   return(out)
 }
