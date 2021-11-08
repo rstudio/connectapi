@@ -10,7 +10,7 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-20.04
     env:
       RSC_VERSION: 2021.10.0
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -44,7 +44,7 @@ jobs:
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "16.04"), sep = "\n")')
+          done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "20.04"), sep = "\n")')
 
       - name: Install dependencies
         run: |
