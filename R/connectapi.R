@@ -14,4 +14,4 @@ utils::globalVariables(
   )
 )
 
-current_connect_version <- '1.8.8.1'
+current_connect_version <- '2021.10.0'
