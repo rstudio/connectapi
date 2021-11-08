@@ -13,7 +13,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_VERSION: 2021.10.0
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
-      RSPM: https://packagemanager.rstudio.com/cran/__linux__/bionic/latest
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/focal/latest
     steps:
       - uses: actions/checkout@v2
 
