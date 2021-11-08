@@ -372,9 +372,9 @@ Connect <- R6::R6Class(
     },
 
     # TODO: rename to bundle_download...
-    download_bundle = function(bundle_id, to_path = tempfile()) {
+    download_bundle = function(bundle_id, to_path = tempfile(), overwrite=FALSE) {
       path <- glue::glue("v1/experimental/bundles/{bundle_id}/download")
-      self$GET(path, httr::write_disk(to_path), "raw")
+      self$GET(path, httr::write_disk(to_path, overwrite = overwrite), "raw")
       to_path
     },
 
