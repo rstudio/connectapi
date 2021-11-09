@@ -6,13 +6,16 @@
 \usage{
 download_bundle(
   content,
-  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
+  overwrite = FALSE
 )
 }
 \arguments{
 \item{content}{A Content object}
 
 \item{filename}{The output bundle path}
+
+\item{overwrite}{Optional. Default FALSE. Whether to overwrite the target location if it already exists}
 }
 \value{
 Bundle A bundle object
