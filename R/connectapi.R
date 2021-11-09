@@ -14,7 +14,7 @@ utils::globalVariables(
     "r_version",
     "scoped_experimental_silence",
     "validate_R6_class",
-    "warn_experimental",
+    "warn_experimental"
   )
 )
 
