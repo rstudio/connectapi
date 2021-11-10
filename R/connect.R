@@ -396,11 +396,11 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    content = function(guid = NULL, owner_guid = NULL, name = NULL) {
+    content = function(guid = NULL, owner_guid = NULL, name = NULL, include="tags,owner") {
       if (!is.null(guid)) {
         path <- glue::glue("v1/content/{guid}")
       } else {
-        filter_args <- list(owner_guid = owner_guid, name = name)
+        filter_args <- list(owner_guid = owner_guid, name = name, include=include)
         path <- glue::glue(
           "v1/content{query_args(!!!filter_args)}"
         )
