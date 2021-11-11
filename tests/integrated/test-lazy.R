@@ -10,7 +10,7 @@ cont1_guid <- NULL
 cont1_bundle <- NULL
 cont1_content <- NULL
 
-bnd_static <- bundle_dir(rprojroot::find_testthat_root_file("test-static"))
+bnd_static <- bundle_dir(rprojroot::find_rstudio_root_file("tests/testthat/test-static"))
 tmp_content <- deploy(test_conn_1, bnd_static)
 
 test_that("error on bad 'src' object", {
