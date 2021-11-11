@@ -232,7 +232,9 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
 #' @family deployment functions
 #' @export
 bundle_path <- function(path) {
-  # need a check on filetype
+  # TODO: need a check on filetype
+  # TODO: a way to check that the .tar.gz has a manifest.json?
+  # TODO: err if the file path does not exist
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
 
