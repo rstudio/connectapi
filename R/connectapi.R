@@ -4,14 +4,18 @@
 
 utils::globalVariables(
   c(
-    "r_version",
     ".",
-    "parse_connectapi_typed",
+    "access_type",
     "connectapi_ptypes",
-    "validate_R6_class",
+    "guid",
+    "owner_guid",
+    "parse_connectapi_typed",
+    "permission",
+    "r_version",
     "scoped_experimental_silence",
+    "validate_R6_class",
     "warn_experimental"
   )
 )
 
-current_connect_version <- '1.8.8.1'
+current_connect_version <- '2021.10.0'

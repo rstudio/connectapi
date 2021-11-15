@@ -359,7 +359,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-download_bundle}{}}}
 \subsection{Method \code{download_bundle()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile(), overwrite = FALSE)}\if{html}{\out{</div>}}
 }
 
 }
