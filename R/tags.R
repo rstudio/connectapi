@@ -401,9 +401,9 @@ recursive_tag_print <- function(x, indent) {
 
 recursive_tag_restructure <- function(.x) {
   if (length(.x$children) > 0) {
-    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = .x$id, name = .x$name)), .x$name)
+    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = as.character(.x$id), name = .x$name)), .x$name)
   } else {
-    rlang::set_names(list(list(id = .x$id, name = .x$name)), .x$name)
+    rlang::set_names(list(list(id = as.character(.x$id), name = .x$name)), .x$name)
   }
 }
 
@@ -414,7 +414,7 @@ tag_tree <- function(.x) {
 parse_tags_tbl <- function(x) {
   parsed_tags <- purrr::map_dfr(x, ~{
     out <- dplyr::tibble(
-      id = .x$id,
+      id = as.character(.x$id),
       name = .x$name,
       created_time = .x$created_time,
       updated_time = .x$updated_time,
