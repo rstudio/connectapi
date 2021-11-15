@@ -372,9 +372,9 @@ Connect <- R6::R6Class(
     },
 
     # TODO: rename to bundle_download...
-    download_bundle = function(bundle_id, to_path = tempfile()) {
+    download_bundle = function(bundle_id, to_path = tempfile(), overwrite=FALSE) {
       path <- glue::glue("v1/experimental/bundles/{bundle_id}/download")
-      self$GET(path, httr::write_disk(to_path), "raw")
+      self$GET(path, httr::write_disk(to_path, overwrite = overwrite), "raw")
       to_path
     },
 
@@ -396,11 +396,11 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    content = function(guid = NULL, owner_guid = NULL, name = NULL) {
+    content = function(guid = NULL, owner_guid = NULL, name = NULL, include="tags,owner") {
       if (!is.null(guid)) {
         path <- glue::glue("v1/content/{guid}")
       } else {
-        filter_args <- list(owner_guid = owner_guid, name = name)
+        filter_args <- list(owner_guid = owner_guid, name = name, include=include)
         path <- glue::glue(
           "v1/content{query_args(!!!filter_args)}"
         )

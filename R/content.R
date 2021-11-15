@@ -555,7 +555,10 @@ create_random_name <- function(length = 25) {
 #' @family content functions
 #' @export
 get_bundles <- function(content, limit = Inf) {
-  lifecycle::deprecate_warn("0.1.0.9029", "get_bundles(limit)")
+  if (limit != Inf) {
+    # deprecate_warn cannot tell if the arg was the default or not
+    lifecycle::deprecate_warn("0.1.0.9029", "get_bundles(limit)")
+  }
   validate_R6_class(content, "Content")
   bundles <- content$get_bundles()
 

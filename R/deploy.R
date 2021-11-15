@@ -232,7 +232,9 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
 #' @family deployment functions
 #' @export
 bundle_path <- function(path) {
-  # need a check on filetype
+  # TODO: need a check on filetype
+  # TODO: a way to check that the .tar.gz has a manifest.json?
+  # TODO: err if the file path does not exist
   tar_path <- fs::path_abs(path)
   message(glue::glue("Bundling path {path}"))
 
@@ -245,12 +247,13 @@ bundle_path <- function(path) {
 #'
 #' @param content A Content object
 #' @param filename The output bundle path
+#' @param overwrite Optional. Default FALSE. Whether to overwrite the target location if it already exists
 #'
 #' @return Bundle A bundle object
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), overwrite=FALSE) {
   validate_R6_class(content, "Content")
 
   from_connect <- content$get_connect()
@@ -268,7 +271,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
   }
 
   message("Downloading bundle")
-  from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename)
+  from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename, overwrite=overwrite)
 
   Bundle$new(path = filename)
 }

@@ -23,6 +23,7 @@ changes that could impact your scripts.
   ([`@slodge`](https://github.com/slodge))
   ([#118](https://github.com/rstudio/connectapi/issues/118),
   [#121](https://github.com/rstudio/connectapi/issues/121))
+- Add `overwrite=` parameter to `download_bundle()`
 - Add HTTP request customization options, and related documentation
   ([#101](https://github.com/rstudio/connectapi/pull/101))
 - Add git deployment ([#112](https://github.com/rstudio/connectapi/issues/112))

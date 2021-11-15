@@ -49,7 +49,7 @@ determine_license_env <- function(license) {
   }
 }
 
-compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = TRUE) {
+compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_version, clean = TRUE) {
   warn_dire("compose_start")
   scoped_dire_silence()
 
@@ -75,17 +75,28 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), clean = T
 
   # start compose
   cat_line("docker-compose: starting...")
+  args <- c("-f", compose_file_path, "up", "-d")
+  env_vars <- c(
+    RSC_VERSION = rsc_version,
+    PATH = Sys.getenv("PATH"),
+    license_details$env_params
+  )
+  # do not show env_vars b/c need to handle license securely
+  cat_line(glue::glue("command: {compose_path} {paste(args, collapse=' ')}"))
   compose <- processx::process$new(
     compose_path,
-    c("-f", compose_file_path, "up", "-d"),
+    args,
     stdout = "|",
     stderr = "|",
-    env = c(
-      RSC_VERSION = current_connect_version,
-      license_details$env_params
-    )
+    env = env_vars
   )
-  while (compose$is_alive()) Sys.sleep(0.05)
+  while (compose$is_alive()) {
+    Sys.sleep(0.1)
+    if (getOption("connect.ci.debug", FALSE)) {
+      invisible(purrr::map(compose$read_output_lines(), message))
+      invisible(purrr::map(compose$read_error_lines(), message))
+    }
+  }
   if (compose$get_exit_status() != 0) {
     stop(compose$read_all_error_lines())
   }
@@ -171,11 +182,11 @@ build_test_env <- function(
                            connect_license = Sys.getenv("RSC_LICENSE"),
                            clean = TRUE,
                            username = "admin",
-                           password = "admin0") {
+                           password = "admin0", rsc_version=current_connect_version) {
   warn_dire("build_test_env")
   scoped_dire_silence()
 
-  compose_start(connect_license = connect_license, clean = clean)
+  compose_start(connect_license = connect_license, clean = clean, rsc_version=rsc_version)
 
   hosts <- compose_find_hosts(prefix = "ci_connect")
 
