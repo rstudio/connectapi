@@ -63,11 +63,13 @@ test_that("associate tag with content", {
 ## Test high level functions --------------------------------------------------
 
 test_that("get_tags works", {
+  scoped_experimental_silence()
   atags <- get_tags(test_conn_1)
   expect_is(atags, "connect_tag_tree")
 })
 
 test_that("create_tag and delete_tag works", {
+  scoped_experimental_silence()
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_2 <- uuid::UUIDgenerate(use.time = TRUE)
@@ -138,7 +140,6 @@ test_that("create_tag_tree works", {
 
 test_that("get_content_tags and set_content_tags works", {
   scoped_experimental_silence()
-
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
