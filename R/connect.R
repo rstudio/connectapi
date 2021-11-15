@@ -207,8 +207,8 @@ Connect <- R6::R6Class(
         self$httr_additions
         )
       )
-      self$raise_error(res)
       check_debug(req, res)
+      self$raise_error(res)
       httr::content(res, as = "parsed")
     },
 
@@ -228,9 +228,11 @@ Connect <- R6::R6Class(
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$GET("v1/tags")
       }
+      # TODO: deprecate tag_map? by removing all of the things that use it...
+      # caching is hard
       self$tag_map <- data.frame(
         id = sapply(self$tags, function(x) {
-          as.numeric(x$id)
+          as.character(x$id)
         }),
         name = sapply(self$tags, function(x) {
           x$name
@@ -254,7 +256,6 @@ Connect <- R6::R6Class(
     },
 
     tag_create_safe = function(name, parent_id = NULL) {
-      warn_experimental("create_tag")
       tt <- get_tags(self)
 
       tag_exists_id <- recursive_find_tag(tt, name, parent_id)
@@ -271,6 +272,10 @@ Connect <- R6::R6Class(
         name = name
       )
       if (!is.null(parent_id)) {
+        if (is.numeric(parent_id)) {
+          warn_once("Converting `tag parent_id` to character", "tag_parent_id")
+          parent_id <- as.character(parent_id)
+        }
         dat <- c(
           dat,
           parent_id = parent_id
@@ -416,11 +421,10 @@ Connect <- R6::R6Class(
     },
 
     set_content_tag = function(content_id, tag_id) {
-      warn_experimental("set_content_tag")
       self$POST(
-        path = glue::glue("applications/{content_id}/tags"),
+        path = glue::glue("v1/content/{content_id}/tags"),
         body = list(
-          id = tag_id
+          tag_id = tag_id
         )
       )
     },
