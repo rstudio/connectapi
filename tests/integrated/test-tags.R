@@ -18,7 +18,7 @@ check_tag_exists <- function(con, id) {
   res <- tryCatch(suppressMessages(con$tag(id)), error = function(e){return(e)})
   if (is.numeric(res[["id"]])) {
     TRUE
-  } else if (regexpr(res, "simpleError") && regexpr(res, "(404) Not Found")) {
+  } else if (regexpr("simpleError", res) && regexpr("(404) Not Found", res)) {
     FALSE
   } else {
     stop("error retrieving tag")
@@ -28,7 +28,6 @@ check_tag_exists <- function(con, id) {
 # Tests ---------------------------------------
 
 test_that("create tags works", {
-  scoped_experimental_silence()
   parent_tag <<- test_conn_1$tag_create(parent_tag_name)
   child_tag <<- test_conn_1$tag_create(child_tag_name, parent_tag$id)
 
@@ -42,7 +41,6 @@ test_that("create tags works", {
 })
 
 test_that("associate tag with content", {
-  scoped_experimental_silence()
   tag_content <<- deploy(
     test_conn_1,
     bundle_path(
@@ -65,7 +63,6 @@ test_that("associate tag with content", {
 ## Test high level functions --------------------------------------------------
 
 test_that("get_tags works", {
-  scoped_experimental_silence()
   atags <- get_tags(test_conn_1)
   expect_is(atags, "connect_tag_tree")
 })
@@ -76,7 +73,6 @@ test_that("create_tag and delete_tag works", {
   ctag_2 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_3 <- uuid::UUIDgenerate(use.time = TRUE)
 
-  scoped_experimental_silence()
   capture.output(res <- create_tag(test_conn_1, ptag_1))
   expect_true(validate_R6_class(res, "Connect"))
 
@@ -228,7 +224,6 @@ test_that("set_content_tag_tree works", {
 })
 
 test_that("identical tag names are searched properly", {
-  scoped_experimental_silence()
   tag_content_guid <- tag_content$get_content()$guid
 
   # create another tag with same name
@@ -293,3 +288,4 @@ test_that("tag_page_iframe works", {
   expect_true(length(res$APPS) > 0)
   unlink(res$LANDING_PAGE)
 })
+
