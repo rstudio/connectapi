@@ -294,8 +294,7 @@ Connect <- R6::R6Class(
     },
 
     tag_delete = function(id) {
-      tag_version <- self$tag(id = id)$version
-      invisible(self$DELETE(glue::glue("tags/{id}?version={tag_version}")))
+      invisible(self$DELETE(glue::glue("v1/tags/{id}")))
     },
 
     # content listing ----------------------------------------------------------

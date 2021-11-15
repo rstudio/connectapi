@@ -97,25 +97,15 @@ Content <- R6::R6Class(
       url <- glue::glue("applications/{self$get_content()$guid}/variants")
       self$get_connect()$GET(url)
     },
-    tag_set = function(id) {
-      warn_experimental("tag_set")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags")
-      self$get_connect()$POST(
-        url,
-        body = list(
-          id = id
-        )
-      )
+    tag_set = function(tag_id) {
+      self$get_connect()$set_content_tag(self$get_content()$guid, tag_id = tag_id)
     },
     tag_delete = function(id) {
       # note that deleting the parent tag deletes all children
-      warn_experimental("tag_delete")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags/{id}")
-      invisible(self$get_connect()$DELETE(url))
+      self$get_connect()$tag_delete(id)
     },
     tags = function() {
-      warn_experimental("tags")
-      url <- glue::glue("applications/{self$get_content()$guid}/tags")
+      url <- glue::glue("v1/content/{self$get_content()$guid}/tags")
       self$get_connect()$GET(url)
     },
     permissions_add = function(principal_guid, principal_type, role) {
