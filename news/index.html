@@ -164,10 +164,12 @@
 <li>BREAKING: Several <code>content_*</code> and other APIs have moved from experimental to “v1” variants. This means they have stabilized, but with several subtle breaking changes that could impact your scripts. (<a href="https://github.com/rstudio/connectapi/pulls/115"><a href='https://github.com/rstudio/connectapi/issues/115'>#115</a></a>)
 <ul>
 <li>i.e. <code>bundle_id</code> has become <code>id</code> in some response data. In others, <code>url</code> has become <code>content_url</code>.</li>
-<li>The R6 method <code>content$get_bundles()</code> no longer takes a <code>page_number</code> argument, and the <code><a href="../reference/get_bundles.html">get_bundles(limit)</a></code> argument is now deprecated (<a href="https://github.com/rstudio/connectapi/pulls/129"><a href='https://github.com/rstudio/connectapi/issues/129'>#129</a></a>)</li>
+<li>The R6 method <code>content$get_bundles()</code> no longer takes a <code>page_number</code> argument, and the <code>get_bundles(limit)</code> argument is now deprecated (<a href="https://github.com/rstudio/connectapi/pulls/129"><a href='https://github.com/rstudio/connectapi/issues/129'>#129</a></a>)</li>
 </ul>
 </li>
 <li>Fix an issue with relative paths in <code><a href="../reference/bundle_dir.html">bundle_dir()</a></code> (<a href="https://github.com/slodge"><code>@slodge</code></a>) (<a href="https://github.com/rstudio/connectapi/issues/118"><a href='https://github.com/rstudio/connectapi/issues/118'>#118</a></a>, <a href="https://github.com/rstudio/connectapi/issues/121"><a href='https://github.com/rstudio/connectapi/issues/121'>#121</a></a>)</li>
+<li>Add <code>overwrite=</code> parameter to <code><a href="../reference/download_bundle.html">download_bundle()</a></code>
+</li>
 <li>Add HTTP request customization options, and related documentation (<a href="https://github.com/rstudio/connectapi/pull/101"><a href='https://github.com/rstudio/connectapi/issues/101'>#101</a></a>)</li>
 <li>Add git deployment (<a href="https://github.com/rstudio/connectapi/issues/112"><a href='https://github.com/rstudio/connectapi/issues/112'>#112</a></a>)</li>
 <li>Switch <code>Task</code> class to <code>ContentTask</code>

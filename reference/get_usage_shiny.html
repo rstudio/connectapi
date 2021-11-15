@@ -239,15 +239,15 @@ Guide explains how to interpret data_version values.</p></li>
     <p>Please see https://docs.rstudio.com/connect/api/#getShinyAppUsage for more information</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/connectapi'>connectapi</a></span><span class='op'>)</span>
-<span class='va'>client</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>from</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>days</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
-<span class='fu'>get_usage_shiny</span><span class='op'>(</span><span class='va'>client</span>, limit <span class='op'>=</span> <span class='fl'>20</span>, from <span class='op'>=</span> <span class='va'>from</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/connectapi'>connectapi</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>client</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>from</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/period.html'>days</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>get_usage_shiny</span><span class='op'>(</span><span class='va'>client</span>, limit <span class='op'>=</span> <span class='fl'>20</span>, from <span class='op'>=</span> <span class='va'>from</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

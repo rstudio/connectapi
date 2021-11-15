@@ -178,28 +178,28 @@
 <span class="co"># NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`</span>
 
 <span class="va">bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bundle_dir.html">bundle_dir</a></span><span class="op">(</span><span class="st">"./path/to/directory"</span><span class="op">)</span>
-<span class="va">content</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bundle</span>, name <span class="op">=</span> <span class="st">"my-app-name"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">content</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
+  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bundle</span>, name <span class="op">=</span> <span class="st">"my-app-name"</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># set an image for content</span>
 
-<span class="va">content</span> <span class="op">%&gt;%</span> 
+<span class="va">content</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/set_image_path.html">set_image_path</a></span><span class="op">(</span><span class="st">"./my/local/image.png"</span><span class="op">)</span>
 
-<span class="va">content</span> <span class="op">%&gt;%</span> 
+<span class="va">content</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/set_image_path.html">set_image_url</a></span><span class="op">(</span><span class="st">"http://url.example.com/image.png"</span><span class="op">)</span>
 
 <span class="co"># set image and a vanity URL</span>
 
-<span class="va">content</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/set_image_path.html">set_image_path</a></span><span class="op">(</span><span class="st">"./my/local/image.png"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">content</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/set_image_path.html">set_image_path</a></span><span class="op">(</span><span class="st">"./my/local/image.png"</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span><span class="op">(</span><span class="st">"/my-awesome-app"</span><span class="op">)</span>
   
 <span class="co"># edit another piece of content</span>
 
-<span class="va">client</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/content_item.html">content_item</a></span><span class="op">(</span><span class="st">"the-content-guid"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">client</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/content_item.html">content_item</a></span><span class="op">(</span><span class="st">"the-content-guid"</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span><span class="op">(</span><span class="st">"/another-awesome-app"</span><span class="op">)</span>
   
 <span class="co"># migrate content to another server</span>
@@ -209,17 +209,17 @@
   api_key <span class="op">=</span> <span class="st">"my-secret-key"</span>
 <span class="op">)</span>
 
-<span class="va">prod_bnd</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/content_item.html">content_item</a></span><span class="op">(</span><span class="st">"the-guid-to-promote"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">prod_bnd</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/content_item.html">content_item</a></span><span class="op">(</span><span class="st">"the-guid-to-promote"</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/download_bundle.html">download_bundle</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">client_prod</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">prod_bnd</span>, title <span class="op">=</span> <span class="st">"Now in Production"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">client_prod</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">prod_bnd</span>, title <span class="op">=</span> <span class="st">"Now in Production"</span><span class="op">)</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span><span class="op">(</span><span class="st">"/my-app"</span><span class="op">)</span>
 
 <span class="co"># open a browser to the content item</span>
-<span class="va">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_dashboard</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">client_prod</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/browse_solo.html">browse_solo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">client_prod</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="reference/browse_solo.html">browse_dashboard</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">client_prod</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> <span class="fu"><a href="reference/browse_solo.html">browse_solo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="troubleshooting-and-faq" class="section level2">
