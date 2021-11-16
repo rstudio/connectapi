@@ -111,6 +111,16 @@ test_that("delete_tag errs for whole tree", {
   )
 })
 
+test_that('con$tag with id returns just one record', {
+  ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
+  capture.output(a1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1))
+
+  tags1 <- get_tags(test_conn_1)
+  res <- test_conn_1$tag(tags1[[ptag_1]][[ctag_1]][["id"]])
+  expect_equal(names(res), c("id", "name", "parent_id", "created_time", "updated_time"))
+})
+
 test_that("create_tag_tree works", {
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
@@ -130,7 +140,7 @@ test_that("create_tag_tree works", {
   expect_identical(tags1[[ptag_1]][["id"]], tags2[[ptag_1]][["id"]])
 
   delete_tag(test_conn_1, tags2[[ptag_1]])
-  expect_error(suppressMessages(test_conn_1$tag(a2[[ptag_1]][["id"]])), "Not Found")
+  expect_error(suppressMessages(test_conn_1$tag(tags2[[ptag_1]][["id"]])), "Not Found")
 })
 
 
