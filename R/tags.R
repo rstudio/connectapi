@@ -13,7 +13,7 @@
 
 #' Get all Tags on the server
 #'
-#' \lifecycle{experimental} Tag manipulation and assignment functions
+#' Tag manipulation and assignment functions
 #'
 #' @param src The source object
 #' @param name The name of the tag to create
