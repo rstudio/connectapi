@@ -66,7 +66,6 @@ test_that("[[ works as expected", {
 })
 
 test_that("filter_tag_tree_chr works as expected", {
-  scoped_experimental_silence()
   tt <- simple_tag_tree
 
   expect_length(filter_tag_tree_chr(tt, "hi"), 1)
@@ -77,7 +76,6 @@ test_that("filter_tag_tree_chr works as expected", {
 })
 
 test_that("filter_tag_tree_id works as expected", {
-  scoped_experimental_silence()
   tt <- simple_tag_tree
 
   expect_length(filter_tag_tree_id(tt, 1), 1)
@@ -88,7 +86,6 @@ test_that("filter_tag_tree_id works as expected", {
 })
 
 test_that("filter handles no responses", {
-  scoped_experimental_silence()
   tt <- simple_tag_tree
 
   expect_length(filter_tag_tree_chr(tt, "something"), 0)
@@ -96,14 +93,12 @@ test_that("filter handles no responses", {
 })
 
 test_that("filter handles no input", {
-  scoped_experimental_silence()
   tt <- simple_tag_tree
 
   expect_length(filter_tag_tree_chr(tt, character()), 0)
 })
 
 test_that("filter handles no input", {
-  scoped_experimental_silence()
   tt <- simple_tag_tree
 
   expect_length(filter_tag_tree_id(tt, integer()), 0)
