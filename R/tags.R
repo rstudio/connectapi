@@ -1,5 +1,16 @@
 # Manage Tags ------------------------------------------
 
+# TODO: this definitely needs some cleanup... there are several disparate data structures:
+# 1 - the raw "table" of JSON data returned from the public API
+# 2 - the "tag-tree" of JSON data returned from the "old" / private API
+# 3 - the output of `tag_tree()` that is optimized for usage by R
+# 4 - the output of `connect_tag_tree()`, which has the same data structure, but has classes associated
+
+# TODO: we should see if we can cut out 2 and 3 as intermediate states that exist...
+# - see if (2) can be skipped now by refactoring...
+# - see if (3) can be lumped into (4)?
+
+
 #' Get all Tags on the server
 #'
 #' \lifecycle{experimental} Tag manipulation and assignment functions
@@ -275,6 +286,38 @@ filter_tag_tree_chr <- function(tags, pattern) {
   }
 }
 
+# Tree Structure Creation ----------------------------------
+
+# input is the output of `get_tag_data()` or `con$tag()`
+tag_tree_from_data <- function(tag_data) {
+  parsed <- tag_tree_parse_data(tag_data)
+
+  connect_tag_tree(tag_tree(parsed))
+}
+
+tag_tree_parse_data <- function(tag_data) {
+  if (tibble::is_tibble(tag_data)) {
+    tag_data <- purrr::transpose(tag_data)
+  }
+  base_categories <- purrr::keep(tag_data, ~ is.null(.x[["parent_id"]]) || is.na(.x[["parent_id"]]))
+
+  output <- purrr::map(base_categories, tag_tree_parse_data_impl, tag_data = tag_data)
+
+  return(output)
+}
+
+tag_tree_parse_data_impl <- function(target, tag_data) {
+  filtered_data <- purrr::keep(tag_data, ~ !is.null(.x[["parent_id"]]) && !is.na(.x[["parent_id"]]) && .x[["parent_id"]] == target[["id"]])
+
+  # recurse through the tree
+  output <- purrr::map(filtered_data, tag_tree_parse_data_impl, tag_data = tag_data)
+
+  # what we get back needs to become "children"
+  target[["children"]] <- output
+
+  return(target)
+}
+
 # Utils ----------------------------------------------------
 
 recursive_filter_id <- function(tags, ids) {
@@ -398,8 +441,7 @@ parse_tags_tbl <- function(x) {
       name = .x$name,
       created_time = .x$created_time,
       updated_time = .x$updated_time,
-      version = .x$version,
-      parent_id = ifelse(is.null(.x$parent_id), NA_integer_, .x$parent_id)
+      parent_id = ifelse(is.null(.x$parent_id), NA_character_, .x$parent_id)
     )
 
     if (length(.x$children) > 0) {
