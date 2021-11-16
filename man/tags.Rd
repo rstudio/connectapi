@@ -81,5 +81,5 @@ Search a tag tree:
 \item{pattern}{A regex to filter the tag tree by (it is passed to \code{grepl})}
 }
 \description{
-\lifecycle{experimental} Tag manipulation and assignment functions
+Tag manipulation and assignment functions
 }
