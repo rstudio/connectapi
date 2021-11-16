@@ -1,8 +1,14 @@
 # connectapi (development version)
 
-- BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release).
+- BREAKING: the following functions now require RStudio Connect 1.8.6 or later
+(because they are no longer experimental, as of that release).
+([#128](https://github.com/rstudio/connectapi/pulls/12))
     - `set_vanity_url()`, `get_vanity_url()`, `swap_vanity_url()`
-    - `get_tags()`, `get_tag_data`, `get_content_tags()`
+    - `get_tags()`, `get_tag_data`, `get_content_tags()`, `create_tag()`,
+    `create_tag_tree()`, `delete_tag()`, `get_content_tags()`,
+    `set_content_tags()`, `set_content_tag_tree()`, `filter_tag_tree_id()`,
+    `filter_tag_tree_chr()`
+    - `tag id`s are now character strings (of integers) instead of integers
 - BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
     - The same is true of the `connect()` function, although we warn about
     argument deprecation in that case.
