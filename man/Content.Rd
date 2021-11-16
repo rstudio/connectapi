@@ -199,7 +199,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-tag_set}{}}}
 \subsection{Method \code{tag_set()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$tag_set(id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$tag_set(tag_id)}\if{html}{\out{</div>}}
 }
 
 }

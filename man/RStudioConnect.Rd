@@ -59,6 +59,7 @@ Other R6 classes:
 \item \href{#method-get_tags}{\code{Connect$get_tags()}}
 \item \href{#method-get_tag_id}{\code{Connect$get_tag_id()}}
 \item \href{#method-get_tag_tree}{\code{Connect$get_tag_tree()}}
+\item \href{#method-get_tag_tree_old}{\code{Connect$get_tag_tree_old()}}
 \item \href{#method-tag_create_safe}{\code{Connect$tag_create_safe()}}
 \item \href{#method-tag_create}{\code{Connect$tag_create()}}
 \item \href{#method-tag}{\code{Connect$tag()}}
@@ -283,6 +284,15 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_tag_tree_old"></a>}}
+\if{latex}{\out{\hypertarget{method-get_tag_tree_old}{}}}
+\subsection{Method \code{get_tag_tree_old()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree_old()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-tag_create_safe"></a>}}
 \if{latex}{\out{\hypertarget{method-tag_create_safe}{}}}
 \subsection{Method \code{tag_create_safe()}}{
@@ -305,7 +315,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-tag}{}}}
 \subsection{Method \code{tag()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$tag(id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$tag(id = NULL)}\if{html}{\out{</div>}}
 }
 
 }
@@ -395,7 +405,12 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-content}{}}}
 \subsection{Method \code{content()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content(guid = NULL, owner_guid = NULL, name = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$content(
+  guid = NULL,
+  owner_guid = NULL,
+  name = NULL,
+  include = "tags,owner"
+)}\if{html}{\out{</div>}}
 }
 
 }

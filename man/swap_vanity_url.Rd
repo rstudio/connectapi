@@ -12,7 +12,7 @@ swap_vanity_url(from_content, to_content)
 \item{to_content}{A Content object}
 }
 \description{
-\lifecycle{experimental} Swaps the Vanity URLs between two pieces of content
+Swaps the Vanity URLs between two pieces of content
 }
 \seealso{
 Other content functions: 

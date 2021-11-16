@@ -17,7 +17,7 @@ set_vanity_url(content, url, force = FALSE)
 An updated Content object
 }
 \description{
-\lifecycle{experimental} Sets the Vanity URL for a piece of content.
+Sets the Vanity URL for a piece of content.
 }
 \examples{
 \dontrun{
