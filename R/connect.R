@@ -226,7 +226,7 @@ Connect <- R6::R6Class(
       error_if_less_than(self, "1.8.6")
       # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
-        self$tags <- self$GET("v1/tags")
+        self$tags <- self$tag()
       }
       # TODO: deprecate tag_map? by removing all of the things that use it...
       # caching is hard
@@ -251,6 +251,11 @@ Connect <- R6::R6Class(
     },
 
     get_tag_tree = function() {
+      raw_tags <- self$tag()
+      tag_tree_parse_data(raw_tags)
+    },
+
+    get_tag_tree_old = function() {
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
@@ -287,9 +292,12 @@ Connect <- R6::R6Class(
       )
     },
 
-    tag = function(id) {
+    tag = function(id=NULL) {
       error_if_less_than(self, "1.8.6")
-      path <- glue::glue("v1/tags/{id}")
+      path <- "v1/tags"
+      if (!is.null(id)) {
+        path <- glue::glue("{path}/{id}")
+      }
       self$GET(path)
     },
 
