@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9030</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9031</span>
       </span>
     </div>
 
@@ -106,6 +106,9 @@
     </li>
     <li>
       <a href="../articles/articles/content_permissions.html">Content Permissions</a>
+    </li>
+    <li>
+      <a href="../articles/articles/lifecycle-statuses.html">Lifecycle Statuses</a>
     </li>
     <li>
       <a href="../articles/customize-http.html">Customize HTTP Requests</a>
@@ -147,6 +150,18 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#connectapi-development-version" class="anchor"></a>connectapi (development version)</h1>
 <ul>
+<li>BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release). (<a href="https://github.com/rstudio/connectapi/pulls/12"><a href='https://github.com/rstudio/connectapi/issues/128'>#128</a></a>)
+<ul>
+<li>
+<code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code>, <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code>, <code><a href="../reference/swap_vanity_url.html">swap_vanity_url()</a></code>
+</li>
+<li>
+<code><a href="../reference/get_tags.html">get_tags()</a></code>, <code>get_tag_data</code>, <code><a href="../reference/get_tags.html">get_content_tags()</a></code>, <code><a href="../reference/get_tags.html">create_tag()</a></code>, <code><a href="../reference/get_tags.html">create_tag_tree()</a></code>, <code><a href="../reference/get_tags.html">delete_tag()</a></code>, <code><a href="../reference/get_tags.html">get_content_tags()</a></code>, <code><a href="../reference/get_tags.html">set_content_tags()</a></code>, <code><a href="../reference/get_tags.html">set_content_tag_tree()</a></code>, <code><a href="../reference/get_tags.html">filter_tag_tree_id()</a></code>, <code><a href="../reference/get_tags.html">filter_tag_tree_chr()</a></code>
+</li>
+<li>
+<code>tag id</code>s are now character strings (of integers) instead of integers</li>
+</ul>
+</li>
 <li>BREAKING: <code>Connect$new()</code> now takes a <code>server</code> argument (instead of <code>host</code>)
 <ul>
 <li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case. (<a href="https://github.com/rstudio/connectapi/pulls/125"><a href='https://github.com/rstudio/connectapi/issues/125'>#125</a></a>)</li>
