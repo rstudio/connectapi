@@ -207,8 +207,8 @@ Connect <- R6::R6Class(
         self$httr_additions
         )
       )
-      self$raise_error(res)
       check_debug(req, res)
+      self$raise_error(res)
       httr::content(res, as = "parsed")
     },
 
@@ -223,14 +223,16 @@ Connect <- R6::R6Class(
     # tags ----------------------------------------------------------
 
     get_tags = function(use_cache = FALSE) {
-      warn_experimental("get_tags")
+      error_if_less_than(self, "1.8.6")
       # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
-        self$tags <- self$GET("/tags")
+        self$tags <- self$tag()
       }
+      # TODO: deprecate tag_map? by removing all of the things that use it...
+      # caching is hard
       self$tag_map <- data.frame(
         id = sapply(self$tags, function(x) {
-          as.numeric(x$id)
+          as.character(x$id)
         }),
         name = sapply(self$tags, function(x) {
           x$name
@@ -249,12 +251,16 @@ Connect <- R6::R6Class(
     },
 
     get_tag_tree = function() {
+      raw_tags <- self$tag()
+      tag_tree_parse_data(raw_tags)
+    },
+
+    get_tag_tree_old = function() {
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
 
     tag_create_safe = function(name, parent_id = NULL) {
-      warn_experimental("create_tag")
       tt <- get_tags(self)
 
       tag_exists_id <- recursive_find_tag(tt, name, parent_id)
@@ -266,30 +272,37 @@ Connect <- R6::R6Class(
     },
 
     tag_create = function(name, parent_id = NULL) {
-      warn_experimental("create_tag")
+      error_if_less_than(self, "1.8.6")
       dat <- list(
         name = name
       )
       if (!is.null(parent_id)) {
+        if (is.numeric(parent_id)) {
+          warn_once("Converting `tag parent_id` to character", "tag_parent_id")
+          parent_id <- as.character(parent_id)
+        }
         dat <- c(
           dat,
           parent_id = parent_id
         )
       }
       self$POST(
-        "tags",
+        "v1/tags",
         body = dat
       )
     },
 
-    tag = function(id) {
-      path <- glue::glue("tags/{id}")
+    tag = function(id=NULL) {
+      error_if_less_than(self, "1.8.6")
+      path <- "v1/tags"
+      if (!is.null(id)) {
+        path <- glue::glue("{path}/{id}")
+      }
       self$GET(path)
     },
 
     tag_delete = function(id) {
-      tag_version <- self$tag(id = id)$version
-      invisible(self$DELETE(glue::glue("tags/{id}?version={tag_version}")))
+      invisible(self$DELETE(glue::glue("v1/tags/{id}")))
     },
 
     # content listing ----------------------------------------------------------
@@ -415,11 +428,10 @@ Connect <- R6::R6Class(
     },
 
     set_content_tag = function(content_id, tag_id) {
-      warn_experimental("set_content_tag")
       self$POST(
-        path = glue::glue("applications/{content_id}/tags"),
+        path = glue::glue("v1/content/{content_id}/tags"),
         body = list(
-          id = tag_id
+          tag_id = tag_id
         )
       )
     },

@@ -1,8 +1,19 @@
 # Manage Tags ------------------------------------------
 
+# TODO: this definitely needs some cleanup... there are several disparate data structures:
+# 1 - the raw "table" of JSON data returned from the public API
+# 2 - the "tag-tree" of JSON data returned from the "old" / private API
+# 3 - the output of `tag_tree()` that is optimized for usage by R
+# 4 - the output of `connect_tag_tree()`, which has the same data structure, but has classes associated
+
+# TODO: we should see if we can cut out 2 and 3 as intermediate states that exist...
+# - see if (2) can be skipped now by refactoring...
+# - see if (3) can be lumped into (4)?
+
+
 #' Get all Tags on the server
 #'
-#' \lifecycle{experimental} Tag manipulation and assignment functions
+#' Tag manipulation and assignment functions
 #'
 #' @param src The source object
 #' @param name The name of the tag to create
@@ -39,8 +50,6 @@
 #' @export
 #' @rdname tags
 get_tags <- function(src) {
-  warn_experimental("get_tags")
-  scoped_experimental_silence()
   validate_R6_class(src, "Connect")
 
   connect_tag_tree(tag_tree(src$get_tag_tree()), NULL)
@@ -49,8 +58,6 @@ get_tags <- function(src) {
 #' @export
 #' @rdname tags
 get_tag_data <- function(src) {
-  warn_experimental("get_tag_data")
-  scoped_experimental_silence()
   validate_R6_class(src, "Connect")
 
   res <- src$get_tag_tree()
@@ -64,9 +71,7 @@ get_tag_data <- function(src) {
 #' @export
 #' @rdname tags
 create_tag <- function(src, name, parent = NULL) {
-  warn_experimental("create_tag")
   validate_R6_class(src, "Connect")
-  scoped_experimental_silence()
   if (is.null(parent) || is.numeric(parent)) {
     parent_id <- parent
   } else if (inherits(parent, "connect_tag_tree")) {
@@ -87,9 +92,7 @@ create_tag <- function(src, name, parent = NULL) {
 #' @export
 #' @rdname tags
 create_tag_tree <- function(src, ...) {
-  warn_experimental("create_tag_tree")
   validate_R6_class(src, "Connect")
-  scoped_experimental_silence()
 
   params <- rlang::list2(...)
 
@@ -110,8 +113,6 @@ create_tag_tree <- function(src, ...) {
 #' @export
 #' @rdname tags
 delete_tag <- function(src, tag) {
-  warn_experimental("delete_tag")
-  scoped_experimental_silence()
   if (is.numeric(tag)) {
     tag_id <- tag
   } else if (inherits(tag, "connect_tag_tree")) {
@@ -187,14 +188,12 @@ print.connect_tag_tree <- function(x, ...) {
 #' @export
 #' @rdname tags
 get_content_tags <- function(content) {
-  warn_experimental("get_content_tags")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   ctags <- content$tags()
   # TODO: find a way to build a tag tree from a list of tags
 
   tagtree <- get_tags(content$get_connect())
-  res <- filter_tag_tree_id(tagtree, purrr::map_int(ctags, ~ .x$id))
+  res <- filter_tag_tree_id(tagtree, purrr::map_chr(ctags, ~ .x$id))
   attr(res, "filter") <- "content"
   res
 }
@@ -202,9 +201,7 @@ get_content_tags <- function(content) {
 #' @export
 #' @rdname tags
 set_content_tag_tree <- function(content, ...) {
-  warn_experimental("set_content_tag_tree")
   validate_R6_class(content, "Content")
-  scoped_experimental_silence()
 
   params <- rlang::list2(...)
   if (length(params) == 1) {
@@ -229,8 +226,6 @@ set_content_tag_tree <- function(content, ...) {
 #' @export
 #' @rdname tags
 set_content_tags <- function(content, ...) {
-  warn_experimental("set_content_tags")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   new_tags <- rlang::list2(...)
   tmp <- purrr::map(
@@ -269,8 +264,6 @@ set_content_tag_tree_remove <- function() {
 #' @export
 #' @rdname tags
 filter_tag_tree_id <- function(tags, ids) {
-  warn_experimental("filter_tag_tree")
-  scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
   flt <- recursive_filter_id(tags = tags, ids = ids)
   if (!is.null(flt)) {
@@ -283,8 +276,6 @@ filter_tag_tree_id <- function(tags, ids) {
 #' @export
 #' @rdname tags
 filter_tag_tree_chr <- function(tags, pattern) {
-  warn_experimental("filter_tag_tree")
-  scoped_experimental_silence()
   stopifnot(inherits(tags, "connect_tag_tree"))
 
   flt <- recursive_filter_chr(tags = tags, pattern = pattern)
@@ -293,6 +284,38 @@ filter_tag_tree_chr <- function(tags, pattern) {
   } else {
     connect_tag_tree(list())
   }
+}
+
+# Tree Structure Creation ----------------------------------
+
+# input is the output of `get_tag_data()` or `con$tag()`
+tag_tree_from_data <- function(tag_data) {
+  parsed <- tag_tree_parse_data(tag_data)
+
+  connect_tag_tree(tag_tree(parsed))
+}
+
+tag_tree_parse_data <- function(tag_data) {
+  if (tibble::is_tibble(tag_data)) {
+    tag_data <- purrr::transpose(tag_data)
+  }
+  base_categories <- purrr::keep(tag_data, ~ is.null(.x[["parent_id"]]) || is.na(.x[["parent_id"]]))
+
+  output <- purrr::map(base_categories, tag_tree_parse_data_impl, tag_data = tag_data)
+
+  return(output)
+}
+
+tag_tree_parse_data_impl <- function(target, tag_data) {
+  filtered_data <- purrr::keep(tag_data, ~ !is.null(.x[["parent_id"]]) && !is.na(.x[["parent_id"]]) && .x[["parent_id"]] == target[["id"]])
+
+  # recurse through the tree
+  output <- purrr::map(filtered_data, tag_tree_parse_data_impl, tag_data = tag_data)
+
+  # what we get back needs to become "children"
+  target[["children"]] <- output
+
+  return(target)
 }
 
 # Utils ----------------------------------------------------
@@ -342,7 +365,7 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map_dbl(tags_noname, ~ recursive_find_tag(.x, tag, parent_id))
+  recurse_res <- purrr::map_chr(tags_noname, ~ recursive_find_tag(.x, tag, parent_id))
   recurse_res_any <- recurse_res[!is.na(recurse_res)]
   if (length(recurse_res_any) == 0) {
     recurse_res_any <- NA_real_
@@ -401,9 +424,9 @@ recursive_tag_print <- function(x, indent) {
 
 recursive_tag_restructure <- function(.x) {
   if (length(.x$children) > 0) {
-    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = .x$id, name = .x$name)), .x$name)
+    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = as.character(.x$id), name = .x$name)), .x$name)
   } else {
-    rlang::set_names(list(list(id = .x$id, name = .x$name)), .x$name)
+    rlang::set_names(list(list(id = as.character(.x$id), name = .x$name)), .x$name)
   }
 }
 
@@ -414,12 +437,11 @@ tag_tree <- function(.x) {
 parse_tags_tbl <- function(x) {
   parsed_tags <- purrr::map_dfr(x, ~{
     out <- dplyr::tibble(
-      id = .x$id,
+      id = as.character(.x$id),
       name = .x$name,
       created_time = .x$created_time,
       updated_time = .x$updated_time,
-      version = .x$version,
-      parent_id = ifelse(is.null(.x$parent_id), NA_integer_, .x$parent_id)
+      parent_id = ifelse(is.null(.x$parent_id), NA_character_, .x$parent_id)
     )
 
     if (length(.x$children) > 0) {

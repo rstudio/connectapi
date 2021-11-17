@@ -463,7 +463,7 @@ set_image_webshot <- function(content, ...) {
 
 #' Set the Vanity URL
 #'
-#' \lifecycle{experimental} Sets the Vanity URL for a piece of content.
+#' Sets the Vanity URL for a piece of content.
 #'
 #' @param content A Content object
 #' @param url The path component of the URL
@@ -550,7 +550,7 @@ get_vanity_url <- function(content) {
 
 #' Swap the Vanity URL
 #'
-#' \lifecycle{experimental} Swaps the Vanity URLs between two pieces of content
+#' Swaps the Vanity URLs between two pieces of content
 #'
 #' @param from_content A Content object
 #' @param to_content A Content object
@@ -570,35 +570,23 @@ swap_vanity_url <- function(from_content, to_content) {
   from_vanity <- get_vanity_url(from_content)
   to_vanity <- get_vanity_url(to_content)
 
-  if (!inherits(from_vanity, "Vanity") && !inherits(to_vanity, "Vanity")) {
+  if (is.null(from_vanity) && is.null(to_vanity)) {
     warning("Neither content has a Vanity URL. Exiting")
   } else {
     # swapping vanity URLs
     tmp_vanity <- paste0("vanity-url-swap-", create_random_name(length = 50))
 
-    if (inherits(from_vanity, "Vanity")) {
-      from_vanity_url <- from_vanity$get_vanity()$path_prefix
+    if (!is.null(from_vanity)) {
+      set_vanity_url(from_content, tmp_vanity)
     } else {
-      from_vanity_url <- NA
+      set_vanity_url(to_content, tmp_vanity)
     }
 
-    if (inherits(to_vanity, "Vanity")) {
-      to_vanity_url <- to_vanity$get_vanity()$path_prefix
-    } else {
-      to_vanity_url <- NA
+    if (!is.null(from_vanity)) {
+      set_vanity_url(to_content, from_vanity)
     }
-
-    if (!is.na(from_vanity_url)) {
-      set_vanity_url(from_vanity, tmp_vanity)
-    } else {
-      set_vanity_url(to_vanity, tmp_vanity)
-    }
-
-    if (!is.na(from_vanity_url)) {
-      set_vanity_url(to_vanity, from_vanity_url)
-    }
-    if (!is.na(to_vanity_url)) {
-      set_vanity_url(from_vanity, to_vanity_url)
+    if (!is.null(to_vanity)) {
+      set_vanity_url(from_content, to_vanity)
     }
 
     from_vanity <- get_vanity_url(from_content)

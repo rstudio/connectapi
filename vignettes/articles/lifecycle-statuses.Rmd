@@ -1,0 +1,17 @@
+---
+title: "Lifecycle Statuses"
+author: "Cole Arendt"
+date: "5/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+```{r}
+lifecycle::pkg_lifecycle_statuses("connectapi") %>%
+  distinct(package, fun, lifecycle) %>%
+  rmarkdown::paged_table()
+```

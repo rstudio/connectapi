@@ -50,6 +50,8 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
+          # TODO: dev version for pkg_lifecycle_statuses function
+          remotes::install_github("r-lib/lifecycle")
           install.packages("pkgdown")
         shell: Rscript {0}
 
