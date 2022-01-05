@@ -10,6 +10,7 @@ An R6 class that represents content
 Other R6 classes: 
 \code{\link{Bundle}},
 \code{\link{ContentTask}},
+\code{\link{Environment}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
@@ -52,6 +53,7 @@ Other R6 classes:
 \item \href{#method-permissions}{\code{Content$permissions()}}
 \item \href{#method-environment}{\code{Content$environment()}}
 \item \href{#method-environment_set}{\code{Content$environment_set()}}
+\item \href{#method-environment_all}{\code{Content$environment_all()}}
 \item \href{#method-deploy}{\code{Content$deploy()}}
 \item \href{#method-repo_enable}{\code{Content$repo_enable()}}
 \item \href{#method-repo_set}{\code{Content$repo_set()}}
@@ -271,7 +273,16 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-environment_set}{}}}
 \subsection{Method \code{environment_set()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(..., .version = 0)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-environment_all"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_all}{}}}
+\subsection{Method \code{environment_all()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$environment_all(...)}\if{html}{\out{</div>}}
 }
 
 }

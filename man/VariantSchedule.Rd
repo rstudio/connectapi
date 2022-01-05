@@ -30,6 +30,7 @@ An R6 class that represents a Schedule
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy">}\href{../../connectapi/html/Content.html#method-deploy}{\code{connectapi::Content$deploy()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment">}\href{../../connectapi/html/Content.html#method-environment}{\code{connectapi::Content$environment()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_all">}\href{../../connectapi/html/Content.html#method-environment_all}{\code{connectapi::Content$environment_all()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set">}\href{../../connectapi/html/Content.html#method-environment_set}{\code{connectapi::Content$environment_set()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles">}\href{../../connectapi/html/Content.html#method-get_bundles}{\code{connectapi::Content$get_bundles()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect">}\href{../../connectapi/html/Content.html#method-get_connect}{\code{connectapi::Content$get_connect()}}\out{</span>}
