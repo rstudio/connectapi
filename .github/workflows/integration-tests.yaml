@@ -12,7 +12,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-20.04
     env:
-      RSC_VERSION: 2021.10.0
+      RSC_VERSION: 2021.12.1
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
       CONNECTAPI_INTEGRATED: true
