@@ -220,6 +220,33 @@ test_that("remove environment variable works", {
   expect_false("MYVAR" %in% rem$env_vars)
   expect_true("ANOTHER" %in% rem$env_vars)
   expect_true(validate_R6_class(res, "Environment"))
+
+  res <- set_environment_remove(rmd_content, ANOTHER)
+  expect_false("ANOTHER" %in% res$env_vars)
+
+  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  myvar <- c("MYVAR", "ANOTHER")
+  res <- set_environment_remove(rmd_content, !!myvar)
+  expect_false("ANOTHER" %in% res$env_vars)
+  expect_false("MYVAR" %in% res$env_vars)
+
+  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  myvar <- c("MYVAR", "ANOTHER")
+  res <- set_environment_remove(rmd_content, !!!myvar)
+  expect_false("ANOTHER" %in% res$env_vars)
+  expect_false("MYVAR" %in% res$env_vars)
+
+  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  myvar <- c("MYVAR" = "1", "ANOTHER" = "2")
+  res <- set_environment_remove(rmd_content, !!!myvar)
+  expect_false("ANOTHER" %in% res$env_vars)
+  expect_false("MYVAR" %in% res$env_vars)
+
+  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  myvar <- c("MYVAR" = "1", "ANOTHER" = "2")
+  res <- set_environment_remove(rmd_content, !!myvar)
+  expect_true("ANOTHER" %in% res$env_vars)
+  expect_true("MYVAR" %in% res$env_vars)
 })
 
 test_that("set all environment variables works", {
