@@ -1,5 +1,7 @@
 # connectapi (development version)
 
+### BREAKING
+
 - BREAKING: the following functions now require RStudio Connect 1.8.6 or later
 (because they are no longer experimental, as of that release).
 ([#128](https://github.com/rstudio/connectapi/pulls/12))
@@ -7,12 +9,16 @@
     - `get_tags()`, `get_tag_data`, `get_content_tags()`, `create_tag()`,
     `create_tag_tree()`, `delete_tag()`, `get_content_tags()`,
     `set_content_tags()`, `set_content_tag_tree()`, `filter_tag_tree_id()`,
-    `filter_tag_tree_chr()`
+    `filter_tag_tree_chr()`, `set_environment_new()`, `get_environment()`, `set_environment_remove()`
     - `tag id`s are now character strings (of integers) instead of integers
 - BREAKING: `Connect$new()` now takes a `server` argument (instead of `host`)
     - The same is true of the `connect()` function, although we warn about
     argument deprecation in that case.
     ([#125](https://github.com/rstudio/connectapi/pulls/125))
+- BREAKING: `set_environment_new()` and `set_environment_remove()` no longer take a `.version` argument, and output
+  data structure is a bit different (a  list of names). They now use the public API, which changes the interface a bit.
+  Also, intricacies of how to set / remove environment variables are changed (i.e. setting `VAR=NA` will remove `VAR`).
+  ([#141](https://github.com/rstudio/connectapi/pull/141))
 - BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer
 experimental functions.
 ([#113](https://github.com/rstudio/connectapi/pulls/113)) However:
@@ -28,6 +34,9 @@ changes that could impact your scripts.
     - The R6 method `content$get_bundles()` no longer takes a `page_number`
     argument, and the `get_bundles(limit)` argument is now deprecated
     ([#129](https://github.com/rstudio/connectapi/pulls/129))
+
+### Other Changes
+
 - Fix an issue with relative paths in `bundle_dir()`
   ([`@slodge`](https://github.com/slodge))
   ([#118](https://github.com/rstudio/connectapi/issues/118),
