@@ -56,6 +56,8 @@ connectapi_ptypes <- list(
     "app_mode" = NA_character_,
     "content_category" = NA_character_,
     "parameterized" = FALSE,
+    "cluster_name" = NA_character_,
+    "image_name" = NA_character_,
     "r_version" = NA_character_,
     "py_version" = NA_character_,
     "quarto_version" = NA_character_,
@@ -67,8 +69,6 @@ connectapi_ptypes <- list(
     "app_role" = NA_character_,
     "id" = NA_character_,
     "owner" = NA_list_,
-    "cluster_name" = NA_character_,
-    "image_name" = NA_character_,
   ),
   content_old = tibble::tibble(
     "id" = NA_integer_,

@@ -6,6 +6,17 @@
 \description{
 An R6 class that represents a Schedule
 }
+\seealso{
+Other R6 classes: 
+\code{\link{Bundle}},
+\code{\link{ContentTask}},
+\code{\link{Content}},
+\code{\link{RStudioConnect}},
+\code{\link{Task}},
+\code{\link{Vanity}},
+\code{\link{VariantTask}}
+}
+\concept{R6 classes}
 \section{Super classes}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{\link[connectapi:Variant]{connectapi::Variant}} -> \code{VariantSchedule}
 }

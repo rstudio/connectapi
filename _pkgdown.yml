@@ -1,3 +1,4 @@
+url: https://pkgs.rstudio.com/connectapi/
 destination: docs
 
 reference:
@@ -33,6 +34,7 @@ reference:
       - matches("vanity")
       - matches("acl")
       - matches("schedule")
+      - set_run_as
 
   - title: "Users and groups"
     desc: >
@@ -72,6 +74,10 @@ reference:
       - browse_connect
       - browse_dashboard
       - browse_solo
+      - create_random_name
+      - dashboard_url
+      - dashboard_url_chr
+      - vec_cast.fs_bytes
 
 
   - title: "R6 classes"
@@ -83,6 +89,8 @@ reference:
       - Task
       - ContentTask
       - VariantTask
+      - VariantSchedule
       - Vanity
       - Content
       - RStudioConnect
+      - Environment

@@ -14,7 +14,8 @@ Other R6 classes:
 \code{\link{Environment}},
 \code{\link{RStudioConnect}},
 \code{\link{Task}},
-\code{\link{Vanity}}
+\code{\link{Vanity}},
+\code{\link{VariantSchedule}}
 }
 \concept{R6 classes}
 \section{Super classes}{

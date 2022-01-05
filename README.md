@@ -215,8 +215,9 @@ Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
 
 Please submit a PR! We would love to have your contribution!
 
-# Code of Conduct
+## Code of Conduct
 
-Please note that the `connectapi` project is released with a
-[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By
+Please note that the connectapi project is released with a [Contributor
+Code of
+Conduct](https://pkgs.rstudio.com/connectapi/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.

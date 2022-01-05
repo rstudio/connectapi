@@ -1,6 +1,8 @@
 #' VariantSchedule
 #'
 #' An R6 class that represents a Schedule
+#' @family R6 classes
+#' @export
 VariantSchedule <- R6::R6Class(
   "VariantSchedule",
   # TODO: would be cool to have multiple inheritance...
