@@ -276,7 +276,11 @@ Environment <- R6::R6Class(
 #' `set_environment_new()` updates environment values (either creating new
 #' values or updating existing). Set `NA` as the value to remove a variable.
 #'
-#' `set_environment_all()` sets _all_ environment variable values (will remove variables not specified)
+#' `set_environment_remove()` is a wrapper on `set_environment_new()` that
+#' allows removing named / listed variables quickly
+#'
+#' `set_environment_all()` sets _all_ environment variable values (will remove
+#' variables not specified)
 #'
 #' @param content An R6 Content object as returned by `content_item()`
 #' @param env An R6 Environment object as returned by `get_environment()`
