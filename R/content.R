@@ -136,37 +136,42 @@ Content <- R6::R6Class(
       self$get_connect()$GET(url)
     },
     environment = function() {
-      warn_experimental("environment")
-      url <- glue::glue("applications/{self$get_content()$guid}/environment")
+      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
       res <- self$get_connect()$GET(url)
-      # update values to be NA, which is how we preserve them
-      res$values <- purrr::map(
-        res$values,
-        ~ NA_character_
-      )
       return(res)
     },
-    environment_set = function(..., .version = 0) {
-      warn_experimental("environment_set")
-      url <- glue::glue("applications/{self$get_content()$guid}/environment")
+    environment_set = function(...) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
       # post with
-      # key = NA to retain
-      # post without a variable/key to remove
-      # bump version number each time
+      # key = NA to remove
       vals <- rlang::list2(...)
-
+      body <- purrr::imap(vals, function(.x, .y) {
       # TODO: evaluate whether we should be coercing to character or erroring
-      vals <- purrr::map(vals, as.character)
-      body <- list(
-        values = vals,
-        version = .version,
-        app_guid = self$get_content()$guid
-      )
-      self$get_connect()$POST(
+        return(list(name = .y, value = as.character(.x)))
+      })
+      names(body) <- NULL
+
+      res <- self$get_connect()$PATCH(
         path = url,
         body = body
       )
-      invisible()
+      res
+    },
+    environment_all = function(...) {
+      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
+
+      vals <- rlang::list2(...)
+      body <- purrr::imap(vals, function(.x, .y) {
+      # TODO: evaluate whether we should be coercing to character or erroring
+        return(list(name = .y, value = as.character(.x)))
+      })
+      names(body) <- NULL
+
+      res <- self$get_connect()$PUT(
+        path = url,
+        body = body
+      )
+      res
     },
     deploy = function() {
       self$get_connect()$POST(
@@ -211,30 +216,48 @@ Content <- R6::R6Class(
 #'
 #' An R6 class that represents a Content's Environment Variables
 #'
+#' @family R6 classes
+#' @export
 Environment <- R6::R6Class(
   "Environment",
   inherit = Content,
   public = list(
-    env_version = NULL,
     env_raw = NULL,
     env_vars = NULL,
     initialize = function(connect, content) {
       super$initialize(connect = connect, content = content)
       self$env_refresh()
     },
+    environment = function() {
+      res <- super$environment()
+      env_raw <- res
+      env_vars <- res
+      return(res)
+    },
+    environment_set = function(...) {
+      res <- super$environment_set(...)
+      env_raw <- res
+      env_vars <- res
+      return(res)
+    },
+    environment_all = function(...) {
+      res <- super$environment_all(...)
+      env_raw <- res
+      env_vars <- res
+      return(res)
+    },
     env_refresh = function() {
       # mutates the existing instance, so future
       # references have the right version
       self$env_raw <- self$environment()
-      self$env_version <- self$env_raw$version
-      self$env_vars <- self$env_raw$values
+      self$env_vars <- self$env_raw
       return(self)
     },
     print = function(...) {
       super$print(...)
       cat("Environment Variables:\n")
       cat("  vctrs::vec_c(\n")
-      purrr::imap(self$env_vars, ~ cat(paste0("    ", .y, " = ", .x, ",\n")))
+      purrr::map(self$env_vars, ~ cat(paste0('    "', .x, '",\n')))
       cat("  )\n")
       cat("\n")
       invisible(self)
@@ -246,14 +269,14 @@ Environment <- R6::R6Class(
 # or to force the user to do that?
 #' Manage Environment Variables
 #'
-#' \lifecycle{experimental} Manage Environment Variables for a piece of content.
+#' Manage Environment Variables for a piece of content.
 #'
 #' `get_environment()` returns an Environment object for use with "setter" methods
 #'
-#' `set_environment_new()` sets new environment values (either creating new
-#' values or updating existing)
+#' `set_environment_new()` updates environment values (either creating new
+#' values or updating existing). Set `NA` as the value to remove a variable.
 #'
-#' `set_environment_remove()` removes existing environment variables
+#' `set_environment_all()` sets _all_ environment variable values (will remove variables not specified)
 #'
 #' @param content An R6 Content object as returned by `content_item()`
 #' @param env An R6 Environment object as returned by `get_environment()`
@@ -264,8 +287,6 @@ Environment <- R6::R6Class(
 #'
 #' @rdname environment
 get_environment <- function(content) {
-  warn_experimental("get_environment")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   content_data <- content$get_content_remote()
   connect_client <- content$get_connect()
@@ -275,14 +296,16 @@ get_environment <- function(content) {
 #' @rdname environment
 #' @export
 set_environment_new <- function(env, ...) {
-  warn_experimental("set_environment")
-  scoped_experimental_silence()
-  validate_R6_class(env, "Environment")
+  validate_R6_class(env, "Content")
+
+  if (!inherits(env, "Environment")) {
+    env <- get_environment(env)
+  }
 
   # update existing env vars with new ones
-  new_env_vars <- purrr::list_modify(env$env_vars, ...)
+  new_env_vars <- rlang::dots_list(...)
 
-  env$environment_set(!!!new_env_vars, .version = env$env_version)
+  env$environment_set(!!!new_env_vars)
 
   env$env_refresh()
 }
@@ -290,15 +313,27 @@ set_environment_new <- function(env, ...) {
 #' @rdname environment
 #' @export
 set_environment_remove <- function(env, ...) {
-  warn_experimental("set_environment")
-  scoped_experimental_silence()
-  validate_R6_class(env, "Environment")
-
   to_remove <- rlang::enexprs(...)
-  existing_vars <- env$env_vars
-  new_env_vars <- existing_vars[!names(existing_vars) %in% c(names(to_remove), as.character(to_remove))]
+  to_remove_names <- c(names(to_remove), as.character(to_remove))
+  to_remove_names <- to_remove_names[nchar(to_remove_names) > 0]
+  to_remove_final <- rlang::set_names(rep(NA, length(to_remove_names)), to_remove_names)
 
-  env$environment_set(!!!new_env_vars, .version = env$env_version)
+  set_environment_new(env, !!!to_remove_final)
+}
+
+#' @rdname environment
+#' @export
+set_environment_all <- function(env, ...) {
+  validate_R6_class(env, "Content")
+
+  if (!inherits(env, "Environment")) {
+    env <- get_environment(env)
+  }
+
+  # set all environment variables
+  new_env_vars <- rlang::dots_list(...)
+
+  env$environment_all(!!!new_env_vars)
 
   env$env_refresh()
 }
