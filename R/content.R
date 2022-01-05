@@ -318,7 +318,7 @@ set_environment_new <- function(env, ...) {
 #' @export
 set_environment_remove <- function(env, ...) {
   to_remove <- rlang::enexprs(...)
-  to_remove_names <- c(names(to_remove), as.character(to_remove))
+  to_remove_names <- c(names(to_remove), as.character(unlist(to_remove, as.character)))
   to_remove_names <- to_remove_names[nchar(to_remove_names) > 0]
   to_remove_final <- rlang::set_names(rep(NA, length(to_remove_names)), to_remove_names)
 
