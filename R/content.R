@@ -216,6 +216,8 @@ Content <- R6::R6Class(
 #'
 #' An R6 class that represents a Content's Environment Variables
 #'
+#' @rdname EnvironmentR6
+#'
 #' @family R6 classes
 #' @export
 Environment <- R6::R6Class(
