@@ -4,6 +4,7 @@
 \alias{get_environment}
 \alias{set_environment_new}
 \alias{set_environment_remove}
+\alias{set_environment_all}
 \title{Manage Environment Variables}
 \usage{
 get_environment(content)
@@ -11,6 +12,8 @@ get_environment(content)
 set_environment_new(env, ...)
 
 set_environment_remove(env, ...)
+
+set_environment_all(env, ...)
 }
 \arguments{
 \item{content}{An R6 Content object as returned by \code{content_item()}}
@@ -20,15 +23,19 @@ set_environment_remove(env, ...)
 \item{...}{name = value pairs of environment variable names and values}
 }
 \description{
-\lifecycle{experimental} Manage Environment Variables for a piece of content.
+Manage Environment Variables for a piece of content.
 }
 \details{
 \code{get_environment()} returns an Environment object for use with "setter" methods
 
-\code{set_environment_new()} sets new environment values (either creating new
-values or updating existing)
+\code{set_environment_new()} updates environment values (either creating new
+values or updating existing). Set \code{NA} as the value to remove a variable.
 
-\code{set_environment_remove()} removes existing environment variables
+\code{set_environment_remove()} is a wrapper on \code{set_environment_new()} that
+allows removing named / listed variables quickly
+
+\code{set_environment_all()} sets \emph{all} environment variable values (will remove
+variables not specified)
 }
 \seealso{
 Other content functions: 
