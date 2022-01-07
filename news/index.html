@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9032</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
       </span>
     </div>
 
@@ -71,12 +71,14 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
+<div class="section level4">
+<h4 id="breaking-development-version">BREAKING<a class="anchor" aria-label="anchor" href="#breaking-development-version"></a></h4>
 <ul><li>BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release). (<a href="https://github.com/rstudio/connectapi/pulls/12" class="external-link">#128</a>)
 <ul><li>
 <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code>, <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code>, <code><a href="../reference/swap_vanity_url.html">swap_vanity_url()</a></code>
 </li>
 <li>
-<code><a href="../reference/tags.html">get_tags()</a></code>, <code>get_tag_data</code>, <code><a href="../reference/tags.html">get_content_tags()</a></code>, <code><a href="../reference/tags.html">create_tag()</a></code>, <code><a href="../reference/tags.html">create_tag_tree()</a></code>, <code><a href="../reference/tags.html">delete_tag()</a></code>, <code><a href="../reference/tags.html">get_content_tags()</a></code>, <code><a href="../reference/tags.html">set_content_tags()</a></code>, <code><a href="../reference/tags.html">set_content_tag_tree()</a></code>, <code><a href="../reference/tags.html">filter_tag_tree_id()</a></code>, <code><a href="../reference/tags.html">filter_tag_tree_chr()</a></code>
+<code><a href="../reference/tags.html">get_tags()</a></code>, <code>get_tag_data</code>, <code><a href="../reference/tags.html">get_content_tags()</a></code>, <code><a href="../reference/tags.html">create_tag()</a></code>, <code><a href="../reference/tags.html">create_tag_tree()</a></code>, <code><a href="../reference/tags.html">delete_tag()</a></code>, <code><a href="../reference/tags.html">get_content_tags()</a></code>, <code><a href="../reference/tags.html">set_content_tags()</a></code>, <code><a href="../reference/tags.html">set_content_tag_tree()</a></code>, <code><a href="../reference/tags.html">filter_tag_tree_id()</a></code>, <code><a href="../reference/tags.html">filter_tag_tree_chr()</a></code>, <code><a href="../reference/environment.html">set_environment_new()</a></code>, <code><a href="../reference/environment.html">get_environment()</a></code>, <code><a href="../reference/environment.html">set_environment_remove()</a></code>
 </li>
 <li>
 <code>tag id</code>s are now character strings (of integers) instead of integers</li>
@@ -84,6 +86,7 @@
 <li>BREAKING: <code>Connect$new()</code> now takes a <code>server</code> argument (instead of <code>host</code>)
 <ul><li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case. (<a href="https://github.com/rstudio/connectapi/pulls/125" class="external-link">#125</a>)</li>
 </ul></li>
+<li>BREAKING: <code><a href="../reference/environment.html">set_environment_new()</a></code> and <code><a href="../reference/environment.html">set_environment_remove()</a></code> no longer take a <code>.version</code> argument, and output data structure is a bit different (a list of names). They now use the public API, which changes the interface a bit. Also, intricacies of how to set / remove environment variables are changed (i.e. setting <code>VAR=NA</code> will remove <code>VAR</code>). (<a href="https://github.com/rstudio/connectapi/pull/141" class="external-link">#141</a>)</li>
 <li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. (<a href="https://github.com/rstudio/connectapi/pulls/113" class="external-link">#113</a>) However:
 <ul><li>
 <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> now returns a character string representing the vanity url in use (or NULL if not defined)</li>
@@ -95,7 +98,10 @@
 <ul><li>i.e. <code>bundle_id</code> has become <code>id</code> in some response data. In others, <code>url</code> has become <code>content_url</code>.</li>
 <li>The R6 method <code>content$get_bundles()</code> no longer takes a <code>page_number</code> argument, and the <code>get_bundles(limit)</code> argument is now deprecated (<a href="https://github.com/rstudio/connectapi/pulls/129" class="external-link">#129</a>)</li>
 </ul></li>
-<li>Fix an issue with relative paths in <code><a href="../reference/bundle_dir.html">bundle_dir()</a></code> (<a href="https://github.com/slodge" class="external-link"><code>@slodge</code></a>) (<a href="https://github.com/rstudio/connectapi/issues/118" class="external-link">#118</a>, <a href="https://github.com/rstudio/connectapi/issues/121" class="external-link">#121</a>)</li>
+</ul></div>
+<div class="section level4">
+<h4 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h4>
+<ul><li>Fix an issue with relative paths in <code><a href="../reference/bundle_dir.html">bundle_dir()</a></code> (<a href="https://github.com/slodge" class="external-link"><code>@slodge</code></a>) (<a href="https://github.com/rstudio/connectapi/issues/118" class="external-link">#118</a>, <a href="https://github.com/rstudio/connectapi/issues/121" class="external-link">#121</a>)</li>
 <li>Add <code>overwrite=</code> parameter to <code><a href="../reference/download_bundle.html">download_bundle()</a></code>
 </li>
 <li>Add HTTP request customization options, and related documentation (<a href="https://github.com/rstudio/connectapi/pull/101" class="external-link">#101</a>)</li>
@@ -116,6 +122,7 @@
 </ul></li>
 <li>Add a <code><a href="../reference/user.html">user_guid_from_username()</a></code> function to convert <code>session$user</code> or other usernames to a user GUID (<a href="https://github.com/rstudio/connectapi/pulls/130" class="external-link">#130</a>)</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0.9018" id="connectapi-0109018">connectapi 0.1.0.9018<a class="anchor" aria-label="anchor" href="#connectapi-0109018"></a></h2>
 <ul><li>Add a <code>client$PATCH</code> verb</li>

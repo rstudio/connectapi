@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9032</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <p>We will start by deploying a few pieces of test content, two test users, set access controls, and tags:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Bundling directory (/tmp/RtmpYEOdqZ/bundledir877e55e82c5b)</span></code></pre>
+<pre><code><span class="co">## Bundling directory (/tmp/RtmpvAhCQT/bundledir3d4e1d472261)</span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span>, title <span class="op">=</span> <span class="st">"App 1"</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## Getting content endpoint</span></code></pre>
@@ -149,39 +149,39 @@
 <span class="co">## └── Example</span>
 <span class="co">##    └── Permissions</span></code></pre>
 <pre><code><span class="co">## RStudio Connect Content Task: </span>
-<span class="co">##   Content GUID: 0efe6429-369e-4d98-8dad-3a9eb3d417f5</span>
-<span class="co">##   URL: http://localhost:49154/connect/#/apps/0efe6429-369e-4d98-8dad-3a9eb3d417f5/</span>
-<span class="co">##   Task ID: me73DL99DGgzuiHj</span></code></pre>
+<span class="co">##   Content GUID: 227067fb-16b5-46d3-95bf-f9b22dab7bfc</span>
+<span class="co">##   URL: http://localhost:49154/connect/#/apps/227067fb-16b5-46d3-95bf-f9b22dab7bfc/</span>
+<span class="co">##   Task ID: qBMw4GZjfW44ftpD</span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_2</span>, <span class="va">tag_1</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## RStudio Connect Tag Tree (content)</span>
 <span class="co">## └── Example</span>
 <span class="co">##    └── Permissions</span></code></pre>
 <pre><code><span class="co">## RStudio Connect Content Task: </span>
-<span class="co">##   Content GUID: ba0f277a-f480-4566-b4ec-9d0766820275</span>
-<span class="co">##   URL: http://localhost:49154/connect/#/apps/ba0f277a-f480-4566-b4ec-9d0766820275/</span>
-<span class="co">##   Task ID: lAHRikmIiupnWhOE</span></code></pre>
+<span class="co">##   Content GUID: e4269043-c420-4636-a619-5b8145b3f90a</span>
+<span class="co">##   URL: http://localhost:49154/connect/#/apps/e4269043-c420-4636-a619-5b8145b3f90a/</span>
+<span class="co">##   Task ID: uup72FYH8BqS6FMT</span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">user_restricted</span><span class="op">$</span><span class="va">guid</span>, role <span class="op">=</span> <span class="st">"viewer"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Adding permission for user '8173de84-7343-4994-9048-fc4f8d6a8af3' with role 'viewer'</span></code></pre>
+<pre><code><span class="co">## Adding permission for user 'dd44e087-1102-4c9a-86fa-57dd6bf6fbd0' with role 'viewer'</span></code></pre>
 <pre><code><span class="co">## RStudio Connect Content Task: </span>
-<span class="co">##   Content GUID: 0efe6429-369e-4d98-8dad-3a9eb3d417f5</span>
-<span class="co">##   URL: http://localhost:49154/connect/#/apps/0efe6429-369e-4d98-8dad-3a9eb3d417f5/</span>
-<span class="co">##   Task ID: me73DL99DGgzuiHj</span></code></pre>
+<span class="co">##   Content GUID: 227067fb-16b5-46d3-95bf-f9b22dab7bfc</span>
+<span class="co">##   URL: http://localhost:49154/connect/#/apps/227067fb-16b5-46d3-95bf-f9b22dab7bfc/</span>
+<span class="co">##   Task ID: qBMw4GZjfW44ftpD</span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">user_all</span><span class="op">$</span><span class="va">guid</span>, <span class="st">"viewer"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Adding permission for user '24ff4640-b73b-4be3-91ff-2bdc7077227a' with role 'viewer'</span></code></pre>
+<pre><code><span class="co">## Adding permission for user 'a7cb59c8-374e-4886-ac84-d95d6df61748' with role 'viewer'</span></code></pre>
 <pre><code><span class="co">## RStudio Connect Content Task: </span>
-<span class="co">##   Content GUID: 0efe6429-369e-4d98-8dad-3a9eb3d417f5</span>
-<span class="co">##   URL: http://localhost:49154/connect/#/apps/0efe6429-369e-4d98-8dad-3a9eb3d417f5/</span>
-<span class="co">##   Task ID: me73DL99DGgzuiHj</span></code></pre>
+<span class="co">##   Content GUID: 227067fb-16b5-46d3-95bf-f9b22dab7bfc</span>
+<span class="co">##   URL: http://localhost:49154/connect/#/apps/227067fb-16b5-46d3-95bf-f9b22dab7bfc/</span>
+<span class="co">##   Task ID: qBMw4GZjfW44ftpD</span></code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_2</span>, <span class="va">user_all</span><span class="op">$</span><span class="va">guid</span>, <span class="st">"viewer"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Adding permission for user '24ff4640-b73b-4be3-91ff-2bdc7077227a' with role 'viewer'</span></code></pre>
+<pre><code><span class="co">## Adding permission for user 'a7cb59c8-374e-4886-ac84-d95d6df61748' with role 'viewer'</span></code></pre>
 <pre><code><span class="co">## RStudio Connect Content Task: </span>
-<span class="co">##   Content GUID: ba0f277a-f480-4566-b4ec-9d0766820275</span>
-<span class="co">##   URL: http://localhost:49154/connect/#/apps/ba0f277a-f480-4566-b4ec-9d0766820275/</span>
-<span class="co">##   Task ID: lAHRikmIiupnWhOE</span></code></pre>
+<span class="co">##   Content GUID: e4269043-c420-4636-a619-5b8145b3f90a</span>
+<span class="co">##   URL: http://localhost:49154/connect/#/apps/e4269043-c420-4636-a619-5b8145b3f90a/</span>
+<span class="co">##   Task ID: uup72FYH8BqS6FMT</span></code></pre>
 </div>
 <div class="section level1">
 <h1 id="retrieve-the-content-list">Retrieve the Content List<a class="anchor" aria-label="anchor" href="#retrieve-the-content-list"></a>
@@ -205,14 +205,14 @@
 <span class="co">## <span style="color: #949494;"># A tibble: 1 × 5</span></span>
 <span class="co">##   id    content_guid                         principal_guid principal_type role </span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> 3     ba0f277a-f480-4566-b4ec-9d0766820275 24ff4640-b73b… user           view…</span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> 3     e4269043-c420-4636-a619-5b8145b3f90a a7cb59c8-374e… user           view…</span>
 <span class="co">## </span>
 <span class="co">## [[2]]</span>
 <span class="co">## <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="co">##   id    content_guid                         principal_guid principal_type role </span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> 1     0efe6429-369e-4d98-8dad-3a9eb3d417f5 8173de84-7343… user           view…</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> 2     0efe6429-369e-4d98-8dad-3a9eb3d417f5 24ff4640-b73b… user           view…</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> 1     227067fb-16b5-46d3-95bf-f9b22dab7bfc dd44e087-1102… user           view…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> 2     227067fb-16b5-46d3-95bf-f9b22dab7bfc a7cb59c8-374e… user           view…</span></code></pre>
 </div>
 <div class="section level1">
 <h1 id="filter-the-content-list">Filter the Content List<a class="anchor" aria-label="anchor" href="#filter-the-content-list"></a>

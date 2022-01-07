@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9032</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
       </span>
     </div>
 
@@ -80,6 +80,7 @@
     <div class="dont-index"><p>Other R6 classes: 
 <code><a href="Bundle.html">Bundle</a></code>,
 <code><a href="ContentTask.html">ContentTask</a></code>,
+<code><a href="EnvironmentR6.html">Environment</a></code>,
 <code><a href="RStudioConnect.html">RStudioConnect</a></code>,
 <code><a href="Task.html">Task</a></code>,
 <code><a href="Vanity.html">Vanity</a></code>,
@@ -128,6 +129,7 @@
 <li><p><a href="#method-permissions"><code>Content$permissions()</code></a></p></li>
 <li><p><a href="#method-environment"><code>Content$environment()</code></a></p></li>
 <li><p><a href="#method-environment_set"><code>Content$environment_set()</code></a></p></li>
+<li><p><a href="#method-environment_all"><code>Content$environment_all()</code></a></p></li>
 <li><p><a href="#method-deploy"><code>Content$deploy()</code></a></p></li>
 <li><p><a href="#method-repo_enable"><code>Content$repo_enable()</code></a></p></li>
 <li><p><a href="#method-repo_set"><code>Content$repo_set()</code></a></p></li>
@@ -345,7 +347,16 @@
 
 <div class="section">
 <h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">environment_set</span><span class="op">(</span><span class="va">...</span>, .version <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">environment_set</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-environment_all"></a><div class="section">
+<h3 id="method-environment-all-">Method <code>environment_all()</code><a class="anchor" aria-label="anchor" href="#method-environment-all-"></a></h3>
+
+<div class="section">
+<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">environment_all</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 
@@ -353,7 +364,7 @@
 <h3 id="method-deploy-">Method <code><a href="deploy.html">deploy()</a></code><a class="anchor" aria-label="anchor" href="#method-deploy-"></a></h3>
 
 <div class="section">
-<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">deploy</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
@@ -362,7 +373,7 @@
 <h3 id="method-repo-enable-">Method <code>repo_enable()</code><a class="anchor" aria-label="anchor" href="#method-repo-enable-"></a></h3>
 
 <div class="section">
-<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
+<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">repo_enable</span><span class="op">(</span>enabled <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
@@ -371,7 +382,7 @@
 <h3 id="method-repo-set-">Method <code>repo_set()</code><a class="anchor" aria-label="anchor" href="#method-repo-set-"></a></h3>
 
 <div class="section">
-<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">repo_set</span><span class="op">(</span><span class="va">repository</span>, <span class="va">branch</span>, <span class="va">subdirectory</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
@@ -380,7 +391,7 @@
 <h3 id="method-print-">Method <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code><a class="anchor" aria-label="anchor" href="#method-print-"></a></h3>
 
 <div class="section">
-<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
+<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
@@ -388,7 +399,7 @@
 </div><p></p><hr><a id="method-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
+<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Content</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 

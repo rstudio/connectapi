@@ -58,7 +58,7 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/ContentTask.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/Environment.html</loc>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/EnvironmentR6.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/RStudioConnect.html</loc>
@@ -149,6 +149,9 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/download_bundle.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/environment.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_acl.html</loc>
