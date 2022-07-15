@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the RStudio Connect Server
     API
-Version: 0.1.0.9033
+Version: 0.1.0.9034
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
