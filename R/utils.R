@@ -202,13 +202,13 @@ check_connect_version <- function(using_version, tested_version = tested_connect
     as.character(comp),
     "0" = NULL,
     "1" = warn_once(glue::glue(
-      "You are using an older version of RStudio Connect",
-      "({using_version}) than was tested ({tested_version}).",
+      "You are using an older version of RStudio Connect ",
+      "({using_version}) than was tested ({tested_version}). ",
       "Some APIs may not function as expected."
     ), id = "old-connect"),
     "-1" = warn_once(glue::glue(
-      "You are using a newer version of RStudio Connect",
-      "({using_version}) than was tested ({tested_version}).",
+      "You are using a newer version of RStudio Connect ",
+      "({using_version}) than was tested ({tested_version}). ",
       "Most APIs should function as expected."
     ), id = "new-connect")
   )
