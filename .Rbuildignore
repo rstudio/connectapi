@@ -13,3 +13,6 @@
 ^Jenkinsfile$
 ^codecov\.yml$
 ^LICENSE\.md$
+^connectapi\.Rcheck$
+^connectapi.*\.tar\.gz$
+^connectapi.*\.tgz$
