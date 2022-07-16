@@ -313,7 +313,7 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   ContentTask$new(connect = con, content = content, task = task)
 }
 
-#' Get the Image
+#' Get the Content Image
 #'
 #' \lifecycle{experimental}
 #' `get_image` saves the content image to the given path (default: temp file).
@@ -402,13 +402,20 @@ has_image <- function(content) {
   }
 }
 
-#' Set the Image from a Path
+#' Set the Content Image
 #'
 #' \lifecycle{experimental}
+#'
+#' Set the Content Image using a variety of methods.
+#'
+#' NOTE: `set_image_webshot()` requires [`webshot2`](webshot2::webshot) package, but
+#' currently skips and warns for any content that requires authentication until
+#' the [`webshot2`](webshot2::webshot) package supports authentication.
 #'
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
+#' @param ... Additional arguments passed on to [`webshot2`](webshot2::webshot)
 #'
 #' @rdname set_image
 #' @family content functions
@@ -441,24 +448,46 @@ set_image_url <- function(content, url) {
   set_image_path(content = content, path = imgfile)
 }
 
-# #' @rdname set_image
-# #' @export
+#' @rdname set_image
+#' @export
 set_image_webshot <- function(content, ...) {
   warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
-  imgfile <- fs::file_temp(pattern = "image", ext = ".png")
+  imgfile <- fs::file_temp(pattern = "webshot", ext = ".png")
 
   check_webshot()
-  webshot::webshot(content$get_content()$url,
+  content_details <- content$get_content_remote()
+
+  # check if it is possible to take the webshot
+  if (content_details$access_type != "all") {
+    warning(glue::glue(
+      "WARNING: unable to take webshot for content ",
+      "'{content_details$guid}' because authentication is not possible yet. ",
+      "Set access_type='all' to proceed."))
+    return(content)
+  }
+
+  # default args
+  args <- rlang::list2(...)
+
+  if(!"cliprect" %in% names(args)) {args["cliprect"] <- "viewport"}
+
+
+  rlang::inject(webshot2::webshot(
+    url = content_details$content_url,
     file = imgfile,
-    vwidth = 800,
-    vheight = 600,
-    cliprect = "viewport",
-    key = content$get_connect()$api_key,
-    ...
-  )
+    !!!args
+  ))
 
   set_image_path(content = content, path = imgfile)
+}
+
+
+
+check_webshot <- function() {
+  if (!requireNamespace("webshot2", quietly = TRUE)) {
+    stop("ERROR: the webshot2 package must be installed to use screenshots. Install using `install.packages('webshot2')`")
+  }
 }
 
 #' Set the Vanity URL

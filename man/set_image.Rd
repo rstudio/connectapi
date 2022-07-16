@@ -3,11 +3,14 @@
 \name{set_image_path}
 \alias{set_image_path}
 \alias{set_image_url}
-\title{Set the Image from a Path}
+\alias{set_image_webshot}
+\title{Set the Content Image}
 \usage{
 set_image_path(content, path)
 
 set_image_url(content, url)
+
+set_image_webshot(content, ...)
 }
 \arguments{
 \item{content}{A content object}
@@ -18,6 +21,13 @@ set_image_url(content, url)
 }
 \description{
 \lifecycle{experimental}
+}
+\details{
+Set the Content Image using a variety of methods.
+
+NOTE: \code{set_image_webshot()} requires \href{webshot2::webshot}{\code{webshot2}} package, but
+currently skips and warns for any content that requires authentication until
+the \href{webshot2::webshot}{\code{webshot2}} package supports authentication.
 }
 \seealso{
 Other content functions: 
