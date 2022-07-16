@@ -396,6 +396,7 @@ content_title <- function(connect, guid, default = "Unknown Content") {
   return(content_title)
 }
 
+#' @importFrom uuid UUIDgenerate
 content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ..., .permitted = c("new", "existing")) {
   if (!is.null(guid)) {
     # guid-based deployment
