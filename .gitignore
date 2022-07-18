@@ -8,3 +8,6 @@ inst/doc
 docs/*
 docs/
 .env
+connectapi.Rcheck/
+connectapi*.tar.gz
+connectapi*.tgz

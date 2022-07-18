@@ -177,16 +177,26 @@ test_that("get_image returns NA if no image", {
 })
 
 test_that("set_image_url works", {
-  # need to find a reliable image URL that is small
-  # ... and we are willing to take a dependency on...
-  # or... we could use the Connect instance itself :p
-  skip("not implemented yet")
+  scoped_experimental_silence()
+
+  res <- set_image_url(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
+
+  expect_true(validate_R6_class(res, "Content"))
+
+  # TODO: verify round-trip on the image is actually correct... SHA?
 })
 
 test_that("set_image_webshot works", {
-  skip("currently broken")
   scoped_experimental_silence()
+  cont1_content$update(access_type="all")
   res <- set_image_webshot(cont1_content)
+
+  expect_true(validate_R6_class(res, "Content"))
+  # TODO: verify round-trip on the image is actually correct... SHA?
+
+  # returns content even when it cannot take the webshot
+  cont1_content$update(access_type="acl")
+  expect_warning({res <- set_image_webshot(cont1_content)}, "authentication")
 
   expect_true(validate_R6_class(res, "Content"))
 })

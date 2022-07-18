@@ -6,7 +6,7 @@
 (because they are no longer experimental, as of that release).
 ([#128](https://github.com/rstudio/connectapi/pulls/12))
     - `set_vanity_url()`, `get_vanity_url()`, `swap_vanity_url()`
-    - `get_tags()`, `get_tag_data`, `get_content_tags()`, `create_tag()`,
+    - `get_tags()`, `get_tag_data()`, `get_content_tags()`, `create_tag()`,
     `create_tag_tree()`, `delete_tag()`, `get_content_tags()`,
     `set_content_tags()`, `set_content_tag_tree()`, `filter_tag_tree_id()`,
     `filter_tag_tree_chr()`, `set_environment_new()`, `get_environment()`, `set_environment_remove()`
@@ -20,16 +20,18 @@
   Also, intricacies of how to set / remove environment variables are changed (i.e. setting `VAR=NA` will remove `VAR`).
   ([#141](https://github.com/rstudio/connectapi/pull/141))
 - BREAKING: `get_vanity_url()` and `set_vanity_url()` are now no longer
-experimental functions.
-([#113](https://github.com/rstudio/connectapi/pulls/113)) However:
+  experimental functions.
+  ([#113](https://github.com/rstudio/connectapi/pulls/113)) However:
     - `get_vanity_url()` now returns a character string representing the vanity
     url in use (or NULL if not defined)
     - `set_vanity_url()` still returns a `Vanity` R6 object, but
     `vanity$get_vanity()$path_prefix` is now `vanity$get_vanity()$path`
+- BREAKING: `tag_page()` and `tag_page_iframe()` have been removed. Similar functions belong
+  in the [`connectwidgets`](https://rstudio.github.io/connectwidgets/) package in the future.
 - BREAKING: Several `content_*` and other APIs have moved from experimental to
-"v1" variants. This means they have stabilized, but with several subtle breaking
-changes that could impact your scripts.
-([#115](https://github.com/rstudio/connectapi/pulls/115))
+  "v1" variants. This means they have stabilized, but with several subtle breaking
+  changes that could impact your scripts.
+  ([#115](https://github.com/rstudio/connectapi/pulls/115))
     - i.e. `bundle_id` has become `id` in some response data. In others, `url` has become `content_url`.
     - The R6 method `content$get_bundles()` no longer takes a `page_number`
     argument, and the `get_bundles(limit)` argument is now deprecated

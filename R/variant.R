@@ -2,6 +2,9 @@
 #'
 #' An R6 class that represents a Variant
 #'
+#' @rdname VariantR6
+#' @family R6 classes
+#' @export
 Variant <- R6::R6Class(
   "Variant",
   inherit = Content,

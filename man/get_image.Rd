@@ -4,7 +4,7 @@
 \alias{get_image}
 \alias{delete_image}
 \alias{has_image}
-\title{Get the Image}
+\title{Get the Content Image}
 \usage{
 get_image(content, path = NULL)
 
