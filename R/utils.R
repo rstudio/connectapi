@@ -86,7 +86,7 @@ warn_experimental <- function(name) {
 }
 
 scoped_experimental_silence <- function(frame = rlang::caller_env()) {
-  rlang::scoped_options(
+  rlang::local_options(
     .frame = frame,
     connectapi_disable_experimental_warnings = TRUE
   )
@@ -103,7 +103,7 @@ warn_dire <- function(name) {
 }
 
 scoped_dire_silence <- function(frame = rlang::caller_env()) {
-  rlang::scoped_options(
+  rlang::local_options(
     .frame = frame,
     connectapi_disable_dire_warnings = TRUE
   )

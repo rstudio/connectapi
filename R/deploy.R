@@ -455,7 +455,7 @@ set_image_webshot <- function(content, ...) {
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "webshot", ext = ".png")
 
-  check_webshot()
+  rlang::check_installed("webshot2", "to take screenshots of applications")
   content_details <- content$get_content_remote()
 
   # check if it is possible to take the webshot
@@ -482,13 +482,6 @@ set_image_webshot <- function(content, ...) {
   set_image_path(content = content, path = imgfile)
 }
 
-
-
-check_webshot <- function() {
-  if (!requireNamespace("webshot2", quietly = TRUE)) {
-    stop("ERROR: the webshot2 package must be installed to use screenshots. Install using `install.packages('webshot2')`")
-  }
-}
 
 #' Set the Vanity URL
 #'

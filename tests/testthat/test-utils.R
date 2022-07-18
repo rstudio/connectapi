@@ -44,6 +44,8 @@ test_that("check_connect_version works", {
 })
 
 test_that("check_connect_version warning snapshot", {
+  # warning messages seem to cause issues in different environments based on color codes
+  testthat::skip_on_cran()
   local_edition(3)
   expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
   warn_clear("new-connect")
