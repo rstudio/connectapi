@@ -261,36 +261,3 @@ test_that("identical tag names are searched properly", {
   guids <- purrr::map_chr(res2, ~ .x$guid)
   expect_true(length(guids[guids == tag_content_guid]) == 1)
 })
-
-# Tag Page -------------------------------------
-
-context("tag_page")
-
-test_that("tag_page works", {
-  skip("test currently broken")
-  scoped_experimental_silence()
-  res <- tag_page(
-    test_conn_1,
-    tag = child_tag_name,
-    quiet = TRUE
-  )
-
-  expect_true(fs::file_exists(res$LANDING_PAGE))
-  expect_true(length(res$APPS) > 0)
-  unlink(res$LANDING_PAGE)
-  fs::dir_delete(paste0(fs::path_ext_remove(res$LANDING_PAGE), "-screenshots"))
-})
-
-test_that("tag_page_iframe works", {
-  scoped_experimental_silence()
-  res <- tag_page_iframe(
-    test_conn_1,
-    tag = child_tag_name,
-    quiet = TRUE
-  )
-
-  expect_true(fs::file_exists(res$LANDING_PAGE))
-  expect_true(length(res$APPS) > 0)
-  unlink(res$LANDING_PAGE)
-})
-
