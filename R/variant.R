@@ -1,7 +1,7 @@
-#' Variant
-#'
-#' An R6 class that represents a Variant
-#'
+# Variant
+#
+# An R6 class that represents a Variant
+#
 Variant <- R6::R6Class(
   "Variant",
   inherit = Content,

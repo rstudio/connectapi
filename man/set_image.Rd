@@ -18,6 +18,8 @@ set_image_webshot(content, ...)
 \item{path}{The path to an image on disk}
 
 \item{url}{The url for an image}
+
+\item{...}{Additional arguments passed on to \href{webshot2::webshot}{\code{webshot2}}}
 }
 \description{
 \lifecycle{experimental}
