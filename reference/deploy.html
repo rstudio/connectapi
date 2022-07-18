@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,37 +75,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">deploy</span><span class="op">(</span>
-  <span class="va">connect</span>,
-  <span class="va">bundle</span>,
-  name <span class="op">=</span> <span class="fu"><a href="create_random_name.html">create_random_name</a></span><span class="op">(</span><span class="op">)</span>,
-  title <span class="op">=</span> <span class="va">name</span>,
-  guid <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  .pre_deploy <span class="op">=</span> <span class="op">{</span> <span class="op">}</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">deploy</span><span class="op">(</span></span>
+<span>  <span class="va">connect</span>,</span>
+<span>  <span class="va">bundle</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="create_random_name.html">create_random_name</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="va">name</span>,</span>
+<span>  guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .pre_deploy <span class="op">=</span> <span class="op">{</span> <span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>connect</dt>
 <dd><p>A Connect object</p></dd>
+
+
 <dt>bundle</dt>
 <dd><p>A Bundle object</p></dd>
+
+
 <dt>name</dt>
 <dd><p>The unique name for the content on the server</p></dd>
+
+
 <dt>title</dt>
 <dd><p>optional The title to be used for the content on the server</p></dd>
+
+
 <dt>guid</dt>
 <dd><p>optional The GUID if the content already exists on the server</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed along to the content creation</p></dd>
+
+
 <dt>.pre_deploy</dt>
 <dd><p>An expression to execute before deploying the new bundle. The variables <code>content</code> and <code>bundle_id</code> are supplied</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Task A task object</p>
+    
+
+<p>Task A task object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -125,11 +140,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

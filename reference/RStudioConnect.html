@@ -18,7 +18,7 @@ Class representing a Connect API client"><meta property="og:image" content="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -27,7 +27,7 @@ Class representing a Connect API client"><meta property="og:image" content="http
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -81,10 +81,11 @@ Class representing a Connect API client"><meta property="og:image" content="http
     <h2>Usage</h2>
     
 
-<div class="sourceCode"><pre><code><span class="va">client</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/RStudioConnect.html">Connect</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>server <span class="op">=</span> <span class="st">'connect.example.com'</span>,
-  apiKey <span class="op">=</span> <span class="st">'mysecretkey'</span><span class="op">)</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span><span class="op">)</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">get_tags</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode"><pre><code><span></span>
+<span><span class="va">client</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/RStudioConnect.html">Connect</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>server <span class="op">=</span> <span class="st">'connect.example.com'</span>,</span>
+<span>  apiKey <span class="op">=</span> <span class="st">'mysecretkey'</span><span class="op">)</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">get_tags</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
     </div>
     <div id="details">
@@ -105,7 +106,8 @@ API. Authentication is done by providing an API key.</p>
 <code><a href="Task.html">Task</a></code>,
 <code><a href="Vanity.html">Vanity</a></code>,
 <code><a href="VariantSchedule.html">VariantSchedule</a></code>,
-<code><a href="VariantTask.html">VariantTask</a></code></p></div>
+<code><a href="VariantTask.html">VariantTask</a></code>,
+<code><a href="VariantR6.html">Variant</a></code></p></div>
     </div>
     <div id="methods">
     <h2>Methods</h2>
@@ -180,7 +182,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_connect</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_connect</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -189,7 +191,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va"><a href="../reference/RStudioConnect.html">Connect</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">server</span>, <span class="va">api_key</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/RStudioConnect.html">Connect</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">server</span>, <span class="va">api_key</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -198,7 +200,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -207,7 +209,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -216,7 +218,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">raise_error</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">raise_error</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -225,7 +227,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">add_auth</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">add_auth</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -234,7 +236,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">GET</span><span class="op">(</span><span class="va">path</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET</span><span class="op">(</span><span class="va">path</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -243,7 +245,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_RESULT</span><span class="op">(</span><span class="va">path</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_RESULT</span><span class="op">(</span><span class="va">path</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -252,7 +254,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_URL</span><span class="op">(</span><span class="va">url</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_URL</span><span class="op">(</span><span class="va">url</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -261,7 +263,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_RESULT_URL</span><span class="op">(</span><span class="va">url</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET_RESULT_URL</span><span class="op">(</span><span class="va">url</span>, writer <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_memory</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -270,7 +272,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">PUT</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PUT</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -279,7 +281,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">HEAD</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">HEAD</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -288,7 +290,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">DELETE</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">DELETE</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -297,7 +299,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">PATCH</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, prefix <span class="op">=</span> <span class="st">"/__api__/"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PATCH</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, prefix <span class="op">=</span> <span class="st">"/__api__/"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -306,7 +308,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">POST</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, prefix <span class="op">=</span> <span class="st">"/__api__/"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">POST</span><span class="op">(</span><span class="va">path</span>, <span class="va">body</span>, encode <span class="op">=</span> <span class="st">"json"</span>, prefix <span class="op">=</span> <span class="st">"/__api__/"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -315,7 +317,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">me</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">me</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -324,7 +326,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_dashboard_url</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_dashboard_url</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -333,7 +335,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tags</span><span class="op">(</span>use_cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tags</span><span class="op">(</span>use_cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -342,7 +344,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_id</span><span class="op">(</span><span class="va">tagname</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_id</span><span class="op">(</span><span class="va">tagname</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -351,7 +353,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_tree</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_tree</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -360,7 +362,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_tree_old</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_tree_old</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -369,7 +371,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create_safe</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create_safe</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -378,7 +380,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -387,7 +389,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -396,7 +398,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_delete</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_delete</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -405,7 +407,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_n_apps</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_n_apps</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -414,7 +416,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span>filter <span class="op">=</span> <span class="cn">NULL</span>, .collapse <span class="op">=</span> <span class="st">"&amp;"</span>, .limit <span class="op">=</span> <span class="cn">Inf</span>, page_size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span>filter <span class="op">=</span> <span class="cn">NULL</span>, .collapse <span class="op">=</span> <span class="st">"&amp;"</span>, .limit <span class="op">=</span> <span class="cn">Inf</span>, page_size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -423,7 +425,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">get_schedule</span><span class="op">(</span><span class="va">schedule_id</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_schedule</span><span class="op">(</span><span class="va">schedule_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -432,7 +434,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">content_create</span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_create</span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -441,7 +443,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">download_bundle</span><span class="op">(</span><span class="va">bundle_id</span>, to_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">download_bundle</span><span class="op">(</span><span class="va">bundle_id</span>, to_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -450,7 +452,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">bundle_delete</span><span class="op">(</span><span class="va">bundle_id</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">bundle_delete</span><span class="op">(</span><span class="va">bundle_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -459,7 +461,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-31">Usage<a class="anchor" aria-label="anchor" href="#usage-31"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">content_upload</span><span class="op">(</span><span class="va">bundle_path</span>, <span class="va">guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_upload</span><span class="op">(</span><span class="va">bundle_path</span>, <span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -468,7 +470,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-32">Usage<a class="anchor" aria-label="anchor" href="#usage-32"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">content_deploy</span><span class="op">(</span><span class="va">guid</span>, <span class="va">bundle_id</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_deploy</span><span class="op">(</span><span class="va">guid</span>, <span class="va">bundle_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -477,12 +479,12 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">content</span><span class="op">(</span>
-  guid <span class="op">=</span> <span class="cn">NULL</span>,
-  owner_guid <span class="op">=</span> <span class="cn">NULL</span>,
-  name <span class="op">=</span> <span class="cn">NULL</span>,
-  include <span class="op">=</span> <span class="st">"tags,owner"</span>
-<span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content</span><span class="op">(</span></span>
+<span>  guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  owner_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include <span class="op">=</span> <span class="st">"tags,owner"</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -491,7 +493,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">task</span><span class="op">(</span><span class="va">task_id</span>, first <span class="op">=</span> <span class="fl">0</span>, wait <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">task</span><span class="op">(</span><span class="va">task_id</span>, first <span class="op">=</span> <span class="fl">0</span>, wait <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -500,7 +502,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">set_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">set_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -509,7 +511,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">user</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">user</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -518,7 +520,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-37">Usage<a class="anchor" aria-label="anchor" href="#usage-37"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -527,7 +529,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-38">Usage<a class="anchor" aria-label="anchor" href="#usage-38"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_remote</span><span class="op">(</span><span class="va">prefix</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_remote</span><span class="op">(</span><span class="va">prefix</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -536,16 +538,16 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-39">Usage<a class="anchor" aria-label="anchor" href="#usage-39"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create</span><span class="op">(</span>
-  <span class="va">username</span>,
-  <span class="va">email</span>,
-  first_name <span class="op">=</span> <span class="cn">NULL</span>,
-  last_name <span class="op">=</span> <span class="cn">NULL</span>,
-  password <span class="op">=</span> <span class="cn">NULL</span>,
-  user_must_set_password <span class="op">=</span> <span class="cn">NULL</span>,
-  user_role <span class="op">=</span> <span class="cn">NULL</span>,
-  unique_id <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create</span><span class="op">(</span></span>
+<span>  <span class="va">username</span>,</span>
+<span>  <span class="va">email</span>,</span>
+<span>  first_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  last_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  password <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  user_must_set_password <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  user_role <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unique_id <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -554,7 +556,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-40">Usage<a class="anchor" aria-label="anchor" href="#usage-40"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -563,7 +565,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-41">Usage<a class="anchor" aria-label="anchor" href="#usage-41"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_lock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_lock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -572,7 +574,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-42">Usage<a class="anchor" aria-label="anchor" href="#usage-42"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_unlock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_unlock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -581,7 +583,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-43">Usage<a class="anchor" aria-label="anchor" href="#usage-43"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">users_update</span><span class="op">(</span><span class="va">user_guid</span>, <span class="va">...</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_update</span><span class="op">(</span><span class="va">user_guid</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -590,7 +592,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-44">Usage<a class="anchor" aria-label="anchor" href="#usage-44"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">groups</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -599,7 +601,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-45">Usage<a class="anchor" aria-label="anchor" href="#usage-45"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">group_members</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_members</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -608,7 +610,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-46">Usage<a class="anchor" aria-label="anchor" href="#usage-46"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_add</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_add</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -617,7 +619,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-47">Usage<a class="anchor" aria-label="anchor" href="#usage-47"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_remove</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_remove</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -626,7 +628,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-48">Usage<a class="anchor" aria-label="anchor" href="#usage-48"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -635,7 +637,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-49">Usage<a class="anchor" aria-label="anchor" href="#usage-49"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -644,7 +646,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-50">Usage<a class="anchor" aria-label="anchor" href="#usage-50"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_remote</span><span class="op">(</span>prefix <span class="op">=</span> <span class="cn">NULL</span>, limit <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_remote</span><span class="op">(</span>prefix <span class="op">=</span> <span class="cn">NULL</span>, limit <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -653,16 +655,16 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-51">Usage<a class="anchor" aria-label="anchor" href="#usage-51"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_content_visits</span><span class="op">(</span>
-  content_guid <span class="op">=</span> <span class="cn">NULL</span>,
-  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,
-  from <span class="op">=</span> <span class="cn">NULL</span>,
-  to <span class="op">=</span> <span class="cn">NULL</span>,
-  limit <span class="op">=</span> <span class="fl">20</span>,
-  previous <span class="op">=</span> <span class="cn">NULL</span>,
-  nxt <span class="op">=</span> <span class="cn">NULL</span>,
-  asc_order <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_content_visits</span><span class="op">(</span></span>
+<span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  previous <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nxt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asc_order <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -671,16 +673,16 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-52">Usage<a class="anchor" aria-label="anchor" href="#usage-52"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_shiny_usage</span><span class="op">(</span>
-  content_guid <span class="op">=</span> <span class="cn">NULL</span>,
-  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,
-  from <span class="op">=</span> <span class="cn">NULL</span>,
-  to <span class="op">=</span> <span class="cn">NULL</span>,
-  limit <span class="op">=</span> <span class="fl">20</span>,
-  previous <span class="op">=</span> <span class="cn">NULL</span>,
-  nxt <span class="op">=</span> <span class="cn">NULL</span>,
-  asc_order <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_shiny_usage</span><span class="op">(</span></span>
+<span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  previous <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nxt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asc_order <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -689,7 +691,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-53">Usage<a class="anchor" aria-label="anchor" href="#usage-53"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">procs</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">procs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -698,7 +700,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-54">Usage<a class="anchor" aria-label="anchor" href="#usage-54"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_account</span><span class="op">(</span><span class="va">host</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_account</span><span class="op">(</span><span class="va">host</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -707,7 +709,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-55">Usage<a class="anchor" aria-label="anchor" href="#usage-55"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_branches</span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_branches</span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -716,7 +718,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-56">Usage<a class="anchor" aria-label="anchor" href="#usage-56"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_manifest_dirs</span><span class="op">(</span><span class="va">repo</span>, <span class="va">branch</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_manifest_dirs</span><span class="op">(</span><span class="va">repo</span>, <span class="va">branch</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -725,7 +727,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-57">Usage<a class="anchor" aria-label="anchor" href="#usage-57"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">docs</span><span class="op">(</span>docs <span class="op">=</span> <span class="st">"api"</span>, browse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">docs</span><span class="op">(</span>docs <span class="op">=</span> <span class="st">"api"</span>, browse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -734,7 +736,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-58">Usage<a class="anchor" aria-label="anchor" href="#usage-58"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">audit_logs</span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">20L</span>, previous <span class="op">=</span> <span class="cn">NULL</span>, nxt <span class="op">=</span> <span class="cn">NULL</span>, asc_order <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">audit_logs</span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">20L</span>, previous <span class="op">=</span> <span class="cn">NULL</span>, nxt <span class="op">=</span> <span class="cn">NULL</span>, asc_order <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -743,7 +745,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-59">Usage<a class="anchor" aria-label="anchor" href="#usage-59"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings_r</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings_r</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -752,7 +754,7 @@ API. Authentication is done by providing an API key.</p>
 
 <div class="section">
 <h4 id="usage-60">Usage<a class="anchor" aria-label="anchor" href="#usage-60"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 
@@ -760,7 +762,7 @@ API. Authentication is done by providing an API key.</p>
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-61">Usage<a class="anchor" aria-label="anchor" href="#usage-61"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">Connect</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -784,11 +786,11 @@ API. Authentication is done by providing an API key.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

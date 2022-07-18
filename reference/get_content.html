@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,27 +75,40 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_content</span><span class="op">(</span><span class="va">src</span>, guid <span class="op">=</span> <span class="cn">NULL</span>, owner_guid <span class="op">=</span> <span class="cn">NULL</span>, name <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, .p <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_content</span><span class="op">(</span><span class="va">src</span>, guid <span class="op">=</span> <span class="cn">NULL</span>, owner_guid <span class="op">=</span> <span class="cn">NULL</span>, name <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, .p <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>src</dt>
 <dd><p>A Connect object</p></dd>
+
+
 <dt>guid</dt>
 <dd><p>The guid for a particular content item</p></dd>
+
+
 <dt>owner_guid</dt>
 <dd><p>The unique identifier of the user who owns the content</p></dd>
+
+
 <dt>name</dt>
 <dd><p>The content name specified when the content was created</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Extra arguments. Currently not used</p></dd>
+
+
 <dt>.p</dt>
 <dd><p>Optional. A predicate function, passed as-is to <code><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">purrr::keep()</a></code> before turning the response into a tibble. Can be useful for performance</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A tibble with the following columns:</p><ul><li><p><strong>guid</strong>The unique identifier of this content item.</p></li>
+    
+
+<p>A tibble with the following columns:</p><ul><li><p><strong>guid</strong>The unique identifier of this content item.</p></li>
 <li><p><strong>name</strong>A simple, URL-friendly identifier. Allows
 alpha-numeric characters, hyphens ("-"), and underscores ("_").</p></li>
 <li><p><strong>title</strong>The title of this content.</p></li>
@@ -196,13 +209,13 @@ its configuration. Computed at the time of the request.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">get_content</span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">get_content</span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -213,11 +226,11 @@ its configuration. Computed at the time of the request.</p></li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

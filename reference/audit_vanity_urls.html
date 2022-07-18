@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,17 +75,22 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">audit_vanity_urls</span><span class="op">(</span><span class="va">apps</span>, <span class="va">server_url</span>, vanity <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">audit_vanity_urls</span><span class="op">(</span><span class="va">apps</span>, <span class="va">server_url</span>, vanity <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>apps</dt>
 <dd><p>App list, see <code><a href="cache_apps.html">cache_apps()</a></code></p></dd>
+
+
 <dt>server_url</dt>
 <dd><p>Base url for the Connect server</p></dd>
+
+
 <dt>vanity</dt>
 <dd><p>Optional, see details</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -110,11 +115,11 @@ urls in use. If <code>vanity</code> is provided, returns whether or not
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

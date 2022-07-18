@@ -19,7 +19,7 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -28,7 +28,7 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -79,121 +79,144 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">set_schedule</span><span class="op">(</span><span class="va">.schedule</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">set_schedule_minute</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">30</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_hour</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_day</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_weekday</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_week</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_dayofweek</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  <span class="va">days</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_semimonth</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  first <span class="op">=</span> <span class="cn">TRUE</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_dayofmonth</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  day <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_dayweekofmonth</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  day <span class="op">=</span> <span class="fl">1</span>,
-  week <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_year</span><span class="op">(</span>
-  <span class="va">.schedule</span>,
-  n <span class="op">=</span> <span class="fl">1</span>,
-  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,
-  activate <span class="op">=</span> <span class="cn">TRUE</span>,
-  email <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">set_schedule_remove</span><span class="op">(</span><span class="va">.schedule</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_schedule</span><span class="op">(</span><span class="va">.schedule</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_minute</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_hour</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_day</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_weekday</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_week</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_dayofweek</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  <span class="va">days</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_semimonth</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  first <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_dayofmonth</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  day <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_dayweekofmonth</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  day <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  week <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_year</span><span class="op">(</span></span>
+<span>  <span class="va">.schedule</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_schedule_remove</span><span class="op">(</span><span class="va">.schedule</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>.schedule</dt>
 <dd><p>A schedule object. As returned by <code><a href="get_variant_schedule.html">get_variant_schedule()</a></code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>Scheduling parameters</p></dd>
+
+
 <dt>n</dt>
 <dd><p>The "number of" iterations</p></dd>
+
+
 <dt>start_time</dt>
 <dd><p>The start time of the schedule</p></dd>
+
+
 <dt>activate</dt>
 <dd><p>Whether to publish the output of this schedule</p></dd>
+
+
 <dt>email</dt>
 <dd><p>Whether to send emails on this schedule</p></dd>
+
+
 <dt>days</dt>
 <dd><p>The days of the week (0-6)</p></dd>
+
+
 <dt>first</dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> Whether to execute on the 1st and 15th (TRUE) or 14th and last (FALSE)</p></dd>
+
+
 <dt>day</dt>
 <dd><p>The day of the week (0-6) or day of the month (0-31)</p></dd>
+
+
 <dt>week</dt>
 <dd><p>The week of the month (0-5)</p></dd>
+
+
 <dt>schedule</dt>
 <dd><p>A JSON blob (as a string) describing the schedule. See "More Details"</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An updated Schedule object</p>
+    
+
+<p>An updated Schedule object</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -219,11 +242,11 @@ recommended.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

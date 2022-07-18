@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,59 +75,78 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_usage_shiny</span><span class="op">(</span>
-  <span class="va">src</span>,
-  content_guid <span class="op">=</span> <span class="cn">NULL</span>,
-  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,
-  from <span class="op">=</span> <span class="cn">NULL</span>,
-  to <span class="op">=</span> <span class="cn">NULL</span>,
-  limit <span class="op">=</span> <span class="fl">20</span>,
-  previous <span class="op">=</span> <span class="cn">NULL</span>,
-  nxt <span class="op">=</span> <span class="cn">NULL</span>,
-  asc_order <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_usage_shiny</span><span class="op">(</span></span>
+<span>  <span class="va">src</span>,</span>
+<span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  previous <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nxt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asc_order <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>src</dt>
 <dd><p>the source object</p></dd>
+
+
 <dt>content_guid</dt>
 <dd><p>Filter results by content GUID</p></dd>
+
+
 <dt>min_data_version</dt>
 <dd><p>Filter by data version. Records with a data version
 lower than the given value will be excluded from the set of results.</p></dd>
+
+
 <dt>from</dt>
 <dd><p>The timestamp that starts the time window of interest. Any usage
 information that ends prior to this timestamp will not be returned.
 Individual records may contain a starting time that is before this if they
 end after it or have not finished. Must be of class Date or POSIX</p></dd>
+
+
 <dt>to</dt>
 <dd><p>The timestamp that ends the time window of interest. Any usage
 information that starts after this timestamp will not be returned.
 Individual records may contain an ending time that is after this
 (or no ending time) if they start before it. Must be of class Date or
 POSIX</p></dd>
+
+
 <dt>limit</dt>
 <dd><p>The number of records to return.</p></dd>
+
+
 <dt>previous</dt>
 <dd><p>Retrieve the previous page of Shiny application usage
 logs relative to the provided value. This value corresponds to an internal
 reference within the server and should be sourced from the appropriate
 attribute within the paging object of a previous response.</p></dd>
+
+
 <dt>nxt</dt>
 <dd><p>Retrieve the next page of Shiny application usage logs
 relative to the provided value. This value corresponds to an internal
 reference within the server and should be sourced from the appropriate
 attribute within the paging object of a previous response.</p></dd>
+
+
 <dt>asc_order</dt>
 <dd><p>Defaults to TRUE; Determines if the response records
 should be listed in ascending or descending order within the response.
 Ordering is by the started timestamp field.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A tibble with the following columns:</p><ul><li><p><strong>content_guid</strong>The GUID, in RFC4122 format, of the
+    
+
+<p>A tibble with the following columns:</p><ul><li><p><strong>content_guid</strong>The GUID, in RFC4122 format, of the
 Shiny application this information pertains to.</p></li>
 <li><p><strong>user_guid</strong>The GUID, in RFC4122 format, of the user
 that visited the application.</p></li>
@@ -146,14 +165,14 @@ Guide explains how to interpret data_version values.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_usage_shiny</span><span class="op">(</span><span class="va">client</span>, limit <span class="op">=</span> <span class="fl">20</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_usage_shiny</span><span class="op">(</span><span class="va">client</span>, limit <span class="op">=</span> <span class="fl">20</span>, from <span class="op">=</span> <span class="va">from</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -164,11 +183,11 @@ Guide explains how to interpret data_version values.</p></li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

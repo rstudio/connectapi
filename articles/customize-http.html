@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9034</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -100,7 +100,7 @@
       <h1 data-toc-skip>Customize HTTP Requests</h1>
                         <h4 data-toc-skip class="author">Cole Arendt</h4>
             
-            <h4 data-toc-skip class="date">2022-01-07</h4>
+            <h4 data-toc-skip class="date">2022-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/HEAD/vignettes/customize-http.Rmd" class="external-link"><code>vignettes/customize-http.Rmd</code></a></small>
       <div class="hidden name"><code>customize-http.Rmd</code></div>
@@ -125,19 +125,19 @@
 <h3 id="custom-ca-bundle">Custom CA Bundle<a class="anchor" aria-label="anchor" href="#custom-ca-bundle"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://httr.r-lib.org/" class="external-link">httr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span>
-
-<span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># notice that TLS verification fails</span>
-<span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span>
-
-<span class="co"># use a custom Certificate Authority to verify SSL/TLS requests</span>
-<span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>cainfo <span class="op">=</span> <span class="st">"/path/to/my.pem"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># now it should succeed!</span>
-<span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://httr.r-lib.org/" class="external-link">httr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># notice that TLS verification fails</span></span>
+<span><span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use a custom Certificate Authority to verify SSL/TLS requests</span></span>
+<span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>cainfo <span class="op">=</span> <span class="st">"/path/to/my.pem"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># now it should succeed!</span></span>
+<span><span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="turn-off-certificate-trust-verification---only-for-testing">Turn Off Certificate Trust Verification - ONLY FOR TESTING<a class="anchor" aria-label="anchor" href="#turn-off-certificate-trust-verification---only-for-testing"></a>
@@ -145,11 +145,11 @@
 <p>Sometimes when first setting up a server, it is common to use self-signed certificates. This is generally bad for reliable communication and security (as there is no reason for any computer to trust this server as a “self-declared” trustworthy actor).</p>
 <p>However, it can be useful while the organization’s Certificate Authority (CA) is in the process of issuing a valid certificate, or while a certificate is procured from a public CA.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># disabling certificate trust (can allow man-in-the-middle attacks, etc.)</span>
-<span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>ssl_verifypeer <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># should work </span>
-<span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># disabling certificate trust (can allow man-in-the-middle attacks, etc.)</span></span>
+<span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>ssl_verifypeer <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># should work </span></span>
+<span><span class="fu"><a href="../reference/get_users.html">get_users</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="custom-headers-cookies-proxy-etc-">Custom Headers, Cookies, Proxy, etc.<a class="anchor" aria-label="anchor" href="#custom-headers-cookies-proxy-etc-"></a>
@@ -157,19 +157,19 @@
 <p><code>httr</code> has some helpers for common tasks like <code><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">httr::add_headers()</a></code>, <code><a href="https://httr.r-lib.org/reference/set_cookies.html" class="external-link">httr::set_cookies()</a></code>, <code><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">httr::use_proxy()</a></code>, etc. Using them is a bit tricky, but can be done by way of the <code>client$httr_config()</code> function.</p>
 <p>Pass any usual <code>httr</code> arguments to <code>client$httr_config()</code>, and those arguments will then be saved and passed to any subsequent <code>GET</code>, <code>PUT</code>, <code>POST</code>, <code>PATCH</code>, <code>HEAD</code>, <code>DELETE</code> requests you send with that client.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># for instance, to set custom headers (i.e. to get through a proxy)</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">add_headers</a></span><span class="op">(</span>MY_MAGIC_HEADER<span class="op">=</span><span class="st">"value"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># or to clear sticky cookies if you want to switch nodes in an HA cluster</span>
-<span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hostname</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span>handle <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/handle.html" class="external-link">handle</a></span><span class="op">(</span><span class="st">''</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># now you have a chance to get a new host</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hostname</span>
-
-<span class="co"># use an outbound proxy</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">use_proxy</a></span><span class="op">(</span><span class="st">"http://myproxy.example.com"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># for instance, to set custom headers (i.e. to get through a proxy)</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">add_headers</a></span><span class="op">(</span>MY_MAGIC_HEADER<span class="op">=</span><span class="st">"value"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># or to clear sticky cookies if you want to switch nodes in an HA cluster</span></span>
+<span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hostname</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span>handle <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/handle.html" class="external-link">handle</a></span><span class="op">(</span><span class="st">''</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># now you have a chance to get a new host</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hostname</span></span>
+<span></span>
+<span><span class="co"># use an outbound proxy</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">use_proxy</a></span><span class="op">(</span><span class="st">"http://myproxy.example.com"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p>NOTE: these values are completely overwritten each time you call <code>client$httr_config()</code>, so ensure that you pass all desired values at the same time</p>
 </blockquote>
@@ -180,11 +180,11 @@
 <p>Suffice it to say that effectively using Kerberos for HTTP is a bit of an advanced topic. However, it <em>is</em> possible with <code>httr</code>.</p>
 <p>It is worth noting that today, this interferes with API key authentication, which we are hoping to improve in a future release of RStudio Connect.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># disables authentication header that is included by default</span>
-<span class="va">client</span><span class="op">$</span><span class="va">using_auth</span> <span class="op">=</span> <span class="cn">FALSE</span>
-
-<span class="co"># use Kerberos authentication mechanism (requires local credential cache)</span>
-<span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/authenticate.html" class="external-link">authenticate</a></span><span class="op">(</span><span class="st">":"</span>, <span class="st">""</span>, type<span class="op">=</span><span class="st">"gssnegotiate"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># disables authentication header that is included by default</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="va">using_auth</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span></span>
+<span><span class="co"># use Kerberos authentication mechanism (requires local credential cache)</span></span>
+<span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/authenticate.html" class="external-link">authenticate</a></span><span class="op">(</span><span class="st">":"</span>, <span class="st">""</span>, type<span class="op">=</span><span class="st">"gssnegotiate"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -201,12 +201,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Sean Lopp, Cole Arendt, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+<p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
