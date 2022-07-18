@@ -30,6 +30,7 @@ reference:
       Functions to work with content
     contents:
       - matches("content")
+      - matches("variant")
       - matches("image")
       - matches("vanity")
       - matches("acl")
@@ -66,7 +67,6 @@ reference:
       Oher functions
     contents:
       - promote
-      - tag_page
       - cache_apps
       - connect
       - tbl_connect
@@ -88,6 +88,7 @@ reference:
       - Bundle
       - Task
       - ContentTask
+      - Variant
       - VariantTask
       - VariantSchedule
       - Vanity
