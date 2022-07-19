@@ -423,7 +423,7 @@ Connect <- R6::R6Class(
     },
 
     task = function(task_id, first = 0, wait = 5) {
-      path <- sprintf("v1/experimental/tasks/%s?first=%d&wait=%d", task_id, first, wait)
+      path <- sprintf("v1/tasks/%s?first=%d&wait=%d", task_id, first, wait)
       self$GET(path)
     },
 
