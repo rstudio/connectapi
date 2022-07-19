@@ -867,7 +867,26 @@ test_that("get_acl_group_role with no role returns NULL", {
 context("permissions")
 
 test_that("returns owner permission", {
-  skip("not currently implemented")
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+  my_guid <- test_conn_1$GET("me")$guid
+
+  prm <- get_content_permissions(tsk)
+  expect_length(prm[["id"]], 1)
+  expect_equal(prm[["principal_guid"]], my_guid)
+
+  my_prm <- get_user_permission(tsk, my_guid)
+  expect_equal(my_prm$role, "owner")
+
+  # NOTE: this NA shows that owner was injected
+  expect_equal(my_prm$id, NA_character_)
+
+  my_prm <- get_my_permission(tsk)
+  expect_equal(my_prm$role, "owner")
+
+  # add_owner = FALSE gives the previous behavior
+  expect_length(get_my_permission(tsk, add_owner = FALSE), 0)
 })
 
 test_that("add a collaborator works", {
@@ -875,15 +894,13 @@ test_that("add a collaborator works", {
   collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
   collab_guid <<- collab$guid
 
+  # no permission at first
+  expect_null(get_user_permission(cont1_content, collab_guid))
+
   # add a collaborator
   invisible(content_add_user(cont1_content, collab_guid, "owner"))
 
   expect_equal(get_user_permission(cont1_content, collab_guid)$role, "owner")
-
-  # owner is present
-  skip("not working yet")
-  my_guid <- test_conn_1$GET("me")$guid
-  expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
 })
 
 test_that("add collaborator twice works", {
@@ -905,6 +922,9 @@ test_that("add a viewer works", {
   # create a user
   view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
   viewer_guid <<- view_user$guid
+
+  # no permission at first
+  expect_null(get_user_permission(cont1_content, viewer_guid))
 
   # add a viewer
   invisible(content_add_user(cont1_content, viewer_guid, "viewer"))

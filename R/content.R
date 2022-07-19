@@ -135,12 +135,27 @@ Content <- R6::R6Class(
       url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
       self$get_connect()$DELETE(url)
     },
-    permissions = function(id = NULL) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+    permissions = function(id = NULL, add_owner=FALSE) {
+      guid <- self$get_content()$guid
+      url <- glue::glue("v1/content/{guid}/permissions")
       if (!is.null(id)) {
         url <- glue::glue("{url}/{id}")
       }
-      self$get_connect()$GET(url)
+      res <- self$get_connect()$GET(url)
+      # NOTE: the default for the low-level functions is to map to the API
+      # as close as possible. This differs from the "cleaner UX" functions
+      if (add_owner) {
+        owner_entry <- list(
+          id = NA_character_,
+          content_guid = guid,
+          # TODO: what if groups can own content?
+          principal_guid = self$get_content()$owner,
+          principal_type = "user",
+          role = "owner"
+          )
+        return(c(res, list(owner_entry)))
+      }
+      return(res)
     },
     environment = function() {
       url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
@@ -705,14 +720,21 @@ delete_bundle <- function(content, bundle_id) {
 #'
 #' Permission retrieval:
 #' - `get_content_permissions()` lists permissions
+#' - `get_my_permission()` gets the permission associated with the caller.
 #' - `get_user_permission()` gets the permissions associated with a given user.
 #'   It does not evaluate group memberships
 #' - `get_group_permission()` gets the permissions associated with a given
 #'   group.
 #'
+#' NOTE: by default, the owner is injected with an "NA_character_" permission id.
+#' This makes it easier to find / isolate this record.
+#'
 #' @param content An R6 content object
 #' @param guid The guid associated with either a user (for `content_add_user`) or group (for `content_add_group`)
 #' @param role The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"
+#' @param add_owner Optional. Whether to include the owner in returned
+#'   permission sets. Default is TRUE. The owner will have an NA_character_
+#'   permission "id"
 #'
 #' @name permissions
 #' @rdname permissions
@@ -801,28 +823,36 @@ content_delete_group <- function(content, guid) {
   }
 }
 
-.get_permission <- function(content, type, guid) {
-  res <- content$permissions()
+.get_permission <- function(content, type, guid, add_owner = TRUE) {
+  res <- content$permissions(add_owner = add_owner)
   purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
 }
 
 #' @rdname permissions
 #' @export
-get_user_permission <- function(content, guid) {
+get_user_permission <- function(content, guid, add_owner = TRUE) {
   validate_R6_class(content, "Content")
-  res <- .get_permission(content, "user", guid)
+  res <- .get_permission(content, "user", guid, add_owner = add_owner)
   if (length(res) > 0) {
     return(res[[1]])
   } else {
     return(NULL)
   }
+}
+
+#' @rdname permissions
+#' @export
+get_my_permission <- function(content, add_owner = TRUE) {
+  my_guid <- content$get_connect()$GET("me")$guid
+  get_user_permission(content, my_guid, add_owner = add_owner)
 }
 
 #' @rdname permissions
 #' @export
 get_group_permission <- function(content, guid) {
   validate_R6_class(content, "Content")
-  res <- .get_permission(content, "group", guid)
+  # do not add_owner, because groups cannot own content
+  res <- .get_permission(content, "group", guid, add_owner = FALSE)
   if (length(res) > 0) {
     return(res[[1]])
   } else {
@@ -833,9 +863,9 @@ get_group_permission <- function(content, guid) {
 
 #' @rdname permissions
 #' @export
-get_content_permissions <- function(content) {
+get_content_permissions <- function(content, add_owner = TRUE) {
   validate_R6_class(content, "Content")
-  res <- content$permissions()
+  res <- content$permissions(add_owner = add_owner)
   parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
 }
 
