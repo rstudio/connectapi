@@ -289,6 +289,64 @@ test_that("get_bundles and delete_bundle work", {
   expect_equal(nrow(bnd_dat2), 2)
 })
 
+# Content Metadata ---------------------------------------------------
+
+test_that("content_access_type works", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+
+  # returns as expected
+  tsk <- content_access_type(tsk, "all")
+  expect_equal(tsk$get_content()$access_type, "all")
+
+  # modifies the R6 object in place
+  content_access_type(tsk, "logged_in")
+  expect_equal(tsk$get_content()$access_type, "logged_in")
+
+  # works twice
+  content_access_type(tsk, "acl")
+  content_access_type(tsk, "acl")
+  expect_equal(tsk$get_content()$access_type, "acl")
+
+  expect_error(content_access_type(tsk), "one of")
+})
+
+test_that("content_update works", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+
+  content_update(tsk, title = "test content_update")
+  expect_equal(tsk$get_content()$title, "test content_update")
+
+  # should not change or error with empty input
+  expect_equal(content_update(tsk)$get_content()$title, "test content_update")
+
+  expect_equal(
+    content_update(tsk, title = "test content_update2")$get_content()$title,
+    "test content_update2"
+    )
+})
+
+test_that("content_delete works", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+
+  expect_output(res <- content_delete(tsk, force=TRUE) , "Deleting content")
+  expect_true(validate_R6_class(res, "Content"))
+
+  expect_error(res$get_content_remote(), "404")
+})
+
+test_that("content_delete prompts and errors", {
+  skip("not sure how to test this")
+})
+
 # Execution ----------------------------------------------------
 #
 # i.e. deploying real content...
@@ -792,9 +850,10 @@ test_that("add a collaborator works", {
 
   expect_equal(get_user_permission(cont1_content, collab_guid)$role, "owner")
 
-  # # owner is present
-  # my_guid <- test_conn_1$GET("me")$guid
-  # expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
+  # owner is present
+  skip("not working yet")
+  my_guid <- test_conn_1$GET("me")$guid
+  expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
 })
 
 test_that("add collaborator twice works", {

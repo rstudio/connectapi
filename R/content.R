@@ -60,9 +60,9 @@ Content <- R6::R6Class(
     },
     danger_delete = function() {
       con <- self$get_connect()
-      url <- glue::glue("v1/content/self$get_content()$guid}")
+      url <- glue::glue("v1/content/{self$get_content()$guid}")
       res <- con$DELETE(url)
-      return(self)
+      return(res)
     },
     runas = function(run_as, run_as_current_user = FALSE) {
       lifecycle::deprecate_soft("0.1.1", "Content$runas()", "content$update()")
@@ -565,7 +565,9 @@ content_delete <- function(content, force=FALSE) {
   }
 
   cat(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
-  content$danger_delete()
+  cat("\n")
+  res <- content$danger_delete()
+  content$get_connect()$raise_error(res)
 
   return(content)
 }
@@ -595,7 +597,11 @@ content_delete <- function(content, force=FALSE) {
 content_update <- function(content, ...) {
   validate_R6_class(content, "Content")
 
-  content$update(...)
+  res <- content$update(...)
+
+  content$get_content_remote()
+
+  return(content)
 }
 
 #' @rdname content_update
@@ -605,7 +611,7 @@ content_access_type <- function(content, access_type=c("all", "logged_in", "acl"
   if (length(access_type) > 1 || !access_type %in% c("all", "logged_in", "acl")) {
     stop("Please select one of 'all', 'logged_in', or 'acl'.")
   }
-  content_update(access_type=access_type)
+  content_update(content = content, access_type=access_type)
 }
 
 
@@ -674,9 +680,9 @@ get_bundles <- function(content, limit = Inf) {
 delete_bundle <- function(content, bundle_id) {
   validate_R6_class(content, "Content")
   cn <- content$get_content_remote()
+  message(glue::glue("Deleting bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
   res <- content$bundle_delete(bundle_id)
   content$get_connect()$raise_error(res)
-  message(glue::glue("Deleted bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
   return(content)
 }
 
