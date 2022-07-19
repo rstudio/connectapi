@@ -24,6 +24,7 @@ VariantSchedule <- R6::R6Class(
       self$get_connect()$DELETE(path = path)
     },
     set_schedule = function(...) {
+      warn_experimental("set_schedule")
       params <- rlang::list2(...)
       if ("start_time" %in% names(params)) {
         params$start_time <- make_timestamp(params$start_time)
@@ -93,15 +94,28 @@ VariantSchedule <- R6::R6Class(
           "year" = glue::glue("Every {schdata$N} year{plural}"),
           "Unknown schedule"
         )
+        # TODO: is fetching data during a PRINT a bit overkill?
+        tz_offset <- .get_offset(self$get_connect(), rawdata$timezone)
         c(
           desc,
           # TODO: a nice way to print out relative times...?
-          glue::glue("Starting {swap_timestamp_format(rawdata$start_time)}")
+          glue::glue("Starting {swap_timestamp_format(rawdata$start_time)} ({tz_offset})"),
+          glue::glue("Next Run {swap_timestamp_format(rawdata$next_run)} ({tz_offset})")
         )
       }
     }
   )
 )
+
+.get_offset <- function(connect, timezone) {
+  # TODO: some type of cache to reduce churn here?
+  tz <- connect$GET("timezones")
+  res <- purrr::keep(tz, ~ .x[["timezone"]] == timezone)
+  if (length(res) != 1) {
+    stop(glue::glue("ERROR: timezone '{timezone}' not found"))
+  }
+  return(res[[1]][["offset"]])
+}
 
 #' Get a Variant Schedule
 #'
@@ -163,6 +177,8 @@ set_schedule <- function(
   .schedule,
   ...
   ) {
+  warn_experimental("set_schedule")
+  scoped_experimental_silence()
   validate_R6_class(.schedule, "VariantSchedule")
   params <- rlang::list2(...)
 
@@ -283,6 +299,14 @@ set_schedule_remove <- function(.schedule) {
   get_variant(.schedule, .schedule$key)
 }
 
+#' @rdname set_schedule
+#' @export
+schedule_describe <- function(.schedule) {
+  cat(.schedule$describe_schedule(), sep = "\n")
+  invisible(.schedule)
+}
+
+
 #' Get TimeZones
 #'
 #' Get the available timezones from the server.
@@ -295,8 +319,8 @@ set_schedule_remove <- function(.schedule) {
 #' @export
 get_timezones <- function(connect) {
   raw_tz <- connect$GET("timezones")
-  tz_values <- purrr::map_chr(tmp, ~.x[["timezone"]])
-  tz_display <- purrr::map_chr(tmp, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
+  tz_values <- purrr::map_chr(raw_tz, ~.x[["timezone"]])
+  tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
 
   return(as.list(rlang::set_names(tz_values, tz_display)))
 }

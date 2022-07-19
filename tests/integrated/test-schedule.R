@@ -64,3 +64,49 @@ test_that("schedule helpers work", {
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_dayweekofmonth(get_variant_schedule(d_var_sch))), "Variant"))
   expect_true(validate_R6_class(set_schedule_remove(set_schedule_year(get_variant_schedule(d_var_sch))), "Variant"))
 })
+
+test_that("schedule display works", {
+  skip("need a way to make this less time sensitive (with next run)")
+  local_edition(3)
+  scoped_experimental_silence()
+
+  tzs <- get_timezones(test_conn_1)
+
+  set_schedule_remove(d_var_sch)
+  tmp <- set_schedule_day(get_variant_schedule(d_var_sch), start_time = as.POSIXct("2022-01-01 00:00:00") , n = 2, timezone = tzs$`Universal (+00:00)`)
+  expect_snapshot_output(schedule_describe(tmp))
+})
+
+test_that("timezones helper works", {
+  local_edition(3)
+  tzs <- get_timezones(test_conn_1)
+  expect_snapshot(tzs)
+})
+
+test_that("schedule timezone works", {
+  scoped_experimental_silence()
+
+  tzs <- get_timezones(test_conn_1)
+  set_schedule_remove(d_var_sch)
+
+  tmp <- set_schedule_minute(d_var_sch, n = 15, timezone = tzs$`America/New_York (-04:00)`)
+  expect_equal(tmp$schedule_data$timezone, tzs$`America/New_York (-04:00)`)
+
+  tmp2 <- set_schedule_minute(d_var_sch, n = 10, timezone = tzs$`Universal (+00:00)`)
+  expect_equal(tmp$schedule_data$timezone, tzs$`Universal (+00:00)`)
+
+  set_schedule_remove(d_var_sch)
+})
+
+test_that("get_schedules works", {
+  scoped_experimental_silence()
+  # TODO: add a helper that makes this prettier
+
+  tmp <- set_schedule_day(d_var_sch, n = 5)
+  expect_true(validate_R6_class(tmp, "Variant"))
+
+  res <- test_conn_1$schedules()
+  expect_gte(length(res), 1)
+
+  set_schedule_remove(d_var_sch)
+})
