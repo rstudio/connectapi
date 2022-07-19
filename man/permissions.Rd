@@ -7,6 +7,7 @@
 \alias{content_delete_user}
 \alias{content_delete_group}
 \alias{get_user_permission}
+\alias{get_my_permission}
 \alias{get_group_permission}
 \alias{get_content_permissions}
 \title{Content permissions}
@@ -19,11 +20,13 @@ content_delete_user(content, guid)
 
 content_delete_group(content, guid)
 
-get_user_permission(content, guid)
+get_user_permission(content, guid, add_owner = TRUE)
+
+get_my_permission(content, add_owner = TRUE)
 
 get_group_permission(content, guid)
 
-get_content_permissions(content)
+get_content_permissions(content, add_owner = TRUE)
 }
 \arguments{
 \item{content}{An R6 content object}
@@ -31,6 +34,10 @@ get_content_permissions(content)
 \item{guid}{The guid associated with either a user (for \code{content_add_user}) or group (for \code{content_add_group})}
 
 \item{role}{The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"}
+
+\item{add_owner}{Optional. Whether to include the owner in returned
+permission sets. Default is TRUE. The owner will have an NA_character_
+permission "id"}
 }
 \description{
 Get or set content permissions for a content item
@@ -45,11 +52,15 @@ Permission modification:
 Permission retrieval:
 \itemize{
 \item \code{get_content_permissions()} lists permissions
+\item \code{get_my_permission()} gets the permission associated with the caller.
 \item \code{get_user_permission()} gets the permissions associated with a given user.
 It does not evaluate group memberships
 \item \code{get_group_permission()} gets the permissions associated with a given
 group.
 }
+
+NOTE: by default, the owner is injected with an "NA_character_" permission id.
+This makes it easier to find / isolate this record.
 }
 \seealso{
 Other content functions: 
