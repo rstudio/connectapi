@@ -657,7 +657,6 @@ create_random_name <- function(length = 25) {
 #'
 #' @param content A R6 Content item, as returned by `content_item()`
 #' @param limit Optional. Limit on number of bundles to return. Default Infinity.
-#' @param connect A R6 Connect item, as returned by `connect()`
 #' @param bundle_id A specific bundle ID for a content item
 #'
 #' @rdname get_bundles

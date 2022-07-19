@@ -15,8 +15,6 @@ delete_bundle(content, bundle_id)
 \item{limit}{Optional. Limit on number of bundles to return. Default Infinity.}
 
 \item{bundle_id}{A specific bundle ID for a content item}
-
-\item{connect}{A R6 Connect item, as returned by \code{connect()}}
 }
 \description{
 Lists bundles for a content item
