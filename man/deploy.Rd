@@ -2,6 +2,7 @@
 % Please edit documentation in R/deploy.R
 \name{deploy}
 \alias{deploy}
+\alias{deploy_current}
 \title{Deploy a bundle}
 \usage{
 deploy(
@@ -13,6 +14,8 @@ deploy(
   ...,
   .pre_deploy = { }
 )
+
+deploy_current(content)
 }
 \arguments{
 \item{connect}{A Connect object}
@@ -28,14 +31,27 @@ deploy(
 \item{...}{Additional arguments passed along to the content creation}
 
 \item{.pre_deploy}{An expression to execute before deploying the new bundle. The variables \code{content} and \code{bundle_id} are supplied}
+
+\item{content}{A Content object}
 }
 \value{
 Task A task object
 }
 \description{
-Deploy a bundle
+Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+\code{name} (a unique identifier) will be an auto-generated alphabetic string. If
+deploying to an existing endpoint, you can set \code{name} or \code{guid} to the
+desired content.
+}
+\details{
+This function accepts the same arguments as \code{connectapi::content_update()}.
+
+\code{deploy_current()} is a helper to easily redeploy the currently active bundle
+for an existing content item.
 }
 \seealso{
+connectapi::content_update
+
 Other deployment functions: 
 \code{\link{bundle_dir}()},
 \code{\link{bundle_path}()},

@@ -280,6 +280,16 @@ download_bundle <- function(content, bundle_id = NULL, filename = fs::file_temp(
 
 #' Deploy a bundle
 #'
+#' Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+#' `name` (a unique identifier) will be an auto-generated alphabetic string. If
+#' deploying to an existing endpoint, you can set `name` or `guid` to the
+#' desired content.
+#'
+#' This function accepts the same arguments as `connectapi::content_update()`.
+#'
+#' `deploy_current()` is a helper to easily redeploy the currently active bundle
+#' for an existing content item.
+#'
 #' @param connect A Connect object
 #' @param bundle A Bundle object
 #' @param name The unique name for the content on the server
@@ -287,9 +297,11 @@ download_bundle <- function(content, bundle_id = NULL, filename = fs::file_temp(
 #' @param guid optional The GUID if the content already exists on the server
 #' @param ... Additional arguments passed along to the content creation
 #' @param .pre_deploy An expression to execute before deploying the new bundle. The variables `content` and `bundle_id` are supplied
+#' @param content A Content object
 #'
 #' @return Task A task object
 #'
+#' @seealso connectapi::content_update
 #' @family deployment functions
 #' @export
 deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
@@ -315,11 +327,12 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   ContentTask$new(connect = con, content = content, task = task)
 }
 
-# deploy the current_bundle
+#' @rdname deploy
+#' @export
 deploy_current <- function(content) {
   validate_R6_class(content, "Content")
   res <- content$deploy()
-  return(ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = res$task_id))
+  return(ContentTask$new(connect = content$get_connect(), content = content, task = res))
 }
 
 

@@ -146,7 +146,28 @@ test_that(".pre_deploy hook works", {
   )
 })
 
-# iamge ---------------------------------------------------
+test_that("deploy_current works", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+  poll_task(tsk)
+
+  created <- tsk$get_content_remote()$created_time
+  first_deploy <- tsk$get_content_remote()$last_deployed_time
+
+  # unrelated changes do not modify
+  tsk$update(title = "test deploy_current")
+  expect_equal(tsk$get_content_remote()$last_deployed_time, first_deploy)
+
+  # a redeploy does
+  res <- deploy_current(tsk)
+  expect_true(validate_R6_class(res, "ContentTask"))
+
+  expect_true(tsk$get_content_remote()$last_deployed_time > first_deploy)
+})
+
+# image ---------------------------------------------------
 
 test_that("set_image_path works", {
   scoped_experimental_silence()
