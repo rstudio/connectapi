@@ -36,8 +36,11 @@ Other R6 classes:
 \item \href{#method-get_content}{\code{Content$get_content()}}
 \item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
 \item \href{#method-get_bundles}{\code{Content$get_bundles()}}
+\item \href{#method-bundle_download}{\code{Content$bundle_download()}}
+\item \href{#method-bundle_delete}{\code{Content$bundle_delete()}}
 \item \href{#method-internal_content}{\code{Content$internal_content()}}
 \item \href{#method-update}{\code{Content$update()}}
+\item \href{#method-danger_delete}{\code{Content$danger_delete()}}
 \item \href{#method-runas}{\code{Content$runas()}}
 \item \href{#method-get_url}{\code{Content$get_url()}}
 \item \href{#method-get_dashboard_url}{\code{Content$get_dashboard_url()}}
@@ -109,6 +112,28 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-bundle_download"></a>}}
+\if{latex}{\out{\hypertarget{method-bundle_download}{}}}
+\subsection{Method \code{bundle_download()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$bundle_download(
+  bundle_id,
+  filename = tempfile(pattern = "bundle", fileext = ".tar.gz"),
+  overwrite = FALSE
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-bundle_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-bundle_delete}{}}}
+\subsection{Method \code{bundle_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-internal_content"></a>}}
 \if{latex}{\out{\hypertarget{method-internal_content}{}}}
 \subsection{Method \code{internal_content()}}{
@@ -123,6 +148,15 @@ Other R6 classes:
 \subsection{Method \code{update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$update(...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-danger_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-danger_delete}{}}}
+\subsection{Method \code{danger_delete()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$danger_delete()}\if{html}{\out{</div>}}
 }
 
 }
@@ -293,7 +327,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-deploy}{}}}
 \subsection{Method \code{deploy()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$deploy()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$deploy(bundle_id = NULL)}\if{html}{\out{</div>}}
 }
 
 }

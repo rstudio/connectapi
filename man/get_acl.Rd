@@ -30,8 +30,8 @@ get_acl_group_role(content, group_guid)
 A list of users/groups who have access to the content
 }
 \description{
-\lifecycle{experimental} Retrieve the Access Controls associated with a given
-piece of content.
+\lifecycle{deprecated} Retrieve the Access Controls associated with a given
+piece of content. Deprecated in favor of \code{content_add_user()} \href{connectapi::permissions}{and friends}.
 }
 \details{
 NOTE: ACLs can still be stored, even when access_type for content is "all" or
@@ -51,8 +51,10 @@ particular group on a piece of content
 \seealso{
 Other content functions: 
 \code{\link{acl_add_user}()},
+\code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{content_update}()},
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},

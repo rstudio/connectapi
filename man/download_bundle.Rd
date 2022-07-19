@@ -6,6 +6,7 @@
 \usage{
 download_bundle(
   content,
+  bundle_id = NULL,
   filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
   overwrite = FALSE
 )
@@ -13,7 +14,10 @@ download_bundle(
 \arguments{
 \item{content}{A Content object}
 
-\item{filename}{The output bundle path}
+\item{bundle_id}{Optional. A string representing the bundle_id to download.
+If NULL, will use the currently active bundle.}
+
+\item{filename}{Optional. The output bundle path}
 
 \item{overwrite}{Optional. Default FALSE. Whether to overwrite the target location if it already exists}
 }
@@ -21,7 +25,7 @@ download_bundle(
 Bundle A bundle object
 }
 \description{
-Downloads a Content item's active bundle
+Downloads a Content item's active bundle, or (optionally) one of its other bundles.
 }
 \seealso{
 Other deployment functions: 
