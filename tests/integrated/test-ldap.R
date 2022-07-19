@@ -1,10 +1,11 @@
 context("ldap")
-
-admin <- connectapi:::create_first_admin(
-  "http://localhost:60330",
-  user = "john", password = "john",
-  provider = "ldap"
-  )
+if (Sys.getenv("CONNECTAPI_LOCAL") == "TRUE") {
+  admin <- connectapi:::create_first_admin(
+    "http://localhost:60330",
+    user = "john", password = "john",
+    provider = "ldap"
+    )
+}
 
 test_that("users_create_remote works with a simple case", {
   skip("tests are not automated")
