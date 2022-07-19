@@ -159,6 +159,22 @@ test_that("content_update_owner works", {
 
   # permissions do not remain
   expect_null(get_user_permission(myc, new_user$guid))
+
+  # viewer cannot be made an owner
+  viewer_user <- test_conn_1$users_create(
+    username = glue::glue("test_viewer_{create_random_name()}"),
+    email = "viewer@example.com",
+    user_role = "viewer",
+    user_must_set_password = TRUE
+  )
+
+  expect_error(
+    expect_message(
+      content_update_owner(myc, viewer_user$guid),
+      "permission to publish"
+    ),
+    "403"
+  )
 })
 
 test_that("content_update_owner works", {

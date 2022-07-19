@@ -591,6 +591,8 @@ content_delete <- function(content, force=FALSE) {
 #' @param content An R6 content item
 #' @param ... Settings up update that are passed along to RStudio Connect
 #' @param access_type One of "all", "logged_in", or "acl"
+#' @param owner_guid The GUID of a user who is a publisher, so that they can
+#'   become the new owner of the content
 #'
 #' @return An R6 content item
 #'

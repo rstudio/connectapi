@@ -18,6 +18,9 @@ content_update_owner(content, owner_guid)
 \item{...}{Settings up update that are passed along to RStudio Connect}
 
 \item{access_type}{One of "all", "logged_in", or "acl"}
+
+\item{owner_guid}{The GUID of a user who is a publisher, so that they can
+become the new owner of the content}
 }
 \value{
 An R6 content item
