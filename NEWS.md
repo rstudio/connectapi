@@ -43,6 +43,8 @@
     `Content$bundle_download()`, and `delete_bundle()` now takes a `Content`
     item instead of `Connect`.
     ([#153](https://github.com/rstudio/connectapi/pull/153))
+- BREAKING: `acl_*()` functions are deprecated in favor of
+  `get_content_permissions()`, `content_add_user()`, and friends.
 
 ### Other Changes
 
