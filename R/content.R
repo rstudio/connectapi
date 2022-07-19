@@ -612,6 +612,17 @@ delete_bundle <- function(connect, bundle_id) {
 #'
 #' Get or set content permissions for a content item
 #'
+#' Permission modification:
+#' - `content_add_*` adds a permission to the content
+#' - `content_delete_*` removes a permission from the content
+#'
+#' Permission retrieval:
+#' - `get_content_permissions()` lists permissions
+#' - `get_user_permission()` gets the permissions associated with a given user.
+#'   It does not evaluate group memberships
+#' - `get_group_permission()` gets the permissions associated with a given
+#'   group.
+#'
 #' @param content An R6 content object
 #' @param guid The guid associated with either a user (for `content_add_user`) or group (for `content_add_group`)
 #' @param role The role to assign to a user. Either "viewer" or "owner." Defaults to "viewer"

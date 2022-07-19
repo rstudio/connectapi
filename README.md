@@ -133,6 +133,10 @@ content %>%
 content %>%
   set_image_path("./my/local/image.png") %>%
   set_vanity_url("/my-awesome-app")
+
+# change access_type to "anyone"
+
+content$update(access_type = "all")
   
 # edit another piece of content
 
@@ -158,6 +162,9 @@ client_prod %>%
 # open a browser to the content item
 client_prod %>% browse_dashboard()
 client_prod %>% browse_solo()
+
+# open a browser to the docs
+client_prod %>% browse_api_docs()
 ```
 
 ## Troubleshooting and FAQ

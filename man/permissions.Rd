@@ -35,6 +35,22 @@ get_content_permissions(content)
 \description{
 Get or set content permissions for a content item
 }
+\details{
+Permission modification:
+\itemize{
+\item \verb{content_add_*} adds a permission to the content
+\item \verb{content_delete_*} removes a permission from the content
+}
+
+Permission retrieval:
+\itemize{
+\item \code{get_content_permissions()} lists permissions
+\item \code{get_user_permission()} gets the permissions associated with a given user.
+It does not evaluate group memberships
+\item \code{get_group_permission()} gets the permissions associated with a given
+group.
+}
+}
 \seealso{
 Other content functions: 
 \code{\link{acl_add_user}()},
