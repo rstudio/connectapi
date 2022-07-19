@@ -64,8 +64,59 @@ test_that("bundle_path deploys", {
   # deploy to a new endpoint
   tsk <- deploy(connect = test_conn_1, bundle = bund)
 
-  # how should we test that deployment happened?
+  # TODO: how should we test that deployment happened?
   expect_true(validate_R6_class(tsk, "Content"))
+})
+
+test_that("download_bundle works", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+  poll_task(tsk)
+  downloaded <- download_bundle(tsk)
+
+  # TODO: is shasum always available...? A way to do without the shell?
+  expect_equal(
+    system(glue::glue("shasum {downloaded$path} | cut -d ' ' -f 1"), intern = TRUE),
+    system(glue::glue("shasum {bund$path} | cut -d ' ' -f 1"), intern = TRUE)
+    )
+})
+
+test_that("delete_bundle() and get_bundles() work", {
+  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
+  bund <- bundle_path(path = tar_path)
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund)
+  poll_task(tsk)
+  first_bnd <- tsk$get_content_remote()$bundle_id
+  my_guid <- tsk$get_content()$guid
+
+  tsk <- deploy(connect = test_conn_1, bundle = bund, guid = my_guid)
+  poll_task(tsk)
+  second_bnd <- tsk$get_content_remote()$bundle_id
+
+  all_bnd <- get_bundles(tsk)
+
+  # check get_bundles() output
+  expect_true(first_bnd %in% all_bnd[["id"]])
+  expect_true(second_bnd %in% all_bnd[["id"]])
+  expect_length(all_bnd[["id"]], 2)
+  expect_s3_class(all_bnd, "tbl_df")
+
+  # check delete_bundle() functions
+  res <- delete_bundle(tsk, first_bnd)
+  expect_true(validate_R6_class(res, "Content"))
+  expect_length(get_bundles(res)[["id"]], 1)
+
+  expect_error(
+    expect_message(
+      delete_bundle(tsk, second_bnd),
+      "active bundle"
+    ),
+    "Bad Request"
+  )
+  expect_length(get_bundles(res)[["id"]], 1)
 })
 
 # deploy ---------------------------------------------------

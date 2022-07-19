@@ -282,8 +282,8 @@ test_that("get_bundles and delete_bundle work", {
 
   not_active_bundles <- bnd_dat[!bnd_dat$active,]
 
-  bnd_del <- delete_bundle(test_conn_1, not_active_bundles[["id"]][[1]])
-  expect_true(validate_R6_class(bnd_del, "Connect"))
+  bnd_del <- delete_bundle(bc1, not_active_bundles[["id"]][[1]])
+  expect_true(validate_R6_class(bnd_del, "Content"))
 
   bnd_dat2 <- get_bundles(bc1)
   expect_equal(nrow(bnd_dat2), 2)

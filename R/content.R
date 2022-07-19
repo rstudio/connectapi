@@ -36,8 +36,8 @@ Content <- R6::R6Class(
     },
     bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext=".tar.gz"), overwrite = FALSE) {
       url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
-      self$get_connect()$GET(url, httr::write_disk(to_path, overwrite = overwrite), "raw")
-      return(to_path)
+      self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
+      return(filename)
     },
     bundle_delete = function(bundle_id) {
       url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}")
@@ -672,10 +672,11 @@ get_bundles <- function(content, limit = Inf) {
 #' @family content functions
 #' @export
 delete_bundle <- function(content, bundle_id) {
-  validate_R6_class(connect, "Content")
+  validate_R6_class(content, "Content")
   cn <- content$get_content_remote()
-  message(glue::glue("Deleting bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
-  content$bundle_delete(bundle_id)
+  res <- content$bundle_delete(bundle_id)
+  content$get_connect()$raise_error(res)
+  message(glue::glue("Deleted bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
   return(content)
 }
 

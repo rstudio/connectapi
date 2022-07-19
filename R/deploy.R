@@ -214,9 +214,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   tmpdir <- fs::file_temp("bundledir")
   dir.create(tmpdir, recursive = TRUE)
   all_files <- fs::file_copy(path = path, new_path = paste0(tmpdir, "/"))
-  if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("ERROR: the `rsconnect` package needs to be installed to use this function")
-  }
+  rlang::check_installed("rsconnect", "the `rsconnect` package needs to be installed to use `bundle_static()`")
   # TODO: error if these files are not static?
   # TODO: a better way to get the primary document besides `all_files[[1]]`?
   rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = fs::path_file(all_files[[1]]))
@@ -258,7 +256,7 @@ bundle_path <- function(path) {
 download_bundle <- function(content, bundle_id = NULL, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), overwrite=FALSE) {
   validate_R6_class(content, "Content")
 
-  from_content <- content$get_content()
+  from_content <- content$get_content_remote()
   if (is.null(bundle_id)) {
     if (is.null(from_content$bundle_id)) {
       stop(
@@ -275,7 +273,7 @@ download_bundle <- function(content, bundle_id = NULL, filename = fs::file_temp(
 
 
   message("Downloading bundle")
-  from_content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite=overwrite)
+  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite=overwrite)
 
   Bundle$new(path = filename)
 }
