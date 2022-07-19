@@ -4,20 +4,31 @@
 \alias{users_create_remote}
 \title{Create a Remote User}
 \usage{
-users_create_remote(connect, prefix, expect = 1, check = TRUE)
+users_create_remote(connect, prefix, expect = 1, check = TRUE, exact = FALSE)
 }
 \arguments{
 \item{connect}{A R6 Connect object}
 
 \item{prefix}{character. The prefix of the user name to search for}
 
-\item{expect}{number. The number of responses to expect for this search}
+\item{expect}{number. Optional. The number of responses to expect for this search}
 
-\item{check}{boolean. Whether to check for local existence first}
+\item{check}{boolean. Optional. Whether to check for local existence first}
+
+\item{exact}{boolean. Optional. Whether to only create users whose username
+exactly matches the provided \code{prefix}.}
 }
 \value{
 The results of creating the users
 }
 \description{
-Create a Remote User
+The remote user creation workflow involves authentication providers like LDAP
+that involve a queryable identity store. This helper wraps the API calls
+necessary to retrieve information about and then create such a user. It
+functions with a "fuzzy match" \code{prefix} by default, but if you want to
+instantiate users directly, you should set \code{exact = TRUE}.
+}
+\details{
+NOTE: there can be problems with usernames that are not unique. Please open
+an issue if you run into any problems.
 }
