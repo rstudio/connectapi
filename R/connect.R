@@ -118,10 +118,10 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    PUT = function(path, body, encode = "json", ...) {
+    PUT = function(path, body, encode = "json", ..., .empty_object = TRUE) {
       req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
-      if (length(body) == 0) {
+      if (length(body) == 0 && .empty_object) {
         body <- "{}"
       }
       res <- rlang::exec(
@@ -175,10 +175,10 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
-      if (length(body) == 0) {
+      if (length(body) == 0 && .empty_object) {
         body <- "{}"
       }
       res <- rlang::exec(
@@ -198,10 +198,10 @@ Connect <- R6::R6Class(
       httr::content(res, as = "parsed")
     },
 
-    POST = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+    POST = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
-      if (length(body) == 0) {
+      if (length(body) == 0 && .empty_object) {
         body <- "{}"
       }
       res <- rlang::exec(

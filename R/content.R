@@ -176,7 +176,8 @@ Content <- R6::R6Class(
 
       res <- self$get_connect()$PUT(
         path = url,
-        body = body
+        body = body,
+        .empty_object = FALSE
       )
       res
     },
