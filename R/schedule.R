@@ -151,6 +151,7 @@ get_variant_schedule <- function(variant) {
 #' @param days The days of the week (0-6)
 #' @param week The week of the month (0-5)
 #' @param first [logical] Whether to execute on the 1st and 15th (TRUE) or 14th and last (FALSE)
+#' @param timezone The timezone to use for setting the schedule. Defaults to `Sys.timezone()`
 #' @param ... Scheduling parameters
 #'
 #' @return An updated Schedule object
@@ -199,62 +200,62 @@ schedule_types <- c("minute", "hour", "day", "weekday", "week", "dayofweek", "se
 
 #' @rdname set_schedule
 #' @export
-set_schedule_minute <- function(.schedule, n = 30, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "minute", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
+set_schedule_minute <- function(.schedule, n = 30, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "minute", schedule = list(N = n), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_hour <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "hour", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
+set_schedule_hour <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "hour", schedule = list(N = n), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_day <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "day", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
+set_schedule_day <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "day", schedule = list(N = n), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_weekday <- function(.schedule, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "weekday", schedule = "{}", start_time = start_time, activate = activate, email = email)
+set_schedule_weekday <- function(.schedule, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "weekday", schedule = "{}", start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_week <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "week", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
+set_schedule_week <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "week", schedule = list(N = n), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_dayofweek <- function(.schedule, days, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "dayofweek", schedule = list(Days = days), start_time = start_time, activate = activate, email = email)
+set_schedule_dayofweek <- function(.schedule, days, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "dayofweek", schedule = list(Days = days), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_semimonth <- function(.schedule, first = TRUE, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "semimonth", schedule = list(First = first), start_time = start_time, activate = activate, email = email)
+set_schedule_semimonth <- function(.schedule, first = TRUE, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "semimonth", schedule = list(First = first), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_dayofmonth <- function(.schedule, n = 1, day = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "dayofmonth", schedule = list(N = n, Day = day), start_time = start_time, activate = activate, email = email)
+set_schedule_dayofmonth <- function(.schedule, n = 1, day = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "dayofmonth", schedule = list(N = n, Day = day), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_dayweekofmonth <- function(.schedule, n = 1, day = 1, week = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "dayweekofmonth", schedule = list(N = n, Day = day, Week = week), start_time = start_time, activate = activate, email = email)
+set_schedule_dayweekofmonth <- function(.schedule, n = 1, day = 1, week = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "dayweekofmonth", schedule = list(N = n, Day = day, Week = week), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 #' @rdname set_schedule
 #' @export
-set_schedule_year <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE) {
-  set_schedule(.schedule, type = "year", schedule = list(N = n), start_time = start_time, activate = activate, email = email)
+set_schedule_year <- function(.schedule, n = 1, start_time = Sys.time(), activate = TRUE, email = FALSE, timezone = Sys.timezone()) {
+  set_schedule(.schedule, type = "year", schedule = list(N = n), start_time = start_time, activate = activate, email = email, timezone = timezone)
 }
 
 example_schedules <- list(
@@ -280,4 +281,22 @@ set_schedule_remove <- function(.schedule) {
   path <- glue::glue("schedules/{.schedule$get_schedule()$id}")
   cli$DELETE(path = path)
   get_variant(.schedule, .schedule$key)
+}
+
+#' Get TimeZones
+#'
+#' Get the available timezones from the server.
+#'
+#' @param connect An R6 Connect object
+#'
+#' @return A TimeZone vector to be used for setting time zones
+#'
+#' @family schedule functions
+#' @export
+get_timezones <- function(connect) {
+  raw_tz <- connect$GET("timezones")
+  tz_values <- purrr::map_chr(tmp, ~.x[["timezone"]])
+  tz_display <- purrr::map_chr(tmp, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
+
+  return(as.list(rlang::set_names(tz_values, tz_display)))
 }
