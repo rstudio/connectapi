@@ -45,9 +45,15 @@
     ([#153](https://github.com/rstudio/connectapi/pull/153))
 - BREAKING: `acl_*()` functions are deprecated in favor of
   `get_content_permissions()`, `content_add_user()`, and friends.
+- BREAKING: `Connect$PUT()`, `Connect$POST()` and `Connect$PATCH()` endpoints
+  now presume that an empty list is really a "map"/"object" (like `{}` instead
+  of `[]`). This can break some endpoints that expect a list. Set
+  `.empty_object=FALSE` to avoid this behavior.
 
 ### Other Changes
 
+- Add helpers for common content modification actions: `content_update()`,
+  `content_update_access_type()` and `content_update_owner()`
 - Fix an issue with relative paths in `bundle_dir()`
   ([`@slodge`](https://github.com/slodge))
   ([#118](https://github.com/rstudio/connectapi/issues/118),

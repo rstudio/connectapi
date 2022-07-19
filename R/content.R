@@ -585,7 +585,8 @@ content_delete <- function(content, force=FALSE) {
 #' `content_update(access_type="acl")`, process settings, title, description,
 #' etc.
 #'
-#' `content_access_type()` is a helper to make this more discoverable
+#' - `content_update_access_type()` is a helper to make it easier to change access_type
+#' - `content_update_owner()` is a helper to make it easier to change owner
 #'
 #' @param content An R6 content item
 #' @param ... Settings up update that are passed along to RStudio Connect
@@ -606,13 +607,18 @@ content_update <- function(content, ...) {
 }
 
 #' @rdname content_update
-#' @family content functions
 #' @export
-content_access_type <- function(content, access_type=c("all", "logged_in", "acl")) {
+content_update_access_type <- function(content, access_type=c("all", "logged_in", "acl")) {
   if (length(access_type) > 1 || !access_type %in% c("all", "logged_in", "acl")) {
     stop("Please select one of 'all', 'logged_in', or 'acl'.")
   }
   content_update(content = content, access_type=access_type)
+}
+
+#' @rdname content_update
+#' @export
+content_update_owner <- function(content, owner_guid) {
+  content_update(content = content, owner_guid = owner_guid)
 }
 
 

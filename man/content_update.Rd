@@ -2,12 +2,15 @@
 % Please edit documentation in R/content.R
 \name{content_update}
 \alias{content_update}
-\alias{content_access_type}
+\alias{content_update_access_type}
+\alias{content_update_owner}
 \title{Update Content}
 \usage{
 content_update(content, ...)
 
-content_access_type(content, access_type = c("all", "logged_in", "acl"))
+content_update_access_type(content, access_type = c("all", "logged_in", "acl"))
+
+content_update_owner(content, owner_guid)
 }
 \arguments{
 \item{content}{An R6 content item}
@@ -29,34 +32,12 @@ Popular selections are \code{content_update(access_type="all")},
 \code{content_update(access_type="logged_in")} or
 \code{content_update(access_type="acl")}, process settings, title, description,
 etc.
-
-\code{content_access_type()} is a helper to make this more discoverable
+\itemize{
+\item \code{content_update_access_type()} is a helper to make it easier to change access_type
+\item \code{content_update_owner()} is a helper to make it easier to change owner
+}
 }
 \seealso{
-Other content functions: 
-\code{\link{acl_add_user}()},
-\code{\link{content_delete}()},
-\code{\link{content_item}()},
-\code{\link{content_title}()},
-\code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
-\code{\link{dashboard_url}()},
-\code{\link{delete_vanity_url}()},
-\code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
-\code{\link{get_bundles}()},
-\code{\link{get_environment}()},
-\code{\link{get_image}()},
-\code{\link{get_jobs}()},
-\code{\link{get_vanity_url}()},
-\code{\link{git}},
-\code{\link{permissions}},
-\code{\link{set_image_path}()},
-\code{\link{set_run_as}()},
-\code{\link{set_vanity_url}()},
-\code{\link{swap_vanity_url}()},
-\code{\link{verify_content_name}()}
-
 Other content functions: 
 \code{\link{acl_add_user}()},
 \code{\link{content_delete}()},

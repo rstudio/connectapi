@@ -201,7 +201,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PUT}{}}}
 \subsection{Method \code{PUT()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json", ..., .empty_object = TRUE)}\if{html}{\out{</div>}}
 }
 
 }
@@ -228,7 +228,14 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-PATCH}{}}}
 \subsection{Method \code{PATCH()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(
+  path,
+  body,
+  encode = "json",
+  prefix = "/__api__/",
+  ...,
+  .empty_object = TRUE
+)}\if{html}{\out{</div>}}
 }
 
 }
@@ -237,7 +244,14 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-POST}{}}}
 \subsection{Method \code{POST()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(path, body, encode = "json", prefix = "/__api__/", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(
+  path,
+  body,
+  encode = "json",
+  prefix = "/__api__/",
+  ...,
+  .empty_object = TRUE
+)}\if{html}{\out{</div>}}
 }
 
 }
