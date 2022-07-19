@@ -177,37 +177,6 @@ test_that("content_update_owner works", {
   )
 })
 
-test_that("content_update_owner works", {
-  tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
-  bund <- bundle_path(path = tar_path)
-  tsk <- deploy(connect = test_conn_1, bundle = bund)
-
-  # create a user
-  new_owner <- test_conn_1$users_create(username = glue::glue("test_owner{create_random_name()}"), email = "owner@example.com", user_must_set_password = TRUE, user_role = "publisher")
-
-  own <- tsk$get_content_remote()$owner_guid
-  expect_equal(own, test_conn_1$me()$guid)
-
-  # transfer once
-  content_update_owner(tsk, new_owner$guid)
-
-  expect_equal(tsk$get_content()$owner_guid, new_owner$guid)
-
-  # permissions do not remain
-
-
-  # add a collaborator
-  invisible(content_add_user(cont1_content, collab_guid, "owner"))
-
-  expect_equal(get_user_permission(cont1_content, collab_guid)$role, "owner")
-
-  # owner is present
-  skip("not working yet")
-  my_guid <- test_conn_1$GET("me")$guid
-  expect_equal(get_acl_user_role(cont1_content, my_guid), "owner")
-})
-
-
 test_that("content_update_access_type works", {
   tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")
   bund <- bundle_path(path = tar_path)
