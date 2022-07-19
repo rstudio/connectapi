@@ -118,6 +118,9 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/connectapi-package.html</loc>
   </url>
   <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/content_delete.html</loc>
+  </url>
+  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/content_item.html</loc>
   </url>
   <url>
@@ -128,6 +131,9 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/content_title.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/content_update.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/create_random_name.html</loc>
