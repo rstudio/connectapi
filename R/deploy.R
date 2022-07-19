@@ -244,16 +244,16 @@ bundle_path <- function(path) {
 #' Downloads a Content item's active bundle, or (optionally) one of its other bundles.
 #'
 #' @param content A Content object
+#' @param filename Optional. The output bundle path
 #' @param bundle_id Optional. A string representing the bundle_id to download.
 #'   If NULL, will use the currently active bundle.
-#' @param filename Optional. The output bundle path
 #' @param overwrite Optional. Default FALSE. Whether to overwrite the target location if it already exists
 #'
 #' @return Bundle A bundle object
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, bundle_id = NULL, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), overwrite=FALSE) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite=FALSE) {
   validate_R6_class(content, "Content")
 
   from_content <- content$get_content_remote()
