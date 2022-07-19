@@ -34,6 +34,15 @@ Content <- R6::R6Class(
       url <- glue::glue("v1/content/{self$get_content()$guid}/bundles")
       self$get_connect()$GET(url)
     },
+    bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext=".tar.gz"), overwrite = FALSE) {
+      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
+      self$get_connect()$GET(url, httr::write_disk(to_path, overwrite = overwrite), "raw")
+      return(to_path)
+    },
+    bundle_delete = function(bundle_id) {
+      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}")
+      self$get_connect()$DELETE(url)
+    },
     internal_content = function() {
       url <- glue::glue("applications/{self$get_content()$guid}")
       self$get_connect()$GET(url)
@@ -49,7 +58,7 @@ Content <- R6::R6Class(
       )
       return(self)
     },
-    delete = function() {
+    danger_delete = function() {
       con <- self$get_connect()
       url <- glue::glue("v1/content/self$get_content()$guid}")
       res <- con$DELETE(url)
@@ -171,10 +180,11 @@ Content <- R6::R6Class(
       )
       res
     },
-    deploy = function() {
+    deploy = function(bundle_id = NULL) {
+      body <- list(bundle_id = bundle_id)
       self$get_connect()$POST(
-        glue::glue("v1/experimental/content/{self$get_content()$guid}/deploy"),
-        body = "{}"
+        glue::glue("v1/content/{self$get_content()$guid}/deploy"),
+        body = body
       )
     },
     repo_enable = function(enabled = TRUE) {
@@ -555,7 +565,7 @@ content_delete <- function(content, force=FALSE) {
   }
 
   cat(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
-  content$delete()
+  content$danger_delete()
 
   return(content)
 }
@@ -661,11 +671,12 @@ get_bundles <- function(content, limit = Inf) {
 #' @rdname get_bundles
 #' @family content functions
 #' @export
-delete_bundle <- function(connect, bundle_id) {
-  validate_R6_class(connect, "Connect")
-  message(glue::glue("Deleting bundle {bundle_id}"))
-  connect$bundle_delete(bundle_id)
-  return(connect)
+delete_bundle <- function(content, bundle_id) {
+  validate_R6_class(connect, "Content")
+  cn <- content$get_content_remote()
+  message(glue::glue("Deleting bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
+  content$bundle_delete(bundle_id)
+  return(content)
 }
 
 
