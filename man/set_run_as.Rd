@@ -17,7 +17,7 @@ set_run_as(content, run_as, run_as_current_user = FALSE)
 a Content object, updated with new details
 }
 \description{
-\lifecycle{experimental} Set the \code{RunAs} user for a piece of content.
+Set the \code{RunAs} user for a piece of content.
 The \code{run_as_current_user} flag only does anything if:
 }
 \details{
@@ -27,18 +27,21 @@ The \code{run_as_current_user} flag only does anything if:
 }
 
 Also worth noting that the \code{run_as} user must exist on the RStudio Connect
-server and have appropriate group memberships, or you will get a \verb{400: Bad Request}.
-Set to \code{NULL} to use the default RunAs user / unset any current configuration.
+server (as a linux user) and have appropriate group memberships, or you will
+get a \verb{400: Bad Request}. Set to \code{NULL} to use the default RunAs user / unset
+any current configuration.
 
 To "read" the current RunAs user, use the \code{Content} object or \code{get_content()} function.
 }
 \seealso{
-connectapi::get_content
+connectapi::content_update
 
 Other content functions: 
 \code{\link{acl_add_user}()},
+\code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{content_update}()},
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},

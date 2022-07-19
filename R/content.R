@@ -34,6 +34,15 @@ Content <- R6::R6Class(
       url <- glue::glue("v1/content/{self$get_content()$guid}/bundles")
       self$get_connect()$GET(url)
     },
+    bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext=".tar.gz"), overwrite = FALSE) {
+      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
+      self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
+      return(filename)
+    },
+    bundle_delete = function(bundle_id) {
+      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}")
+      self$get_connect()$DELETE(url)
+    },
     internal_content = function() {
       url <- glue::glue("applications/{self$get_content()$guid}")
       self$get_connect()$GET(url)
@@ -49,18 +58,16 @@ Content <- R6::R6Class(
       )
       return(self)
     },
-    runas = function(run_as, run_as_current_user = FALSE) {
-      warn_experimental("content_runas")
-      params <- list(
-        run_as = run_as,
-        run_as_current_user = run_as_current_user
-      )
-      url <- glue::glue("applications/{self$get_content()$guid}/runas")
-      res <- self$get_connect()$POST(
-        url,
-        params
-      )
+    danger_delete = function() {
+      con <- self$get_connect()
+      url <- glue::glue("v1/content/{self$get_content()$guid}")
+      res <- con$DELETE(url)
       return(res)
+    },
+    runas = function(run_as, run_as_current_user = FALSE) {
+      lifecycle::deprecate_soft("0.1.1", "Content$runas()", "content$update()")
+
+      self$update(run_as = run_as, run_as_current_user = run_as_current_user)
     },
     get_url = function() {
       self$get_content()$content_url
@@ -169,14 +176,16 @@ Content <- R6::R6Class(
 
       res <- self$get_connect()$PUT(
         path = url,
-        body = body
+        body = body,
+        .empty_object = FALSE
       )
       res
     },
-    deploy = function() {
+    deploy = function(bundle_id = NULL) {
+      body <- list(bundle_id = bundle_id)
       self$get_connect()$POST(
-        glue::glue("v1/experimental/content/{self$get_content()$guid}/deploy"),
-        body = "{}"
+        glue::glue("v1/content/{self$get_content()$guid}/deploy"),
+        body = body
       )
     },
     repo_enable = function(enabled = TRUE) {
@@ -497,15 +506,16 @@ get_job <- function(content, key) {
 
 #' Set RunAs User
 #'
-#' \lifecycle{experimental} Set the `RunAs` user for a piece of content.
+#' Set the `RunAs` user for a piece of content.
 #' The `run_as_current_user` flag only does anything if:
 #'
 #' - PAM is the authentication method
 #' - `Applications.RunAsCurrentUser` is enabled on the server
 #'
 #' Also worth noting that the `run_as` user must exist on the RStudio Connect
-#' server and have appropriate group memberships, or you will get a `400: Bad Request`.
-#' Set to `NULL` to use the default RunAs user / unset any current configuration.
+#' server (as a linux user) and have appropriate group memberships, or you will
+#' get a `400: Bad Request`. Set to `NULL` to use the default RunAs user / unset
+#' any current configuration.
 #'
 #' To "read" the current RunAs user, use the `Content` object or `get_content()` function.
 #'
@@ -515,16 +525,14 @@ get_job <- function(content, key) {
 #'
 #' @return a Content object, updated with new details
 #'
-#' @seealso connectapi::get_content
+#' @seealso connectapi::content_update
 #'
 #' @family content functions
 #' @export
 set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
-  warn_experimental("set_run_as")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
 
-  content$runas(run_as = run_as, run_as_current_user = run_as_current_user)
+  content$update(run_as = run_as, run_as_current_user = run_as_current_user)
 
   invisible(content$get_content_remote())
 
@@ -532,9 +540,87 @@ set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
 }
 
 
-delete_content <- function(content) {
+#' Delete Content
+#'
+#' Delete a content item. WARNING: This action deletes all history, configuration,
+#' logs, and resources about a content item. It _cannot_ be undone.
+#'
+#' @param content an R6 content item
+#' @param force Optional. A boolean that determines whether we should prompt in interactive sessions
+#'
+#' @return The R6 Content item. The item is deleted, but information about it is cached locally
+#'
+#' @family content functions
+#' @export
+content_delete <- function(content, force=FALSE) {
   validate_R6_class(content, "Content")
-  # TODO
+
+  cn <- content$get_content_remote()
+  if (!force) {
+    if (interactive()) {
+      cat(glue::glue("WARNING: Are you sure you want to delete '{cn$title}' ({cn$guid})?"))
+      if (utils::menu(c("Yes", "No")) == 2) {
+        stop("'No' selected. Aborting content delete")
+      }
+    }
+  }
+
+  cat(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
+  cat("\n")
+  res <- content$danger_delete()
+  content$get_connect()$raise_error(res)
+
+  return(content)
+}
+
+#' Update Content
+#'
+#' Update settings for a content item. For a list of all settings, see the
+#' [latest
+#' documentation](https://docs.rstudio.com/connect/api/#patch-/v1/content/{guid})
+#' or the documentation for your server via `connectapi::browse_api_docs()`.
+#'
+#' Popular selections are `content_update(access_type="all")`,
+#' `content_update(access_type="logged_in")` or
+#' `content_update(access_type="acl")`, process settings, title, description,
+#' etc.
+#'
+#' - `content_update_access_type()` is a helper to make it easier to change access_type
+#' - `content_update_owner()` is a helper to make it easier to change owner
+#'
+#' @param content An R6 content item
+#' @param ... Settings up update that are passed along to RStudio Connect
+#' @param access_type One of "all", "logged_in", or "acl"
+#' @param owner_guid The GUID of a user who is a publisher, so that they can
+#'   become the new owner of the content
+#'
+#' @return An R6 content item
+#'
+#' @family content functions
+#' @export
+content_update <- function(content, ...) {
+  validate_R6_class(content, "Content")
+
+  res <- content$update(...)
+
+  content$get_content_remote()
+
+  return(content)
+}
+
+#' @rdname content_update
+#' @export
+content_update_access_type <- function(content, access_type=c("all", "logged_in", "acl")) {
+  if (length(access_type) > 1 || !access_type %in% c("all", "logged_in", "acl")) {
+    stop("Please select one of 'all', 'logged_in', or 'acl'.")
+  }
+  content_update(content = content, access_type=access_type)
+}
+
+#' @rdname content_update
+#' @export
+content_update_owner <- function(content, owner_guid) {
+  content_update(content = content, owner_guid = owner_guid)
 }
 
 
@@ -580,7 +666,6 @@ create_random_name <- function(length = 25) {
 #'
 #' @param content A R6 Content item, as returned by `content_item()`
 #' @param limit Optional. Limit on number of bundles to return. Default Infinity.
-#' @param connect A R6 Connect item, as returned by `connect()`
 #' @param bundle_id A specific bundle ID for a content item
 #'
 #' @rdname get_bundles
@@ -600,11 +685,13 @@ get_bundles <- function(content, limit = Inf) {
 #' @rdname get_bundles
 #' @family content functions
 #' @export
-delete_bundle <- function(connect, bundle_id) {
-  validate_R6_class(connect, "Connect")
-  message(glue::glue("Deleting bundle {bundle_id}"))
-  connect$bundle_delete(bundle_id)
-  return(connect)
+delete_bundle <- function(content, bundle_id) {
+  validate_R6_class(content, "Content")
+  cn <- content$get_content_remote()
+  message(glue::glue("Deleting bundle {bundle_id} for content '{cn$title}' ({cn$guid})"))
+  res <- content$bundle_delete(bundle_id)
+  content$get_connect()$raise_error(res)
+  return(content)
 }
 
 

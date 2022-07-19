@@ -118,9 +118,12 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    PUT = function(path, body, encode = "json", ...) {
+    PUT = function(path, body, encode = "json", ..., .empty_object = TRUE) {
       req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
+      if (length(body) == 0 && .empty_object) {
+        body <- "{}"
+      }
       res <- rlang::exec(
         httr::PUT,
         !!!c(list(
@@ -172,9 +175,12 @@ Connect <- R6::R6Class(
       return(res)
     },
 
-    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+    PATCH = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
+      if (length(body) == 0 && .empty_object) {
+        body <- "{}"
+      }
       res <- rlang::exec(
         httr::PATCH,
         !!!c(list(
@@ -192,9 +198,12 @@ Connect <- R6::R6Class(
       httr::content(res, as = "parsed")
     },
 
-    POST = function(path, body, encode = "json", prefix = "/__api__/", ...) {
+    POST = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
+      if (length(body) == 0 && .empty_object) {
+        body <- "{}"
+      }
       res <- rlang::exec(
         httr::POST,
         !!!c(list(
@@ -384,14 +393,15 @@ Connect <- R6::R6Class(
       )
     },
 
-    # TODO: rename to bundle_download...
     download_bundle = function(bundle_id, to_path = tempfile(), overwrite=FALSE) {
+      lifecycle::deprecate_soft("0.1.1", "Connect$downlod_bundle()", "Content$bundle_download()")
       path <- glue::glue("v1/experimental/bundles/{bundle_id}/download")
       self$GET(path, httr::write_disk(to_path, overwrite = overwrite), "raw")
       to_path
     },
 
     bundle_delete = function(bundle_id) {
+      lifecycle::deprecate_soft("0.1.1", "Connect$bundle_delete()", "Content$bundle_delete()")
       path <- glue::glue("v1/experimental/bundles/{bundle_id}")
       self$DELETE(path)
     },
@@ -423,7 +433,7 @@ Connect <- R6::R6Class(
     },
 
     task = function(task_id, first = 0, wait = 5) {
-      path <- sprintf("v1/experimental/tasks/%s?first=%d&wait=%d", task_id, first, wait)
+      path <- sprintf("v1/tasks/%s?first=%d&wait=%d", task_id, first, wait)
       self$GET(path)
     },
 

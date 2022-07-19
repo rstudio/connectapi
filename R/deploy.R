@@ -214,9 +214,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
   tmpdir <- fs::file_temp("bundledir")
   dir.create(tmpdir, recursive = TRUE)
   all_files <- fs::file_copy(path = path, new_path = paste0(tmpdir, "/"))
-  if (!requireNamespace("rsconnect", quietly = TRUE)) {
-    stop("ERROR: the `rsconnect` package needs to be installed to use this function")
-  }
+  rlang::check_installed("rsconnect", "the `rsconnect` package needs to be installed to use `bundle_static()`")
   # TODO: error if these files are not static?
   # TODO: a better way to get the primary document besides `all_files[[1]]`?
   rsconnect::writeManifest(appDir = tmpdir, appPrimaryDoc = fs::path_file(all_files[[1]]))
@@ -243,40 +241,54 @@ bundle_path <- function(path) {
 
 #' Download a Bundle from Deployed Connect Content
 #'
-#' Downloads a Content item's active bundle
+#' Downloads a Content item's active bundle, or (optionally) one of its other bundles.
 #'
 #' @param content A Content object
-#' @param filename The output bundle path
+#' @param filename Optional. The output bundle path
+#' @param bundle_id Optional. A string representing the bundle_id to download.
+#'   If NULL, will use the currently active bundle.
 #' @param overwrite Optional. Default FALSE. Whether to overwrite the target location if it already exists
 #'
 #' @return Bundle A bundle object
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), overwrite=FALSE) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite=FALSE) {
   validate_R6_class(content, "Content")
 
-  from_connect <- content$get_connect()
-  from_content <- content$get_content()
-
-  if (is.null(from_content$bundle_id)) {
-    stop(
-      glue::glue(
-        "This content has no bundle_id.",
-        "It has never been successfully deployed.",
-        "See {content$get_dashboard_url()} for more information.",
-        .sep = " "
+  from_content <- content$get_content_remote()
+  if (is.null(bundle_id)) {
+    if (is.null(from_content$bundle_id)) {
+      stop(
+        glue::glue(
+          "This content has no bundle_id.",
+          "It has never been successfully deployed.",
+          "See {content$get_dashboard_url()} for more information.",
+          .sep = " "
+        )
       )
-    )
+    }
+    bundle_id <- from_content$bundle_id
   }
 
+
   message("Downloading bundle")
-  from_connect$download_bundle(bundle_id = from_content$bundle_id, to_path = filename, overwrite=overwrite)
+  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite=overwrite)
 
   Bundle$new(path = filename)
 }
 
 #' Deploy a bundle
+#'
+#' Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+#' `name` (a unique identifier) will be an auto-generated alphabetic string. If
+#' deploying to an existing endpoint, you can set `name` or `guid` to the
+#' desired content.
+#'
+#' This function accepts the same arguments as `connectapi::content_update()`.
+#'
+#' `deploy_current()` is a helper to easily redeploy the currently active bundle
+#' for an existing content item.
 #'
 #' @param connect A Connect object
 #' @param bundle A Bundle object
@@ -285,9 +297,11 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @param guid optional The GUID if the content already exists on the server
 #' @param ... Additional arguments passed along to the content creation
 #' @param .pre_deploy An expression to execute before deploying the new bundle. The variables `content` and `bundle_id` are supplied
+#' @param content A Content object
 #'
 #' @return Task A task object
 #'
+#' @seealso connectapi::content_update
 #' @family deployment functions
 #' @export
 deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
@@ -312,6 +326,15 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
 
   ContentTask$new(connect = con, content = content, task = task)
 }
+
+#' @rdname deploy
+#' @export
+deploy_current <- function(content) {
+  validate_R6_class(content, "Content")
+  res <- content$deploy()
+  return(ContentTask$new(connect = content$get_connect(), content = content, task = res))
+}
+
 
 #' Get the Content Image
 #'

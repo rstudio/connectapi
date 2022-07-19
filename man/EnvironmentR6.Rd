@@ -37,6 +37,9 @@ Other R6 classes:
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete">}\href{../../connectapi/html/Content.html#method-bundle_delete}{\code{connectapi::Content$bundle_delete()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download">}\href{../../connectapi/html/Content.html#method-bundle_download}{\code{connectapi::Content$bundle_download()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete">}\href{../../connectapi/html/Content.html#method-danger_delete}{\code{connectapi::Content$danger_delete()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy">}\href{../../connectapi/html/Content.html#method-deploy}{\code{connectapi::Content$deploy()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles">}\href{../../connectapi/html/Content.html#method-get_bundles}{\code{connectapi::Content$get_bundles()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect">}\href{../../connectapi/html/Content.html#method-get_connect}{\code{connectapi::Content$get_connect()}}\out{</span>}

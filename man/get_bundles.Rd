@@ -7,14 +7,12 @@
 \usage{
 get_bundles(content, limit = Inf)
 
-delete_bundle(connect, bundle_id)
+delete_bundle(content, bundle_id)
 }
 \arguments{
 \item{content}{A R6 Content item, as returned by \code{content_item()}}
 
 \item{limit}{Optional. Limit on number of bundles to return. Default Infinity.}
-
-\item{connect}{A R6 Connect item, as returned by \code{connect()}}
 
 \item{bundle_id}{A specific bundle ID for a content item}
 }
@@ -24,8 +22,10 @@ Lists bundles for a content item
 \seealso{
 Other content functions: 
 \code{\link{acl_add_user}()},
+\code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{content_update}()},
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
@@ -46,8 +46,10 @@ Other content functions:
 
 Other content functions: 
 \code{\link{acl_add_user}()},
+\code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{content_update}()},
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},

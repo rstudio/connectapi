@@ -56,8 +56,10 @@ Add a user or group to the content as an "owner" (collaborator) or "viewer"
 }
 \seealso{
 Other content functions: 
+\code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
+\code{\link{content_update}()},
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
