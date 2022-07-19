@@ -21,11 +21,18 @@ test_that("coerce_datetime fills the void", {
   chardate <- "2020-05-19 01:36:27Z"
   numdate <- as.double(Sys.time())
   expect_is(coerce_datetime(chardate, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(c(chardate, chardate), NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(numdate, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(c(numdate, numdate), NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(NA_datetime_, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(c(NA_datetime_, NA_datetime_), NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(NA_integer_, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(c(NA_integer_, NA_integer_), NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(NA, NA_datetime_), "POSIXct")
+  expect_is(coerce_datetime(c(NA, NA), NA), "POSIXct")
+
   expect_error(coerce_datetime(data.frame(), NA_datetime_), class = "vctrs_error_incompatible_type")
+  expect_error(coerce_datetime(list(), NA_datetime_, name = "list"), class = "vctrs_error_incompatible_type")
 
   expect_error(coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"), class = "vctrs_error_incompatible_type")
 })
