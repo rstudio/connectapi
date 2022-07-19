@@ -291,7 +291,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-permissions}{}}}
 \subsection{Method \code{permissions()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$permissions(id = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$permissions(id = NULL, add_owner = FALSE)}\if{html}{\out{</div>}}
 }
 
 }
