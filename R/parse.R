@@ -137,7 +137,7 @@ coerce_datetime <- function(x, to, ...) {
     as.POSIXct(x, tz = tzone(to))
   } else if (inherits(x, "POSIXct")) {
     x
-  } else if (is.logical(x) && is.na(x)) {
+  } else if (all(is.logical(x) & is.na(x)) && length(is.logical(x) & is.na(x)) > 0) {
     NA_datetime_
   } else {
     vctrs::stop_incompatible_cast(x = x, to = to, x_arg = tmp_name, to_arg = "to")

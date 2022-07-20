@@ -52,6 +52,9 @@
 
 ### Other Changes
 
+- `users_create_remote()` gains an `exact` argument to simplify complex cases
+  ([#135](https://github.com/rstudio/connectapi/issues/135)). Long term, we should
+  solicit feedback on whether this function attempts to do too much.
 - Add helpers for common content modification actions: `content_update()`,
   `content_update_access_type()` and `content_update_owner()`
 - Fix an issue with relative paths in `bundle_dir()`
@@ -71,11 +74,16 @@
 - Protect against bad bundles
 ([#13](https://github.com/rstudio/connectapi/issues/13))
 - Error if an empty API key is defined ([#16](https://github.com/rstudio/connectapi/issues/16))
-- Add a few `content_list_*` helpers ([#130](https://github.com/rstudio/connectapi/pulls/130)):
-  - `content_list_with_permissions` returns a `content_list` with a "permission" column that includes who has access
+- Add a few `content_list_*` helpers
+  ([#130](https://github.com/rstudio/connectapi/pulls/130)):
+  - `content_list_with_permissions` returns a `content_list` with a "permission"
+    column that includes who has access
   - `content_list_by_tag` allows fetching just a `content_list` for a particular tag
-  - `content_list_guid_has_access` filters a "content list with permission" by whether a user or group GUID has access
-- Add a `user_guid_from_username()` function to convert `session$user` or other usernames to a user GUID ([#130](https://github.com/rstudio/connectapi/pulls/130))
+  - `content_list_guid_has_access` filters a "content list with permission" by
+    whether a user or group GUID has access
+- Add a `user_guid_from_username()` function to convert `session$user` or other
+  usernames to a user GUID
+  ([#130](https://github.com/rstudio/connectapi/pulls/130))
 
 # connectapi 0.1.0.9018
 
