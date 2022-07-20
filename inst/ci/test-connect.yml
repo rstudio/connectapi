@@ -11,3 +11,7 @@ services:
     environment:
       - RSC_LICENSE
       - RSC_HASTE_ENABLED=true
+    platform: linux/amd64
+    # if you need to customize Connect config until we have env vars
+    # volumes:
+    #  - ../../tmp.gcfg:/etc/rstudio-connect/rstudio-connect.gcfg
