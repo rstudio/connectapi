@@ -3,11 +3,11 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/connectapi)](https://cran.r-project.org/package=connectapi)
 [![Codecov test
-coverage](https://codecov.io/gh/rstudio/connectapi/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/connectapi?branch=main)
+coverage](https://codecov.io/gh/rstudio/connectapi/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rstudio/connectapi?branch=main)
 [![R build
 status](https://github.com/rstudio/connectapi/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/connectapi/actions)
 <!-- badges: end -->
@@ -43,6 +43,12 @@ We love hearing how the RStudio Connect Server API is helpful and what
 additional endpoints would be useful!!**
 
 ## Installation
+
+To install from CRAN:
+
+``` r
+install.packages("connectapi")
+```
 
 To install the development version:
 
