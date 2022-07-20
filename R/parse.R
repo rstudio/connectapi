@@ -7,6 +7,12 @@ safe_format <- function(expr, ...) {
   }
 }
 
+datetime_to_rfc3339 <- function(input) {
+  tmp <- format(input, format = "%Y-%m-%dT%H:%M:%OS5%z")
+  ln <- nchar(tmp)
+  paste0(substr(tmp, 0, ln - 2), ":", substr(tmp, ln - 1, ln))
+}
+
 make_timestamp <- function(input) {
   if (is.character(input)) {
     # TODO: make sure this is the right timestamp format

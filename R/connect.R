@@ -686,6 +686,19 @@ Connect <- R6::R6Class(
       self$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
     },
 
+    # schedule --------------------------------------------------
+    schedules = function(start = Sys.time(), end = Sys.time() + 60*60*24*7, detailed = FALSE) {
+      warn_experimental("schedules")
+      url <- "v1/experimental/schedules"
+      query_params <- rlang::list2(
+        detailed = tolower(detailed),
+        start = datetime_to_rfc3339(start),
+        end = datetime_to_rfc3339(end)
+      )
+      res <- self$GET(url, query = query_params)
+      return(res[["schedules"]])
+    },
+
     # misc utilities --------------------------------------------
 
     docs = function(docs = "api", browse = TRUE) {
@@ -805,7 +818,8 @@ connect <- function(
 check_debug <- function(req, res) {
   debug <- getOption("connect.debug")
   if (!is.null(debug) && debug) {
-    message(req)
+    message(paste(res[["request"]][["method"]], res[["request"]][["url"]]))
+    message(paste("Response", res[["status_code"]]))
     message(httr::content(res, as = "text"))
   }
 }

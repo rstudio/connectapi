@@ -99,6 +99,7 @@ Other R6 classes:
 \item \href{#method-repo_account}{\code{Connect$repo_account()}}
 \item \href{#method-repo_branches}{\code{Connect$repo_branches()}}
 \item \href{#method-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
+\item \href{#method-schedules}{\code{Connect$schedules()}}
 \item \href{#method-docs}{\code{Connect$docs()}}
 \item \href{#method-audit_logs}{\code{Connect$audit_logs()}}
 \item \href{#method-server_settings_r}{\code{Connect$server_settings_r()}}
@@ -662,6 +663,19 @@ Other R6 classes:
 \subsection{Method \code{repo_manifest_dirs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$repo_manifest_dirs(repo, branch)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-schedules"></a>}}
+\if{latex}{\out{\hypertarget{method-schedules}{}}}
+\subsection{Method \code{schedules()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$schedules(
+  start = Sys.time(),
+  end = Sys.time() + 60 * 60 * 24 * 7,
+  detailed = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 }

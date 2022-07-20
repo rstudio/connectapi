@@ -57,12 +57,15 @@ Variant <- R6::R6Class(
       res
     },
     get_subscribers = function() {
+      warn_experimental("subscribers")
       self$get_connect()$GET("variants/{self$get_variant()$id}/subscribers")
     },
     remove_subscriber = function(guid) {
+      warn_experimental("subscribers")
       self$get_connect()$DELETE("variants/{self$get_variant()$id}/subscribers/{guid}")
     },
     add_subscribers = function(guids) {
+      warn_experimental("subscribers")
       url <- glue::glue("variants/{self$get_variant()$id}/subscribers")
       self$get_connect()$POST(
         path = url,
@@ -274,18 +277,18 @@ variant_render <- function(variant) {
 }
 
 # TODO
-set_variant_email_viewers <- function() {
-
-}
-
-set_variant_email_collaborators <- function() {
-
-}
-
-set_variant_email_subscribe <- function() {
-
-}
-
-set_variant_email_unsubscribe <- function() {
-
-}
+# set_variant_email_viewers <- function() {
+#
+# }
+#
+# set_variant_email_collaborators <- function() {
+#
+# }
+#
+# set_variant_email_subscribe <- function() {
+#
+# }
+#
+# set_variant_email_unsubscribe <- function() {
+#
+# }

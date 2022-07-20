@@ -13,6 +13,7 @@
 \alias{set_schedule_dayweekofmonth}
 \alias{set_schedule_year}
 \alias{set_schedule_remove}
+\alias{schedule_describe}
 \title{Set a Schedule}
 \usage{
 set_schedule(.schedule, ...)
@@ -22,7 +23,8 @@ set_schedule_minute(
   n = 30,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_hour(
@@ -30,7 +32,8 @@ set_schedule_hour(
   n = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_day(
@@ -38,14 +41,16 @@ set_schedule_day(
   n = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_weekday(
   .schedule,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_week(
@@ -53,7 +58,8 @@ set_schedule_week(
   n = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_dayofweek(
@@ -61,7 +67,8 @@ set_schedule_dayofweek(
   days,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_semimonth(
@@ -69,7 +76,8 @@ set_schedule_semimonth(
   first = TRUE,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_dayofmonth(
@@ -78,7 +86,8 @@ set_schedule_dayofmonth(
   day = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_dayweekofmonth(
@@ -88,7 +97,8 @@ set_schedule_dayweekofmonth(
   week = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_year(
@@ -96,10 +106,13 @@ set_schedule_year(
   n = 1,
   start_time = Sys.time(),
   activate = TRUE,
-  email = FALSE
+  email = FALSE,
+  timezone = Sys.timezone()
 )
 
 set_schedule_remove(.schedule)
+
+schedule_describe(.schedule)
 }
 \arguments{
 \item{.schedule}{A schedule object. As returned by \code{get_variant_schedule()}}
@@ -113,6 +126,8 @@ set_schedule_remove(.schedule)
 \item{activate}{Whether to publish the output of this schedule}
 
 \item{email}{Whether to send emails on this schedule}
+
+\item{timezone}{The timezone to use for setting the schedule. Defaults to \code{Sys.timezone()}}
 
 \item{days}{The days of the week (0-6)}
 
@@ -144,6 +159,7 @@ recommended.
 }
 \seealso{
 Other schedule functions: 
+\code{\link{get_timezones}()},
 \code{\link{get_variant_schedule}()}
 }
 \concept{schedule functions}

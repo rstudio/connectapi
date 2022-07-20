@@ -17,6 +17,7 @@ A VariantSchedule object
 }
 \seealso{
 Other schedule functions: 
+\code{\link{get_timezones}()},
 \code{\link{set_schedule}()}
 }
 \concept{schedule functions}
