@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9037</span>
       </span>
     </div>
 
@@ -101,7 +101,9 @@
 </ul></div>
 <div class="section level4">
 <h4 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h4>
-<ul><li>Add helpers for common content modification actions: <code><a href="../reference/content_update.html">content_update()</a></code>, <code><a href="../reference/content_update.html">content_update_access_type()</a></code> and <code><a href="../reference/content_update.html">content_update_owner()</a></code>
+<ul><li>
+<code><a href="../reference/users_create_remote.html">users_create_remote()</a></code> gains an <code>exact</code> argument to simplify complex cases (<a href="https://github.com/rstudio/connectapi/issues/135" class="external-link">#135</a>). Long term, we should solicit feedback on whether this function attempts to do too much.</li>
+<li>Add helpers for common content modification actions: <code><a href="../reference/content_update.html">content_update()</a></code>, <code><a href="../reference/content_update.html">content_update_access_type()</a></code> and <code><a href="../reference/content_update.html">content_update_owner()</a></code>
 </li>
 <li>Fix an issue with relative paths in <code><a href="../reference/bundle_dir.html">bundle_dir()</a></code> (<a href="https://github.com/slodge" class="external-link"><code>@slodge</code></a>) (<a href="https://github.com/rstudio/connectapi/issues/118" class="external-link">#118</a>, <a href="https://github.com/rstudio/connectapi/issues/121" class="external-link">#121</a>)</li>
 <li>Add <code>overwrite=</code> parameter to <code><a href="../reference/download_bundle.html">download_bundle()</a></code>
