@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9038</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -70,9 +70,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
+<h2 class="page-header" data-toc-text="0.1.1" id="connectapi-011">connectapi 0.1.1<a class="anchor" aria-label="anchor" href="#connectapi-011"></a></h2>
 <div class="section level4">
-<h4 id="breaking-development-version">BREAKING<a class="anchor" aria-label="anchor" href="#breaking-development-version"></a></h4>
+<h4 id="breaking-0-1-1">BREAKING<a class="anchor" aria-label="anchor" href="#breaking-0-1-1"></a></h4>
 <ul><li>BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release). (<a href="https://github.com/rstudio/connectapi/pulls/12" class="external-link">#128</a>)<ul><li>
 <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code>, <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code>, <code><a href="../reference/swap_vanity_url.html">swap_vanity_url()</a></code>
 </li>
@@ -100,7 +100,7 @@
 <li>BREAKING: <code>Connect$PUT()</code>, <code>Connect$POST()</code> and <code>Connect$PATCH()</code> endpoints now presume that an empty list is really a “map”/“object” (like <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> instead of <code>[]</code>). This can break some endpoints that expect a list. Set <code>.empty_object=FALSE</code> to avoid this behavior.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="other-changes-development-version">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h4>
+<h4 id="other-changes-0-1-1">Other Changes<a class="anchor" aria-label="anchor" href="#other-changes-0-1-1"></a></h4>
 <ul><li>
 <code><a href="../reference/users_create_remote.html">users_create_remote()</a></code> gains an <code>exact</code> argument to simplify complex cases (<a href="https://github.com/rstudio/connectapi/issues/135" class="external-link">#135</a>). Long term, we should solicit feedback on whether this function attempts to do too much.</li>
 <li>Add helpers for common content modification actions: <code><a href="../reference/content_update.html">content_update()</a></code>, <code><a href="../reference/content_update.html">content_update_access_type()</a></code> and <code><a href="../reference/content_update.html">content_update_owner()</a></code>
