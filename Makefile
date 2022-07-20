@@ -40,49 +40,49 @@ update-versions:
 #---------------------------------------------
 mail-up:
 	NETWORK=${NETWORK} \
-	docker-compose -f inst/ci/mail.yml -f inst/ci/make-network.yml up -d
+	docker-compose -f .github/local/mail.yml -f .github/local/make-network.yml up -d
 
 mail-down:
 	NETWORK=${NETWORK} \
-	docker-compose -f inst/ci/mail.yml -f inst/ci/make-network.yml down
+	docker-compose -f .github/local/mail.yml -f .github/local/make-network.yml down
 
 connect-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
 	RSC_VERSION=$(RSC_VERSION) \
-	docker-compose -f inst/ci/test-connect.yml -f inst/ci/make-network.yml up -d
+	docker-compose -f inst/ci/test-connect.yml -f .github/local/make-network.yml up -d
 
 connect-down:
 	NETWORK=${NETWORK} \
-	docker-compose -f inst/ci/test-connect.yml -f inst/ci/make-network.yml down
+	docker-compose -f inst/ci/test-connect.yml -f .github/local/make-network.yml down
 
 connect-file-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
 	RSC_VERSION=$(RSC_VERSION) \
-	docker-compose -f inst/ci/test-connect-lic.yml -f inst/ci/make-network.yml up -d
+	docker-compose -f inst/ci/test-connect-lic.yml -f .github/local/make-network.yml up -d
 
 connect-file-down:
 	NETWORK=${NETWORK} \
-	docker-compose -f inst/ci/test-connect-lic.yml -f inst/ci/make-network.yml down
+	docker-compose -f inst/ci/test-connect-lic.yml -f .github/local/make-network.yml down
 
 test-env-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
 	RSC_VERSION=$(RSC_VERSION) \
-	docker-compose -f inst/ci/test-connect-ci.yml -f inst/ci/make-network.yml up -d
+	docker-compose -f .github/local/test-connect-ci.yml -f .github/local/make-network.yml up -d
 
 test-env-down:
 	NETWORK=${NETWORK} \
-	docker-compose -f inst/ci/test-connect-ci.yml -f inst/ci/make-network.yml down
+	docker-compose -f .github/local/test-connect-ci.yml -f .github/local/make-network.yml down
 
 test-run:
 	NETWORK=${NETWORK} \
-  docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test
+  docker-compose -f .github/local/test.yml -f .github/local/make-network.yml run test
 
 test-run-i:
 	NETWORK=${NETWORK} \
-  docker-compose -f inst/ci/test.yml -f inst/ci/make-network.yml run test bash
+  docker-compose -f .github/local/test.yml -f .github/local/make-network.yml run test bash
 
 test: network-up test-env-up test-run test-env-down network-down
 
