@@ -586,8 +586,7 @@ content_delete <- function(content, force=FALSE) {
     }
   }
 
-  cat(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
-  cat("\n")
+  message(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
   res <- content$danger_delete()
   content$get_connect()$raise_error(res)
 
