@@ -19,7 +19,7 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9037</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9038</span>
       </span>
     </div>
 
@@ -86,7 +86,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  n <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_hour</span><span class="op">(</span></span>
@@ -94,7 +95,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_day</span><span class="op">(</span></span>
@@ -102,14 +104,16 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_weekday</span><span class="op">(</span></span>
 <span>  <span class="va">.schedule</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_week</span><span class="op">(</span></span>
@@ -117,7 +121,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_dayofweek</span><span class="op">(</span></span>
@@ -125,7 +130,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  <span class="va">days</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_semimonth</span><span class="op">(</span></span>
@@ -133,7 +139,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  first <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_dayofmonth</span><span class="op">(</span></span>
@@ -142,7 +149,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  day <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_dayweekofmonth</span><span class="op">(</span></span>
@@ -152,7 +160,8 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  week <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">set_schedule_year</span><span class="op">(</span></span>
@@ -160,10 +169,13 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  start_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  activate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  email <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  email <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timezone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">set_schedule_remove</span><span class="op">(</span><span class="va">.schedule</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">set_schedule_remove</span><span class="op">(</span><span class="va">.schedule</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">schedule_describe</span><span class="op">(</span><span class="va">.schedule</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -190,6 +202,10 @@ Schedule object (as returned by get_variant_schedule())"><meta property="og:imag
 
 <dt>email</dt>
 <dd><p>Whether to send emails on this schedule</p></dd>
+
+
+<dt>timezone</dt>
+<dd><p>The timezone to use for setting the schedule. Defaults to <code><a href="https://rdrr.io/r/base/timezones.html" class="external-link">Sys.timezone()</a></code></p></dd>
 
 
 <dt>days</dt>
@@ -231,6 +247,7 @@ recommended.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other schedule functions: 
+<code><a href="get_timezones.html">get_timezones</a>()</code>,
 <code><a href="get_variant_schedule.html">get_variant_schedule</a>()</code></p></div>
     </div>
 

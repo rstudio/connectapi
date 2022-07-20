@@ -187,6 +187,9 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_procs.html</loc>
   </url>
   <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/get_timezones.html</loc>
+  </url>
+  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_usage_shiny.html</loc>
   </url>
   <url>

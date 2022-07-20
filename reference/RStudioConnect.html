@@ -18,7 +18,7 @@ Class representing a Connect API client"><meta property="og:image" content="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9037</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9038</span>
       </span>
     </div>
 
@@ -172,6 +172,7 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href="#method-repo_account"><code>Connect$repo_account()</code></a></p></li>
 <li><p><a href="#method-repo_branches"><code>Connect$repo_branches()</code></a></p></li>
 <li><p><a href="#method-repo_manifest_dirs"><code>Connect$repo_manifest_dirs()</code></a></p></li>
+<li><p><a href="#method-schedules"><code>Connect$schedules()</code></a></p></li>
 <li><p><a href="#method-docs"><code>Connect$docs()</code></a></p></li>
 <li><p><a href="#method-audit_logs"><code>Connect$audit_logs()</code></a></p></li>
 <li><p><a href="#method-server_settings_r"><code>Connect$server_settings_r()</code></a></p></li>
@@ -736,11 +737,24 @@ API. Authentication is done by providing an API key.</p>
 </div>
 
 
+</div><p></p><hr><a id="method-schedules"></a><div class="section">
+<h3 id="method-schedules-">Method <code>schedules()</code><a class="anchor" aria-label="anchor" href="#method-schedules-"></a></h3>
+
+<div class="section">
+<h4 id="usage-57">Usage<a class="anchor" aria-label="anchor" href="#usage-57"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">schedules</span><span class="op">(</span></span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">7</span>,</span>
+<span>  detailed <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
 </div><p></p><hr><a id="method-docs"></a><div class="section">
 <h3 id="method-docs-">Method <code>docs()</code><a class="anchor" aria-label="anchor" href="#method-docs-"></a></h3>
 
 <div class="section">
-<h4 id="usage-57">Usage<a class="anchor" aria-label="anchor" href="#usage-57"></a></h4>
+<h4 id="usage-58">Usage<a class="anchor" aria-label="anchor" href="#usage-58"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">docs</span><span class="op">(</span>docs <span class="op">=</span> <span class="st">"api"</span>, browse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -749,7 +763,7 @@ API. Authentication is done by providing an API key.</p>
 <h3 id="method-audit-logs-">Method <code>audit_logs()</code><a class="anchor" aria-label="anchor" href="#method-audit-logs-"></a></h3>
 
 <div class="section">
-<h4 id="usage-58">Usage<a class="anchor" aria-label="anchor" href="#usage-58"></a></h4>
+<h4 id="usage-59">Usage<a class="anchor" aria-label="anchor" href="#usage-59"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">audit_logs</span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">20L</span>, previous <span class="op">=</span> <span class="cn">NULL</span>, nxt <span class="op">=</span> <span class="cn">NULL</span>, asc_order <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -758,7 +772,7 @@ API. Authentication is done by providing an API key.</p>
 <h3 id="method-server-settings-r-">Method <code>server_settings_r()</code><a class="anchor" aria-label="anchor" href="#method-server-settings-r-"></a></h3>
 
 <div class="section">
-<h4 id="usage-59">Usage<a class="anchor" aria-label="anchor" href="#usage-59"></a></h4>
+<h4 id="usage-60">Usage<a class="anchor" aria-label="anchor" href="#usage-60"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings_r</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -767,7 +781,7 @@ API. Authentication is done by providing an API key.</p>
 <h3 id="method-server-settings-">Method <code>server_settings()</code><a class="anchor" aria-label="anchor" href="#method-server-settings-"></a></h3>
 
 <div class="section">
-<h4 id="usage-60">Usage<a class="anchor" aria-label="anchor" href="#usage-60"></a></h4>
+<h4 id="usage-61">Usage<a class="anchor" aria-label="anchor" href="#usage-61"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -775,7 +789,7 @@ API. Authentication is done by providing an API key.</p>
 </div><p></p><hr><a id="method-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-61">Usage<a class="anchor" aria-label="anchor" href="#usage-61"></a></h4>
+<h4 id="usage-62">Usage<a class="anchor" aria-label="anchor" href="#usage-62"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
