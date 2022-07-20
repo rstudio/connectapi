@@ -49,6 +49,16 @@ This function accepts the same arguments as \code{connectapi::content_update()}.
 \code{deploy_current()} is a helper to easily redeploy the currently active bundle
 for an existing content item.
 }
+\examples{
+\dontrun{
+  client <- connect()
+
+  # beware bundling big directories, like `renv/`, `data/`, etc.
+  bnd <- bundle_dir(".")
+
+  deploy(client, bnd)
+}
+}
 \seealso{
 connectapi::content_update
 

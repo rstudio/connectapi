@@ -17,6 +17,13 @@ A Content object for use with other content endpoints
 \description{
 Returns a single content item based on guid
 }
+\examples{
+\dontrun{
+  connect() \%>\%
+    content_item("some-guid") \%>\%
+    content_update_access_type("all")
+}
+}
 \seealso{
 Other content functions: 
 \code{\link{acl_add_user}()},

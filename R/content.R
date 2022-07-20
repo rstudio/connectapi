@@ -379,6 +379,12 @@ set_environment_all <- function(env, ...) {
 #'
 #' @family content functions
 #' @export
+#' @examples
+#' \dontrun{
+#'   connect() %>%
+#'     content_item("some-guid") %>%
+#'     content_update_access_type("all")
+#' }
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist
   validate_R6_class(connect, "Connect")

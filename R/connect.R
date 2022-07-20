@@ -760,6 +760,18 @@ Connect <- R6::R6Class(
 #' @return An RStudio Connect R6 object that can be passed along to methods
 #'
 #' @rdname connect
+#'
+#' @examples
+#' \dontrun{
+#' connect()
+#' }
+#'
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
+#'
+#' # default is to read CONNECT_SERVER and CONNECT_API_KEY environment variables
+#' # this example will read TEST_1_SERVER and TEST_1_API_KEY
+#' connect(prefix = "TEST_1")
+#'
 #' @export
 connect <- function(
    server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),

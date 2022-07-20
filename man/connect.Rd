@@ -35,3 +35,9 @@ Creates a connection to RStudio Connect using the server URL and an api key.
 Validates the connection and checks that the version of the server is
 compatible with the current version of the package.
 }
+\examples{
+\dontrun{
+connect()
+}
+
+}
