@@ -3,8 +3,7 @@
 #' Get ACL Details
 #'
 #' \lifecycle{deprecated} Retrieve the Access Controls associated with a given
-#' piece of content. Deprecated in favor of `content_add_user()` [and
-#' friends](connectapi::permissions).
+#' piece of content. Deprecated in favor of [content_add_user()] or [permissions].
 #'
 #' NOTE: ACLs can still be stored, even when access_type for content is "all" or
 #' "logged_in" users. In these cases, granting or removing "viewer" privileges

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 The first thing that you need to accomplish when using the `connectapi` is
 getting connected to your RStudio Connect server. This requires the URL to your
 server and an API key. Directions on how to get an API key are
-[here](https://docs.rstudio.com/connect/user/api-keys.html#api-keys).
+[here](https://docs.rstudio.com/connect/user/api-keys/#api-keys).
 
 Once you have your API key, you can create a Connect object in your code, like so:
 

@@ -431,14 +431,14 @@ has_image <- function(content) {
 #'
 #' Set the Content Image using a variety of methods.
 #'
-#' NOTE: `set_image_webshot()` requires [`webshot2`](webshot2::webshot) package, but
-#' currently skips and warns for any content that requires authentication until
-#' the [`webshot2`](webshot2::webshot) package supports authentication.
+#' NOTE: `set_image_webshot()` requires [webshot2::webshot()], but currently
+#' skips and warns for any content that requires authentication until the
+#' `webshot2` package supports authentication.
 #'
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
-#' @param ... Additional arguments passed on to [`webshot2`](webshot2::webshot)
+#' @param ... Additional arguments passed on to [webshot2::webshot()]
 #'
 #' @rdname set_image
 #' @family content functions
