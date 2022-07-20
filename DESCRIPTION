@@ -15,7 +15,9 @@ Authors@R:
              role = c("cph", "fnd")))
 Description: Provides a helpful 'R6' class and methods for interacting with 
     the 'RStudio Connect' Server API along with some meaningful utility functions
-    for regular tasks.
+    for regular tasks. API documentation varies by 'RStudio Connect' installation
+    and version, but the latest documentation is also hosted publicly at 
+    https://docs.rstudio.com/connect/api/.
 License: MIT + file LICENSE
 URL: https://github.com/rstudio/connectapi
 Imports: 
