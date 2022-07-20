@@ -160,6 +160,8 @@ test_that("deploy_current works", {
   tsk$update(title = "test deploy_current")
   expect_equal(tsk$get_content_remote()$last_deployed_time, first_deploy)
 
+  Sys.sleep(1)
+
   # a redeploy does
   res <- deploy_current(tsk)
   expect_true(validate_R6_class(res, "ContentTask"))
