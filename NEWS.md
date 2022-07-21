@@ -1,4 +1,6 @@
-# connectapi 0.1.1
+# connectapi (development version)
+
+# connectapi 0.1.1.1
 
 ### BREAKING
 
