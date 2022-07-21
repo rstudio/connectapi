@@ -223,7 +223,7 @@ test_that("content_delete works", {
 
   tsk <- deploy(connect = test_conn_1, bundle = bund)
 
-  expect_output(res <- content_delete(tsk, force=TRUE) , "Deleting content")
+  expect_message(res <- content_delete(tsk, force=TRUE) , "Deleting content")
   expect_true(validate_R6_class(res, "Content"))
 
   expect_error(res$get_content_remote(), "404")
