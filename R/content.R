@@ -379,6 +379,12 @@ set_environment_all <- function(env, ...) {
 #'
 #' @family content functions
 #' @export
+#' @examples
+#' \dontrun{
+#'   connect() %>%
+#'     content_item("some-guid") %>%
+#'     content_update_access_type("all")
+#' }
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist
   validate_R6_class(connect, "Connect")
@@ -580,8 +586,7 @@ content_delete <- function(content, force=FALSE) {
     }
   }
 
-  cat(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
-  cat("\n")
+  message(glue::glue("Deleting content '{cn$title}' ({cn$guid})"))
   res <- content$danger_delete()
   content$get_connect()$raise_error(res)
 

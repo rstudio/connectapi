@@ -31,7 +31,7 @@ A list of users/groups who have access to the content
 }
 \description{
 \lifecycle{deprecated} Retrieve the Access Controls associated with a given
-piece of content. Deprecated in favor of \code{content_add_user()} \href{connectapi::permissions}{and friends}.
+piece of content. Deprecated in favor of \code{\link[=content_add_user]{content_add_user()}} or \link{permissions}.
 }
 \details{
 NOTE: ACLs can still be stored, even when access_type for content is "all" or

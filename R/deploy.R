@@ -164,6 +164,9 @@ Vanity <- R6::R6Class(
 #'
 #' @family deployment functions
 #' @export
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
+#'
+#' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi))
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
 
   # TODO: check for manifest.json
@@ -209,6 +212,11 @@ check_bundle_contents <- function(dir) {
 #' @return Bundle A bundle object
 #'
 #' @family deployment functions
+#'
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
+#'
+#' bundle_static(system.file("logo.png", package = "connectapi))
+#'
 #' @export
 bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
   tmpdir <- fs::file_temp("bundledir")
@@ -229,6 +237,9 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
 #'
 #' @family deployment functions
 #' @export
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
+#'
+#' bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
 bundle_path <- function(path) {
   # TODO: need a check on filetype
   # TODO: a way to check that the .tar.gz has a manifest.json?
@@ -304,6 +315,21 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @seealso connectapi::content_update
 #' @family deployment functions
 #' @export
+#' @examples
+#' \dontrun{
+#'   client <- connect()
+#'
+#'   # beware bundling big directories, like `renv/`, `data/`, etc.
+#'   bnd <- bundle_dir(".")
+#'
+#'   deploy(client, bnd)
+#' }
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
+#'
+#' client <- connect(prefix = "TEST_1")
+#' bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
+#' deploy(client, bnd)
+#'
 deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
   validate_R6_class(bundle, "Bundle")
   validate_R6_class(connect, "Connect")
@@ -431,14 +457,14 @@ has_image <- function(content) {
 #'
 #' Set the Content Image using a variety of methods.
 #'
-#' NOTE: `set_image_webshot()` requires [`webshot2`](webshot2::webshot) package, but
-#' currently skips and warns for any content that requires authentication until
-#' the [`webshot2`](webshot2::webshot) package supports authentication.
+#' NOTE: `set_image_webshot()` requires [webshot2::webshot()], but currently
+#' skips and warns for any content that requires authentication until the
+#' `webshot2` package supports authentication.
 #'
 #' @param content A content object
 #' @param path The path to an image on disk
 #' @param url The url for an image
-#' @param ... Additional arguments passed on to [`webshot2`](webshot2::webshot)
+#' @param ... Additional arguments passed on to [webshot2::webshot()]
 #'
 #' @rdname set_image
 #' @family content functions

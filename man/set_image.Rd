@@ -19,7 +19,7 @@ set_image_webshot(content, ...)
 
 \item{url}{The url for an image}
 
-\item{...}{Additional arguments passed on to \href{webshot2::webshot}{\code{webshot2}}}
+\item{...}{Additional arguments passed on to \code{\link[webshot2:webshot]{webshot2::webshot()}}}
 }
 \description{
 \lifecycle{experimental}
@@ -27,9 +27,9 @@ set_image_webshot(content, ...)
 \details{
 Set the Content Image using a variety of methods.
 
-NOTE: \code{set_image_webshot()} requires \href{webshot2::webshot}{\code{webshot2}} package, but
-currently skips and warns for any content that requires authentication until
-the \href{webshot2::webshot}{\code{webshot2}} package supports authentication.
+NOTE: \code{set_image_webshot()} requires \code{\link[webshot2:webshot]{webshot2::webshot()}}, but currently
+skips and warns for any content that requires authentication until the
+\code{webshot2} package supports authentication.
 }
 \seealso{
 Other content functions: 
