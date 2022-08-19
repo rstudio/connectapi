@@ -12,7 +12,8 @@ deploy(
   title = name,
   guid = NULL,
   ...,
-  .pre_deploy = { }
+  .pre_deploy = {
+ }
 )
 
 deploy_current(content)
