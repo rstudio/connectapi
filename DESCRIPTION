@@ -1,7 +1,7 @@
 Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the 'RStudio Connect' Server API
-Version: 0.1.1.9000
+Version: 0.1.1.9001
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
@@ -62,5 +62,5 @@ RdMacros:
     lifecycle
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
