@@ -1,5 +1,8 @@
 # connectapi (development version)
 
+- Fix issue with HTML documentation to retain on CRAN
+([#164](https://github.com/rstudio/connectapi/pull/164))
+
 # connectapi 0.1.1.1
 
 ### BREAKING
