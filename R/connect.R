@@ -34,13 +34,14 @@ Connect <- R6::R6Class(
       self
     },
 
-    initialize = function(server, api_key) {
+    initialize = function(server, api_key, httr_config = NULL) {
       message(glue::glue("Defining Connect with server: {server}"))
       if (is.null(httr::parse_url(server)$scheme)) {
         stop(glue::glue("ERROR: Please provide a protocol (http / https). You gave: {server}"))
       }
       self$server <- base::sub("^(.*)/$", "\\1", server)
       self$api_key <- api_key
+      self$httr_config(httr_config)
     },
 
     httr_config = function(...) {
@@ -778,6 +779,7 @@ connect <- function(
    api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
    prefix = "CONNECT",
    ...,
+   httr_config = NULL,
    .check_is_fatal = TRUE
    ) {
   if (
@@ -803,10 +805,10 @@ connect <- function(
       message(msg)
     }
   }
-  con <- Connect$new(server = server, api_key = api_key)
+  con <- Connect$new(server = server, api_key = api_key, httr_config = httr_config)
 
   tryCatch({
-    check_connect_license(con$server)
+    check_connect_license(con)
 
     # check Connect is accessible
     srv <- safe_server_settings(con)
