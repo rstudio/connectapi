@@ -806,7 +806,7 @@ connect <- function(
   con <- Connect$new(server = server, api_key = api_key)
 
   tryCatch({
-    check_connect_license(con$server)
+    check_connect_license(con)
 
     # check Connect is accessible
     srv <- safe_server_settings(con)
