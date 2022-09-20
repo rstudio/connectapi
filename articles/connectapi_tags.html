@@ -142,8 +142,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_project_1</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********IKS2</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********OON5</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span></span>
@@ -154,8 +154,8 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_project_2</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********IKS2</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********OON5</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect Tag Tree (filtered)</span></span>
@@ -182,7 +182,7 @@
 <p>In order to show how tags work, we need some content to work with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Bundling directory (/tmp/Rtmpdb4UJO/bundledir404c40a052fc)</span></span></code></pre>
+<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpRsFGgt/bundledir437b1a3a1960)</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Getting content endpoint</span></span></code></pre>
@@ -207,9 +207,9 @@
 <span><span class="co">## └── DemoProject</span></span>
 <span><span class="co">##    └── project_1</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 499ad7ee-cc54-4d85-b43b-d19d88b2fc83</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/499ad7ee-cc54-4d85-b43b-d19d88b2fc83/</span></span>
-<span><span class="co">##   Task ID: EdjKo1J1h6Bb07xx</span></span></code></pre>
+<span><span class="co">##   Content GUID: 4463fa96-faea-491b-a5be-e77673ec6443</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/4463fa96-faea-491b-a5be-e77673ec6443/</span></span>
+<span><span class="co">##   Task ID: wirjDY6lf2GmM8sN</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect Tag Tree (content)</span></span>
@@ -218,9 +218,9 @@
 <span><span class="co">## └── DemoAudience</span></span>
 <span><span class="co">##    └── Sales</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 499ad7ee-cc54-4d85-b43b-d19d88b2fc83</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/499ad7ee-cc54-4d85-b43b-d19d88b2fc83/</span></span>
-<span><span class="co">##   Task ID: EdjKo1J1h6Bb07xx</span></span></code></pre>
+<span><span class="co">##   Content GUID: 4463fa96-faea-491b-a5be-e77673ec6443</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/4463fa96-faea-491b-a5be-e77673ec6443/</span></span>
+<span><span class="co">##   Task ID: wirjDY6lf2GmM8sN</span></span></code></pre>
 <p>Content 2 is for <code>project_2</code> and both Audiences (<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span></span>
@@ -236,9 +236,9 @@
 <span><span class="co">##    ├── Sales</span></span>
 <span><span class="co">##    └── Finance</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: dc76c57e-0292-433a-9743-0407ce9dce8a</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/dc76c57e-0292-433a-9743-0407ce9dce8a/</span></span>
-<span><span class="co">##   Task ID: cE0gXdjQau02ii0L</span></span></code></pre>
+<span><span class="co">##   Content GUID: 705ff3ed-98e7-4ad2-882c-6f2a10049f7b</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/705ff3ed-98e7-4ad2-882c-6f2a10049f7b/</span></span>
+<span><span class="co">##   Task ID: acXF0IX1wxuLWEze</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="see-the-tags-associated-with-content">See the tags associated with content<a class="anchor" aria-label="anchor" href="#see-the-tags-associated-with-content"></a>
@@ -272,30 +272,28 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 32</span></span></span>
 <span><span class="co">##   guid       name  title descr…¹ acces…² conne…³ read_…⁴ init_…⁵ idle_…⁶ max_p…⁷</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> dc76c57e-… vcej… vcej… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 499ad7ee-… jlbr… jlbr… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 705ff3ed-… zspb… zspb… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 4463fa96-… pgyl… pgyl… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 22 more variables: min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   parameterized &lt;lgl&gt;, cluster_name &lt;chr&gt;, image_name &lt;chr&gt;, r_version &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   py_version &lt;chr&gt;, quarto_version &lt;chr&gt;, run_as &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   run_as_current_user &lt;lgl&gt;, owner_guid &lt;chr&gt;, content_url &lt;chr&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, owner &lt;list&gt;, and …</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, owner &lt;list&gt;, and …</span></span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/content_list.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">project_1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 32</span></span></span>
 <span><span class="co">##   guid       name  title descr…¹ acces…² conne…³ read_…⁴ init_…⁵ idle_…⁶ max_p…⁷</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 499ad7ee-… jlbr… jlbr… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 4463fa96-… pgyl… pgyl… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 22 more variables: min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   parameterized &lt;lgl&gt;, cluster_name &lt;chr&gt;, image_name &lt;chr&gt;, r_version &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   py_version &lt;chr&gt;, quarto_version &lt;chr&gt;, run_as &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   run_as_current_user &lt;lgl&gt;, owner_guid &lt;chr&gt;, content_url &lt;chr&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, owner &lt;list&gt;, and …</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   dashboard_url &lt;chr&gt;, app_role &lt;chr&gt;, id &lt;chr&gt;, owner &lt;list&gt;, and …</span></span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/content_list.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 32</span></span></span>
@@ -305,8 +303,7 @@
 <span><span class="co">## <span style="color: #949494;">#   min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;, load_factor &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;, bundle_id &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   app_mode &lt;chr&gt;, content_category &lt;chr&gt;, parameterized &lt;lgl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   cluster_name &lt;chr&gt;, image_name &lt;chr&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, …</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   cluster_name &lt;chr&gt;, image_name &lt;chr&gt;, r_version &lt;chr&gt;, py_version &lt;chr&gt;, …</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="cleanup">Cleanup<a class="anchor" aria-label="anchor" href="#cleanup"></a>
@@ -320,13 +317,13 @@
 <span><span class="va">latest_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********IKS2</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********OON5</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********IKS2</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********OON5</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TODO: delete content</span></span></code></pre></div>
 </div>
