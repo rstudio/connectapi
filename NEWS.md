@@ -1,7 +1,12 @@
 # connectapi (development version)
 
+- Allow passing `httr::httr_config()` options to `connect()` and `Connect$new()`
+via a new `httr_config=` parameter. This allows customizing HTTP requests
+([#168](https://github.com/rstudio/connectapi/pull/168))
 - Fix issue with HTML documentation to retain on CRAN
 ([#164](https://github.com/rstudio/connectapi/pull/164))
+- Fix typo in `min_data_version` parameter for usage data functions
+([#166](https://github.com/rstudio/connectapi/pull/166))
 
 # connectapi 0.1.1.1
 
