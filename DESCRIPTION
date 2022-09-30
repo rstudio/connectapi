@@ -1,12 +1,11 @@
 Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the 'RStudio Connect' Server API
-Version: 0.1.2
+Version: 0.1.2.9000
 Authors@R: 
     c(person(given = "Sean",
              family = "Lopp",
-             role = c("aut"),
-             email = "sean@rstudio.com"),
+             role = c("aut")),
       person(given = "Cole",
              family = "Arendt",
              role = c("aut", "cre"),
