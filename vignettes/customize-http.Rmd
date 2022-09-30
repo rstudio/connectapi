@@ -32,8 +32,8 @@ This is possible with `connectapi` thanks to the underlying library in use,
 
 When you initialize a `connectapi` API client, you implicitly create a `httr`
 HTTP client. The `httr` package allows you to configure your HTTP requests
-globally using `set_config()` or in a scoped variant `with_config`. We will walk
-through a few examples below.
+globally using `httr::set_config()` or in a scoped variant `httr::with_config`.
+We will walk through a few examples below.
 
 ### Custom CA Bundle
 
@@ -66,10 +66,23 @@ procured from a public CA.
 
 ```{r}
 # disabling certificate trust (can allow man-in-the-middle attacks, etc.)
-httr::set_config(httr::config(ssl_verifypeer = 0))
+httr::set_config(httr::config(ssl_verifypeer = 0, ssl_verifyhost = 0))
 
 # should work 
+client <- connect()
 get_users(client)
+```
+
+You can also do this in a more scoped fashion:
+
+```{r}
+httr::with_config(
+  httr::config(ssl_verifypeer = 0, ssl_verifyhost = 0),
+  {
+    client <- connect()
+    get_users(client)
+  }
+)
 ```
 
 ### Custom Headers, Cookies, Proxy, etc.

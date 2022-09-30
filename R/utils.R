@@ -65,6 +65,10 @@ generate_R6_print_output <- function() {
   ))
 }
 
+is_R6_class <- function(instance, class) {
+  return(R6::is.R6(instance) && inherits(instance, class))
+}
+
 validate_R6_class <- function(instance, class) {
   obj <- rlang::enquo(instance)
   if (!R6::is.R6(instance) | !inherits(instance, class)) {
@@ -142,7 +146,11 @@ tested_connect_version <- function() {
 }
 
 check_connect_license <- function(url) {
-  res <- httr::GET(glue::glue("{url}/__ping__"))
+  if (is_R6_class(url, "Connect")) {
+    res <- url$GET_RESULT_URL(url$server)
+  } else {
+    res <- httr::GET(glue::glue("{url}/__ping__"))
+  }
   if (res$status_code == 402) {
     stop(glue::glue("ERROR: The Connect server's license is expired ({url})"))
   }

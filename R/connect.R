@@ -783,8 +783,8 @@ connect <- function(
   if (
     prefix == "CONNECT" &&
       is.na(server) && is.na(api_key) &&
-      !is.na(Sys.getenv("RSTUDIO_CONNECT_SERVER")) &&
-      !is.na(Sys.getenv("RSTUDIO_CONNECT_API_KEY"))
+      nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) > 0 &&
+      nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) > 0
   ) {
     stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
   }
@@ -806,7 +806,7 @@ connect <- function(
   con <- Connect$new(server = server, api_key = api_key)
 
   tryCatch({
-    check_connect_license(con$server)
+    check_connect_license(con)
 
     # check Connect is accessible
     srv <- safe_server_settings(con)

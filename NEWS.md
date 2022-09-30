@@ -1,5 +1,14 @@
 # connectapi (development version)
 
+- Update docs to illustrate customizing HTTP requests
+([#168](https://github.com/rstudio/connectapi/pull/168))
+- Fix issue with HTML documentation to retain on CRAN
+([#164](https://github.com/rstudio/connectapi/pull/164))
+- Fix typo in `min_data_version` parameter for usage data functions
+([#166](https://github.com/rstudio/connectapi/pull/166))
+- Bump Connect tested version to 2022.09.0
+  ([#170](https://github.com/rstudio/connectapi/pull/170))
+
 # connectapi 0.1.1.1
 
 ### BREAKING
