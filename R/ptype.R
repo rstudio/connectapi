@@ -113,6 +113,7 @@ connectapi_ptypes <- list(
     "id" = NA_character_,
     "time" = NA_datetime_,
     "user_id" = NA_character_,
+    "user_guid" = NA_character_,
     "user_description" = NA_character_,
     "action" = NA_character_,
     "event_description" = NA_character_

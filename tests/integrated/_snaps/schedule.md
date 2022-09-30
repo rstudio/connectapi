@@ -591,7 +591,7 @@
       $`America/Santarem (-03:00)`
       [1] "America/Santarem"
       
-      $`America/Santiago (-04:00)`
+      $`America/Santiago (-03:00)`
       [1] "America/Santiago"
       
       $`America/Santo_Domingo (-04:00)`
@@ -681,7 +681,7 @@
       $`Antarctica/Mawson (+05:00)`
       [1] "Antarctica/Mawson"
       
-      $`Antarctica/McMurdo (+12:00)`
+      $`Antarctica/McMurdo (+13:00)`
       [1] "Antarctica/McMurdo"
       
       $`Antarctica/Palmer (-03:00)`
@@ -690,7 +690,7 @@
       $`Antarctica/Rothera (-03:00)`
       [1] "Antarctica/Rothera"
       
-      $`Antarctica/South_Pole (+12:00)`
+      $`Antarctica/South_Pole (+13:00)`
       [1] "Antarctica/South_Pole"
       
       $`Antarctica/Syowa (+03:00)`
@@ -951,7 +951,7 @@
       $`Asia/Tbilisi (+04:00)`
       [1] "Asia/Tbilisi"
       
-      $`Asia/Tehran (+04:30)`
+      $`Asia/Tehran (+03:30)`
       [1] "Asia/Tehran"
       
       $`Asia/Tel_Aviv (+03:00)`
@@ -1143,10 +1143,10 @@
       $`Canada/Yukon (-07:00)`
       [1] "Canada/Yukon"
       
-      $`Chile/Continental (-04:00)`
+      $`Chile/Continental (-03:00)`
       [1] "Chile/Continental"
       
-      $`Chile/EasterIsland (-06:00)`
+      $`Chile/EasterIsland (-05:00)`
       [1] "Chile/EasterIsland"
       
       $`Cuba (-04:00)`
@@ -1398,7 +1398,7 @@
       $`Indian/Reunion (+04:00)`
       [1] "Indian/Reunion"
       
-      $`Iran (+04:30)`
+      $`Iran (+03:30)`
       [1] "Iran"
       
       $`Israel (+03:00)`
@@ -1437,19 +1437,19 @@
       $`Pacific/Apia (+13:00)`
       [1] "Pacific/Apia"
       
-      $`Pacific/Auckland (+12:00)`
+      $`Pacific/Auckland (+13:00)`
       [1] "Pacific/Auckland"
       
       $`Pacific/Bougainville (+11:00)`
       [1] "Pacific/Bougainville"
       
-      $`Pacific/Chatham (+12:45)`
+      $`Pacific/Chatham (+13:45)`
       [1] "Pacific/Chatham"
       
       $`Pacific/Chuuk (+10:00)`
       [1] "Pacific/Chuuk"
       
-      $`Pacific/Easter (-06:00)`
+      $`Pacific/Easter (-05:00)`
       [1] "Pacific/Easter"
       
       $`Pacific/Efate (+11:00)`
