@@ -1,4 +1,4 @@
-# connectapi (development version)
+# connectapi 0.1.2
 
 - Update docs to illustrate customizing HTTP requests
 ([#168](https://github.com/rstudio/connectapi/pull/168))
