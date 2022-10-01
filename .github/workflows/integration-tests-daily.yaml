@@ -1,0 +1,73 @@
+on:
+  schedule:
+    # every morning at 8am UTC
+    # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onschedule
+    - cron: '0 8 * * *'
+  push:
+    branches:
+      - ci-tweaks
+
+name: integration-tests-daily
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-20.04
+    env:
+      RSC_VERSION: 2022.09.0
+      RSC_REPO_SUFFIX: -preview
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      CONNECTAPI_INTEGRATED: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck, local::.
+          needs: check
+
+      - name: Session info
+        run: |
+          options(width = 100)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
+        shell: Rscript {0}
+
+      - name: Setup test environment
+        run: |
+          connectapi:::build_test_env(rsc_version="daily")
+        shell: Rscript {0}
+
+      - uses: r-lib/actions/check-r-package@v2
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          path: check
+
+      - name: Notify Slack on Failure
+        if: ${{ failure() && (startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/main')) }}
+        uses: 8398a7/action-slack@v3
+        with:
+          author_name: 'GitHub Actions'
+          status: failure
+          fields: action,commit,repo,job,took
+          icon_emoji: ':sad_parrot:'
+          text: 'Build on ${{ github.ref }} failed'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_CONNECTAPI }}
+          GITHUB_TOKEN: ${{ github.token }}
