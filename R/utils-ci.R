@@ -78,6 +78,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
   args <- c("-f", compose_file_path, "up", "-d")
   env_vars <- c(
     RSC_VERSION = rsc_version,
+    RSC_REPO_SUFFIX = Sys.getenv("RSC_REPO_SUFFIX"),
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
