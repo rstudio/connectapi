@@ -44,7 +44,8 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
   if (length(remote_users_res) != expect) {
     message(glue::glue("Found {length(remote_users_res)} remote users. Expected {expect}"))
     if (length(remote_users_res) > 0) {
-      message(glue::glue("Users found: {glue::glue_collapse(purrr::map_chr(remote_users_res, ~ .x[['username']]), sep = \", \")}"))
+      user_str <- toString(purrr::map_chr(remote_users_res, ~ .x[["username"]]))
+      message(glue::glue("Users found: {user_str}"))
     }
     stop("The expected user(s) were not found. Please specify a more accurate 'prefix'")
   }
@@ -88,7 +89,8 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
   if (remote_groups$total != expect) {
     message(glue::glue("Found {remote_groups$total} remote groups. Expected {expect}"))
     if (remote_groups$total > 0) {
-      message(glue::glue("Groups found: {glue::glue_collapse(purrr::map_chr(remote_groups$results, ~ .x$name), sep = \", \")"))
+      group_str <- toString(purrr::map_chr(remote_groups$results, ~ .x[["name"]]))
+      message(glue::glue("Groups found: {group_str}"))
     }
     stop("The expected group(s) were not found. Please specify a more accurate 'prefix'")
   }
