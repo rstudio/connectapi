@@ -149,7 +149,7 @@ Content <- R6::R6Class(
           id = NA_character_,
           content_guid = guid,
           # TODO: what if groups can own content?
-          principal_guid = self$get_content()$owner,
+          principal_guid = self$get_content()$owner_guid,
           principal_type = "user",
           role = "owner"
           )
@@ -780,7 +780,8 @@ content_add_group <- function(content, guid, role = c("viewer", "owner")) {
 
 .content_add_permission_impl <- function(content, type, guid, role) {
   existing <- .get_permission(content, type, guid)
-  if (length(existing) > 0) {
+  message(existing)
+  if (length(existing) > 0 && !is.null(existing[[1]][["id"]]) && !is.na(existing[[1]][["id"]])) {
     message(glue::glue("Updating permission for {type} '{guid}' with role '{role}'"))
     res <- content$permissions_update(
       id = existing[[1]]$id,
@@ -830,7 +831,7 @@ content_delete_group <- function(content, guid) {
 
 .get_permission <- function(content, type, guid, add_owner = TRUE) {
   res <- content$permissions(add_owner = add_owner)
-  purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
+  purrr::keep(res, ~.x$principal_type == type && .x$principal_guid == guid)
 }
 
 #' @rdname permissions
