@@ -98,7 +98,8 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>connectapi Tags</h1>
-                        <h4 data-toc-skip class="author">Cole Arendt</h4>
+                        <h4 data-toc-skip class="author">Cole
+Arendt</h4>
             
             <h4 data-toc-skip class="date">7/12/2020</h4>
       
@@ -112,23 +113,36 @@
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>To understand how tags work with <code>connectapi</code>, you must first understand tags in RStudio Connect.</p>
+<p>To understand how tags work with <code>connectapi</code>, you must
+first understand tags in RStudio Connect.</p>
 <ul>
-<li>Tags in RStudio Connect consist of multiple “tag trees,” each with a “Category” as its parent.</li>
+<li>Tags in RStudio Connect consist of multiple “tag trees,” each with a
+“Category” as its parent.</li>
 <li>The tag hierarchy / structure is created by administrators</li>
-<li>Publishers and administrators can associate any non-Category tag with content</li>
-<li>A tag being a member of a “child” tag doe <em>not</em> automatically make it a member of the “parent” tag</li>
+<li>Publishers and administrators can associate any non-Category tag
+with content</li>
+<li>A tag being a member of a “child” tag doe <em>not</em> automatically
+make it a member of the “parent” tag</li>
 </ul>
-<p>As always, get started by defining the <code>CONNECT_SERVER</code> and <code>CONNECT_API_KEY</code> variables, then initialize an API client.</p>
+<p>As always, get started by defining the <code>CONNECT_SERVER</code>
+and <code>CONNECT_API_KEY</code> variables, then initialize an API
+client.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
 <span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><strong>NOTE:</strong> This example report will create a few tag hierarchies and then use them. As a result, to use this example verbatim requires admin privileges and <em>will</em> create tags on your server.</p>
+<p><strong>NOTE:</strong> This example report will create a few tag
+hierarchies and then use them. As a result, to use this example verbatim
+requires admin privileges and <em>will</em> create tags on your
+server.</p>
 </div>
 <div class="section level2">
 <h2 id="create-the-tag-trees">Create the Tag Tree(s)<a class="anchor" aria-label="anchor" href="#create-the-tag-trees"></a>
 </h2>
-<p>To get started, we will create a tag tree to show how things work. The <code><a href="../reference/tags.html">create_tag()</a></code> helper allows you to create a singular tag (by specifying its parent, etc.). For our purposes, <code><a href="../reference/tags.html">create_tag_tree()</a></code> is easier, since it creates the entire tree specified at once.</p>
+<p>To get started, we will create a tag tree to show how things work.
+The <code><a href="../reference/tags.html">create_tag()</a></code> helper allows you to create a singular tag
+(by specifying its parent, etc.). For our purposes,
+<code><a href="../reference/tags.html">create_tag_tree()</a></code> is easier, since it creates the entire
+tree specified at once.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">start_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span><span class="va">start_tags</span></span></code></pre></div>
@@ -142,8 +156,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_project_1</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********VYwH</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********ncTm</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span></span>
@@ -154,8 +168,8 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_project_2</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********VYwH</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********ncTm</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect Tag Tree (filtered)</span></span>
@@ -179,10 +193,11 @@
 <div class="section level2">
 <h2 id="content-tags">Content tags<a class="anchor" aria-label="anchor" href="#content-tags"></a>
 </h2>
-<p>In order to show how tags work, we need some content to work with.</p>
+<p>In order to show how tags work, we need some content to work
+with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpFdKrNG/bundledir3bcc6735aa12)</span></span></code></pre>
+<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpJOorK7/bundledir4a8a4467aee3)</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Getting content endpoint</span></span></code></pre>
@@ -198,7 +213,8 @@
 <div class="section level3">
 <h3 id="set-tags">Set Tags<a class="anchor" aria-label="anchor" href="#set-tags"></a>
 </h3>
-<p>Content 1 is for <code>project_1</code> and <code>Sales</code>, so let’s set the tags! There are a few ways to do so.</p>
+<p>Content 1 is for <code>project_1</code> and <code>Sales</code>, so
+let’s set the tags! There are a few ways to do so.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span></span>
@@ -207,9 +223,9 @@
 <span><span class="co">## └── DemoProject</span></span>
 <span><span class="co">##    └── project_1</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 0748ef1a-47dd-464e-9560-6104bc3d6c41</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/0748ef1a-47dd-464e-9560-6104bc3d6c41/</span></span>
-<span><span class="co">##   Task ID: nd8dILljHJ6IIEwg</span></span></code></pre>
+<span><span class="co">##   Content GUID: 526ddeec-c180-40c4-b057-379105751568</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/526ddeec-c180-40c4-b057-379105751568/</span></span>
+<span><span class="co">##   Task ID: AV8x76cAtskaf5Rd</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect Tag Tree (content)</span></span>
@@ -218,10 +234,11 @@
 <span><span class="co">## └── DemoAudience</span></span>
 <span><span class="co">##    └── Sales</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 0748ef1a-47dd-464e-9560-6104bc3d6c41</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/0748ef1a-47dd-464e-9560-6104bc3d6c41/</span></span>
-<span><span class="co">##   Task ID: nd8dILljHJ6IIEwg</span></span></code></pre>
-<p>Content 2 is for <code>project_2</code> and both Audiences (<code>Sales</code> and <code>Finance</code>).</p>
+<span><span class="co">##   Content GUID: 526ddeec-c180-40c4-b057-379105751568</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/526ddeec-c180-40c4-b057-379105751568/</span></span>
+<span><span class="co">##   Task ID: AV8x76cAtskaf5Rd</span></span></code></pre>
+<p>Content 2 is for <code>project_2</code> and both Audiences
+(<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span></span>
 <span>  <span class="va">content_2</span>, </span>
@@ -236,14 +253,17 @@
 <span><span class="co">##    ├── Sales</span></span>
 <span><span class="co">##    └── Finance</span></span></code></pre>
 <pre><code><span><span class="co">## RStudio Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 98b12835-24c8-46e3-94c8-c64fcb72d1ca</span></span>
-<span><span class="co">##   URL: http://localhost:49153/connect/#/apps/98b12835-24c8-46e3-94c8-c64fcb72d1ca/</span></span>
-<span><span class="co">##   Task ID: ppYN4ogxqjennD4i</span></span></code></pre>
+<span><span class="co">##   Content GUID: 549a5786-6789-434b-9a71-da04fa835abb</span></span>
+<span><span class="co">##   URL: http://localhost:49154/connect/#/apps/549a5786-6789-434b-9a71-da04fa835abb/</span></span>
+<span><span class="co">##   Task ID: inc5cOvnBBVpSmYE</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="see-the-tags-associated-with-content">See the tags associated with content<a class="anchor" aria-label="anchor" href="#see-the-tags-associated-with-content"></a>
 </h3>
-<p>In order to see the tags associated with content, use <code><a href="../reference/tags.html">get_content_tags()</a></code>. The data structure is the same as <code><a href="../reference/tags.html">get_tags()</a></code>, but the “whole list” is filtered to only the tags that are associated with a piece of content.</p>
+<p>In order to see the tags associated with content, use
+<code><a href="../reference/tags.html">get_content_tags()</a></code>. The data structure is the same as
+<code><a href="../reference/tags.html">get_tags()</a></code>, but the “whole list” is filtered to only the
+tags that are associated with a piece of content.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">c1_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_content_tags</a></span><span class="op">(</span><span class="va">content_1</span><span class="op">)</span></span>
 <span><span class="va">c1_tags</span></span></code></pre></div>
@@ -266,14 +286,15 @@
 <div class="section level2">
 <h2 id="list-all-content-associated-with-a-tag">List all content associated with a tag<a class="anchor" aria-label="anchor" href="#list-all-content-associated-with-a-tag"></a>
 </h2>
-<p>Once tags have been defined, you can also search for all of the content associated with a tag.</p>
+<p>Once tags have been defined, you can also search for all of the
+content associated with a tag.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/content_list.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 32</span></span></span>
 <span><span class="co">##   guid       name  title descr…¹ acces…² conne…³ read_…⁴ init_…⁵ idle_…⁶ max_p…⁷</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 98b12835-… tzxw… tzxw… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 0748ef1a-… vseo… vseo… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 549a5786-… dehc… dehc… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 526ddeec-… gmly… gmly… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 22 more variables: min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,</span></span></span>
@@ -286,7 +307,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 32</span></span></span>
 <span><span class="co">##   guid       name  title descr…¹ acces…² conne…³ read_…⁴ init_…⁵ idle_…⁶ max_p…⁷</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 0748ef1a-… vseo… vseo… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 526ddeec-… gmly… gmly… <span style="color: #949494;">""</span>      acl          <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 22 more variables: min_processes &lt;int&gt;, max_conns_per_process &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   load_factor &lt;dbl&gt;, created_time &lt;dttm&gt;, last_deployed_time &lt;dttm&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   bundle_id &lt;chr&gt;, app_mode &lt;chr&gt;, content_category &lt;chr&gt;,</span></span></span>
@@ -317,13 +338,13 @@
 <span><span class="va">latest_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********VYwH</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********ncTm</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## RStudio Connect API Client: </span></span>
-<span><span class="co">##   RStudio Connect Server: http://localhost:49153</span></span>
-<span><span class="co">##   RStudio Connect API Key: ***********VYwH</span></span></code></pre>
+<span><span class="co">##   RStudio Connect Server: http://localhost:49154</span></span>
+<span><span class="co">##   RStudio Connect API Key: ***********ncTm</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TODO: delete content</span></span></code></pre></div>
 </div>

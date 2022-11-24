@@ -69,9 +69,11 @@
       <small>Source: <a href="https://github.com/rstudio/connectapi/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.1.2" id="connectapi-012">connectapi 0.1.2<a class="anchor" aria-label="anchor" href="#connectapi-012"></a></h2>
+<h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.1.2" id="connectapi-012">connectapi 0.1.2<small>2022-09-30</small><a class="anchor" aria-label="anchor" href="#connectapi-012"></a></h2>
 <ul><li>Update docs to illustrate customizing HTTP requests (<a href="https://github.com/rstudio/connectapi/pull/168" class="external-link">#168</a>)</li>
 <li>Fix issue with HTML documentation to retain on CRAN (<a href="https://github.com/rstudio/connectapi/pull/164" class="external-link">#164</a>)</li>
 <li>Fix typo in <code>min_data_version</code> parameter for usage data functions (<a href="https://github.com/rstudio/connectapi/pull/166" class="external-link">#166</a>)</li>
@@ -81,7 +83,8 @@
 <h2 class="page-header" data-toc-text="0.1.1.1" id="connectapi-0111">connectapi 0.1.1.1<small>2022-07-21</small><a class="anchor" aria-label="anchor" href="#connectapi-0111"></a></h2>
 <div class="section level4">
 <h4 id="breaking-0-1-1-1">BREAKING<a class="anchor" aria-label="anchor" href="#breaking-0-1-1-1"></a></h4>
-<ul><li>BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release). (<a href="https://github.com/rstudio/connectapi/pulls/12" class="external-link">#128</a>)<ul><li>
+<ul><li>BREAKING: the following functions now require RStudio Connect 1.8.6 or later (because they are no longer experimental, as of that release). (<a href="https://github.com/rstudio/connectapi/pulls/12" class="external-link">#128</a>)
+<ul><li>
 <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code>, <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code>, <code><a href="../reference/swap_vanity_url.html">swap_vanity_url()</a></code>
 </li>
 <li>
@@ -90,16 +93,20 @@
 <li>
 <code>tag id</code>s are now character strings (of integers) instead of integers</li>
 </ul></li>
-<li>BREAKING: <code>Connect$new()</code> now takes a <code>server</code> argument (instead of <code>host</code>)<ul><li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case. (<a href="https://github.com/rstudio/connectapi/pulls/125" class="external-link">#125</a>)</li></ul></li>
+<li>BREAKING: <code>Connect$new()</code> now takes a <code>server</code> argument (instead of <code>host</code>)
+<ul><li>The same is true of the <code><a href="../reference/connect.html">connect()</a></code> function, although we warn about argument deprecation in that case. (<a href="https://github.com/rstudio/connectapi/pulls/125" class="external-link">#125</a>)</li>
+</ul></li>
 <li>BREAKING: <code><a href="../reference/environment.html">set_environment_new()</a></code> and <code><a href="../reference/environment.html">set_environment_remove()</a></code> no longer take a <code>.version</code> argument, and output data structure is a bit different (a list of names). They now use the public API, which changes the interface a bit. Also, intricacies of how to set / remove environment variables are changed (i.e. setting <code>VAR=NA</code> will remove <code>VAR</code>). (<a href="https://github.com/rstudio/connectapi/pull/141" class="external-link">#141</a>)</li>
-<li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. (<a href="https://github.com/rstudio/connectapi/pulls/113" class="external-link">#113</a>) However:<ul><li>
+<li>BREAKING: <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> and <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> are now no longer experimental functions. (<a href="https://github.com/rstudio/connectapi/pulls/113" class="external-link">#113</a>) However:
+<ul><li>
 <code><a href="../reference/get_vanity_url.html">get_vanity_url()</a></code> now returns a character string representing the vanity url in use (or NULL if not defined)</li>
 <li>
 <code><a href="../reference/set_vanity_url.html">set_vanity_url()</a></code> still returns a <code>Vanity</code> R6 object, but <code>vanity$get_vanity()$path_prefix</code> is now <code>vanity$get_vanity()$path</code>
 </li>
 </ul></li>
 <li>BREAKING: <code>tag_page()</code> and <code>tag_page_iframe()</code> have been removed. Similar functions belong in the <a href="https://rstudio.github.io/connectwidgets/" class="external-link"><code>connectwidgets</code></a> package in the future.</li>
-<li>BREAKING: Several <code>content_*</code> and other APIs have moved from experimental to “v1” variants. This means they have stabilized, but with several subtle breaking changes that could impact your scripts. (<a href="https://github.com/rstudio/connectapi/pulls/115" class="external-link">#115</a>)<ul><li>i.e. <code>bundle_id</code> has become <code>id</code> in some response data. In others, <code>url</code> has become <code>content_url</code>.</li>
+<li>BREAKING: Several <code>content_*</code> and other APIs have moved from experimental to “v1” variants. This means they have stabilized, but with several subtle breaking changes that could impact your scripts. (<a href="https://github.com/rstudio/connectapi/pulls/115" class="external-link">#115</a>)
+<ul><li>i.e. <code>bundle_id</code> has become <code>id</code> in some response data. In others, <code>url</code> has become <code>content_url</code>.</li>
 <li>The R6 method <code>content$get_bundles()</code> no longer takes a <code>page_number</code> argument, and the <code>get_bundles(limit)</code> argument is now deprecated (<a href="https://github.com/rstudio/connectapi/pulls/129" class="external-link">#129</a>)</li>
 <li>
 <code>Connect$download_bundle</code> is now deprecated in favor of <code>Content$bundle_download()</code>, and <code><a href="../reference/get_bundles.html">delete_bundle()</a></code> now takes a <code>Content</code> item instead of <code>Connect</code>. (<a href="https://github.com/rstudio/connectapi/pull/153" class="external-link">#153</a>)</li>
@@ -118,11 +125,14 @@
 </li>
 <li>Add HTTP request customization options, and related documentation (<a href="https://github.com/rstudio/connectapi/pull/101" class="external-link">#101</a>)</li>
 <li>Add git deployment (<a href="https://github.com/rstudio/connectapi/issues/112" class="external-link">#112</a>)</li>
-<li>Switch <code>Task</code> class to <code>ContentTask</code><ul><li>R6 does not support multiple inheritance, so we keep the <code>Task</code> interface up-to-date on <code>ContentTask</code> and <code>VariantTask</code> manually</li></ul></li>
+<li>Switch <code>Task</code> class to <code>ContentTask</code>
+<ul><li>R6 does not support multiple inheritance, so we keep the <code>Task</code> interface up-to-date on <code>ContentTask</code> and <code>VariantTask</code> manually</li>
+</ul></li>
 <li>Improve several print methods (<a href="https://github.com/rstudio/connectapi/issues/18" class="external-link">#18</a>, <a href="https://github.com/rstudio/connectapi/issues/19" class="external-link">#19</a>)</li>
 <li>Protect against bad bundles (<a href="https://github.com/rstudio/connectapi/issues/13" class="external-link">#13</a>)</li>
 <li>Error if an empty API key is defined (<a href="https://github.com/rstudio/connectapi/issues/16" class="external-link">#16</a>)</li>
-<li>Add a few <code>content_list_*</code> helpers (<a href="https://github.com/rstudio/connectapi/pulls/130" class="external-link">#130</a>):<ul><li>
+<li>Add a few <code>content_list_*</code> helpers (<a href="https://github.com/rstudio/connectapi/pulls/130" class="external-link">#130</a>):
+<ul><li>
 <code>content_list_with_permissions</code> returns a <code>content_list</code> with a “permission” column that includes who has access</li>
 <li>
 <code>content_list_by_tag</code> allows fetching just a <code>content_list</code> for a particular tag</li>

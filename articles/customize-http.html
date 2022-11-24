@@ -98,9 +98,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Customize HTTP Requests</h1>
-                        <h4 data-toc-skip class="author">Cole Arendt</h4>
+                        <h4 data-toc-skip class="author">Cole
+Arendt</h4>
             
-            <h4 data-toc-skip class="date">2022-09-30</h4>
+            <h4 data-toc-skip class="date">2022-11-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/HEAD/vignettes/customize-http.Rmd" class="external-link"><code>vignettes/customize-http.Rmd</code></a></small>
       <div class="hidden name"><code>customize-http.Rmd</code></div>
@@ -109,18 +110,26 @@
 
     
     
-<p>Sometimes when using <code>connectapi</code>, customizing HTTP requests is desirable. For instance, some common use cases are:</p>
+<p>Sometimes when using <code>connectapi</code>, customizing HTTP
+requests is desirable. For instance, some common use cases are:</p>
 <ul>
 <li>using a custom certificate bundle</li>
-<li>turn off certificate trust verification (<strong>ONLY FOR TESTING</strong>)</li>
+<li>turn off certificate trust verification (<strong>ONLY FOR
+TESTING</strong>)</li>
 <li>setting custom headers</li>
 <li>using Kerberos (SPNEGO)</li>
 </ul>
-<p>This is possible with <code>connectapi</code> thanks to the underlying library in use, <a href="https://httr.r-lib.org/" class="external-link"><code>httr</code></a>.</p>
+<p>This is possible with <code>connectapi</code> thanks to the
+underlying library in use, <a href="https://httr.r-lib.org/" class="external-link"><code>httr</code></a>.</p>
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>When you initialize a <code>connectapi</code> API client, you implicitly create a <code>httr</code> HTTP client. The <code>httr</code> package allows you to configure your HTTP requests globally using <code><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">httr::set_config()</a></code> or in a scoped variant <code><a href="https://httr.r-lib.org/reference/with_config.html" class="external-link">httr::with_config</a></code>. We will walk through a few examples below.</p>
+<p>When you initialize a <code>connectapi</code> API client, you
+implicitly create a <code>httr</code> HTTP client. The <code>httr</code>
+package allows you to configure your HTTP requests globally using
+<code><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">httr::set_config()</a></code> or in a scoped variant
+<code><a href="https://httr.r-lib.org/reference/with_config.html" class="external-link">httr::with_config</a></code>. We will walk through a few examples
+below.</p>
 <div class="section level3">
 <h3 id="custom-ca-bundle">Custom CA Bundle<a class="anchor" aria-label="anchor" href="#custom-ca-bundle"></a>
 </h3>
@@ -142,8 +151,13 @@
 <div class="section level3">
 <h3 id="turn-off-certificate-trust-verification---only-for-testing">Turn Off Certificate Trust Verification - ONLY FOR TESTING<a class="anchor" aria-label="anchor" href="#turn-off-certificate-trust-verification---only-for-testing"></a>
 </h3>
-<p>Sometimes when first setting up a server, it is common to use self-signed certificates. This is generally bad for reliable communication and security (as there is no reason for any computer to trust this server as a “self-declared” trustworthy actor).</p>
-<p>However, it can be useful while the organization’s Certificate Authority (CA) is in the process of issuing a valid certificate, or while a certificate is procured from a public CA.</p>
+<p>Sometimes when first setting up a server, it is common to use
+self-signed certificates. This is generally bad for reliable
+communication and security (as there is no reason for any computer to
+trust this server as a “self-declared” trustworthy actor).</p>
+<p>However, it can be useful while the organization’s Certificate
+Authority (CA) is in the process of issuing a valid certificate, or
+while a certificate is procured from a public CA.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># disabling certificate trust (can allow man-in-the-middle attacks, etc.)</span></span>
 <span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/set_config.html" class="external-link">set_config</a></span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/config.html" class="external-link">config</a></span><span class="op">(</span>ssl_verifypeer <span class="op">=</span> <span class="fl">0</span>, ssl_verifyhost <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -164,8 +178,15 @@
 <div class="section level3">
 <h3 id="custom-headers-cookies-proxy-etc-">Custom Headers, Cookies, Proxy, etc.<a class="anchor" aria-label="anchor" href="#custom-headers-cookies-proxy-etc-"></a>
 </h3>
-<p><code>httr</code> has some helpers for common tasks like <code><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">httr::add_headers()</a></code>, <code><a href="https://httr.r-lib.org/reference/set_cookies.html" class="external-link">httr::set_cookies()</a></code>, <code><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">httr::use_proxy()</a></code>, etc. Using them is a bit tricky, but can be done by way of the <code>client$httr_config()</code> function.</p>
-<p>Pass any usual <code>httr</code> arguments to <code>client$httr_config()</code>, and those arguments will then be saved and passed to any subsequent <code>GET</code>, <code>PUT</code>, <code>POST</code>, <code>PATCH</code>, <code>HEAD</code>, <code>DELETE</code> requests you send with that client.</p>
+<p><code>httr</code> has some helpers for common tasks like
+<code><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">httr::add_headers()</a></code>, <code><a href="https://httr.r-lib.org/reference/set_cookies.html" class="external-link">httr::set_cookies()</a></code>,
+<code><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">httr::use_proxy()</a></code>, etc. Using them is a bit tricky, but can
+be done by way of the <code>client$httr_config()</code> function.</p>
+<p>Pass any usual <code>httr</code> arguments to
+<code>client$httr_config()</code>, and those arguments will then be
+saved and passed to any subsequent <code>GET</code>, <code>PUT</code>,
+<code>POST</code>, <code>PATCH</code>, <code>HEAD</code>,
+<code>DELETE</code> requests you send with that client.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># for instance, to set custom headers (i.e. to get through a proxy)</span></span>
 <span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/add_headers.html" class="external-link">add_headers</a></span><span class="op">(</span>MY_MAGIC_HEADER<span class="op">=</span><span class="st">"value"</span><span class="op">)</span><span class="op">)</span></span>
@@ -181,14 +202,20 @@
 <span><span class="co"># use an outbound proxy</span></span>
 <span><span class="va">client</span><span class="op">$</span><span class="fu">httr_config</span><span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/use_proxy.html" class="external-link">use_proxy</a></span><span class="op">(</span><span class="st">"http://myproxy.example.com"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>NOTE: these values are completely overwritten each time you call <code>client$httr_config()</code>, so ensure that you pass all desired values at the same time</p>
+<p>NOTE: these values are completely overwritten each time you call
+<code>client$httr_config()</code>, so ensure that you pass all desired
+values at the same time</p>
 </blockquote>
 </div>
 <div class="section level3">
 <h3 id="using-kerberos">Using Kerberos<a class="anchor" aria-label="anchor" href="#using-kerberos"></a>
 </h3>
-<p>Suffice it to say that effectively using Kerberos for HTTP is a bit of an advanced topic. However, it <em>is</em> possible with <code>httr</code>.</p>
-<p>It is worth noting that today, this interferes with API key authentication, which we are hoping to improve in a future release of RStudio Connect.</p>
+<p>Suffice it to say that effectively using Kerberos for HTTP is a bit
+of an advanced topic. However, it <em>is</em> possible with
+<code>httr</code>.</p>
+<p>It is worth noting that today, this interferes with API key
+authentication, which we are hoping to improve in a future release of
+RStudio Connect.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># disables authentication header that is included by default</span></span>
 <span><span class="va">client</span><span class="op">$</span><span class="va">using_auth</span> <span class="op">=</span> <span class="cn">FALSE</span></span>

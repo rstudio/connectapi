@@ -98,9 +98,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started with connectapi</h1>
-                        <h4 data-toc-skip class="author">Cole Arendt</h4>
+                        <h4 data-toc-skip class="author">Cole
+Arendt</h4>
             
-            <h4 data-toc-skip class="date">2022-09-30</h4>
+            <h4 data-toc-skip class="date">2022-11-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/HEAD/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
@@ -112,15 +113,20 @@
 <div class="section level2">
 <h2 id="connecting">Connecting<a class="anchor" aria-label="anchor" href="#connecting"></a>
 </h2>
-<p>The first thing that you need to accomplish when using the <code>connectapi</code> is getting connected to your RStudio Connect server. This requires the URL to your server and an API key. Directions on how to get an API key are <a href="https://docs.rstudio.com/connect/user/api-keys/#api-keys" class="external-link">here</a>.</p>
-<p>Once you have your API key, you can create a Connect object in your code, like so:</p>
+<p>The first thing that you need to accomplish when using the
+<code>connectapi</code> is getting connected to your RStudio Connect
+server. This requires the URL to your server and an API key. Directions
+on how to get an API key are <a href="https://docs.rstudio.com/connect/user/api-keys/#api-keys" class="external-link">here</a>.</p>
+<p>Once you have your API key, you can create a Connect object in your
+code, like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
 <span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span></span>
 <span>  server <span class="op">=</span> <span class="st">"http://example.com:3939"</span>,</span>
 <span>  api_key <span class="op">=</span> <span class="st">"aihgaahegiahgg"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The alternative is to define a <code>.Renviron</code> file, which specifies environment variables:</p>
+<p>The alternative is to define a <code>.Renviron</code> file, which
+specifies environment variables:</p>
 <pre><code>CONNECT_SERVER=http://example.com:3939
 CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <p>Then, those can be used in your code:</p>
@@ -135,8 +141,14 @@ CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <div class="section level2">
 <h2 id="content-management">Content Management<a class="anchor" aria-label="anchor" href="#content-management"></a>
 </h2>
-<p>The <code>connectapi</code> package has tools to help programmatically deploy and manage content. To get started, you need to use the <code>rsconnect</code> package, specifically the <code><a href="https://rdrr.io/pkg/rsconnect/man/writeManifest.html" class="external-link">rsconnect::writeManifest()</a></code> function, to build a <code>manifest.json</code> file for a directory of content that you want to deploy.</p>
-<p>Once the <code>manifest.json</code> file is present, you can reference the directory and deploy it directly:</p>
+<p>The <code>connectapi</code> package has tools to help
+programmatically deploy and manage content. To get started, you need to
+use the <code>rsconnect</code> package, specifically the
+<code><a href="https://rdrr.io/pkg/rsconnect/man/writeManifest.html" class="external-link">rsconnect::writeManifest()</a></code> function, to build a
+<code>manifest.json</code> file for a directory of content that you want
+to deploy.</p>
+<p>Once the <code>manifest.json</code> file is present, you can
+reference the directory and deploy it directly:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_dir.html">bundle_dir</a></span><span class="op">(</span><span class="st">"./my/directory"</span><span class="op">)</span></span>
 <span></span>
@@ -144,10 +156,13 @@ CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <span><span class="co"># if you do not specify it, a random value will be provided</span></span>
 <span><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bnd</span>, name <span class="op">=</span> <span class="st">"my-content"</span>, title <span class="op">=</span> <span class="st">"Amazing Report!!"</span><span class="op">)</span></span></code></pre></div>
-<p>The content object (<code>content_1</code>) includes information about the deployment that you just requested. This can be explored with:</p>
+<p>The content object (<code>content_1</code>) includes information
+about the deployment that you just requested. This can be explored
+with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Alternatively, you can immediately begin altering the settings of the content object while you wait for deployment to complete:</p>
+<p>Alternatively, you can immediately begin altering the settings of the
+content object while you wait for deployment to complete:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_image.html">set_image_url</a></span><span class="op">(</span><span class="st">"https://gph.is/29vyb0s"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -156,12 +171,16 @@ CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <span><span class="co"># ensure the vanity URL is set as expected</span></span>
 <span><span class="va">content_1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/get_vanity_url.html">get_vanity_url</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you have content that already exists and you want to update it, you can do so using the content GUID (which you can find within RStudio Connect in the Info pane).</p>
+<p>If you have content that already exists and you want to update it,
+you can do so using the content GUID (which you can find within RStudio
+Connect in the Info pane).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_2</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bnd</span>, guid <span class="op">=</span> <span class="st">"d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>You can also use the RStudio Connect content GUID to retrieve information about existing content (if you want to examine or change settings)</p>
+<p>You can also use the RStudio Connect content GUID to retrieve
+information about existing content (if you want to examine or change
+settings)</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_3</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/content_item.html">content_item</a></span><span class="op">(</span>guid <span class="op">=</span> <span class="st">"96532fbc-725e-441b-9cc6-a5622535241b"</span><span class="op">)</span></span></code></pre></div>

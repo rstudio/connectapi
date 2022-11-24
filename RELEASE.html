@@ -69,6 +69,7 @@
     </div>
 
 <div id="development-and-release-notes" class="section level1">
+
 <p>The release process goes to CRAN. Details on how the release is prepared need to be formalized and documented.</p>
 <p>If interested in contributing, please read <a href="CONTRIBUTING.html">CONTRIBUTING.md</a></p>
 <div class="section level2">
@@ -87,8 +88,11 @@
 <ul><li>the “test environment” stands up two Connect instances as docker images using the un-exported <code>build_test_env()</code> function</li>
 <li>this <a href="../inst/ci/">uses <code>docker-compose</code></a> to build an environment</li>
 <li>we also use some <a href="../R/utils-ci.R">“hacky” utilities</a> to build an initial user and API key for executing</li>
-<li>tests are written in the <code>tests/integration</code> directory<ul><li>Each file should be able to be executed independently</li>
-<li>There are occasional dependencies <em>across tests</em> within a file (executed linearly)<ul><li>(I know, this is terrible… we made choices for reasons)</li></ul></li>
+<li>tests are written in the <code>tests/integration</code> directory
+<ul><li>Each file should be able to be executed independently</li>
+<li>There are occasional dependencies <em>across tests</em> within a file (executed linearly)
+<ul><li>(I know, this is terrible… we made choices for reasons)</li>
+</ul></li>
 <li>We fudge the clean line of unit tests in order to ensure that complex functionalities work as expected without too much time or work</li>
 </ul></li>
 <li>bootstrapping the “integration test” execution happens in <a href="../tests/test-integrated.R">the <code>test-integrated.R</code> script</a>, and keys mostly on the <code>CONNECTAPI_INTEGRATED=true</code> environment variable</li>
