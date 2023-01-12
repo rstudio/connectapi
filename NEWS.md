@@ -1,5 +1,7 @@
 # connectapi (development version)
 
+- fix: `audit_r_versions()` returns a bar chart instead of a histogram
+
 # connectapi 0.1.2
 
 - Update docs to illustrate customizing HTTP requests
