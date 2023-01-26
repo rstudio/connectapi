@@ -10,7 +10,7 @@ Authors@R:
              family = "Arendt",
              role = c("aut", "cre"),
              email = "cole@rstudio.com"),
-      person(given = "RStudio PBC",
+      person(given = "Posit Software, PBC",
              role = c("cph", "fnd")))
 Description: Provides a helpful 'R6' class and methods for interacting with 
     the 'RStudio Connect' Server API along with some meaningful utility functions
