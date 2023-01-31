@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{get_audit_logs}
 \alias{get_audit_logs}
-\title{Get Audit Logs from RStudio Connect Server}
+\title{Get Audit Logs from Posit Connect Server}
 \usage{
 get_audit_logs(src, limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)
 }
@@ -37,10 +37,10 @@ A tibble with the following columns:
 }
 }
 \description{
-Get Audit Logs from RStudio Connect Server
+Get Audit Logs from Posit Connect Server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more
+Please see https://docs.posit.co/connect/api/#getAuditLogs for more
 information
 }
 \examples{

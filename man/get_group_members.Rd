@@ -21,11 +21,11 @@ A tibble with the following columns:
 \item{\strong{user_role}}{The user's role. It may have a value of
 administrator, publisher or viewer.}
 \item{\strong{created_time}}{The timestamp (in RFC3339 format) when the
-user was created in the RStudio Connect server}
+user was created in the Posit Connect server}
 \item{\strong{updated_time}}{The timestamp (in RFC3339 format) when the
-user was last updated in the RStudio Connect server}
+user was last updated in the Posit Connect server}
 \item{\strong{active_time}}{The timestamp (in RFC3339 format) when the
-user was last active on the RStudio Connect server}
+user was last active on the Posit Connect server}
 \item{\strong{confirmed}}{When false, the created user must confirm their
 account through an email. This feature is unique to password
 authentication.}
@@ -37,7 +37,7 @@ authentication.}
 Get users within a specific group
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getGroupMembers for more information
+Please see https://docs.posit.co/connect/api/#getGroupMembers for more information
 }
 \examples{
 \dontrun{

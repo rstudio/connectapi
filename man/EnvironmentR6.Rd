@@ -11,7 +11,7 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{ContentTask}},
 \code{\link{Content}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},
@@ -25,51 +25,51 @@ Other R6 classes:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-Environment-new}{\code{Environment$new()}}
-\item \href{#method-Environment-environment}{\code{Environment$environment()}}
-\item \href{#method-Environment-environment_set}{\code{Environment$environment_set()}}
-\item \href{#method-Environment-environment_all}{\code{Environment$environment_all()}}
-\item \href{#method-Environment-env_refresh}{\code{Environment$env_refresh()}}
-\item \href{#method-Environment-print}{\code{Environment$print()}}
-\item \href{#method-Environment-clone}{\code{Environment$clone()}}
+\item \href{#method-new}{\code{Environment$new()}}
+\item \href{#method-environment}{\code{Environment$environment()}}
+\item \href{#method-environment_set}{\code{Environment$environment_set()}}
+\item \href{#method-environment_all}{\code{Environment$environment_all()}}
+\item \href{#method-env_refresh}{\code{Environment$env_refresh()}}
+\item \href{#method-print}{\code{Environment$print()}}
+\item \href{#method-clone}{\code{Environment$clone()}}
 }
 }
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete"><a href='../../connectapi/html/Content.html#method-Content-bundle_delete'><code>connectapi::Content$bundle_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download"><a href='../../connectapi/html/Content.html#method-Content-bundle_download'><code>connectapi::Content$bundle_download()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete"><a href='../../connectapi/html/Content.html#method-Content-danger_delete'><code>connectapi::Content$danger_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-Content-deploy'><code>connectapi::Content$deploy()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-Content-get_bundles'><code>connectapi::Content$get_bundles()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect"><a href='../../connectapi/html/Content.html#method-Content-get_connect'><code>connectapi::Content$get_connect()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content"><a href='../../connectapi/html/Content.html#method-Content-get_content'><code>connectapi::Content$get_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url"><a href='../../connectapi/html/Content.html#method-Content-get_dashboard_url'><code>connectapi::Content$get_dashboard_url()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job"><a href='../../connectapi/html/Content.html#method-Content-get_job'><code>connectapi::Content$get_job()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs"><a href='../../connectapi/html/Content.html#method-Content-get_jobs'><code>connectapi::Content$get_jobs()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url"><a href='../../connectapi/html/Content.html#method-Content-get_url'><code>connectapi::Content$get_url()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="internal_content"><a href='../../connectapi/html/Content.html#method-Content-internal_content'><code>connectapi::Content$internal_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job"><a href='../../connectapi/html/Content.html#method-Content-job'><code>connectapi::Content$job()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs"><a href='../../connectapi/html/Content.html#method-Content-jobs'><code>connectapi::Content$jobs()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions"><a href='../../connectapi/html/Content.html#method-Content-permissions'><code>connectapi::Content$permissions()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add"><a href='../../connectapi/html/Content.html#method-Content-permissions_add'><code>connectapi::Content$permissions_add()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete"><a href='../../connectapi/html/Content.html#method-Content-permissions_delete'><code>connectapi::Content$permissions_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>connectapi::Content$permissions_update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>connectapi::Content$repo_enable()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>connectapi::Content$repo_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas"><a href='../../connectapi/html/Content.html#method-Content-runas'><code>connectapi::Content$runas()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>connectapi::Content$tag_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>connectapi::Content$tags()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-Content-update'><code>connectapi::Content$update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-Content-variants'><code>connectapi::Content$variants()</code></a></span></li>
-</ul>
-</details>
-}}
+\if{html}{
+\out{<details ><summary>Inherited methods</summary>}
+\itemize{
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete">}\href{../../connectapi/html/Content.html#method-bundle_delete}{\code{connectapi::Content$bundle_delete()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download">}\href{../../connectapi/html/Content.html#method-bundle_download}{\code{connectapi::Content$bundle_download()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete">}\href{../../connectapi/html/Content.html#method-danger_delete}{\code{connectapi::Content$danger_delete()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy">}\href{../../connectapi/html/Content.html#method-deploy}{\code{connectapi::Content$deploy()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles">}\href{../../connectapi/html/Content.html#method-get_bundles}{\code{connectapi::Content$get_bundles()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_connect">}\href{../../connectapi/html/Content.html#method-get_connect}{\code{connectapi::Content$get_connect()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content">}\href{../../connectapi/html/Content.html#method-get_content}{\code{connectapi::Content$get_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote">}\href{../../connectapi/html/Content.html#method-get_content_remote}{\code{connectapi::Content$get_content_remote()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url">}\href{../../connectapi/html/Content.html#method-get_dashboard_url}{\code{connectapi::Content$get_dashboard_url()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job">}\href{../../connectapi/html/Content.html#method-get_job}{\code{connectapi::Content$get_job()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs">}\href{../../connectapi/html/Content.html#method-get_jobs}{\code{connectapi::Content$get_jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url">}\href{../../connectapi/html/Content.html#method-get_url}{\code{connectapi::Content$get_url()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="internal_content">}\href{../../connectapi/html/Content.html#method-internal_content}{\code{connectapi::Content$internal_content()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job">}\href{../../connectapi/html/Content.html#method-job}{\code{connectapi::Content$job()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs">}\href{../../connectapi/html/Content.html#method-jobs}{\code{connectapi::Content$jobs()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions">}\href{../../connectapi/html/Content.html#method-permissions}{\code{connectapi::Content$permissions()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add">}\href{../../connectapi/html/Content.html#method-permissions_add}{\code{connectapi::Content$permissions_add()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete">}\href{../../connectapi/html/Content.html#method-permissions_delete}{\code{connectapi::Content$permissions_delete()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update">}\href{../../connectapi/html/Content.html#method-permissions_update}{\code{connectapi::Content$permissions_update()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable">}\href{../../connectapi/html/Content.html#method-repo_enable}{\code{connectapi::Content$repo_enable()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set">}\href{../../connectapi/html/Content.html#method-repo_set}{\code{connectapi::Content$repo_set()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas">}\href{../../connectapi/html/Content.html#method-runas}{\code{connectapi::Content$runas()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete">}\href{../../connectapi/html/Content.html#method-tag_delete}{\code{connectapi::Content$tag_delete()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set">}\href{../../connectapi/html/Content.html#method-tag_set}{\code{connectapi::Content$tag_set()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags">}\href{../../connectapi/html/Content.html#method-tags}{\code{connectapi::Content$tags()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update">}\href{../../connectapi/html/Content.html#method-update}{\code{connectapi::Content$update()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants">}\href{../../connectapi/html/Content.html#method-variants}{\code{connectapi::Content$variants()}}\out{</span>}
+}
+\out{</details>}
+}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-new}{}}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$new(connect, content)}\if{html}{\out{</div>}}
@@ -77,8 +77,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-environment"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-environment}{}}}
+\if{html}{\out{<a id="method-environment"></a>}}
+\if{latex}{\out{\hypertarget{method-environment}{}}}
 \subsection{Method \code{environment()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment()}\if{html}{\out{</div>}}
@@ -86,8 +86,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-environment_set"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-environment_set}{}}}
+\if{html}{\out{<a id="method-environment_set"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_set}{}}}
 \subsection{Method \code{environment_set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment_set(...)}\if{html}{\out{</div>}}
@@ -95,8 +95,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-environment_all"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-environment_all}{}}}
+\if{html}{\out{<a id="method-environment_all"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_all}{}}}
 \subsection{Method \code{environment_all()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment_all(...)}\if{html}{\out{</div>}}
@@ -104,8 +104,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-env_refresh"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-env_refresh}{}}}
+\if{html}{\out{<a id="method-env_refresh"></a>}}
+\if{latex}{\out{\hypertarget{method-env_refresh}{}}}
 \subsection{Method \code{env_refresh()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$env_refresh()}\if{html}{\out{</div>}}
@@ -113,8 +113,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-print"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-print}{}}}
+\if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$print(...)}\if{html}{\out{</div>}}
@@ -122,8 +122,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-clone}{}}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

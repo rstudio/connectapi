@@ -26,7 +26,7 @@ A tibble with the following columns:
 }
 \description{
 \lifecycle{experimental}
-This returns real-time process data from the RStudio Connect API. It requires
+This returns real-time process data from the Posit Connect API. It requires
 administrator privileges to use. NOTE that this only returns data for the
 server that responds to the request (i.e. in a Highly Available cluster)
 }

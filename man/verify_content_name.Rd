@@ -13,7 +13,7 @@ verify_content_name(name)
 The name (or an error if invalid)
 }
 \description{
-Ensures that a content name fits the specifications / requirements of RStudio
+Ensures that a content name fits the specifications / requirements of Posit
 Connect. Throws an error if content name is invalid. Content names (as of the
 time of writing) must be between 3 and 64 alphanumeric characters, dashes,
 and underscores

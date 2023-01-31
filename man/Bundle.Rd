@@ -11,7 +11,7 @@ Other R6 classes:
 \code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},
@@ -22,14 +22,14 @@ Other R6 classes:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-Bundle-new}{\code{Bundle$new()}}
-\item \href{#method-Bundle-print}{\code{Bundle$print()}}
-\item \href{#method-Bundle-clone}{\code{Bundle$clone()}}
+\item \href{#method-new}{\code{Bundle$new()}}
+\item \href{#method-print}{\code{Bundle$print()}}
+\item \href{#method-clone}{\code{Bundle$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bundle-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Bundle-new}{}}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bundle$new(path)}\if{html}{\out{</div>}}
@@ -37,8 +37,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bundle-print"></a>}}
-\if{latex}{\out{\hypertarget{method-Bundle-print}{}}}
+\if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bundle$print(...)}\if{html}{\out{</div>}}
@@ -46,8 +46,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bundle-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Bundle-clone}{}}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

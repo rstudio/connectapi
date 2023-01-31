@@ -26,7 +26,7 @@ The \code{run_as_current_user} flag only does anything if:
 \item \code{Applications.RunAsCurrentUser} is enabled on the server
 }
 
-Also worth noting that the \code{run_as} user must exist on the RStudio Connect
+Also worth noting that the \code{run_as} user must exist on the Posit Connect
 server (as a linux user) and have appropriate group memberships, or you will
 get a \verb{400: Bad Request}. Set to \code{NULL} to use the default RunAs user / unset
 any current configuration.

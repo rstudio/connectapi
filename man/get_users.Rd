@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{get_users}
 \alias{get_users}
-\title{Get user information from the RStudio Connect server}
+\title{Get user information from the Posit Connect server}
 \usage{
 get_users(src, page_size = 20, prefix = NULL, limit = 25)
 }
@@ -26,11 +26,11 @@ A tibble with the following columns:
 \item{\strong{user_role}}{The user's role. It may have a value of
 administrator, publisher or viewer.}
 \item{\strong{created_time}}{The timestamp (in RFC3339 format) when the
-user was created in the RStudio Connect server}
+user was created in the Posit Connect server}
 \item{\strong{updated_time}}{The timestamp (in RFC3339 format) when the
-user was last updated in the RStudio Connect server}
+user was last updated in the Posit Connect server}
 \item{\strong{active_time}}{The timestamp (in RFC3339 format) when the
-user was last active on the RStudio Connect server}
+user was last active on the Posit Connect server}
 \item{\strong{confirmed}}{When false, the created user must confirm their
 account through an email. This feature is unique to password
 authentication.}
@@ -39,10 +39,10 @@ authentication.}
 }
 }
 \description{
-Get user information from the RStudio Connect server
+Get user information from the Posit Connect server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getUsers for more information
+Please see https://docs.posit.co/connect/api/#getUsers for more information
 }
 \examples{
 \dontrun{

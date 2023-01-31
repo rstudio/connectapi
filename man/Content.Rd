@@ -11,7 +11,7 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{ContentTask}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},
@@ -24,51 +24,51 @@ Other R6 classes:
 \describe{
 \item{\code{connect}}{An R6 Connect object}
 
-\item{\code{content}}{The content details from RStudio Connect}
+\item{\code{content}}{The content details from Posit Connect}
 }
 \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-Content-new}{\code{Content$new()}}
-\item \href{#method-Content-get_connect}{\code{Content$get_connect()}}
-\item \href{#method-Content-get_content}{\code{Content$get_content()}}
-\item \href{#method-Content-get_content_remote}{\code{Content$get_content_remote()}}
-\item \href{#method-Content-get_bundles}{\code{Content$get_bundles()}}
-\item \href{#method-Content-bundle_download}{\code{Content$bundle_download()}}
-\item \href{#method-Content-bundle_delete}{\code{Content$bundle_delete()}}
-\item \href{#method-Content-internal_content}{\code{Content$internal_content()}}
-\item \href{#method-Content-update}{\code{Content$update()}}
-\item \href{#method-Content-danger_delete}{\code{Content$danger_delete()}}
-\item \href{#method-Content-runas}{\code{Content$runas()}}
-\item \href{#method-Content-get_url}{\code{Content$get_url()}}
-\item \href{#method-Content-get_dashboard_url}{\code{Content$get_dashboard_url()}}
-\item \href{#method-Content-get_jobs}{\code{Content$get_jobs()}}
-\item \href{#method-Content-get_job}{\code{Content$get_job()}}
-\item \href{#method-Content-jobs}{\code{Content$jobs()}}
-\item \href{#method-Content-job}{\code{Content$job()}}
-\item \href{#method-Content-variants}{\code{Content$variants()}}
-\item \href{#method-Content-tag_set}{\code{Content$tag_set()}}
-\item \href{#method-Content-tag_delete}{\code{Content$tag_delete()}}
-\item \href{#method-Content-tags}{\code{Content$tags()}}
-\item \href{#method-Content-permissions_add}{\code{Content$permissions_add()}}
-\item \href{#method-Content-permissions_update}{\code{Content$permissions_update()}}
-\item \href{#method-Content-permissions_delete}{\code{Content$permissions_delete()}}
-\item \href{#method-Content-permissions}{\code{Content$permissions()}}
-\item \href{#method-Content-environment}{\code{Content$environment()}}
-\item \href{#method-Content-environment_set}{\code{Content$environment_set()}}
-\item \href{#method-Content-environment_all}{\code{Content$environment_all()}}
-\item \href{#method-Content-deploy}{\code{Content$deploy()}}
-\item \href{#method-Content-repo_enable}{\code{Content$repo_enable()}}
-\item \href{#method-Content-repo_set}{\code{Content$repo_set()}}
-\item \href{#method-Content-print}{\code{Content$print()}}
-\item \href{#method-Content-clone}{\code{Content$clone()}}
+\item \href{#method-new}{\code{Content$new()}}
+\item \href{#method-get_connect}{\code{Content$get_connect()}}
+\item \href{#method-get_content}{\code{Content$get_content()}}
+\item \href{#method-get_content_remote}{\code{Content$get_content_remote()}}
+\item \href{#method-get_bundles}{\code{Content$get_bundles()}}
+\item \href{#method-bundle_download}{\code{Content$bundle_download()}}
+\item \href{#method-bundle_delete}{\code{Content$bundle_delete()}}
+\item \href{#method-internal_content}{\code{Content$internal_content()}}
+\item \href{#method-update}{\code{Content$update()}}
+\item \href{#method-danger_delete}{\code{Content$danger_delete()}}
+\item \href{#method-runas}{\code{Content$runas()}}
+\item \href{#method-get_url}{\code{Content$get_url()}}
+\item \href{#method-get_dashboard_url}{\code{Content$get_dashboard_url()}}
+\item \href{#method-get_jobs}{\code{Content$get_jobs()}}
+\item \href{#method-get_job}{\code{Content$get_job()}}
+\item \href{#method-jobs}{\code{Content$jobs()}}
+\item \href{#method-job}{\code{Content$job()}}
+\item \href{#method-variants}{\code{Content$variants()}}
+\item \href{#method-tag_set}{\code{Content$tag_set()}}
+\item \href{#method-tag_delete}{\code{Content$tag_delete()}}
+\item \href{#method-tags}{\code{Content$tags()}}
+\item \href{#method-permissions_add}{\code{Content$permissions_add()}}
+\item \href{#method-permissions_update}{\code{Content$permissions_update()}}
+\item \href{#method-permissions_delete}{\code{Content$permissions_delete()}}
+\item \href{#method-permissions}{\code{Content$permissions()}}
+\item \href{#method-environment}{\code{Content$environment()}}
+\item \href{#method-environment_set}{\code{Content$environment_set()}}
+\item \href{#method-environment_all}{\code{Content$environment_all()}}
+\item \href{#method-deploy}{\code{Content$deploy()}}
+\item \href{#method-repo_enable}{\code{Content$repo_enable()}}
+\item \href{#method-repo_set}{\code{Content$repo_set()}}
+\item \href{#method-print}{\code{Content$print()}}
+\item \href{#method-clone}{\code{Content$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-new}{}}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$new(connect, content)}\if{html}{\out{</div>}}
@@ -76,8 +76,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_connect"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_connect}{}}}
+\if{html}{\out{<a id="method-get_connect"></a>}}
+\if{latex}{\out{\hypertarget{method-get_connect}{}}}
 \subsection{Method \code{get_connect()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_connect()}\if{html}{\out{</div>}}
@@ -85,8 +85,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_content"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_content}{}}}
+\if{html}{\out{<a id="method-get_content"></a>}}
+\if{latex}{\out{\hypertarget{method-get_content}{}}}
 \subsection{Method \code{get_content()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content()}\if{html}{\out{</div>}}
@@ -94,8 +94,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_content_remote"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_content_remote}{}}}
+\if{html}{\out{<a id="method-get_content_remote"></a>}}
+\if{latex}{\out{\hypertarget{method-get_content_remote}{}}}
 \subsection{Method \code{get_content_remote()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content_remote()}\if{html}{\out{</div>}}
@@ -103,8 +103,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_bundles"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_bundles}{}}}
+\if{html}{\out{<a id="method-get_bundles"></a>}}
+\if{latex}{\out{\hypertarget{method-get_bundles}{}}}
 \subsection{Method \code{get_bundles()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles()}\if{html}{\out{</div>}}
@@ -112,8 +112,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-bundle_download"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-bundle_download}{}}}
+\if{html}{\out{<a id="method-bundle_download"></a>}}
+\if{latex}{\out{\hypertarget{method-bundle_download}{}}}
 \subsection{Method \code{bundle_download()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$bundle_download(
@@ -125,8 +125,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-bundle_delete"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-bundle_delete}{}}}
+\if{html}{\out{<a id="method-bundle_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-bundle_delete}{}}}
 \subsection{Method \code{bundle_delete()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
@@ -134,8 +134,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-internal_content"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-internal_content}{}}}
+\if{html}{\out{<a id="method-internal_content"></a>}}
+\if{latex}{\out{\hypertarget{method-internal_content}{}}}
 \subsection{Method \code{internal_content()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$internal_content()}\if{html}{\out{</div>}}
@@ -143,8 +143,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-update"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-update}{}}}
+\if{html}{\out{<a id="method-update"></a>}}
+\if{latex}{\out{\hypertarget{method-update}{}}}
 \subsection{Method \code{update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$update(...)}\if{html}{\out{</div>}}
@@ -152,8 +152,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-danger_delete"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-danger_delete}{}}}
+\if{html}{\out{<a id="method-danger_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-danger_delete}{}}}
 \subsection{Method \code{danger_delete()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$danger_delete()}\if{html}{\out{</div>}}
@@ -161,8 +161,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-runas"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-runas}{}}}
+\if{html}{\out{<a id="method-runas"></a>}}
+\if{latex}{\out{\hypertarget{method-runas}{}}}
 \subsection{Method \code{runas()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
@@ -170,8 +170,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_url"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_url}{}}}
+\if{html}{\out{<a id="method-get_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_url}{}}}
 \subsection{Method \code{get_url()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_url()}\if{html}{\out{</div>}}
@@ -179,8 +179,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_dashboard_url"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_dashboard_url}{}}}
+\if{html}{\out{<a id="method-get_dashboard_url"></a>}}
+\if{latex}{\out{\hypertarget{method-get_dashboard_url}{}}}
 \subsection{Method \code{get_dashboard_url()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_dashboard_url(pane = "")}\if{html}{\out{</div>}}
@@ -188,8 +188,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_jobs"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_jobs}{}}}
+\if{html}{\out{<a id="method-get_jobs"></a>}}
+\if{latex}{\out{\hypertarget{method-get_jobs}{}}}
 \subsection{Method \code{get_jobs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_jobs()}\if{html}{\out{</div>}}
@@ -197,8 +197,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_job"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_job}{}}}
+\if{html}{\out{<a id="method-get_job"></a>}}
+\if{latex}{\out{\hypertarget{method-get_job}{}}}
 \subsection{Method \code{get_job()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
@@ -206,8 +206,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-jobs"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-jobs}{}}}
+\if{html}{\out{<a id="method-jobs"></a>}}
+\if{latex}{\out{\hypertarget{method-jobs}{}}}
 \subsection{Method \code{jobs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$jobs()}\if{html}{\out{</div>}}
@@ -215,8 +215,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-job"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-job}{}}}
+\if{html}{\out{<a id="method-job"></a>}}
+\if{latex}{\out{\hypertarget{method-job}{}}}
 \subsection{Method \code{job()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$job(key)}\if{html}{\out{</div>}}
@@ -224,8 +224,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-variants"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-variants}{}}}
+\if{html}{\out{<a id="method-variants"></a>}}
+\if{latex}{\out{\hypertarget{method-variants}{}}}
 \subsection{Method \code{variants()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$variants()}\if{html}{\out{</div>}}
@@ -233,8 +233,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-tag_set"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-tag_set}{}}}
+\if{html}{\out{<a id="method-tag_set"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_set}{}}}
 \subsection{Method \code{tag_set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tag_set(tag_id)}\if{html}{\out{</div>}}
@@ -242,8 +242,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-tag_delete"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-tag_delete}{}}}
+\if{html}{\out{<a id="method-tag_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-tag_delete}{}}}
 \subsection{Method \code{tag_delete()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(id)}\if{html}{\out{</div>}}
@@ -251,8 +251,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-tags"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-tags}{}}}
+\if{html}{\out{<a id="method-tags"></a>}}
+\if{latex}{\out{\hypertarget{method-tags}{}}}
 \subsection{Method \code{tags()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tags()}\if{html}{\out{</div>}}
@@ -260,8 +260,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-permissions_add"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-permissions_add}{}}}
+\if{html}{\out{<a id="method-permissions_add"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_add}{}}}
 \subsection{Method \code{permissions_add()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_add(principal_guid, principal_type, role)}\if{html}{\out{</div>}}
@@ -269,8 +269,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-permissions_update"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-permissions_update}{}}}
+\if{html}{\out{<a id="method-permissions_update"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_update}{}}}
 \subsection{Method \code{permissions_update()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_update(id, principal_guid, principal_type, role)}\if{html}{\out{</div>}}
@@ -278,8 +278,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-permissions_delete"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-permissions_delete}{}}}
+\if{html}{\out{<a id="method-permissions_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions_delete}{}}}
 \subsection{Method \code{permissions_delete()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_delete(id)}\if{html}{\out{</div>}}
@@ -287,8 +287,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-permissions"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-permissions}{}}}
+\if{html}{\out{<a id="method-permissions"></a>}}
+\if{latex}{\out{\hypertarget{method-permissions}{}}}
 \subsection{Method \code{permissions()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions(id = NULL, add_owner = FALSE)}\if{html}{\out{</div>}}
@@ -296,8 +296,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-environment"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-environment}{}}}
+\if{html}{\out{<a id="method-environment"></a>}}
+\if{latex}{\out{\hypertarget{method-environment}{}}}
 \subsection{Method \code{environment()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment()}\if{html}{\out{</div>}}
@@ -305,8 +305,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-environment_set"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-environment_set}{}}}
+\if{html}{\out{<a id="method-environment_set"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_set}{}}}
 \subsection{Method \code{environment_set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(...)}\if{html}{\out{</div>}}
@@ -314,8 +314,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-environment_all"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-environment_all}{}}}
+\if{html}{\out{<a id="method-environment_all"></a>}}
+\if{latex}{\out{\hypertarget{method-environment_all}{}}}
 \subsection{Method \code{environment_all()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment_all(...)}\if{html}{\out{</div>}}
@@ -323,8 +323,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-deploy"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-deploy}{}}}
+\if{html}{\out{<a id="method-deploy"></a>}}
+\if{latex}{\out{\hypertarget{method-deploy}{}}}
 \subsection{Method \code{deploy()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$deploy(bundle_id = NULL)}\if{html}{\out{</div>}}
@@ -332,8 +332,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-repo_enable"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-repo_enable}{}}}
+\if{html}{\out{<a id="method-repo_enable"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_enable}{}}}
 \subsection{Method \code{repo_enable()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$repo_enable(enabled = TRUE)}\if{html}{\out{</div>}}
@@ -341,8 +341,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-repo_set"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-repo_set}{}}}
+\if{html}{\out{<a id="method-repo_set"></a>}}
+\if{latex}{\out{\hypertarget{method-repo_set}{}}}
 \subsection{Method \code{repo_set()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$repo_set(repository, branch, subdirectory)}\if{html}{\out{</div>}}
@@ -350,8 +350,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-print"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-print}{}}}
+\if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$print(...)}\if{html}{\out{</div>}}
@@ -359,8 +359,8 @@ Other R6 classes:
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-clone}{}}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
