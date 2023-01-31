@@ -43,7 +43,7 @@ Please pay careful attention to the lifecycle badges of the various functions
 and warnings present when you are using experimental features.
 
 **Also, [please share
-feedback!!](https://community.rstudio.com/c/r-admin/rstudio-connect/27) We love
+feedback!!](https://community.rstudio.com/c/r-admin/posit-connect/27) We love
 hearing how the Posit Connect Server API is helpful and what additional
 endpoints would be useful!!**
 
@@ -217,7 +217,7 @@ If you get this error message, our recommendation would be:
 
 Please feel free to open an Issue if you think there is a bug, or ask a
 free-form question on [Posit
-Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+Community](https://community.rstudio.com/c/r-admin/posit-connect/27)
 
 **Other ideas for FAQs or Common Issues?**
 
