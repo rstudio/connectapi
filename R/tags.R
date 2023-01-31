@@ -193,7 +193,7 @@ get_content_tags <- function(content) {
   # TODO: find a way to build a tag tree from a list of tags
 
   tagtree <- get_tags(content$get_connect())
-  res <- filter_tag_tree_id(tagtree, purrr::map_chr(ctags, ~ .x$id))
+  res <- filter_tag_tree_id(tagtree, purrr::map_chr(ctags, ~ as.character(.x$id)))
   attr(res, "filter") <- "content"
   res
 }
@@ -365,7 +365,7 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map_chr(tags_noname, ~ recursive_find_tag(.x, tag, parent_id))
+  recurse_res <- purrr::map_chr(tags_noname, ~ as.character(recursive_find_tag(.x, tag, parent_id)))
   recurse_res_any <- recurse_res[!is.na(recurse_res)]
   if (length(recurse_res_any) == 0) {
     recurse_res_any <- NA_real_
@@ -373,17 +373,17 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   names(recurse_res_any) <- NULL
 
   if (!is.na(recurse_res_any)) {
-    recurse_res_any
+    return(recurse_res_any)
   } else if (is.null(parent_id) && !is.null(tags$name) && tags$name == tag) {
     res <- tags$id
     names(res) <- NULL
-    res
+    return(res)
   } else if (!is.null(parent_id) && tags$id == parent_id && tag %in% names(tags_noname)) {
     res <- tags[[tag]]$id
     names(res) <- NULL
-    res
+    return(res)
   } else {
-    NA_real_
+    return(NA_real_)
   }
 }
 
