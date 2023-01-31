@@ -22,7 +22,7 @@ Bundle <- R6::R6Class(
     },
 
     print = function(...) {
-      cat("RStudio Connect Bundle: \n")
+      cat("Posit Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
       cat("  Size: ", capture.output(self$size), "\n", sep = "")
       cat("\n")
@@ -69,7 +69,7 @@ Task <- R6::R6Class(
       self$data
     },
     print = function(...) {
-      cat("RStudio Connect Task: \n")
+      cat("Posit Connect Task: \n")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
@@ -109,7 +109,7 @@ ContentTask <- R6::R6Class(
       self$data
     },
     print = function(...) {
-      cat("RStudio Connect Content Task: \n")
+      cat("Posit Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  URL: ", dashboard_url_chr(self$get_connect()$server, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
@@ -143,7 +143,7 @@ Vanity <- R6::R6Class(
     },
 
     print = function(...) {
-      cat("RStudio Connect Content Vanity URL: \n")
+      cat("Posit Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  Vanity URL: ", self$get_vanity()$path, "\n", sep = "")
       cat("\n")
@@ -291,7 +291,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 
 #' Deploy a bundle
 #'
-#' Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+#' Deploys a bundle (tarball) to an Posit Connect server. If not provided,
 #' `name` (a unique identifier) will be an auto-generated alphabetic string. If
 #' deploying to an existing endpoint, you can set `name` or `guid` to the
 #' desired content.

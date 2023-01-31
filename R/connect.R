@@ -1,6 +1,6 @@
 #' Class representing a Connect API client
 #'
-#' @name RStudioConnect
+#' @name PositConnect
 #'
 #' @section Usage:
 #' \preformatted{
@@ -51,9 +51,9 @@ Connect <- R6::R6Class(
     # helpers ----------------------------------------------------------
 
     print = function(...) {
-      cat("RStudio Connect API Client: \n")
-      cat("  RStudio Connect Server: ", self$server, "\n", sep = "")
-      cat("  RStudio Connect API Key: ", paste0(strrep("*", 11), substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))), "\n", sep = "")
+      cat("Posit Connect API Client: \n")
+      cat("  Posit Connect Server: ", self$server, "\n", sep = "")
+      cat("  Posit Connect API Key: ", paste0(strrep("*", 11), substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))), "\n", sep = "")
       # TODO: something about API key... role... ?
       # TODO: point to docs on methods... how to see methods?
       cat("\n")
@@ -742,22 +742,22 @@ Connect <- R6::R6Class(
   )
 )
 
-#' Create a connection to RStudio Connect
+#' Create a connection to Posit Connect
 #'
-#' Creates a connection to RStudio Connect using the server URL and an api key.
+#' Creates a connection to Posit Connect using the server URL and an api key.
 #' Validates the connection and checks that the version of the server is
 #' compatible with the current version of the package.
 #'
-#' @param server The URL for accessing RStudio Connect. Defaults to environment
+#' @param server The URL for accessing Posit Connect. Defaults to environment
 #'   variable CONNECT_SERVER
-#' @param api_key The API Key to authenticate to RStudio Connect with. Defaults
+#' @param api_key The API Key to authenticate to Posit Connect with. Defaults
 #'   to environment variable CONNECT_API_KEY
 #' @param prefix The prefix used to determine environment variables
 #' @param ... Additional arguments. Not used at present
 #' @param .check_is_fatal Whether to fail if "check" requests fail. Useful in
 #'   rare cases where more http request customization is needed for requests to
 #'   succeed.
-#' @return An RStudio Connect R6 object that can be passed along to methods
+#' @return A Posit Connect R6 object that can be passed along to methods
 #'
 #' @rdname connect
 #'

@@ -141,10 +141,10 @@ connect_tag_tree <- function(tag_data, filter = "filtered") {
 #' @export
 print.connect_tag_tree <- function(x, ...) {
   if (!is.null(attr(x, "filter"))) {
-    cat(glue::glue("RStudio Connect Tag Tree ({attr(x, 'filter')})"))
+    cat(glue::glue("Posit Connect Tag Tree ({attr(x, 'filter')})"))
     cat("\n")
   } else {
-    cat("RStudio Connect Tag Tree\n")
+    cat("Posit Connect Tag Tree\n")
   }
   if (length(x) > 0) {
     recursive_tag_print(x, "")

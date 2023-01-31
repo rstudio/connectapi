@@ -4,6 +4,16 @@ This outlines how to propose a change to connectapi.
 For more detailed info about contributing to this, and other tidyverse packages, please see the
 [**development contributing guide**](https://rstd.io/tidy-contrib). 
 
+## Testing
+
+- Most tests can be run using `testthat`
+- If you are using an x86 Mac or another system with `docker` and `docker-compose` installed, then
+you can also use our inbuilt integration testing locally:
+```
+connectapi:::build_test_env()
+```
+- Then the integration test suite should run with `devtools::test()`
+
 ## Fixing typos
 
 You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 

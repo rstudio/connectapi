@@ -167,7 +167,7 @@ safe_server_settings <- function(client) {
   },
   error = function(e) {
     message(
-      glue::glue("Problem talking to RStudio Connect at {client$server}/__api__/server_settings")
+      glue::glue("Problem talking to Posit Connect at {client$server}/__api__/server_settings")
     )
     stop(e)
   }
@@ -184,17 +184,17 @@ safe_server_version <- function(client) {
 error_if_less_than <- function(client, tested_version) {
   comp <- compare_connect_version(using_version = safe_server_version(client), tested_version = tested_version)
   if (comp > 0) {
-    stop(glue::glue("ERROR: This API requires RStudio Connect version {tested_version}, but you are using {srv$version}. Please use a previous version of the `connectapi` package, upgrade RStudio Connect, or review the API documentation corresponding to your version."))
+    stop(glue::glue("ERROR: This API requires Posit Connect version {tested_version}, but you are using {srv$version}. Please use a previous version of the `connectapi` package, upgrade Posit Connect, or review the API documentation corresponding to your version."))
   }
   invisible()
 }
 
 compare_connect_version <- function(using_version, tested_version) {
   if (is.null(using_version)) {
-    message("Version information is not exposed by this RStudio Connect instance.")
+    message("Version information is not exposed by this Posit Connect instance.")
     return(0)
   } else if (nchar(using_version) == 0) {
-    message("Version information is not exposed by this RStudio Connect instance.")
+    message("Version information is not exposed by this Posit Connect instance.")
     return(0)
   } else {
     minor_using_version <- simplify_version(using_version)
@@ -210,12 +210,12 @@ check_connect_version <- function(using_version, tested_version = tested_connect
     as.character(comp),
     "0" = NULL,
     "1" = warn_once(glue::glue(
-      "You are using an older version of RStudio Connect ",
+      "You are using an older version of Posit Connect ",
       "({using_version}) than was tested ({tested_version}). ",
       "Some APIs may not function as expected."
     ), id = "old-connect"),
     "-1" = warn_once(glue::glue(
-      "You are using a newer version of RStudio Connect ",
+      "You are using a newer version of Posit Connect ",
       "({using_version}) than was tested ({tested_version}). ",
       "Most APIs should function as expected."
     ), id = "new-connect")

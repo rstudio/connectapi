@@ -1,6 +1,6 @@
 #' Git Repository Helpers
 #'
-#' \lifecycle{experimental} These functions help use RStudio Connect's configured authorization to query
+#' \lifecycle{experimental} These functions help use Posit Connect's configured authorization to query
 #' available branches and subdirectories for deployment using `deploy_repo()`
 #'
 #' - `repo_check_account()` messages whether an account is in use, and then returns that account
@@ -78,10 +78,10 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 
 #' Deploy a Git Repository
 #'
-#' \lifecycle{experimental} Deploy a git repository directly to RStudio Connect,
-#' using RStudio Connect's "pull-based" "git-polling" method of deployment.
+#' \lifecycle{experimental} Deploy a git repository directly to Posit Connect,
+#' using Posit Connect's "pull-based" "git-polling" method of deployment.
 #'
-#' - `deploy_repo_enable()` enables (or disables) RStudio Connect's git polling for a piece of content
+#' - `deploy_repo_enable()` enables (or disables) Posit Connect's git polling for a piece of content
 #' - `deploy_repo_update()` triggers an update of the content from its git repository, if any are present
 #'
 #' @param client A Connect R6 object
