@@ -14,7 +14,7 @@ For additional reprex pointers, check out the [Get help!](https://www.tidyverse.
 
 Armed with your reprex, the next step is to figure out [where to ask](https://www.tidyverse.org/help/#where-to-ask). 
 
-*   If it's a question: start with [community.posit.co](https://community.posit.co/), and/or StackOverflow. There are more people there to answer questions.  
+*   If it's a question: start with [community.rstudio.com](https://community.rstudio.com/), and/or StackOverflow. There are more people there to answer questions.  
 
 *   If it's a bug: you're in the right place, [file an issue](https://github.com/rstudio/connectapi/issues/new).  
   
