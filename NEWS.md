@@ -1,4 +1,8 @@
-# connectapi (development version)
+# connectapi 0.1.3
+
+- Rebrand RStudio to Posit
+  - `RStudioConnect` documentation is now at `PositConnect`
+- Fix `purrr` deprecated changes
 
 # connectapi 0.1.2
 
