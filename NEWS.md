@@ -1,3 +1,5 @@
+# connectapi (development version)
+
 # connectapi 0.1.3.1
 
 - Fix generated documentation HTML for CRAN submission
