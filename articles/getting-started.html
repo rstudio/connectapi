@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">connectapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
                         <h4 data-toc-skip class="author">Cole
 Arendt</h4>
             
-            <h4 data-toc-skip class="date">2023-01-11</h4>
+            <h4 data-toc-skip class="date">2023-02-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/connectapi/blob/HEAD/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
@@ -114,9 +114,9 @@ Arendt</h4>
 <h2 id="connecting">Connecting<a class="anchor" aria-label="anchor" href="#connecting"></a>
 </h2>
 <p>The first thing that you need to accomplish when using the
-<code>connectapi</code> is getting connected to your RStudio Connect
+<code>connectapi</code> is getting connected to your Posit Connect
 server. This requires the URL to your server and an API key. Directions
-on how to get an API key are <a href="https://docs.rstudio.com/connect/user/api-keys/#api-keys" class="external-link">here</a>.</p>
+on how to get an API key are <a href="https://docs.posit.co/connect/user/api-keys/#api-keys" class="external-link">here</a>.</p>
 <p>Once you have your API key, you can create a Connect object in your
 code, like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -172,13 +172,13 @@ content object while you wait for deployment to complete:</p>
 <span><span class="va">content_1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/get_vanity_url.html">get_vanity_url</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you have content that already exists and you want to update it,
-you can do so using the content GUID (which you can find within RStudio
+you can do so using the content GUID (which you can find within Posit
 Connect in the Info pane).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_2</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bnd</span>, guid <span class="op">=</span> <span class="st">"d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>You can also use the RStudio Connect content GUID to retrieve
+<p>You can also use the Posit Connect content GUID to retrieve
 information about existing content (if you want to examine or change
 settings)</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -199,7 +199,7 @@ settings)</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Sean Lopp, Cole Arendt, RStudio PBC.</p>
+<p>Developed by Sean Lopp, Cole Arendt, Posit, PBC.</p>
 </div>
 
 <div class="pkgdown">
