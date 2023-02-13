@@ -22,8 +22,8 @@ knitr::opts_chunk$set(
 
 # connectapi <img src='man/figures/logo.svg' align="right" height="139" />
 
-This package provides an R client for the [RStudio Connect Server
-API](https://docs.rstudio.com/connect/api/) as well as helpful functions that
+This package provides an R client for the [Posit Connect Server
+API](https://docs.posit.co/connect/api/) as well as helpful functions that
 utilize the client. The package is based on the `rsconnnect`
 [package](https://rstudio.github.io/rsconnect/), but is publicly exported to be
 easier to use, is extensible via an R6 class, and is separated from the
@@ -32,19 +32,19 @@ easier to use, is extensible via an R6 class, and is separated from the
 ## Disclaimer
 
 Because many of these functions are experimental, it is advisable to be cautious
-about (1) upgrading the package, (2) upgrading RStudio Connect when you care
+about (1) upgrading the package, (2) upgrading Posit Connect when you care
 about the reproducibility of workflows that use `connectapi`. As a result, we
 would advise:
 
 - managing package versions with [`renv`](https://rstudio.github.io/renv/)
-- test your dependent content before and after upgrading RStudio Connect
+- test your dependent content before and after upgrading Posit Connect
 
 Please pay careful attention to the lifecycle badges of the various functions
 and warnings present when you are using experimental features.
 
 **Also, [please share
-feedback!!](https://community.rstudio.com/c/r-admin/rstudio-connect/27) We love
-hearing how the RStudio Connect Server API is helpful and what additional
+feedback!!](https://community.rstudio.com/c/r-admin/posit-connect/27) We love
+hearing how the Posit Connect Server API is helpful and what additional
 endpoints would be useful!!**
 
 ## Installation
@@ -89,11 +89,11 @@ client <- connect()
 
 ## Getting Started
 
-Once a client is defined, you can use it to interact with RStudio Connect.
+Once a client is defined, you can use it to interact with Posit Connect.
 
 ### Exploring Data
 
-You can use the `get_` methods to retrieve data from the RStudio Connect server.
+You can use the `get_` methods to retrieve data from the Posit Connect server.
 
 ```r
 library(connectapi)
@@ -113,7 +113,7 @@ all_content <- get_content(client, limit = Inf)
 ### Deployment
 
 The `rsconnect` package is usually used for deploying content to Connect.
-However, if you want to use programmatic deployment with the RStudio Connect
+However, if you want to use programmatic deployment with the Posit Connect
 Server API, then these `connectapi` helpers should be useful!
 
 ```{r, eval = FALSE}
@@ -180,19 +180,19 @@ client_prod %>% browse_api_docs()
 **Access Denied Errors?**
 
 This is likely due to either (1) `Connect$server` or `Connect$api_key` being
-defined improperly or (2) you do not have access to the RStudio Connect cluster
+defined improperly or (2) you do not have access to the Posit Connect cluster
 to do the operation in question
 
 **Constant warning about version numbers**
 
 This warning is intentionally chatty. While version number mismatches between
-RStudio Connect and `connectapi` can be benign, we want you to be clear that
-`connectapi` is tightly coupled to a version of RStudio Connect (because RStudio
+Posit Connect and `connectapi` can be benign, we want you to be clear that
+`connectapi` is tightly coupled to a version of Posit Connect (because Posit
 Connect's APIs change over time).
 
 We strive to:
 
-- track the latest version of the RStudio Connect API
+- track the latest version of the Posit Connect API
 - add new features as they come available and have demand
 - maintain backwards compatibility
 
@@ -200,14 +200,14 @@ These priorities are sometimes at odds, and sometimes they create
 inconsistencies between versions as a result. To mitigate this, we recommend:
 
 - Track the version of `connectapi` in use for your applications by using `renv`
-- Test high value content that uses `connectapi` before updating `connectapi` or RStudio Connect
-- Update RStudio Connect to the latest version _first_ when an update to `connectapi` is needed
+- Test high value content that uses `connectapi` before updating `connectapi` or Posit Connect
+- Update Posit Connect to the latest version _first_ when an update to `connectapi` is needed
 
-**Error - Need to update RStudio Connect**
+**Error - Need to update Posit Connect**
 
 As a helpful clarification for users, we have added error messages to API
 requests when the version implemented in the package specifically introduces a
-backwards incompatible dependency on older versions of RStudio Connect.
+backwards incompatible dependency on older versions of Posit Connect.
 
 If you get this error message, our recommendation would be:
 
@@ -216,8 +216,8 @@ If you get this error message, our recommendation would be:
 - (Advanced) Use the "blame" feature on GitHub to track commits and find out when the error was introduced
 
 Please feel free to open an Issue if you think there is a bug, or ask a
-free-form question on [RStudio
-Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+free-form question on [Posit
+Community](https://community.rstudio.com/c/r-admin/posit-connect/27)
 
 **Other ideas for FAQs or Common Issues?**
 

@@ -16,7 +16,7 @@ get_job(content, key)
 }
 \description{
 \lifecycle{experimental} Retrieve details about jobs associated with a \code{content_item}.
-"Jobs" in RStudio Connect are content executions
+"Jobs" in Posit Connect are content executions
 }
 \seealso{
 Other content functions: 

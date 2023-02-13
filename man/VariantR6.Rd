@@ -12,7 +12,7 @@ Other R6 classes:
 \code{\link{ContentTask}},
 \code{\link{Content}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},

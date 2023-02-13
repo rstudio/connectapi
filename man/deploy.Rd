@@ -39,7 +39,7 @@ deploy_current(content)
 Task A task object
 }
 \description{
-Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+Deploys a bundle (tarball) to an Posit Connect server. If not provided,
 \code{name} (a unique identifier) will be an auto-generated alphabetic string. If
 deploying to an existing endpoint, you can set \code{name} or \code{guid} to the
 desired content.

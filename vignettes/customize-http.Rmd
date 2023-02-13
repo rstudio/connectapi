@@ -121,7 +121,7 @@ Suffice it to say that effectively using Kerberos for HTTP is a bit of an
 advanced topic. However, it _is_ possible with `httr`.
 
 It is worth noting that today, this interferes with API key authentication, which we
-are hoping to improve in a future release of RStudio Connect.
+are hoping to improve in a future release of Posit Connect.
 
 ```{r}
 # disables authentication header that is included by default

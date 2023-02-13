@@ -63,7 +63,7 @@ user opened the application.}
 \item{\strong{ended}}{The timestamp, in RFC3339 format, when the
 user left the application.}
 \item{\strong{data_version}}{The data version the record was recorded
-with. The Shiny Application Events section of the RStudio Connect Admin
+with. The Shiny Application Events section of the Posit Connect Admin
 Guide explains how to interpret data_version values.}
 }
 }
@@ -71,7 +71,7 @@ Guide explains how to interpret data_version values.}
 Get usage information for deployed shiny applications
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getShinyAppUsage for more information
+Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more information
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{get_content_old}
 \alias{get_content_old}
-\title{Get information about content on the RStudio Connect server}
+\title{Get information about content on the Posit Connect server}
 \usage{
 get_content_old(src, filter = NULL, limit = 25, page_size = 25)
 }
@@ -21,9 +21,9 @@ A tibble with the following columns:
 \item{\strong{id}}{The application ID}
 \item{\strong{guid}}{The unique identifier of this content item.}
 \item{\strong{access_type}}{Access type describes how this content manages
-its viewers. The value all is the most permissive; any visitor to RStudio
+its viewers. The value all is the most permissive; any visitor to Posit
 Connect will be able to view this content. The value logged_in indicates
-that all RStudio Connect accounts may view the content. The acl value
+that all Posit Connect accounts may view the content. The acl value
 lets specifically enumerated users and groups view the content. Users
 configured as collaborators may always view content. It may have a
 value of all, logged_in or acl.}
@@ -38,7 +38,7 @@ data received from a client connection. A value of 0 means a lack of client
 the default Scheduler.ReadTimeout is used. Applies only to content types
 that are executed on demand.}
 \item{\strong{init_timeout}}{The maximum number of seconds allowed for an
-interactive application to start. RStudio Connect must be able to connect
+interactive application to start. Posit Connect must be able to connect
 to a newly launched Shiny application, for example, before this threshold
 has elapsed. When null, the default Scheduler.InitTimeout is used. Applies
 only to content types that are executed on demand.}
@@ -123,10 +123,10 @@ content.}
 }
 }
 \description{
-Get information about content on the RStudio Connect server
+Get information about content on the Posit Connect server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getContent for more information
+Please see https://docs.posit.co/connect/api/#getContent for more information
 }
 \examples{
 \dontrun{

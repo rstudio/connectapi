@@ -23,8 +23,8 @@ The aggregated results from all requests
 }
 \description{
 Helper functions that make paging easier in
-the RStudio Connect Server API.
+the Posit Connect Server API.
 
 Helper functions that make paging easier in
-the RStudio Connect Server API.
+the Posit Connect Server API.
 }

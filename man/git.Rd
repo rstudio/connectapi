@@ -26,7 +26,7 @@ repo_check_manifest_dirs(client, repository, branch)
 \item{branch}{The git branch to explore for subdirectories}
 }
 \description{
-These functions help use RStudio Connect's configured authorization to query
+\lifecycle{experimental} These functions help use Posit Connect's configured authorization to query
 available branches and subdirectories for deployment using \code{deploy_repo()}
 }
 \details{

@@ -9,7 +9,7 @@ Content <- R6::R6Class(
   public = list(
     #' @field connect An R6 Connect object
     connect = NULL,
-    #' @field content The content details from RStudio Connect
+    #' @field content The content details from Posit Connect
     content = NULL,
 
     initialize = function(connect, content) {
@@ -224,7 +224,7 @@ Content <- R6::R6Class(
       )
     },
     print = function(...) {
-      cat("RStudio Connect Content: \n")
+      cat("Posit Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  Content URL: ", dashboard_url_chr(self$get_connect()$server, self$get_content()$guid), "\n", sep = "")
       cat("  Content Title: ", self$get_content()$title, "\n", sep = "")
@@ -491,7 +491,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 #' Get Jobs
 #'
 #' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
-#' "Jobs" in RStudio Connect are content executions
+#' "Jobs" in Posit Connect are content executions
 #'
 #' @param content A Content object, as returned by `content_item()`
 #' @param key The key for a job
@@ -533,7 +533,7 @@ get_job <- function(content, key) {
 #' - PAM is the authentication method
 #' - `Applications.RunAsCurrentUser` is enabled on the server
 #'
-#' Also worth noting that the `run_as` user must exist on the RStudio Connect
+#' Also worth noting that the `run_as` user must exist on the Posit Connect
 #' server (as a linux user) and have appropriate group memberships, or you will
 #' get a `400: Bad Request`. Set to `NULL` to use the default RunAs user / unset
 #' any current configuration.
@@ -597,7 +597,7 @@ content_delete <- function(content, force=FALSE) {
 #'
 #' Update settings for a content item. For a list of all settings, see the
 #' [latest
-#' documentation](https://docs.rstudio.com/connect/api/#patch-/v1/content/{guid})
+#' documentation](https://docs.posit.co/connect/api/#patch-/v1/content/{guid})
 #' or the documentation for your server via `connectapi::browse_api_docs()`.
 #'
 #' Popular selections are `content_update(access_type="all")`,
@@ -609,7 +609,7 @@ content_delete <- function(content, force=FALSE) {
 #' - `content_update_owner()` is a helper to make it easier to change owner
 #'
 #' @param content An R6 content item
-#' @param ... Settings up update that are passed along to RStudio Connect
+#' @param ... Settings up update that are passed along to Posit Connect
 #' @param access_type One of "all", "logged_in", or "acl"
 #' @param owner_guid The GUID of a user who is a publisher, so that they can
 #'   become the new owner of the content
@@ -646,7 +646,7 @@ content_update_owner <- function(content, owner_guid) {
 
 #' Verify Content Name
 #'
-#' Ensures that a content name fits the specifications / requirements of RStudio
+#' Ensures that a content name fits the specifications / requirements of Posit
 #' Connect. Throws an error if content name is invalid. Content names (as of the
 #' time of writing) must be between 3 and 64 alphanumeric characters, dashes,
 #' and underscores

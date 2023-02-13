@@ -148,12 +148,12 @@ An updated Schedule object
 }
 \details{
 \itemize{
-\item \code{set_schedule()} is a raw interface to RStudio Connect's \code{schedule} API
+\item \code{set_schedule()} is a raw interface to Posit Connect's \code{schedule} API
 \item \verb{set_schedule_*()} functions provide handy wrappers around \code{set_schedule()}
 \item \code{set_schedule_remove()} removes a schedule / un-schedules a variant
 }
 
-Beware, using \code{set_schedule()} currently uses the RStudio Connect \code{schedule} API
+Beware, using \code{set_schedule()} currently uses the Posit Connect \code{schedule} API
 directly, and so can be a little clunky. Using the \verb{set_schedule_*()} is generally
 recommended.
 }

@@ -1,6 +1,6 @@
 
 
-#' Get user information from the RStudio Connect server
+#' Get user information from the Posit Connect server
 #'
 #' @param src The source object
 #' @param page_size the number of records to return per page (max 500)
@@ -18,11 +18,11 @@
 #'   \item{\strong{user_role}}{The user's role. It may have a value of
 #'   administrator, publisher or viewer.}
 #'   \item{\strong{created_time}}{The timestamp (in RFC3339 format) when the
-#'   user was created in the RStudio Connect server}
+#'   user was created in the Posit Connect server}
 #'   \item{\strong{updated_time}}{The timestamp (in RFC3339 format) when the
-#'   user was last updated in the RStudio Connect server}
+#'   user was last updated in the Posit Connect server}
 #'   \item{\strong{active_time}}{The timestamp (in RFC3339 format) when the
-#'   user was last active on the RStudio Connect server}
+#'   user was last active on the Posit Connect server}
 #'   \item{\strong{confirmed}}{When false, the created user must confirm their
 #'   account through an email. This feature is unique to password
 #'   authentication.}
@@ -31,7 +31,7 @@
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getUsers for more information
+#' Please see https://docs.posit.co/connect/api/#getUsers for more information
 #'
 #' @examples
 #' \dontrun{
@@ -57,7 +57,7 @@ get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
   return(out)
 }
 
-#' Get group information from the RStudio Connect server
+#' Get group information from the Posit Connect server
 #'
 #' @param src The source object
 #' @param page_size the number of records to return per page (max 500)
@@ -76,7 +76,7 @@ get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getGroups for more information
+#' Please see https://docs.posit.co/connect/api/#getGroups for more information
 #'
 #' @examples
 #' \dontrun{
@@ -113,11 +113,11 @@ get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 #'   \item{\strong{user_role}}{The user's role. It may have a value of
 #'   administrator, publisher or viewer.}
 #'   \item{\strong{created_time}}{The timestamp (in RFC3339 format) when the
-#'   user was created in the RStudio Connect server}
+#'   user was created in the Posit Connect server}
 #'   \item{\strong{updated_time}}{The timestamp (in RFC3339 format) when the
-#'   user was last updated in the RStudio Connect server}
+#'   user was last updated in the Posit Connect server}
 #'   \item{\strong{active_time}}{The timestamp (in RFC3339 format) when the
-#'   user was last active on the RStudio Connect server}
+#'   user was last active on the Posit Connect server}
 #'   \item{\strong{confirmed}}{When false, the created user must confirm their
 #'   account through an email. This feature is unique to password
 #'   authentication.}
@@ -126,7 +126,7 @@ get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getGroupMembers for more information
+#' Please see https://docs.posit.co/connect/api/#getGroupMembers for more information
 #'
 #' @examples
 #' \dontrun{
@@ -152,7 +152,7 @@ get_group_members <- function(src, guid) {
   return(out)
 }
 
-#' Get information about content on the RStudio Connect server
+#' Get information about content on the Posit Connect server
 #'
 #' @param src A Connect object
 #' @param guid The guid for a particular content item
@@ -170,9 +170,9 @@ get_group_members <- function(src, guid) {
 #'    \item{\strong{title}}{The title of this content.}
 #'    \item{\strong{description}}{A rich description of this content}
 #'    \item{\strong{access_type}}{Access type describes how this content manages
-#'    its viewers. The value all is the most permissive; any visitor to RStudio
+#'    its viewers. The value all is the most permissive; any visitor to Posit
 #'    Connect will be able to view this content. The value logged_in indicates
-#'    that all RStudio Connect accounts may view the content. The acl value
+#'    that all Posit Connect accounts may view the content. The acl value
 #'    lets specifically enumerated users and groups view the content. Users
 #'    configured as collaborators may always view content. It may have a
 #'    value of all, logged_in or acl.}
@@ -187,7 +187,7 @@ get_group_members <- function(src, guid) {
 #'    the default Scheduler.ReadTimeout is used. Applies only to content types
 #'    that are executed on demand.}
 #'    \item{\strong{init_timeout}}{The maximum number of seconds allowed for an
-#'    interactive application to start. RStudio Connect must be able to connect
+#'    interactive application to start. Posit Connect must be able to connect
 #'    to a newly launched Shiny application, for example, before this threshold
 #'    has elapsed. When null, the default Scheduler.InitTimeout is used. Applies
 #'    only to content types that are executed on demand.}
@@ -260,7 +260,7 @@ get_group_members <- function(src, guid) {
 #'  }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#get-/v1/content for more information
+#' Please see https://docs.posit.co/connect/api/#get-/v1/content for more information
 #'
 #' @examples
 #' \dontrun{
@@ -382,7 +382,7 @@ content_list_guid_has_access <- function(content_list, guid) {
   return(filtered)
 }
 
-#' Get information about content on the RStudio Connect server
+#' Get information about content on the Posit Connect server
 #'
 #' @param src The source object
 #' @param filter a named list of filter options, e.g. list(name = 'appname')
@@ -395,9 +395,9 @@ content_list_guid_has_access <- function(content_list, guid) {
 #'   \item{\strong{id}}{The application ID}
 #'   \item{\strong{guid}}{The unique identifier of this content item.}
 #'   \item{\strong{access_type}}{Access type describes how this content manages
-#'    its viewers. The value all is the most permissive; any visitor to RStudio
+#'    its viewers. The value all is the most permissive; any visitor to Posit
 #'    Connect will be able to view this content. The value logged_in indicates
-#'    that all RStudio Connect accounts may view the content. The acl value
+#'    that all Posit Connect accounts may view the content. The acl value
 #'    lets specifically enumerated users and groups view the content. Users
 #'    configured as collaborators may always view content. It may have a
 #'    value of all, logged_in or acl.}
@@ -412,7 +412,7 @@ content_list_guid_has_access <- function(content_list, guid) {
 #'    the default Scheduler.ReadTimeout is used. Applies only to content types
 #'    that are executed on demand.}
 #'    \item{\strong{init_timeout}}{The maximum number of seconds allowed for an
-#'    interactive application to start. RStudio Connect must be able to connect
+#'    interactive application to start. Posit Connect must be able to connect
 #'    to a newly launched Shiny application, for example, before this threshold
 #'    has elapsed. When null, the default Scheduler.InitTimeout is used. Applies
 #'    only to content types that are executed on demand.}
@@ -497,7 +497,7 @@ content_list_guid_has_access <- function(content_list, guid) {
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getContent for more information
+#' Please see https://docs.posit.co/connect/api/#getContent for more information
 #'
 #' @examples
 #' \dontrun{
@@ -569,12 +569,12 @@ get_content_old <- function(src, filter = NULL, limit = 25, page_size = 25) {
 #'   \item{\strong{ended}}{The timestamp, in RFC3339 format, when the
 #'   user left the application.}
 #'   \item{\strong{data_version}}{The data version the record was recorded
-#'   with. The Shiny Application Events section of the RStudio Connect Admin
+#'   with. The Shiny Application Events section of the Posit Connect Admin
 #'   Guide explains how to interpret data_version values.}
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getShinyAppUsage for more information
+#' Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more information
 #'
 #' @examples
 #' \dontrun{
@@ -617,7 +617,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
 #' Get usage information from deployed static content
 #'
 #' This function retrieves usage information from static content
-#' on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)
+#' on the Posit Connect server (e.g. Rmarkdown, Jupyter Notebooks)
 #'
 #' @param src the source object
 #' @param content_guid Filter results by content GUID
@@ -662,13 +662,13 @@ get_usage_shiny <- function(src, content_guid = NULL,
 #'   \item{\strong{bundle_id}}{The ID of the particular bundle used.}
 #'   \item{\strong{data_version}}{The data version the record was recorded
 #'   with. The Rendered and Static Content Visit Events section of the
-#'   RStudio Connect Admin Guide explains how to interpret data_version
+#'   Posit Connect Admin Guide explains how to interpret data_version
 #'   values.}
 #' }
 #'
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getContentVisits for more
+#' Please see https://docs.posit.co/connect/api/#getContentVisits for more
 #' information
 #'
 #' @examples
@@ -710,7 +710,7 @@ get_usage_static <- function(src, content_guid = NULL,
 }
 
 
-#' Get Audit Logs from RStudio Connect Server
+#' Get Audit Logs from Posit Connect Server
 #'
 #' @param src The source object
 #' @param limit The number of records to return.
@@ -738,7 +738,7 @@ get_usage_static <- function(src, content_guid = NULL,
 #' }
 #'
 #' @details
-#' Please see https://docs.rstudio.com/connect/api/#getAuditLogs for more
+#' Please see https://docs.posit.co/connect/api/#getAuditLogs for more
 #' information
 #'
 #' @examples
@@ -772,7 +772,7 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
 #' Get Real-Time Process Data
 #'
 #' \lifecycle{experimental}
-#' This returns real-time process data from the RStudio Connect API. It requires
+#' This returns real-time process data from the Posit Connect API. It requires
 #' administrator privileges to use. NOTE that this only returns data for the
 #' server that responds to the request (i.e. in a Highly Available cluster)
 #'

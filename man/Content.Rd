@@ -11,7 +11,7 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{ContentTask}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},
@@ -24,7 +24,7 @@ Other R6 classes:
 \describe{
 \item{\code{connect}}{An R6 Connect object}
 
-\item{\code{content}}{The content details from RStudio Connect}
+\item{\code{content}}{The content details from Posit Connect}
 }
 \if{html}{\out{</div>}}
 }

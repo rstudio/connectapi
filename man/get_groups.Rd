@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{get_groups}
 \alias{get_groups}
-\title{Get group information from the RStudio Connect server}
+\title{Get group information from the Posit Connect server}
 \usage{
 get_groups(src, page_size = 20, prefix = NULL, limit = 25)
 }
@@ -27,10 +27,10 @@ enabled this property will always be null.}
 }
 }
 \description{
-Get group information from the RStudio Connect server
+Get group information from the Posit Connect server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getGroups for more information
+Please see https://docs.posit.co/connect/api/#getGroups for more information
 }
 \examples{
 \dontrun{

@@ -147,11 +147,11 @@ get_variant_schedule <- function(variant) {
 #' \lifecycle{experimental} Sets the schedule for a given Variant. Requires a
 #' `Schedule` object (as returned by `get_variant_schedule()`)
 #'
-#' - `set_schedule()` is a raw interface to RStudio Connect's `schedule` API
+#' - `set_schedule()` is a raw interface to Posit Connect's `schedule` API
 #' - `set_schedule_*()` functions provide handy wrappers around `set_schedule()`
 #' - `set_schedule_remove()` removes a schedule / un-schedules a variant
 #'
-#' Beware, using `set_schedule()` currently uses the RStudio Connect `schedule` API
+#' Beware, using `set_schedule()` currently uses the Posit Connect `schedule` API
 #' directly, and so can be a little clunky. Using the `set_schedule_*()` is generally
 #' recommended.
 #'

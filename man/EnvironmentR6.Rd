@@ -11,7 +11,7 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{ContentTask}},
 \code{\link{Content}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
 \code{\link{VariantSchedule}},

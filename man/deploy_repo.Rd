@@ -43,12 +43,12 @@ deploy_repo_update(content)
 A ContentTask object, for use with \code{poll_task()} (if you want to follow the logs)
 }
 \description{
-\lifecycle{experimental} Deploy a git repository directly to RStudio Connect,
-using RStudio Connect's "pull-based" "git-polling" method of deployment.
+\lifecycle{experimental} Deploy a git repository directly to Posit Connect,
+using Posit Connect's "pull-based" "git-polling" method of deployment.
 }
 \details{
 \itemize{
-\item \code{deploy_repo_enable()} enables (or disables) RStudio Connect's git polling for a piece of content
+\item \code{deploy_repo_enable()} enables (or disables) Posit Connect's git polling for a piece of content
 \item \code{deploy_repo_update()} triggers an update of the content from its git repository, if any are present
 }
 }

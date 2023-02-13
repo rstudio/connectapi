@@ -77,7 +77,7 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
     stop(glue::glue("expect > 1 is not tested. Please set expect = 1, and specify a more narrow 'prefix'. You provided: expect={expect}"))
   }
   if (check) {
-    # TODO: limit = 1 due to a paging bug in RStudio Connect
+    # TODO: limit = 1 due to a paging bug in Posit Connect
     local_groups <- get_groups(connect, prefix = prefix, limit = 1)
     if (nrow(local_groups) > 0) {
       message(glue::glue("At least one group with name prefix '{prefix}' already exists"))

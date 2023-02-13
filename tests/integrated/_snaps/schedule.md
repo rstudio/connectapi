@@ -48,7 +48,7 @@
       $`Africa/Casablanca (+01:00)`
       [1] "Africa/Casablanca"
       
-      $`Africa/Ceuta (+02:00)`
+      $`Africa/Ceuta (+01:00)`
       [1] "Africa/Ceuta"
       
       $`Africa/Conakry (+00:00)`
@@ -165,10 +165,10 @@
       $`Africa/Windhoek (+02:00)`
       [1] "Africa/Windhoek"
       
-      $`America/Adak (-09:00)`
+      $`America/Adak (-10:00)`
       [1] "America/Adak"
       
-      $`America/Anchorage (-08:00)`
+      $`America/Anchorage (-09:00)`
       [1] "America/Anchorage"
       
       $`America/Anguilla (-04:00)`
@@ -222,19 +222,19 @@
       $`America/Aruba (-04:00)`
       [1] "America/Aruba"
       
-      $`America/Asuncion (-04:00)`
+      $`America/Asuncion (-03:00)`
       [1] "America/Asuncion"
       
       $`America/Atikokan (-05:00)`
       [1] "America/Atikokan"
       
-      $`America/Atka (-09:00)`
+      $`America/Atka (-10:00)`
       [1] "America/Atka"
       
       $`America/Bahia (-03:00)`
       [1] "America/Bahia"
       
-      $`America/Bahia_Banderas (-05:00)`
+      $`America/Bahia_Banderas (-06:00)`
       [1] "America/Bahia_Banderas"
       
       $`America/Barbados (-04:00)`
@@ -255,13 +255,13 @@
       $`America/Bogota (-05:00)`
       [1] "America/Bogota"
       
-      $`America/Boise (-06:00)`
+      $`America/Boise (-07:00)`
       [1] "America/Boise"
       
       $`America/Buenos_Aires (-03:00)`
       [1] "America/Buenos_Aires"
       
-      $`America/Cambridge_Bay (-06:00)`
+      $`America/Cambridge_Bay (-07:00)`
       [1] "America/Cambridge_Bay"
       
       $`America/Campo_Grande (-04:00)`
@@ -282,11 +282,14 @@
       $`America/Cayman (-05:00)`
       [1] "America/Cayman"
       
-      $`America/Chicago (-05:00)`
+      $`America/Chicago (-06:00)`
       [1] "America/Chicago"
       
       $`America/Chihuahua (-06:00)`
       [1] "America/Chihuahua"
+      
+      $`America/Ciudad_Juarez (-07:00)`
+      [1] "America/Ciudad_Juarez"
       
       $`America/Coral_Harbour (-05:00)`
       [1] "America/Coral_Harbour"
@@ -315,16 +318,16 @@
       $`America/Dawson_Creek (-07:00)`
       [1] "America/Dawson_Creek"
       
-      $`America/Denver (-06:00)`
+      $`America/Denver (-07:00)`
       [1] "America/Denver"
       
-      $`America/Detroit (-04:00)`
+      $`America/Detroit (-05:00)`
       [1] "America/Detroit"
       
       $`America/Dominica (-04:00)`
       [1] "America/Dominica"
       
-      $`America/Edmonton (-06:00)`
+      $`America/Edmonton (-07:00)`
       [1] "America/Edmonton"
       
       $`America/Eirunepe (-05:00)`
@@ -333,28 +336,28 @@
       $`America/El_Salvador (-06:00)`
       [1] "America/El_Salvador"
       
-      $`America/Ensenada (-07:00)`
+      $`America/Ensenada (-08:00)`
       [1] "America/Ensenada"
       
       $`America/Fort_Nelson (-07:00)`
       [1] "America/Fort_Nelson"
       
-      $`America/Fort_Wayne (-04:00)`
+      $`America/Fort_Wayne (-05:00)`
       [1] "America/Fort_Wayne"
       
       $`America/Fortaleza (-03:00)`
       [1] "America/Fortaleza"
       
-      $`America/Glace_Bay (-03:00)`
+      $`America/Glace_Bay (-04:00)`
       [1] "America/Glace_Bay"
       
-      $`America/Godthab (-02:00)`
+      $`America/Godthab (-03:00)`
       [1] "America/Godthab"
       
-      $`America/Goose_Bay (-03:00)`
+      $`America/Goose_Bay (-04:00)`
       [1] "America/Goose_Bay"
       
-      $`America/Grand_Turk (-04:00)`
+      $`America/Grand_Turk (-05:00)`
       [1] "America/Grand_Turk"
       
       $`America/Grenada (-04:00)`
@@ -372,46 +375,46 @@
       $`America/Guyana (-04:00)`
       [1] "America/Guyana"
       
-      $`America/Halifax (-03:00)`
+      $`America/Halifax (-04:00)`
       [1] "America/Halifax"
       
-      $`America/Havana (-04:00)`
+      $`America/Havana (-05:00)`
       [1] "America/Havana"
       
       $`America/Hermosillo (-07:00)`
       [1] "America/Hermosillo"
       
-      $`America/Indiana/Indianapolis (-04:00)`
+      $`America/Indiana/Indianapolis (-05:00)`
       [1] "America/Indiana/Indianapolis"
       
-      $`America/Indiana/Knox (-05:00)`
+      $`America/Indiana/Knox (-06:00)`
       [1] "America/Indiana/Knox"
       
-      $`America/Indiana/Marengo (-04:00)`
+      $`America/Indiana/Marengo (-05:00)`
       [1] "America/Indiana/Marengo"
       
-      $`America/Indiana/Petersburg (-04:00)`
+      $`America/Indiana/Petersburg (-05:00)`
       [1] "America/Indiana/Petersburg"
       
-      $`America/Indiana/Tell_City (-05:00)`
+      $`America/Indiana/Tell_City (-06:00)`
       [1] "America/Indiana/Tell_City"
       
-      $`America/Indiana/Vevay (-04:00)`
+      $`America/Indiana/Vevay (-05:00)`
       [1] "America/Indiana/Vevay"
       
-      $`America/Indiana/Vincennes (-04:00)`
+      $`America/Indiana/Vincennes (-05:00)`
       [1] "America/Indiana/Vincennes"
       
-      $`America/Indiana/Winamac (-04:00)`
+      $`America/Indiana/Winamac (-05:00)`
       [1] "America/Indiana/Winamac"
       
-      $`America/Indianapolis (-04:00)`
+      $`America/Indianapolis (-05:00)`
       [1] "America/Indianapolis"
       
-      $`America/Inuvik (-06:00)`
+      $`America/Inuvik (-07:00)`
       [1] "America/Inuvik"
       
-      $`America/Iqaluit (-04:00)`
+      $`America/Iqaluit (-05:00)`
       [1] "America/Iqaluit"
       
       $`America/Jamaica (-05:00)`
@@ -420,16 +423,16 @@
       $`America/Jujuy (-03:00)`
       [1] "America/Jujuy"
       
-      $`America/Juneau (-08:00)`
+      $`America/Juneau (-09:00)`
       [1] "America/Juneau"
       
-      $`America/Kentucky/Louisville (-04:00)`
+      $`America/Kentucky/Louisville (-05:00)`
       [1] "America/Kentucky/Louisville"
       
-      $`America/Kentucky/Monticello (-04:00)`
+      $`America/Kentucky/Monticello (-05:00)`
       [1] "America/Kentucky/Monticello"
       
-      $`America/Knox_IN (-05:00)`
+      $`America/Knox_IN (-06:00)`
       [1] "America/Knox_IN"
       
       $`America/Kralendijk (-04:00)`
@@ -441,10 +444,10 @@
       $`America/Lima (-05:00)`
       [1] "America/Lima"
       
-      $`America/Los_Angeles (-07:00)`
+      $`America/Los_Angeles (-08:00)`
       [1] "America/Los_Angeles"
       
-      $`America/Louisville (-04:00)`
+      $`America/Louisville (-05:00)`
       [1] "America/Louisville"
       
       $`America/Lower_Princes (-04:00)`
@@ -465,70 +468,70 @@
       $`America/Martinique (-04:00)`
       [1] "America/Martinique"
       
-      $`America/Matamoros (-05:00)`
+      $`America/Matamoros (-06:00)`
       [1] "America/Matamoros"
       
-      $`America/Mazatlan (-06:00)`
+      $`America/Mazatlan (-07:00)`
       [1] "America/Mazatlan"
       
       $`America/Mendoza (-03:00)`
       [1] "America/Mendoza"
       
-      $`America/Menominee (-05:00)`
+      $`America/Menominee (-06:00)`
       [1] "America/Menominee"
       
-      $`America/Merida (-05:00)`
+      $`America/Merida (-06:00)`
       [1] "America/Merida"
       
-      $`America/Metlakatla (-08:00)`
+      $`America/Metlakatla (-09:00)`
       [1] "America/Metlakatla"
       
-      $`America/Mexico_City (-05:00)`
+      $`America/Mexico_City (-06:00)`
       [1] "America/Mexico_City"
       
-      $`America/Miquelon (-02:00)`
+      $`America/Miquelon (-03:00)`
       [1] "America/Miquelon"
       
-      $`America/Moncton (-03:00)`
+      $`America/Moncton (-04:00)`
       [1] "America/Moncton"
       
-      $`America/Monterrey (-05:00)`
+      $`America/Monterrey (-06:00)`
       [1] "America/Monterrey"
       
       $`America/Montevideo (-03:00)`
       [1] "America/Montevideo"
       
-      $`America/Montreal (-04:00)`
+      $`America/Montreal (-05:00)`
       [1] "America/Montreal"
       
       $`America/Montserrat (-04:00)`
       [1] "America/Montserrat"
       
-      $`America/Nassau (-04:00)`
+      $`America/Nassau (-05:00)`
       [1] "America/Nassau"
       
-      $`America/New_York (-04:00)`
+      $`America/New_York (-05:00)`
       [1] "America/New_York"
       
-      $`America/Nipigon (-04:00)`
+      $`America/Nipigon (-05:00)`
       [1] "America/Nipigon"
       
-      $`America/Nome (-08:00)`
+      $`America/Nome (-09:00)`
       [1] "America/Nome"
       
       $`America/Noronha (-02:00)`
       [1] "America/Noronha"
       
-      $`America/North_Dakota/Beulah (-05:00)`
+      $`America/North_Dakota/Beulah (-06:00)`
       [1] "America/North_Dakota/Beulah"
       
-      $`America/North_Dakota/Center (-05:00)`
+      $`America/North_Dakota/Center (-06:00)`
       [1] "America/North_Dakota/Center"
       
-      $`America/North_Dakota/New_Salem (-05:00)`
+      $`America/North_Dakota/New_Salem (-06:00)`
       [1] "America/North_Dakota/New_Salem"
       
-      $`America/Nuuk (-02:00)`
+      $`America/Nuuk (-03:00)`
       [1] "America/Nuuk"
       
       $`America/Ojinaga (-06:00)`
@@ -537,7 +540,7 @@
       $`America/Panama (-05:00)`
       [1] "America/Panama"
       
-      $`America/Pangnirtung (-04:00)`
+      $`America/Pangnirtung (-05:00)`
       [1] "America/Pangnirtung"
       
       $`America/Paramaribo (-03:00)`
@@ -546,7 +549,7 @@
       $`America/Phoenix (-07:00)`
       [1] "America/Phoenix"
       
-      $`America/Port-au-Prince (-04:00)`
+      $`America/Port-au-Prince (-05:00)`
       [1] "America/Port-au-Prince"
       
       $`America/Port_of_Spain (-04:00)`
@@ -564,10 +567,10 @@
       $`America/Punta_Arenas (-03:00)`
       [1] "America/Punta_Arenas"
       
-      $`America/Rainy_River (-05:00)`
+      $`America/Rainy_River (-06:00)`
       [1] "America/Rainy_River"
       
-      $`America/Rankin_Inlet (-05:00)`
+      $`America/Rankin_Inlet (-06:00)`
       [1] "America/Rankin_Inlet"
       
       $`America/Recife (-03:00)`
@@ -576,7 +579,7 @@
       $`America/Regina (-06:00)`
       [1] "America/Regina"
       
-      $`America/Resolute (-05:00)`
+      $`America/Resolute (-06:00)`
       [1] "America/Resolute"
       
       $`America/Rio_Branco (-05:00)`
@@ -585,7 +588,7 @@
       $`America/Rosario (-03:00)`
       [1] "America/Rosario"
       
-      $`America/Santa_Isabel (-07:00)`
+      $`America/Santa_Isabel (-08:00)`
       [1] "America/Santa_Isabel"
       
       $`America/Santarem (-03:00)`
@@ -600,19 +603,19 @@
       $`America/Sao_Paulo (-03:00)`
       [1] "America/Sao_Paulo"
       
-      $`America/Scoresbysund (+00:00)`
+      $`America/Scoresbysund (-01:00)`
       [1] "America/Scoresbysund"
       
-      $`America/Shiprock (-06:00)`
+      $`America/Shiprock (-07:00)`
       [1] "America/Shiprock"
       
-      $`America/Sitka (-08:00)`
+      $`America/Sitka (-09:00)`
       [1] "America/Sitka"
       
       $`America/St_Barthelemy (-04:00)`
       [1] "America/St_Barthelemy"
       
-      $`America/St_Johns (-02:30)`
+      $`America/St_Johns (-03:30)`
       [1] "America/St_Johns"
       
       $`America/St_Kitts (-04:00)`
@@ -633,22 +636,22 @@
       $`America/Tegucigalpa (-06:00)`
       [1] "America/Tegucigalpa"
       
-      $`America/Thule (-03:00)`
+      $`America/Thule (-04:00)`
       [1] "America/Thule"
       
-      $`America/Thunder_Bay (-04:00)`
+      $`America/Thunder_Bay (-05:00)`
       [1] "America/Thunder_Bay"
       
-      $`America/Tijuana (-07:00)`
+      $`America/Tijuana (-08:00)`
       [1] "America/Tijuana"
       
-      $`America/Toronto (-04:00)`
+      $`America/Toronto (-05:00)`
       [1] "America/Toronto"
       
       $`America/Tortola (-04:00)`
       [1] "America/Tortola"
       
-      $`America/Vancouver (-07:00)`
+      $`America/Vancouver (-08:00)`
       [1] "America/Vancouver"
       
       $`America/Virgin (-04:00)`
@@ -657,13 +660,13 @@
       $`America/Whitehorse (-07:00)`
       [1] "America/Whitehorse"
       
-      $`America/Winnipeg (-05:00)`
+      $`America/Winnipeg (-06:00)`
       [1] "America/Winnipeg"
       
-      $`America/Yakutat (-08:00)`
+      $`America/Yakutat (-09:00)`
       [1] "America/Yakutat"
       
-      $`America/Yellowknife (-06:00)`
+      $`America/Yellowknife (-07:00)`
       [1] "America/Yellowknife"
       
       $`Antarctica/Casey (+11:00)`
@@ -675,7 +678,7 @@
       $`Antarctica/DumontDUrville (+10:00)`
       [1] "Antarctica/DumontDUrville"
       
-      $`Antarctica/Macquarie (+10:00)`
+      $`Antarctica/Macquarie (+11:00)`
       [1] "Antarctica/Macquarie"
       
       $`Antarctica/Mawson (+05:00)`
@@ -696,13 +699,13 @@
       $`Antarctica/Syowa (+03:00)`
       [1] "Antarctica/Syowa"
       
-      $`Antarctica/Troll (+02:00)`
+      $`Antarctica/Troll (+00:00)`
       [1] "Antarctica/Troll"
       
       $`Antarctica/Vostok (+06:00)`
       [1] "Antarctica/Vostok"
       
-      $`Arctic/Longyearbyen (+02:00)`
+      $`Arctic/Longyearbyen (+01:00)`
       [1] "Arctic/Longyearbyen"
       
       $`Asia/Aden (+03:00)`
@@ -747,7 +750,7 @@
       $`Asia/Barnaul (+07:00)`
       [1] "Asia/Barnaul"
       
-      $`Asia/Beirut (+03:00)`
+      $`Asia/Beirut (+02:00)`
       [1] "Asia/Beirut"
       
       $`Asia/Bishkek (+06:00)`
@@ -792,16 +795,16 @@
       $`Asia/Dushanbe (+05:00)`
       [1] "Asia/Dushanbe"
       
-      $`Asia/Famagusta (+03:00)`
+      $`Asia/Famagusta (+02:00)`
       [1] "Asia/Famagusta"
       
-      $`Asia/Gaza (+03:00)`
+      $`Asia/Gaza (+02:00)`
       [1] "Asia/Gaza"
       
       $`Asia/Harbin (+08:00)`
       [1] "Asia/Harbin"
       
-      $`Asia/Hebron (+03:00)`
+      $`Asia/Hebron (+02:00)`
       [1] "Asia/Hebron"
       
       $`Asia/Ho_Chi_Minh (+07:00)`
@@ -825,7 +828,7 @@
       $`Asia/Jayapura (+09:00)`
       [1] "Asia/Jayapura"
       
-      $`Asia/Jerusalem (+03:00)`
+      $`Asia/Jerusalem (+02:00)`
       [1] "Asia/Jerusalem"
       
       $`Asia/Kabul (+04:30)`
@@ -882,7 +885,7 @@
       $`Asia/Muscat (+04:00)`
       [1] "Asia/Muscat"
       
-      $`Asia/Nicosia (+03:00)`
+      $`Asia/Nicosia (+02:00)`
       [1] "Asia/Nicosia"
       
       $`Asia/Novokuznetsk (+07:00)`
@@ -954,7 +957,7 @@
       $`Asia/Tehran (+03:30)`
       [1] "Asia/Tehran"
       
-      $`Asia/Tel_Aviv (+03:00)`
+      $`Asia/Tel_Aviv (+02:00)`
       [1] "Asia/Tel_Aviv"
       
       $`Asia/Thimbu (+06:00)`
@@ -1002,28 +1005,28 @@
       $`Asia/Yerevan (+04:00)`
       [1] "Asia/Yerevan"
       
-      $`Atlantic/Azores (+00:00)`
+      $`Atlantic/Azores (-01:00)`
       [1] "Atlantic/Azores"
       
-      $`Atlantic/Bermuda (-03:00)`
+      $`Atlantic/Bermuda (-04:00)`
       [1] "Atlantic/Bermuda"
       
-      $`Atlantic/Canary (+01:00)`
+      $`Atlantic/Canary (+00:00)`
       [1] "Atlantic/Canary"
       
       $`Atlantic/Cape_Verde (-01:00)`
       [1] "Atlantic/Cape_Verde"
       
-      $`Atlantic/Faeroe (+01:00)`
+      $`Atlantic/Faeroe (+00:00)`
       [1] "Atlantic/Faeroe"
       
-      $`Atlantic/Faroe (+01:00)`
+      $`Atlantic/Faroe (+00:00)`
       [1] "Atlantic/Faroe"
       
-      $`Atlantic/Jan_Mayen (+02:00)`
+      $`Atlantic/Jan_Mayen (+01:00)`
       [1] "Atlantic/Jan_Mayen"
       
-      $`Atlantic/Madeira (+01:00)`
+      $`Atlantic/Madeira (+00:00)`
       [1] "Atlantic/Madeira"
       
       $`Atlantic/Reykjavik (+00:00)`
@@ -1038,22 +1041,22 @@
       $`Atlantic/Stanley (-03:00)`
       [1] "Atlantic/Stanley"
       
-      $`Australia/ACT (+10:00)`
+      $`Australia/ACT (+11:00)`
       [1] "Australia/ACT"
       
-      $`Australia/Adelaide (+09:30)`
+      $`Australia/Adelaide (+10:30)`
       [1] "Australia/Adelaide"
       
       $`Australia/Brisbane (+10:00)`
       [1] "Australia/Brisbane"
       
-      $`Australia/Broken_Hill (+09:30)`
+      $`Australia/Broken_Hill (+10:30)`
       [1] "Australia/Broken_Hill"
       
-      $`Australia/Canberra (+10:00)`
+      $`Australia/Canberra (+11:00)`
       [1] "Australia/Canberra"
       
-      $`Australia/Currie (+10:00)`
+      $`Australia/Currie (+11:00)`
       [1] "Australia/Currie"
       
       $`Australia/Darwin (+09:30)`
@@ -1062,22 +1065,22 @@
       $`Australia/Eucla (+08:45)`
       [1] "Australia/Eucla"
       
-      $`Australia/Hobart (+10:00)`
+      $`Australia/Hobart (+11:00)`
       [1] "Australia/Hobart"
       
-      $`Australia/LHI (+10:30)`
+      $`Australia/LHI (+11:00)`
       [1] "Australia/LHI"
       
       $`Australia/Lindeman (+10:00)`
       [1] "Australia/Lindeman"
       
-      $`Australia/Lord_Howe (+10:30)`
+      $`Australia/Lord_Howe (+11:00)`
       [1] "Australia/Lord_Howe"
       
-      $`Australia/Melbourne (+10:00)`
+      $`Australia/Melbourne (+11:00)`
       [1] "Australia/Melbourne"
       
-      $`Australia/NSW (+10:00)`
+      $`Australia/NSW (+11:00)`
       [1] "Australia/NSW"
       
       $`Australia/North (+09:30)`
@@ -1089,22 +1092,22 @@
       $`Australia/Queensland (+10:00)`
       [1] "Australia/Queensland"
       
-      $`Australia/South (+09:30)`
+      $`Australia/South (+10:30)`
       [1] "Australia/South"
       
-      $`Australia/Sydney (+10:00)`
+      $`Australia/Sydney (+11:00)`
       [1] "Australia/Sydney"
       
-      $`Australia/Tasmania (+10:00)`
+      $`Australia/Tasmania (+11:00)`
       [1] "Australia/Tasmania"
       
-      $`Australia/Victoria (+10:00)`
+      $`Australia/Victoria (+11:00)`
       [1] "Australia/Victoria"
       
       $`Australia/West (+08:00)`
       [1] "Australia/West"
       
-      $`Australia/Yancowinna (+09:30)`
+      $`Australia/Yancowinna (+10:30)`
       [1] "Australia/Yancowinna"
       
       $`Brazil/Acre (-05:00)`
@@ -1119,22 +1122,22 @@
       $`Brazil/West (-04:00)`
       [1] "Brazil/West"
       
-      $`Canada/Atlantic (-03:00)`
+      $`Canada/Atlantic (-04:00)`
       [1] "Canada/Atlantic"
       
-      $`Canada/Central (-05:00)`
+      $`Canada/Central (-06:00)`
       [1] "Canada/Central"
       
-      $`Canada/Eastern (-04:00)`
+      $`Canada/Eastern (-05:00)`
       [1] "Canada/Eastern"
       
-      $`Canada/Mountain (-06:00)`
+      $`Canada/Mountain (-07:00)`
       [1] "Canada/Mountain"
       
-      $`Canada/Newfoundland (-02:30)`
+      $`Canada/Newfoundland (-03:30)`
       [1] "Canada/Newfoundland"
       
-      $`Canada/Pacific (-07:00)`
+      $`Canada/Pacific (-08:00)`
       [1] "Canada/Pacific"
       
       $`Canada/Saskatchewan (-06:00)`
@@ -1149,7 +1152,7 @@
       $`Chile/EasterIsland (-05:00)`
       [1] "Chile/EasterIsland"
       
-      $`Cuba (-04:00)`
+      $`Cuba (-05:00)`
       [1] "Cuba"
       
       $`EST (-05:00)`
@@ -1158,139 +1161,142 @@
       $`Egypt (+02:00)`
       [1] "Egypt"
       
-      $`Eire (+01:00)`
+      $`Eire (+00:00)`
       [1] "Eire"
       
-      $`Europe/Amsterdam (+02:00)`
+      $`Europe/Amsterdam (+01:00)`
       [1] "Europe/Amsterdam"
       
-      $`Europe/Andorra (+02:00)`
+      $`Europe/Andorra (+01:00)`
       [1] "Europe/Andorra"
       
       $`Europe/Astrakhan (+04:00)`
       [1] "Europe/Astrakhan"
       
-      $`Europe/Athens (+03:00)`
+      $`Europe/Athens (+02:00)`
       [1] "Europe/Athens"
       
-      $`Europe/Belfast (+01:00)`
+      $`Europe/Belfast (+00:00)`
       [1] "Europe/Belfast"
       
-      $`Europe/Belgrade (+02:00)`
+      $`Europe/Belgrade (+01:00)`
       [1] "Europe/Belgrade"
       
-      $`Europe/Berlin (+02:00)`
+      $`Europe/Berlin (+01:00)`
       [1] "Europe/Berlin"
       
-      $`Europe/Bratislava (+02:00)`
+      $`Europe/Bratislava (+01:00)`
       [1] "Europe/Bratislava"
       
-      $`Europe/Brussels (+02:00)`
+      $`Europe/Brussels (+01:00)`
       [1] "Europe/Brussels"
       
-      $`Europe/Bucharest (+03:00)`
+      $`Europe/Bucharest (+02:00)`
       [1] "Europe/Bucharest"
       
-      $`Europe/Budapest (+02:00)`
+      $`Europe/Budapest (+01:00)`
       [1] "Europe/Budapest"
       
-      $`Europe/Busingen (+02:00)`
+      $`Europe/Busingen (+01:00)`
       [1] "Europe/Busingen"
       
-      $`Europe/Chisinau (+03:00)`
+      $`Europe/Chisinau (+02:00)`
       [1] "Europe/Chisinau"
       
-      $`Europe/Copenhagen (+02:00)`
+      $`Europe/Copenhagen (+01:00)`
       [1] "Europe/Copenhagen"
       
-      $`Europe/Dublin (+01:00)`
+      $`Europe/Dublin (+00:00)`
       [1] "Europe/Dublin"
       
-      $`Europe/Gibraltar (+02:00)`
+      $`Europe/Gibraltar (+01:00)`
       [1] "Europe/Gibraltar"
       
-      $`Europe/Guernsey (+01:00)`
+      $`Europe/Guernsey (+00:00)`
       [1] "Europe/Guernsey"
       
-      $`Europe/Helsinki (+03:00)`
+      $`Europe/Helsinki (+02:00)`
       [1] "Europe/Helsinki"
       
-      $`Europe/Isle_of_Man (+01:00)`
+      $`Europe/Isle_of_Man (+00:00)`
       [1] "Europe/Isle_of_Man"
       
       $`Europe/Istanbul (+03:00)`
       [1] "Europe/Istanbul"
       
-      $`Europe/Jersey (+01:00)`
+      $`Europe/Jersey (+00:00)`
       [1] "Europe/Jersey"
       
       $`Europe/Kaliningrad (+02:00)`
       [1] "Europe/Kaliningrad"
       
-      $`Europe/Kiev (+03:00)`
+      $`Europe/Kiev (+02:00)`
       [1] "Europe/Kiev"
       
       $`Europe/Kirov (+03:00)`
       [1] "Europe/Kirov"
       
-      $`Europe/Lisbon (+01:00)`
+      $`Europe/Kyiv (+02:00)`
+      [1] "Europe/Kyiv"
+      
+      $`Europe/Lisbon (+00:00)`
       [1] "Europe/Lisbon"
       
-      $`Europe/Ljubljana (+02:00)`
+      $`Europe/Ljubljana (+01:00)`
       [1] "Europe/Ljubljana"
       
-      $`Europe/London (+01:00)`
+      $`Europe/London (+00:00)`
       [1] "Europe/London"
       
-      $`Europe/Luxembourg (+02:00)`
+      $`Europe/Luxembourg (+01:00)`
       [1] "Europe/Luxembourg"
       
-      $`Europe/Madrid (+02:00)`
+      $`Europe/Madrid (+01:00)`
       [1] "Europe/Madrid"
       
-      $`Europe/Malta (+02:00)`
+      $`Europe/Malta (+01:00)`
       [1] "Europe/Malta"
       
-      $`Europe/Mariehamn (+03:00)`
+      $`Europe/Mariehamn (+02:00)`
       [1] "Europe/Mariehamn"
       
       $`Europe/Minsk (+03:00)`
       [1] "Europe/Minsk"
       
-      $`Europe/Monaco (+02:00)`
+      $`Europe/Monaco (+01:00)`
       [1] "Europe/Monaco"
       
       $`Europe/Moscow (+03:00)`
       [1] "Europe/Moscow"
       
-      $`Europe/Nicosia (+03:00)`
+      $`Europe/Nicosia (+02:00)`
       [1] "Europe/Nicosia"
       
-      $`Europe/Oslo (+02:00)`
+      $`Europe/Oslo (+01:00)`
       [1] "Europe/Oslo"
       
-      $`Europe/Paris (+02:00)`
+      $`Europe/Paris (+01:00)`
       [1] "Europe/Paris"
       
-      $`Europe/Podgorica (+02:00)`
+      $`Europe/Podgorica (+01:00)`
       [1] "Europe/Podgorica"
       
-      $`Europe/Prague (+02:00)`
+      $`Europe/Prague (+01:00)`
       [1] "Europe/Prague"
       
-      $`Europe/Riga (+03:00)`
+      $`Europe/Riga (+02:00)`
       [1] "Europe/Riga"
       
-      $`Europe/Rome (+02:00)`
+      $`Europe/Rome (+01:00)`
       [1] "Europe/Rome"
       
       $`Europe/Samara (+04:00)`
       [1] "Europe/Samara"
       
-      $`Europe/San_Marino (+02:00)`
+      $`Europe/San_Marino (+01:00)`
       [1] "Europe/San_Marino"
       
-      $`Europe/Sarajevo (+02:00)`
+      $`Europe/Sarajevo (+01:00)`
       [1] "Europe/Sarajevo"
       
       $`Europe/Saratov (+04:00)`
@@ -1299,55 +1305,55 @@
       $`Europe/Simferopol (+03:00)`
       [1] "Europe/Simferopol"
       
-      $`Europe/Skopje (+02:00)`
+      $`Europe/Skopje (+01:00)`
       [1] "Europe/Skopje"
       
-      $`Europe/Sofia (+03:00)`
+      $`Europe/Sofia (+02:00)`
       [1] "Europe/Sofia"
       
-      $`Europe/Stockholm (+02:00)`
+      $`Europe/Stockholm (+01:00)`
       [1] "Europe/Stockholm"
       
-      $`Europe/Tallinn (+03:00)`
+      $`Europe/Tallinn (+02:00)`
       [1] "Europe/Tallinn"
       
-      $`Europe/Tirane (+02:00)`
+      $`Europe/Tirane (+01:00)`
       [1] "Europe/Tirane"
       
-      $`Europe/Tiraspol (+03:00)`
+      $`Europe/Tiraspol (+02:00)`
       [1] "Europe/Tiraspol"
       
       $`Europe/Ulyanovsk (+04:00)`
       [1] "Europe/Ulyanovsk"
       
-      $`Europe/Uzhgorod (+03:00)`
+      $`Europe/Uzhgorod (+02:00)`
       [1] "Europe/Uzhgorod"
       
-      $`Europe/Vaduz (+02:00)`
+      $`Europe/Vaduz (+01:00)`
       [1] "Europe/Vaduz"
       
-      $`Europe/Vatican (+02:00)`
+      $`Europe/Vatican (+01:00)`
       [1] "Europe/Vatican"
       
-      $`Europe/Vienna (+02:00)`
+      $`Europe/Vienna (+01:00)`
       [1] "Europe/Vienna"
       
-      $`Europe/Vilnius (+03:00)`
+      $`Europe/Vilnius (+02:00)`
       [1] "Europe/Vilnius"
       
       $`Europe/Volgograd (+03:00)`
       [1] "Europe/Volgograd"
       
-      $`Europe/Warsaw (+02:00)`
+      $`Europe/Warsaw (+01:00)`
       [1] "Europe/Warsaw"
       
-      $`Europe/Zagreb (+02:00)`
+      $`Europe/Zagreb (+01:00)`
       [1] "Europe/Zagreb"
       
-      $`Europe/Zaporozhye (+03:00)`
+      $`Europe/Zaporozhye (+02:00)`
       [1] "Europe/Zaporozhye"
       
-      $`Europe/Zurich (+02:00)`
+      $`Europe/Zurich (+01:00)`
       [1] "Europe/Zurich"
       
       $`Factory (+00:00)`
@@ -1401,7 +1407,7 @@
       $`Iran (+03:30)`
       [1] "Iran"
       
-      $`Israel (+03:00)`
+      $`Israel (+02:00)`
       [1] "Israel"
       
       $`Jamaica (-05:00)`
@@ -1419,16 +1425,16 @@
       $`MST (-07:00)`
       [1] "MST"
       
-      $`Mexico/BajaNorte (-07:00)`
+      $`Mexico/BajaNorte (-08:00)`
       [1] "Mexico/BajaNorte"
       
-      $`Mexico/BajaSur (-06:00)`
+      $`Mexico/BajaSur (-07:00)`
       [1] "Mexico/BajaSur"
       
-      $`Mexico/General (-05:00)`
+      $`Mexico/General (-06:00)`
       [1] "Mexico/General"
       
-      $`Navajo (-06:00)`
+      $`Navajo (-07:00)`
       [1] "Navajo"
       
       $`PRC (+08:00)`
@@ -1512,7 +1518,7 @@
       $`Pacific/Niue (-11:00)`
       [1] "Pacific/Niue"
       
-      $`Pacific/Norfolk (+11:00)`
+      $`Pacific/Norfolk (+12:00)`
       [1] "Pacific/Norfolk"
       
       $`Pacific/Noumea (+11:00)`
@@ -1566,10 +1572,10 @@
       $`Pacific/Yap (+10:00)`
       [1] "Pacific/Yap"
       
-      $`Poland (+02:00)`
+      $`Poland (+01:00)`
       [1] "Poland"
       
-      $`Portugal (+01:00)`
+      $`Portugal (+00:00)`
       [1] "Portugal"
       
       $`Singapore (+08:00)`
@@ -1578,37 +1584,37 @@
       $`Turkey (+03:00)`
       [1] "Turkey"
       
-      $`US/Alaska (-08:00)`
+      $`US/Alaska (-09:00)`
       [1] "US/Alaska"
       
-      $`US/Aleutian (-09:00)`
+      $`US/Aleutian (-10:00)`
       [1] "US/Aleutian"
       
       $`US/Arizona (-07:00)`
       [1] "US/Arizona"
       
-      $`US/Central (-05:00)`
+      $`US/Central (-06:00)`
       [1] "US/Central"
       
-      $`US/East-Indiana (-04:00)`
+      $`US/East-Indiana (-05:00)`
       [1] "US/East-Indiana"
       
-      $`US/Eastern (-04:00)`
+      $`US/Eastern (-05:00)`
       [1] "US/Eastern"
       
       $`US/Hawaii (-10:00)`
       [1] "US/Hawaii"
       
-      $`US/Indiana-Starke (-05:00)`
+      $`US/Indiana-Starke (-06:00)`
       [1] "US/Indiana-Starke"
       
-      $`US/Michigan (-04:00)`
+      $`US/Michigan (-05:00)`
       [1] "US/Michigan"
       
-      $`US/Mountain (-06:00)`
+      $`US/Mountain (-07:00)`
       [1] "US/Mountain"
       
-      $`US/Pacific (-07:00)`
+      $`US/Pacific (-08:00)`
       [1] "US/Pacific"
       
       $`US/Samoa (-11:00)`

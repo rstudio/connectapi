@@ -1,6 +1,6 @@
 options(
   "repos" = c(
-    RSPM = "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"
+    RSPM = "https://packagemanager.posit.co/cran/__linux__/bionic/latest"
     )
   )
 install.packages("devtools")
