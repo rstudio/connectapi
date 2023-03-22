@@ -393,16 +393,14 @@ Connect <- R6::R6Class(
       )
     },
 
-    download_bundle = function(bundle_id, to_path = tempfile(), overwrite=FALSE) {
-      lifecycle::deprecate_soft("0.1.1", "Connect$downlod_bundle()", "Content$bundle_download()")
-      path <- glue::glue("v1/experimental/bundles/{bundle_id}/download")
+    download_bundle = function(guid, bundle_id, to_path = tempfile(), overwrite=FALSE) {
+      path <- glue::glue("v1/content/{guid}/bundles/{bundle_id}/download")
       self$GET(path, httr::write_disk(to_path, overwrite = overwrite), "raw")
       to_path
     },
 
-    bundle_delete = function(bundle_id) {
-      lifecycle::deprecate_soft("0.1.1", "Connect$bundle_delete()", "Content$bundle_delete()")
-      path <- glue::glue("v1/experimental/bundles/{bundle_id}")
+    bundle_delete = function(guid, bundle_id) {
+      path <- glue::glue("v1/content/{guid}/bundles/{bundle_id}")
       self$DELETE(path)
     },
 

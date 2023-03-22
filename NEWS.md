@@ -1,5 +1,9 @@
 # connectapi (development version)
 
+- BREAKING: The `download_bundle()` and `bundle_delete()` functions require a
+  `content` item as well as the target `bundle_id`. Both use the public
+  API for bundle management, which has been available since Connect 1.8.6.
+
 # connectapi 0.1.3.1
 
 - Fix generated documentation HTML for CRAN submission

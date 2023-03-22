@@ -387,7 +387,12 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-Connect-download_bundle}{}}}
 \subsection{Method \code{download_bundle()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile(), overwrite = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(
+  guid,
+  bundle_id,
+  to_path = tempfile(),
+  overwrite = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 }
@@ -396,7 +401,7 @@ Other R6 classes:
 \if{latex}{\out{\hypertarget{method-Connect-bundle_delete}{}}}
 \subsection{Method \code{bundle_delete()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$bundle_delete(guid, bundle_id)}\if{html}{\out{</div>}}
 }
 
 }
