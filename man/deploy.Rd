@@ -59,6 +59,12 @@ for an existing content item.
 
   deploy(client, bnd)
 }
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+client <- connect(prefix = "TEST_1")
+bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
+deploy(client, bnd)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 connectapi::content_update

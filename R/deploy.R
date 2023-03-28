@@ -166,7 +166,7 @@ Vanity <- R6::R6Class(
 #' @export
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi))
+#' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi"))
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
 
   # TODO: check for manifest.json
@@ -215,7 +215,7 @@ check_bundle_contents <- function(dir) {
 #'
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_static(system.file("logo.png", package = "connectapi))
+#' bundle_static(system.file("logo.png", package = "connectapi"))
 #'
 #' @export
 bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
@@ -239,7 +239,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
 #' @export
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
+#' bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
 bundle_path <- function(path) {
   # TODO: need a check on filetype
   # TODO: a way to check that the .tar.gz has a manifest.json?
@@ -327,7 +327,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
 #' client <- connect(prefix = "TEST_1")
-#' bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
+#' bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
 #' deploy(client, bnd)
 #'
 deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
