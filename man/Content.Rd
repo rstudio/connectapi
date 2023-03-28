@@ -4,6 +4,11 @@
 \alias{Content}
 \title{Content}
 \description{
+Content
+
+Content
+}
+\details{
 An R6 class that represents content
 }
 \seealso{
@@ -70,15 +75,26 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$new(connect, content)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The content data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-get_connect"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_connect}{}}}
 \subsection{Method \code{get_connect()}}{
+Returns the \code{Connect} instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_connect()}\if{html}{\out{</div>}}
 }
@@ -88,6 +104,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-get_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_content}{}}}
 \subsection{Method \code{get_content()}}{
+Returns the underlying content data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content()}\if{html}{\out{</div>}}
 }
@@ -97,6 +114,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-get_content_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_content_remote}{}}}
 \subsection{Method \code{get_content_remote()}}{
+Obtain the content data from the Connect server.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_content_remote()}\if{html}{\out{</div>}}
 }
@@ -106,6 +124,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-get_bundles"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_bundles}{}}}
 \subsection{Method \code{get_bundles()}}{
+Return the set of content bundles.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_bundles()}\if{html}{\out{</div>}}
 }
@@ -115,6 +134,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-bundle_download"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-bundle_download}{}}}
 \subsection{Method \code{bundle_download()}}{
+Download the source archive for a content bundle.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$bundle_download(
   bundle_id,
@@ -123,20 +143,40 @@ Other R6 classes:
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bundle_id}}{The bundle identifer.}
+
+\item{\code{filename}}{Where to write the result.}
+
+\item{\code{overwrite}}{Overwrite an existing filename.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-bundle_delete"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-bundle_delete}{}}}
 \subsection{Method \code{bundle_delete()}}{
+Delete a content bundle.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bundle_id}}{The bundle identifer.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-internal_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-internal_content}{}}}
 \subsection{Method \code{internal_content()}}{
+Get this (remote) content item.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$internal_content()}\if{html}{\out{</div>}}
 }
@@ -146,15 +186,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-update"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-update}{}}}
 \subsection{Method \code{update()}}{
+Update this content item.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$update(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Content fields.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-danger_delete"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-danger_delete}{}}}
 \subsection{Method \code{danger_delete()}}{
+Delete this content item.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$danger_delete()}\if{html}{\out{</div>}}
 }
@@ -164,15 +213,26 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-runas"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-runas}{}}}
 \subsection{Method \code{runas()}}{
+Update the target Unix user.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{run_as}}{The target Unix user.}
+
+\item{\code{run_as_current_user}}{Run as the active user.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-get_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_url}{}}}
 \subsection{Method \code{get_url()}}{
+Return the URL for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_url()}\if{html}{\out{</div>}}
 }
@@ -182,15 +242,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-get_dashboard_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_dashboard_url}{}}}
 \subsection{Method \code{get_dashboard_url()}}{
+Return the URL for this content in the Posit Connect dashboard.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_dashboard_url(pane = "")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pane}}{The pane in the dashboard to link to.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-get_jobs"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_jobs}{}}}
 \subsection{Method \code{get_jobs()}}{
+Return the jobs for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_jobs()}\if{html}{\out{</div>}}
 }
@@ -200,15 +269,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-get_job"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_job}{}}}
 \subsection{Method \code{get_job()}}{
+Return a single job for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{The job key.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-jobs"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-jobs}{}}}
 \subsection{Method \code{jobs()}}{
+Return the jobs for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$jobs()}\if{html}{\out{</div>}}
 }
@@ -218,15 +296,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-job"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-job}{}}}
 \subsection{Method \code{job()}}{
+Return a single job for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$job(key)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{The job key.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-variants"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-variants}{}}}
 \subsection{Method \code{variants()}}{
+Return the variants for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$variants()}\if{html}{\out{</div>}}
 }
@@ -236,24 +323,41 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-tag_set"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-tag_set}{}}}
 \subsection{Method \code{tag_set()}}{
+Set a tag for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tag_set(tag_id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{tag_id}}{The tag identifier.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-tag_delete"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-tag_delete}{}}}
 \subsection{Method \code{tag_delete()}}{
+Remove a tag for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The tag identifier.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-tags"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-tags}{}}}
 \subsection{Method \code{tags()}}{
+The tags for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$tags()}\if{html}{\out{</div>}}
 }
@@ -263,42 +367,87 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-permissions_add"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-permissions_add}{}}}
 \subsection{Method \code{permissions_add()}}{
+Add a principal to the ACL for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_add(principal_guid, principal_type, role)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{principal_guid}}{GUID for the target user or group.}
+
+\item{\code{principal_type}}{Acting on user or group.}
+
+\item{\code{role}}{The kind of content access.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-permissions_update"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-permissions_update}{}}}
 \subsection{Method \code{permissions_update()}}{
+Alter a principal in the ACL for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_update(id, principal_guid, principal_type, role)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The target identifier.}
+
+\item{\code{principal_guid}}{GUID for the target user or group.}
+
+\item{\code{principal_type}}{Acting on user or group.}
+
+\item{\code{role}}{The kind of content access.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-permissions_delete"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-permissions_delete}{}}}
 \subsection{Method \code{permissions_delete()}}{
+Remove an entry from the ACL for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions_delete(id)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The target identifier.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-permissions"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-permissions}{}}}
 \subsection{Method \code{permissions()}}{
+Obtain some or all of the ACL for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$permissions(id = NULL, add_owner = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{The target identifier.}
+
+\item{\code{add_owner}}{Include the content owner in the result set.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-environment"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-environment}{}}}
 \subsection{Method \code{environment()}}{
+Return the environment variables set for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment()}\if{html}{\out{</div>}}
 }
@@ -308,55 +457,107 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Content-environment_set"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-environment_set}{}}}
 \subsection{Method \code{environment_set()}}{
+Adjust the environment variables set for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment_set(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Environment variable names and values.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-environment_all"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-environment_all}{}}}
 \subsection{Method \code{environment_all()}}{
+Overwrite the environment variables set for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$environment_all(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Environment variable names and values.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-deploy"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-deploy}{}}}
 \subsection{Method \code{deploy()}}{
+Deploy this content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$deploy(bundle_id = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bundle_id}}{Target bundle identifier.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-repo_enable"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-repo_enable}{}}}
 \subsection{Method \code{repo_enable()}}{
+Adjust Git polling.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$repo_enable(enabled = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{enabled}}{Polling enabled.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-repo_set"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-repo_set}{}}}
 \subsection{Method \code{repo_set()}}{
+Adjust Git repository.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$repo_set(repository, branch, subdirectory)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{repository}}{Git repository URL}
+
+\item{\code{branch}}{Git repository branch}
+
+\item{\code{subdirectory}}{Git repository directory}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-clone"></a>}}

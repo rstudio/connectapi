@@ -12,6 +12,9 @@ Content <- R6::R6Class(
     #' @field content The content details from Posit Connect
     content = NULL,
 
+    #' @description Initialize this content.
+    #' @param connect The `Connect` instance.
+    #' @param content The content data.
     initialize = function(connect, content) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -19,34 +22,47 @@ Content <- R6::R6Class(
       # at least guid, url, title to be functional
       self$content <- content
     },
+    #' @description Returns the `Connect` instance.
     get_connect = function() {
       self$connect
     },
+    #' @description Returns the underlying content data.
     get_content = function() {
       self$content
     },
+    #' @description Obtain the content data from the Connect server.
     get_content_remote = function() {
       new_content_details <- self$get_connect()$content(self$get_content()$guid)
       self$content <- new_content_details
       self$get_content()
     },
+    #' @description Return the set of content bundles.
     get_bundles = function() {
       url <- glue::glue("v1/content/{self$get_content()$guid}/bundles")
       self$get_connect()$GET(url)
     },
+    #' @description Download the source archive for a content bundle.
+    #' @param bundle_id The bundle identifer.
+    #' @param filename Where to write the result.
+    #' @param overwrite Overwrite an existing filename.
     bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext=".tar.gz"), overwrite = FALSE) {
       url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
       self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
       return(filename)
     },
+    #' @description Delete a content bundle.
+    #' @param bundle_id The bundle identifer.
     bundle_delete = function(bundle_id) {
       url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}")
       self$get_connect()$DELETE(url)
     },
+    #' @description Get this (remote) content item.
     internal_content = function() {
       url <- glue::glue("applications/{self$get_content()$guid}")
       self$get_connect()$GET(url)
     },
+    #' @description Update this content item.
+    #' @param ... Content fields.
     update = function(...) {
       con <- self$get_connect()
       error_if_less_than(con, "1.8.6")
@@ -58,36 +74,49 @@ Content <- R6::R6Class(
       )
       return(self)
     },
+    #' @description Delete this content item.
     danger_delete = function() {
       con <- self$get_connect()
       url <- glue::glue("v1/content/{self$get_content()$guid}")
       res <- con$DELETE(url)
       return(res)
     },
+    #' @description Update the target Unix user.
+    #' @param run_as The target Unix user.
+    #' @param run_as_current_user Run as the active user.
     runas = function(run_as, run_as_current_user = FALSE) {
       lifecycle::deprecate_soft("0.1.1", "Content$runas()", "content$update()")
 
       self$update(run_as = run_as, run_as_current_user = run_as_current_user)
     },
+    #' @description Return the URL for this content.
     get_url = function() {
       self$get_content()$content_url
     },
+    #' @description Return the URL for this content in the Posit Connect dashboard.
+    #' @param pane The pane in the dashboard to link to.
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
     },
+    #' @description Return the jobs for this content.
     get_jobs = function() {
       lifecycle::deprecate_warn("0.1.0.9005", what = "get_jobs()", with = "jobs()")
       self$jobs()
     },
+    #' @description Return a single job for this content.
+    #' @param key The job key.
     get_job = function(key) {
       lifecycle::deprecate_warn("0.1.0.9005", "get_job()", "job()")
       self$job(key)
     },
+    #' @description Return the jobs for this content.
     jobs = function() {
       warn_experimental("jobs")
       url <- glue::glue("applications/{self$get_content()$guid}/jobs")
       res <- self$get_connect()$GET(url)
     },
+    #' @description Return a single job for this content.
+    #' @param key The job key.
     job = function(key) {
       warn_experimental("job")
       url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
@@ -99,22 +128,32 @@ Content <- R6::R6Class(
         ~ purrr::list_modify(.x, app_guid = content_guid)
       )[[1]]
     },
+    #' @description Return the variants for this content.
     variants = function() {
       warn_experimental("variants")
       url <- glue::glue("applications/{self$get_content()$guid}/variants")
       self$get_connect()$GET(url)
     },
+    #' @description Set a tag for this content.
+    #' @param tag_id The tag identifier.
     tag_set = function(tag_id) {
       self$get_connect()$set_content_tag(self$get_content()$guid, tag_id = tag_id)
     },
+    #' @description Remove a tag for this content.
+    #' @param id The tag identifier.
     tag_delete = function(id) {
       # note that deleting the parent tag deletes all children
       self$get_connect()$tag_delete(id)
     },
+    #' @description The tags for this content.
     tags = function() {
       url <- glue::glue("v1/content/{self$get_content()$guid}/tags")
       self$get_connect()$GET(url)
     },
+    #' @description Add a principal to the ACL for this content.
+    #' @param principal_guid GUID for the target user or group.
+    #' @param principal_type Acting on user or group.
+    #' @param role The kind of content access.
     permissions_add = function(principal_guid, principal_type, role) {
       url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
       self$get_connect()$POST(url, body = list(
@@ -123,6 +162,11 @@ Content <- R6::R6Class(
         role = role
       ))
     },
+    #' @description Alter a principal in the ACL for this content.
+    #' @param id The target identifier.
+    #' @param principal_guid GUID for the target user or group.
+    #' @param principal_type Acting on user or group.
+    #' @param role The kind of content access.
     permissions_update = function(id, principal_guid, principal_type, role) {
       url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
       self$get_connect()$PUT(url, body = list(
@@ -131,10 +175,15 @@ Content <- R6::R6Class(
         role = role
       ))
     },
+    #' @description Remove an entry from the ACL for this content.
+    #' @param id The target identifier.
     permissions_delete = function(id) {
       url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
       self$get_connect()$DELETE(url)
     },
+    #' @description Obtain some or all of the ACL for this content.
+    #' @param id The target identifier.
+    #' @param add_owner Include the content owner in the result set.
     permissions = function(id = NULL, add_owner=FALSE) {
       guid <- self$get_content()$guid
       url <- glue::glue("v1/content/{guid}/permissions")
@@ -157,11 +206,14 @@ Content <- R6::R6Class(
       }
       return(res)
     },
+    #' @description Return the environment variables set for this content.
     environment = function() {
       url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
       res <- self$get_connect()$GET(url)
       return(res)
     },
+    #' @description Adjust the environment variables set for this content.
+    #' @param ... Environment variable names and values.
     environment_set = function(...) {
       url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
       # post with
@@ -179,6 +231,8 @@ Content <- R6::R6Class(
       )
       res
     },
+    #' @description Overwrite the environment variables set for this content.
+    #' @param ... Environment variable names and values.
     environment_all = function(...) {
       url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
 
@@ -196,6 +250,8 @@ Content <- R6::R6Class(
       )
       res
     },
+    #' @description Deploy this content
+    #' @param bundle_id Target bundle identifier.
     deploy = function(bundle_id = NULL) {
       body <- list(bundle_id = bundle_id)
       self$get_connect()$POST(
@@ -203,6 +259,8 @@ Content <- R6::R6Class(
         body = body
       )
     },
+    #' @description Adjust Git polling.
+    #' @param enabled Polling enabled.
     repo_enable = function(enabled = TRUE) {
       warn_experimental("repo_enable")
       self$get_connect()$PUT(
@@ -212,6 +270,10 @@ Content <- R6::R6Class(
         )
       )
     },
+    #' @description Adjust Git repository.
+    #' @param repository Git repository URL
+    #' @param branch Git repository branch
+    #' @param subdirectory Git repository directory
     repo_set = function(repository, branch, subdirectory) {
       warn_experimental("repo_set")
       self$get_connect()$POST(
@@ -223,6 +285,8 @@ Content <- R6::R6Class(
         )
       )
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       cat("Posit Connect Content: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
@@ -248,30 +312,42 @@ Environment <- R6::R6Class(
   "Environment",
   inherit = Content,
   public = list(
+    #' @field env_raw The (raw) set of environment variables.
     env_raw = NULL,
+    #' @field env_vars The set of environment variables.
     env_vars = NULL,
+
+    #' @description Initialize this set of environment variables.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
     initialize = function(connect, content) {
       super$initialize(connect = connect, content = content)
       self$env_refresh()
     },
+    #' @description Fetch the set of environment variables.
     environment = function() {
       res <- super$environment()
       env_raw <- res
       env_vars <- res
       return(res)
     },
+    #' @description Update the set of environment variables.
+    #' @param ... Environment variable names and values.
     environment_set = function(...) {
       res <- super$environment_set(...)
       env_raw <- res
       env_vars <- res
       return(res)
     },
+    #' @description Overwrite the set of environment variables.
+    #' @param ... Environment variable names and values.
     environment_all = function(...) {
       res <- super$environment_all(...)
       env_raw <- res
       env_vars <- res
       return(res)
     },
+    #' @description Fetch the set o environment variables.
     env_refresh = function() {
       # mutates the existing instance, so future
       # references have the right version
@@ -279,6 +355,8 @@ Environment <- R6::R6Class(
       self$env_vars <- self$env_raw
       return(self)
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       super$print(...)
       cat("Environment Variables:\n")

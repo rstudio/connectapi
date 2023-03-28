@@ -23,17 +23,27 @@
 Connect <- R6::R6Class(
   "Connect",
   public = list(
+    #' @field server The base URL of your Posit Connect server.
     server = NULL,
+    #' @field api_key Your Posit Connect API key.
     api_key = NULL,
+    #' @field tags The initial set of tags.
     tags = NULL,
+    #' @field tag_map The initial tag map.
     tag_map = NULL,
+    #' @field httr_additions An initial set of `httr` configuration added to each HTTP call.
     httr_additions = list(),
+    #' @field using_auth Indicates that the API key is added to each HTTP call.
     using_auth = TRUE,
 
+    #' @description Return this connect.
     get_connect = function() {
       self
     },
 
+    #' @description Initialize a new connect.
+    #' @param server The base URL of your Posit Connect server.
+    #' @param api_key Your Posit Connect API key.
     initialize = function(server, api_key) {
       message(glue::glue("Defining Connect with server: {server}"))
       if (is.null(httr::parse_url(server)$scheme)) {
@@ -43,6 +53,8 @@ Connect <- R6::R6Class(
       self$api_key <- api_key
     },
 
+    #' @description Set additional `httr` configuration that is added to each HTTP call.
+    #' @param ... Set of httr configurations.
     httr_config = function(...) {
       self$httr_additions = rlang::list2(...)
       invisible(self)
@@ -50,6 +62,8 @@ Connect <- R6::R6Class(
 
     # helpers ----------------------------------------------------------
 
+    #' @description Print details about this instance.
+    #' @param ... Ignored.
     print = function(...) {
       cat("Posit Connect API Client: \n")
       cat("  Posit Connect Server: ", self$server, "\n", sep = "")
@@ -60,6 +74,8 @@ Connect <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Raise an error when the HTTP result is an HTTP error.
+    #' @param res HTTP result.
     raise_error = function(res) {
       if (httr::http_error(res)) {
         err <- sprintf(
@@ -77,6 +93,7 @@ Connect <- R6::R6Class(
       }
     },
 
+    #' @description Returns HTTP authorization headers, or NULL when none are used.
     add_auth = function() {
       if (self$using_auth) {
         httr::add_headers(Authorization = paste0("Key ", self$api_key))
@@ -85,22 +102,40 @@ Connect <- R6::R6Class(
       }
     },
 
+    #' @description Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param writer Controls where the response is written.
+    #' @param parser How the response is parsed.
+    #' @param ... Arguments to the httr::GET.
     GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
       req <- paste0(self$server, "/__api__/", path)
       self$GET_URL(url = req, writer = writer, parser = parser, ...)
     },
 
+    #' @description Perform an HTTP GET request of the named API path. Returns the HTTP response object.
+    #' @param path API path.
+    #' @param writer Controls where the response is written.
+    #' @param ... Arguments to the httr::GET.
     GET_RESULT = function(path, writer = httr::write_memory(), ...) {
       req <- paste0(self$server, "/__api__/", path)
       self$GET_RESULT_URL(url = req, writer = writer, ...)
     },
 
+    #' @description Perform an HTTP GET request of the named URL. Returns an object parsed from the HTTP response.
+    #' @param url Target URL.
+    #' @param writer Controls where the response is written.
+    #' @param parser How the response is parsed.
+    #' @param ... Arguments to the httr::GET.
     GET_URL = function(url, writer = httr::write_memory(), parser = "parsed", ...) {
       res <- self$GET_RESULT_URL(url = url, writer = writer, ...)
       self$raise_error(res)
       httr::content(res, as = parser)
     },
 
+    #' @description Perform an HTTP GET request of the named URL. Returns the HTTP response object.
+    #' @param url Target URL.
+    #' @param writer Controls where the response is written.
+    #' @param ... Arguments to the httr::GET.
     GET_RESULT_URL = function(url, writer = httr::write_memory(), ...) {
       params <- rlang::list2(...)
       res <- rlang::exec(
@@ -118,6 +153,12 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    #' @description Perform an HTTP PUT request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param body The HTTP payload.
+    #' @param encode How the payload is encoded.
+    #' @param .empty_object Indicates that an empty JSON object is sent when the body is empty.
+    #' @param ... Arguments to the httr::PUT.
     PUT = function(path, body, encode = "json", ..., .empty_object = TRUE) {
       req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
@@ -141,6 +182,9 @@ Connect <- R6::R6Class(
       httr::content(res, as = "parsed")
     },
 
+    #' @description Perform an HTTP HEAD request of the named API path. Returns the HTTP response object.
+    #' @param path API path.
+    #' @param ... Arguments to the httr::HEAD.
     HEAD = function(path, ...) {
       req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
@@ -158,6 +202,9 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    #' @description Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
+    #' @param path API path.
+    #' @param ... Arguments to the httr::DELETE.
     DELETE = function(path, ...) {
       req <- paste0(self$server, "/__api__/", path)
       params <- rlang::list2(...)
@@ -175,6 +222,13 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    #' @description Perform an HTTP PATCH request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param prefix API path prefix.
+    #' @param body The HTTP payload.
+    #' @param encode How the payload is encoded.
+    #' @param .empty_object Indicates that an empty JSON object is sent when the body is empty.
+    #' @param ... Arguments to the httr::PATCH.
     PATCH = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
@@ -198,6 +252,13 @@ Connect <- R6::R6Class(
       httr::content(res, as = "parsed")
     },
 
+    #' @description Perform an HTTP POST request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param prefix API path prefix.
+    #' @param body The HTTP payload.
+    #' @param encode How the payload is encoded.
+    #' @param .empty_object Indicates that an empty JSON object is sent when the body is empty.
+    #' @param ... Arguments to the httr::POST.
     POST = function(path, body, encode = "json", prefix = "/__api__/", ..., .empty_object = TRUE) {
       req <- paste0(self$server, prefix, path)
       params <- rlang::list2(...)
@@ -221,16 +282,20 @@ Connect <- R6::R6Class(
       httr::content(res, as = "parsed")
     },
 
+    #' @description Perform an HTTP GET request of the "me" server endpoint.
     me = function() {
       self$GET("me")
     },
 
+    #' @description Return the base URL of the Connect server.
     get_dashboard_url = function() {
       self$server
     },
 
     # tags ----------------------------------------------------------
 
+    #' @description Return all tags.
+    #' @param use_cache Indicates that a cached set of tags is used.
     get_tags = function(use_cache = FALSE) {
       error_if_less_than(self, "1.8.6")
       # TODO: check cache "age"?
@@ -251,6 +316,8 @@ Connect <- R6::R6Class(
       self$tag_map
     },
 
+    #' @description Get the identifier for the named tag.
+    #' @param tagname The name of the tag.
     get_tag_id = function(tagname) {
       self$get_tags()
       if (!any(self$tag_map$name == tagname)) {
@@ -259,16 +326,21 @@ Connect <- R6::R6Class(
       self$tag_map[which(self$tag_map$name == tagname), "id"]
     },
 
+    #' @description Get the tag tree.
     get_tag_tree = function() {
       raw_tags <- self$tag()
       tag_tree_parse_data(raw_tags)
     },
 
+    #' @description Get the tag tree.
     get_tag_tree_old = function() {
       warn_experimental("get_tag_tree")
       self$GET("tag-tree")
     },
 
+    #' @description Create a tag.
+    #' @param name The tag name.
+    #' @param parent_id The parent identifier.
     tag_create_safe = function(name, parent_id = NULL) {
       tt <- get_tags(self)
 
@@ -280,6 +352,9 @@ Connect <- R6::R6Class(
       }
     },
 
+    #' @description Create a tag.
+    #' @param name The tag name.
+    #' @param parent_id The parent identifier.
     tag_create = function(name, parent_id = NULL) {
       error_if_less_than(self, "1.8.6")
       dat <- list(
@@ -301,6 +376,8 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Get a tag.
+    #' @param id The tag identifier.
     tag = function(id=NULL) {
       error_if_less_than(self, "1.8.6")
       path <- "v1/tags"
@@ -310,11 +387,15 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    #' @description Delete a tag.
+    #' @param id The tag identifier.
     tag_delete = function(id) {
       invisible(self$DELETE(glue::glue("v1/tags/{id}")))
     },
 
     # content listing ----------------------------------------------------------
+
+    #' @description Get the number of content items.
     get_n_apps = function() {
       path <- "applications"
       apps <- self$GET(path)
@@ -323,6 +404,11 @@ Connect <- R6::R6Class(
 
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
+    #' @description Get content items.
+    #' @param filter Named list containing filter conditions.
+    #' @param .collapse How multiple filters are combined.
+    #' @param .limit The limit.
+    #' @param page_size The page size.
     get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
       if (!is.null(filter)) {
         query <- paste(sapply(1:length(filter), function(i) {
@@ -372,6 +458,8 @@ Connect <- R6::R6Class(
       all
     },
 
+    #' @description Get a schedule.
+    #' @param schedule_id The schedule identifier.
     get_schedule = function(schedule_id) {
       path <- sprintf("schedules/%d", schedule_id)
       self$GET(path)
@@ -379,6 +467,10 @@ Connect <- R6::R6Class(
 
     # content ----------------------------------------------------------
 
+    #' @description Create content.
+    #' @param name The content name.
+    #' @param title The content title.
+    #' @param ... Other content fields.
     content_create = function(name, title = name, ...) {
       path <- sprintf("v1/content")
       other_params <- rlang::dots_list(...)
@@ -393,6 +485,9 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Upload a content bundle.
+    #' @param bundle_path The path to the bundle archive.
+    #' @param guid The content GUID.
     content_upload = function(bundle_path, guid) {
       # todo : add X-Content-Checksum
       path <- glue::glue("v1/content/{guid}/bundles")
@@ -400,12 +495,20 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    #' @description Deploy a content bundle.
+    #' @param guid The content GUID.
+    #' @param bundle_id The bundle identifier.
     content_deploy = function(guid, bundle_id) {
       path <- sprintf("v1/content/%s/deploy", guid)
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
       return(res)
     },
 
+    #' @description Get a content item.
+    #' @param guid The content GUID.
+    #' @param owner_guid The target content owner.
+    #' @param name The target name.
+    #' @param include Additional response fields.
     content = function(guid = NULL, owner_guid = NULL, name = NULL, include="tags,owner") {
       if (!is.null(guid)) {
         path <- glue::glue("v1/content/{guid}")
@@ -419,11 +522,18 @@ Connect <- R6::R6Class(
       return(res)
     },
 
+    #' @description Get a task.
+    #' @param task_id The task identifier.
+    #' @param first The initial status position.
+    #' @param wait Maximum time to wait for update.
     task = function(task_id, first = 0, wait = 5) {
       path <- sprintf("v1/tasks/%s?first=%d&wait=%d", task_id, first, wait)
       self$GET(path)
     },
 
+    #' @description Set a tag for a content item.
+    #' @param content_id The content identifier.
+    #' @param tag_id The tag identifier.
     set_content_tag = function(content_id, tag_id) {
       self$POST(
         path = glue::glue("v1/content/{content_id}/tags"),
@@ -435,10 +545,16 @@ Connect <- R6::R6Class(
 
     # users -----------------------------------------------
 
+    #' @description Get user details.
+    #' @param guid The user GUID.
     user = function(guid) {
       self$GET(glue::glue("v1/users/{guid}"))
     },
 
+    #' @description Get users.
+    #' @param page_number The page number.
+    #' @param prefix The search term.
+    #' @param page_size The page size.
     users = function(page_number = 1, prefix = NULL, page_size = 20) {
       if (page_size > 500) {
         # reset page_size to avoid error
@@ -451,11 +567,22 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    #' @description Get remote users.
+    #' @param prefix The search term.
     users_remote = function(prefix) {
       path <- sprintf("v1/users/remote?prefix=%s", prefix)
       self$GET(path)
     },
 
+    #' @description Create a user.
+    #' @param username The username.
+    #' @param email Email address.
+    #' @param first_name First name.
+    #' @param last_name Last name.
+    #' @param password The password.
+    #' @param user_must_set_password Indicates that user sets password on first login.
+    #' @param user_role Role for user.
+    #' @param unique_id Identifier for user.
     users_create = function(
                             username,
                             email,
@@ -481,6 +608,8 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Create a remote user.
+    #' @param temp_ticket Ticket identifying target remote user.
     users_create_remote = function(temp_ticket) {
       path <- "v1/users"
       self$PUT(
@@ -489,6 +618,8 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Lock a user.
+    #' @param user_guid User GUID.
     users_lock = function(user_guid) {
       path <- sprintf("v1/users/%s/lock", user_guid)
       message(path)
@@ -498,6 +629,8 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Unlock a user.
+    #' @param user_guid User GUID.
     users_unlock = function(user_guid) {
       path <- sprintf("v1/users/%s/lock", user_guid)
       self$POST(
@@ -506,6 +639,9 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Update a user.
+    #' @param user_guid User GUID.
+    #' @param ... User fields.
     users_update = function(user_guid, ...) {
       path <- sprintf("v1/users/%s", user_guid)
       self$PUT(
@@ -516,6 +652,10 @@ Connect <- R6::R6Class(
 
     # groups -----------------------------------------------------
 
+    #' @description Get groups.
+    #' @param page_number The page number.
+    #' @param prefix The search term.
+    #' @param page_size The page size.
     groups = function(page_number = 1, prefix = NULL, page_size = 20) {
       if (page_size > 500) {
         # reset page_size to avoid error
@@ -528,21 +668,31 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    #' @description Get group members.
+    #' @param guid The group GUID.
     group_members = function(guid) {
       path <- glue::glue("v1/groups/{guid}/members")
       self$GET(path)
     },
 
+    #' @description Add a group member.
+    #' @param group_guid The group GUID.
+    #' @param user_guid The user GUID.
     group_member_add = function(group_guid, user_guid) {
       path <- glue::glue("v1/groups/{group_guid}/members")
       self$POST(path, list(user_guid = user_guid))
     },
 
+    #' @description Remove a group member.
+    #' @param group_guid The group GUID.
+    #' @param user_guid The user GUID.
     group_member_remove = function(group_guid, user_guid) {
       path <- glue::glue("v1/groups/{group_guid}/members/{user_guid}")
       self$DELETE(path)
     },
 
+    #' @description Create a group.
+    #' @param name The group name.
     groups_create = function(
                              name) {
       path <- sprintf("v1/groups")
@@ -552,6 +702,8 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Create a remote group.
+    #' @param temp_ticket Ticket identifying target remote group.
     groups_create_remote = function(temp_ticket) {
       path <- "v1/groups"
       self$PUT(
@@ -560,6 +712,9 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Get remote groups.
+    #' @param prefix The search term.
+    #' @param limit The maximal result set size.
     groups_remote = function(prefix = NULL, limit = 20) {
       if (limit > 500) {
         # reset limit to avoid error
@@ -581,6 +736,15 @@ Connect <- R6::R6Class(
 
     # instrumentation --------------------------------------------
 
+    #' @description Get (non-interactive) content visits.
+    #' @param content_guid Content GUID.
+    #' @param min_data_version Data version for request.
+    #' @param from Start of range.
+    #' @param to End of range.
+    #' @param limit Result set size.
+    #' @param previous Previous item.
+    #' @param nxt Next item.
+    #' @param asc_order Indicates ascending result order.
     inst_content_visits = function(
                                    content_guid = NULL,
                                    min_data_version = NULL,
@@ -613,6 +777,16 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    #' @description Get interactive content visits.
+    #' @description Get (non-interactive) content visits.
+    #' @param content_guid Content GUID.
+    #' @param min_data_version Data version for request.
+    #' @param from Start of range.
+    #' @param to End of range.
+    #' @param limit Result set size.
+    #' @param previous Previous item.
+    #' @param nxt Next item.
+    #' @param asc_order Indicates ascending result order.
     inst_shiny_usage = function(
                                 content_guid = NULL,
                                 min_data_version = NULL,
@@ -645,6 +819,7 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
+    #' @description Get running processes.
     procs = function() {
       warn_experimental("procs")
       path <- "metrics/procs"
@@ -653,6 +828,8 @@ Connect <- R6::R6Class(
 
     # repo ------------------------------------------------------
 
+    #' @description Determine if Git repository is associated with authorization.
+    #' @param host Repository URL.
     repo_account = function(host) {
       warn_experimental("repo_account")
       parsed_url <- httr::parse_url(host)
@@ -663,17 +840,27 @@ Connect <- R6::R6Class(
       self$GET(glue::glue("repo/account?url={host}"))
     },
 
+    #' @description Get Git repository branches.
+    #' @param repo Repository URL.
     repo_branches = function(repo) {
       warn_experimental("repo_branches")
       self$GET(glue::glue("repo/branches?url={repo}"))
     },
 
+    #' @description Get Git repository directories.
+    #' @param repo Repository URL.
+    #' @param branch Repository branch.
     repo_manifest_dirs = function(repo, branch) {
       warn_experimental("repo_manifest_dirs")
       self$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
     },
 
     # schedule --------------------------------------------------
+
+    #' @description Get schedules.
+    #' @param start Starting time.
+    #' @param end Ending time.
+    #' @param detailed Indicates detailed schedule information.
     schedules = function(start = Sys.time(), end = Sys.time() + 60*60*24*7, detailed = FALSE) {
       warn_experimental("schedules")
       url <- "v1/experimental/schedules"
@@ -688,6 +875,9 @@ Connect <- R6::R6Class(
 
     # misc utilities --------------------------------------------
 
+    #' @description Get documentation.
+    #' @param docs Named document.
+    #' @param browse Open a browser.
     docs = function(docs = "api", browse = TRUE) {
       stopifnot(docs %in% c("admin", "user", "api"))
       url <- paste0(self$server, "/__docs__/", docs)
@@ -695,6 +885,11 @@ Connect <- R6::R6Class(
       return(url)
     },
 
+    #' @description Get auditing.
+    #' @param limit Result set size.
+    #' @param previous Previous item.
+    #' @param nxt Next item.
+    #' @param asc_order Indicates ascending result order.
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
       if (limit > 500) {
         # reset limit to avoid error
@@ -711,6 +906,7 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Get R installations.
     server_settings_r = function() {
       path <- "v1/server_settings/r"
       self$GET(
@@ -718,6 +914,7 @@ Connect <- R6::R6Class(
       )
     },
 
+    #' @description Get server settings.
     server_settings = function() {
       path <- "server_settings"
       self$GET(
