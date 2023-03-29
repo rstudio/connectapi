@@ -1,5 +1,9 @@
 # connectapi (development version)
 
+- BREAKING: The functions `Connect$download_bundle()` and
+  `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
+  and `Content$bundle_delete()` instead.
+
 # connectapi 0.1.3.1
 
 - Fix generated documentation HTML for CRAN submission

@@ -20,6 +20,12 @@ Bundle A bundle object
 \description{
 Creates a bundle from a target directory.
 }
+\examples{
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi"))
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other deployment functions: 
 \code{\link{bundle_path}()},

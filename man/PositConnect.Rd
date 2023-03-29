@@ -71,8 +71,6 @@ Other R6 classes:
 \item \href{#method-Connect-get_apps}{\code{Connect$get_apps()}}
 \item \href{#method-Connect-get_schedule}{\code{Connect$get_schedule()}}
 \item \href{#method-Connect-content_create}{\code{Connect$content_create()}}
-\item \href{#method-Connect-download_bundle}{\code{Connect$download_bundle()}}
-\item \href{#method-Connect-bundle_delete}{\code{Connect$bundle_delete()}}
 \item \href{#method-Connect-content_upload}{\code{Connect$content_upload()}}
 \item \href{#method-Connect-content_deploy}{\code{Connect$content_deploy()}}
 \item \href{#method-Connect-content}{\code{Connect$content()}}
@@ -379,24 +377,6 @@ Other R6 classes:
 \subsection{Method \code{content_create()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$content_create(name, title = name, ...)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-download_bundle"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-download_bundle}{}}}
-\subsection{Method \code{download_bundle()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$download_bundle(bundle_id, to_path = tempfile(), overwrite = FALSE)}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-bundle_delete"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-bundle_delete}{}}}
-\subsection{Method \code{bundle_delete()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$bundle_delete(bundle_id)}\if{html}{\out{</div>}}
 }
 
 }
