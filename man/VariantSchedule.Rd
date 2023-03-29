@@ -4,6 +4,11 @@
 \alias{VariantSchedule}
 \title{VariantSchedule}
 \description{
+VariantSchedule
+
+VariantSchedule
+}
+\details{
 An R6 class that represents a Schedule
 }
 \seealso{
@@ -21,6 +26,13 @@ Other R6 classes:
 \concept{R6 classes}
 \section{Super classes}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{\link[connectapi:Variant]{connectapi::Variant}} -> \code{VariantSchedule}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{schedule_data}}{The schedule data.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -88,51 +100,100 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantSchedule-new"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this schedule.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$new(connect, content, key, schedule)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The \code{Content} instance.}
+
+\item{\code{key}}{The variant key.}
+
+\item{\code{schedule}}{The schedule data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-GET"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-GET}{}}}
 \subsection{Method \code{GET()}}{
+Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$GET(path)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{API path.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-POST"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-POST}{}}}
 \subsection{Method \code{POST()}}{
+Perform an HTTP POST request of the named API path. Returns an object parsed from the HTTP response.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$POST(path, body)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{API path.}
+
+\item{\code{body}}{The HTTP payload.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-DELETE"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-DELETE}{}}}
 \subsection{Method \code{DELETE()}}{
+Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$DELETE(path)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{API path.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-set_schedule"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-set_schedule}{}}}
 \subsection{Method \code{set_schedule()}}{
+Set the schedule for this variant
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$set_schedule(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Schedule fields.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-is_empty"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-is_empty}{}}}
 \subsection{Method \code{is_empty()}}{
+Return if this variant has a schedule.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$is_empty()}\if{html}{\out{</div>}}
 }
@@ -142,15 +203,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantSchedule-print"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantSchedule-get_schedule"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-get_schedule}{}}}
 \subsection{Method \code{get_schedule()}}{
+Get the schedule data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$get_schedule()}\if{html}{\out{</div>}}
 }
@@ -160,6 +230,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantSchedule-get_schedule_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-get_schedule_remote}{}}}
 \subsection{Method \code{get_schedule_remote()}}{
+Get and store the (remote) schedule data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$get_schedule_remote()}\if{html}{\out{</div>}}
 }
@@ -169,6 +240,7 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantSchedule-describe_schedule"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantSchedule-describe_schedule}{}}}
 \subsection{Method \code{describe_schedule()}}{
+Description of the associated schedule.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantSchedule$describe_schedule()}\if{html}{\out{</div>}}
 }

@@ -4,6 +4,11 @@
 \alias{Environment}
 \title{Environment}
 \description{
+Environment
+
+Environment
+}
+\details{
 An R6 class that represents a Content's Environment Variables
 }
 \seealso{
@@ -21,6 +26,15 @@ Other R6 classes:
 \concept{R6 classes}
 \section{Super class}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{Environment}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{env_raw}}{The (raw) set of environment variables.}
+
+\item{\code{env_vars}}{The set of environment variables.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -71,15 +85,26 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Environment-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this set of environment variables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$new(connect, content)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The \code{Content} instance.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-environment"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment}{}}}
 \subsection{Method \code{environment()}}{
+Fetch the set of environment variables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment()}\if{html}{\out{</div>}}
 }
@@ -89,24 +114,41 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Environment-environment_set"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment_set}{}}}
 \subsection{Method \code{environment_set()}}{
+Update the set of environment variables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment_set(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Environment variable names and values.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-environment_all"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment_all}{}}}
 \subsection{Method \code{environment_all()}}{
+Overwrite the set of environment variables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$environment_all(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Environment variable names and values.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-env_refresh"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-env_refresh}{}}}
 \subsection{Method \code{env_refresh()}}{
+Fetch the set o environment variables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$env_refresh()}\if{html}{\out{</div>}}
 }
@@ -116,10 +158,18 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Environment-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Environment$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-clone"></a>}}

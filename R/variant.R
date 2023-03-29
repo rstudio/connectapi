@@ -9,13 +9,21 @@ Variant <- R6::R6Class(
   "Variant",
   inherit = Content,
   public = list(
+    #' @field key The variant key.
     key = NULL,
+    #' @field variant The variant.
     variant = NULL,
+    #' @description Get the underlying variant data.
     get_variant = function() {self$variant},
+    #' @description Get and store the (remote) variant data.
     get_variant_remote = function() {
       variant <- self$get_connect()$GET("variants/{self$get_variant()$id}")
       self$variant
     },
+    #' @description Initialize this variant.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param key The variant key.
     initialize = function(connect, content, key) {
       super$initialize(connect = connect, content = content)
       self$key <- key
@@ -24,6 +32,8 @@ Variant <- R6::R6Class(
       this_variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
       self$variant <- this_variant
     },
+    #' @description Mail previously rendered content.
+    #' @param to Targeting.
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
       if (length(to) > 1) to <- "me"
@@ -34,9 +44,11 @@ Variant <- R6::R6Class(
           email = to
         ))
     },
+    #' @description Get the (remote) schedule data.
     get_schedule = function() {
       self$get_schedule_remote()
     },
+    #' @description Get the (remote) schedule data.
     get_schedule_remote = function() {
       warn_experimental("get_schedule_remote")
       url <- glue::glue("variants/{self$get_variant()$id}/schedules")
@@ -56,14 +68,19 @@ Variant <- R6::R6Class(
 
       res
     },
+    #' @description Get the subscribers.
     get_subscribers = function() {
       warn_experimental("subscribers")
       self$get_connect()$GET("variants/{self$get_variant()$id}/subscribers")
     },
+    #' @description Remove a named subscriber.
+    #' @param guid User GUID.
     remove_subscriber = function(guid) {
       warn_experimental("subscribers")
       self$get_connect()$DELETE("variants/{self$get_variant()$id}/subscribers/{guid}")
     },
+    #' @description Add named subscribers.
+    #' @param guids User GUIDs.
     add_subscribers = function(guids) {
       warn_experimental("subscribers")
       url <- glue::glue("variants/{self$get_variant()$id}/subscribers")
@@ -72,6 +89,7 @@ Variant <- R6::R6Class(
         body = guids
       )
     },
+    #' @description Render this variant.
     render = function() {
       warn_experimental("render")
       # TODO: why both in query AND in body?
@@ -90,6 +108,7 @@ Variant <- R6::R6Class(
 
       purrr::list_modify(res, app_guid = content_guid, variant_key = variant_key)
     },
+    #' @description List the renderings of this variant.
     renderings = function() {
       warn_experimental("renderings")
       url <- glue::glue("variants/{self$get_variant()$id}/renderings")
@@ -105,6 +124,8 @@ Variant <- R6::R6Class(
         ~ purrr::list_modify(.x, app_guid = content_guid, variant_key = variant_key)
       )
     },
+    #' @description Update this variant.
+    #' @param ... Target fields and values.
     update_variant = function(...) {
       params <- rlang::list2(...)
       # TODO: allow updating a variant
@@ -115,6 +136,7 @@ Variant <- R6::R6Class(
       )
       return(self)
     },
+    #' @description Jobs for this variant.
     jobs = function() {
       pre_jobs <- super$jobs()
       purrr::map(
@@ -122,6 +144,8 @@ Variant <- R6::R6Class(
         ~ purrr::list_modify(.x, variant_key = self$key)
       )
     },
+    #' @description Return single job for this variant.
+    #' @param key The job key.
     job = function(key) {
       pre_job <- super$job(key = key)
       purrr::map(
@@ -129,14 +153,19 @@ Variant <- R6::R6Class(
         ~ purrr::list_modify(.x, variant_key = self$key)
       )[[1]]
     },
+    #' @description Return the URL for this variant.
     get_url = function() {
       base_content <- super$get_url()
       glue::glue("{base_content}v{self$key}/")
     },
+    #' @description Return the URL associated with one rendering for this variant.
+    #' @param rev Rendering identifier.
     get_url_rev = function(rev) {
       base_url <- self$get_url()
       glue::glue("{base_url}_rev{rev}")
     },
+    #' @description Return the URL for this variant in the Posit Connect dashboard.
+    #' @param pane The pane in the dashboard to link to.
     get_dashboard_url = function(pane = "access") {
       base_content <- super$get_dashboard_url("")
       glue::glue("{base_content}{pane}/{self$get_variant()$id}")
@@ -146,6 +175,9 @@ Variant <- R6::R6Class(
     #  base_content <- self$get_dashboard_url("")
     #  glue::glue("{base_content}_rev{rev}")
     #},
+
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       super$print(...)
       cat("Variant:\n")
@@ -164,24 +196,36 @@ VariantTask <- R6::R6Class(
   "VariantTask",
   inherit = Variant,
   public = list(
+    #' @field task The task.
     task = NULL,
+    #' @field data The variant data.
     data = NULL,
+    #' @description Initialize this variant task.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param key The variant key.
+    #' @param task The task data.
     initialize = function(connect, content, key, task) {
       super$initialize(connect = connect, content = content, key = key)
       # TODO: need to validate task (needs task_id)
       self$task <- task
     },
+    #' @description Return the underlying task.
     get_task = function() {
       self$task
     },
+    #' @description Set the data.
+    #' @param data The data.
     add_data = function(data) {
       self$data <- data
       invisible(self)
     },
+    #' @description Get the data.
     get_data = function() {
       self$data
     },
-
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       super$print(...)
       cat("Task: \n")

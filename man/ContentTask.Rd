@@ -4,6 +4,11 @@
 \alias{ContentTask}
 \title{ContentTask}
 \description{
+ContentTask
+
+ContentTask
+}
+\details{
 An R6 class that represents a Task for a piece of Content
 }
 \seealso{
@@ -21,6 +26,15 @@ Other R6 classes:
 \concept{R6 classes}
 \section{Super class}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{ContentTask}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{task}}{The task.}
+
+\item{\code{data}}{The task data.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -73,15 +87,28 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$new(connect, content, task)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The \code{Content} instance.}
+
+\item{\code{task}}{The task data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-get_task"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-get_task}{}}}
 \subsection{Method \code{get_task()}}{
+Return the underlying task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$get_task()}\if{html}{\out{</div>}}
 }
@@ -91,15 +118,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-add_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-add_data}{}}}
 \subsection{Method \code{add_data()}}{
+Set the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$add_data(data)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{The data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-get_data}{}}}
 \subsection{Method \code{get_data()}}{
+Get the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$get_data()}\if{html}{\out{</div>}}
 }
@@ -109,10 +145,18 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-clone"></a>}}

@@ -10,9 +10,13 @@ max_bundle_size <- "100M"
 Bundle <- R6::R6Class(
   "Bundle",
   public = list(
+    #' @field path The bundle path on disk.
     path = NULL,
+    #' @field size The size of the bundle.
     size = NULL,
 
+    #' @description Initialize this content bundle.
+    #' @param path The bundle path on disk.
     initialize = function(path) {
       self$path <- path
       self$size <- fs::file_size(path = path)
@@ -21,6 +25,8 @@ Bundle <- R6::R6Class(
       }
     },
 
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       cat("Posit Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
@@ -42,9 +48,15 @@ Bundle <- R6::R6Class(
 Task <- R6::R6Class(
   "Task",
   public = list(
+    #' @field connect The Connect instance.
     connect = NULL,
+    #' @field task The task.
     task = NULL,
+    #' @field data The task data.
     data = NULL,
+    #' @description Initialize this task.
+    #' @param connect The `Connect` instance.
+    #' @param task The task data.
     initialize = function(connect, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -55,19 +67,26 @@ Task <- R6::R6Class(
       }
       self$task <- task
     },
+    #' @description Return the associated Connect instance.
     get_connect = function() {
       self$connect
     },
+    #' @description Return the underlying task.
     get_task = function() {
       self$task
     },
+    #' @description Set the data.
+    #' @param data The data.
     add_data = function(data) {
       self$data <- data
       invisible(self)
     },
+    #' @description Get the data.
     get_data = function() {
       self$data
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       cat("Posit Connect Task: \n")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
@@ -88,8 +107,14 @@ ContentTask <- R6::R6Class(
   inherit = Content,
   # implements the "Task" interface too
   public = list(
+    #' @field task The task.
     task = NULL,
+    #' @field data The task data.
     data = NULL,
+    #' @description Initialize this task.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param task The task data.
     initialize = function(connect, content, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -98,16 +123,22 @@ ContentTask <- R6::R6Class(
       # TODO: need to validate task (needs task_id)
       self$task <- task
     },
+    #' @description Return the underlying task.
     get_task = function() {
       self$task
     },
+    #' @description Set the data.
+    #' @param data The data.
     add_data = function(data) {
       self$data <- data
       invisible(self)
     },
+    #' @description Get the data.
     get_data = function() {
       self$data
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       cat("Posit Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
@@ -129,7 +160,12 @@ Vanity <- R6::R6Class(
   "Vanity",
   inherit = Content,
   public = list(
+    #' @field vanity The vanity.
     vanity = NULL,
+    #' @description Initialize this vanity.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param vanity The vanity data.
     initialize = function(connect, content, vanity) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -138,10 +174,13 @@ Vanity <- R6::R6Class(
       # TODO: validate vanity (needs path_prefix)
       self$vanity <- vanity
     },
+    #' @description Return the underlying vanity.
     get_vanity = function() {
       self$vanity
     },
 
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       cat("Posit Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")

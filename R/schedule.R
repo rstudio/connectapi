@@ -8,21 +8,36 @@ VariantSchedule <- R6::R6Class(
   # TODO: would be cool to have multiple inheritance...
   inherit = Variant,
   public = list(
+    #' @field schedule_data The schedule data.
     schedule_data = NULL,
+    #' @description Initialize this schedule.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param key The variant key.
+    #' @param schedule The schedule data.
     initialize = function(connect, content, key, schedule) {
       super$initialize(connect = connect, content = content, key = key)
       # TODO: need to validate schedule (needs an ID)
       self$schedule_data <- schedule
     },
+    #' @description Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
     GET = function(path) {
       self$get_connect()$GET(path)
     },
+    #' @description Perform an HTTP POST request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param body The HTTP payload.
     POST = function(path, body) {
       self$get_connect()$POST(path = path, body = body)
     },
+    #' @description Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
+    #' @param path API path.
     DELETE = function(path) {
       self$get_connect()$DELETE(path = path)
     },
+    #' @description Set the schedule for this variant
+    #' @param ... Schedule fields.
     set_schedule = function(...) {
       warn_experimental("set_schedule")
       params <- rlang::list2(...)
@@ -48,6 +63,7 @@ VariantSchedule <- R6::R6Class(
       self$schedule_data <- res
       return(self)
     },
+    #' @description Return if this variant has a schedule.
     is_empty = function() {
       if (length(self$schedule_data) == 0) {
         TRUE
@@ -55,6 +71,8 @@ VariantSchedule <- R6::R6Class(
         FALSE
       }
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       super$print(...)
       cat("Schedule:\n")
@@ -65,14 +83,17 @@ VariantSchedule <- R6::R6Class(
         cat(c("", paste0(" ", self$describe_schedule(), "\n")))
       }
     },
+    #' @description Get the schedule data.
     get_schedule = function() {
       return(self$schedule_data)
     },
+    #' @description Get and store the (remote) schedule data.
     get_schedule_remote = function() {
       sch <- super$get_schedule_remote()
       self$schedule_data <- sch
       return(self$schedule_data)
     },
+    #' @description Description of the associated schedule.
     describe_schedule = function() {
       # TODO: create a human readable description of schedule
       if (!self$is_empty()) {

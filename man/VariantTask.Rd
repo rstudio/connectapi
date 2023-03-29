@@ -4,6 +4,11 @@
 \alias{VariantTask}
 \title{VariantTask}
 \description{
+VariantTask
+
+VariantTask
+}
+\details{
 An R6 class that represents a Variant Task
 }
 \seealso{
@@ -21,6 +26,15 @@ Other R6 classes:
 \concept{R6 classes}
 \section{Super classes}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{\link[connectapi:Variant]{connectapi::Variant}} -> \code{VariantTask}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{task}}{The task.}
+
+\item{\code{data}}{The variant data.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -85,15 +99,30 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantTask-new"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantTask-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this variant task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$new(connect, content, key, task)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The \code{Content} instance.}
+
+\item{\code{key}}{The variant key.}
+
+\item{\code{task}}{The task data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantTask-get_task"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantTask-get_task}{}}}
 \subsection{Method \code{get_task()}}{
+Return the underlying task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$get_task()}\if{html}{\out{</div>}}
 }
@@ -103,15 +132,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantTask-add_data"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantTask-add_data}{}}}
 \subsection{Method \code{add_data()}}{
+Set the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$add_data(data)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{The data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantTask-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantTask-get_data}{}}}
 \subsection{Method \code{get_data()}}{
+Get the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$get_data()}\if{html}{\out{</div>}}
 }
@@ -121,10 +159,18 @@ Other R6 classes:
 \if{html}{\out{<a id="method-VariantTask-print"></a>}}
 \if{latex}{\out{\hypertarget{method-VariantTask-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{VariantTask$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-VariantTask-clone"></a>}}
