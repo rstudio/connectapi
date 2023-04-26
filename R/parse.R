@@ -49,7 +49,11 @@ ensure_column <- function(data, default, name) {
     col <- swap_timestamp_format(col)
     if (vctrs::vec_is(default, NA_datetime_) && !vctrs::vec_is(col, NA_datetime_)) {
       # manual fix because vctrs::vec_cast cannot cast double -> datetime or char -> datetime
-      col <- coerce_datetime(col, default, name = name)
+      if (length(col) == 0) {
+        col <- as.POSIXct(NULL)
+      } else {
+        col <- coerce_datetime(col, default, name = name)
+      }
     }
     if (inherits(default, "fs_bytes") && !inherits(col, "fs_bytes")) {
       col <- coerce_fsbytes(col, default)
