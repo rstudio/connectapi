@@ -57,6 +57,9 @@ ensure_column <- function(data, default, name) {
     if (inherits(default, "integer64") && !inherits(col, "integer64")) {
       col <- bit64::as.integer64(col)
     }
+    if (inherits(default, "list") && !inherits(col, "list")) {
+      col <- list(col)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
