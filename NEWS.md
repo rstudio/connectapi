@@ -3,6 +3,8 @@
 - BREAKING: The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
+- `Content$tag_delete()` removes the tag from the target content item rather
+  than removing the tag entirely. (#194)
 
 # connectapi 0.1.3.1
 
