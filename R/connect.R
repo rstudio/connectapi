@@ -538,9 +538,18 @@ Connect <- R6::R6Class(
       self$POST(
         path = glue::glue("v1/content/{content_id}/tags"),
         body = list(
-          tag_id = tag_id
+          tag_id = as.character(tag_id)
         )
       )
+    },
+
+    #' @description Remove a tag from a content item.
+    #' @param content_id The content identifier.
+    #' @param tag_id The tag identifier.
+    remove_content_tag = function(content_id, tag_id) {
+      invisible(self$DELETE(
+        path = glue::glue("v1/content/{content_id}/tags/{tag_id}")
+      ))
     },
 
     # users -----------------------------------------------
