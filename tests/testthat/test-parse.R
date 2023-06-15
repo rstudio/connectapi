@@ -30,6 +30,7 @@ test_that("coerce_datetime fills the void", {
   expect_is(coerce_datetime(c(NA_integer_, NA_integer_), NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(NA, NA_datetime_), "POSIXct")
   expect_is(coerce_datetime(c(NA, NA), NA), "POSIXct")
+  expect_is(coerce_datetime(NULL), "POSIXct")
 
   expect_error(coerce_datetime(data.frame(), NA_datetime_), class = "vctrs_error_incompatible_type")
   expect_error(coerce_datetime(list(), NA_datetime_, name = "list"), class = "vctrs_error_incompatible_type")
