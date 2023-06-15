@@ -105,3 +105,39 @@ test_that("works with POSIXct", {
   expect_is(time_chk_convert, "tbl_df")
   expect_is(time_chk_convert$hello, "POSIXct")
 })
+
+test_that("converts length one list", {
+  hm <- ensure_column(tibble::tibble(one = "hi"), NA_list_, "one")
+  expect_is(hm$one, "list")
+})
+
+# specific errors - PR 192
+test_that("works for bad inputs", {
+  job <- list(
+    ppid=12345,
+    pid=67890,
+    key="abckey",
+    app_id=1234,
+    variant_id=0,
+    bundle_id=1234,
+    tag="run_app",
+    finalized=TRUE,
+    hostname="host",
+    origin=format(Sys.time(), format="%Y-%m-%dT%H:%M:%SZ"),
+    stdout="one-entry",
+    stderr=c("one-entry", "two-entry"),
+    logged_error=NULL,
+    exit_code=0,
+    start_time=as.numeric(format(Sys.time(), format="%s")),
+    end_time=NULL,
+    app_guid=uuid::UUIDgenerate()
+  )
+  res <- connectapi:::parse_connectapi_typed(list(job), !!!connectapi:::connectapi_ptypes$job)
+  expect_is(res$stdout, "list")
+  expect_is(res$origin, "character")
+  expect_is(res$start_time, "POSIXct")
+  expect_is(res$end_time, "POSIXct")
+})
+
+
+
