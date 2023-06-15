@@ -3,6 +3,7 @@
 - BREAKING: The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
+- Fix issue with `NULL` or `length 1` job outputs ([#193](https://github.com/rstudio/connectapi/issues/193))
 
 # connectapi 0.1.3.1
 
