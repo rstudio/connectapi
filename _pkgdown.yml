@@ -1,5 +1,7 @@
 url: https://pkgs.rstudio.com/connectapi/
-destination: docs
+
+development:
+   mode: auto
 
 reference:
 
