@@ -535,7 +535,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
     content <- connect$get_apps(list(name = name))
     if (length(content) > 1) {
       stop(glue::glue(
-        "Found {length(to_content)} content items ",
+        "Found {length(content)} content items ",
         "matching {name} on {connect$server}",
         ", content must have a unique name."
       ))
