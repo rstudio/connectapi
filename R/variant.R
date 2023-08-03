@@ -17,7 +17,7 @@ Variant <- R6::R6Class(
     get_variant = function() {self$variant},
     #' @description Get and store the (remote) variant data.
     get_variant_remote = function() {
-      variant <- self$get_connect()$GET("variants/{self$get_variant()$id}")
+      variant <- self$get_connect()$GET(glue::glue("variants/{self$get_variant()$id}"))
       self$variant
     },
     #' @description Initialize this variant.
@@ -71,13 +71,13 @@ Variant <- R6::R6Class(
     #' @description Get the subscribers.
     get_subscribers = function() {
       warn_experimental("subscribers")
-      self$get_connect()$GET("variants/{self$get_variant()$id}/subscribers")
+      self$get_connect()$GET(glue::glue("variants/{self$get_variant()$id}/subscribers"))
     },
     #' @description Remove a named subscriber.
     #' @param guid User GUID.
     remove_subscriber = function(guid) {
       warn_experimental("subscribers")
-      self$get_connect()$DELETE("variants/{self$get_variant()$id}/subscribers/{guid}")
+      self$get_connect()$DELETE(glue::glue("variants/{self$get_variant()$id}/subscribers/{guid}"))
     },
     #' @description Add named subscribers.
     #' @param guids User GUIDs.
