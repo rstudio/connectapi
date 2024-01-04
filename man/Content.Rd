@@ -342,7 +342,7 @@ Set a tag for this content.
 \subsection{Method \code{tag_delete()}}{
 Remove a tag for this content.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(tag_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

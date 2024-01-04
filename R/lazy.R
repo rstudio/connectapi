@@ -116,7 +116,7 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
-  as.data.frame(collect(x, n = n))
+  as.data.frame(dplyr::collect(x, n = n))
 }
 
 op_base_connect <- function(x, vars) {
@@ -157,14 +157,3 @@ op_vars.op_single <- function(op) op_vars(op$x)
 #' @export
 op_vars.tbl_lazy <- function(op) op_vars(op$ops)
 
-# important for `nrow`/`ncol` to work
-#' @export
-dim.tbl_lazy <- function(x) {
-  c(NA, length(op_vars(x$ops)))
-}
-
-# important for `colnames` to work
-#' @export
-dimnames.tbl_lazy <- function(x) {
-  list(NULL, op_vars(x$ops))
-}
