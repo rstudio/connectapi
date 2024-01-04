@@ -140,7 +140,7 @@ Content <- R6::R6Class(
       self$get_connect()$set_content_tag(self$get_content()$guid, tag_id = tag_id)
     },
     #' @description Remove a tag for this content.
-    #' @param id The tag identifier.
+    #' @param tag_id The tag identifier.
     tag_delete = function(tag_id) {
       # note that deleting the parent tag deletes all children
       self$get_connect()$remove_content_tag(self$get_content()$guid, tag_id = tag_id)
