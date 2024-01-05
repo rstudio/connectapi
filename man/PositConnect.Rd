@@ -93,6 +93,7 @@ Other R6 classes:
 \item \href{#method-Connect-content}{\code{Connect$content()}}
 \item \href{#method-Connect-task}{\code{Connect$task()}}
 \item \href{#method-Connect-set_content_tag}{\code{Connect$set_content_tag()}}
+\item \href{#method-Connect-remove_content_tag}{\code{Connect$remove_content_tag()}}
 \item \href{#method-Connect-user}{\code{Connect$user()}}
 \item \href{#method-Connect-users}{\code{Connect$users()}}
 \item \href{#method-Connect-users_remote}{\code{Connect$users_remote()}}
@@ -742,6 +743,25 @@ Get a task.
 Set a tag for a content item.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$set_content_tag(content_id, tag_id)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{content_id}}{The content identifier.}
+
+\item{\code{tag_id}}{The tag identifier.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-remove_content_tag"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-remove_content_tag}{}}}
+\subsection{Method \code{remove_content_tag()}}{
+Remove a tag from a content item.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$remove_content_tag(content_id, tag_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

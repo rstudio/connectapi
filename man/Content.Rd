@@ -342,13 +342,13 @@ Set a tag for this content.
 \subsection{Method \code{tag_delete()}}{
 Remove a tag for this content.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(id)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Content$tag_delete(tag_id)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{The tag identifier.}
+\item{\code{tag_id}}{The tag identifier.}
 }
 \if{html}{\out{</div>}}
 }
