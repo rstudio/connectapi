@@ -146,21 +146,22 @@ Ordering is by the started timestamp field.</p></dd>
     <h2>Value</h2>
     
 
-<p>A tibble with the following columns:</p><ul><li><p><strong>content_guid</strong>The GUID, in RFC4122 format, of the
+<p>A tibble with the following columns:</p><ul><li><p><code>content_guid</code>: The GUID, in RFC4122 format, of the
 Shiny application this information pertains to.</p></li>
-<li><p><strong>user_guid</strong>The GUID, in RFC4122 format, of the user
+<li><p><code>user_guid</code>: The GUID, in RFC4122 format, of the user
 that visited the application.</p></li>
-<li><p><strong>started</strong>The timestamp, in RFC3339 format, when the
+<li><p><code>started</code>: The timestamp, in RFC3339 format, when the
 user opened the application.</p></li>
-<li><p><strong>ended</strong>The timestamp, in RFC3339 format, when the
+<li><p><code>ended</code>: The timestamp, in RFC3339 format, when the
 user left the application.</p></li>
-<li><p><strong>data_version</strong>The data version the record was recorded
+<li><p><code>data_version</code>: The data version the record was recorded
 with. The Shiny Application Events section of the Posit Connect Admin
 Guide explains how to interpret data_version values.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
-    <p>Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more information</p>
+    <p>Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more
+information.</p>
     </div>
 
     <div id="ref-examples">

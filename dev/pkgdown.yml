@@ -7,7 +7,7 @@ articles:
   lifecycle-statuses: lifecycle-statuses.html
   customize-http: customize-http.html
   getting-started: getting-started.html
-last_built: 2024-01-04T19:42Z
+last_built: 2024-01-05T13:57Z
 urls:
   reference: https://pkgs.rstudio.com/connectapi/reference
   article: https://pkgs.rstudio.com/connectapi/articles

@@ -148,18 +148,18 @@ Ordering is by the started timestamp field.</p></dd>
     <h2>Value</h2>
     
 
-<p>A tibble with the following columns:</p><ul><li><p><strong>content_guid</strong>The GUID, in RFC4122 format, of the Shiny
+<p>A tibble with the following columns:</p><ul><li><p><code>content_guid</code>: The GUID, in RFC4122 format, of the Shiny
 application this information pertains to.</p></li>
-<li><p><strong>user_guid</strong>The GUID, in RFC4122 format, of the user that
+<li><p><code>user_guid</code>: The GUID, in RFC4122 format, of the user that
 visited the application.</p></li>
-<li><p><strong>variant_key</strong>The key of the variant the user visited.
+<li><p><code>variant_key</code>: The key of the variant the user visited.
 This will be null for static content.</p></li>
-<li><p><strong>time</strong>The timestamp, in RFC3339 format, when the user
+<li><p><code>time</code>: The timestamp, in RFC3339 format, when the user
 visited the content.</p></li>
-<li><p><strong>rendering_id</strong>The ID of the rendering the user visited.
+<li><p><code>rendering_id</code>: The ID of the rendering the user visited.
 This will be null for static content.</p></li>
-<li><p><strong>bundle_id</strong>The ID of the particular bundle used.</p></li>
-<li><p><strong>data_version</strong>The data version the record was recorded
+<li><p><code>bundle_id</code>: The ID of the particular bundle used.</p></li>
+<li><p><code>data_version</code>: The data version the record was recorded
 with. The Rendered and Static Content Visit Events section of the
 Posit Connect Admin Guide explains how to interpret data_version
 values.</p></li>
@@ -167,7 +167,7 @@ values.</p></li>
     <div id="details">
     <h2>Details</h2>
     <p>Please see https://docs.posit.co/connect/api/#getContentVisits for more
-information</p>
+information.</p>
     </div>
 
     <div id="ref-examples">
