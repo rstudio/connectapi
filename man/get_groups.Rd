@@ -19,18 +19,18 @@ The filter is case insensitive.}
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{guid}}{The unique identifier of the group}
-\item{\strong{name}}{The group name}
-\item{\strong{owner_guid}}{The group owner's unique identifier.
-When using LDAP, or Proxied authentication with group provisioning
-enabled this property will always be null.}
+\item \code{guid}: The unique identifier of the group
+\item \code{name}: The group name
+\item \code{owner_guid}: The group owner's unique identifier. When using LDAP or
+Proxied authentication with group provisioning enabled this property
+will always be null.
 }
 }
 \description{
 Get group information from the Posit Connect server
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getGroups for more information
+Please see https://docs.posit.co/connect/api/#getGroups for more information.
 }
 \examples{
 \dontrun{

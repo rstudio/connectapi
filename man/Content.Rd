@@ -348,7 +348,7 @@ Remove a tag for this content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{The tag identifier.}
+\item{\code{tag_id}}{The tag identifier.}
 }
 \if{html}{\out{</div>}}
 }
