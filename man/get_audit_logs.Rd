@@ -28,12 +28,12 @@ Ordering is by the started timestamp field.}
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{id}}{ID of the audit action}
-\item{\strong{time}}{Timestamp in RFC3339 format when action was taken}
-\item{\strong{user_id}}{User ID of the actor who made the audit action}
-\item{\strong{user_description}}{Description of the actor}
-\item{\strong{action}}{Audit action taken}
-\item{\strong{event_description}}{Description of action}
+\item \code{id}: ID of the audit action
+\item \code{time}: Timestamp in RFC3339 format when action was taken
+\item \code{user_id}: User ID of the actor who made the audit action
+\item \code{user_description}: Description of the actor
+\item \code{action}: Audit action taken
+\item \code{event_description}: Description of action
 }
 }
 \description{
@@ -41,7 +41,7 @@ Get Audit Logs from Posit Connect Server
 }
 \details{
 Please see https://docs.posit.co/connect/api/#getAuditLogs for more
-information
+information.
 }
 \examples{
 \dontrun{
