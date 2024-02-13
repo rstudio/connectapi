@@ -19,9 +19,9 @@ Other R6 classes:
 \code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
+\code{\link{Variant}},
 \code{\link{VariantSchedule}},
-\code{\link{VariantTask}},
-\code{\link{Variant}}
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Super class}{
