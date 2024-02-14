@@ -147,24 +147,3 @@ op_single <- function(name, x, dots = list(), args = list()) {
     class = c(paste0("op_", name), "op_single", "op")
   )
 }
-
-# #' @export
-op_vars <- function(op) UseMethod("op_vars")
-#' @export
-op_vars.op_base <- function(op) op$vars
-#' @export
-op_vars.op_single <- function(op) op_vars(op$x)
-#' @export
-op_vars.tbl_lazy <- function(op) op_vars(op$ops)
-
-# important for `nrow`/`ncol` to work
-#' @export
-dim.tbl_lazy <- function(x) {
-  c(NA, length(op_vars(x$ops)))
-}
-
-# important for `colnames` to work
-#' @export
-dimnames.tbl_lazy <- function(x) {
-  list(NULL, op_vars(x$ops))
-}

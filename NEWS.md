@@ -1,5 +1,7 @@
 # connectapi (development version)
 
+- No longer provides methods for `tbl_lazy` which cause problems when loading
+  dplyr (#177).
 - BREAKING: The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
