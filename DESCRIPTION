@@ -39,6 +39,7 @@ Imports:
     jsonlite
 Suggests: 
     crayon,
+    dbplyr,
     flexdashboard,
     ggplot2,
     gridExtra,
