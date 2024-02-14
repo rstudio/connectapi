@@ -14,14 +14,14 @@ An R6 class that represents a Variant Task
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
-\code{\link{ContentTask}},
 \code{\link{Content}},
+\code{\link{ContentTask}},
 \code{\link{Environment}},
 \code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
-\code{\link{VariantSchedule}},
-\code{\link{Variant}}
+\code{\link{Variant}},
+\code{\link{VariantSchedule}}
 }
 \concept{R6 classes}
 \section{Super classes}{

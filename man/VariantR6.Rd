@@ -14,8 +14,8 @@ An R6 class that represents a Variant
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
-\code{\link{ContentTask}},
 \code{\link{Content}},
+\code{\link{ContentTask}},
 \code{\link{Environment}},
 \code{\link{PositConnect}},
 \code{\link{Task}},
