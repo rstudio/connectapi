@@ -59,7 +59,7 @@ check_deprecated_names <- function(.name, deprecated_names) {
 #' @importFrom dplyr collect
 #' @export
 collect.tbl_connect <- function(x, ..., n = Inf) {
-  api_build(op = x$ops, con = x$src, n = n)
+  api_build(op = x[["ops"]], con = x[["src"]], n = n)
 }
 
 api_build <- function(op, con = NULL, ..., n = NULL) {
@@ -100,10 +100,10 @@ cat_line <- function(...) {
 #' @importFrom utils head
 #' @export
 head.tbl_connect <- function(x, n = 6L, ...) {
-  if (inherits(x$ops, "op_head")) {
+  if (inherits(x[["ops"]], "op_head")) {
     x$ops$args$n <- min(x$ops$args$n, n)
   } else {
-    x$ops <- op_single("head", x = x$ops, args = list(n = n))
+    x$ops <- op_single("head", x = x[["ops"]], args = list(n = n))
   }
   x
 }
@@ -148,23 +148,22 @@ op_single <- function(name, x, dots = list(), args = list()) {
   )
 }
 
-# #' @export
-op_vars <- function(op) UseMethod("op_vars")
+connect_vars <- function(op) UseMethod("connect_vars")
 #' @export
-op_vars.op_base <- function(op) op$vars
+connect_vars.op_base <- function(op) op$vars
 #' @export
-op_vars.op_single <- function(op) op_vars(op$x)
+connect_vars.op_single <- function(op) connect_vars(op$x)
 #' @export
-op_vars.tbl_lazy <- function(op) op_vars(op$ops)
+connect_vars.tbl_connect <- function(op) connect_vars(op[["ops"]])
 
 # important for `nrow`/`ncol` to work
 #' @export
-dim.tbl_lazy <- function(x) {
-  c(NA, length(op_vars(x$ops)))
+dim.tbl_connect <- function(x) {
+  c(NA, length(connect_vars(x[["ops"]])))
 }
 
 # important for `colnames` to work
 #' @export
-dimnames.tbl_lazy <- function(x) {
-  list(NULL, op_vars(x$ops))
+dimnames.tbl_connect <- function(x) {
+  list(NULL, connect_vars(x[["ops"]]))
 }
