@@ -29,14 +29,14 @@ API. Authentication is done by providing an API key.
 \seealso{
 Other R6 classes: 
 \code{\link{Bundle}},
-\code{\link{ContentTask}},
 \code{\link{Content}},
+\code{\link{ContentTask}},
 \code{\link{Environment}},
 \code{\link{Task}},
 \code{\link{Vanity}},
+\code{\link{Variant}},
 \code{\link{VariantSchedule}},
-\code{\link{VariantTask}},
-\code{\link{Variant}}
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Public fields}{

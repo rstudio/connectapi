@@ -13,15 +13,15 @@ An R6 class that represents a bundle
 }
 \seealso{
 Other R6 classes: 
-\code{\link{ContentTask}},
 \code{\link{Content}},
+\code{\link{ContentTask}},
 \code{\link{Environment}},
 \code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
+\code{\link{Variant}},
 \code{\link{VariantSchedule}},
-\code{\link{VariantTask}},
-\code{\link{Variant}}
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Public fields}{
