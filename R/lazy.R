@@ -20,6 +20,8 @@
 #'
 #' @export
 tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs"), ...) {
+  check_required("dbplyr")
+
   validate_R6_class(src, "Connect")
 
   stopifnot(length(from) == 1)
