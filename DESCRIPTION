@@ -18,7 +18,8 @@ Description: Provides a helpful 'R6' class and methods for interacting with
     and version, but the latest documentation is also hosted publicly at 
     <https://docs.posit.co/connect/api/>.
 License: MIT + file LICENSE
-URL: https://github.com/rstudio/connectapi
+URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
+BugReports: https://github.com/rstudio/connectapi/issues
 Imports: 
     config,
     dplyr,
