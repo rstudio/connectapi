@@ -71,7 +71,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
-<ul><li>BREAKING: The functions <code>Connect$download_bundle()</code> and <code>Connect$bundle_delete()</code> have been removed. Use <code>Content$bundle_download()</code> and <code>Content$bundle_delete()</code> instead.</li>
+<ul><li>Now correctly provides methods for <code>tbl_connect</code>, rather than <code>tbl_lazy</code>, preventing problems when also using dplyr (<a href="https://github.com/rstudio/connectapi/issues/177" class="external-link">#177</a>).</li>
+<li>BREAKING: The functions <code>Connect$download_bundle()</code> and <code>Connect$bundle_delete()</code> have been removed. Use <code>Content$bundle_download()</code> and <code>Content$bundle_delete()</code> instead.</li>
 <li>
 <code>Content$tag_delete()</code> removes the tag from the target content item rather than removing the tag entirely. (<a href="https://github.com/rstudio/connectapi/issues/194" class="external-link">#194</a>)</li>
 </ul></div>
