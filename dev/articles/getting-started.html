@@ -121,7 +121,7 @@ on how to get an API key are <a href="https://docs.posit.co/connect/user/api-key
 <p>Once you have your API key, you can create a Connect object in your
 code, like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgs.rstudio.com/connectapi/">connectapi</a></span><span class="op">)</span></span>
 <span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span></span>
 <span>  server <span class="op">=</span> <span class="st">"http://example.com:3939"</span>,</span>
 <span>  api_key <span class="op">=</span> <span class="st">"aihgaahegiahgg"</span></span>
@@ -132,7 +132,7 @@ specifies environment variables:</p>
 CONNECT_API_KEY=aihgaahegiahgg</code></pre>
 <p>Then, those can be used in your code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/connectapi" class="external-link">connectapi</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgs.rstudio.com/connectapi/">connectapi</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># this happens by default if you restart your R session</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/readRenviron.html" class="external-link">readRenviron</a></span><span class="op">(</span><span class="st">".Renviron"</span><span class="op">)</span></span>
