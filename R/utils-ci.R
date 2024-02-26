@@ -3,6 +3,28 @@
 # TODO: A nicer way to execute these system commands...
 # - debug output... better error handling... etc.
 
+toggle_integrated <- function(to=NULL) {
+  env_var <- "CONNECTAPI_INTEGRATED"
+  curr_val <- FALSE
+  if (is.null(to)) {
+    env_val <- Sys.getenv(env_var)
+    if (tolower(env_val) == "true") {
+      curr_val <- TRUE
+    } else {
+      curr_val <- FALSE
+    }
+  } else {
+    curr_val <- !to
+  }
+
+  if (curr_val) {
+    do.call(Sys.setenv, as.list(rlang::set_names("false", env_var)))
+  } else {
+    do.call(Sys.setenv, as.list(rlang::set_names("true", env_var)))
+  }
+  return(!curr_val)
+}
+
 # set up test servers...
 find_compose <- function() {
   wh <- processx::process$new("which", "docker-compose", stdout = "|", stderr = "|")
@@ -78,6 +100,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
   args <- c("-f", compose_file_path, "up", "-d")
   env_vars <- c(
     RSC_VERSION = rsc_version,
+    RSC_REPO_SUFFIX = Sys.getenv("RSC_REPO_SUFFIX"),
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
