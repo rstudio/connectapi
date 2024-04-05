@@ -46,8 +46,7 @@ with_mock_api({
       "https://connect.example/content/f2f37341-e21d-3d80-c698-a935ad614066/"
     )
 
-    # TODO: upgrade to testthat 3rd edition so we can use this
-    # expect_snapshot(print(item))
+    expect_snapshot(print(item))
   })
 
   test_that("we can get the content item's permissions", {
