@@ -27,7 +27,7 @@
 #'   * `guid`: The user's GUID, or unique identifier, in UUID RFC4122 format
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getUsers for more information.
+#' Please see https://docs.posit.co/connect/api/#get-/v1/users for more information.
 #'
 #' @examples
 #' \dontrun{
