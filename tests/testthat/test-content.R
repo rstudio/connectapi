@@ -36,4 +36,29 @@ with_mock_api({
     expect_is(content_list, "data.frame")
     expect_equal(nrow(content_list), 3)
   })
+
+  test_that("we can retrieve a content item", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+    expect_is(item, "Content")
+    expect_equal(
+      item$get_url(),
+      "https://connect.example/content/f2f37341-e21d-3d80-c698-a935ad614066/"
+    )
+
+    # TODO: upgrade to testthat 3rd edition so we can use this
+    # expect_snapshot(print(item))
+  })
+
+  test_that("we can get the content item's permissions", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+    perms <- item$permissions()
+    expect_is(perms, "list")
+    expect_equal(perms[[1]]$id, 94)
+
+    # Now get perms with id specified
+    one_perm <- item$permissions(id = 94)
+    expect_equal(one_perm, perms[[1]])
+  })
 })
