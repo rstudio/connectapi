@@ -61,4 +61,19 @@ with_mock_api({
     one_perm <- item$permissions(id = 94)
     expect_equal(one_perm, perms[[1]])
   })
+
+  test_that("we can modify the content item's permissions", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+    expect_POST(
+      item$permissions_add("a01792e3-2e67-402e-99af-be04a48da074", "user", "viewer"),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/permissions",
+      '{"principal_guid":"a01792e3-2e67-402e-99af-be04a48da074","principal_type":"user","role":"viewer"}'
+    )
+
+    expect_DELETE(
+      item$permissions_delete("a01792e3-2e67-402e-99af-be04a48da074"),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/permissions"
+    )
+  })
 })
