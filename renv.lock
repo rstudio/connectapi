@@ -774,16 +774,6 @@
         "shiny"
       ]
     },
-    "mockery": {
-      "Package": "mockery",
-      "Version": "0.4.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "c28ce5f7c2293d76b91657f3fe30c50b",
-      "Requirements": [
-        "testthat"
-      ]
-    },
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.0",
