@@ -34,10 +34,12 @@ test_that("error if protocol not defined", {
 context("connect")
 
 test_that("warning if using the host parameter", {
-  expect_warning(
-    connect(host = "https://hello.example.com", api_key = "false", .check_is_fatal = FALSE),
-    "host"
-  )
+  without_internet({
+    expect_warning(
+      connect(host = "https://hello.example.com", api_key = "fake", .check_is_fatal = FALSE),
+      "host"
+    )
+  })
 })
 
 test_that("version is validated", {
