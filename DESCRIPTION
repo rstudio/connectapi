@@ -38,27 +38,27 @@ Imports:
     yaml,
     bit64,
     jsonlite
-Suggests:
+Suggests: 
+    covr,
     crayon,
     dbplyr,
+    devtools,
     flexdashboard,
     ggplot2,
     gridExtra,
     htmltools,
+    httptest,
     knitr,
     lubridate,
     rmarkdown,
     rprojroot,
+    rsconnect,
     spelling,
     testthat,
-    rsconnect,
-    webshot2,
-    covr,
-    mockery,
-    devtools
-VignetteBuilder:
+    webshot2
+VignetteBuilder: 
     knitr
-RdMacros:
+RdMacros: 
     lifecycle
 Encoding: UTF-8
 Language: en-US
