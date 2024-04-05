@@ -1,6 +1,4 @@
-context("test Connect R6 class")
-
-test_that("preserves provided values", {
+test_that("Connect R6 class preserves provided values", {
   server <- "http://myhost.example.com"
   api_key <- "fake"
 
@@ -31,8 +29,6 @@ test_that("error if protocol not defined", {
   )
 })
 
-context("connect")
-
 test_that("warning if using the host parameter", {
   without_internet({
     expect_warning(
@@ -44,4 +40,10 @@ test_that("warning if using the host parameter", {
 
 test_that("version is validated", {
   skip("not implemented yet")
+})
+
+test_that("Handling error responses", {
+  con <- Connect$new(server = "https://connect.example", api_key = "fake")
+  resp <- fake_response("https://connect.example/__api__/", status_code = 400L)
+  expect_error(con$raise_error(resp), "Bad Request")
 })

@@ -59,6 +59,12 @@ with_mock_api({
     )
   })
 
+  test_that("we can delete a content item", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+    expect_DELETE(item$danger_delete())
+  })
+
   test_that("we can get the content item's permissions", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
@@ -74,10 +80,19 @@ with_mock_api({
   test_that("we can modify the content item's permissions", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+
+    # Add one
     expect_POST(
       item$permissions_add("a01792e3-2e67-402e-99af-be04a48da074", "user", "viewer"),
       "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/permissions",
       '{"principal_guid":"a01792e3-2e67-402e-99af-be04a48da074","principal_type":"user","role":"viewer"}'
+    )
+
+    # Update one
+    expect_PUT(
+      item$permissions_update(94, "a01792e3-2e67-402e-99af-be04a48da074", "user", "editor"),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/permissions/94",
+      '{"principal_guid":"a01792e3-2e67-402e-99af-be04a48da074","principal_type":"user","role":"editor"}'
     )
 
     expect_DELETE(
