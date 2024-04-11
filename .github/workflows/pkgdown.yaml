@@ -44,7 +44,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Set up license file
-        run: cat ${CONNECT_LICENSE_FILE} > $RSC_LICENSE
+        run: echo ${CONNECT_LICENSE_FILE} > $RSC_LICENSE
 
       - name: Start Connect
         run: |
