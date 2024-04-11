@@ -15,6 +15,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_VERSION: 2022.09.0
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
       CONNECTAPI_INTEGRATED: true
 
     steps:
@@ -31,6 +32,9 @@ jobs:
         with:
           extra-packages: any::covr, local::.
           needs: coverage
+
+      - name: Set up license file
+        run: cat ${CONNECT_LICENSE_FILE} > $RSC_LICENSE
 
       - name: Setup test environment
         run: |
