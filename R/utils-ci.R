@@ -31,6 +31,8 @@ clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml"
 
 determine_license_env <- function(license) {
   if (fs::file_exists(license) && fs::path_ext(license) == "lic") {
+    # Docker needs this to be an absolute path
+    license <- fs::path_abs(license)
     cat_line("determine_license: looks like a license file")
     return(list(
       type = "file",
