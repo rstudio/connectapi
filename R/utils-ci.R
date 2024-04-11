@@ -34,7 +34,7 @@ determine_license_env <- function(license) {
     cat_line("determine_license: looks like a license file")
     return(list(
       type = "file",
-      cmd_params = c("-v", paste0(license, ":/etc/rstudio-connect/license.lic")),
+      cmd_params = c("-v", paste0(license, ":/var/lib/rstudio-connect/license.lic")),
       env_params = c(RSC_LICENSE_FILE = license)
     ))
   } else {
@@ -60,8 +60,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
   compose_path <- find_compose()
 
   license_details <- determine_license_env(connect_license)
-  compose_file <- switch(
-    license_details$type,
+  compose_file <- switch(license_details$type,
     "file" = "ci/test-connect-lic.yml",
     "ci/test-connect.yml"
   )
@@ -118,7 +117,7 @@ wait_for_process <- function(proc) {
   agg_output <- character()
   agg_error <- character()
 
-  while(proc$is_alive()) {
+  while (proc$is_alive()) {
     agg_output <- c(agg_output, proc$read_output_lines())
     agg_error <- c(agg_error, proc$read_error_lines())
     Sys.sleep(0.05)
@@ -178,15 +177,14 @@ update_renviron_creds <- function(server, api_key, prefix, .file = ".Renviron") 
   invisible()
 }
 
-build_test_env <- function(
-                           connect_license = Sys.getenv("RSC_LICENSE"),
+build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"),
                            clean = TRUE,
                            username = "admin",
-                           password = "admin0", rsc_version=current_connect_version) {
+                           password = "admin0", rsc_version = current_connect_version) {
   warn_dire("build_test_env")
   scoped_dire_silence()
 
-  compose_start(connect_license = connect_license, clean = clean, rsc_version=rsc_version)
+  compose_start(connect_license = connect_license, clean = clean, rsc_version = rsc_version)
 
   hosts <- compose_find_hosts(prefix = "ci_connect")
 
@@ -222,12 +220,10 @@ build_test_env <- function(
 }
 
 # set up the first admin
-create_first_admin <- function(
-                               url,
+create_first_admin <- function(url,
                                user, password, email,
                                keyname = "first-key",
-                               provider = "password"
-                               ) {
+                               provider = "password") {
   warn_dire("create_first_admin")
   check_connect_license(url)
 
@@ -290,7 +286,6 @@ HackyConnect <- R6::R6Class(
 
       httr::content(res, as = "parsed")
     },
-
     add_auth = function() {
       httr::add_headers("X-RSC-XSRF" = self$xsrf)
     }

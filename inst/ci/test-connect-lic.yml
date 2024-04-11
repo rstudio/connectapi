@@ -9,5 +9,5 @@ services:
       - 3939
     privileged: true
     volumes:
-      - "${RSC_LICENSE_FILE}:/var/lib/rstudio-connect/rstudio-connect.lic"
+      - "${RSC_LICENSE_FILE}:/var/lib/rstudio-connect/license.lic"
     platform: linux/amd64
