@@ -2,7 +2,7 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the 'Posit Connect' Server API
 Version: 0.1.3.9000
-Authors@R: 
+Authors@R:
     c(person(given = "Sean",
              family = "Lopp",
              role = c("aut")),
@@ -12,15 +12,15 @@ Authors@R:
              email = "cole@posit.co"),
       person(given = "Posit, PBC",
              role = c("cph", "fnd")))
-Description: Provides a helpful 'R6' class and methods for interacting with 
+Description: Provides a helpful 'R6' class and methods for interacting with
     the 'Posit Connect' Server API along with some meaningful utility functions
     for regular tasks. API documentation varies by 'Posit Connect' installation
-    and version, but the latest documentation is also hosted publicly at 
+    and version, but the latest documentation is also hosted publicly at
     <https://docs.posit.co/connect/api/>.
 License: MIT + file LICENSE
 URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
 BugReports: https://github.com/rstudio/connectapi/issues
-Imports: 
+Imports:
     config,
     dplyr,
     fs,
@@ -38,7 +38,7 @@ Imports:
     yaml,
     bit64,
     jsonlite
-Suggests: 
+Suggests:
     crayon,
     dbplyr,
     flexdashboard,
@@ -47,7 +47,6 @@ Suggests:
     htmltools,
     knitr,
     lubridate,
-    processx,
     rmarkdown,
     rprojroot,
     spelling,
