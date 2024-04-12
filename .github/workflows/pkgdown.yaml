@@ -23,7 +23,7 @@ jobs:
       CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
