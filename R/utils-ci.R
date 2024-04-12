@@ -3,14 +3,6 @@
 # TODO: A nicer way to execute these system commands...
 # - debug output... better error handling... etc.
 
-# set up test servers...
-clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml", package = "connectapi")) {
-  cat_line("docker compose: cleaning...")
-  system2("docker", c("compose", "-f", compose_file_path, "down"))
-  cat_line("docker compose: clean!")
-  invisible()
-}
-
 determine_license_env <- function(license) {
   if (fs::file_exists(license) && fs::path_ext(license) == "lic") {
     # Docker needs this to be an absolute path
@@ -46,24 +38,26 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
   )
 
   compose_file_path <- system.file(compose_file, package = "connectapi")
-
-  # stop compose
-  if (clean) {
-    clean_test_env(compose_file_path)
-  }
-
-  # start compose
-  cat_line("docker compose: starting...")
-  args <- c("compose", "-f", compose_file_path, "up", "-d")
   env_vars <- c(
     RSC_VERSION = rsc_version,
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
-  # do not show env_vars b/c need to handle license securely
+  # system2 needs a character vector of name=value
+  env_vars <- paste(names(env_vars), env_vars, sep = "=")
   docker <- Sys.which("docker")
+
+  # stop compose
+  if (clean) {
+    system2(docker, c("compose", "-f", compose_file_path, "down"), env = env_vars)
+  }
+
+  # start compose
+  cat_line("docker compose: starting...")
+  args <- c("compose", "-f", compose_file_path, "up", "-d")
+  # do not show env_vars b/c need to handle license securely
   cat_line(glue::glue("command: {docker} {paste(args, collapse=' ')}"))
-  system2(docker, args, env = paste(names(env_vars), env_vars, sep = "="))
+  system2(docker, args, env = env_vars)
   cat_line("docker compose: started!")
   invisible()
 }
@@ -75,7 +69,7 @@ compose_find_hosts <- function(prefix) {
   # get docker containers
   cat_line("docker: getting list of containers...")
   docker_ps_output <- system2("docker", "ps", stdout = TRUE)
-  cat_line("docker: got containers")
+  cat(docker_ps_output, sep = "\n")
 
   containers <- grep(prefix, docker_ps_output, value = TRUE)
   ports <- sub(".*0\\.0\\.0\\.0:([0-9]+)->3939.*", "\\1", containers)
