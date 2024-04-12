@@ -34,7 +34,7 @@ jobs:
           needs: coverage
 
       - name: Set up license file
-        run: echo "${CONNECT_LICENSE_FILE}" > $RSC_LICENSE
+        run: echo "$CONNECT_LICENSE_FILE" > $RSC_LICENSE
 
       - name: Setup test environment
         run: |
