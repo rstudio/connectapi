@@ -10,7 +10,7 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       RSC_VERSION: 2022.09.0
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -19,9 +19,6 @@ jobs:
       CONNECTAPI_INTEGRATED: true
 
     steps:
-      - name: sup?
-        run: docker-compose --version
-
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
