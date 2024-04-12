@@ -31,7 +31,7 @@ _actual_ latest version of Connect
 
 - the "test environment" stands up two Connect instances as docker images using
 the un-exported `build_test_env()` function
-- this [uses `docker-compose`](../inst/ci/) to build an environment
+- this [uses `docker compose`](../inst/ci/) to build an environment
 - we also use some ["hacky" utilities](../R/utils-ci.R) to build an initial user and API key for executing
 - tests are written in the `tests/integration` directory
   - Each file should be able to be executed independently

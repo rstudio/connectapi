@@ -4,28 +4,10 @@
 # - debug output... better error handling... etc.
 
 # set up test servers...
-find_compose <- function() {
-  wh <- processx::process$new("which", "docker-compose", stdout = "|", stderr = "|")
-  while (wh$is_alive()) Sys.sleep(0.05)
-  stopifnot(wh$get_exit_status() == 0)
-  wh$read_output_lines()
-}
-
 clean_test_env <- function(compose_file_path = system.file("ci/test-connect.yml", package = "connectapi")) {
-  compose_path <- find_compose()
-  cat_line("docker-compose: cleaning...")
-  compose_down <- processx::process$new(
-    compose_path,
-    c("-f", compose_file_path, "down"),
-    stdout = "|",
-    stderr = "|"
-  )
-  while (compose_down$is_alive()) Sys.sleep(0.05)
-  if (compose_down$get_exit_status() != 0) {
-    message(paste(compose_down$read_all_error_lines(), collapse = "\n"))
-    stop("Error cleaning up docker-compose directory")
-  }
-  cat_line("docker-compose: clean!")
+  cat_line("docker compose: cleaning...")
+  system2("docker", c("compose", "-f", compose_file_path, "down"))
+  cat_line("docker compose: clean!")
   invisible()
 }
 
@@ -57,10 +39,6 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
 
   stopifnot(nchar(connect_license) > 0)
 
-  # find compose
-  # this is b/c specifying an env requires an absolute path
-  compose_path <- find_compose()
-
   license_details <- determine_license_env(connect_license)
   compose_file <- switch(license_details$type,
     "file" = "ci/test-connect-lic.yml",
@@ -75,60 +53,19 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
   }
 
   # start compose
-  cat_line("docker-compose: starting...")
-  args <- c("-f", compose_file_path, "up", "-d")
+  cat_line("docker compose: starting...")
+  args <- c("compose", "-f", compose_file_path, "up", "-d")
   env_vars <- c(
     RSC_VERSION = rsc_version,
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
   # do not show env_vars b/c need to handle license securely
-  cat_line(glue::glue("command: {compose_path} {paste(args, collapse=' ')}"))
-  compose <- processx::process$new(
-    compose_path,
-    args,
-    stdout = "|",
-    stderr = "|",
-    env = env_vars
-  )
-  while (compose$is_alive()) {
-    Sys.sleep(0.1)
-    if (getOption("connect.ci.debug", FALSE)) {
-      invisible(purrr::map(compose$read_output_lines(), message))
-      invisible(purrr::map(compose$read_error_lines(), message))
-    }
-  }
-  if (compose$get_exit_status() != 0) {
-    stop(compose$read_all_error_lines())
-  }
-  cat_line("docker-compose: started!")
+  docker <- Sys.which("docker")
+  cat_line(glue::glue("command: {docker} {paste(args, collapse=' ')}"))
+  system2(docker, args, env = paste(names(env_vars), env_vars, sep = "="))
+  cat_line("docker compose: started!")
   invisible()
-}
-
-#' Wait for a Process to Complete
-#'
-#' It is important to poll output intermittently in case pipe buffers fill up.
-#' Otherwise the process will be paused until the buffer is cleared.
-#'
-#' @param proc A processx process object
-#'
-#' @return A list with named stdout and stderr entries
-#'
-#' @keywords internal
-wait_for_process <- function(proc) {
-  agg_output <- character()
-  agg_error <- character()
-
-  while (proc$is_alive()) {
-    agg_output <- c(agg_output, proc$read_output_lines())
-    agg_error <- c(agg_error, proc$read_error_lines())
-    Sys.sleep(0.05)
-  }
-  agg_output <- c(agg_output, proc$read_output_lines())
-  agg_error <- c(agg_error, proc$read_error_lines())
-  return(
-    list(stdout = agg_output, stderr = agg_error)
-  )
 }
 
 compose_find_hosts <- function(prefix) {
@@ -137,8 +74,7 @@ compose_find_hosts <- function(prefix) {
 
   # get docker containers
   cat_line("docker: getting list of containers...")
-  docker_ps <- processx::process$new("docker", "ps", stdout = "|", stderr = "|")
-  docker_ps_output <- wait_for_process(docker_ps)$stdout
+  docker_ps_output <- system2("docker", "ps", stdout = TRUE)
   cat_line("docker: got containers")
 
   containers <- grep(prefix, docker_ps_output, value = TRUE)
