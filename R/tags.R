@@ -45,7 +45,6 @@
 #' Search a tag tree:
 #' - `filter_tag_tree_chr()` - filters a tag tree based on a regex
 #' - `filter_tag_tree_id()` - filters a tag tree based on an id
-#' -
 #'
 #' @export
 #' @rdname tags
@@ -159,7 +158,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res
+    res
   }
 }
 
@@ -169,7 +168,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res
+    res
   }
 }
 
@@ -179,7 +178,7 @@ print.connect_tag_tree <- function(x, ...) {
   warn_once(
     "`[` drops the `connect_tag_tree` class. Use `$` or `[[` instead",
     id = "[.connect_tag_tree"
-    )
+  )
   res
 }
 
@@ -240,7 +239,7 @@ set_content_tags <- function(content, ...) {
 }
 
 .get_tag_id <- function(.x) {
-  if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
+  if (inherits(.x, "connect_tag_tree") && !"id" %in% names(.x)) {
     print(.x)
     stop("this tag does not have an 'id'. Is it a tag list?")
   }
@@ -435,7 +434,7 @@ tag_tree <- function(.x) {
 }
 
 parse_tags_tbl <- function(x) {
-  parsed_tags <- purrr::map_dfr(x, ~{
+  parsed_tags <- purrr::map_dfr(x, ~ {
     out <- dplyr::tibble(
       id = as.character(.x$id),
       name = .x$name,
@@ -462,13 +461,15 @@ pc <- function(...) {
 }
 
 is_latex_output <- function() {
-  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
+  if (!("knitr" %in% loadedNamespaces())) {
+    return(FALSE)
+  }
   get("is_latex_output", asNamespace("knitr"))()
 }
 
 is_utf8_output <- function() {
   opt <- getOption("cli.unicode", NULL)
-  if (! is.null(opt)) {
+  if (!is.null(opt)) {
     isTRUE(opt)
   } else {
     l10n_info()$`UTF-8` && !is_latex_output()
@@ -479,15 +480,15 @@ is_utf8_output <- function() {
 box_chars <- function() {
   if (is_utf8_output()) {
     list(
-      "h" = "\u2500",                   # horizontal
-      "v" = "\u2502",                   # vertical
+      "h" = "\u2500", # horizontal
+      "v" = "\u2502", # vertical
       "l" = "\u2514",
       "j" = "\u251C"
     )
   } else {
     list(
-      "h" = "-",                        # horizontal
-      "v" = "|",                        # vertical
+      "h" = "-", # horizontal
+      "v" = "|", # vertical
       "l" = "\\",
       "j" = "+"
     )
