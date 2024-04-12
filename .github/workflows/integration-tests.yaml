@@ -19,6 +19,9 @@ jobs:
       CONNECTAPI_INTEGRATED: true
 
     steps:
+      - name: sup?
+        run: docker-compose --version
+
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
