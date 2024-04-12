@@ -25,8 +25,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::lifecycle
-          dependencies: 'character()'
+          extra-packages: any::rcmdcheck
+          needs: check
 
       - name: Install pdflatex
         run: sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
