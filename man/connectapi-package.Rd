@@ -13,7 +13,9 @@ Provides a helpful 'R6' class and methods for interacting with the 'Posit Connec
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://pkgs.rstudio.com/connectapi/}
   \item \url{https://github.com/rstudio/connectapi}
+  \item Report bugs at \url{https://github.com/rstudio/connectapi/issues}
 }
 
 }
