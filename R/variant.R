@@ -14,7 +14,9 @@ Variant <- R6::R6Class(
     #' @field variant The variant.
     variant = NULL,
     #' @description Get the underlying variant data.
-    get_variant = function() {self$variant},
+    get_variant = function() {
+      self$variant
+    },
     #' @description Get and store the (remote) variant data.
     get_variant_remote = function() {
       variant <- self$get_connect()$GET(glue::glue("variants/{self$get_variant()$id}"))
@@ -42,7 +44,8 @@ Variant <- R6::R6Class(
         path = url,
         body = list(
           email = to
-        ))
+        )
+      )
     },
     #' @description Get the (remote) schedule data.
     get_schedule = function() {
@@ -171,10 +174,10 @@ Variant <- R6::R6Class(
       glue::glue("{base_content}{pane}/{self$get_variant()$id}")
     },
     # TODO: dashboard cannot navigate directly to renderings today
-    #get_dashboard_url_rev = function(rev, pane = "") {
+    # get_dashboard_url_rev = function(rev, pane = "") {
     #  base_content <- self$get_dashboard_url("")
     #  glue::glue("{base_content}_rev{rev}")
-    #},
+    # },
 
     #' @description Print this object.
     #' @param ... Unused.
@@ -270,7 +273,7 @@ get_variant_default <- function(content) {
   validate_R6_class(content, "Content")
   all_variants <- content$variants()
   the_default <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
-  variant <- Variant$new(connect =  content$get_connect(), content = content$get_content(), key = the_default$key)
+  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = the_default$key)
   return(variant)
 }
 

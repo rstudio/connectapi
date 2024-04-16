@@ -52,7 +52,7 @@ VariantSchedule <- R6::R6Class(
           params,
           app_id = self$get_variant()$app_id,
           variant_id = self$get_variant()$id
-          )
+        )
         path <- "schedules"
       } else {
         path <- glue::glue("schedules/{self$get_schedule()$id}")
@@ -101,8 +101,7 @@ VariantSchedule <- R6::R6Class(
         schdata <- jsonlite::fromJSON(rawdata$schedule)
         # TODO: translate dayofweek "Days" to something more usable
         plural <- ifelse(ifelse(is.null(schdata$N), FALSE, schdata$N > 1), "s", "")
-        desc <- switch(
-          rawdata$type,
+        desc <- switch(rawdata$type,
           "minute" = glue::glue("Every {schdata$N} minute{plural}"),
           "hour" = glue::glue("Every {schdata$N} hour{plural}"),
           "day" = glue::glue("Every {schdata$N} day{plural}"),
@@ -195,9 +194,8 @@ get_variant_schedule <- function(variant) {
 #' @family schedule functions
 #' @export
 set_schedule <- function(
-  .schedule,
-  ...
-  ) {
+    .schedule,
+    ...) {
   warn_experimental("set_schedule")
   scoped_experimental_silence()
   validate_R6_class(.schedule, "VariantSchedule")
@@ -218,11 +216,11 @@ set_schedule <- function(
     }
   }
 
-  if ("type" %in% names(params) && ! "schedule" %in% names(params)) {
+  if ("type" %in% names(params) && !"schedule" %in% names(params)) {
     warning("Specifying 'type' without 'schedule' can cause unexpected results. Different schedule 'type's have different 'schedule' requirements")
   }
 
-  if ("type" %in% names(params) && ! params$type %in% schedule_types) {
+  if ("type" %in% names(params) && !params$type %in% schedule_types) {
     stop(glue::glue("Invalid `type` provided. Should be one of `schedule_types`: {params$type}"))
   }
 
@@ -340,7 +338,7 @@ schedule_describe <- function(.schedule) {
 #' @export
 get_timezones <- function(connect) {
   raw_tz <- connect$GET("timezones")
-  tz_values <- purrr::map_chr(raw_tz, ~.x[["timezone"]])
+  tz_values <- purrr::map_chr(raw_tz, ~ .x[["timezone"]])
   tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
 
   return(as.list(rlang::set_names(tz_values, tz_display)))

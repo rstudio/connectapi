@@ -58,7 +58,7 @@ Instead, we recommend using the `.p` argument to define a "predicate" function
 my_tag_content <- content_list_by_tag(client, tag_1)
 content_guids <- my_tag_content$guid
 
-c_with_p <- content_list_with_permissions(client, .p = ~.x$guid %in% content_guids)
+c_with_p <- content_list_with_permissions(client, .p = ~ .x$guid %in% content_guids)
 
 # another approach, with a function
 # content_list_with_permissions(client, .p = function(.x) {.x$guid %in% content_guids})

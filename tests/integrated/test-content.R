@@ -214,7 +214,7 @@ test_that("content_update works", {
   expect_equal(
     content_update(tsk, title = "test content_update2")$get_content()$title,
     "test content_update2"
-    )
+  )
 })
 
 test_that("content_delete works", {
@@ -223,7 +223,7 @@ test_that("content_delete works", {
 
   tsk <- deploy(connect = test_conn_1, bundle = bund)
 
-  expect_message(res <- content_delete(tsk, force=TRUE) , "Deleting content")
+  expect_message(res <- content_delete(tsk, force = TRUE), "Deleting content")
   expect_true(validate_R6_class(res, "Content"))
 
   expect_error(res$get_content_remote(), "404")
@@ -254,8 +254,8 @@ test_that("set_environment works", {
     new_env$env_vars,
     list(
       "test", "test1", "test2"
-      )
     )
+  )
 
   new_env1 <- set_environment_new(env, test1 = "another")
   expect_equal(
@@ -279,29 +279,29 @@ test_that("set_environment works", {
 })
 
 test_that("add environment variable works", {
-  res <- set_environment_new(rmd_content, MYVAR="hi")
+  res <- set_environment_new(rmd_content, MYVAR = "hi")
   expect_true("MYVAR" %in% res$env_vars)
   expect_true(validate_R6_class(res, "Environment"))
 })
 
 test_that("edit environment variable works", {
-  res <- set_environment_new(rmd_content, MYVAR="hi", OTHER="other")
-  res2 <- set_environment_new(rmd_content, MYVAR="hi2")
+  res <- set_environment_new(rmd_content, MYVAR = "hi", OTHER = "other")
+  res2 <- set_environment_new(rmd_content, MYVAR = "hi2")
   expect_true("MYVAR" %in% res2$env_vars)
   expect_true("OTHER" %in% res2$env_vars)
   expect_true(validate_R6_class(res2, "Environment"))
 })
 
 test_that("get environment works", {
-  res <- set_environment_new(rmd_content, MYVAR="hi")
+  res <- set_environment_new(rmd_content, MYVAR = "hi")
   res <- get_environment(rmd_content)
   expect_true("MYVAR" %in% res$env_vars)
   expect_true(validate_R6_class(res, "Environment"))
 })
 
 test_that("remove environment variable works", {
-  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
-  rem <- set_environment_new(rmd_content, MYVAR=NA)
+  res <- set_environment_new(rmd_content, MYVAR = "hi", ANOTHER = "how")
+  rem <- set_environment_new(rmd_content, MYVAR = NA)
 
   expect_false("MYVAR" %in% rem$env_vars)
   expect_true("ANOTHER" %in% rem$env_vars)
@@ -310,25 +310,25 @@ test_that("remove environment variable works", {
   res <- set_environment_remove(rmd_content, ANOTHER)
   expect_false("ANOTHER" %in% res$env_vars)
 
-  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  res <- set_environment_new(rmd_content, MYVAR = "hi", ANOTHER = "how")
   myvar <- c("MYVAR", "ANOTHER")
   res <- set_environment_remove(rmd_content, !!myvar)
   expect_false("ANOTHER" %in% res$env_vars)
   expect_false("MYVAR" %in% res$env_vars)
 
-  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  res <- set_environment_new(rmd_content, MYVAR = "hi", ANOTHER = "how")
   myvar <- c("MYVAR", "ANOTHER")
   res <- set_environment_remove(rmd_content, !!!myvar)
   expect_false("ANOTHER" %in% res$env_vars)
   expect_false("MYVAR" %in% res$env_vars)
 
-  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  res <- set_environment_new(rmd_content, MYVAR = "hi", ANOTHER = "how")
   myvar <- c("MYVAR" = "1", "ANOTHER" = "2")
   res <- set_environment_remove(rmd_content, !!!myvar)
   expect_false("ANOTHER" %in% res$env_vars)
   expect_false("MYVAR" %in% res$env_vars)
 
-  res <- set_environment_new(rmd_content, MYVAR="hi", ANOTHER="how")
+  res <- set_environment_new(rmd_content, MYVAR = "hi", ANOTHER = "how")
   myvar <- c("MYVAR" = "1", "ANOTHER" = "2")
   res <- set_environment_remove(rmd_content, !!myvar)
   expect_true("ANOTHER" %in% res$env_vars)
@@ -366,7 +366,7 @@ test_that("get_bundles and delete_bundle work", {
   expect_equal(nrow(bnd_dat), 3)
   expect_is(bnd_dat, "tbl_df")
 
-  not_active_bundles <- bnd_dat[!bnd_dat$active,]
+  not_active_bundles <- bnd_dat[!bnd_dat$active, ]
 
   bnd_del <- delete_bundle(bc1, not_active_bundles[["id"]][[1]])
   expect_true(validate_R6_class(bnd_del, "Content"))
@@ -980,5 +980,3 @@ test_that("remove a collaborator twice works", {
   })
   expect_false(any(which_match))
 })
-
-

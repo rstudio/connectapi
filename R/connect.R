@@ -56,7 +56,7 @@ Connect <- R6::R6Class(
     #' @description Set additional `httr` configuration that is added to each HTTP call.
     #' @param ... Set of httr configurations.
     httr_config = function(...) {
-      self$httr_additions = rlang::list2(...)
+      self$httr_additions <- rlang::list2(...)
       invisible(self)
     },
 
@@ -83,12 +83,14 @@ Connect <- R6::R6Class(
           res$request$url,
           httr::http_status(res)$message
         )
-        tryCatch({
-          message(capture.output(str(httr::content(res))))
-        },
-        error = function(e) {
-          message(e)
-        })
+        tryCatch(
+          {
+            message(capture.output(str(httr::content(res))))
+          },
+          error = function(e) {
+            message(e)
+          }
+        )
         stop(err)
       }
     },
@@ -140,13 +142,14 @@ Connect <- R6::R6Class(
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::GET,
-        !!!c(list(
-          url,
-          self$add_auth(),
-          writer
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            url,
+            self$add_auth(),
+            writer
+          ),
+          params,
+          self$httr_additions
         )
       )
       check_debug(url, res)
@@ -167,14 +170,15 @@ Connect <- R6::R6Class(
       }
       res <- rlang::exec(
         httr::PUT,
-        !!!c(list(
-          req,
-          self$add_auth(),
-          body = body,
-          encode = encode
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            req,
+            self$add_auth(),
+            body = body,
+            encode = encode
+          ),
+          params,
+          self$httr_additions
         )
       )
       self$raise_error(res)
@@ -190,12 +194,13 @@ Connect <- R6::R6Class(
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::HEAD,
-        !!!c(list(
-          url = req,
-          self$add_auth()
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            url = req,
+            self$add_auth()
+          ),
+          params,
+          self$httr_additions
         )
       )
       check_debug(req, res)
@@ -210,12 +215,13 @@ Connect <- R6::R6Class(
       params <- rlang::list2(...)
       res <- rlang::exec(
         httr::DELETE,
-        !!!c(list(
-          url = req,
-          self$add_auth()
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            url = req,
+            self$add_auth()
+          ),
+          params,
+          self$httr_additions
         )
       )
       check_debug(req, res)
@@ -237,14 +243,15 @@ Connect <- R6::R6Class(
       }
       res <- rlang::exec(
         httr::PATCH,
-        !!!c(list(
-          req,
-          self$add_auth(),
-          body = body,
-          encode = encode
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            req,
+            self$add_auth(),
+            body = body,
+            encode = encode
+          ),
+          params,
+          self$httr_additions
         )
       )
       self$raise_error(res)
@@ -267,14 +274,15 @@ Connect <- R6::R6Class(
       }
       res <- rlang::exec(
         httr::POST,
-        !!!c(list(
-          req,
-          self$add_auth(),
-          body = body,
-          encode = encode
-        ),
-        params,
-        self$httr_additions
+        !!!c(
+          list(
+            req,
+            self$add_auth(),
+            body = body,
+            encode = encode
+          ),
+          params,
+          self$httr_additions
         )
       )
       check_debug(req, res)
@@ -378,7 +386,7 @@ Connect <- R6::R6Class(
 
     #' @description Get a tag.
     #' @param id The tag identifier.
-    tag = function(id=NULL) {
+    tag = function(id = NULL) {
       error_if_less_than(self, "1.8.6")
       path <- "v1/tags"
       if (!is.null(id)) {
@@ -509,11 +517,11 @@ Connect <- R6::R6Class(
     #' @param owner_guid The target content owner.
     #' @param name The target name.
     #' @param include Additional response fields.
-    content = function(guid = NULL, owner_guid = NULL, name = NULL, include="tags,owner") {
+    content = function(guid = NULL, owner_guid = NULL, name = NULL, include = "tags,owner") {
       if (!is.null(guid)) {
         path <- glue::glue("v1/content/{guid}")
       } else {
-        filter_args <- list(owner_guid = owner_guid, name = name, include=include)
+        filter_args <- list(owner_guid = owner_guid, name = name, include = include)
         path <- glue::glue(
           "v1/content{query_args(!!!filter_args)}"
         )
@@ -592,8 +600,7 @@ Connect <- R6::R6Class(
     #' @param user_must_set_password Indicates that user sets password on first login.
     #' @param user_role Role for user.
     #' @param unique_id Identifier for user.
-    users_create = function(
-                            username,
+    users_create = function(username,
                             email,
                             first_name = NULL,
                             last_name = NULL,
@@ -702,8 +709,7 @@ Connect <- R6::R6Class(
 
     #' @description Create a group.
     #' @param name The group name.
-    groups_create = function(
-                             name) {
+    groups_create = function(name) {
       path <- sprintf("v1/groups")
       self$POST(
         path = path,
@@ -754,8 +760,7 @@ Connect <- R6::R6Class(
     #' @param previous Previous item.
     #' @param nxt Next item.
     #' @param asc_order Indicates ascending result order.
-    inst_content_visits = function(
-                                   content_guid = NULL,
+    inst_content_visits = function(content_guid = NULL,
                                    min_data_version = NULL,
                                    from = NULL,
                                    to = NULL,
@@ -796,8 +801,7 @@ Connect <- R6::R6Class(
     #' @param previous Previous item.
     #' @param nxt Next item.
     #' @param asc_order Indicates ascending result order.
-    inst_shiny_usage = function(
-                                content_guid = NULL,
+    inst_shiny_usage = function(content_guid = NULL,
                                 min_data_version = NULL,
                                 from = NULL,
                                 to = NULL,
@@ -870,7 +874,7 @@ Connect <- R6::R6Class(
     #' @param start Starting time.
     #' @param end Ending time.
     #' @param detailed Indicates detailed schedule information.
-    schedules = function(start = Sys.time(), end = Sys.time() + 60*60*24*7, detailed = FALSE) {
+    schedules = function(start = Sys.time(), end = Sys.time() + 60 * 60 * 24 * 7, detailed = FALSE) {
       warn_experimental("schedules")
       url <- "v1/experimental/schedules"
       query_params <- rlang::list2(
@@ -967,12 +971,11 @@ Connect <- R6::R6Class(
 #'
 #' @export
 connect <- function(
-   server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
-   api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
-   prefix = "CONNECT",
-   ...,
-   .check_is_fatal = TRUE
-   ) {
+    server = Sys.getenv(paste0(prefix, "_SERVER"), NA_character_),
+    api_key = Sys.getenv(paste0(prefix, "_API_KEY"), NA_character_),
+    prefix = "CONNECT",
+    ...,
+    .check_is_fatal = TRUE) {
   if (
     prefix == "CONNECT" &&
       is.na(server) && is.na(api_key) &&
@@ -998,24 +1001,27 @@ connect <- function(
   }
   con <- Connect$new(server = server, api_key = api_key)
 
-  tryCatch({
-    check_connect_license(con)
+  tryCatch(
+    {
+      check_connect_license(con)
 
-    # check Connect is accessible
-    srv <- safe_server_settings(con)
+      # check Connect is accessible
+      srv <- safe_server_settings(con)
 
-    check_connect_version(using_version = srv$version)
-  }, error = function(err) {
-    if (.check_is_fatal) {
-      stop(err)
-    } else {
-      if (inherits(err, "error")) {
-        message(err$message)
+      check_connect_version(using_version = srv$version)
+    },
+    error = function(err) {
+      if (.check_is_fatal) {
+        stop(err)
       } else {
-        message(err)
+        if (inherits(err, "error")) {
+          message(err$message)
+        } else {
+          message(err)
+        }
       }
     }
-  })
+  )
 
   con
 }

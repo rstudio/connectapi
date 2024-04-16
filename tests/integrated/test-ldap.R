@@ -4,7 +4,7 @@ if (Sys.getenv("CONNECTAPI_LOCAL") == "TRUE") {
     "http://localhost:60330",
     user = "john", password = "john",
     provider = "ldap"
-    )
+  )
 }
 
 test_that("users_create_remote works with a simple case", {

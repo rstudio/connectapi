@@ -76,7 +76,6 @@ test_that("content_list_with_permissions works", {
 
   expect_true("permission" %in% names(cl))
   expect_is(cl, "tbl_df")
-
 })
 
 test_that("content_list_with_permissions predicate works", {

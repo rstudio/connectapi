@@ -18,4 +18,4 @@ utils::globalVariables(
   )
 )
 
-current_connect_version <- '2022.09.0'
+current_connect_version <- "2022.09.0"

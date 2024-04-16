@@ -45,7 +45,7 @@ Content <- R6::R6Class(
     #' @param bundle_id The bundle identifer.
     #' @param filename Where to write the result.
     #' @param overwrite Overwrite an existing filename.
-    bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext=".tar.gz"), overwrite = FALSE) {
+    bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext = ".tar.gz"), overwrite = FALSE) {
       url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
       self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
       return(filename)
@@ -184,7 +184,7 @@ Content <- R6::R6Class(
     #' @description Obtain some or all of the ACL for this content.
     #' @param id The target identifier.
     #' @param add_owner Include the content owner in the result set.
-    permissions = function(id = NULL, add_owner=FALSE) {
+    permissions = function(id = NULL, add_owner = FALSE) {
       guid <- self$get_content()$guid
       url <- glue::glue("v1/content/{guid}/permissions")
       if (!is.null(id)) {
@@ -201,7 +201,7 @@ Content <- R6::R6Class(
           principal_guid = self$get_content()$owner,
           principal_type = "user",
           role = "owner"
-          )
+        )
         return(c(res, list(owner_entry)))
       }
       return(res)
@@ -220,7 +220,7 @@ Content <- R6::R6Class(
       # key = NA to remove
       vals <- rlang::list2(...)
       body <- purrr::imap(vals, function(.x, .y) {
-      # TODO: evaluate whether we should be coercing to character or erroring
+        # TODO: evaluate whether we should be coercing to character or erroring
         return(list(name = .y, value = as.character(.x)))
       })
       names(body) <- NULL
@@ -238,7 +238,7 @@ Content <- R6::R6Class(
 
       vals <- rlang::list2(...)
       body <- purrr::imap(vals, function(.x, .y) {
-      # TODO: evaluate whether we should be coercing to character or erroring
+        # TODO: evaluate whether we should be coercing to character or erroring
         return(list(name = .y, value = as.character(.x)))
       })
       names(body) <- NULL
@@ -459,9 +459,9 @@ set_environment_all <- function(env, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#'   connect() %>%
-#'     content_item("some-guid") %>%
-#'     content_update_access_type("all")
+#' connect() %>%
+#'   content_item("some-guid") %>%
+#'   content_update_access_type("all")
 #' }
 content_item <- function(connect, guid) {
   # TODO : think about how to handle if GUID does not exist
@@ -488,7 +488,8 @@ content_item <- function(connect, guid) {
 content_title <- function(connect, guid, default = "Unknown Content") {
   validate_R6_class(connect, "Connect")
 
-  content_title <- tryCatch({
+  content_title <- tryCatch(
+    {
       res <- suppressMessages(connect$get_connect()$content(guid))
       # TODO: What about length 0?
       if (is.null(res$title)) {
@@ -513,7 +514,8 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
       suppressMessages(connect$content(guid = guid)),
       error = function(e) {
         return(NULL)
-      })
+      }
+    )
     if (is.null(content)) {
       if (!"new" %in% .permitted) {
         stop(glue::glue("guid {guid} was not found on {connect$server}"))
@@ -651,7 +653,7 @@ set_run_as <- function(content, run_as, run_as_current_user = FALSE) {
 #'
 #' @family content functions
 #' @export
-content_delete <- function(content, force=FALSE) {
+content_delete <- function(content, force = FALSE) {
   validate_R6_class(content, "Content")
 
   cn <- content$get_content_remote()
@@ -708,11 +710,11 @@ content_update <- function(content, ...) {
 
 #' @rdname content_update
 #' @export
-content_update_access_type <- function(content, access_type=c("all", "logged_in", "acl")) {
+content_update_access_type <- function(content, access_type = c("all", "logged_in", "acl")) {
   if (length(access_type) > 1 || !access_type %in% c("all", "logged_in", "acl")) {
     stop("Please select one of 'all', 'logged_in', or 'acl'.")
   }
-  content_update(content = content, access_type=access_type)
+  content_update(content = content, access_type = access_type)
 }
 
 #' @rdname content_update
@@ -737,7 +739,7 @@ content_update_owner <- function(content, owner_guid) {
 #' @family content functions
 #' @export
 verify_content_name <- function(name) {
-  if (grepl("[^\\-\\_a-zA-Z0-9]", name, perl = TRUE) || nchar(name) < 3 || nchar(name) > 64 ) {
+  if (grepl("[^\\-\\_a-zA-Z0-9]", name, perl = TRUE) || nchar(name) < 3 || nchar(name) > 64) {
     stop(glue::glue("ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, dashes, and underscores"))
   }
   return(name)
@@ -865,7 +867,7 @@ content_add_group <- function(content, guid, role = c("viewer", "owner")) {
       principal_guid = guid,
       principal_type = type,
       role = role
-      )
+    )
   } else {
     message(glue::glue("Adding permission for {type} '{guid}' with role '{role}'"))
     res <- content$permissions_add(
@@ -951,6 +953,3 @@ get_content_permissions <- function(content, add_owner = TRUE) {
   res <- content$permissions(add_owner = add_owner)
   parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
 }
-
-
-

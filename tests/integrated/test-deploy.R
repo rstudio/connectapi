@@ -80,7 +80,7 @@ test_that("download_bundle works", {
   expect_equal(
     system(glue::glue("shasum {downloaded$path} | cut -d ' ' -f 1"), intern = TRUE),
     system(glue::glue("shasum {bund$path} | cut -d ' ' -f 1"), intern = TRUE)
-    )
+  )
 })
 
 test_that("delete_bundle() and get_bundles() work", {
@@ -262,15 +262,20 @@ test_that("set_image_url works", {
 
 test_that("set_image_webshot works", {
   scoped_experimental_silence()
-  cont1_content$update(access_type="all")
+  cont1_content$update(access_type = "all")
   res <- set_image_webshot(cont1_content)
 
   expect_true(validate_R6_class(res, "Content"))
   # TODO: verify round-trip on the image is actually correct... SHA?
 
   # returns content even when it cannot take the webshot
-  cont1_content$update(access_type="acl")
-  expect_warning({res <- set_image_webshot(cont1_content)}, "authentication")
+  cont1_content$update(access_type = "acl")
+  expect_warning(
+    {
+      res <- set_image_webshot(cont1_content)
+    },
+    "authentication"
+  )
 
   expect_true(validate_R6_class(res, "Content"))
 })
@@ -425,7 +430,7 @@ test_that("deployment timestamps respect timezone", {
   myc_guid <- myc$get_content()$guid
 
   # will fail without the png package
-  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e){}))
+  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e) {}))
 
   allusg <- get_usage_static(test_conn_1, content_guid = myc_guid)
 

@@ -1,7 +1,6 @@
 context("verify_content_name")
 
 test_that("works with valid names", {
-
   short_name <- "123"
   expect_equal(verify_content_name(short_name), short_name)
 
