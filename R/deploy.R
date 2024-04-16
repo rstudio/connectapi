@@ -61,7 +61,7 @@ Task <- R6::R6Class(
       validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate task (needs task_id)
-      if ("id" %in% names(task) && ! "task_id" %in% names(task)) {
+      if ("id" %in% names(task) && !"task_id" %in% names(task)) {
         # deal with different task interfaces on Connect
         task$task_id <- task$id
       }
@@ -207,7 +207,6 @@ Vanity <- R6::R6Class(
 #'
 #' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi"))
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-
   # TODO: check for manifest.json
   stopifnot(fs::dir_exists(path))
   message(glue::glue("Bundling directory ({path})"))
@@ -226,7 +225,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 
 check_bundle_contents <- function(dir) {
   all_contents <- fs::path_file(fs::dir_ls(dir))
-  if (! "manifest.json" %in% all_contents) {
+  if (!"manifest.json" %in% all_contents) {
     stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
   }
   if ("packrat.lock" %in% all_contents) {
@@ -303,7 +302,7 @@ bundle_path <- function(path) {
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite=FALSE) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite = FALSE) {
   validate_R6_class(content, "Content")
 
   from_content <- content$get_content_remote()
@@ -323,7 +322,7 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 
 
   message("Downloading bundle")
-  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite=overwrite)
+  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite = overwrite)
 
   Bundle$new(path = filename)
 }
@@ -356,12 +355,12 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @export
 #' @examples
 #' \dontrun{
-#'   client <- connect()
+#' client <- connect()
 #'
-#'   # beware bundling big directories, like `renv/`, `data/`, etc.
-#'   bnd <- bundle_dir(".")
+#' # beware bundling big directories, like `renv/`, `data/`, etc.
+#' bnd <- bundle_dir(".")
 #'
-#'   deploy(client, bnd)
+#' deploy(client, bnd)
 #' }
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
@@ -551,14 +550,17 @@ set_image_webshot <- function(content, ...) {
     warning(glue::glue(
       "WARNING: unable to take webshot for content ",
       "'{content_details$guid}' because authentication is not possible yet. ",
-      "Set access_type='all' to proceed."))
+      "Set access_type='all' to proceed."
+    ))
     return(content)
   }
 
   # default args
   args <- rlang::list2(...)
 
-  if(!"cliprect" %in% names(args)) {args["cliprect"] <- "viewport"}
+  if (!"cliprect" %in% names(args)) {
+    args["cliprect"] <- "viewport"
+  }
 
 
   rlang::inject(webshot2::webshot(
@@ -645,12 +647,15 @@ get_vanity_url <- function(content) {
   error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  van <- tryCatch({
-    con$GET(glue::glue("/v1/content/{guid}/vanity"))
-  }, error = function(e) {
-    # TODO: check to ensure that this error was expected
-    return(NULL)
-  })
+  van <- tryCatch(
+    {
+      con$GET(glue::glue("/v1/content/{guid}/vanity"))
+    },
+    error = function(e) {
+      # TODO: check to ensure that this error was expected
+      return(NULL)
+    }
+  )
   if (is.null(van)) {
     return(NULL)
   }

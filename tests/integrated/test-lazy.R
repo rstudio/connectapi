@@ -115,4 +115,3 @@ test_that("audit_logs works", {
 
   expect_equal(vctrs::vec_ptype(audit_list_local), vctrs::vec_ptype(connectapi_ptypes$audit_logs))
 })
-

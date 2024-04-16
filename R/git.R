@@ -72,7 +72,7 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
   task_res <- poll_task(manifest_dirs_task, callback = NULL)
   task_data <- task_res$get_data()
   stopifnot(identical(task_data$type, "git-repo-branch-manifest-dirs-array"))
-  manifest_dirs <- purrr::map(task_data$data, ~ .x)
+  manifest_dirs <- purrr::map(task_data$data, ~.x)
   purrr::set_names(manifest_dirs, manifest_dirs)
 }
 
@@ -135,12 +135,15 @@ deploy_repo_update <- function(content) {
 
   con <- content$get_connect()
   internal_meta <- content$internal_content()
-  repo_data <- tryCatch({
-    internal_meta$git
-  }, error = function(e){
-    message(e)
-    return(NULL)
-  })
+  repo_data <- tryCatch(
+    {
+      internal_meta$git
+    },
+    error = function(e) {
+      message(e)
+      return(NULL)
+    }
+  )
   if (is.null(repo_data)) {
     stop(glue::glue("Content item '{internal_meta$guid}' is not git-backed content"))
   }

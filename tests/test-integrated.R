@@ -27,13 +27,15 @@ if (nchar(Sys.getenv("CONNECTAPI_INTEGRATED")) > 0) {
 
   if (
     any(nchar(integrated_vars) == 0) ||
-    any(as.logical(lapply(health_checks, function(x) {length(x) > 0})))
+      any(as.logical(lapply(health_checks, function(x) {
+        length(x) > 0
+      })))
   ) {
     str(health_checks)
     stop("One or both of your integration test servers are not healthy")
   }
 
-  test_dir(rprojroot::find_package_root_file("tests/integrated"), reporter = multi_reporter, package="connectapi", load_package = "installed")
+  test_dir(rprojroot::find_package_root_file("tests/integrated"), reporter = multi_reporter, package = "connectapi", load_package = "installed")
 } else {
   message("Not running integrated tests. Set environment variable CONNECTAPI_INTEGRATED=true to run integration tests")
 }

@@ -11,7 +11,6 @@ test_that("audit_vanity_urs fails on missing protocol", {
   )
 })
 test_that("audit_vanity_urls handles slashes", {
-
   apps <- list(
     list(url = "http://myserver.com/hello"),
     list(url = "http://myserver.com/goodbye/"),

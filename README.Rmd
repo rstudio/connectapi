@@ -68,8 +68,8 @@ To create a client:
 ```{r, eval = FALSE}
 library(connectapi)
 client <- connect(
-  server = 'https://connect.example.com',
-  api_key = '<SUPER SECRET API KEY>'
+  server = "https://connect.example.com",
+  api_key = "<SUPER SECRET API KEY>"
 )
 ```
 
@@ -124,16 +124,16 @@ client <- connect()
 # NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`
 
 bundle <- bundle_dir("./path/to/directory")
-content <- client %>% 
-  deploy(bundle, name = "my-app-name") %>% 
+content <- client %>%
+  deploy(bundle, name = "my-app-name") %>%
   poll_task()
 
 # set an image for content
 
-content %>% 
+content %>%
   set_image_path("./my/local/image.png")
 
-content %>% 
+content %>%
   set_image_url("http://url.example.com/image.png")
 
 # set image and a vanity URL
@@ -145,13 +145,13 @@ content %>%
 # change access_type to "anyone"
 
 content$update(access_type = "all")
-  
+
 # edit another piece of content
 
 client %>%
   content_item("the-content-guid") %>%
   set_vanity_url("/another-awesome-app")
-  
+
 # migrate content to another server
 
 client_prod <- connect(

@@ -32,8 +32,7 @@ yaml_content <- function(connect, filename = ".connect.yml") {
   return(res)
 }
 
-yaml_content_deploy <- function(
-                                connect,
+yaml_content_deploy <- function(connect,
                                 name = create_random_name(),
                                 path = "./",
                                 description = NULL,

@@ -23,8 +23,14 @@ rmd_wait <- suppressMessages(poll_task(tsk_rmd))
 
 ## Test Schedule -------------------------------------------------------
 
-d_var <- (function(rmd_content) {scoped_experimental_silence(); get_variant_default(rmd_content)})(rmd_content)
-d_var_sch <- (function(d_var) {scoped_experimental_silence(); get_variant_schedule(d_var)})(d_var)
+d_var <- (function(rmd_content) {
+  scoped_experimental_silence()
+  get_variant_default(rmd_content)
+})(rmd_content)
+d_var_sch <- (function(d_var) {
+  scoped_experimental_silence()
+  get_variant_schedule(d_var)
+})(d_var)
 
 invisible(purrr::map(
   example_schedules,
@@ -73,7 +79,7 @@ test_that("schedule display works", {
   tzs <- get_timezones(test_conn_1)
 
   set_schedule_remove(d_var_sch)
-  tmp <- set_schedule_day(get_variant_schedule(d_var_sch), start_time = as.POSIXct("2022-01-01 00:00:00") , n = 2, timezone = tzs$`Universal (+00:00)`)
+  tmp <- set_schedule_day(get_variant_schedule(d_var_sch), start_time = as.POSIXct("2022-01-01 00:00:00"), n = 2, timezone = tzs$`Universal (+00:00)`)
   expect_snapshot_output(schedule_describe(tmp))
 })
 

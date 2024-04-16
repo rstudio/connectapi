@@ -1,5 +1,3 @@
-
-
 #' Get user information from the Posit Connect server
 #'
 #' @param src The source object
@@ -290,7 +288,6 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
 .make_predicate <- function(.expr) {
   function(.x) {
     masked_expr <- rlang::enexpr(.expr)
-
   }
 }
 
@@ -337,7 +334,7 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   content_list <- get_content(src, .p = .p)
 
   message("Getting permission list")
-  pb <- progress::progress_bar$new(total = nrow(content_list), format="[:bar] :percent :eta")
+  pb <- progress::progress_bar$new(total = nrow(content_list), format = "[:bar] :percent :eta")
   updated_list <- content_list %>% dplyr::mutate(
     permission = purrr::map(guid, function(.x) .get_content_permission_with_progress(src, .x, pb))
   )
@@ -373,8 +370,8 @@ content_list_guid_has_access <- function(content_list, guid) {
   filtered <- content_list %>% dplyr::filter(
     access_type == "all" |
       access_type == "logged_in" |
-      owner_guid == {{guid}} |
-      purrr::map_lgl(permission, ~ {{guid}} %in% .x$principal_guid)
+      owner_guid == {{ guid }} |
+      purrr::map_lgl(permission, ~ {{ guid }} %in% .x$principal_guid)
   )
   return(filtered)
 }

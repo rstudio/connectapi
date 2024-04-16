@@ -162,15 +162,16 @@ simplify_version <- function(version) {
 }
 
 safe_server_settings <- function(client) {
-  srv <- tryCatch({
-    client$server_settings()
-  },
-  error = function(e) {
-    message(
-      glue::glue("Problem talking to Posit Connect at {client$server}/__api__/server_settings")
-    )
-    stop(e)
-  }
+  srv <- tryCatch(
+    {
+      client$server_settings()
+    },
+    error = function(e) {
+      message(
+        glue::glue("Problem talking to Posit Connect at {client$server}/__api__/server_settings")
+      )
+      stop(e)
+    }
   )
   return(srv)
 }
@@ -204,10 +205,9 @@ compare_connect_version <- function(using_version, tested_version) {
 }
 
 check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
-  comp <- compare_connect_version(using_version = using_version, tested_version=tested_version)
+  comp <- compare_connect_version(using_version = using_version, tested_version = tested_version)
 
-  msg <- switch(
-    as.character(comp),
+  msg <- switch(as.character(comp),
     "0" = NULL,
     "1" = warn_once(glue::glue(
       "You are using an older version of Posit Connect ",
