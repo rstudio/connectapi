@@ -120,16 +120,16 @@ client <- connect()
 # NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`
 
 bundle <- bundle_dir("./path/to/directory")
-content <- client %>% 
-  deploy(bundle, name = "my-app-name") %>% 
+content <- client %>%
+  deploy(bundle, name = "my-app-name") %>%
   poll_task()
 
 # set an image for content
 
-content %>% 
+content %>%
   set_image_path("./my/local/image.png")
 
-content %>% 
+content %>%
   set_image_url("http://url.example.com/image.png")
 
 # set image and a vanity URL
@@ -141,13 +141,13 @@ content %>%
 # change access_type to "anyone"
 
 content$update(access_type = "all")
-  
+
 # edit another piece of content
 
 client %>%
   content_item("the-content-guid") %>%
   set_vanity_url("/another-awesome-app")
-  
+
 # migrate content to another server
 
 client_prod <- connect(
@@ -184,7 +184,7 @@ Connect cluster to do the operation in question
 This warning is intentionally chatty. While version number mismatches
 between Posit Connect and `connectapi` can be benign, we want you to be
 clear that `connectapi` is tightly coupled to a version of Posit Connect
-(because Posit Connect’s APIs change over time).
+(because Posit Connect's APIs changes over time).
 
 We strive to:
 
