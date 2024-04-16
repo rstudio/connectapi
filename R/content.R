@@ -910,7 +910,7 @@ content_delete_group <- function(content, guid) {
 
 .get_permission <- function(content, type, guid, add_owner = TRUE) {
   res <- content$permissions(add_owner = add_owner)
-  purrr::keep(res, ~ .x$principal_type == type && .x$principal_guid == guid)
+  purrr::keep(res, ~ identical(.x$principal_type, type) && identical(.x$principal_guid, guid))
 }
 
 #' @rdname permissions
