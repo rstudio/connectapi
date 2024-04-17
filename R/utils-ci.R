@@ -25,7 +25,7 @@ determine_license_env <- function(license) {
   }
 }
 
-compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_version, clean = TRUE) {
+compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), connect_version, clean = TRUE) {
   warn_dire("compose_start")
   scoped_dire_silence()
 
@@ -39,7 +39,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
 
   compose_file_path <- system.file(compose_file, package = "connectapi")
   env_vars <- c(
-    CONNECT_VERSION = rsc_version,
+    CONNECT_VERSION = connect_version,
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
@@ -106,11 +106,11 @@ update_renviron_creds <- function(server, api_key, prefix, .file = ".Renviron") 
 build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"),
                            clean = TRUE,
                            username = "admin",
-                           password = "admin0", rsc_version = current_connect_version) {
+                           password = "admin0", connect_version = current_connect_version) {
   warn_dire("build_test_env")
   scoped_dire_silence()
 
-  compose_start(connect_license = connect_license, clean = clean, rsc_version = rsc_version)
+  compose_start(connect_license = connect_license, clean = clean, connect_version = connect_version)
 
   # It was ci_connect before but it's ci-connect on my machine now;
   # this is a regex so it will match either
