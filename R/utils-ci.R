@@ -25,6 +25,21 @@ determine_license_env <- function(license) {
   }
 }
 
+version_to_docker_tag <- function(version) {
+  # Prior to 2022.09.0, the plain version number was the tag
+  # After, it's "<ubuntu-codename>-<version>" (jammy works for all for now)
+  # If you want a specific image tag, just pass it in and it will go through unchanged
+  try(
+    {
+      if (numeric_version(version) >= "2022.09") {
+        version <- paste0("jammy-", version)
+      }
+    },
+    silent = TRUE
+  )
+  version
+}
+
 compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), connect_version, clean = TRUE) {
   warn_dire("compose_start")
   scoped_dire_silence()
@@ -39,7 +54,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), connect_v
 
   compose_file_path <- system.file(compose_file, package = "connectapi")
   env_vars <- c(
-    CONNECT_VERSION = connect_version,
+    CONNECT_VERSION = version_to_docker_tag(connect_version),
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
@@ -106,7 +121,8 @@ update_renviron_creds <- function(server, api_key, prefix, .file = ".Renviron") 
 build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"),
                            clean = TRUE,
                            username = "admin",
-                           password = "admin0", connect_version = current_connect_version) {
+                           password = "admin0",
+                           connect_version = Sys.getenv("CONNECT_VERSION", current_connect_version)) {
   warn_dire("build_test_env")
   scoped_dire_silence()
 
