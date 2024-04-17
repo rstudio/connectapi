@@ -12,3 +12,5 @@ connectapi.Rcheck/
 connectapi*.tar.gz
 connectapi*.tgz
 *.orig
+tests/integrated/integrated-results-check.txt
+tests/integrated/testthat-problems.rds
