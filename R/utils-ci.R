@@ -27,12 +27,17 @@ determine_license_env <- function(license) {
 
 version_to_docker_tag <- function(version) {
   # Prior to 2022.09.0, the plain version number was the tag
-  # After, it's "<ubuntu-codename>-<version>" (jammy works for all for now)
+  # After, it's "<ubuntu-codename>-<version>"
   # If you want a specific image tag, just pass it in and it will go through unchanged
   try(
     {
-      if (numeric_version(version) >= "2022.09") {
+      numver <- numeric_version(version)
+      if (numver > "2023.06") {
         version <- paste0("jammy-", version)
+      } else if (numver >= "2022.09") {
+        # There's both jammy and bionic for these, but the bionic ones
+        # seem more reliable in CI
+        version <- paste0("bionic-", version)
       }
     },
     silent = TRUE
