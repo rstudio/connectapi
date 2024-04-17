@@ -79,7 +79,6 @@ reference:
       - create_random_name
       - dashboard_url
       - dashboard_url_chr
-      - vec_cast.fs_bytes
 
 
   - title: "R6 classes"

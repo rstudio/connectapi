@@ -19,9 +19,9 @@ Returns a single content item based on guid
 }
 \examples{
 \dontrun{
-  connect() \%>\%
-    content_item("some-guid") \%>\%
-    content_update_access_type("all")
+connect() \%>\%
+  content_item("some-guid") \%>\%
+  content_update_access_type("all")
 }
 }
 \seealso{
