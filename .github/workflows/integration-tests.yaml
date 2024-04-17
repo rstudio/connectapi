@@ -11,8 +11,20 @@ name: integration-tests
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - "2024.03.0"
+          - "2023.09.0"
+          - "2023.03.0"
+          - "2022.09.0"
+          - "2022.03.2"
+          - "2021.09.0"
+          - "1.8.8.2"
+
     env:
-      CONNECT_VERSION: 2022.09.0
+      CONNECT_VERSION: ${{ matrix.version }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
       CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
@@ -58,5 +70,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name: ${{ runner.os }}-${{ matrix.version }}-results
           path: check
