@@ -12,17 +12,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Utilities for Interacting with the Posit Connect Server API">
-<meta property="og:description" content="Provides a helpful R6 class and methods for interacting with 
-    the Posit Connect Server API along with some meaningful utility functions
-    for regular tasks. API documentation varies by Posit Connect installation
-    and version, but the latest documentation is also hosted publicly at 
-    &lt;https://docs.posit.co/connect/api/&gt;.">
+<meta property="og:description" content="Provides a helpful R6 class and methods for interacting with the Posit Connect Server API along with some meaningful utility functions for regular tasks. API documentation varies by Posit Connect installation and version, but the latest documentation is also hosted publicly at &lt;https://docs.posit.co/connect/api/&gt;.">
 <meta property="og:image" content="https://pkgs.rstudio.com/connectapi/logo.svg">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -68,13 +64,13 @@
       <a href="articles/content_permissions.html">Content Permissions</a>
     </li>
     <li>
-      <a href="articles/lifecycle-statuses.html">Lifecycle Statuses</a>
-    </li>
-    <li>
       <a href="articles/customize-http.html">Customize HTTP Requests</a>
     </li>
     <li>
       <a href="articles/getting-started.html">Getting Started with connectapi</a>
+    </li>
+    <li>
+      <a href="articles/lifecycle-statuses.html">Lifecycle Statuses</a>
     </li>
   </ul>
 </li>
@@ -140,8 +136,8 @@
 <span>  api_key <span class="op">=</span> <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>You can also define the following environment variables (in a <code>.Renviron</code> file, for instance):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>CONNECT_SERVER  <span class="ot">=</span> https<span class="sc">:</span><span class="er">//</span>connect.example.com</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>CONNECT_API_KEY <span class="ot">=</span> my<span class="sc">-</span>secret<span class="sc">-</span>api<span class="sc">-</span>key</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>CONNECT_SERVER  <span class="ot">=</span> https<span class="sc">:</span><span class="er">//</span>connect.example.com</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>CONNECT_API_KEY <span class="ot">=</span> my<span class="sc">-</span>secret<span class="sc">-</span>api<span class="sc">-</span>key</span></code></pre></div>
 <p>These environment variable values will be used automatically if defined in your R session.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgs.rstudio.com/connectapi/">connectapi</a></span><span class="op">)</span></span>
@@ -181,16 +177,16 @@
 <span><span class="co"># NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`</span></span>
 <span></span>
 <span><span class="va">bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bundle_dir.html">bundle_dir</a></span><span class="op">(</span><span class="st">"./path/to/directory"</span><span class="op">)</span></span>
-<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bundle</span>, name <span class="op">=</span> <span class="st">"my-app-name"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="va">client</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">bundle</span>, name <span class="op">=</span> <span class="st">"my-app-name"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/poll_task.html">poll_task</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># set an image for content</span></span>
 <span></span>
-<span><span class="va">content</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">content</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/set_image.html">set_image_path</a></span><span class="op">(</span><span class="st">"./my/local/image.png"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">content</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">content</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/set_image.html">set_image_url</a></span><span class="op">(</span><span class="st">"http://url.example.com/image.png"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># set image and a vanity URL</span></span>
@@ -202,13 +198,13 @@
 <span><span class="co"># change access_type to "anyone"</span></span>
 <span></span>
 <span><span class="va">content</span><span class="op">$</span><span class="fu">update</span><span class="op">(</span>access_type <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span><span class="co"># edit another piece of content</span></span>
 <span></span>
 <span><span class="va">client</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/content_item.html">content_item</a></span><span class="op">(</span><span class="st">"the-content-guid"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/set_vanity_url.html">set_vanity_url</a></span><span class="op">(</span><span class="st">"/another-awesome-app"</span><span class="op">)</span></span>
-<span>  </span>
+<span></span>
 <span><span class="co"># migrate content to another server</span></span>
 <span></span>
 <span><span class="va">client_prod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span></span>
@@ -238,7 +234,7 @@
 <p><strong>Access Denied Errors?</strong></p>
 <p>This is likely due to either (1) <code>Connect$server</code> or <code>Connect$api_key</code> being defined improperly or (2) you do not have access to the Posit Connect cluster to do the operation in question</p>
 <p><strong>Constant warning about version numbers</strong></p>
-<p>This warning is intentionally chatty. While version number mismatches between Posit Connect and <code>connectapi</code> can be benign, we want you to be clear that <code>connectapi</code> is tightly coupled to a version of Posit Connect (because Posit Connect’s APIs change over time).</p>
+<p>This warning is intentionally chatty. While version number mismatches between Posit Connect and <code>connectapi</code> can be benign, we want you to be clear that <code>connectapi</code> is tightly coupled to a version of Posit Connect (because Posit Connect’s APIs changes over time).</p>
 <p>We strive to:</p>
 <ul>
 <li>track the latest version of the Posit Connect API</li>
@@ -337,7 +333,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
       </footer>

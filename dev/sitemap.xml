@@ -267,7 +267,4 @@
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/verify_content_name.html</loc>
   </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/wait_for_process.html</loc>
-  </url>
 </urlset>
