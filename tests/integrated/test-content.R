@@ -361,7 +361,7 @@ test_that("get_bundles and delete_bundle work", {
 
   bnd_dat <- get_bundles(bc1)
   expect_equal(nrow(bnd_dat), 3)
-  expect_is(bnd_dat, "tbl_df")
+  expect_s3_class(bnd_dat, "tbl_df")
 
   not_active_bundles <- bnd_dat[!bnd_dat$active, ]
 
@@ -825,7 +825,7 @@ test_that("acl_add_group works", {
 
   content_v1 <- acl_add_group(cont2_content, grp$guid, "owner")
 
-  expect_is(content_v1, "Content")
+  expect_true(validate_R6_class(content_v1, "Content"))
 
   cacl <- get_acl_group(content_v1)
   expect_equal(purrr::map_chr(vctrs::vec_ptype(cacl), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$acl_group), typeof))

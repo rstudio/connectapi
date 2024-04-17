@@ -28,7 +28,7 @@ test_that("can upload and deploy content", {
   expect_silent(as.integer(res[["bundle_id"]]))
 
   task <- test_conn_1$content_deploy(guid = cont1_guid, bundle_id = res[["bundle_id"]])
-  expect_is(task[["task_id"]], "character")
+  expect_type(task[["task_id"]], "character")
 })
 
 test_that("can promote content to another server", {
@@ -42,7 +42,7 @@ test_that("can promote content to another server", {
     name = cont1_name
   )
 
-  expect_is(res, "character")
+  expect_type(res, "character")
 
   cont1_2 <- content_ensure(
     connect = test_conn_2,
@@ -65,7 +65,7 @@ test_that("content_ensure works with guid", {
 
 test_that("content_ensure works with name", {
   expect_message(c_new <- content_ensure(test_conn_1))
-  expect_is(c_new[["guid"]], "character")
+  expect_type(c_new[["guid"]], "character")
 
   expect_message(
     c_same <- content_ensure(test_conn_1, name = c_new[["name"]])

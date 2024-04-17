@@ -26,13 +26,13 @@ test_that("error on bad 'from' value", {
 
 test_that("users works", {
   users <- tbl_connect(test_conn_1, "users")
-  expect_is(users, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(users, c("tbl_connect", "tbl_lazy", "tbl"))
 
   users_local <- users %>% dplyr::collect()
-  expect_is(users_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(users_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(users)))
-  expect_is(colnames(users), "character")
+  expect_type(colnames(users), "character")
   expect_gt(length(colnames(users)), 1)
 
   expect_equal(
@@ -43,13 +43,13 @@ test_that("users works", {
 
 test_that("usage_static works", {
   content_visits <- tbl_connect(test_conn_1, "usage_static")
-  expect_is(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(content_visits, c("tbl_connect", "tbl_lazy", "tbl"))
 
   content_visits_local <- content_visits %>% dplyr::collect()
-  expect_is(content_visits_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(content_visits_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(content_visits)))
-  expect_is(colnames(content_visits), "character")
+  expect_type(colnames(content_visits), "character")
   expect_gt(length(colnames(content_visits)), 1)
 
   # path was added in 2024
@@ -58,13 +58,13 @@ test_that("usage_static works", {
 
 test_that("usage_shiny works", {
   shiny_usage <- tbl_connect(test_conn_1, "usage_shiny")
-  expect_is(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(shiny_usage, c("tbl_connect", "tbl_lazy", "tbl"))
 
   shiny_usage_local <- shiny_usage %>% dplyr::collect()
-  expect_is(shiny_usage_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(shiny_usage_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(shiny_usage)))
-  expect_is(colnames(shiny_usage), "character")
+  expect_type(colnames(shiny_usage), "character")
   expect_gt(length(colnames(shiny_usage)), 1)
 
   expect_ptype_equal(shiny_usage_local, connectapi_ptypes$usage_shiny)
@@ -73,13 +73,13 @@ test_that("usage_shiny works", {
 test_that("content works", {
   scoped_experimental_silence()
   content_list <- tbl_connect(test_conn_1, "content")
-  expect_is(content_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(content_list, c("tbl_connect", "tbl_lazy", "tbl"))
 
   content_list_local <- content_list %>% dplyr::collect()
-  expect_is(content_list_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(content_list_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(content_list)))
-  expect_is(colnames(content_list), "character")
+  expect_type(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
 
   # various attributes have been added over the years, so exact match
@@ -90,13 +90,13 @@ test_that("content works", {
 test_that("groups works", {
   scoped_experimental_silence()
   groups_list <- tbl_connect(test_conn_1, "groups")
-  expect_is(groups_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(groups_list, c("tbl_connect", "tbl_lazy", "tbl"))
 
   groups_list_local <- groups_list %>% dplyr::collect()
-  expect_is(groups_list_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(groups_list_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(groups_list)))
-  expect_is(colnames(groups_list), "character")
+  expect_type(colnames(groups_list), "character")
   expect_gt(length(colnames(groups_list)), 1)
 
   expect_ptype_equal(groups_list_local, connectapi_ptypes$groups)
@@ -105,13 +105,13 @@ test_that("groups works", {
 test_that("audit_logs works", {
   scoped_experimental_silence()
   audit_list <- tbl_connect(test_conn_1, "audit_logs")
-  expect_is(audit_list, c("tbl_connect", "tbl_lazy", "tbl"))
+  expect_s3_class(audit_list, c("tbl_connect", "tbl_lazy", "tbl"))
 
   audit_list_local <- audit_list %>% dplyr::collect()
-  expect_is(audit_list_local, c("tbl_df", "tbl", "data.frame"))
+  expect_s3_class(audit_list_local, c("tbl_df", "tbl", "data.frame"))
 
   expect_true(is.na(nrow(audit_list)))
-  expect_is(colnames(audit_list), "character")
+  expect_type(colnames(audit_list), "character")
   expect_gt(length(colnames(audit_list)), 1)
 
   # This is different on older versions, not sure it's worth worrying about how

@@ -52,7 +52,7 @@ test_that("repo_check_branches_ref works", {
   )
 
   br <- repo_check_branches_ref(test_conn_1, "https://github.com/rstudio/connectapi")
-  expect_is(br, "character")
+  expect_type(br, "character")
   expect_true("main" %in% names(br))
   expect_false("main" %in% br)
   expect_true(all(nchar(br) == 40))

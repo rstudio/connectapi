@@ -20,7 +20,7 @@ test_that("verify_content_name fails for invalid names", {
 })
 
 test_that("create_random_name works with no length", {
-  expect_is(create_random_name(), "character")
+  expect_type(create_random_name(), "character")
 })
 
 test_that("create_random_name works with length", {
@@ -31,16 +31,16 @@ test_that("create_random_name works with length", {
 with_mock_api({
   test_that("we can retrieve the content list", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
-    expect_is(con, "Connect")
+    expect_true(validate_R6_class(con, "Connect"))
     content_list <- get_content(con)
-    expect_is(content_list, "data.frame")
+    expect_s3_class(content_list, "data.frame")
     expect_equal(nrow(content_list), 3)
   })
 
   test_that("we can retrieve a content item", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
-    expect_is(item, "Content")
+    expect_true(validate_R6_class(item, "Content"))
     expect_equal(
       item$get_url(),
       "https://connect.example/content/f2f37341-e21d-3d80-c698-a935ad614066/"
@@ -69,7 +69,7 @@ with_mock_api({
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
     perms <- item$permissions()
-    expect_is(perms, "list")
+    expect_type(perms, "list")
     expect_equal(perms[[1]]$id, 94)
 
     # Now get perms with id specified
