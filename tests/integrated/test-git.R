@@ -25,8 +25,8 @@ test_that("git deployment works", {
 
 test_that("repo_check_account works", {
   scoped_experimental_silence()
-  acc <- expect_message(
-    repo_check_account(test_conn_1, "https://github.com"),
+  expect_message(
+    acc <- repo_check_account(test_conn_1, "https://github.com"),
     "anonymous"
   )
 
