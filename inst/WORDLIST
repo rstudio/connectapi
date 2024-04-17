@@ -2,7 +2,6 @@ ACL
 ACLs
 Codecov
 Connect's
-Connect’s
 ContentTask
 GUID
 GUIDs
@@ -40,7 +39,6 @@ getContentVisits
 getGroupMembers
 getGroups
 getShinyAppUsage
-getUsers
 github
 guid
 guids
