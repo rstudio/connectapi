@@ -7,6 +7,7 @@
   and `Content$bundle_delete()` instead.
 - `Content$tag_delete()` removes the tag from the target content item rather
   than removing the tag entirely. (#194)
+- Fix issue with `NULL` or `length 1` job outputs ([#193](https://github.com/rstudio/connectapi/issues/193))
 
 # connectapi 0.1.3.1
 

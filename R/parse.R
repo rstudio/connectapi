@@ -57,6 +57,9 @@ ensure_column <- function(data, default, name) {
     if (inherits(default, "integer64") && !inherits(col, "integer64")) {
       col <- bit64::as.integer64(col)
     }
+    if (inherits(default, "list") && !inherits(col, "list")) {
+      col <- list(col)
+    }
     col <- vctrs::vec_cast(col, default)
   }
   data[[name]] <- col
@@ -137,7 +140,10 @@ coerce_datetime <- function(x, to, ...) {
   if (is.null(tmp_name) || is.na(tmp_name) || !is.character(tmp_name)) {
     tmp_name <- "x"
   }
-  if (is.numeric(x)) {
+
+  if (is.null(x)) {
+    as.POSIXct(character(), tz = tzone(to))
+  } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
     as.POSIXct(x, tz = tzone(to))
