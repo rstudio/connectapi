@@ -39,7 +39,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
 
   compose_file_path <- system.file(compose_file, package = "connectapi")
   env_vars <- c(
-    RSC_VERSION = rsc_version,
+    CONNECT_VERSION = rsc_version,
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )

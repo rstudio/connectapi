@@ -12,7 +12,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     env:
-      RSC_VERSION: 2022.09.0
+      CONNECT_VERSION: 2022.09.0
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
       CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
