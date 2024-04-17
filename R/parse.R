@@ -142,7 +142,7 @@ coerce_datetime <- function(x, to, ...) {
   }
 
   if (is.null(x)) {
-    as.POSIXct(numeric())
+    as.POSIXct(character(), tz = tzone(to))
   } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
