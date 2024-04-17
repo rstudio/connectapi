@@ -1,5 +1,3 @@
-context("connect_tag_tree")
-
 simple_tag_tree <- connect_tag_tree(
   list(
     hi = list(

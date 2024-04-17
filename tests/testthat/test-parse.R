@@ -1,5 +1,3 @@
-context("vec_cast")
-
 test_that("coerce_fsbytes fills the void", {
   expect_is(coerce_fsbytes(1L, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
   expect_is(coerce_fsbytes(1, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
@@ -27,9 +25,7 @@ test_that("coerce_datetime fills the void", {
   expect_error(coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"), class = "vctrs_error_incompatible_type")
 })
 
-context("make_timestamp")
-
-test_that("works with POSIXct", {
+test_that("make_timestamp works with POSIXct", {
   ts <- as.POSIXct("2020-01-01 01:02:03Z")
   outcome <- "2020-01-01T01:02:03Z"
   expect_equal(make_timestamp(ts), outcome)
@@ -39,20 +35,18 @@ test_that("works with POSIXct", {
   expect_equal(make_timestamp(make_timestamp(ts)), outcome)
 })
 
-test_that("safe for strings", {
+test_that("make_timestamp is safe for strings", {
   expect_equal(make_timestamp("hello"), "hello")
   expect_equal(make_timestamp(rep("hello", 5)), rep("hello", 5))
 
   expect_equal(make_timestamp(NA_character_), NA_character_)
 })
 
-test_that("converts to character", {
+test_that("make_timestamp converts to character", {
   expect_is(make_timestamp(NA_datetime_), "character")
 })
 
-context("swap_timestamp_format")
-
-test_that("works with expected case", {
+test_that("swap_timestamp_format works with expected case", {
   expect_match(swap_timestamp_format("2020-01-07T11:21:07Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
   expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
 
@@ -61,18 +55,16 @@ test_that("works with expected case", {
   expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07.123456Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
 })
 
-test_that("safe for NA", {
+test_that("swap_timestamp_format is safe for NA", {
   expect_identical(swap_timestamp_format(NA_character_), NA_character_)
 })
 
-test_that("safe for other strings", {
+test_that("swap_timestamp_format is safe for other strings", {
   expect_identical(swap_timestamp_format("my string"), "my string")
   expect_identical(swap_timestamp_format("132352523153151"), "132352523153151")
 })
 
-context("ensure_column")
-
-test_that("works with lists", {
+test_that("ensure_column works with lists", {
   list_chk_null <- ensure_column(tibble::tibble(), NA_list_, "hello")
   expect_is(list_chk_null, "tbl_df")
   expect_is(list_chk_null$hello, "list")
@@ -81,7 +73,7 @@ test_that("works with lists", {
   expect_is(list_chk_same, "tbl_df")
   expect_is(list_chk_same$hello, "list")
 })
-test_that("works with POSIXct", {
+test_that("ensure_column works with POSIXct", {
   time_chk_null <- ensure_column(tibble::tibble(), NA_datetime_, "hello")
   expect_is(time_chk_null, "tbl_df")
   expect_is(time_chk_null$hello, "POSIXct")

@@ -1,6 +1,3 @@
-context("content")
-
-
 # Setup ----------------------------------------------------
 
 # should connect with env vars
@@ -379,7 +376,6 @@ test_that("get_bundles and delete_bundle work", {
 #
 # i.e. deploying real content...
 #
-context("render")
 
 # TODO: very hard to test parameterized rmarkdown because creating a
 # programmatic variant is not possible
@@ -433,9 +429,7 @@ test_that("get_jobs works", {
   expect_equal(one_job$key[[1]], sel_key)
 })
 
-context("set_run_as")
-
-test_that("fails for static content", {
+test_that("set_run_as fails for static content", {
   scoped_experimental_silence()
   expect_error(
     suppressMessages(set_run_as(cont1_content, "rstudio-connect")),
@@ -443,7 +437,7 @@ test_that("fails for static content", {
   )
 })
 
-test_that("works with a good linux user", {
+test_that("set_run_as works with a good linux user", {
   scoped_experimental_silence()
   res <- set_run_as(shiny_content, "rstudio-connect")
   expect_equal(
@@ -456,7 +450,7 @@ test_that("works with a good linux user", {
   expect_null(res2$get_content()$run_as)
 })
 
-test_that("fails with a bad linux user", {
+test_that("set_run_as fails with a bad linux user", {
   scoped_experimental_silence()
   expect_error(
     suppressMessages(
@@ -466,7 +460,7 @@ test_that("fails with a bad linux user", {
   )
 })
 
-test_that("works for run_as_current_user", {
+test_that("set_run_as works for run_as_current_user", {
   scoped_experimental_silence()
   res <- set_run_as(
     shiny_content,
@@ -500,8 +494,6 @@ test_that("run_as_current_user fails for rmd", {
 })
 
 # ACLs ----------------------------------------------------
-
-context("acl")
 
 test_that("acl methods are deprecated", {
   scoped_experimental_silence()
@@ -863,8 +855,6 @@ test_that("get_acl_group_role with no role returns NULL", {
 })
 
 # Permissions ---------------------------------------
-
-context("permissions")
 
 test_that("returns owner permission", {
   tar_path <- rprojroot::find_package_root_file("tests/testthat/examples/static.tar.gz")

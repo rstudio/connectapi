@@ -1,5 +1,3 @@
-context("utils")
-
 test_that("safe_query handles values correctly", {
   pref <- "prefixed"
   nullval <- NULL
@@ -48,7 +46,6 @@ test_that("check_connect_version works", {
 test_that("check_connect_version warning snapshot", {
   # warning messages seem to cause issues in different environments based on color codes
   skip_on_cran()
-  local_edition(3)
   # No warning
   expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
   expect_snapshot(capture_warning(check_connect_version("2022.01", "2022.02")))

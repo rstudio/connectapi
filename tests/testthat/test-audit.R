@@ -1,5 +1,3 @@
-context("audit")
-
 test_that("audit_vanity_urs fails on missing protocol", {
   apps <- list(
     list(url = "http://myserver.com/hello"),

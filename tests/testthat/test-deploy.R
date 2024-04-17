@@ -1,5 +1,3 @@
-context("deploy")
-
 test_that("dashboard_url_chr works with various length inputs", {
   expect_identical(dashboard_url_chr("a", "b", "c"), "a/connect/#/apps/b/c")
   expect_identical(dashboard_url_chr("a", c("b", "c"), "d"), c("a/connect/#/apps/b/d", "a/connect/#/apps/c/d"))

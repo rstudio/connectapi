@@ -1,5 +1,3 @@
-context("deploy")
-
 # setup ---------------------------------------------------
 
 # should connect with env vars
