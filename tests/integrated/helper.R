@@ -1,7 +1,7 @@
 expect_ptype_equal <- function(actual, expected, exact = TRUE) {
   if (!exact) {
     # Keep only the columns from each that are in the other
-    shared_names <- intersect(names(actual), namse(expected))
+    shared_names <- intersect(names(actual), names(expected))
     actual <- actual[, shared_names]
     expected <- expected[, shared_names]
   }
