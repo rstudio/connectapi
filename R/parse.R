@@ -94,38 +94,6 @@ parse_connectapi <- function(data) {
   ))
 }
 
-#' @export
-vec_cast.fs_bytes.integer <- function(x, to, ...) {
-  warn_experimental("vec_cast.fs_bytes")
-  fs::as_fs_bytes(x)
-}
-
-#' @export
-vec_cast.fs_bytes.default <- function(x, to, ...) {
-  vctrs::vec_default_cast(x = x, to = to)
-}
-
-#' Cast to fs_bytes
-#'
-#' \lifecycle{deprecated}
-#' This is a temporary placeholder because the functionality
-#' does not exist yet in the `fs` package. Do not build dependencies
-#' on `connectapi::vec-cast.fs_bytes`, as it will be removed without
-#' warning in a future release.
-#'
-#' @param x Vectors to cast
-#' @param to Type to cast to. If `NULL`, `x` will be returned as is
-#' @param ... Dots for future extensions and should be empty
-#'
-#' @return A vector the same length as `x` with the same type as `to`, or an
-#'   error if the cast is not possible.
-#'
-#' @export
-vec_cast.fs_bytes <- function(x, to, ...) {
-  warn_experimental("vec_cast.fs_bytes")
-  UseMethod("vec_cast.fs_bytes")
-}
-
 coerce_fsbytes <- function(x, to, ...) {
   if (is.numeric(x)) {
     fs::as_fs_bytes(x)
