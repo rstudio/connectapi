@@ -39,23 +39,23 @@ Imports:
     bit64,
     jsonlite
 Suggests:
+    covr,
     crayon,
     dbplyr,
+    devtools,
     flexdashboard,
     ggplot2,
     gridExtra,
     htmltools,
+    httptest,
     knitr,
     lubridate,
     rmarkdown,
     rprojroot,
+    rsconnect,
     spelling,
     testthat,
-    rsconnect,
-    webshot2,
-    covr,
-    mockery,
-    devtools
+    webshot2
 VignetteBuilder:
     knitr
 RdMacros:
@@ -64,3 +64,4 @@ Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

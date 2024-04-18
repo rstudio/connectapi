@@ -1,5 +1,3 @@
-context("utils")
-
 test_that("safe_query handles values correctly", {
   pref <- "prefixed"
   nullval <- NULL
@@ -23,17 +21,14 @@ test_that("simplify_version works", {
 })
 
 test_that("error_if_less_than errors as expected", {
-  m <- mockery::mock("1.8.2.1-4", "1.8.6.9-14", "2.9.0.0.4")
-  fake_client <- Connect$new("http://test", "api_key")
-  with_mock(
-    safe_server_version = m,
-    {
-      expect_error(error_if_less_than(fake_client, "1.8.6"))
-      expect_silent(error_if_less_than(fake_client, "1.8.6"))
-      expect_silent(error_if_less_than(fake_client, "1.8.6"))
-    },
-    .env = "connectapi"
-  )
+  with_mock_api({
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    expect_silent(error_if_less_than(con, "1.8.6"))
+    expect_error(
+      error_if_less_than(con, "2024.09"),
+      "ERROR: This API requires Posit Connect version 2024.09"
+    )
+  })
 })
 
 test_that("check_connect_version works", {
@@ -51,7 +46,6 @@ test_that("check_connect_version works", {
 test_that("check_connect_version warning snapshot", {
   # warning messages seem to cause issues in different environments based on color codes
   skip_on_cran()
-  local_edition(3)
   # No warning
   expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
   expect_snapshot(capture_warning(check_connect_version("2022.01", "2022.02")))

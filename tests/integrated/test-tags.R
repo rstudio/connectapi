@@ -1,5 +1,3 @@
-context("test tags")
-
 # should connect with env vars
 test_conn_1 <- connect(prefix = "TEST_1")
 test_conn_2 <- connect(prefix = "TEST_2")
@@ -66,7 +64,7 @@ test_that("associate tag with content", {
 
 test_that("get_tags works", {
   atags <- get_tags(test_conn_1)
-  expect_is(atags, "connect_tag_tree")
+  expect_s3_class(atags, "connect_tag_tree")
 })
 
 test_that("create_tag and delete_tag works", {

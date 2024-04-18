@@ -1,0 +1,16 @@
+[
+    {
+        "id": 94,
+        "content_guid": "f2f37341-e21d-3d80-c698-a935ad614066",
+        "principal_guid": "78974391-d89f-4f11-916a-ba50cfe993db",
+        "principal_type": "user",
+        "role": "owner"
+    },
+    {
+        "id": 59,
+        "content_guid": "f2f37341-e21d-3d80-c698-a935ad614066",
+        "principal_guid": "75b95fc0-ae02-4d85-8732-79a845143eed",
+        "principal_type": "group",
+        "role": "viewer"
+    }
+]

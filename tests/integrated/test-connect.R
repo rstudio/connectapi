@@ -1,5 +1,3 @@
-context("test connect connection")
-
 # should connect with env vars
 test_conn_1 <- NULL
 test_conn_2 <- NULL

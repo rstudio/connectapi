@@ -1,5 +1,3 @@
-context("deploy")
-
 # setup ---------------------------------------------------
 
 # should connect with env vars
@@ -329,7 +327,7 @@ test_that("get_vanity_url works", {
   # with a vanity
   res <- set_vanity_url(tmp_content, tmp_content_name)
   existing_vanity <- get_vanity_url(tmp_content)
-  expect_is(existing_vanity, "character")
+  expect_type(existing_vanity, "character")
   expect_equal(existing_vanity, paste0("/", tmp_content_name, "/"))
 })
 

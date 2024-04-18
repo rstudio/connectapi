@@ -1,5 +1,3 @@
-context("connect_tag_tree")
-
 simple_tag_tree <- connect_tag_tree(
   list(
     hi = list(
@@ -42,12 +40,12 @@ test_that("print methods work as expected", {
 })
 
 test_that("$ works as expected", {
-  expect_is(simple_tag_tree$hi, "connect_tag_tree")
-  expect_is(simple_tag_tree$hi$ho, "connect_tag_tree")
+  expect_s3_class(simple_tag_tree$hi, "connect_tag_tree")
+  expect_s3_class(simple_tag_tree$hi$ho, "connect_tag_tree")
   expect_named(simple_tag_tree$hi$ho, c("name", "id"))
   expect_output(print(simple_tag_tree$hi), "filtered")
-  expect_is(simple_tag_tree$hi$ho$name, "character")
-  expect_is(simple_tag_tree$hi$ho$id, "numeric")
+  expect_type(simple_tag_tree$hi$ho$name, "character")
+  expect_type(simple_tag_tree$hi$ho$id, "double")
 })
 
 test_that("[ works as expected", {
@@ -56,19 +54,19 @@ test_that("[ works as expected", {
 
   expect_warning(simple_tag_tree["hi"], "drops")
   expect_false(inherits(simple_tag_tree["hi"], "connect_tag_tree"))
-  expect_is(simple_tag_tree["hi"], "list")
+  expect_type(simple_tag_tree["hi"], "list")
 
   # clear "warn_once" state
   warn_clear("[.connect_tag_tree")
 })
 
 test_that("[[ works as expected", {
-  expect_is(simple_tag_tree[["hi"]], "connect_tag_tree")
-  expect_is(simple_tag_tree[["hi"]][["ho"]], "connect_tag_tree")
+  expect_s3_class(simple_tag_tree[["hi"]], "connect_tag_tree")
+  expect_s3_class(simple_tag_tree[["hi"]][["ho"]], "connect_tag_tree")
   expect_named(simple_tag_tree[["hi"]][["ho"]], c("name", "id"))
   expect_output(print(simple_tag_tree[["hi"]]), "filtered")
-  expect_is(simple_tag_tree[["hi"]][["ho"]][["name"]], "character")
-  expect_is(simple_tag_tree[["hi"]][["ho"]][["id"]], "numeric")
+  expect_type(simple_tag_tree[["hi"]][["ho"]][["name"]], "character")
+  expect_type(simple_tag_tree[["hi"]][["ho"]][["id"]], "double")
 })
 
 test_that("filter_tag_tree_chr works as expected", {

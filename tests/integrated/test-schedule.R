@@ -1,5 +1,3 @@
-context("schedule")
-
 test_conn_1 <- connect(prefix = "TEST_1")
 
 rmd_name <- uuid::UUIDgenerate()
@@ -73,7 +71,6 @@ test_that("schedule helpers work", {
 
 test_that("schedule display works", {
   skip("need a way to make this less time sensitive (with next run)")
-  local_edition(3)
   scoped_experimental_silence()
 
   tzs <- get_timezones(test_conn_1)
@@ -84,7 +81,6 @@ test_that("schedule display works", {
 })
 
 # test_that("timezones helper works", {
-#   local_edition(3)
 #   tzs <- get_timezones(test_conn_1)
 #   expect_snapshot(tzs)
 # })

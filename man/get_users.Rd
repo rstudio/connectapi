@@ -41,7 +41,7 @@ through an email. This feature is unique to password authentication.
 Get user information from the Posit Connect server
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getUsers for more information.
+Please see https://docs.posit.co/connect/api/#get-/v1/users for more information.
 }
 \examples{
 \dontrun{
