@@ -9,11 +9,7 @@ expect_ptype_equal <- function(actual, expected, exact = TRUE) {
 }
 
 skip_if_connect_older_than <- function(client, version) {
-  connect_version <- safe_server_version(client)
-  if (is.null(connect_version) || nchar(connect_version) == 0) {
-    connect_version <- "0"
-  }
-  if (numeric_version(connect_version) < numeric_version(version)) {
+  if (numeric_version(safe_server_version(client)) < numeric_version(version)) {
     skip(paste("Requires Connect >=", version))
   }
 }

@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-CONNECT_VERSION=2022.09.0
+CONNECT_VERSION=2024.03.0
 
 #---------------------------------------------
 # Network
@@ -32,7 +32,7 @@ network-down:
 update-versions:
 	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/pkgdown.yaml
 	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/test-coverage.yaml
-	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/integration-tests.yaml
+	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/pr-commands.yaml
 	@sed -i '' "s/^current_connect_version <- .*/current_connect_version <- '${CONNECT_VERSION}'/g" R/connectapi.R
 
 #---------------------------------------------

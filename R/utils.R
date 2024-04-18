@@ -141,10 +141,6 @@ warn_once <- function(msg, id = msg) {
 }
 warn_env <- new.env(parent = emptyenv())
 
-tested_connect_version <- function() {
-  current_connect_version
-}
-
 check_connect_license <- function(url) {
   if (is_R6_class(url, "Connect")) {
     res <- url$GET_RESULT_URL(url$server)
@@ -177,48 +173,42 @@ safe_server_settings <- function(client) {
 }
 
 safe_server_version <- function(client) {
-  srv <- safe_server_settings(client)
-  return(srv$version)
+  version <- safe_server_settings(client)$version
+  if (is.null(version) || nchar(version) == 0) {
+    message("Version information is not exposed by this Posit Connect instance.")
+    # Return 0 so this will always show up as "too old"
+    version <- "0"
+  }
+  version
 }
 
-# TODO: switch compare_connect_version ordering...
 error_if_less_than <- function(client, tested_version) {
-  comp <- compare_connect_version(using_version = safe_server_version(client), tested_version = tested_version)
-  if (comp > 0) {
-    stop(glue::glue("ERROR: This API requires Posit Connect version {tested_version}, but you are using {srv$version}. Please use a previous version of the `connectapi` package, upgrade Posit Connect, or review the API documentation corresponding to your version."))
+  server_version <- safe_server_version(client)
+  comp <- compare_connect_version(server_version, tested_version)
+  if (comp < 0) {
+    msg <- paste0(
+      "ERROR: This API requires Posit Connect version ", tested_version,
+      " but you are using", server_version, ". Please use a previous version",
+      " of the `connectapi` package, upgrade Posit Connect, or review the API ",
+      "documentation corresponding to your version."
+    )
+    stop(msg)
   }
   invisible()
 }
 
 compare_connect_version <- function(using_version, tested_version) {
-  if (is.null(using_version)) {
-    message("Version information is not exposed by this Posit Connect instance.")
-    return(0)
-  } else if (nchar(using_version) == 0) {
-    message("Version information is not exposed by this Posit Connect instance.")
-    return(0)
-  } else {
-    minor_using_version <- simplify_version(using_version)
-    minor_tested_version <- simplify_version(tested_version)
-    return(compareVersion(minor_tested_version, minor_using_version))
-  }
+  compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
-check_connect_version <- function(using_version, tested_version = tested_connect_version()) {
-  comp <- compare_connect_version(using_version = using_version, tested_version = tested_version)
-
-  msg <- switch(as.character(comp),
-    "0" = NULL,
-    "1" = warn_once(glue::glue(
+check_connect_version <- function(using_version, minimum_tested_version = "1.8.8.2") {
+  comp <- compare_connect_version(using_version, minimum_tested_version)
+  if (comp < 0) {
+    warn_once(glue::glue(
       "You are using an older version of Posit Connect ",
-      "({using_version}) than was tested ({tested_version}). ",
+      "({using_version}) than is tested ({minimum_tested_version}). ",
       "Some APIs may not function as expected."
-    ), id = "old-connect"),
-    "-1" = warn_once(glue::glue(
-      "You are using a newer version of Posit Connect ",
-      "({using_version}) than was tested ({tested_version}). ",
-      "Most APIs should function as expected."
-    ), id = "new-connect")
-  )
+    ), id = "old-connect")
+  }
   invisible()
 }
