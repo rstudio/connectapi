@@ -92,7 +92,7 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  parse_connectapi_typed(res, !!!op$ptype)
+  parse_connectapi_typed(res, op$ptype)
 }
 
 cat_line <- function(...) {

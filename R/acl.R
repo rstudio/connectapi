@@ -35,7 +35,7 @@ get_acl_user <- function(content) {
 
   content_info <- content$get_content_remote()
   prep <- get_acl_user_impl(content)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_user)
+  out <- parse_connectapi_typed(prep, connectapi_ptypes$acl_user)
   out$content_guid <- content_info$guid
   out$content_access_type <- content_info$access_type
 
@@ -50,7 +50,7 @@ get_acl_group <- function(content) {
 
   content_info <- content$get_content_remote()
   prep <- get_acl_group_impl(content)
-  out <- parse_connectapi_typed(prep, !!!connectapi_ptypes$acl_group)
+  out <- parse_connectapi_typed(prep, connectapi_ptypes$acl_group)
   if (nrow(out) > 0) {
     out$content_guid <- content_info$guid
     out$content_access_type <- content_info$access_type

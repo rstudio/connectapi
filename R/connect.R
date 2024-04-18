@@ -1004,11 +1004,7 @@ connect <- function(
   tryCatch(
     {
       check_connect_license(con)
-
-      # check Connect is accessible
-      srv <- safe_server_settings(con)
-
-      check_connect_version(using_version = srv$version)
+      check_connect_version(using_version = safe_server_version(con))
     },
     error = function(err) {
       if (.check_is_fatal) {

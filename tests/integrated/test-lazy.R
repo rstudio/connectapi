@@ -54,7 +54,8 @@ test_that("usage_static works", {
   expect_is(colnames(content_visits), "character")
   expect_gt(length(colnames(content_visits)), 1)
 
-  expect_equal(vctrs::vec_ptype(content_visits_local), vctrs::vec_ptype(connectapi_ptypes$usage_static))
+  # path was added in 2024
+  expect_ptype_equal(content_visits_local, connectapi_ptypes$usage_static, exact = FALSE)
 })
 
 test_that("usage_shiny works", {
@@ -68,7 +69,7 @@ test_that("usage_shiny works", {
   expect_is(colnames(shiny_usage), "character")
   expect_gt(length(colnames(shiny_usage)), 1)
 
-  expect_equal(vctrs::vec_ptype(shiny_usage_local), vctrs::vec_ptype(connectapi_ptypes$usage_shiny))
+  expect_ptype_equal(shiny_usage_local, connectapi_ptypes$usage_shiny)
 })
 
 test_that("content works", {
@@ -83,7 +84,9 @@ test_that("content works", {
   expect_is(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
 
-  expect_equal(vctrs::vec_ptype(content_list_local), vctrs::vec_ptype(connectapi_ptypes$content))
+  # various attributes have been added over the years, so exact match
+  # doesn't work against all versions of Connect
+  expect_ptype_equal(content_list_local, connectapi_ptypes$content, exact = FALSE)
 })
 
 test_that("groups works", {
@@ -98,7 +101,7 @@ test_that("groups works", {
   expect_is(colnames(groups_list), "character")
   expect_gt(length(colnames(groups_list)), 1)
 
-  expect_equal(vctrs::vec_ptype(groups_list_local), vctrs::vec_ptype(connectapi_ptypes$groups))
+  expect_ptype_equal(groups_list_local, connectapi_ptypes$groups)
 })
 
 test_that("audit_logs works", {
@@ -113,5 +116,7 @@ test_that("audit_logs works", {
   expect_is(colnames(audit_list), "character")
   expect_gt(length(colnames(audit_list)), 1)
 
-  expect_equal(vctrs::vec_ptype(audit_list_local), vctrs::vec_ptype(connectapi_ptypes$audit_logs))
+  # This is different on older versions, not sure it's worth worrying about how
+  skip_if_connect_older_than(test_conn_1, "2022.09.0")
+  expect_ptype_equal(audit_list_local, connectapi_ptypes$audit_logs)
 })

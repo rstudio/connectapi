@@ -3,7 +3,7 @@ PWD := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 PROJECT=connectapi
 NETWORK=${PROJECT}_default
-RSC_VERSION=2022.09.0
+CONNECT_VERSION=2024.03.0
 
 #---------------------------------------------
 # Network
@@ -30,10 +30,10 @@ network-down:
 # Update versions
 #---------------------------------------------
 update-versions:
-	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/pkgdown.yaml
-	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/test-coverage.yaml
-	@sed -i '' "s/RSC_VERSION\:.*/RSC_VERSION: ${RSC_VERSION}/g" .github/workflows/integration-tests.yaml
-	@sed -i '' "s/^current_connect_version <- .*/current_connect_version <- '${RSC_VERSION}'/g" R/connectapi.R
+	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/pkgdown.yaml
+	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/test-coverage.yaml
+	@sed -i '' "s/CONNECT_VERSION\:.*/CONNECT_VERSION: ${CONNECT_VERSION}/g" .github/workflows/pr-commands.yaml
+	@sed -i '' "s/^current_connect_version <- .*/current_connect_version <- '${CONNECT_VERSION}'/g" R/connectapi.R
 
 #---------------------------------------------
 # Helpers
@@ -49,7 +49,7 @@ mail-down:
 connect-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
-	RSC_VERSION=$(RSC_VERSION) \
+	CONNECT_VERSION=$(CONNECT_VERSION) \
 	docker compose -f inst/ci/test-connect.yml -f .github/local/make-network.yml up -d
 
 connect-down:
@@ -59,7 +59,7 @@ connect-down:
 connect-file-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
-	RSC_VERSION=$(RSC_VERSION) \
+	CONNECT_VERSION=$(CONNECT_VERSION) \
 	docker compose -f inst/ci/test-connect-lic.yml -f .github/local/make-network.yml up -d
 
 connect-file-down:
@@ -69,7 +69,7 @@ connect-file-down:
 test-env-up:
 	NETWORK=${NETWORK} \
 	RSC_LICENSE=$(RSC_LICENSE) \
-	RSC_VERSION=$(RSC_VERSION) \
+	CONNECT_VERSION=$(CONNECT_VERSION) \
 	docker compose -f .github/local/test-connect-ci.yml -f .github/local/make-network.yml up -d
 
 test-env-down:

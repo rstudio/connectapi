@@ -432,9 +432,20 @@ test_that("deployment timestamps respect timezone", {
   # will fail without the png package
   invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e) {}))
 
-  allusg <- get_usage_static(test_conn_1, content_guid = myc_guid)
+  all_usage <- get_usage_static(test_conn_1, content_guid = myc_guid)
+  for (i in 1:5) {
+    if (nrow(all_usage) == 0) {
+      # We may need to wait a beat for the metrics to show up.
+      # Retry a few times just in case.
+      # This did not show up testing against Connect versions <= 2022.09.0,
+      # but 2023.03.0 and newer seemed to hit this
+      Sys.sleep(1)
+      all_usage <- get_usage_static(test_conn_1, content_guid = myc_guid)
+    }
+  }
+  expect_equal(nrow(all_usage), 1)
 
   # we just did this, so it should be less than 1 minute ago...
   # (really protecting against being off by hours b/c of timezone differences)
-  expect_true(any((Sys.time() - allusg$time) < lubridate::make_difftime(60, "seconds")))
+  expect_lt(Sys.time() - all_usage$time, lubridate::make_difftime(60, "seconds"))
 })

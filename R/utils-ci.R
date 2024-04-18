@@ -25,7 +25,27 @@ determine_license_env <- function(license) {
   }
 }
 
-compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_version, clean = TRUE) {
+version_to_docker_tag <- function(version) {
+  # Prior to 2022.09.0, the plain version number was the tag
+  # After, it's "<ubuntu-codename>-<version>"
+  # If you want a specific image tag, just pass it in and it will go through unchanged
+  try(
+    {
+      numver <- numeric_version(version)
+      if (numver > "2023.06") {
+        version <- paste0("jammy-", version)
+      } else if (numver >= "2022.09") {
+        # There's both jammy and bionic for these, but the bionic ones
+        # seem more reliable in CI
+        version <- paste0("bionic-", version)
+      }
+    },
+    silent = TRUE
+  )
+  version
+}
+
+compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), connect_version, clean = TRUE) {
   warn_dire("compose_start")
   scoped_dire_silence()
 
@@ -39,7 +59,7 @@ compose_start <- function(connect_license = Sys.getenv("RSC_LICENSE"), rsc_versi
 
   compose_file_path <- system.file(compose_file, package = "connectapi")
   env_vars <- c(
-    RSC_VERSION = rsc_version,
+    CONNECT_VERSION = version_to_docker_tag(connect_version),
     PATH = Sys.getenv("PATH"),
     license_details$env_params
   )
@@ -106,11 +126,12 @@ update_renviron_creds <- function(server, api_key, prefix, .file = ".Renviron") 
 build_test_env <- function(connect_license = Sys.getenv("RSC_LICENSE"),
                            clean = TRUE,
                            username = "admin",
-                           password = "admin0", rsc_version = current_connect_version) {
+                           password = "admin0",
+                           connect_version = Sys.getenv("CONNECT_VERSION", current_connect_version)) {
   warn_dire("build_test_env")
   scoped_dire_silence()
 
-  compose_start(connect_license = connect_license, clean = clean, rsc_version = rsc_version)
+  compose_start(connect_license = connect_license, clean = clean, connect_version = connect_version)
 
   # It was ci_connect before but it's ci-connect on my machine now;
   # this is a regex so it will match either

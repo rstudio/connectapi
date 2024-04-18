@@ -1,5 +1,7 @@
 # connectapi (development version)
 
+- The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021).
+  There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (#244)
 - Now correctly provides methods for `tbl_connect`, rather than `tbl_lazy`,
   preventing problems when also using dplyr (#177).
 - BREAKING: The functions `Connect$download_bundle()` and
@@ -126,7 +128,7 @@
 
 # connectapi 0.1.0.9017
 
-BREAKING: 
+BREAKING:
 * Switch from `RSTUDIO_CONNECT_*` variables to `CONNECT_*` variables
 * Rename a handful of functions:
   - `connect$activate_bundle` to `connect$content_deploy`
@@ -144,7 +146,7 @@ BREAKING:
   - `cache_apps`
   - `tag_page`
 
-OTHER: 
+OTHER:
 * Add some endpoints:
   - `content`
   - `audit_logs`

@@ -122,7 +122,7 @@ test_that("works for bad inputs", {
     end_time = NULL,
     app_guid = uuid::UUIDgenerate()
   )
-  res <- connectapi:::parse_connectapi_typed(list(job), !!!connectapi:::connectapi_ptypes$job)
+  res <- connectapi:::parse_connectapi_typed(list(job), connectapi:::connectapi_ptypes$job)
   expect_is(res$stdout, "list")
   expect_is(res$origin, "character")
   expect_is(res$start_time, "POSIXct")
