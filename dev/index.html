@@ -102,19 +102,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="connectapi-">connectapi <img src="reference/figures/logo.svg" align="right" height="139"><a class="anchor" aria-label="anchor" href="#connectapi-"></a>
 </h1></div>
-<p>This package provides an R client for the <a href="https://docs.posit.co/connect/api/" class="external-link">Posit Connect Server API</a> as well as helpful functions that utilize the client. The package is based on the <code>rsconnnect</code> <a href="https://rstudio.github.io/rsconnect/" class="external-link">package</a>, but is publicly exported to be easier to use, is extensible via an R6 class, and is separated from the <code>rsconnect</code> package for easier support and maintenance.</p>
-<div class="section level2">
-<h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
-</h2>
-<p>Because many of these functions are experimental, it is advisable to be cautious about (1) upgrading the package, (2) upgrading Posit Connect when you care about the reproducibility of workflows that use <code>connectapi</code>. As a result, we would advise:</p>
-<ul>
-<li>managing package versions with <a href="https://rstudio.github.io/renv/" class="external-link"><code>renv</code></a>
-</li>
-<li>test your dependent content before and after upgrading Posit Connect</li>
-</ul>
-<p>Please pay careful attention to the lifecycle badges of the various functions and warnings present when you are using experimental features.</p>
-<p><strong>Also, <a href="https://community.rstudio.com/c/r-admin/posit-connect/27" class="external-link">please share feedback!!</a> We love hearing how the Posit Connect Server API is helpful and what additional endpoints would be useful!!</strong></p>
-</div>
+<p>This package provides an R client for the <a href="https://docs.posit.co/connect/api/" class="external-link">Posit Connect Server API</a>, as well as helpful functions that utilize the client. It is designed to work with all supported versions of Connect, though some features may only be available to newer versions.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -132,8 +120,8 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgs.rstudio.com/connectapi/">connectapi</a></span><span class="op">)</span></span>
 <span><span class="va">client</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span></span>
-<span>  server <span class="op">=</span> <span class="st">'https://connect.example.com'</span>,</span>
-<span>  api_key <span class="op">=</span> <span class="st">'&lt;SUPER SECRET API KEY&gt;'</span></span>
+<span>  server <span class="op">=</span> <span class="st">"https://connect.example.com"</span>,</span>
+<span>  api_key <span class="op">=</span> <span class="st">"&lt;SUPER SECRET API KEY&gt;"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>You can also define the following environment variables (in a <code>.Renviron</code> file, for instance):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>CONNECT_SERVER  <span class="ot">=</span> https<span class="sc">:</span><span class="er">//</span>connect.example.com</span>
@@ -233,8 +221,8 @@
 </h2>
 <p><strong>Access Denied Errors?</strong></p>
 <p>This is likely due to either (1) <code>Connect$server</code> or <code>Connect$api_key</code> being defined improperly or (2) you do not have access to the Posit Connect cluster to do the operation in question</p>
-<p><strong>Constant warning about version numbers</strong></p>
-<p>This warning is intentionally chatty. While version number mismatches between Posit Connect and <code>connectapi</code> can be benign, we want you to be clear that <code>connectapi</code> is tightly coupled to a version of Posit Connect (because Posit Connect’s APIs changes over time).</p>
+<p><strong>Warning about version numbers</strong></p>
+<p>We test the package against a range of versions of Connect, as old as 1.8.8.2 (May 2021). If your Connect server is older than that, the package may still work, but <code>connectapi</code> will warn you.</p>
 <p>We strive to:</p>
 <ul>
 <li>track the latest version of the Posit Connect API</li>
@@ -258,7 +246,7 @@
 </ul>
 <p>Please feel free to open an Issue if you think there is a bug, or ask a free-form question on <a href="https://community.rstudio.com/c/r-admin/posit-connect/27" class="external-link">Posit Community</a></p>
 <p><strong>Other ideas for FAQs or Common Issues?</strong></p>
-<p>Please submit a PR! We would love to have your contribution!</p>
+<p>Please open an issue or PR! We would love to have your contribution!</p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
