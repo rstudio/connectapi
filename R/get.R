@@ -48,7 +48,7 @@ get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
     limit = limit
   )
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$users)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$users)
 
   return(out)
 }
@@ -88,7 +88,7 @@ get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 
   res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$groups)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$groups)
 
   return(out)
 }
@@ -280,7 +280,7 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
     res <- res %>% purrr::keep(.p = .p)
   }
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$content)
 
   return(out)
 }
@@ -359,7 +359,7 @@ content_list_by_tag <- function(src, tag) {
 
   res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$content)
   return(out)
 }
 
@@ -516,7 +516,7 @@ get_content_old <- function(src, filter = NULL, limit = 25, page_size = 25) {
     page_size = page_size
   )
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$content_old)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$content_old)
 
   return(out)
 }
@@ -602,7 +602,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_shiny)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$usage_shiny)
 
   return(out)
 }
@@ -695,7 +695,7 @@ get_usage_static <- function(src, content_guid = NULL,
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$usage_static)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$usage_static)
 
   return(out)
 }
@@ -754,7 +754,7 @@ get_audit_logs <- function(src, limit = 20L, previous = NULL,
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, !!!connectapi_ptypes$audit_logs)
+  out <- parse_connectapi_typed(res, connectapi_ptypes$audit_logs)
 
   return(out)
 }
@@ -796,7 +796,7 @@ get_procs <- function(src) {
       c(list(pid = y), x)
     }
   )
-  tbl_data <- parse_connectapi_typed(proc_prep, !!!connectapi_ptypes$procs)
+  tbl_data <- parse_connectapi_typed(proc_prep, connectapi_ptypes$procs)
 
   return(tbl_data)
 }

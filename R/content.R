@@ -585,7 +585,7 @@ get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, !!!connectapi_ptypes$jobs)
+  parse_connectapi_typed(jobs, connectapi_ptypes$jobs)
 }
 
 # TODO: Need to test `logged_error` on a real error
@@ -602,7 +602,7 @@ get_job <- function(content, key) {
   job$stderr <- strsplit(job$stderr, "\n")[[1]]
   # a bit of an abuse
   # since stdout / stderr / logged_error are here now...
-  parse_connectapi_typed(list(job), !!!connectapi_ptypes$job)
+  parse_connectapi_typed(list(job), connectapi_ptypes$job)
 }
 
 #' Set RunAs User
@@ -779,7 +779,7 @@ get_bundles <- function(content, limit = Inf) {
   validate_R6_class(content, "Content")
   bundles <- content$get_bundles()
 
-  parse_connectapi_typed(bundles, !!!connectapi_ptypes$bundles)
+  parse_connectapi_typed(bundles, connectapi_ptypes$bundles)
 }
 
 #' @rdname get_bundles
@@ -951,5 +951,5 @@ get_group_permission <- function(content, guid) {
 get_content_permissions <- function(content, add_owner = TRUE) {
   validate_R6_class(content, "Content")
   res <- content$permissions(add_owner = add_owner)
-  parse_connectapi_typed(res, !!!connectapi_ptypes$permissions)
+  parse_connectapi_typed(res, connectapi_ptypes$permissions)
 }

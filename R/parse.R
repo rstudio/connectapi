@@ -29,11 +29,13 @@ swap_timestamp_format <- function(.col) {
   }
 }
 
-ensure_columns <- function(.data, ...) {
-  defaults <- rlang::list2(...)
-  names <- names(defaults)
-  for (i in seq_along(defaults)) {
-    .data <- ensure_column(.data, defaults[[i]], names[[i]])
+ensure_columns <- function(.data, ptype) {
+  # Given a prototype, ensure that all columns are present and cast to the correct type.
+  # If a column is missing in .data, it will be created with all missing values of the correct type.
+  # If a column is present in both, it will be cast to the correct type.
+  # If a column is present in .data but not in ptype, it will be left as is.
+  for (i in names(ptype)) {
+    .data <- ensure_column(.data, ptype[[i]], i)
   }
   .data
 }
@@ -66,8 +68,8 @@ ensure_column <- function(data, default, name) {
   data
 }
 
-parse_connectapi_typed <- function(data, ...) {
-  ensure_columns(parse_connectapi(data), ...)
+parse_connectapi_typed <- function(data, ptype) {
+  ensure_columns(parse_connectapi(data), ptype)
 }
 
 parse_connectapi <- function(data) {
