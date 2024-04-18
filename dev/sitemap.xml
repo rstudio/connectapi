@@ -262,9 +262,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/variant.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/vec_cast.fs_bytes.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/verify_content_name.html</loc>
   </url>
 </urlset>
