@@ -37,7 +37,6 @@ To "read" the current RunAs user, use the \code{Content} object or \code{get_con
 connectapi::content_update
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
@@ -47,7 +46,6 @@ Other content functions:
 \code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

@@ -46,11 +46,8 @@ Other R6 classes:
 \item \href{#method-Content-internal_content}{\code{Content$internal_content()}}
 \item \href{#method-Content-update}{\code{Content$update()}}
 \item \href{#method-Content-danger_delete}{\code{Content$danger_delete()}}
-\item \href{#method-Content-runas}{\code{Content$runas()}}
 \item \href{#method-Content-get_url}{\code{Content$get_url()}}
 \item \href{#method-Content-get_dashboard_url}{\code{Content$get_dashboard_url()}}
-\item \href{#method-Content-get_jobs}{\code{Content$get_jobs()}}
-\item \href{#method-Content-get_job}{\code{Content$get_job()}}
 \item \href{#method-Content-jobs}{\code{Content$jobs()}}
 \item \href{#method-Content-job}{\code{Content$job()}}
 \item \href{#method-Content-variants}{\code{Content$variants()}}
@@ -210,25 +207,6 @@ Delete this content item.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-runas"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-runas}{}}}
-\subsection{Method \code{runas()}}{
-Update the target Unix user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{run_as}}{The target Unix user.}
-
-\item{\code{run_as_current_user}}{Run as the active user.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-get_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-get_url}{}}}
 \subsection{Method \code{get_url()}}{
@@ -251,33 +229,6 @@ Return the URL for this content in the Posit Connect dashboard.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{pane}}{The pane in the dashboard to link to.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_jobs"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_jobs}{}}}
-\subsection{Method \code{get_jobs()}}{
-Return the jobs for this content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_jobs()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_job"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_job}{}}}
-\subsection{Method \code{get_job()}}{
-Return a single job for this content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{The job key.}
 }
 \if{html}{\out{</div>}}
 }

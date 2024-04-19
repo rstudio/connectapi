@@ -14,7 +14,6 @@ Deletes the Vanity URL for a piece of content.
 }
 \seealso{
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
@@ -23,7 +22,6 @@ Other content functions:
 \code{\link{dashboard_url}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

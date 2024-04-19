@@ -56,7 +56,6 @@ using Posit Connect's "pull-based" "git-polling" method of deployment.
 connectapi::poll_task, connectapi::repo_check_branches, connectapi::repo_check_manifest_dirs
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
@@ -65,7 +64,6 @@ Other content functions:
 \code{\link{dashboard_url}()},
 \code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

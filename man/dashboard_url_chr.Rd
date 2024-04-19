@@ -22,7 +22,6 @@ NOTE: this takes a character object for performance optimization.
 }
 \seealso{
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
@@ -31,7 +30,6 @@ Other content functions:
 \code{\link{dashboard_url}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

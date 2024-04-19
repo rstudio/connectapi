@@ -24,12 +24,7 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
 
   validate_R6_class(src, "Connect")
 
-  stopifnot(length(from) == 1)
-  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names)) {
-    stop(glue::glue("ERROR: invalid table name: {from}"))
-  }
-
-  from <- check_deprecated_names(from)
+  from <- match.arg(from)
 
   # TODO: go get the vars we should expect...
   vars <- connectapi_ptypes[[from]]
@@ -39,23 +34,6 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
   ops <- op_base_connect(from, vars)
 
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
-}
-
-deprecated_names <- c(
-  usage_shiny = "shiny_usage",
-  usage_static = "content_visits"
-)
-
-check_deprecated_names <- function(.name, deprecated_names) {
-  if (.name == "shiny_usage") {
-    warning("`shiny_usage` is deprecated. Please use `usage_shiny`")
-    .name <- "usage_shiny"
-  }
-  if (.name == "content_visits") {
-    warning("`content_visits` is deprecated. Please use `usage_static`")
-    .name <- "usage_static"
-  }
-  return(.name)
 }
 
 #' @importFrom dplyr collect

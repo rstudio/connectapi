@@ -976,21 +976,6 @@ connect <- function(
     prefix = "CONNECT",
     ...,
     .check_is_fatal = TRUE) {
-  if (
-    prefix == "CONNECT" &&
-      is.na(server) && is.na(api_key) &&
-      nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) > 0 &&
-      nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) > 0
-  ) {
-    stop("RSTUDIO_CONNECT_* environment variables are deprecated. Please specify CONNECT_SERVER and CONNECT_API_KEY instead")
-  }
-
-  params <- rlang::list2(...)
-  if ("host" %in% names(params)) {
-    lifecycle::deprecate_warn("0.1.0.9026", "connect(host)", "connect(server)")
-    server <- params[["host"]]
-  }
-
   if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
     msg <- "Invalid (empty) API key. Please provide a valid API key"
     if (.check_is_fatal) {

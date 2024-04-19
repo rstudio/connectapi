@@ -81,14 +81,6 @@ Content <- R6::R6Class(
       res <- con$DELETE(url)
       return(res)
     },
-    #' @description Update the target Unix user.
-    #' @param run_as The target Unix user.
-    #' @param run_as_current_user Run as the active user.
-    runas = function(run_as, run_as_current_user = FALSE) {
-      lifecycle::deprecate_soft("0.1.1", "Content$runas()", "content$update()")
-
-      self$update(run_as = run_as, run_as_current_user = run_as_current_user)
-    },
     #' @description Return the URL for this content.
     get_url = function() {
       self$get_content()$content_url
@@ -97,17 +89,6 @@ Content <- R6::R6Class(
     #' @param pane The pane in the dashboard to link to.
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
-    },
-    #' @description Return the jobs for this content.
-    get_jobs = function() {
-      lifecycle::deprecate_warn("0.1.0.9005", what = "get_jobs()", with = "jobs()")
-      self$jobs()
-    },
-    #' @description Return a single job for this content.
-    #' @param key The job key.
-    get_job = function(key) {
-      lifecycle::deprecate_warn("0.1.0.9005", "get_job()", "job()")
-      self$job(key)
     },
     #' @description Return the jobs for this content.
     jobs = function() {
@@ -765,17 +746,12 @@ create_random_name <- function(length = 25) {
 #' Lists bundles for a content item
 #'
 #' @param content A R6 Content item, as returned by `content_item()`
-#' @param limit Optional. Limit on number of bundles to return. Default Infinity.
-#' @param bundle_id A specific bundle ID for a content item
 #'
 #' @rdname get_bundles
+#' @param bundle_id A specific bundle ID for a content item
 #' @family content functions
 #' @export
-get_bundles <- function(content, limit = Inf) {
-  if (limit != Inf) {
-    # deprecate_warn cannot tell if the arg was the default or not
-    lifecycle::deprecate_warn("0.1.0.9029", "get_bundles(limit)")
-  }
+get_bundles <- function(content) {
   validate_R6_class(content, "Content")
   bundles <- content$get_bundles()
 

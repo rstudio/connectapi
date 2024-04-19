@@ -130,34 +130,6 @@ connectapi_ptypes <- list(
     cpuTotal = NA_integer_,
     ram = fs::as_fs_bytes(NA_integer_)
   ),
-  acl_user = tibble::tibble(
-    content_guid = NA_character_,
-    content_access_type = NA_character_,
-    email = NA_character_,
-    username = NA_character_,
-    first_name = NA_character_,
-    last_name = NA_character_,
-    password = NA_character_,
-    user_role = NA_character_,
-    created_time = NA_datetime_,
-    updated_time = NA_datetime_,
-    active_time = NA_datetime_,
-    confirmed = NA,
-    locked = NA,
-    guid = NA_character_,
-    app_role = NA_character_,
-    is_owner = NA
-  ),
-  acl_group = tibble::tibble(
-    owner_guid = NA_character_,
-    name = NA_character_,
-    members = NA_list_,
-    owner = NA_character_,
-    guid = NA_character_,
-    app_role = NA_character_,
-    content_guid = NA_character_,
-    content_access_type = NA_character_
-  ),
   variant = tibble::tibble(
     id = NA_integer_,
     app_id = NA_integer_,

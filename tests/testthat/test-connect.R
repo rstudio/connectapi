@@ -29,15 +29,6 @@ test_that("error if protocol not defined", {
   )
 })
 
-test_that("warning if using the host parameter", {
-  without_internet({
-    expect_warning(
-      connect(host = "https://hello.example.com", api_key = "fake", .check_is_fatal = FALSE),
-      "host"
-    )
-  })
-})
-
 test_that("version is validated", {
   skip("not implemented yet")
 })

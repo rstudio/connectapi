@@ -1,6 +1,9 @@
-#' @importFrom utils compareVersion
-#' @importFrom utils untar
+#' @importFrom utils compareVersion untar
+#' @importFrom lifecycle deprecate_warn
 "_PACKAGE"
+
+# Even if we don't currently have any references to functions in lifecycle,
+# we have to include it in Imports because we use it in RdMacros
 
 utils::globalVariables(
   c(
