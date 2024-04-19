@@ -95,6 +95,9 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
+  # We don't need to check if dplyr is available here
+  # because you won't have a tbl_connect without first
+  # checking for dplyr.
   as.data.frame(dplyr::collect(x, n = n))
 }
 
