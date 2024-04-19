@@ -1,12 +1,16 @@
 # connectapi (development version)
 
+## Breaking changes
+
+- The functions `Connect$download_bundle()` and
+  `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
+  and `Content$bundle_delete()` instead.
+- Previously deprecated `acl_*()` functions are now removed.
+
 - The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021).
   There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (#244)
 - Now correctly provides methods for `tbl_connect`, rather than `tbl_lazy`,
   preventing problems when also using dplyr (#177).
-- BREAKING: The functions `Connect$download_bundle()` and
-  `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
-  and `Content$bundle_delete()` instead.
 - `Content$tag_delete()` removes the tag from the target content item rather
   than removing the tag entirely. (#194)
 - Fix issue with `NULL` or `length 1` job outputs ([#193](https://github.com/rstudio/connectapi/issues/193))

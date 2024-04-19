@@ -35,7 +35,6 @@ reference:
       - matches("variant")
       - matches("image")
       - matches("vanity")
-      - matches("acl")
       - matches("schedule")
       - set_run_as
 
