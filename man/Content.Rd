@@ -49,8 +49,6 @@ Other R6 classes:
 \item \href{#method-Content-runas}{\code{Content$runas()}}
 \item \href{#method-Content-get_url}{\code{Content$get_url()}}
 \item \href{#method-Content-get_dashboard_url}{\code{Content$get_dashboard_url()}}
-\item \href{#method-Content-get_jobs}{\code{Content$get_jobs()}}
-\item \href{#method-Content-get_job}{\code{Content$get_job()}}
 \item \href{#method-Content-jobs}{\code{Content$jobs()}}
 \item \href{#method-Content-job}{\code{Content$job()}}
 \item \href{#method-Content-variants}{\code{Content$variants()}}
@@ -251,33 +249,6 @@ Return the URL for this content in the Posit Connect dashboard.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{pane}}{The pane in the dashboard to link to.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_jobs"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_jobs}{}}}
-\subsection{Method \code{get_jobs()}}{
-Return the jobs for this content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_jobs()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-get_job"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-get_job}{}}}
-\subsection{Method \code{get_job()}}{
-Return a single job for this content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$get_job(key)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{The job key.}
 }
 \if{html}{\out{</div>}}
 }

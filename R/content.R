@@ -99,17 +99,6 @@ Content <- R6::R6Class(
       dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
     },
     #' @description Return the jobs for this content.
-    get_jobs = function() {
-      lifecycle::deprecate_warn("0.1.0.9005", what = "get_jobs()", with = "jobs()")
-      self$jobs()
-    },
-    #' @description Return a single job for this content.
-    #' @param key The job key.
-    get_job = function(key) {
-      lifecycle::deprecate_warn("0.1.0.9005", "get_job()", "job()")
-      self$job(key)
-    },
-    #' @description Return the jobs for this content.
     jobs = function() {
       warn_experimental("jobs")
       url <- glue::glue("applications/{self$get_content()$guid}/jobs")
@@ -765,17 +754,11 @@ create_random_name <- function(length = 25) {
 #' Lists bundles for a content item
 #'
 #' @param content A R6 Content item, as returned by `content_item()`
-#' @param limit Optional. Limit on number of bundles to return. Default Infinity.
-#' @param bundle_id A specific bundle ID for a content item
 #'
 #' @rdname get_bundles
 #' @family content functions
 #' @export
-get_bundles <- function(content, limit = Inf) {
-  if (limit != Inf) {
-    # deprecate_warn cannot tell if the arg was the default or not
-    lifecycle::deprecate_warn("0.1.0.9029", "get_bundles(limit)")
-  }
+get_bundles <- function(content) {
   validate_R6_class(content, "Content")
   bundles <- content$get_bundles()
 

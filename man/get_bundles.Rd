@@ -5,16 +5,12 @@
 \alias{delete_bundle}
 \title{Get Bundles}
 \usage{
-get_bundles(content, limit = Inf)
+get_bundles(content)
 
 delete_bundle(content, bundle_id)
 }
 \arguments{
 \item{content}{A R6 Content item, as returned by \code{content_item()}}
-
-\item{limit}{Optional. Limit on number of bundles to return. Default Infinity.}
-
-\item{bundle_id}{A specific bundle ID for a content item}
 }
 \description{
 Lists bundles for a content item

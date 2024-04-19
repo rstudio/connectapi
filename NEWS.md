@@ -5,7 +5,7 @@
 - The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
-- Previously deprecated `acl_*()` functions are now removed.
+- All previously deprecated functions are now removed.
 
 - The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021).
   There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (#244)
