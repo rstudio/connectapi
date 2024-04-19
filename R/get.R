@@ -338,12 +338,12 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
     total = nrow(content_list),
     format = "[:bar] :percent :eta"
   )
-  updated_list[["permission"]] <- purrr::map(
+  content_list[["permission"]] <- purrr::map(
     content_list$guid,
     function(.x) .get_content_permission_with_progress(src, .x, pb)
   )
 
-  return(updated_list)
+  content_list
 }
 
 #' Content List
