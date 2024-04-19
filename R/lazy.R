@@ -36,7 +36,7 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-# This will be registered in .onLoad is dplyr is available
+# This will be registered in .onLoad if dplyr is available
 collect.tbl_connect <- function(x, ..., n = Inf) {
   api_build(op = x[["ops"]], con = x[["src"]], n = n)
 }
