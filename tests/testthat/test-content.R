@@ -54,9 +54,9 @@ with_mock_api({
     item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
     # Inject into this function something other than utils::browseURL
     # so we can assert that it is being called without actually trying to open a browser
-    trace("browse_url", where = connectapi::browse_solo, tracer = quote({
+    suppressMessages(trace("browse_url", where = connectapi::browse_solo, tracer = quote({
       browseURL <- function(x) warning(paste("Opening", x))
-    }), at = 1)
+    }), at = 1, print = FALSE))
     expect_warning(
       browse_solo(item),
       "Opening https://connect.example/content/f2f37341-e21d-3d80-c698-a935ad614066/"
@@ -65,7 +65,7 @@ with_mock_api({
       browse_dashboard(item),
       "Opening https://connect.example/connect/#/apps/f2f37341-e21d-3d80-c698-a935ad614066"
     )
-    untrace("browse_url", where = connectapi::browse_solo)
+    suppressMessages(untrace("browse_url", where = connectapi::browse_solo))
   })
 
   test_that("we can modify a content item", {
