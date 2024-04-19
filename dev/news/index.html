@@ -73,12 +73,17 @@
 <h2 class="page-header" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
-<ul><li><p>The functions <code>Connect$download_bundle()</code> and <code>Connect$bundle_delete()</code> have been removed. Use <code>Content$bundle_download()</code> and <code>Content$bundle_delete()</code> instead.</p></li>
-<li><p>All previously deprecated functions are now removed.</p></li>
-<li><p>The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021). There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (<a href="https://github.com/rstudio/connectapi/issues/244" class="external-link">#244</a>)</p></li>
-<li><p>Now correctly provides methods for <code>tbl_connect</code>, rather than <code>tbl_lazy</code>, preventing problems when also using dplyr (<a href="https://github.com/rstudio/connectapi/issues/177" class="external-link">#177</a>).</p></li>
-<li><p><code>Content$tag_delete()</code> removes the tag from the target content item rather than removing the tag entirely. (<a href="https://github.com/rstudio/connectapi/issues/194" class="external-link">#194</a>)</p></li>
-<li><p>Fix issue with <code>NULL</code> or <code>length 1</code> job outputs (<a href="https://github.com/rstudio/connectapi/issues/193" class="external-link">#193</a>)</p></li>
+<ul><li>All previously deprecated functions are now removed.</li>
+<li>The functions <code>Connect$download_bundle()</code> and <code>Connect$bundle_delete()</code> have been removed. Use <code>Content$bundle_download()</code> and <code>Content$bundle_delete()</code> instead.</li>
+<li>dplyr is no longer a required dependency. If you use <code><a href="../reference/tbl_connect.html">tbl_connect()</a></code>, you will need to install dplyr and dbplyr explicitly. (<a href="https://github.com/rstudio/connectapi/issues/246" class="external-link">#246</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancements-and-fixes-development-version">Enhancements and fixes<a class="anchor" aria-label="anchor" href="#enhancements-and-fixes-development-version"></a></h3>
+<ul><li>The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021). There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (<a href="https://github.com/rstudio/connectapi/issues/244" class="external-link">#244</a>)</li>
+<li>Now correctly provides methods for <code>tbl_connect</code>, rather than <code>tbl_lazy</code>, preventing problems when also using dplyr (<a href="https://github.com/rstudio/connectapi/issues/177" class="external-link">#177</a>).</li>
+<li>
+<code>Content$tag_delete()</code> removes the tag from the target content item rather than removing the tag entirely. (<a href="https://github.com/rstudio/connectapi/issues/194" class="external-link">#194</a>)</li>
+<li>Fix issue with <code>NULL</code> or <code>length 1</code> job outputs (<a href="https://github.com/rstudio/connectapi/issues/193" class="external-link">#193</a>)</li>
 </ul></div>
 </div>
     <div class="section level2">
