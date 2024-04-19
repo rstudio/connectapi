@@ -371,10 +371,10 @@ content_list_by_tag <- function(src, tag) {
 #' @export
 content_list_guid_has_access <- function(content_list, guid) {
   warn_experimental("content_list_filter_by_guid")
-  row_filter <- content_list$access_type %in% c("all", "logged_in") |
+  rows_keep <- content_list$access_type %in% c("all", "logged_in") |
     content_list$owner_guid == guid |
     purrr::map_lgl(content_list$permission, ~ guid %in% .x$principal_guid)
-  content_list[row_filter, ]
+  content_list[rows_keep, ]
 }
 
 #' Get usage information for deployed shiny applications
