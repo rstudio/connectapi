@@ -76,9 +76,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/VariantTask.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/acl_add.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/audit_access_open.html</loc>
   </url>
   <url>
@@ -157,9 +154,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/environment.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/get_acl.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_audit_logs.html</loc>
   </url>
   <url>
@@ -167,9 +161,6 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_content.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/get_content_old.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_group_members.html</loc>
