@@ -334,12 +334,16 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   content_list <- get_content(src, .p = .p)
 
   message("Getting permission list")
-  pb <- progress::progress_bar$new(total = nrow(content_list), format = "[:bar] :percent :eta")
-  updated_list <- content_list %>% dplyr::mutate(
-    permission = purrr::map(guid, function(.x) .get_content_permission_with_progress(src, .x, pb))
+  pb <- progress::progress_bar$new(
+    total = nrow(content_list),
+    format = "[:bar] :percent :eta"
+  )
+  content_list[["permission"]] <- purrr::map(
+    content_list$guid,
+    function(.x) .get_content_permission_with_progress(src, .x, pb)
   )
 
-  return(updated_list)
+  content_list
 }
 
 #' Content List
@@ -367,13 +371,10 @@ content_list_by_tag <- function(src, tag) {
 #' @export
 content_list_guid_has_access <- function(content_list, guid) {
   warn_experimental("content_list_filter_by_guid")
-  filtered <- content_list %>% dplyr::filter(
-    access_type == "all" |
-      access_type == "logged_in" |
-      owner_guid == {{ guid }} |
-      purrr::map_lgl(permission, ~ {{ guid }} %in% .x$principal_guid)
-  )
-  return(filtered)
+  rows_keep <- content_list$access_type %in% c("all", "logged_in") |
+    content_list$owner_guid == guid |
+    purrr::map_lgl(content_list$permission, ~ guid %in% .x$principal_guid)
+  content_list[rows_keep, ]
 }
 
 #' Get usage information for deployed shiny applications

@@ -21,7 +21,6 @@ License: MIT + file LICENSE
 URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
 BugReports: https://github.com/rstudio/connectapi/issues
 Imports:
-    dplyr,
     fs,
     glue,
     httr,
@@ -41,6 +40,7 @@ Suggests:
     crayon,
     dbplyr,
     devtools,
+    dplyr,
     flexdashboard,
     ggplot2,
     gridExtra,

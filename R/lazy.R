@@ -36,8 +36,7 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-#' @importFrom dplyr collect
-#' @export
+# This will be registered in .onLoad if dplyr is available
 collect.tbl_connect <- function(x, ..., n = Inf) {
   api_build(op = x[["ops"]], con = x[["src"]], n = n)
 }
@@ -96,7 +95,10 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
-  as.data.frame(collect(x, n = n))
+  # We don't need to check if dplyr is available here
+  # because you won't have a tbl_connect without first
+  # checking for dplyr.
+  as.data.frame(dplyr::collect(x, n = n))
 }
 
 op_base_connect <- function(x, vars) {

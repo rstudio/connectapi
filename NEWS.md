@@ -2,10 +2,14 @@
 
 ## Breaking changes
 
+- All previously deprecated functions are now removed.
 - The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
-- All previously deprecated functions are now removed.
+- dplyr is no longer a required dependency. If you use `tbl_connect()`,
+  you will need to install dplyr and dbplyr explicitly. (#246)
+
+## Enhancements and fixes
 
 - The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021).
   There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (#244)
@@ -14,6 +18,7 @@
 - `Content$tag_delete()` removes the tag from the target content item rather
   than removing the tag entirely. (#194)
 - Fix issue with `NULL` or `length 1` job outputs ([#193](https://github.com/rstudio/connectapi/issues/193))
+
 
 # connectapi 0.1.3.1
 
