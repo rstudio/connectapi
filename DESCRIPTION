@@ -21,7 +21,6 @@ License: MIT + file LICENSE
 URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
 BugReports: https://github.com/rstudio/connectapi/issues
 Imports:
-    config,
     dplyr,
     fs,
     glue,
@@ -35,7 +34,6 @@ Imports:
     tibble,
     uuid,
     vctrs (>= 0.3.0),
-    yaml,
     bit64,
     jsonlite
 Suggests:
