@@ -435,7 +435,7 @@ tag_tree <- function(.x) {
 
 parse_tags_tbl <- function(x) {
   parsed_tags <- purrr::map_dfr(x, ~ {
-    out <- dplyr::tibble(
+    out <- tibble::tibble(
       id = as.character(.x$id),
       name = .x$name,
       created_time = .x$created_time,
@@ -445,7 +445,7 @@ parse_tags_tbl <- function(x) {
 
     if (length(.x$children) > 0) {
       child <- parse_tags_tbl(.x$children)
-      out <- dplyr::bind_rows(out, child)
+      out <- rbind(out, child)
     }
 
     return(out)
