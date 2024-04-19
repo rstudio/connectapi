@@ -81,14 +81,6 @@ Content <- R6::R6Class(
       res <- con$DELETE(url)
       return(res)
     },
-    #' @description Update the target Unix user.
-    #' @param run_as The target Unix user.
-    #' @param run_as_current_user Run as the active user.
-    runas = function(run_as, run_as_current_user = FALSE) {
-      lifecycle::deprecate_soft("0.1.1", "Content$runas()", "content$update()")
-
-      self$update(run_as = run_as, run_as_current_user = run_as_current_user)
-    },
     #' @description Return the URL for this content.
     get_url = function() {
       self$get_content()$content_url
@@ -756,6 +748,7 @@ create_random_name <- function(length = 25) {
 #' @param content A R6 Content item, as returned by `content_item()`
 #'
 #' @rdname get_bundles
+#' @param bundle_id A specific bundle ID for a content item
 #' @family content functions
 #' @export
 get_bundles <- function(content) {

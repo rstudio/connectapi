@@ -46,7 +46,6 @@ Other R6 classes:
 \item \href{#method-Content-internal_content}{\code{Content$internal_content()}}
 \item \href{#method-Content-update}{\code{Content$update()}}
 \item \href{#method-Content-danger_delete}{\code{Content$danger_delete()}}
-\item \href{#method-Content-runas}{\code{Content$runas()}}
 \item \href{#method-Content-get_url}{\code{Content$get_url()}}
 \item \href{#method-Content-get_dashboard_url}{\code{Content$get_dashboard_url()}}
 \item \href{#method-Content-jobs}{\code{Content$jobs()}}
@@ -206,25 +205,6 @@ Delete this content item.
 \if{html}{\out{<div class="r">}}\preformatted{Content$danger_delete()}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Content-runas"></a>}}
-\if{latex}{\out{\hypertarget{method-Content-runas}{}}}
-\subsection{Method \code{runas()}}{
-Update the target Unix user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Content$runas(run_as, run_as_current_user = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{run_as}}{The target Unix user.}
-
-\item{\code{run_as_current_user}}{Run as the active user.}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-get_url"></a>}}

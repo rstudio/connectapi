@@ -16,3 +16,4 @@
 ^connectapi\.Rcheck$
 ^connectapi.*\.tar\.gz$
 ^connectapi.*\.tgz$
+\.orig$

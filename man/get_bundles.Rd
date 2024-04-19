@@ -11,6 +11,8 @@ delete_bundle(content, bundle_id)
 }
 \arguments{
 \item{content}{A R6 Content item, as returned by \code{content_item()}}
+
+\item{bundle_id}{A specific bundle ID for a content item}
 }
 \description{
 Lists bundles for a content item
