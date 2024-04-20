@@ -13,8 +13,7 @@
 browse_solo <- function(content) {
   validate_R6_class(content, "Content")
   url <- content$get_url()
-  utils::browseURL(url)
-  return(url)
+  browse_url(url)
 }
 
 #' @rdname browse
@@ -22,8 +21,7 @@ browse_solo <- function(content) {
 browse_dashboard <- function(content) {
   validate_R6_class(content, "Content")
   url <- content$get_dashboard_url()
-  utils::browseURL(url)
-  return(url)
+  browse_url(url)
 }
 
 #' @rdname browse
@@ -31,8 +29,7 @@ browse_dashboard <- function(content) {
 browse_api_docs <- function(connect) {
   validate_R6_class(connect, "Connect")
   url <- connect$docs("api", browse = FALSE)
-  utils::browseURL(url)
-  return(url)
+  browse_url(url)
 }
 
 #' @rdname browse
@@ -40,6 +37,11 @@ browse_api_docs <- function(connect) {
 browse_connect <- function(connect) {
   validate_R6_class(connect, "Connect")
   url <- connect$server
-  utils::browseURL(url)
-  return(url)
+  browse_url(url)
+}
+
+#' @importFrom utils browseURL
+browse_url <- function(url) {
+  browseURL(url)
+  invisible(url)
 }

@@ -38,3 +38,23 @@ test_that("Handling error responses", {
   resp <- fake_response("https://connect.example/__api__/", status_code = 400L)
   expect_error(con$raise_error(resp), "Bad Request")
 })
+
+with_mock_api({
+  test_that("browse URLs", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    # Inject into this function something other than utils::browseURL
+    # so we can assert that it is being called without actually trying to open a browser
+    suppressMessages(trace("browse_url", where = connectapi::browse_solo, tracer = quote({
+      browseURL <- function(x) warning(paste("Opening", x))
+    }), at = 1, print = FALSE))
+    expect_warning(
+      browse_connect(con),
+      "Opening https://connect.example"
+    )
+    expect_warning(
+      browse_api_docs(con),
+      "Opening https://connect.example/__docs__/api"
+    )
+    suppressMessages(untrace("browse_url", where = connectapi::browse_solo))
+  })
+})

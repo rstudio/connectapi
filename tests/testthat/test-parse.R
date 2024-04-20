@@ -90,7 +90,7 @@ test_that("ensure_column works with POSIXct", {
 
 test_that("converts length one list", {
   hm <- ensure_column(tibble::tibble(one = "hi"), NA_list_, "one")
-  expect_is(hm$one, "list")
+  expect_type(hm$one, "list")
 })
 
 # specific errors - PR 192
@@ -115,8 +115,8 @@ test_that("works for bad inputs", {
     app_guid = uuid::UUIDgenerate()
   )
   res <- connectapi:::parse_connectapi_typed(list(job), connectapi:::connectapi_ptypes$job)
-  expect_is(res$stdout, "list")
-  expect_is(res$origin, "character")
-  expect_is(res$start_time, "POSIXct")
-  expect_is(res$end_time, "POSIXct")
+  expect_type(res$stdout, "list")
+  expect_type(res$origin, "character")
+  expect_s3_class(res$start_time, "POSIXct")
+  expect_s3_class(res$end_time, "POSIXct")
 })
