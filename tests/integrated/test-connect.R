@@ -1,5 +1,5 @@
 test_that("connect works", {
-  con <- connect(
+  conn <- connect(
     server = Sys.getenv("TEST_1_SERVER"),
     api_key = Sys.getenv("TEST_1_API_KEY")
   )
@@ -7,7 +7,7 @@ test_that("connect works", {
 })
 
 test_that("connect works with prefix only", {
-  con <- connect(prefix = "TEST_1")
+  conn <- connect(prefix = "TEST_1")
   expect_true(validate_R6_class(conn, "Connect"))
 })
 
