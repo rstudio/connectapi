@@ -1,7 +1,3 @@
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
@@ -32,6 +28,13 @@ test_that("can upload and deploy content", {
 })
 
 test_that("can promote content to another server", {
+  tryCatch(
+    test_conn_2 <- connect(prefix = "TEST_2"),
+    error = function(e) {
+      skip("Second test server not available")
+    }
+  )
+
   # TODO : Intermittent failures here... with a 404 response on GET
   # during the download_bundle... connect.R:154
   res <- promote(

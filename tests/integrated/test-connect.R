@@ -1,20 +1,14 @@
-# should connect with env vars
-test_conn_1 <- NULL
-test_conn_2 <- NULL
-
 test_that("connect works", {
-  test_conn_1 <<- connect(
+  con <- connect(
     server = Sys.getenv("TEST_1_SERVER"),
     api_key = Sys.getenv("TEST_1_API_KEY")
   )
-  expect_true(validate_R6_class(test_conn_1, "Connect"))
+  expect_true(validate_R6_class(conn, "Connect"))
 })
 
 test_that("connect works with prefix only", {
-  test_conn_2 <<- connect(
-    prefix = "TEST_2"
-  )
-  expect_true(validate_R6_class(test_conn_2, "Connect"))
+  con <- connect(prefix = "TEST_1")
+  expect_true(validate_R6_class(conn, "Connect"))
 })
 
 test_that("connect fails for nonexistent server", {
