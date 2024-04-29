@@ -1,9 +1,5 @@
 # setup ---------------------------------------------------
 
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
