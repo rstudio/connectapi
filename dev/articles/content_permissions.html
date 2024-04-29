@@ -128,17 +128,17 @@ must be re-executed.</p>
 users, set access controls, and tags:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpIjpz8G/bundledir1fce77718923)</span></span></code></pre>
+<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpzyfzJd/bundledir219c7b44bada)</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span>, title <span class="op">=</span> <span class="st">"App 1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Getting content endpoint</span></span></code></pre>
-<pre><code><span><span class="co">## Found EXISTING content 4a99bf92-5d29-4b6c-9891-00260e7dea38 with name mwlefoodfieexombwkkeulbfd on http://localhost:32768</span></span></code></pre>
+<pre><code><span><span class="co">## Found EXISTING content 37d07042-8190-4491-9c5e-50701076bf67 with name mwlefoodfieexombwkkeulbfd on http://localhost:32768</span></span></code></pre>
 <pre><code><span><span class="co">## Uploading bundle</span></span></code></pre>
 <pre><code><span><span class="co">## Deploying bundle</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span>, title <span class="op">=</span> <span class="st">"App 2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Getting content endpoint</span></span></code></pre>
-<pre><code><span><span class="co">## Found EXISTING content ac25f1e3-a943-4b76-89cd-c75079c66c68 with name pbcyvkgufivjubqtxvafbsnay on http://localhost:32768</span></span></code></pre>
+<pre><code><span><span class="co">## Found EXISTING content 5f3139a2-5def-48eb-9ddf-ae273be8b640 with name pbcyvkgufivjubqtxvafbsnay on http://localhost:32768</span></span></code></pre>
 <pre><code><span><span class="co">## Uploading bundle</span></span></code></pre>
 <pre><code><span><span class="co">## Deploying bundle</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -158,39 +158,39 @@ users, set access controls, and tags:</p>
 <span><span class="co">## └── Example</span></span>
 <span><span class="co">##    └── Permissions</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 4a99bf92-5d29-4b6c-9891-00260e7dea38</span></span>
-<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/4a99bf92-5d29-4b6c-9891-00260e7dea38/</span></span>
-<span><span class="co">##   Task ID: obDfEcVDhHlJMEwn</span></span></code></pre>
+<span><span class="co">##   Content GUID: 37d07042-8190-4491-9c5e-50701076bf67</span></span>
+<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/37d07042-8190-4491-9c5e-50701076bf67/</span></span>
+<span><span class="co">##   Task ID: Gmd5kH9yONfo943r</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_2</span>, <span class="va">tag_1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect Tag Tree (content)</span></span>
 <span><span class="co">## └── Example</span></span>
 <span><span class="co">##    └── Permissions</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: ac25f1e3-a943-4b76-89cd-c75079c66c68</span></span>
-<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/ac25f1e3-a943-4b76-89cd-c75079c66c68/</span></span>
-<span><span class="co">##   Task ID: n1P1Aub2dTF1DN46</span></span></code></pre>
+<span><span class="co">##   Content GUID: 5f3139a2-5def-48eb-9ddf-ae273be8b640</span></span>
+<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/5f3139a2-5def-48eb-9ddf-ae273be8b640/</span></span>
+<span><span class="co">##   Task ID: Qw2IqTJQukrcxguT</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">user_restricted</span><span class="op">$</span><span class="va">guid</span>, role <span class="op">=</span> <span class="st">"viewer"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Adding permission for user '6941e55e-4fb9-4edf-ae90-501e30133d82' with role 'viewer'</span></span></code></pre>
+<pre><code><span><span class="co">## Adding permission for user '045563a0-2e4f-4925-81a4-f58aaa3af1ea' with role 'viewer'</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 4a99bf92-5d29-4b6c-9891-00260e7dea38</span></span>
-<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/4a99bf92-5d29-4b6c-9891-00260e7dea38/</span></span>
-<span><span class="co">##   Task ID: obDfEcVDhHlJMEwn</span></span></code></pre>
+<span><span class="co">##   Content GUID: 37d07042-8190-4491-9c5e-50701076bf67</span></span>
+<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/37d07042-8190-4491-9c5e-50701076bf67/</span></span>
+<span><span class="co">##   Task ID: Gmd5kH9yONfo943r</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">user_all</span><span class="op">$</span><span class="va">guid</span>, <span class="st">"viewer"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Adding permission for user '68ebe65c-0d43-4946-8f14-dd00973c01db' with role 'viewer'</span></span></code></pre>
+<pre><code><span><span class="co">## Adding permission for user '4ec868cc-b658-4641-9571-0effcd1b2877' with role 'viewer'</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 4a99bf92-5d29-4b6c-9891-00260e7dea38</span></span>
-<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/4a99bf92-5d29-4b6c-9891-00260e7dea38/</span></span>
-<span><span class="co">##   Task ID: obDfEcVDhHlJMEwn</span></span></code></pre>
+<span><span class="co">##   Content GUID: 37d07042-8190-4491-9c5e-50701076bf67</span></span>
+<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/37d07042-8190-4491-9c5e-50701076bf67/</span></span>
+<span><span class="co">##   Task ID: Gmd5kH9yONfo943r</span></span></code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/permissions.html">content_add_user</a></span><span class="op">(</span><span class="va">content_2</span>, <span class="va">user_all</span><span class="op">$</span><span class="va">guid</span>, <span class="st">"viewer"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Adding permission for user '68ebe65c-0d43-4946-8f14-dd00973c01db' with role 'viewer'</span></span></code></pre>
+<pre><code><span><span class="co">## Adding permission for user '4ec868cc-b658-4641-9571-0effcd1b2877' with role 'viewer'</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: ac25f1e3-a943-4b76-89cd-c75079c66c68</span></span>
-<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/ac25f1e3-a943-4b76-89cd-c75079c66c68/</span></span>
-<span><span class="co">##   Task ID: n1P1Aub2dTF1DN46</span></span></code></pre>
+<span><span class="co">##   Content GUID: 5f3139a2-5def-48eb-9ddf-ae273be8b640</span></span>
+<span><span class="co">##   URL: http://localhost:32768/connect/#/apps/5f3139a2-5def-48eb-9ddf-ae273be8b640/</span></span>
+<span><span class="co">##   Task ID: Qw2IqTJQukrcxguT</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="retrieve-the-content-list">Retrieve the Content List<a class="anchor" aria-label="anchor" href="#retrieve-the-content-list"></a>
@@ -221,16 +221,16 @@ first.</p>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 5</span></span></span>
 <span><span class="co">##   id    content_guid                         principal_guid principal_type role </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 3     ac25f1e3-a943-4b76-89cd-c75079c66c68 68ebe65c-0d43… user           view…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>    ac25f1e3-a943-4b76-89cd-c75079c66c68 5d9869c2-63af… user           owner</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 3     5f3139a2-5def-48eb-9ddf-ae273be8b640 4ec868cc-b658… user           view…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>    5f3139a2-5def-48eb-9ddf-ae273be8b640 b6a26489-5812… user           owner</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## [[2]]</span></span>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
 <span><span class="co">##   id    content_guid                         principal_guid principal_type role </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1     4a99bf92-5d29-4b6c-9891-00260e7dea38 6941e55e-4fb9… user           view…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 2     4a99bf92-5d29-4b6c-9891-00260e7dea38 68ebe65c-0d43… user           view…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #BB0000;">NA</span>    4a99bf92-5d29-4b6c-9891-00260e7dea38 5d9869c2-63af… user           owner</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1     37d07042-8190-4491-9c5e-50701076bf67 045563a0-2e4f… user           view…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 2     37d07042-8190-4491-9c5e-50701076bf67 4ec868cc-b658… user           view…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> <span style="color: #BB0000;">NA</span>    37d07042-8190-4491-9c5e-50701076bf67 b6a26489-5812… user           owner</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="filter-the-content-list">Filter the Content List<a class="anchor" aria-label="anchor" href="#filter-the-content-list"></a>
