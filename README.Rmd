@@ -195,7 +195,7 @@ If you get this error message, our recommendation would be:
 
 Please feel free to open an Issue if you think there is a bug, or ask a
 free-form question on [Posit
-Community](https://community.rstudio.com/c/r-admin/posit-connect/27)
+Community](https://forum.posit.co/c/posit-professional-hosted/posit-connect/27)
 
 **Other ideas for FAQs or Common Issues?**
 
