@@ -71,31 +71,39 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
 #' @return The results of creating the groups
 #'
 #' @export
-groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE) {
+groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact = FALSE) {
   expect <- as.integer(expect)
-  if (check && expect > 1) {
-    stop(glue::glue("expect > 1 is not tested. Please set expect = 1, and specify a more narrow 'prefix'. You provided: expect={expect}"))
-  }
   if (check) {
     # TODO: limit = 1 due to a paging bug in Posit Connect
     local_groups <- get_groups(connect, prefix = prefix, limit = 1)
+    if (exact) {
+      local_groups <- local_groups[local_groups["name"] == prefix, ]
+    }
     if (nrow(local_groups) > 0) {
-      message(glue::glue("At least one group with name prefix '{prefix}' already exists"))
+      if (!exact) {
+        message(glue::glue("At least one group with name prefix '{prefix}' already exists"))
+      } else {
+        message(glue::glue("A group with the name '{prefix}' already exists"))
+
+      }
       return(local_groups)
     }
   }
 
   remote_groups <- connect$groups_remote(prefix = prefix)
-  if (remote_groups$total != expect) {
-    message(glue::glue("Found {remote_groups$total} remote groups. Expected {expect}"))
-    if (remote_groups$total > 0) {
-      group_str <- toString(purrr::map_chr(remote_groups$results, ~ .x[["name"]]))
-      message(glue::glue("Groups found: {group_str}"))
+  remote_groups_res <- remote_groups[["results"]]
+  if (exact) {
+    remote_groups_res <- purrr::keep(remote_groups_res, ~ .x[["name"]] == prefix)
+  }
+  if (length(remote_groups_res) != expect) {
+    message(glue::glue("Found {length(remote_groups_res)} remote groups Expected {expect}"))
+    if (length(remote_groups_res) > 0) {
+      message(glue::glue("Users found: {glue::glue_collapse(purrr::map_chr(remote_groups_res, ~ .x[['name']]), sep = \", \")}"))
     }
     stop("The expected group(s) were not found. Please specify a more accurate 'prefix'")
   }
   group_creation <- purrr::map(
-    remote_groups$results,
+    remote_groups_res,
     function(.x, src) {
       message(glue::glue("Creating remote group: {.x[['name']]}"))
       src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
