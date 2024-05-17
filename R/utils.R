@@ -20,28 +20,6 @@ safe_query <- function(expr, prefix = "", collapse = "|") {
   }
 }
 
-query_args <- function(...) {
-  args <- rlang::list2(...)
-
-  args <- purrr::discard(args, ~ is.null(.x))
-  args <- purrr::discard(args, ~ is.na(.x))
-
-  prep <- purrr::map2_chr(
-    names(args),
-    args,
-    function(name, arg) {
-      glue::glue("{name}={arg}")
-    }
-  )
-
-  joined <- glue::glue_collapse(prep, sep = "&")
-
-  if (length(joined) > 0 && nchar(joined) > 0) {
-    return(paste0("?", joined))
-  }
-  return("")
-}
-
 generate_R6_print_output <- function() {
   con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")

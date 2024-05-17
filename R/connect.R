@@ -520,15 +520,16 @@ Connect <- R6::R6Class(
     #' @param include Additional response fields.
     content = function(guid = NULL, owner_guid = NULL, name = NULL, include = "tags,owner") {
       if (!is.null(guid)) {
-        path <- v1_url("content", guid)
-      } else {
-        filter_args <- list(owner_guid = owner_guid, name = name, include = include)
-        path <- glue::glue(
-          "v1/content{query_args(!!!filter_args)}"
-        )
+        return(self$GET(v1_url("content", guid)))
       }
-      res <- self$GET(path)
-      return(res)
+
+      query <- list(
+        owner_guid = owner_guid,
+        name = name,
+        include = include
+      )
+      path <- v1_url("content")
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get a task.
