@@ -687,7 +687,7 @@ Connect <- R6::R6Class(
     #' @description Get group members.
     #' @param guid The group GUID.
     group_members = function(guid) {
-      path <- glue::glue("v1/groups/{guid}/members")
+      path <- v1_url("groups", guid, "members")
       self$GET(path)
     },
 
@@ -695,7 +695,7 @@ Connect <- R6::R6Class(
     #' @param group_guid The group GUID.
     #' @param user_guid The user GUID.
     group_member_add = function(group_guid, user_guid) {
-      path <- glue::glue("v1/groups/{group_guid}/members")
+      path <- v1_url("groups", group_guid, "members")
       self$POST(path, list(user_guid = user_guid))
     },
 
@@ -703,14 +703,14 @@ Connect <- R6::R6Class(
     #' @param group_guid The group GUID.
     #' @param user_guid The user GUID.
     group_member_remove = function(group_guid, user_guid) {
-      path <- glue::glue("v1/groups/{group_guid}/members/{user_guid}")
+      path <- v1_url("groups", group_guid, "members", user_guid)
       self$DELETE(path)
     },
 
     #' @description Create a group.
     #' @param name The group name.
     groups_create = function(name) {
-      path <- sprintf("v1/groups")
+      path <- v1_url("groups")
       self$POST(
         path = path,
         body = list(name = name)
@@ -720,7 +720,7 @@ Connect <- R6::R6Class(
     #' @description Create a remote group.
     #' @param temp_ticket Ticket identifying target remote group.
     groups_create_remote = function(temp_ticket) {
-      path <- "v1/groups"
+      path <- v1_url("groups")
       self$PUT(
         path = path,
         body = list(temp_ticket = temp_ticket)
@@ -731,22 +731,14 @@ Connect <- R6::R6Class(
     #' @param prefix The search term.
     #' @param limit The maximal result set size.
     groups_remote = function(prefix = NULL, limit = 20) {
-      if (limit > 500) {
-        # reset limit to avoid error
-        limit <- 500
-      }
-      path <- glue::glue(
-        "v1/groups/remote?",
-        glue::glue(
-          safe_query(prefix, "prefix="),
-          safe_query(limit, "limit="),
-          .sep = "&"
-        ) %>%
-          gsub("^&+", "", .) %>%
-          gsub("&+", "&", .)
+      path <- v1_url("groups", "remote")
+      query <- list(
+        limit = min(limit, 500)
       )
-
-      self$GET(path)
+      if (!is.null(prefix)) {
+        query$prefix <- prefix
+      }
+      self$GET(path, query = query)
     },
 
     # instrumentation --------------------------------------------
