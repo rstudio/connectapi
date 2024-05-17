@@ -797,7 +797,7 @@ Get user details.
 \subsection{Method \code{users()}}{
 Get users.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -945,7 +945,7 @@ Update a user.
 \subsection{Method \code{groups()}}{
 Get groups.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -1055,7 +1055,7 @@ Create a remote group.
 \subsection{Method \code{groups_remote()}}{
 Get remote groups.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -1079,7 +1079,7 @@ Get (non-interactive) content visits.
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -1122,7 +1122,7 @@ Get (non-interactive) content visits.
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -1264,7 +1264,7 @@ Get documentation.
 \subsection{Method \code{audit_logs()}}{
 Get auditing.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

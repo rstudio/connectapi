@@ -4,7 +4,7 @@
 \alias{get_audit_logs}
 \title{Get Audit Logs from Posit Connect Server}
 \usage{
-get_audit_logs(src, limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)
+get_audit_logs(src, limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE)
 }
 \arguments{
 \item{src}{The source object}
