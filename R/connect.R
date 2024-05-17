@@ -565,30 +565,35 @@ Connect <- R6::R6Class(
     #' @description Get user details.
     #' @param guid The user GUID.
     user = function(guid) {
-      self$GET(glue::glue("v1/users/{guid}"))
+      self$GET(v1_url("users", guid))
     },
 
     #' @description Get users.
     #' @param page_number The page number.
     #' @param prefix The search term.
     #' @param page_size The page size.
-    users = function(page_number = 1, prefix = NULL, page_size = 20) {
-      if (page_size > 500) {
-        # reset page_size to avoid error
-        page_size <- 500
-      }
-      path <- sprintf("v1/users?page_number=%d&page_size=%d", page_number, page_size)
+    users = function(page_number = 1, prefix = NULL, page_size = 500) {
+      path <- v1_url("users")
+      query <- list(
+        page_number = page_number,
+        page_size = min(page_size, 500)
+      )
       if (!is.null(prefix)) {
-        path <- paste0(path, "&prefix=", prefix)
+        query$prefix <- prefix
       }
-      self$GET(path)
+      self$GET(path, query = query)
     },
 
     #' @description Get remote users.
     #' @param prefix The search term.
     users_remote = function(prefix) {
-      path <- sprintf("v1/users/remote?prefix=%s", prefix)
-      self$GET(path)
+      # No pagination here?
+      path <- v1_url("users", "remote")
+      query <- list()
+      if (!is.null(prefix)) {
+        query$prefix <- prefix
+      }
+      self$GET(path, query = query)
     },
 
     #' @description Create a user.
@@ -608,7 +613,7 @@ Connect <- R6::R6Class(
                             user_must_set_password = NULL,
                             user_role = NULL,
                             unique_id = NULL) {
-      path <- sprintf("v1/users")
+      path <- v1_url("users")
       self$POST(
         path = path,
         body = list(
@@ -627,7 +632,7 @@ Connect <- R6::R6Class(
     #' @description Create a remote user.
     #' @param temp_ticket Ticket identifying target remote user.
     users_create_remote = function(temp_ticket) {
-      path <- "v1/users"
+      path <- v1_url("users")
       self$PUT(
         path = path,
         body = list(temp_ticket = temp_ticket)
@@ -637,7 +642,7 @@ Connect <- R6::R6Class(
     #' @description Lock a user.
     #' @param user_guid User GUID.
     users_lock = function(user_guid) {
-      path <- sprintf("v1/users/%s/lock", user_guid)
+      path <- v1_url("users", user_guid, "lock")
       message(path)
       self$POST(
         path = path,
@@ -648,7 +653,7 @@ Connect <- R6::R6Class(
     #' @description Unlock a user.
     #' @param user_guid User GUID.
     users_unlock = function(user_guid) {
-      path <- sprintf("v1/users/%s/lock", user_guid)
+      path <- v1_url("users", user_guid, "lock")
       self$POST(
         path = path,
         body = list(locked = FALSE)
@@ -659,7 +664,7 @@ Connect <- R6::R6Class(
     #' @param user_guid User GUID.
     #' @param ... User fields.
     users_update = function(user_guid, ...) {
-      path <- sprintf("v1/users/%s", user_guid)
+      path <- v1_url("users", user_guid)
       self$PUT(
         path = path,
         body = rlang::list2(...)
