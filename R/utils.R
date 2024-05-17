@@ -7,6 +7,11 @@ unversioned_url <- function(...) {
   paste(..., sep = "/")
 }
 
+valid_page_size <- function(x, min = 1, max = 500) {
+  # This could be changed to error if x is outside the range
+  min(max(min, x), max)
+}
+
 generate_R6_print_output <- function() {
   con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")

@@ -37,7 +37,7 @@ without_internet({
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
       con$audit_logs(),
-      "https://connect.example/__api__/v1/audit_logs?limit=20&ascOrder=true"
+      "https://connect.example/__api__/v1/audit_logs?limit=500&ascOrder=true"
     )
 
     expect_GET(

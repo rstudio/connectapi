@@ -578,12 +578,10 @@ Connect <- R6::R6Class(
       path <- v1_url("users")
       query <- list(
         page_number = page_number,
-        page_size = min(page_size, 500)
+        page_size = valid_page_size(page_size),
+        prefix = prefix
       )
-      if (!is.null(prefix)) {
-        query$prefix <- prefix
-      }
-      self$GET(path, query = query)
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get remote users.
@@ -591,11 +589,8 @@ Connect <- R6::R6Class(
     users_remote = function(prefix) {
       # No pagination here?
       path <- v1_url("users", "remote")
-      query <- list()
-      if (!is.null(prefix)) {
-        query$prefix <- prefix
-      }
-      self$GET(path, query = query)
+      query <- list(prefix = prefix)
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Create a user.
@@ -683,12 +678,10 @@ Connect <- R6::R6Class(
       path <- v1_url("groups")
       query <- list(
         page_number = page_number,
-        page_size = min(page_size, 500)
+        page_size = valid_page_size(page_size),
+        prefix = prefix
       )
-      if (!is.null(prefix)) {
-        query$prefix <- prefix
-      }
-      self$GET(path, query = query)
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get group members.
@@ -737,15 +730,13 @@ Connect <- R6::R6Class(
     #' @description Get remote groups.
     #' @param prefix The search term.
     #' @param limit The maximal result set size.
-    groups_remote = function(prefix = NULL, limit = 20) {
+    groups_remote = function(prefix = NULL, limit = 500) {
       path <- v1_url("groups", "remote")
       query <- list(
-        limit = min(limit, 500)
+        limit = valid_page_size(limit),
+        prefix = prefix
       )
-      if (!is.null(prefix)) {
-        query$prefix <- prefix
-      }
-      self$GET(path, query = query)
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     # instrumentation --------------------------------------------
@@ -763,7 +754,7 @@ Connect <- R6::R6Class(
                                    min_data_version = NULL,
                                    from = NULL,
                                    to = NULL,
-                                   limit = 20,
+                                   limit = 500,
                                    previous = NULL,
                                    nxt = NULL,
                                    asc_order = TRUE) {
@@ -773,7 +764,7 @@ Connect <- R6::R6Class(
         min_data_version = min_data_version,
         from = make_timestamp(from),
         to = make_timestamp(to),
-        limit = min(limit, 500),
+        limit = valid_page_size(limit),
         previous = previous,
         asc_order = tolower(as.character(asc_order))
       )
@@ -799,7 +790,7 @@ Connect <- R6::R6Class(
                                 min_data_version = NULL,
                                 from = NULL,
                                 to = NULL,
-                                limit = 20,
+                                limit = 500,
                                 previous = NULL,
                                 nxt = NULL,
                                 asc_order = TRUE) {
@@ -809,7 +800,7 @@ Connect <- R6::R6Class(
         min_data_version = min_data_version,
         from = make_timestamp(from),
         to = make_timestamp(to),
-        limit = min(limit, 500),
+        limit = valid_page_size(limit),
         previous = previous,
         asc_order = tolower(as.character(asc_order))
       )
@@ -892,10 +883,10 @@ Connect <- R6::R6Class(
     #' @param previous Previous item.
     #' @param nxt Next item.
     #' @param asc_order Indicates ascending result order.
-    audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
+    audit_logs = function(limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE) {
       path <- v1_url("audit_logs")
       query <- list(
-        limit = min(limit, 500),
+        limit = valid_page_size(limit),
         previous = previous,
         ascOrder = tolower(as.character(asc_order))
       )

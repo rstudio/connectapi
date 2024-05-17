@@ -23,11 +23,11 @@ without_internet({
     client <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
       client$groups_remote(),
-      "https://connect.example/__api__/v1/groups/remote?limit=20"
+      "https://connect.example/__api__/v1/groups/remote?limit=500"
     )
     expect_GET(
       client$groups_remote(prefix = "A group name"),
-      "https://connect.example/__api__/v1/groups/remote?limit=20&prefix=A%20group%20name"
+      "https://connect.example/__api__/v1/groups/remote?limit=500&prefix=A%20group%20name"
     )
     expect_GET(
       client$groups_remote(limit = 1000),
