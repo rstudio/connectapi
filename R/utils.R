@@ -1,3 +1,8 @@
+# Helper to make it easier to identify where we're calling public APIs
+v1_url <- function(...) {
+  paste("v1", ..., sep = "/")
+}
+
 # this function helps creating query parameters
 safe_query <- function(expr, prefix = "", collapse = "|") {
   if (is.null(expr)) {

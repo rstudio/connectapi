@@ -672,16 +672,16 @@ Connect <- R6::R6Class(
     #' @param page_number The page number.
     #' @param prefix The search term.
     #' @param page_size The page size.
-    groups = function(page_number = 1, prefix = NULL, page_size = 20) {
-      if (page_size > 500) {
-        # reset page_size to avoid error
-        page_size <- 500
-      }
-      path <- sprintf("v1/groups?page_number=%d&page_size=%d", page_number, page_size)
+    groups = function(page_number = 1, prefix = NULL, page_size = 500) {
+      path <- v1_url("groups")
+      query <- list(
+        page_number = page_number,
+        page_size = min(page_size, 500)
+      )
       if (!is.null(prefix)) {
-        path <- paste0(path, "&prefix=", prefix)
+        query$prefix <- prefix
       }
-      self$GET(path)
+      self$GET(path, query = query)
     },
 
     #' @description Get group members.
