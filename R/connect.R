@@ -767,27 +767,22 @@ Connect <- R6::R6Class(
                                    previous = NULL,
                                    nxt = NULL,
                                    asc_order = TRUE) {
-      if (limit > 500) {
-        limit <- 500
-      }
-      path <- glue::glue(
-        "v1/instrumentation/content/visits?",
-        glue::glue(
-          "{safe_query(content_guid, 'content_guid=')}",
-          "{safe_query(min_data_version, 'min_data_version=')}",
-          "{safe_query(make_timestamp(from), 'from=')}",
-          "{safe_query(make_timestamp(to), 'to=')}",
-          "{safe_query(limit, 'limit=')}",
-          "{safe_query(previous, 'previous=')}",
-          "{safe_query(nxt, 'next=')}",
-          "{safe_query(asc_order, 'asc_order=')}",
-          .sep = "&"
-        ) %>%
-          gsub("^&+", "", .) %>%
-          gsub("&+", "&", .)
+      path <- v1_url("instrumentation", "content", "visits")
+      query <- list(
+        content_guid = content_guid,
+        min_data_version = min_data_version,
+        from = make_timestamp(from),
+        to = make_timestamp(to),
+        limit = min(limit, 500),
+        previous = previous,
+        asc_order = tolower(as.character(asc_order))
       )
-
-      self$GET(path)
+      if (length(content_guid)) {
+        query$content_guid <- paste(content_guid, collapse = "|")
+      }
+      # This is funky because next is a reserved word in R
+      query[["next"]] <- nxt
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get interactive content visits.
@@ -808,27 +803,22 @@ Connect <- R6::R6Class(
                                 previous = NULL,
                                 nxt = NULL,
                                 asc_order = TRUE) {
-      if (limit > 500) {
-        limit <- 500
-      }
-      path <- glue::glue(
-        "v1/instrumentation/shiny/usage?",
-        glue::glue(
-          "{safe_query(content_guid, 'content_guid=')}",
-          "{safe_query(min_data_version, 'min_data_version=')}",
-          "{safe_query(make_timestamp(from), 'from=')}",
-          "{safe_query(make_timestamp(to), 'to=')}",
-          "{safe_query(limit, 'limit=')}",
-          "{safe_query(previous, 'previous=')}",
-          "{safe_query(nxt, 'next=')}",
-          "{safe_query(asc_order, 'asc_order=')}",
-          .sep = "&"
-        ) %>%
-          gsub("^&+", "", .) %>%
-          gsub("&+", "&", .)
+      path <- v1_url("instrumentation", "shiny", "usage")
+      query <- list(
+        content_guid = content_guid,
+        min_data_version = min_data_version,
+        from = make_timestamp(from),
+        to = make_timestamp(to),
+        limit = min(limit, 500),
+        previous = previous,
+        asc_order = tolower(as.character(asc_order))
       )
-
-      self$GET(path)
+      if (length(content_guid)) {
+        query$content_guid <- paste(content_guid, collapse = "|")
+      }
+      # This is funky because next is a reserved word in R
+      query[["next"]] <- nxt
+      self$GET(path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get running processes.
