@@ -1,6 +1,10 @@
-# Helper to make it easier to identify where we're calling public APIs
+# Helpers to make it easier to identify where we're calling public APIs and not
 v1_url <- function(...) {
   paste("v1", ..., sep = "/")
+}
+
+unversioned_url <- function(...) {
+  paste(..., sep = "/")
 }
 
 # this function helps creating query parameters

@@ -292,7 +292,7 @@ Connect <- R6::R6Class(
 
     #' @description Perform an HTTP GET request of the "me" server endpoint.
     me = function() {
-      self$GET("me")
+      self$GET(unversioned_url("me"))
     },
 
     #' @description Return the base URL of the Connect server.
@@ -343,7 +343,7 @@ Connect <- R6::R6Class(
     #' @description Get the tag tree.
     get_tag_tree_old = function() {
       warn_experimental("get_tag_tree")
-      self$GET("tag-tree")
+      self$GET(unversioned_url("tag-tree"))
     },
 
     #' @description Create a tag.
@@ -379,7 +379,7 @@ Connect <- R6::R6Class(
         )
       }
       self$POST(
-        "v1/tags",
+        v1_url("tags"),
         body = dat
       )
     },
@@ -388,9 +388,10 @@ Connect <- R6::R6Class(
     #' @param id The tag identifier.
     tag = function(id = NULL) {
       error_if_less_than(self, "1.8.6")
-      path <- "v1/tags"
-      if (!is.null(id)) {
-        path <- glue::glue("{path}/{id}")
+      if (is.null(id)) {
+        path <- v1_url("tags")
+      } else {
+        path <- v1_url("tags", id)
       }
       self$GET(path)
     },
@@ -398,14 +399,14 @@ Connect <- R6::R6Class(
     #' @description Delete a tag.
     #' @param id The tag identifier.
     tag_delete = function(id) {
-      invisible(self$DELETE(glue::glue("v1/tags/{id}")))
+      invisible(self$DELETE(v1_url("tags", id)))
     },
 
     # content listing ----------------------------------------------------------
 
     #' @description Get the number of content items.
     get_n_apps = function() {
-      path <- "applications"
+      path <- unversioned_url("applications")
       apps <- self$GET(path)
       apps$total
     },
@@ -425,7 +426,7 @@ Connect <- R6::R6Class(
         path <- paste0("applications?filter=", query)
         sep <- "&"
       } else {
-        path <- "applications"
+        path <- unversioned_url("applications")
         sep <- "?"
       }
 
@@ -469,7 +470,7 @@ Connect <- R6::R6Class(
     #' @description Get a schedule.
     #' @param schedule_id The schedule identifier.
     get_schedule = function(schedule_id) {
-      path <- sprintf("schedules/%d", schedule_id)
+      path <- unversioned_url("schedules", schedule_id)
       self$GET(path)
     },
 
@@ -480,7 +481,7 @@ Connect <- R6::R6Class(
     #' @param title The content title.
     #' @param ... Other content fields.
     content_create = function(name, title = name, ...) {
-      path <- sprintf("v1/content")
+      path <- v1_url("content")
       other_params <- rlang::dots_list(...)
 
       verify_content_name(name)
@@ -498,7 +499,7 @@ Connect <- R6::R6Class(
     #' @param guid The content GUID.
     content_upload = function(bundle_path, guid) {
       # todo : add X-Content-Checksum
-      path <- glue::glue("v1/content/{guid}/bundles")
+      path <- v1_url("content", guid, "bundles")
       res <- self$POST(path, httr::upload_file(bundle_path), "raw")
       return(res)
     },
@@ -507,7 +508,7 @@ Connect <- R6::R6Class(
     #' @param guid The content GUID.
     #' @param bundle_id The bundle identifier.
     content_deploy = function(guid, bundle_id) {
-      path <- sprintf("v1/content/%s/deploy", guid)
+      path <- v1_url("content", guid, "deploy")
       res <- self$POST(path, list(bundle_id = as.character(bundle_id)))
       return(res)
     },
@@ -519,7 +520,7 @@ Connect <- R6::R6Class(
     #' @param include Additional response fields.
     content = function(guid = NULL, owner_guid = NULL, name = NULL, include = "tags,owner") {
       if (!is.null(guid)) {
-        path <- glue::glue("v1/content/{guid}")
+        path <- v1_url("content", guid)
       } else {
         filter_args <- list(owner_guid = owner_guid, name = name, include = include)
         path <- glue::glue(
@@ -544,7 +545,7 @@ Connect <- R6::R6Class(
     #' @param tag_id The tag identifier.
     set_content_tag = function(content_id, tag_id) {
       self$POST(
-        path = glue::glue("v1/content/{content_id}/tags"),
+        path = v1_url("content", content_id, "tags"),
         body = list(
           tag_id = as.character(tag_id)
         )
@@ -556,7 +557,7 @@ Connect <- R6::R6Class(
     #' @param tag_id The tag identifier.
     remove_content_tag = function(content_id, tag_id) {
       invisible(self$DELETE(
-        path = glue::glue("v1/content/{content_id}/tags/{tag_id}")
+        path = v1_url("content", content_id, "tags", tag_id)
       ))
     },
 
@@ -832,7 +833,7 @@ Connect <- R6::R6Class(
     #' @description Get running processes.
     procs = function() {
       warn_experimental("procs")
-      path <- "metrics/procs"
+      path <- unversioned_url("metrics", "procs")
       self$GET(path)
     },
 
@@ -873,7 +874,7 @@ Connect <- R6::R6Class(
     #' @param detailed Indicates detailed schedule information.
     schedules = function(start = Sys.time(), end = Sys.time() + 60 * 60 * 24 * 7, detailed = FALSE) {
       warn_experimental("schedules")
-      url <- "v1/experimental/schedules"
+      url <- v1_url("experimental", "schedules")
       query_params <- rlang::list2(
         detailed = tolower(detailed),
         start = datetime_to_rfc3339(start),
@@ -918,7 +919,7 @@ Connect <- R6::R6Class(
 
     #' @description Get R installations.
     server_settings_r = function() {
-      path <- "v1/server_settings/r"
+      path <- v1_url("server_settings", "r")
       self$GET(
         path = path
       )
@@ -926,7 +927,7 @@ Connect <- R6::R6Class(
 
     #' @description Get server settings.
     server_settings = function() {
-      path <- "server_settings"
+      path <- unversioned_url("server_settings")
       self$GET(
         path = path
       )
