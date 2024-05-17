@@ -893,19 +893,15 @@ Connect <- R6::R6Class(
     #' @param nxt Next item.
     #' @param asc_order Indicates ascending result order.
     audit_logs = function(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE) {
-      if (limit > 500) {
-        # reset limit to avoid error
-        limit <- 500L
-      }
-      path <- glue::glue(
-        "v1/audit_logs?limit={limit}",
-        "{safe_query(previous, '&previous=')}",
-        "{safe_query(nxt, '&next=')}",
-        "&ascOrder={tolower(as.character(asc_order))}"
+      path <- v1_url("audit_logs")
+      query <- list(
+        limit = min(limit, 500),
+        previous = previous,
+        ascOrder = tolower(as.character(asc_order))
       )
-      self$GET(
-        path = path
-      )
+      # This is funky because next is a reserved word in R
+      query[["next"]] <- nxt
+      self$GET(path = path, query = purrr::discard(query, is.null))
     },
 
     #' @description Get R installations.

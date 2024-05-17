@@ -7,19 +7,6 @@ unversioned_url <- function(...) {
   paste(..., sep = "/")
 }
 
-# this function helps creating query parameters
-safe_query <- function(expr, prefix = "", collapse = "|") {
-  if (is.null(expr)) {
-    return("")
-  } else if (identical(expr, TRUE)) {
-    return(paste0(prefix, "true"))
-  } else if (identical(expr, FALSE)) {
-    return(paste0(prefix, "false"))
-  } else {
-    return(paste0(prefix, glue::glue_collapse(expr, sep = collapse)))
-  }
-}
-
 generate_R6_print_output <- function() {
   con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
