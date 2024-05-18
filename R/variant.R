@@ -39,12 +39,11 @@ Variant <- R6::R6Class(
     #' @param to Targeting.
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
-      if (length(to) > 1) to <- "me"
       url <- unversioned_url("variants", self$get_variant()$id, "sender")
       self$get_connect()$POST(
         path = url,
         body = list(
-          email = to
+          email = match.arg(to)
         )
       )
     },
@@ -56,9 +55,8 @@ Variant <- R6::R6Class(
     get_schedule_remote = function() {
       warn_experimental("get_schedule_remote")
       url <- unversioned_url("variants", self$get_variant()$id, "schedules")
-      res <- self$get_connect()$GET(
-        path = url
-      )
+      res <- self$get_connect()$GET(url)
+
       if (length(res) == 1) {
         res <- res[[1]]
       }
@@ -90,10 +88,7 @@ Variant <- R6::R6Class(
     add_subscribers = function(guids) {
       warn_experimental("subscribers")
       path <- unversioned_url("variants", self$get_variant()$id, "subscribers")
-      self$get_connect()$POST(
-        path = path,
-        body = guids
-      )
+      self$get_connect()$POST(path = path, body = guids)
     },
     #' @description Render this variant.
     render = function() {
@@ -118,9 +113,7 @@ Variant <- R6::R6Class(
     renderings = function() {
       warn_experimental("renderings")
       url <- unversioned_url("variants", self$get_variant()$id, "renderings")
-      res <- self$get_connect()$GET(
-        path = url
-      )
+      res <- self$get_connect()$GET(path = url)
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
       variant_key <- self$key
@@ -136,10 +129,7 @@ Variant <- R6::R6Class(
       params <- rlang::list2(...)
       # TODO: allow updating a variant
       url <- unversioned_url("variants", self$get_variant()$id)
-      res <- self$get_connect()$POST(
-        url,
-        params
-      )
+      res <- self$get_connect()$POST(url, params)
       return(self)
     },
     #' @description Jobs for this variant.
