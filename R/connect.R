@@ -406,15 +406,17 @@ Connect <- R6::R6Class(
     #' @param .limit The limit.
     #' @param page_size The page size.
     get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
+      if (.limit < page_size) {
+        page_size <- .limit
+      }
+      path <- unversioned_url("applications")
+      query <- list(
+        count = page_size
+      )
       if (!is.null(filter)) {
-        query <- paste(sapply(1:length(filter), function(i) {
+        query$filter <- paste(sapply(1:length(filter), function(i) {
           sprintf("%s:%s", names(filter)[i], filter[[i]])
         }), collapse = .collapse)
-        path <- paste0("applications?filter=", query)
-        sep <- "&"
-      } else {
-        path <- unversioned_url("applications")
-        sep <- "?"
       }
 
       prg <- progress::progress_bar$new(
@@ -423,33 +425,26 @@ Connect <- R6::R6Class(
         clear = FALSE
       )
 
-      if (.limit < page_size) page_size <- .limit
-
       # handle paging
       prg$tick()
-      res <- self$GET(
-        sprintf(
-          "%s%scount=%d",
-          path, sep, page_size
-        )
-      )
+      res <- self$GET(path, query = query)
+
       all <- res$applications
       all_l <- length(all)
-      start <- page_size + 1
+      query$start <- 1
       while (length(res$applications) > 0 && all_l < .limit) {
         prg$tick()
 
-        if ((.limit - all_l) < page_size) page_size <- (.limit - all_l)
+        if ((.limit - all_l) < page_size) {
+          page_size <- (.limit - all_l)
+        }
 
-        res <- self$GET(
-          sprintf(
-            "%s%scount=%d&start=%d&cont=%s",
-            path, sep, page_size, start, res$continuation
-          )
-        )
+        query$start <- query$start + page_size
+        query$cont <- res$continuation
+        res <- self$GET(path, query = query)
+
         all <- c(all, res$applications)
         all_l <- length(all)
-        start <- start + page_size
       }
       all
     },
