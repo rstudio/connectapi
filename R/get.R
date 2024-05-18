@@ -361,7 +361,7 @@ content_list_by_tag <- function(src, tag) {
   validate_R6_class(src, "Connect")
   tag_id <- .get_tag_id(tag)
 
-  res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
+  res <- src$GET(v1_url("tags", tag_id, "content"))
 
   out <- parse_connectapi_typed(res, connectapi_ptypes$content)
   return(out)

@@ -649,7 +649,7 @@ get_vanity_url <- function(content) {
 
   van <- tryCatch(
     {
-      con$GET(glue::glue("/v1/content/{guid}/vanity"))
+      con$GET(v1_url("content", guid, "vanity"))
     },
     error = function(e) {
       # TODO: check to ensure that this error was expected

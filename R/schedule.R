@@ -129,7 +129,7 @@ VariantSchedule <- R6::R6Class(
 
 .get_offset <- function(connect, timezone) {
   # TODO: some type of cache to reduce churn here?
-  tz <- connect$GET("timezones")
+  tz <- connect$GET(unversioned_url("timezones"))
   res <- purrr::keep(tz, ~ .x[["timezone"]] == timezone)
   if (length(res) != 1) {
     stop(glue::glue("ERROR: timezone '{timezone}' not found"))
@@ -313,7 +313,7 @@ example_schedules <- list(
 set_schedule_remove <- function(.schedule) {
   validate_R6_class(.schedule, "VariantSchedule")
   cli <- .schedule$get_connect()
-  path <- glue::glue("schedules/{.schedule$get_schedule()$id}")
+  path <- unversioned_url("schedules", .schedule$get_schedule()$id)
   cli$DELETE(path = path)
   get_variant(.schedule, .schedule$key)
 }
@@ -337,7 +337,7 @@ schedule_describe <- function(.schedule) {
 #' @family schedule functions
 #' @export
 get_timezones <- function(connect) {
-  raw_tz <- connect$GET("timezones")
+  raw_tz <- connect$GET(unversioned_url("timezones"))
   tz_values <- purrr::map_chr(raw_tz, ~ .x[["timezone"]])
   tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
 
