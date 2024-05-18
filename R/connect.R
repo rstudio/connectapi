@@ -340,12 +340,6 @@ Connect <- R6::R6Class(
       tag_tree_parse_data(raw_tags)
     },
 
-    #' @description Get the tag tree.
-    get_tag_tree_old = function() {
-      warn_experimental("get_tag_tree")
-      self$GET(unversioned_url("tag-tree"))
-    },
-
     #' @description Create a tag.
     #' @param name The tag name.
     #' @param parent_id The parent identifier.
@@ -403,13 +397,6 @@ Connect <- R6::R6Class(
     },
 
     # content listing ----------------------------------------------------------
-
-    #' @description Get the number of content items.
-    get_n_apps = function() {
-      path <- unversioned_url("applications")
-      apps <- self$GET(path)
-      apps$total
-    },
 
     # filter is a named list, e.g. list(name = 'appname')
     # this function supports pages
