@@ -812,14 +812,16 @@ Connect <- R6::R6Class(
         stop(glue::glue("Scheme and hostname must be provided (i.e. 'https://github.com'). You provided '{host}'"))
       }
       host <- glue::glue(parsed_url$scheme, "://", parsed_url$hostname)
-      self$GET(glue::glue("repo/account?url={host}"))
+      path <- unversioned_url("repo", "account")
+      self$GET(path, query = list(url = host))
     },
 
     #' @description Get Git repository branches.
     #' @param repo Repository URL.
     repo_branches = function(repo) {
       warn_experimental("repo_branches")
-      self$GET(glue::glue("repo/branches?url={repo}"))
+      path <- unversioned_url("repo", "branches")
+      self$GET(path, query = list(url = repo))
     },
 
     #' @description Get Git repository directories.
@@ -827,7 +829,8 @@ Connect <- R6::R6Class(
     #' @param branch Repository branch.
     repo_manifest_dirs = function(repo, branch) {
       warn_experimental("repo_manifest_dirs")
-      self$GET(glue::glue("repo/manifest-dirs?url={repo}&branch={branch}"))
+      path <- unversioned_url("repo", "manifest-dirs")
+      self$GET(path, query = list(url = repo, branch = branch))
     },
 
     # schedule --------------------------------------------------
