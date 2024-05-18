@@ -46,5 +46,11 @@ with_mock_api({
       variant$renderings(),
       "https://connect.example/__api__/variants/12345/renderings"
     )
+
+    expect_POST(
+      variant$update_variant(key = "value"),
+      "https://connect.example/__api__/variants/12345",
+      '{"key":"value"}'
+    )
   })
 })
