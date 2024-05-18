@@ -55,7 +55,7 @@ VariantSchedule <- R6::R6Class(
         )
         path <- "schedules"
       } else {
-        path <- glue::glue("schedules/{self$get_schedule()$id}")
+        path <- unversioned_url("schedules", self$get_schedule()$id)
       }
       cli <- self$get_connect()
       res <- cli$POST(path = path, body = params)
