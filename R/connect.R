@@ -519,8 +519,8 @@ Connect <- R6::R6Class(
     #' @param first The initial status position.
     #' @param wait Maximum time to wait for update.
     task = function(task_id, first = 0, wait = 5) {
-      path <- sprintf("v1/tasks/%s?first=%d&wait=%d", task_id, first, wait)
-      self$GET(path)
+      path <- v1_url("tasks", task_id)
+      self$GET(path, query = list(first = first, wait = wait))
     },
 
     #' @description Set a tag for a content item.
