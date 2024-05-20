@@ -43,7 +43,7 @@ Variant <- R6::R6Class(
       self$get_connect()$POST(
         path = url,
         body = list(
-          email = match.arg(to)
+          email = arg_match(to)
         )
       )
     },
