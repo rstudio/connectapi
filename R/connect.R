@@ -406,12 +406,9 @@ Connect <- R6::R6Class(
     #' @param .limit The limit.
     #' @param page_size The page size.
     get_apps = function(filter = NULL, .collapse = "&", .limit = Inf, page_size = 25) {
-      if (.limit < page_size) {
-        page_size <- .limit
-      }
       path <- unversioned_url("applications")
       query <- list(
-        count = page_size
+        count = min(page_size, .limit)
       )
       if (!is.null(filter)) {
         query$filter <- paste(sapply(1:length(filter), function(i) {
@@ -435,11 +432,7 @@ Connect <- R6::R6Class(
       while (length(res$applications) > 0 && all_l < .limit) {
         prg$tick()
 
-        if ((.limit - all_l) < page_size) {
-          page_size <- (.limit - all_l)
-        }
-
-        query$start <- query$start + page_size
+        query$start <- query$start + min(page_size, .limit - all_l)
         query$cont <- res$continuation
         res <- self$GET(path, query = query)
 
