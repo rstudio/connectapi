@@ -432,7 +432,8 @@ Connect <- R6::R6Class(
       while (length(res$applications) > 0 && all_l < .limit) {
         prg$tick()
 
-        query$start <- query$start + min(page_size, .limit - all_l)
+        query$start <- query$start + page_size
+        query$page_size <- min(page_size, .limit - all_l)
         query$cont <- res$continuation
         res <- self$GET(path, query = query)
 
