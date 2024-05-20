@@ -511,7 +511,7 @@ Connect <- R6::R6Class(
         include = include
       )
       path <- v1_url("content")
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Get a task.
@@ -563,7 +563,7 @@ Connect <- R6::R6Class(
         page_size = valid_page_size(page_size),
         prefix = prefix
       )
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Get remote users.
@@ -572,7 +572,7 @@ Connect <- R6::R6Class(
       # No pagination here?
       path <- v1_url("users", "remote")
       query <- list(prefix = prefix)
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Create a user.
@@ -663,7 +663,7 @@ Connect <- R6::R6Class(
         page_size = valid_page_size(page_size),
         prefix = prefix
       )
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Get group members.
@@ -718,7 +718,7 @@ Connect <- R6::R6Class(
         limit = valid_page_size(limit),
         prefix = prefix
       )
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     # instrumentation --------------------------------------------
@@ -755,7 +755,7 @@ Connect <- R6::R6Class(
       }
       # This is funky because next is a reserved word in R
       query[["next"]] <- nxt
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Get interactive content visits.
@@ -791,7 +791,7 @@ Connect <- R6::R6Class(
       }
       # This is funky because next is a reserved word in R
       query[["next"]] <- nxt
-      self$GET(path, query = purrr::discard(query, is.null))
+      self$GET(path, query = query)
     },
 
     #' @description Get running processes.
@@ -877,7 +877,7 @@ Connect <- R6::R6Class(
       )
       # This is funky because next is a reserved word in R
       query[["next"]] <- nxt
-      self$GET(path = path, query = purrr::discard(query, is.null))
+      self$GET(path = path, query = query)
     },
 
     #' @description Get R installations.
