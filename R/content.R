@@ -38,7 +38,7 @@ Content <- R6::R6Class(
     },
     #' @description Return the set of content bundles.
     get_bundles = function() {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/bundles")
+      url <- v1_url("content", self$get_content()$guid, "bundles")
       self$get_connect()$GET(url)
     },
     #' @description Download the source archive for a content bundle.
@@ -46,19 +46,19 @@ Content <- R6::R6Class(
     #' @param filename Where to write the result.
     #' @param overwrite Overwrite an existing filename.
     bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext = ".tar.gz"), overwrite = FALSE) {
-      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}/download")
+      url <- v1_url("content", self$get_content()$guid, "bundles", bundle_id, "download")
       self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
       return(filename)
     },
     #' @description Delete a content bundle.
     #' @param bundle_id The bundle identifer.
     bundle_delete = function(bundle_id) {
-      url <- glue::glue("/v1/content/{self$get_content()$guid}/bundles/{bundle_id}")
+      url <- v1_url("content", self$get_content()$guid, "bundles", bundle_id)
       self$get_connect()$DELETE(url)
     },
     #' @description Get this (remote) content item.
     internal_content = function() {
-      url <- glue::glue("applications/{self$get_content()$guid}")
+      url <- unversioned_url("applications", self$get_content()$guid)
       self$get_connect()$GET(url)
     },
     #' @description Update this content item.
@@ -67,7 +67,7 @@ Content <- R6::R6Class(
       con <- self$get_connect()
       error_if_less_than(con, "1.8.6")
       params <- rlang::list2(...)
-      url <- glue::glue("v1/content/{self$get_content()$guid}")
+      url <- v1_url("content", self$get_content()$guid)
       res <- con$PATCH(
         url,
         params
@@ -77,7 +77,7 @@ Content <- R6::R6Class(
     #' @description Delete this content item.
     danger_delete = function() {
       con <- self$get_connect()
-      url <- glue::glue("v1/content/{self$get_content()$guid}")
+      url <- v1_url("content", self$get_content()$guid)
       res <- con$DELETE(url)
       return(res)
     },
@@ -93,14 +93,14 @@ Content <- R6::R6Class(
     #' @description Return the jobs for this content.
     jobs = function() {
       warn_experimental("jobs")
-      url <- glue::glue("applications/{self$get_content()$guid}/jobs")
+      url <- unversioned_url("applications", self$get_content()$guid, "jobs")
       res <- self$get_connect()$GET(url)
     },
     #' @description Return a single job for this content.
     #' @param key The job key.
     job = function(key) {
       warn_experimental("job")
-      url <- glue::glue("applications/{self$get_content()$guid}/job/{key}")
+      url <- unversioned_url("applications", self$get_content()$guid, "job", key)
       res <- self$get_connect()$GET(url)
 
       content_guid <- self$get_content()$guid
@@ -112,7 +112,7 @@ Content <- R6::R6Class(
     #' @description Return the variants for this content.
     variants = function() {
       warn_experimental("variants")
-      url <- glue::glue("applications/{self$get_content()$guid}/variants")
+      url <- unversioned_url("applications", self$get_content()$guid, "variants")
       self$get_connect()$GET(url)
     },
     #' @description Set a tag for this content.
@@ -128,7 +128,7 @@ Content <- R6::R6Class(
     },
     #' @description The tags for this content.
     tags = function() {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/tags")
+      url <- v1_url("content", self$get_content()$guid, "tags")
       self$get_connect()$GET(url)
     },
     #' @description Add a principal to the ACL for this content.
@@ -136,7 +136,7 @@ Content <- R6::R6Class(
     #' @param principal_type Acting on user or group.
     #' @param role The kind of content access.
     permissions_add = function(principal_guid, principal_type, role) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions")
+      url <- v1_url("content", self$get_content()$guid, "permissions")
       self$get_connect()$POST(url, body = list(
         principal_guid = principal_guid,
         principal_type = principal_type,
@@ -149,7 +149,7 @@ Content <- R6::R6Class(
     #' @param principal_type Acting on user or group.
     #' @param role The kind of content access.
     permissions_update = function(id, principal_guid, principal_type, role) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      url <- v1_url("content", self$get_content()$guid, "permissions", id)
       self$get_connect()$PUT(url, body = list(
         principal_guid = principal_guid,
         principal_type = principal_type,
@@ -159,7 +159,7 @@ Content <- R6::R6Class(
     #' @description Remove an entry from the ACL for this content.
     #' @param id The target identifier.
     permissions_delete = function(id) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/permissions/{id}")
+      url <- v1_url("content", self$get_content()$guid, "permissions", id)
       self$get_connect()$DELETE(url)
     },
     #' @description Obtain some or all of the ACL for this content.
@@ -167,9 +167,10 @@ Content <- R6::R6Class(
     #' @param add_owner Include the content owner in the result set.
     permissions = function(id = NULL, add_owner = FALSE) {
       guid <- self$get_content()$guid
-      url <- glue::glue("v1/content/{guid}/permissions")
-      if (!is.null(id)) {
-        url <- glue::glue("{url}/{id}")
+      if (is.null(id)) {
+        url <- v1_url("content", self$get_content()$guid, "permissions")
+      } else {
+        url <- v1_url("content", self$get_content()$guid, "permissions", id)
       }
       res <- self$get_connect()$GET(url)
       # NOTE: the default for the low-level functions is to map to the API
@@ -189,14 +190,14 @@ Content <- R6::R6Class(
     },
     #' @description Return the environment variables set for this content.
     environment = function() {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
+      url <- v1_url("content", self$get_content()$guid, "environment")
       res <- self$get_connect()$GET(url)
       return(res)
     },
     #' @description Adjust the environment variables set for this content.
     #' @param ... Environment variable names and values.
     environment_set = function(...) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
+      url <- v1_url("content", self$get_content()$guid, "environment")
       # post with
       # key = NA to remove
       vals <- rlang::list2(...)
@@ -215,7 +216,7 @@ Content <- R6::R6Class(
     #' @description Overwrite the environment variables set for this content.
     #' @param ... Environment variable names and values.
     environment_all = function(...) {
-      url <- glue::glue("v1/content/{self$get_content()$guid}/environment")
+      url <- v1_url("content", self$get_content()$guid, "environment")
 
       vals <- rlang::list2(...)
       body <- purrr::imap(vals, function(.x, .y) {
@@ -236,7 +237,7 @@ Content <- R6::R6Class(
     deploy = function(bundle_id = NULL) {
       body <- list(bundle_id = bundle_id)
       self$get_connect()$POST(
-        glue::glue("v1/content/{self$get_content()$guid}/deploy"),
+        v1_url("content", self$get_content()$guid, "deploy"),
         body = body
       )
     },
@@ -245,7 +246,7 @@ Content <- R6::R6Class(
     repo_enable = function(enabled = TRUE) {
       warn_experimental("repo_enable")
       self$get_connect()$PUT(
-        glue::glue("applications/{self$get_content()$guid}/repo"),
+        unversioned_url("applications", self$get_content()$guid, "repo"),
         body = list(
           enabled = enabled
         )
@@ -258,7 +259,7 @@ Content <- R6::R6Class(
     repo_set = function(repository, branch, subdirectory) {
       warn_experimental("repo_set")
       self$get_connect()$POST(
-        glue::glue("applications/{self$get_content()$guid}/repo"),
+        unversioned_url("applications", self$get_content()$guid, "repo"),
         body = list(
           repository = repository,
           branch = branch,

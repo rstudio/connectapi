@@ -1,36 +1,15 @@
-# this function helps creating query parameters
-safe_query <- function(expr, prefix = "", collapse = "|") {
-  if (is.null(expr)) {
-    return("")
-  } else if (identical(expr, TRUE)) {
-    return(paste0(prefix, "true"))
-  } else if (identical(expr, FALSE)) {
-    return(paste0(prefix, "false"))
-  } else {
-    return(paste0(prefix, glue::glue_collapse(expr, sep = collapse)))
-  }
+# Helpers to make it easier to identify where we're calling public APIs and not
+v1_url <- function(...) {
+  paste("v1", ..., sep = "/")
 }
 
-query_args <- function(...) {
-  args <- rlang::list2(...)
+unversioned_url <- function(...) {
+  paste(..., sep = "/")
+}
 
-  args <- purrr::discard(args, ~ is.null(.x))
-  args <- purrr::discard(args, ~ is.na(.x))
-
-  prep <- purrr::map2_chr(
-    names(args),
-    args,
-    function(name, arg) {
-      glue::glue("{name}={arg}")
-    }
-  )
-
-  joined <- glue::glue_collapse(prep, sep = "&")
-
-  if (length(joined) > 0 && nchar(joined) > 0) {
-    return(paste0("?", joined))
-  }
-  return("")
+valid_page_size <- function(x, min = 1, max = 500) {
+  # This could be changed to error if x is outside the range
+  min(max(min, x), max)
 }
 
 generate_R6_print_output <- function() {

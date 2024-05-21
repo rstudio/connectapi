@@ -10,7 +10,7 @@ get_usage_shiny(
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE

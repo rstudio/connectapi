@@ -120,3 +120,33 @@ with_mock_api({
     )
   })
 })
+
+without_internet({
+  test_that("Query params to connect$content()", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    expect_GET(
+      con$content(),
+      "https://connect.example/__api__/v1/content?include=tags%2Cowner"
+    )
+
+    expect_GET(
+      con$content("a01792e3-2e67-402e-99af-be04a48da074"),
+      "https://connect.example/__api__/v1/content/a01792e3-2e67-402e-99af-be04a48da074"
+    )
+
+    expect_GET(
+      con$content(include = NULL),
+      "https://connect.example/__api__/v1/content"
+    )
+
+    expect_GET(
+      con$content(owner_guid = "a01792e3-2e67-402e-99af-be04a48da074"),
+      "https://connect.example/__api__/v1/content?owner_guid=a01792e3-2e67-402e-99af-be04a48da074&include=tags%2Cowner"
+    )
+
+    expect_GET(
+      con$content(name = "A name for content"),
+      "https://connect.example/__api__/v1/content?name=A%20name%20for%20content&include=tags%2Cowner"
+    )
+  })
+})

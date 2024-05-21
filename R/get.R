@@ -39,7 +39,7 @@
 #' }
 #'
 #' @export
-get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
+get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
   res <- page_offset(
@@ -83,7 +83,7 @@ get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 #' }
 #'
 #' @export
-get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25) {
+get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
   res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
@@ -361,7 +361,7 @@ content_list_by_tag <- function(src, tag) {
   validate_R6_class(src, "Connect")
   tag_id <- .get_tag_id(tag)
 
-  res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
+  res <- src$GET(v1_url("tags", tag_id, "content"))
 
   out <- parse_connectapi_typed(res, connectapi_ptypes$content)
   return(out)
@@ -438,7 +438,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
                             min_data_version = NULL,
                             from = NULL,
                             to = NULL,
-                            limit = 20,
+                            limit = 500,
                             previous = NULL,
                             nxt = NULL,
                             asc_order = TRUE) {
@@ -531,7 +531,7 @@ get_usage_static <- function(src, content_guid = NULL,
                              min_data_version = NULL,
                              from = NULL,
                              to = NULL,
-                             limit = 20,
+                             limit = 500,
                              previous = NULL,
                              nxt = NULL,
                              asc_order = TRUE) {
@@ -596,7 +596,7 @@ get_usage_static <- function(src, content_guid = NULL,
 #' }
 #'
 #' @export
-get_audit_logs <- function(src, limit = 20L, previous = NULL,
+get_audit_logs <- function(src, limit = 500, previous = NULL,
                            nxt = NULL, asc_order = TRUE) {
   validate_R6_class(src, "Connect")
 

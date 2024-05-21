@@ -24,7 +24,7 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
 
   validate_R6_class(src, "Connect")
 
-  from <- match.arg(from)
+  from <- arg_match(from)
 
   # TODO: go get the vars we should expect...
   vars <- connectapi_ptypes[[from]]
