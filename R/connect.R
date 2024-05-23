@@ -152,8 +152,8 @@ Connect <- R6::R6Class(
           self$httr_additions
         )
       )
-      check_debug(url, res)
-      return(res)
+      check_debug(res)
+      res
     },
 
     #' @description Perform an HTTP PUT request of the named API path. Returns an object parsed from the HTTP response.
@@ -182,7 +182,7 @@ Connect <- R6::R6Class(
         )
       )
       self$raise_error(res)
-      check_debug(req, res)
+      check_debug(res)
       httr::content(res, as = "parsed")
     },
 
@@ -203,8 +203,8 @@ Connect <- R6::R6Class(
           self$httr_additions
         )
       )
-      check_debug(req, res)
-      return(res)
+      check_debug(res)
+      res
     },
 
     #' @description Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
@@ -224,8 +224,8 @@ Connect <- R6::R6Class(
           self$httr_additions
         )
       )
-      check_debug(req, res)
-      return(res)
+      check_debug(res)
+      res
     },
 
     #' @description Perform an HTTP PATCH request of the named API path. Returns an object parsed from the HTTP response.
@@ -255,7 +255,7 @@ Connect <- R6::R6Class(
         )
       )
       self$raise_error(res)
-      check_debug(req, res)
+      check_debug(res)
       httr::content(res, as = "parsed")
     },
 
@@ -285,7 +285,7 @@ Connect <- R6::R6Class(
           self$httr_additions
         )
       )
-      check_debug(req, res)
+      check_debug(res)
       self$raise_error(res)
       httr::content(res, as = "parsed")
     },
@@ -962,9 +962,21 @@ connect <- function(
   con
 }
 
-check_debug <- function(req, res) {
-  debug <- getOption("connect.debug")
-  if (!is.null(debug) && debug) {
+check_debug <- function(res) {
+  # Check for deprecation warnings from the server.
+  # You might get these if you've upgraded the Connect server but not connectapi.
+  # connectapi will make the right request based on the version of the server,
+  # but if you have an old version of the package, it won't know the new URL
+  # to request.
+  if ("X-Deprecated-Endpoint" %in% names(httr::headers(res))) {
+    msg <- paste(
+      res[["request"]][["url"]],
+      "is deprecated and will be removed in a future version of Connect.",
+      "Please upgrade `connectapi` in order to use the new APIs."
+    )
+    rlang::warn(msg, class = "deprecatedWarning")
+  }
+  if (getOption("connect.debug", FALSE)) {
     message(paste(res[["request"]][["method"]], res[["request"]][["url"]]))
     message(paste("Response", res[["status_code"]]))
     message(httr::content(res, as = "text"))

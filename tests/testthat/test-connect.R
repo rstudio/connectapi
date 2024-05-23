@@ -39,6 +39,21 @@ test_that("Handling error responses", {
   expect_error(con$raise_error(resp), "Bad Request")
 })
 
+test_that("Handling deprecation warnings", {
+  resp <- fake_response("https://connect.example/__api__/", headers = list(
+    `X-Deprecated-Endpoint` = "/v1"
+  ))
+  expect_warning(
+    check_debug(resp),
+    paste(
+      "https://connect.example/__api__/ is deprecated and will be removed in a",
+      "future version of Connect. Please upgrade `connectapi` in order to use",
+      "the new APIs."
+    ),
+    class = "deprecatedWarning"
+  )
+})
+
 with_mock_api({
   test_that("browse URLs", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
