@@ -104,7 +104,7 @@ audit_r_versions <- function(apps) {
 
   # histogram
   p1 <- ggplot2::ggplot(timeline) +
-    ggplot2::geom_histogram(ggplot2::aes(r_version), stat = "count") +
+    ggplot2::geom_bar(ggplot2::aes(r_version)) +
     ggplot2::theme_minimal() +
     ggplot2::labs(
       title = "Distribution of Content by R Version",
