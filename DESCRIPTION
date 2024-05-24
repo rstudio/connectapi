@@ -37,14 +37,10 @@ Imports:
     jsonlite
 Suggests:
     covr,
-    crayon,
     dbplyr,
-    devtools,
     dplyr,
-    flexdashboard,
     ggplot2,
     gridExtra,
-    htmltools,
     httptest,
     knitr,
     lubridate,
