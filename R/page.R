@@ -15,7 +15,7 @@
 page_cursor <- function(client, req, limit = Inf) {
   qreq <- rlang::enquo(req)
 
-  prg <- progress::progress_bar$new(
+  prg <- optional_progress_bar(
     format = "downloading page :current (:tick_rate/sec) :elapsedfull",
     total = NA,
     clear = FALSE
@@ -58,7 +58,7 @@ page_offset <- function(client, req, limit = Inf) {
   qreq <- rlang::enquo(req)
   qexpr <- rlang::quo_get_expr(qreq)
 
-  prg <- progress::progress_bar$new(
+  prg <- optional_progress_bar(
     format = "downloading page :current (:tick_rate/sec) :elapsedfull",
     total = NA,
     clear = FALSE
@@ -94,4 +94,16 @@ page_offset <- function(client, req, limit = Inf) {
     new_req <- NULL
   }
   return(agg_response)
+}
+
+optional_progress_bar <- function(...) {
+  if (requireNamespace("progress", quietly = TRUE)) {
+    progress::progress_bar$new(...)
+  } else {
+    # Return a mock object that behaves enough like a progress bar object
+    list(
+      tick = function() {},
+      finished = TRUE
+    )
+  }
 }

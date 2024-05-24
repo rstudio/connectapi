@@ -416,7 +416,7 @@ Connect <- R6::R6Class(
         }), collapse = .collapse)
       }
 
-      prg <- progress::progress_bar$new(
+      prg <- optional_progress_bar(
         format = "downloading page :current (:tick_rate/sec) :elapsedfull",
         total = NA,
         clear = FALSE
