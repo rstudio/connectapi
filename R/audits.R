@@ -14,26 +14,12 @@ vanity_is_available <- function(connect, vanity) {
   current_vanity_paths <- purrr::map_chr(current_vanities, "path")
 
   # In case a full URL has been given, prune it down to just the path
+  vanity <- sub(paste0("^", connect$server), "", vanity)
   # and make sure it has a leading and trailing slash
-  vanity <- trim_vanity(vanity, connect$server)
+  vanity <- sub("^/?(.*[^/])/?$", "/\\1/", vanity)
 
   !(vanity %in% current_vanity_paths)
 }
-
-trim_vanity <- function(url, server_path) {
-  parsed_url <- httr::parse_url(url)
-  if (nchar(server_path) > 0) {
-    # remove the trailing slash
-    server_path <- base::sub("^(.*)/$", "\\1", server_path)
-    vanity <- sub(server_path, "", parsed_url$path)
-  } else {
-    vanity <- parsed_url$path
-  }
-
-  # ensure leading and trailing slash
-  base::sub("^/?(.*[^/])/?$", "/\\1/", vanity)
-}
-
 
 #' Audit R Versions
 #'
