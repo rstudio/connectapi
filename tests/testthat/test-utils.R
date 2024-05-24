@@ -25,7 +25,7 @@ test_that("check_connect_version works", {
 
   # warnings for minor version changes
   expect_warning(check_connect_version("1.8.2-4", "2.8.0.5-1"), "older")
-  warn_clear("old-connect")
+  rlang::reset_warning_verbosity("old-connect")
 })
 
 test_that("check_connect_version warning snapshot", {
@@ -34,5 +34,5 @@ test_that("check_connect_version warning snapshot", {
   # No warning
   expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
   expect_snapshot(capture_warning(check_connect_version("2022.01", "2022.02")))
-  warn_clear("old-connect")
+  rlang::reset_warning_verbosity("old-connect")
 })

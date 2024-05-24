@@ -974,7 +974,7 @@ check_debug <- function(res) {
       "is deprecated and will be removed in a future version of Connect.",
       "Please upgrade `connectapi` in order to use the new APIs."
     )
-    rlang::warn(msg, class = "deprecatedWarning")
+    warn_once(msg, id = "X-Deprecated-Endpoint", class = "deprecatedWarning")
   }
   if (getOption("connect.debug", FALSE)) {
     message(paste(res[["request"]][["method"]], res[["request"]][["url"]]))

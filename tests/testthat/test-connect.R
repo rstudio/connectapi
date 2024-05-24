@@ -40,6 +40,16 @@ test_that("Handling error responses", {
 })
 
 test_that("Handling deprecation warnings", {
+  rlang::reset_warning_verbosity("X-Deprecated-Endpoint")
+  on.exit(rlang::reset_warning_verbosity("X-Deprecated-Endpoint"))
+
+  # No warning here
+  resp <- fake_response("https://connect.example/__api__/", headers = list(
+    `Content-Type` = "application/json"
+  ))
+  expect_warning(check_debug(resp), NA)
+
+  # Yes warning here
   resp <- fake_response("https://connect.example/__api__/", headers = list(
     `X-Deprecated-Endpoint` = "/v1"
   ))
@@ -52,6 +62,9 @@ test_that("Handling deprecation warnings", {
     ),
     class = "deprecatedWarning"
   )
+
+  # No warning if you do it again because we only warn the first time
+  expect_warning(check_debug(resp), NA)
 })
 
 with_mock_api({
