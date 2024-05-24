@@ -5,7 +5,7 @@ test_that("coerce_fsbytes fills the void", {
 })
 
 test_that("coerce_datetime fills the void", {
-  chardate <- "2020-05-19 01:36:27Z"
+  chardate <- "2023-10-25T17:04:08Z"
   numdate <- as.double(Sys.time())
   expect_s3_class(coerce_datetime(chardate, NA_datetime_), "POSIXct")
   expect_s3_class(coerce_datetime(c(chardate, chardate), NA_datetime_), "POSIXct")
@@ -26,8 +26,8 @@ test_that("coerce_datetime fills the void", {
 })
 
 test_that("make_timestamp works with POSIXct", {
-  ts <- as.POSIXct("2020-01-01 01:02:03Z")
   outcome <- "2020-01-01T01:02:03Z"
+  ts <- coerce_datetime(outcome, NA_datetime_)
   expect_equal(make_timestamp(ts), outcome)
   expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
 

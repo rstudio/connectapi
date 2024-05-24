@@ -116,7 +116,8 @@ coerce_datetime <- function(x, to, ...) {
   } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
-    as.POSIXct(x, tz = tzone(to))
+    # Parse as ISO8601
+    as.POSIXct(strptime(x, format = "%Y-%m-%dT%H:%M:%SZ", tz = tzone(to)))
   } else if (inherits(x, "POSIXct")) {
     x
   } else if (all(is.logical(x) & is.na(x)) && length(is.logical(x) & is.na(x)) > 0) {
