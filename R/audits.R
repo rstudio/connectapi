@@ -1,62 +1,23 @@
-get_field <- function(apps, field, include_null = FALSE) {
-  all <- lapply(apps, function(x) {
-    x[[field]]
-  })
-  empty <- sapply(all, is.null)
-
-  if (!include_null) {
-    return(all[!empty])
-  }
-  all
-}
-
-#' Get information on all apps for a server
+#' Check to see if a vanity URL is currently in use
 #'
 #' \lifecycle{experimental}
 #'
-#' @param connect A Connect object
+#' @param connect A Connect R6 object
+#' @param vanity string of the vanity URL to check
 #'
-#' @return List with application data, to be used by audit functions
-#' @family audit functions
-#' @export
-cache_apps <- function(connect) {
-  apps <- connect$get_apps()
-  apps
-}
-
-#' Audit Vanity URLs
-#'
-#' \lifecycle{experimental}
-#'
-#' @param apps App list, see [cache_apps()]
-#' @param server_url Base url for the Connect server
-#' @param vanity Optional, see details
-#'
-#' @details If `vanity` is not provided, returns a list of all the vanity
-#'   urls in use. If `vanity` is provided, returns whether or not
-#'   `vanity` is eligible as a vanity url.
+#' @return logical indicating if the vanity URL is available.
 #'
 #' @family audit functions
 #' @export
-audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
-  # TODO: why does vanities not work?
-  urls <- get_field(apps, "url")
-  parse_server <- httr::parse_url(server_url)
-  if (is.null(parse_server$scheme)) {
-    stop(glue::glue("ERROR: protocol (i.e. http:// or https://) not defined on server_url={server_url}"))
-  }
-  content <- sapply(urls, function(u) {
-    trim_vanity(u, parse_server$path)
-  })
+vanity_is_available <- function(connect, vanity) {
+  current_vanities <- connect$GET(v1_url("vanities"))
+  current_vanity_paths <- purrr::map_chr(current_vanities, "path")
 
-  vanities <- content[!grepl("content/\\d+", content)]
+  # In case a full URL has been given, prune it down to just the path
+  # and make sure it has a leading and trailing slash
+  vanity <- trim_vanity(vanity, connect$server)
 
-  if (!is.null(vanity)) {
-    return(
-      ifelse(sprintf("%s/", vanity) %in% vanities, sprintf("%s Not Available", vanity), sprintf("%s Available", vanity))
-    )
-  }
-  vanities
+  !(vanity %in% current_vanity_paths)
 }
 
 trim_vanity <- function(url, server_path) {

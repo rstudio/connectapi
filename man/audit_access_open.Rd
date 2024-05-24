@@ -4,10 +4,10 @@
 \alias{audit_access_open}
 \title{Audit Access Controls}
 \usage{
-audit_access_open(apps, type = "all")
+audit_access_open(content, type = "all")
 }
 \arguments{
-\item{apps}{App list, see \code{cache_apps}}
+\item{content}{\code{data.frame} of content information, as from \code{\link[=get_content]{get_content()}}}
 
 \item{type}{One of "all" or "logged_in". If "all", return a list of apps
 whose access control is set to "Everyone". If "logged_in", return a list of
@@ -20,7 +20,6 @@ apps whose access control is set to "All logged in users"}
 Other audit functions: 
 \code{\link{audit_r_versions}()},
 \code{\link{audit_runas}()},
-\code{\link{audit_vanity_urls}()},
-\code{\link{cache_apps}()}
+\code{\link{vanity_is_available}()}
 }
 \concept{audit functions}
