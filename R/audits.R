@@ -78,29 +78,21 @@ trim_vanity <- function(url, server_path) {
 #'
 #' \lifecycle{experimental}
 #'
-#' @param apps App list, see `cache_apps`
+#' @param content `data.frame` of content information, as from [get_content()]
 #'
 #' @return A plot that shows the R version used by content over time and in
 #'   aggregate.
 #' @family audit functions
 #' @export
-audit_r_versions <- function(apps) {
-  r_versions <- get_field(apps, "r_version", TRUE)
-  published <- get_field(apps, "last_deployed_time", TRUE)
+audit_r_versions <- function(content) {
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("ggplot2 is required for this function")
+  }
+  if (!requireNamespace("gridExtra", quietly = TRUE)) {
+    stop("gridExtra is required for this function")
+  }
 
-  # TODO: this is not pretty
-  timeline <- data.frame(
-    stringsAsFactors = FALSE,
-    r_version = unlist(r_versions),
-    published = do.call(c, unname( # this flattens the list while preserving the date time
-      lapply(
-        published[!sapply(r_versions, is.null)], # filter out records w/o r version
-        function(d) {
-          lubridate::ymd_hms(d)
-        }
-      ) # convert to date time
-    ))
-  )
+  timeline <- content[!is.na(content$r_version), c("r_version", "last_deployed_time")]
 
   # histogram
   p1 <- ggplot2::ggplot(timeline) +
@@ -114,7 +106,7 @@ audit_r_versions <- function(apps) {
 
   # timeline
   p2 <- ggplot2::ggplot(timeline) +
-    ggplot2::geom_point(pch = 4, ggplot2::aes(x = published, color = r_version, y = r_version)) +
+    ggplot2::geom_point(pch = 4, ggplot2::aes(x = last_deployed_time, color = r_version, y = r_version)) +
     ggplot2::theme_minimal() +
     ggplot2::labs(
       title = "Content by Time",
@@ -130,42 +122,17 @@ audit_r_versions <- function(apps) {
 #'
 #' \lifecycle{experimental}
 #'
-#' @param apps App list, see `cache_apps`
+#' @param content `data.frame` of content information, as from [get_content()]
 #'
 #' @return A data frame with the app name and the Run As user if the Run As user
 #'   is not the default
 #' @family audit functions
 #' @export
-audit_runas <- function(apps) {
-  name <- get_field(apps, "name", TRUE)
-  run_as <- get_field(apps, "run_as", TRUE)
-  set <- !sapply(run_as, is.null)
-
-  run_as <- data.frame(
-    stringsAsFactors = FALSE,
-    app_name = unlist(name[set]),
-    run_as_user = unlist(run_as)
-  )
-
-  run_as_current <- get_field(apps, "run_as_current_user", TRUE)
-  set <- sapply(run_as_current, function(x) {
-    x == TRUE
-  })
-
-  if (sum(set > 0)) {
-    run_as_current <- data.frame(
-      stringsAsFactors = FALSE,
-      app_name = unlist(name[set]),
-      run_as_user = "current user"
-    )
-  } else {
-    run_as_current <- NULL
-  }
-
-
-  return(
-    rbind(run_as, run_as_current)
-  )
+audit_runas <- function(content) {
+  content$run_as <- ifelse(content$run_as_current_user, "current user", content$run_as)
+  content <- content[!is.na(content$run_as), c("name", "run_as")]
+  names(content) <- c("app_name", "run_as_user")
+  content
 }
 
 # type can be all, logged_in, acl
@@ -173,23 +140,13 @@ audit_runas <- function(apps) {
 #'
 #' \lifecycle{experimental}
 #'
-#' @param apps App list, see `cache_apps`
+#' @param content `data.frame` of content information, as from [get_content()]
 #' @param type One of "all" or "logged_in". If "all", return a list of apps
 #'   whose access control is set to "Everyone". If "logged_in", return a list of
 #'   apps whose access control is set to "All logged in users"
 #'
 #' @family audit functions
 #' @export
-audit_access_open <- function(apps, type = "all") {
-  access <- get_field(apps, "access_type", TRUE)
-  name <- get_field(apps, "name", TRUE)
-  acl_set <- !sapply(access, is.null)
-
-  access <- data.frame(
-    stringsAsFactors = FALSE,
-    name = unlist(name[acl_set]),
-    access = unlist(access)
-  )
-
-  return(access$name[access$access == type])
+audit_access_open <- function(content, type = "all") {
+  content$name[content$access_type == type]
 }

@@ -46,3 +46,37 @@ without_internet({
     )
   })
 })
+
+with_mock_api({
+  test_that("audit_r_versions does not error", {
+    skip_if_not_installed("ggplot2")
+    skip_if_not_installed("gridExtra")
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    content <- get_content(con)
+
+    expect_s3_class(audit_r_versions(content), "gtable")
+  })
+
+  test_that("audit_access_open", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    content <- get_content(con)
+
+    expect_identical(audit_access_open(content, "all"), "My-Streamlit-app")
+    expect_identical(
+      audit_access_open(content, "logged_in"),
+      c("team-admin-dashboard", "Performance-Data-1671216053560")
+    )
+  })
+
+  test_that("audit_runas", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    content <- get_content(con)
+    expect_equal(
+      audit_runas(content),
+      tibble::tibble(
+        app_name = "My-Streamlit-app",
+        run_as_user = "current user"
+      )
+    )
+  })
+})
