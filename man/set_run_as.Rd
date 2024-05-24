@@ -26,7 +26,7 @@ The \code{run_as_current_user} flag only does anything if:
 \item \code{Applications.RunAsCurrentUser} is enabled on the server
 }
 
-Also worth noting that the \code{run_as} user must exist on the RStudio Connect
+Also worth noting that the \code{run_as} user must exist on the Posit Connect
 server (as a linux user) and have appropriate group memberships, or you will
 get a \verb{400: Bad Request}. Set to \code{NULL} to use the default RunAs user / unset
 any current configuration.
@@ -37,17 +37,15 @@ To "read" the current RunAs user, use the \code{Content} object or \code{get_con
 connectapi::content_update
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{content_update}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

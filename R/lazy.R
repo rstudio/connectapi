@@ -20,14 +20,11 @@
 #'
 #' @export
 tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs"), ...) {
+  rlang::check_installed("dbplyr")
+
   validate_R6_class(src, "Connect")
 
-  stopifnot(length(from) == 1)
-  if (!from %in% c("users", "groups", "content", "usage_shiny", "usage_static", "audit_logs", deprecated_names)) {
-    stop(glue::glue("ERROR: invalid table name: {from}"))
-  }
-
-  from <- check_deprecated_names(from)
+  from <- arg_match(from)
 
   # TODO: go get the vars we should expect...
   vars <- connectapi_ptypes[[from]]
@@ -39,27 +36,9 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-deprecated_names <- c(
-  usage_shiny = "shiny_usage",
-  usage_static = "content_visits"
-)
-
-check_deprecated_names <- function(.name, deprecated_names) {
-  if (.name == "shiny_usage") {
-    warning("`shiny_usage` is deprecated. Please use `usage_shiny`")
-    .name <- "usage_shiny"
-  }
-  if (.name == "content_visits") {
-    warning("`content_visits` is deprecated. Please use `usage_static`")
-    .name <- "usage_static"
-  }
-  return(.name)
-}
-
-#' @importFrom dplyr collect
-#' @export
+# This will be registered in .onLoad if dplyr is available
 collect.tbl_connect <- function(x, ..., n = Inf) {
-  api_build(op = x$ops, con = x$src, n = n)
+  api_build(op = x[["ops"]], con = x[["src"]], n = n)
 }
 
 api_build <- function(op, con = NULL, ..., n = NULL) {
@@ -90,7 +69,7 @@ api_build.op_base_connect <- function(op, con, ..., n) {
   } else {
     stop(glue::glue("'{op$x}' is not recognized"))
   }
-  parse_connectapi_typed(res, !!!op$ptype)
+  parse_connectapi_typed(res, op$ptype)
 }
 
 cat_line <- function(...) {
@@ -100,10 +79,10 @@ cat_line <- function(...) {
 #' @importFrom utils head
 #' @export
 head.tbl_connect <- function(x, n = 6L, ...) {
-  if (inherits(x$ops, "op_head")) {
+  if (inherits(x[["ops"]], "op_head")) {
     x$ops$args$n <- min(x$ops$args$n, n)
   } else {
-    x$ops <- op_single("head", x = x$ops, args = list(n = n))
+    x$ops <- op_single("head", x = x[["ops"]], args = list(n = n))
   }
   x
 }
@@ -116,7 +95,10 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 
 #' @export
 as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
-  as.data.frame(collect(x, n = n))
+  # We don't need to check if dplyr is available here
+  # because you won't have a tbl_connect without first
+  # checking for dplyr.
+  as.data.frame(dplyr::collect(x, n = n))
 }
 
 op_base_connect <- function(x, vars) {
@@ -148,23 +130,22 @@ op_single <- function(name, x, dots = list(), args = list()) {
   )
 }
 
-# #' @export
-op_vars <- function(op) UseMethod("op_vars")
+connect_vars <- function(op) UseMethod("connect_vars")
 #' @export
-op_vars.op_base <- function(op) op$vars
+connect_vars.op_base <- function(op) op$vars
 #' @export
-op_vars.op_single <- function(op) op_vars(op$x)
+connect_vars.op_single <- function(op) connect_vars(op$x)
 #' @export
-op_vars.tbl_lazy <- function(op) op_vars(op$ops)
+connect_vars.tbl_connect <- function(op) connect_vars(op[["ops"]])
 
 # important for `nrow`/`ncol` to work
 #' @export
-dim.tbl_lazy <- function(x) {
-  c(NA, length(op_vars(x$ops)))
+dim.tbl_connect <- function(x) {
+  c(NA, length(connect_vars(x[["ops"]])))
 }
 
 # important for `colnames` to work
 #' @export
-dimnames.tbl_lazy <- function(x) {
-  list(NULL, op_vars(x$ops))
+dimnames.tbl_connect <- function(x) {
+  list(NULL, connect_vars(x[["ops"]]))
 }

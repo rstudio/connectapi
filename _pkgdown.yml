@@ -1,5 +1,7 @@
 url: https://pkgs.rstudio.com/connectapi/
-destination: docs
+
+development:
+   mode: auto
 
 reference:
 
@@ -33,7 +35,6 @@ reference:
       - matches("variant")
       - matches("image")
       - matches("vanity")
-      - matches("acl")
       - matches("schedule")
       - set_run_as
 
@@ -77,7 +78,6 @@ reference:
       - create_random_name
       - dashboard_url
       - dashboard_url_chr
-      - vec_cast.fs_bytes
 
 
   - title: "R6 classes"
@@ -93,5 +93,5 @@ reference:
       - VariantSchedule
       - Vanity
       - Content
-      - RStudioConnect
+      - PositConnect
       - Environment

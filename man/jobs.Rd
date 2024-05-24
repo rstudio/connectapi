@@ -16,21 +16,19 @@ get_job(content, key)
 }
 \description{
 \lifecycle{experimental} Retrieve details about jobs associated with a \code{content_item}.
-"Jobs" in RStudio Connect are content executions
+"Jobs" in Posit Connect are content executions
 }
 \seealso{
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{content_update}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

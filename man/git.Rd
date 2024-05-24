@@ -26,7 +26,7 @@ repo_check_manifest_dirs(client, repository, branch)
 \item{branch}{The git branch to explore for subdirectories}
 }
 \description{
-These functions help use RStudio Connect's configured authorization to query
+\lifecycle{experimental} These functions help use Posit Connect's configured authorization to query
 available branches and subdirectories for deployment using \code{deploy_repo()}
 }
 \details{
@@ -40,17 +40,15 @@ available branches and subdirectories for deployment using \code{deploy_repo()}
 connectapi::deploy_repo
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{content_update}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

@@ -13,7 +13,7 @@ verify_content_name(name)
 The name (or an error if invalid)
 }
 \description{
-Ensures that a content name fits the specifications / requirements of RStudio
+Ensures that a content name fits the specifications / requirements of Posit
 Connect. Throws an error if content name is invalid. Content names (as of the
 time of writing) must be between 3 and 64 alphanumeric characters, dashes,
 and underscores
@@ -22,17 +22,15 @@ and underscores
 connectapi::create_random_name
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{content_update}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

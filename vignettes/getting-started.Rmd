@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 ## Connecting
 
 The first thing that you need to accomplish when using the `connectapi` is
-getting connected to your RStudio Connect server. This requires the URL to your
+getting connected to your Posit Connect server. This requires the URL to your
 server and an API key. Directions on how to get an API key are
-[here](https://docs.rstudio.com/connect/user/api-keys/#api-keys).
+[here](https://docs.posit.co/connect/user/api-keys/#api-keys).
 
 Once you have your API key, you can create a Connect object in your code, like so:
 
@@ -91,7 +91,7 @@ content_1 %>%
 ```
 
 If you have content that already exists and you want to update it, you can do so using the content GUID
-(which you can find within RStudio Connect in the Info pane).
+(which you can find within Posit Connect in the Info pane).
 
 ```r
 content_2 <- client %>%
@@ -99,7 +99,7 @@ content_2 <- client %>%
   poll_task()
 ```
 
-You can also use the RStudio Connect content GUID to retrieve information about
+You can also use the Posit Connect content GUID to retrieve information about
 existing content (if you want to examine or change settings)
 
 ```r

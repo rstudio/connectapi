@@ -12,21 +12,21 @@ get_procs(src)
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{pid}}{The PID of the current process}
-\item{\strong{appId}}{The application ID}
-\item{\strong{appGuid}}{The application GUID}
-\item{\strong{appName}}{The application name}
-\item{\strong{appUrl}}{The application URL}
-\item{\strong{appRunAs}}{The application RunAs user}
-\item{\strong{type}}{The type of process}
-\item{\strong{cpuCurrent}}{The current CPU usage}
-\item{\strong{cpuTotal}}{The total CPU usage}
-\item{\strong{ram}}{The current RAM usage}
+\item \code{pid}: The PID of the current process
+\item \code{appId}: The application ID
+\item \code{appGuid}: The application GUID
+\item \code{appName}: The application name
+\item \code{appUrl}: The application URL
+\item \code{appRunAs}: The application RunAs user
+\item \code{type}: The type of process
+\item \code{cpuCurrent}: The current CPU usage
+\item \code{cpuTotal}: The total CPU usage
+\item \code{ram}: The current RAM usage
 }
 }
 \description{
 \lifecycle{experimental}
-This returns real-time process data from the RStudio Connect API. It requires
+This returns real-time process data from the Posit Connect API. It requires
 administrator privileges to use. NOTE that this only returns data for the
 server that responds to the request (i.e. in a Highly Available cluster)
 }

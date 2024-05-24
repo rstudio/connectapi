@@ -1,9 +1,3 @@
-context("git")
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
@@ -27,8 +21,8 @@ test_that("git deployment works", {
 
 test_that("repo_check_account works", {
   scoped_experimental_silence()
-  acc <- expect_message(
-    repo_check_account(test_conn_1, "https://github.com"),
+  expect_message(
+    acc <- repo_check_account(test_conn_1, "https://github.com"),
     "anonymous"
   )
 
@@ -54,7 +48,7 @@ test_that("repo_check_branches_ref works", {
   )
 
   br <- repo_check_branches_ref(test_conn_1, "https://github.com/rstudio/connectapi")
-  expect_is(br, "character")
+  expect_type(br, "character")
   expect_true("main" %in% names(br))
   expect_false("main" %in% br)
   expect_true(all(nchar(br) == 40))

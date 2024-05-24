@@ -1,7 +1,7 @@
 #' Paging
 #'
 #' Helper functions that make paging easier in
-#' the RStudio Connect Server API.
+#' the Posit Connect Server API.
 #'
 #' @rdname paging
 #'
@@ -43,7 +43,7 @@ page_cursor <- function(client, req, limit = Inf) {
 #' Paging
 #'
 #' Helper functions that make paging easier in
-#' the RStudio Connect Server API.
+#' the Posit Connect Server API.
 #'
 #' @rdname paging
 #'

@@ -45,7 +45,6 @@
 #' Search a tag tree:
 #' - `filter_tag_tree_chr()` - filters a tag tree based on a regex
 #' - `filter_tag_tree_id()` - filters a tag tree based on an id
-#' -
 #'
 #' @export
 #' @rdname tags
@@ -141,10 +140,10 @@ connect_tag_tree <- function(tag_data, filter = "filtered") {
 #' @export
 print.connect_tag_tree <- function(x, ...) {
   if (!is.null(attr(x, "filter"))) {
-    cat(glue::glue("RStudio Connect Tag Tree ({attr(x, 'filter')})"))
+    cat(glue::glue("Posit Connect Tag Tree ({attr(x, 'filter')})"))
     cat("\n")
   } else {
-    cat("RStudio Connect Tag Tree\n")
+    cat("Posit Connect Tag Tree\n")
   }
   if (length(x) > 0) {
     recursive_tag_print(x, "")
@@ -159,7 +158,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res
+    res
   }
 }
 
@@ -169,7 +168,7 @@ print.connect_tag_tree <- function(x, ...) {
   if (is.list(res)) {
     connect_tag_tree(res)
   } else {
-   res
+    res
   }
 }
 
@@ -179,7 +178,7 @@ print.connect_tag_tree <- function(x, ...) {
   warn_once(
     "`[` drops the `connect_tag_tree` class. Use `$` or `[[` instead",
     id = "[.connect_tag_tree"
-    )
+  )
   res
 }
 
@@ -193,7 +192,7 @@ get_content_tags <- function(content) {
   # TODO: find a way to build a tag tree from a list of tags
 
   tagtree <- get_tags(content$get_connect())
-  res <- filter_tag_tree_id(tagtree, purrr::map_chr(ctags, ~ .x$id))
+  res <- filter_tag_tree_id(tagtree, purrr::map_chr(ctags, ~ as.character(.x$id)))
   attr(res, "filter") <- "content"
   res
 }
@@ -240,7 +239,7 @@ set_content_tags <- function(content, ...) {
 }
 
 .get_tag_id <- function(.x) {
-  if (inherits(.x, "connect_tag_tree") && ! "id" %in% names(.x)) {
+  if (inherits(.x, "connect_tag_tree") && !"id" %in% names(.x)) {
     print(.x)
     stop("this tag does not have an 'id'. Is it a tag list?")
   }
@@ -365,7 +364,7 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   tags_noname <- tags
   tags_noname$name <- NULL
   tags_noname$id <- NULL
-  recurse_res <- purrr::map_chr(tags_noname, ~ recursive_find_tag(.x, tag, parent_id))
+  recurse_res <- purrr::map_chr(tags_noname, ~ as.character(recursive_find_tag(.x, tag, parent_id)))
   recurse_res_any <- recurse_res[!is.na(recurse_res)]
   if (length(recurse_res_any) == 0) {
     recurse_res_any <- NA_real_
@@ -373,17 +372,17 @@ recursive_find_tag <- function(tags, tag, parent_id = NULL) {
   names(recurse_res_any) <- NULL
 
   if (!is.na(recurse_res_any)) {
-    recurse_res_any
+    return(recurse_res_any)
   } else if (is.null(parent_id) && !is.null(tags$name) && tags$name == tag) {
     res <- tags$id
     names(res) <- NULL
-    res
+    return(res)
   } else if (!is.null(parent_id) && tags$id == parent_id && tag %in% names(tags_noname)) {
     res <- tags[[tag]]$id
     names(res) <- NULL
-    res
+    return(res)
   } else {
-    NA_real_
+    return(NA_real_)
   }
 }
 
@@ -435,8 +434,8 @@ tag_tree <- function(.x) {
 }
 
 parse_tags_tbl <- function(x) {
-  parsed_tags <- purrr::map_dfr(x, ~{
-    out <- dplyr::tibble(
+  parsed_tags <- purrr::map_dfr(x, ~ {
+    out <- tibble::tibble(
       id = as.character(.x$id),
       name = .x$name,
       created_time = .x$created_time,
@@ -446,7 +445,7 @@ parse_tags_tbl <- function(x) {
 
     if (length(.x$children) > 0) {
       child <- parse_tags_tbl(.x$children)
-      out <- dplyr::bind_rows(out, child)
+      out <- rbind(out, child)
     }
 
     return(out)
@@ -462,13 +461,15 @@ pc <- function(...) {
 }
 
 is_latex_output <- function() {
-  if (!("knitr" %in% loadedNamespaces())) return(FALSE)
+  if (!("knitr" %in% loadedNamespaces())) {
+    return(FALSE)
+  }
   get("is_latex_output", asNamespace("knitr"))()
 }
 
 is_utf8_output <- function() {
   opt <- getOption("cli.unicode", NULL)
-  if (! is.null(opt)) {
+  if (!is.null(opt)) {
     isTRUE(opt)
   } else {
     l10n_info()$`UTF-8` && !is_latex_output()
@@ -479,15 +480,15 @@ is_utf8_output <- function() {
 box_chars <- function() {
   if (is_utf8_output()) {
     list(
-      "h" = "\u2500",                   # horizontal
-      "v" = "\u2502",                   # vertical
+      "h" = "\u2500", # horizontal
+      "v" = "\u2502", # vertical
       "l" = "\u2514",
       "j" = "\u251C"
     )
   } else {
     list(
-      "h" = "-",                        # horizontal
-      "v" = "|",                        # vertical
+      "h" = "-", # horizontal
+      "v" = "|", # vertical
       "l" = "\\",
       "j" = "+"
     )

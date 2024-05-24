@@ -1,9 +1,3 @@
-context("test group apis")
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 user_guid <- NULL
 group_guid <- NULL
 

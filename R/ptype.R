@@ -87,7 +87,7 @@ connectapi_ptypes <- list(
     "name" = NA_character_,
     "title" = NA_character_,
     "bundle_id" = NA_integer_,
-    #(1=shiny, 2=shiny Rmd, 3=source Rmd, 4=static, 5=api, 6=tensorflow, 7=python, 8=flask, 9=dash, 10=streamlit)
+    # (1=shiny, 2=shiny Rmd, 3=source Rmd, 4=static, 5=api, 6=tensorflow, 7=python, 8=flask, 9=dash, 10=streamlit)
     "app_mode" = NA_integer_,
     "content_category" = NA_character_,
     "has_parameters" = NA,
@@ -129,34 +129,6 @@ connectapi_ptypes <- list(
     cpuCurrent = NA_real_,
     cpuTotal = NA_integer_,
     ram = fs::as_fs_bytes(NA_integer_)
-  ),
-  acl_user = tibble::tibble(
-    content_guid = NA_character_,
-    content_access_type = NA_character_,
-    email = NA_character_,
-    username = NA_character_,
-    first_name = NA_character_,
-    last_name = NA_character_,
-    password = NA_character_,
-    user_role = NA_character_,
-    created_time = NA_datetime_,
-    updated_time = NA_datetime_,
-    active_time = NA_datetime_,
-    confirmed = NA,
-    locked = NA,
-    guid = NA_character_,
-    app_role = NA_character_,
-    is_owner = NA
-  ),
-  acl_group = tibble::tibble(
-    owner_guid = NA_character_,
-    name = NA_character_,
-    members = NA_list_,
-    owner = NA_character_,
-    guid = NA_character_,
-    app_role = NA_character_,
-    content_guid = NA_character_,
-    content_access_type = NA_character_
   ),
   variant = tibble::tibble(
     id = NA_integer_,

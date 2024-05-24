@@ -8,21 +8,36 @@ VariantSchedule <- R6::R6Class(
   # TODO: would be cool to have multiple inheritance...
   inherit = Variant,
   public = list(
+    #' @field schedule_data The schedule data.
     schedule_data = NULL,
+    #' @description Initialize this schedule.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param key The variant key.
+    #' @param schedule The schedule data.
     initialize = function(connect, content, key, schedule) {
       super$initialize(connect = connect, content = content, key = key)
       # TODO: need to validate schedule (needs an ID)
       self$schedule_data <- schedule
     },
+    #' @description Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
     GET = function(path) {
       self$get_connect()$GET(path)
     },
+    #' @description Perform an HTTP POST request of the named API path. Returns an object parsed from the HTTP response.
+    #' @param path API path.
+    #' @param body The HTTP payload.
     POST = function(path, body) {
       self$get_connect()$POST(path = path, body = body)
     },
+    #' @description Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
+    #' @param path API path.
     DELETE = function(path) {
       self$get_connect()$DELETE(path = path)
     },
+    #' @description Set the schedule for this variant
+    #' @param ... Schedule fields.
     set_schedule = function(...) {
       warn_experimental("set_schedule")
       params <- rlang::list2(...)
@@ -37,10 +52,10 @@ VariantSchedule <- R6::R6Class(
           params,
           app_id = self$get_variant()$app_id,
           variant_id = self$get_variant()$id
-          )
+        )
         path <- "schedules"
       } else {
-        path <- glue::glue("schedules/{self$get_schedule()$id}")
+        path <- unversioned_url("schedules", self$get_schedule()$id)
       }
       cli <- self$get_connect()
       res <- cli$POST(path = path, body = params)
@@ -48,6 +63,7 @@ VariantSchedule <- R6::R6Class(
       self$schedule_data <- res
       return(self)
     },
+    #' @description Return if this variant has a schedule.
     is_empty = function() {
       if (length(self$schedule_data) == 0) {
         TRUE
@@ -55,6 +71,8 @@ VariantSchedule <- R6::R6Class(
         FALSE
       }
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
       super$print(...)
       cat("Schedule:\n")
@@ -65,14 +83,17 @@ VariantSchedule <- R6::R6Class(
         cat(c("", paste0(" ", self$describe_schedule(), "\n")))
       }
     },
+    #' @description Get the schedule data.
     get_schedule = function() {
       return(self$schedule_data)
     },
+    #' @description Get and store the (remote) schedule data.
     get_schedule_remote = function() {
       sch <- super$get_schedule_remote()
       self$schedule_data <- sch
       return(self$schedule_data)
     },
+    #' @description Description of the associated schedule.
     describe_schedule = function() {
       # TODO: create a human readable description of schedule
       if (!self$is_empty()) {
@@ -80,8 +101,7 @@ VariantSchedule <- R6::R6Class(
         schdata <- jsonlite::fromJSON(rawdata$schedule)
         # TODO: translate dayofweek "Days" to something more usable
         plural <- ifelse(ifelse(is.null(schdata$N), FALSE, schdata$N > 1), "s", "")
-        desc <- switch(
-          rawdata$type,
+        desc <- switch(rawdata$type,
           "minute" = glue::glue("Every {schdata$N} minute{plural}"),
           "hour" = glue::glue("Every {schdata$N} hour{plural}"),
           "day" = glue::glue("Every {schdata$N} day{plural}"),
@@ -109,7 +129,7 @@ VariantSchedule <- R6::R6Class(
 
 .get_offset <- function(connect, timezone) {
   # TODO: some type of cache to reduce churn here?
-  tz <- connect$GET("timezones")
+  tz <- connect$GET(unversioned_url("timezones"))
   res <- purrr::keep(tz, ~ .x[["timezone"]] == timezone)
   if (length(res) != 1) {
     stop(glue::glue("ERROR: timezone '{timezone}' not found"))
@@ -147,11 +167,11 @@ get_variant_schedule <- function(variant) {
 #' \lifecycle{experimental} Sets the schedule for a given Variant. Requires a
 #' `Schedule` object (as returned by `get_variant_schedule()`)
 #'
-#' - `set_schedule()` is a raw interface to RStudio Connect's `schedule` API
+#' - `set_schedule()` is a raw interface to Posit Connect's `schedule` API
 #' - `set_schedule_*()` functions provide handy wrappers around `set_schedule()`
 #' - `set_schedule_remove()` removes a schedule / un-schedules a variant
 #'
-#' Beware, using `set_schedule()` currently uses the RStudio Connect `schedule` API
+#' Beware, using `set_schedule()` currently uses the Posit Connect `schedule` API
 #' directly, and so can be a little clunky. Using the `set_schedule_*()` is generally
 #' recommended.
 #'
@@ -174,9 +194,8 @@ get_variant_schedule <- function(variant) {
 #' @family schedule functions
 #' @export
 set_schedule <- function(
-  .schedule,
-  ...
-  ) {
+    .schedule,
+    ...) {
   warn_experimental("set_schedule")
   scoped_experimental_silence()
   validate_R6_class(.schedule, "VariantSchedule")
@@ -197,11 +216,11 @@ set_schedule <- function(
     }
   }
 
-  if ("type" %in% names(params) && ! "schedule" %in% names(params)) {
+  if ("type" %in% names(params) && !"schedule" %in% names(params)) {
     warning("Specifying 'type' without 'schedule' can cause unexpected results. Different schedule 'type's have different 'schedule' requirements")
   }
 
-  if ("type" %in% names(params) && ! params$type %in% schedule_types) {
+  if ("type" %in% names(params) && !params$type %in% schedule_types) {
     stop(glue::glue("Invalid `type` provided. Should be one of `schedule_types`: {params$type}"))
   }
 
@@ -294,7 +313,7 @@ example_schedules <- list(
 set_schedule_remove <- function(.schedule) {
   validate_R6_class(.schedule, "VariantSchedule")
   cli <- .schedule$get_connect()
-  path <- glue::glue("schedules/{.schedule$get_schedule()$id}")
+  path <- unversioned_url("schedules", .schedule$get_schedule()$id)
   cli$DELETE(path = path)
   get_variant(.schedule, .schedule$key)
 }
@@ -318,8 +337,8 @@ schedule_describe <- function(.schedule) {
 #' @family schedule functions
 #' @export
 get_timezones <- function(connect) {
-  raw_tz <- connect$GET("timezones")
-  tz_values <- purrr::map_chr(raw_tz, ~.x[["timezone"]])
+  raw_tz <- connect$GET(unversioned_url("timezones"))
+  tz_values <- purrr::map_chr(raw_tz, ~ .x[["timezone"]])
   tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
 
   return(as.list(rlang::set_names(tz_values, tz_display)))

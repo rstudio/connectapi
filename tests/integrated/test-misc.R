@@ -1,9 +1,3 @@
-context("test misc")
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 test_that("audit_logs work", {
   logs <- test_conn_1$audit_logs()
   expect_gt(length(logs$results), 0)

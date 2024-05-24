@@ -1,9 +1,3 @@
-context("test tags")
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 parent_tag_name <- uuid::UUIDgenerate(use.time = TRUE)
 child_tag_name <- uuid::UUIDgenerate(use.time = TRUE)
 
@@ -15,7 +9,9 @@ content_name <- uuid::UUIDgenerate(use.time = TRUE)
 tag_content <- NULL
 
 check_tag_exists <- function(con, id) {
-  res <- tryCatch(suppressMessages(con$tag(id)), error = function(e){return(e)})
+  res <- tryCatch(suppressMessages(con$tag(id)), error = function(e) {
+    return(e)
+  })
   if (is.numeric(res[["id"]])) {
     TRUE
   } else if (regexpr("simpleError", res) && regexpr("(404) Not Found", res)) {
@@ -64,7 +60,7 @@ test_that("associate tag with content", {
 
 test_that("get_tags works", {
   atags <- get_tags(test_conn_1)
-  expect_is(atags, "connect_tag_tree")
+  expect_s3_class(atags, "connect_tag_tree")
 })
 
 test_that("create_tag and delete_tag works", {
@@ -111,7 +107,7 @@ test_that("delete_tag errs for whole tree", {
   )
 })
 
-test_that('con$tag with id returns just one record', {
+test_that("con$tag with id returns just one record", {
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   capture.output(a1 <- create_tag_tree(test_conn_1, ptag_1, ctag_1))
@@ -167,8 +163,8 @@ test_that("get_content_tags and set_content_tags works", {
     c1 <- set_content_tags(
       app1,
       all_tags[[ptag_1]][[ctag_1_1]][[ctag_1_2]]
-      )
     )
+  )
   expect_identical(c1, app1)
   expect_length(get_content_tags(app1), 1)
 
@@ -177,8 +173,8 @@ test_that("get_content_tags and set_content_tags works", {
       app1,
       all_tags[[ptag_1]][[ctag_1_1]][[ctag_1_2]],
       all_tags[[ptag_1]][[ctag_2_1]]
-      )
     )
+  )
   expect_identical(c2, app1)
   expect_length(get_content_tags(app1)[[ptag_1]], 4) # 2 tags, id, name
 
@@ -188,7 +184,6 @@ test_that("get_content_tags and set_content_tags works", {
 })
 
 test_that("set_content_tag_tree works", {
-
   ptag_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_1 <- uuid::UUIDgenerate(use.time = TRUE)
   ctag_1_2 <- uuid::UUIDgenerate(use.time = TRUE)
@@ -209,8 +204,8 @@ test_that("set_content_tag_tree works", {
     c1 <- set_content_tag_tree(
       app1,
       ptag_1, ctag_1_1, ctag_1_2
-      )
     )
+  )
   expect_identical(c1, app1)
   expect_length(get_content_tags(app1), 1)
 
@@ -218,8 +213,8 @@ test_that("set_content_tag_tree works", {
     c2 <- set_content_tag_tree(
       app1,
       ptag_1, ctag_2_1
-      )
     )
+  )
   expect_identical(c2, app1)
   expect_length(get_content_tags(app1)[[ptag_1]], 4) # 2 tags, id, name
 

@@ -25,6 +25,12 @@ directory, generates a basic manifest file (using the first file as the
 \details{
 NOTE: the \code{rsconnect} package is required for this function to work properly.
 }
+\examples{
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+bundle_static(system.file("logo.png", package = "connectapi"))
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other deployment functions: 
 \code{\link{bundle_dir}()},

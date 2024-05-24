@@ -3,11 +3,11 @@ services:
 
   connect:
     hostname: connect
-    image: ghcr.io/rstudio/rstudio-connect:bionic-${RSC_VERSION}
+    image: ghcr.io/rstudio/rstudio-connect:${CONNECT_VERSION}
     scale: 2
     ports:
       - 3939
     privileged: true
     volumes:
-      - "${RSC_LICENSE_FILE}:/etc/rstudio-connect/rstudio-connect.lic"
+      - "${RSC_LICENSE_FILE}:/var/lib/rstudio-connect/license.lic"
     platform: linux/amd64

@@ -4,21 +4,35 @@
 \alias{Bundle}
 \title{Bundle}
 \description{
+Bundle
+
+Bundle
+}
+\details{
 An R6 class that represents a bundle
 }
 \seealso{
 Other R6 classes: 
-\code{\link{ContentTask}},
 \code{\link{Content}},
+\code{\link{ContentTask}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
+\code{\link{Variant}},
 \code{\link{VariantSchedule}},
-\code{\link{VariantTask}},
-\code{\link{Variant}}
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{path}}{The bundle path on disk.}
+
+\item{\code{size}}{The size of the bundle.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -31,19 +45,35 @@ Other R6 classes:
 \if{html}{\out{<a id="method-Bundle-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Bundle-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this content bundle.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bundle$new(path)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{The bundle path on disk.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bundle-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Bundle-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bundle$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bundle-clone"></a>}}

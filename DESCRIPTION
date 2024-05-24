@@ -1,27 +1,26 @@
 Type: Package
 Package: connectapi
-Title: Utilities for Interacting with the 'RStudio Connect' Server API
-Version: 0.1.2.9001
-Authors@R: 
+Title: Utilities for Interacting with the 'Posit Connect' Server API
+Version: 0.1.3.9000
+Authors@R:
     c(person(given = "Sean",
              family = "Lopp",
              role = c("aut")),
       person(given = "Cole",
              family = "Arendt",
              role = c("aut", "cre"),
-             email = "cole@rstudio.com"),
-      person(given = "RStudio PBC",
+             email = "cole@posit.co"),
+      person(given = "Posit, PBC",
              role = c("cph", "fnd")))
-Description: Provides a helpful 'R6' class and methods for interacting with 
-    the 'RStudio Connect' Server API along with some meaningful utility functions
-    for regular tasks. API documentation varies by 'RStudio Connect' installation
-    and version, but the latest documentation is also hosted publicly at 
-    <https://docs.rstudio.com/connect/api/>.
+Description: Provides a helpful 'R6' class and methods for interacting with
+    the 'Posit Connect' Server API along with some meaningful utility functions
+    for regular tasks. API documentation varies by 'Posit Connect' installation
+    and version, but the latest documentation is also hosted publicly at
+    <https://docs.posit.co/connect/api/>.
 License: MIT + file LICENSE
-URL: https://github.com/rstudio/connectapi
-Imports: 
-    config,
-    dplyr,
+URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
+BugReports: https://github.com/rstudio/connectapi/issues
+Imports:
     fs,
     glue,
     httr,
@@ -34,32 +33,29 @@ Imports:
     tibble,
     uuid,
     vctrs (>= 0.3.0),
-    yaml,
     bit64,
     jsonlite
-Suggests: 
-    crayon,
-    flexdashboard,
+Suggests:
+    covr,
+    dbplyr,
+    dplyr,
     ggplot2,
     gridExtra,
-    htmltools,
+    httptest,
     knitr,
     lubridate,
-    processx,
     rmarkdown,
     rprojroot,
+    rsconnect,
     spelling,
     testthat,
-    rsconnect,
-    webshot2,
-    covr,
-    mockery,
-    devtools
+    webshot2
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

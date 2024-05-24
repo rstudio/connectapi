@@ -15,6 +15,12 @@ Bundle A bundle object
 \description{
 Define a bundle from a path (a path directly to a tar.gz file)
 }
+\examples{
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other deployment functions: 
 \code{\link{bundle_dir}()},

@@ -14,33 +14,11 @@ status](https://github.com/rstudio/connectapi/workflows/R-CMD-check/badge.svg)](
 
 # connectapi <img src='man/figures/logo.svg' align="right" height="139" />
 
-This package provides an R client for the [RStudio Connect Server
-API](https://docs.rstudio.com/connect/api/) as well as helpful functions
-that utilize the client. The package is based on the `rsconnnect`
-[package](https://rstudio.github.io/rsconnect/), but is publicly
-exported to be easier to use, is extensible via an R6 class, and is
-separated from the `rsconnect` package for easier support and
-maintenance.
-
-## Disclaimer
-
-Because many of these functions are experimental, it is advisable to be
-cautious about (1) upgrading the package, (2) upgrading RStudio Connect
-when you care about the reproducibility of workflows that use
-`connectapi`. As a result, we would advise:
-
--   managing package versions with
-    [`renv`](https://rstudio.github.io/renv/)
--   test your dependent content before and after upgrading RStudio
-    Connect
-
-Please pay careful attention to the lifecycle badges of the various
-functions and warnings present when you are using experimental features.
-
-**Also, [please share
-feedback!!](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
-We love hearing how the RStudio Connect Server API is helpful and what
-additional endpoints would be useful!!**
+This package provides an R client for the [Posit Connect Server
+API](https://docs.posit.co/connect/api/), as well as helpful functions
+that utilize the client. It is designed to work with all supported
+versions of Connect, though some features may only be available to newer
+versions.
 
 ## Installation
 
@@ -63,8 +41,8 @@ To create a client:
 ``` r
 library(connectapi)
 client <- connect(
-  server = 'https://connect.example.com',
-  api_key = '<SUPER SECRET API KEY>'
+  server = "https://connect.example.com",
+  api_key = "<SUPER SECRET API KEY>"
 )
 ```
 
@@ -84,12 +62,11 @@ client <- connect()
 
 ## Getting Started
 
-Once a client is defined, you can use it to interact with RStudio
-Connect.
+Once a client is defined, you can use it to interact with Posit Connect.
 
 ### Exploring Data
 
-You can use the `get_` methods to retrieve data from the RStudio Connect
+You can use the `get_` methods to retrieve data from the Posit Connect
 server.
 
 ``` r
@@ -111,7 +88,7 @@ all_content <- get_content(client, limit = Inf)
 
 The `rsconnect` package is usually used for deploying content to
 Connect. However, if you want to use programmatic deployment with the
-RStudio Connect Server API, then these `connectapi` helpers should be
+Posit Connect Server API, then these `connectapi` helpers should be
 useful!
 
 ``` r
@@ -122,16 +99,16 @@ client <- connect()
 # NOTE: a `manifest.json` should already exist from `rsconnect::writeManifest()`
 
 bundle <- bundle_dir("./path/to/directory")
-content <- client %>% 
-  deploy(bundle, name = "my-app-name") %>% 
+content <- client %>%
+  deploy(bundle, name = "my-app-name") %>%
   poll_task()
 
 # set an image for content
 
-content %>% 
+content %>%
   set_image_path("./my/local/image.png")
 
-content %>% 
+content %>%
   set_image_url("http://url.example.com/image.png")
 
 # set image and a vanity URL
@@ -143,13 +120,13 @@ content %>%
 # change access_type to "anyone"
 
 content$update(access_type = "all")
-  
+
 # edit another piece of content
 
 client %>%
   content_item("the-content-guid") %>%
   set_vanity_url("/another-awesome-app")
-  
+
 # migrate content to another server
 
 client_prod <- connect(
@@ -178,55 +155,54 @@ client_prod %>% browse_api_docs()
 **Access Denied Errors?**
 
 This is likely due to either (1) `Connect$server` or `Connect$api_key`
-being defined improperly or (2) you do not have access to the RStudio
+being defined improperly or (2) you do not have access to the Posit
 Connect cluster to do the operation in question
 
-**Constant warning about version numbers**
+**Warning about version numbers**
 
-This warning is intentionally chatty. While version number mismatches
-between RStudio Connect and `connectapi` can be benign, we want you to
-be clear that `connectapi` is tightly coupled to a version of RStudio
-Connect (because RStudio Connect’s APIs change over time).
+We test the package against a range of versions of Connect, as old as
+1.8.8.2 (May 2021). If your Connect server is older than that, the
+package may still work, but `connectapi` will warn you.
 
 We strive to:
 
--   track the latest version of the RStudio Connect API
--   add new features as they come available and have demand
--   maintain backwards compatibility
+- track the latest version of the Posit Connect API
+- add new features as they come available and have demand
+- maintain backwards compatibility
 
 These priorities are sometimes at odds, and sometimes they create
 inconsistencies between versions as a result. To mitigate this, we
 recommend:
 
--   Track the version of `connectapi` in use for your applications by
-    using `renv`
--   Test high value content that uses `connectapi` before updating
-    `connectapi` or RStudio Connect
--   Update RStudio Connect to the latest version *first* when an update
-    to `connectapi` is needed
+- Track the version of `connectapi` in use for your applications by
+  using `renv`
+- Test high value content that uses `connectapi` before updating
+  `connectapi` or Posit Connect
+- Update Posit Connect to the latest version *first* when an update to
+  `connectapi` is needed
 
-**Error - Need to update RStudio Connect**
+**Error - Need to update Posit Connect**
 
 As a helpful clarification for users, we have added error messages to
 API requests when the version implemented in the package specifically
 introduces a backwards incompatible dependency on older versions of
-RStudio Connect.
+Posit Connect.
 
 If you get this error message, our recommendation would be:
 
--   Look at [`NEWS.md`](./NEWS.md) to find the moment the change was
-    introduced
--   Downgrade `connectapi` to the previous version of the package
--   (Advanced) Use the “blame” feature on GitHub to track commits and
-    find out when the error was introduced
+- Look at [`NEWS.md`](./NEWS.md) to find the moment the change was
+  introduced
+- Downgrade `connectapi` to the previous version of the package
+- (Advanced) Use the “blame” feature on GitHub to track commits and find
+  out when the error was introduced
 
 Please feel free to open an Issue if you think there is a bug, or ask a
-free-form question on [RStudio
-Community](https://community.rstudio.com/c/r-admin/rstudio-connect/27)
+free-form question on [Posit
+Community](https://forum.posit.co/c/posit-professional-hosted/posit-connect/27)
 
 **Other ideas for FAQs or Common Issues?**
 
-Please submit a PR! We would love to have your contribution!
+Please open an issue or PR! We would love to have your contribution!
 
 ## Code of Conduct
 

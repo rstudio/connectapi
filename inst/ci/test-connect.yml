@@ -3,7 +3,7 @@ services:
 
   connect:
     hostname: connect
-    image: ghcr.io/rstudio/rstudio-connect:bionic-${RSC_VERSION}
+    image: ghcr.io/rstudio/rstudio-connect:${CONNECT_VERSION}
     scale: 2
     ports:
       - 3939

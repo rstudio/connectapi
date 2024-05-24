@@ -10,15 +10,28 @@ name: integration-tests
 
 jobs:
   integration-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - "2024.03.0" # jammy
+          - "2023.09.0" # jammy
+          - "2023.03.0" # bionic
+          - "2022.09.0" # bionic
+          - "2022.03.2"
+          - "2021.09.0"
+          - "1.8.8.2"
+
     env:
-      RSC_VERSION: 2022.09.0
+      CONNECT_VERSION: ${{ matrix.version }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
       CONNECTAPI_INTEGRATED: true
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -38,6 +51,9 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
+      - name: Set up license file
+        run: echo "$CONNECT_LICENSE_FILE" > $RSC_LICENSE
+
       - name: Setup test environment
         run: |
           connectapi:::build_test_env()
@@ -54,5 +70,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@main
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
+          name: ${{ runner.os }}-${{ matrix.version }}-results
           path: check

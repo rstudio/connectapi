@@ -4,30 +4,32 @@
 \name{connectapi-package}
 \alias{connectapi}
 \alias{connectapi-package}
-\title{connectapi: Utilities for Interacting with the 'RStudio Connect' Server API}
+\title{connectapi: Utilities for Interacting with the 'Posit Connect' Server API}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides a helpful 'R6' class and methods for interacting with the 'RStudio Connect' Server API along with some meaningful utility functions for regular tasks. API documentation varies by 'RStudio Connect' installation and version, but the latest documentation is also hosted publicly at \url{https://docs.rstudio.com/connect/api/}.
+Provides a helpful 'R6' class and methods for interacting with the 'Posit Connect' Server API along with some meaningful utility functions for regular tasks. API documentation varies by 'Posit Connect' installation and version, but the latest documentation is also hosted publicly at \url{https://docs.posit.co/connect/api/}.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://pkgs.rstudio.com/connectapi/}
   \item \url{https://github.com/rstudio/connectapi}
+  \item Report bugs at \url{https://github.com/rstudio/connectapi/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Cole Arendt \email{cole@rstudio.com}
+\strong{Maintainer}: Cole Arendt \email{cole@posit.co}
 
 Authors:
 \itemize{
-  \item Sean Lopp \email{sean@rstudio.com}
+  \item Sean Lopp
 }
 
 Other contributors:
 \itemize{
-  \item RStudio PBC [copyright holder, funder]
+  \item Posit, PBC [copyright holder, funder]
 }
 
 }

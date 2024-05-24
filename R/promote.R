@@ -27,7 +27,6 @@ promote <- function(from,
                     to_key,
                     from_key,
                     name) {
-
   # TODO Validate Inputs
 
   # set up clients

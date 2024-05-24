@@ -1,9 +1,3 @@
-context("test deployment pipelines")
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
-
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
 cont1_guid <- NULL
@@ -30,10 +24,17 @@ test_that("can upload and deploy content", {
   expect_silent(as.integer(res[["bundle_id"]]))
 
   task <- test_conn_1$content_deploy(guid = cont1_guid, bundle_id = res[["bundle_id"]])
-  expect_is(task[["task_id"]], "character")
+  expect_type(task[["task_id"]], "character")
 })
 
 test_that("can promote content to another server", {
+  tryCatch(
+    test_conn_2 <- connect(prefix = "TEST_2"),
+    error = function(e) {
+      skip("Second test server not available")
+    }
+  )
+
   # TODO : Intermittent failures here... with a 404 response on GET
   # during the download_bundle... connect.R:154
   res <- promote(
@@ -44,7 +45,7 @@ test_that("can promote content to another server", {
     name = cont1_name
   )
 
-  expect_is(res, "character")
+  expect_type(res, "character")
 
   cont1_2 <- content_ensure(
     connect = test_conn_2,
@@ -67,7 +68,7 @@ test_that("content_ensure works with guid", {
 
 test_that("content_ensure works with name", {
   expect_message(c_new <- content_ensure(test_conn_1))
-  expect_is(c_new[["guid"]], "character")
+  expect_type(c_new[["guid"]], "character")
 
   expect_message(
     c_same <- content_ensure(test_conn_1, name = c_new[["name"]])

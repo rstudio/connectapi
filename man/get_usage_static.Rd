@@ -10,7 +10,7 @@ get_usage_static(
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -54,30 +54,30 @@ Ordering is by the started timestamp field.}
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{content_guid}}{The GUID, in RFC4122 format, of the Shiny
-application this information pertains to.}
-\item{\strong{user_guid}}{The GUID, in RFC4122 format, of the user that
-visited the application.}
-\item{\strong{variant_key}}{The key of the variant the user visited.
-This will be null for static content.}
-\item{\strong{time}}{The timestamp, in RFC3339 format, when the user
-visited the content.}
-\item{\strong{rendering_id}}{The ID of the rendering the user visited.
-This will be null for static content.}
-\item{\strong{bundle_id}}{The ID of the particular bundle used.}
-\item{\strong{data_version}}{The data version the record was recorded
+\item \code{content_guid}: The GUID, in RFC4122 format, of the Shiny
+application this information pertains to.
+\item \code{user_guid}: The GUID, in RFC4122 format, of the user that
+visited the application.
+\item \code{variant_key}: The key of the variant the user visited.
+This will be null for static content.
+\item \code{time}: The timestamp, in RFC3339 format, when the user
+visited the content.
+\item \code{rendering_id}: The ID of the rendering the user visited.
+This will be null for static content.
+\item \code{bundle_id}: The ID of the particular bundle used.
+\item \code{data_version}: The data version the record was recorded
 with. The Rendered and Static Content Visit Events section of the
-RStudio Connect Admin Guide explains how to interpret data_version
-values.}
+Posit Connect Admin Guide explains how to interpret data_version
+values.
 }
 }
 \description{
 This function retrieves usage information from static content
-on the RStudio Connect server (e.g. Rmarkdown, Jupyter Notebooks)
+on the Posit Connect server (e.g. Rmarkdown, Jupyter Notebooks)
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getContentVisits for more
-information
+Please see https://docs.posit.co/connect/api/#getContentVisits for more
+information.
 }
 \examples{
 \dontrun{

@@ -15,7 +15,7 @@ content_update_owner(content, owner_guid)
 \arguments{
 \item{content}{An R6 content item}
 
-\item{...}{Settings up update that are passed along to RStudio Connect}
+\item{...}{Settings up update that are passed along to Posit Connect}
 
 \item{access_type}{One of "all", "logged_in", or "acl"}
 
@@ -27,7 +27,7 @@ An R6 content item
 }
 \description{
 Update settings for a content item. For a list of all settings, see the
-\href{https://docs.rstudio.com/connect/api/#patch-/v1/content/{guid}}{latest documentation}
+\href{https://docs.posit.co/connect/api/#patch-/v1/content/{guid}}{latest documentation}
 or the documentation for your server via \code{connectapi::browse_api_docs()}.
 }
 \details{
@@ -42,16 +42,14 @@ etc.
 }
 \seealso{
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

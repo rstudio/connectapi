@@ -67,7 +67,6 @@ Search a tag tree:
 \itemize{
 \item \code{filter_tag_tree_chr()} - filters a tag tree based on a regex
 \item \code{filter_tag_tree_id()} - filters a tag tree based on an id
-\item 
 }}
 
 \item{tag}{A \code{connect_tag_tree} object (as returned by \code{get_tags()})}

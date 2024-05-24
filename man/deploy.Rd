@@ -39,7 +39,7 @@ deploy_current(content)
 Task A task object
 }
 \description{
-Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+Deploys a bundle (tarball) to an Posit Connect server. If not provided,
 \code{name} (a unique identifier) will be an auto-generated alphabetic string. If
 deploying to an existing endpoint, you can set \code{name} or \code{guid} to the
 desired content.
@@ -52,13 +52,19 @@ for an existing content item.
 }
 \examples{
 \dontrun{
-  client <- connect()
+client <- connect()
 
-  # beware bundling big directories, like `renv/`, `data/`, etc.
-  bnd <- bundle_dir(".")
+# beware bundling big directories, like `renv/`, `data/`, etc.
+bnd <- bundle_dir(".")
 
-  deploy(client, bnd)
+deploy(client, bnd)
 }
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+client <- connect(prefix = "TEST_1")
+bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
+deploy(client, bnd)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 connectapi::content_update

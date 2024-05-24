@@ -4,6 +4,11 @@
 \alias{ContentTask}
 \title{ContentTask}
 \description{
+ContentTask
+
+ContentTask
+}
+\details{
 An R6 class that represents a Task for a piece of Content
 }
 \seealso{
@@ -11,16 +16,25 @@ Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{Environment}},
-\code{\link{RStudioConnect}},
+\code{\link{PositConnect}},
 \code{\link{Task}},
 \code{\link{Vanity}},
+\code{\link{Variant}},
 \code{\link{VariantSchedule}},
-\code{\link{VariantTask}},
-\code{\link{Variant}}
+\code{\link{VariantTask}}
 }
 \concept{R6 classes}
 \section{Super class}{
 \code{\link[connectapi:Content]{connectapi::Content}} -> \code{ContentTask}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{task}}{The task.}
+
+\item{\code{data}}{The task data.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -48,8 +62,6 @@ Other R6 classes:
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content"><a href='../../connectapi/html/Content.html#method-Content-get_content'><code>connectapi::Content$get_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url"><a href='../../connectapi/html/Content.html#method-Content-get_dashboard_url'><code>connectapi::Content$get_dashboard_url()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_job"><a href='../../connectapi/html/Content.html#method-Content-get_job'><code>connectapi::Content$get_job()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_jobs"><a href='../../connectapi/html/Content.html#method-Content-get_jobs'><code>connectapi::Content$get_jobs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url"><a href='../../connectapi/html/Content.html#method-Content-get_url'><code>connectapi::Content$get_url()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="internal_content"><a href='../../connectapi/html/Content.html#method-Content-internal_content'><code>connectapi::Content$internal_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="job"><a href='../../connectapi/html/Content.html#method-Content-job'><code>connectapi::Content$job()</code></a></span></li>
@@ -60,7 +72,6 @@ Other R6 classes:
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>connectapi::Content$permissions_update()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>connectapi::Content$repo_enable()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>connectapi::Content$repo_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="runas"><a href='../../connectapi/html/Content.html#method-Content-runas'><code>connectapi::Content$runas()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>connectapi::Content$tag_set()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>connectapi::Content$tags()</code></a></span></li>
@@ -73,15 +84,28 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize this task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$new(connect, content, task)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{connect}}{The \code{Connect} instance.}
+
+\item{\code{content}}{The \code{Content} instance.}
+
+\item{\code{task}}{The task data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-get_task"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-get_task}{}}}
 \subsection{Method \code{get_task()}}{
+Return the underlying task.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$get_task()}\if{html}{\out{</div>}}
 }
@@ -91,15 +115,24 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-add_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-add_data}{}}}
 \subsection{Method \code{add_data()}}{
+Set the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$add_data(data)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{The data.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-get_data}{}}}
 \subsection{Method \code{get_data()}}{
+Get the data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$get_data()}\if{html}{\out{</div>}}
 }
@@ -109,10 +142,18 @@ Other R6 classes:
 \if{html}{\out{<a id="method-ContentTask-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ContentTask-print}{}}}
 \subsection{Method \code{print()}}{
+Print this object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ContentTask$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Unused.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ContentTask-clone"></a>}}

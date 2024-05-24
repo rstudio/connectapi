@@ -43,12 +43,12 @@ deploy_repo_update(content)
 A ContentTask object, for use with \code{poll_task()} (if you want to follow the logs)
 }
 \description{
-\lifecycle{experimental} Deploy a git repository directly to RStudio Connect,
-using RStudio Connect's "pull-based" "git-polling" method of deployment.
+\lifecycle{experimental} Deploy a git repository directly to Posit Connect,
+using Posit Connect's "pull-based" "git-polling" method of deployment.
 }
 \details{
 \itemize{
-\item \code{deploy_repo_enable()} enables (or disables) RStudio Connect's git polling for a piece of content
+\item \code{deploy_repo_enable()} enables (or disables) Posit Connect's git polling for a piece of content
 \item \code{deploy_repo_update()} triggers an update of the content from its git repository, if any are present
 }
 }
@@ -56,16 +56,14 @@ using RStudio Connect's "pull-based" "git-polling" method of deployment.
 connectapi::poll_task, connectapi::repo_check_branches, connectapi::repo_check_manifest_dirs
 
 Other content functions: 
-\code{\link{acl_add_user}()},
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},
 \code{\link{content_update}()},
 \code{\link{create_random_name}()},
-\code{\link{dashboard_url_chr}()},
 \code{\link{dashboard_url}()},
+\code{\link{dashboard_url_chr}()},
 \code{\link{delete_vanity_url}()},
-\code{\link{get_acl_user}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
 \code{\link{get_image}()},

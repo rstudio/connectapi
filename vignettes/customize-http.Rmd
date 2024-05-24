@@ -68,7 +68,7 @@ procured from a public CA.
 # disabling certificate trust (can allow man-in-the-middle attacks, etc.)
 httr::set_config(httr::config(ssl_verifypeer = 0, ssl_verifyhost = 0))
 
-# should work 
+# should work
 client <- connect()
 get_users(client)
 ```
@@ -97,12 +97,12 @@ will then be saved and passed to any subsequent `GET`, `PUT`, `POST`, `PATCH`,
 
 ```{r}
 # for instance, to set custom headers (i.e. to get through a proxy)
-client$httr_config(httr::add_headers(MY_MAGIC_HEADER="value"))
+client$httr_config(httr::add_headers(MY_MAGIC_HEADER = "value"))
 
 # or to clear sticky cookies if you want to switch nodes in an HA cluster
 client <- connect()
 client$server_settings()$hostname
-client$httr_config(handle = httr::handle(''))
+client$httr_config(handle = httr::handle(""))
 
 # now you have a chance to get a new host
 client$server_settings()$hostname
@@ -121,12 +121,12 @@ Suffice it to say that effectively using Kerberos for HTTP is a bit of an
 advanced topic. However, it _is_ possible with `httr`.
 
 It is worth noting that today, this interferes with API key authentication, which we
-are hoping to improve in a future release of RStudio Connect.
+are hoping to improve in a future release of Posit Connect.
 
 ```{r}
 # disables authentication header that is included by default
-client$using_auth = FALSE
+client$using_auth <- FALSE
 
 # use Kerberos authentication mechanism (requires local credential cache)
-client$httr_config(httr::authenticate(":", "", type="gssnegotiate"))
+client$httr_config(httr::authenticate(":", "", type = "gssnegotiate"))
 ```

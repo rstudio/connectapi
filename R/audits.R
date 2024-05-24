@@ -39,7 +39,6 @@ cache_apps <- function(connect) {
 #' @family audit functions
 #' @export
 audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
-
   # TODO: why does vanities not work?
   urls <- get_field(apps, "url")
   parse_server <- httr::parse_url(server_url)
@@ -61,17 +60,17 @@ audit_vanity_urls <- function(apps, server_url, vanity = NULL) {
 }
 
 trim_vanity <- function(url, server_path) {
-    parsed_url <- httr::parse_url(url)
-    if (nchar(server_path) > 0) {
-      # remove the trailing slash
-      server_path <- base::sub("^(.*)/$", "\\1", server_path)
-      vanity <- sub(server_path, "", parsed_url$path)
-    } else {
-      vanity <- parsed_url$path
-    }
+  parsed_url <- httr::parse_url(url)
+  if (nchar(server_path) > 0) {
+    # remove the trailing slash
+    server_path <- base::sub("^(.*)/$", "\\1", server_path)
+    vanity <- sub(server_path, "", parsed_url$path)
+  } else {
+    vanity <- parsed_url$path
+  }
 
-    # ensure leading and trailing slash
-    base::sub("^/?(.*[^/])/?$", "/\\1/", vanity)
+  # ensure leading and trailing slash
+  base::sub("^/?(.*[^/])/?$", "/\\1/", vanity)
 }
 
 

@@ -10,7 +10,7 @@ get_usage_shiny(
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -54,24 +54,25 @@ Ordering is by the started timestamp field.}
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{content_guid}}{The GUID, in RFC4122 format, of the
-Shiny application this information pertains to.}
-\item{\strong{user_guid}}{The GUID, in RFC4122 format, of the user
-that visited the application.}
-\item{\strong{started}}{The timestamp, in RFC3339 format, when the
-user opened the application.}
-\item{\strong{ended}}{The timestamp, in RFC3339 format, when the
-user left the application.}
-\item{\strong{data_version}}{The data version the record was recorded
-with. The Shiny Application Events section of the RStudio Connect Admin
-Guide explains how to interpret data_version values.}
+\item \code{content_guid}: The GUID, in RFC4122 format, of the
+Shiny application this information pertains to.
+\item \code{user_guid}: The GUID, in RFC4122 format, of the user
+that visited the application.
+\item \code{started}: The timestamp, in RFC3339 format, when the
+user opened the application.
+\item \code{ended}: The timestamp, in RFC3339 format, when the
+user left the application.
+\item \code{data_version}: The data version the record was recorded
+with. The Shiny Application Events section of the Posit Connect Admin
+Guide explains how to interpret data_version values.
 }
 }
 \description{
 Get usage information for deployed shiny applications
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getShinyAppUsage for more information
+Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more
+information.
 }
 \examples{
 \dontrun{

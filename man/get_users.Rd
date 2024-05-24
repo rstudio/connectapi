@@ -2,9 +2,9 @@
 % Please edit documentation in R/get.R
 \name{get_users}
 \alias{get_users}
-\title{Get user information from the RStudio Connect server}
+\title{Get user information from the Posit Connect server}
 \usage{
-get_users(src, page_size = 20, prefix = NULL, limit = 25)
+get_users(src, page_size = 500, prefix = NULL, limit = Inf)
 }
 \arguments{
 \item{src}{The source object}
@@ -19,30 +19,29 @@ The filter is case insensitive.}
 \value{
 A tibble with the following columns:
 \itemize{
-\item{\strong{email}}{The user's email}
-\item{\strong{username}}{The user's username}
-\item{\strong{first_name}}{The user's first name}
-\item{\strong{last_name}}{The user's last name}
-\item{\strong{user_role}}{The user's role. It may have a value of
-administrator, publisher or viewer.}
-\item{\strong{created_time}}{The timestamp (in RFC3339 format) when the
-user was created in the RStudio Connect server}
-\item{\strong{updated_time}}{The timestamp (in RFC3339 format) when the
-user was last updated in the RStudio Connect server}
-\item{\strong{active_time}}{The timestamp (in RFC3339 format) when the
-user was last active on the RStudio Connect server}
-\item{\strong{confirmed}}{When false, the created user must confirm their
-account through an email. This feature is unique to password
-authentication.}
-\item{\strong{locked}}{Whether or not the user is locked}
-\item{\strong{guid}}{The user's GUID, or unique identifier, in UUID RFC4122 format}
+\item \code{email}: The user's email
+\item \code{username}: The user's username
+\item \code{first_name}: The user's first name
+\item \code{last_name}: The user's last name
+\item \code{user_role}: The user's role. It may have a value of administrator,
+publisher or viewer.
+\item \code{created_time}: The timestamp (in RFC3339 format) when the user was
+created in the Posit Connect server
+\item \code{updated_time}: The timestamp (in RFC3339 format) when the user was last
+updated in the Posit Connect server
+\item \code{active_time}: The timestamp (in RFC3339 format) when the user was last
+active on the Posit Connect server
+\item \code{confirmed}: When false, the created user must confirm their account
+through an email. This feature is unique to password authentication.
+\item \code{locked}: Whether or not the user is locked
+\item \code{guid}: The user's GUID, or unique identifier, in UUID RFC4122 format
 }
 }
 \description{
-Get user information from the RStudio Connect server
+Get user information from the Posit Connect server
 }
 \details{
-Please see https://docs.rstudio.com/connect/api/#getUsers for more information
+Please see https://docs.posit.co/connect/api/#get-/v1/users for more information.
 }
 \examples{
 \dontrun{

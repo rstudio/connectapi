@@ -10,9 +10,13 @@ max_bundle_size <- "100M"
 Bundle <- R6::R6Class(
   "Bundle",
   public = list(
+    #' @field path The bundle path on disk.
     path = NULL,
+    #' @field size The size of the bundle.
     size = NULL,
 
+    #' @description Initialize this content bundle.
+    #' @param path The bundle path on disk.
     initialize = function(path) {
       self$path <- path
       self$size <- fs::file_size(path = path)
@@ -21,8 +25,10 @@ Bundle <- R6::R6Class(
       }
     },
 
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
-      cat("RStudio Connect Bundle: \n")
+      cat("Posit Connect Bundle: \n")
       cat("  Path: ", self$path, "\n", sep = "")
       cat("  Size: ", capture.output(self$size), "\n", sep = "")
       cat("\n")
@@ -42,34 +48,47 @@ Bundle <- R6::R6Class(
 Task <- R6::R6Class(
   "Task",
   public = list(
+    #' @field connect The Connect instance.
     connect = NULL,
+    #' @field task The task.
     task = NULL,
+    #' @field data The task data.
     data = NULL,
+    #' @description Initialize this task.
+    #' @param connect The `Connect` instance.
+    #' @param task The task data.
     initialize = function(connect, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
       # TODO: need to validate task (needs task_id)
-      if ("id" %in% names(task) && ! "task_id" %in% names(task)) {
+      if ("id" %in% names(task) && !"task_id" %in% names(task)) {
         # deal with different task interfaces on Connect
         task$task_id <- task$id
       }
       self$task <- task
     },
+    #' @description Return the associated Connect instance.
     get_connect = function() {
       self$connect
     },
+    #' @description Return the underlying task.
     get_task = function() {
       self$task
     },
+    #' @description Set the data.
+    #' @param data The data.
     add_data = function(data) {
       self$data <- data
       invisible(self)
     },
+    #' @description Get the data.
     get_data = function() {
       self$data
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
-      cat("RStudio Connect Task: \n")
+      cat("Posit Connect Task: \n")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
       cat("\n")
       invisible(self)
@@ -88,8 +107,14 @@ ContentTask <- R6::R6Class(
   inherit = Content,
   # implements the "Task" interface too
   public = list(
+    #' @field task The task.
     task = NULL,
+    #' @field data The task data.
     data = NULL,
+    #' @description Initialize this task.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param task The task data.
     initialize = function(connect, content, task) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -98,18 +123,24 @@ ContentTask <- R6::R6Class(
       # TODO: need to validate task (needs task_id)
       self$task <- task
     },
+    #' @description Return the underlying task.
     get_task = function() {
       self$task
     },
+    #' @description Set the data.
+    #' @param data The data.
     add_data = function(data) {
       self$data <- data
       invisible(self)
     },
+    #' @description Get the data.
     get_data = function() {
       self$data
     },
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
-      cat("RStudio Connect Content Task: \n")
+      cat("Posit Connect Content Task: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  URL: ", dashboard_url_chr(self$get_connect()$server, self$get_content()$guid), "\n", sep = "")
       cat("  Task ID: ", self$get_task()$task_id, "\n", sep = "")
@@ -129,7 +160,12 @@ Vanity <- R6::R6Class(
   "Vanity",
   inherit = Content,
   public = list(
+    #' @field vanity The vanity.
     vanity = NULL,
+    #' @description Initialize this vanity.
+    #' @param connect The `Connect` instance.
+    #' @param content The `Content` instance.
+    #' @param vanity The vanity data.
     initialize = function(connect, content, vanity) {
       validate_R6_class(connect, "Connect")
       self$connect <- connect
@@ -138,12 +174,15 @@ Vanity <- R6::R6Class(
       # TODO: validate vanity (needs path_prefix)
       self$vanity <- vanity
     },
+    #' @description Return the underlying vanity.
     get_vanity = function() {
       self$vanity
     },
 
+    #' @description Print this object.
+    #' @param ... Unused.
     print = function(...) {
-      cat("RStudio Connect Content Vanity URL: \n")
+      cat("Posit Connect Content Vanity URL: \n")
       cat("  Content GUID: ", self$get_content()$guid, "\n", sep = "")
       cat("  Vanity URL: ", self$get_vanity()$path, "\n", sep = "")
       cat("\n")
@@ -166,9 +205,8 @@ Vanity <- R6::R6Class(
 #' @export
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi))
+#' bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi"))
 bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
-
   # TODO: check for manifest.json
   stopifnot(fs::dir_exists(path))
   message(glue::glue("Bundling directory ({path})"))
@@ -187,7 +225,7 @@ bundle_dir <- function(path = ".", filename = fs::file_temp(pattern = "bundle", 
 
 check_bundle_contents <- function(dir) {
   all_contents <- fs::path_file(fs::dir_ls(dir))
-  if (! "manifest.json" %in% all_contents) {
+  if (!"manifest.json" %in% all_contents) {
     stop(glue::glue("ERROR: no `manifest.json` file found in {dir}. Please generate with `rsconnect::writeManifest()`"))
   }
   if ("packrat.lock" %in% all_contents) {
@@ -215,7 +253,7 @@ check_bundle_contents <- function(dir) {
 #'
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_static(system.file("logo.png", package = "connectapi))
+#' bundle_static(system.file("logo.png", package = "connectapi"))
 #'
 #' @export
 bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz")) {
@@ -239,7 +277,7 @@ bundle_static <- function(path, filename = fs::file_temp(pattern = "bundle", ext
 #' @export
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
-#' bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
+#' bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
 bundle_path <- function(path) {
   # TODO: need a check on filetype
   # TODO: a way to check that the .tar.gz has a manifest.json?
@@ -264,7 +302,7 @@ bundle_path <- function(path) {
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite=FALSE) {
+download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite = FALSE) {
   validate_R6_class(content, "Content")
 
   from_content <- content$get_content_remote()
@@ -284,14 +322,14 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 
 
   message("Downloading bundle")
-  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite=overwrite)
+  content$bundle_download(bundle_id = bundle_id, filename = filename, overwrite = overwrite)
 
   Bundle$new(path = filename)
 }
 
 #' Deploy a bundle
 #'
-#' Deploys a bundle (tarball) to an RStudio Connect server. If not provided,
+#' Deploys a bundle (tarball) to an Posit Connect server. If not provided,
 #' `name` (a unique identifier) will be an auto-generated alphabetic string. If
 #' deploying to an existing endpoint, you can set `name` or `guid` to the
 #' desired content.
@@ -317,17 +355,17 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @export
 #' @examples
 #' \dontrun{
-#'   client <- connect()
+#' client <- connect()
 #'
-#'   # beware bundling big directories, like `renv/`, `data/`, etc.
-#'   bnd <- bundle_dir(".")
+#' # beware bundling big directories, like `renv/`, `data/`, etc.
+#' bnd <- bundle_dir(".")
 #'
-#'   deploy(client, bnd)
+#' deploy(client, bnd)
 #' }
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #'
 #' client <- connect(prefix = "TEST_1")
-#' bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi))
+#' bnd <- bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
 #' deploy(client, bnd)
 #'
 deploy <- function(connect, bundle, name = create_random_name(), title = name, guid = NULL, ..., .pre_deploy = {}) {
@@ -383,7 +421,7 @@ get_image <- function(content, path = NULL) {
   con <- content$get_connect()
 
   res <- con$GET_RESULT(
-    path = glue::glue("applications/{guid}/image"),
+    path = unversioned_url("applications", guid, "image"),
     writer = httr::write_memory()
   )
 
@@ -424,9 +462,7 @@ delete_image <- function(content, path = NULL) {
     get_image(content, path)
   }
 
-  res <- con$DELETE(
-    glue::glue("applications/{guid}/image")
-  )
+  res <- con$DELETE(unversioned_url("applications", guid, "image"))
 
   return(content)
 }
@@ -440,9 +476,7 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
-  res <- con$GET_RESULT(
-    glue::glue("applications/{guid}/image")
-  )
+  res <- con$GET_RESULT(unversioned_url("applications", guid, "image"))
 
   if (httr::status_code(res) == 204) {
     FALSE
@@ -477,7 +511,7 @@ set_image_path <- function(content, path) {
   con <- content$get_connect()
 
   res <- con$POST(
-    path = glue::glue("applications/{guid}/image"),
+    path = unversioned_url("applications", guid, "image"),
     body = httr::upload_file(path)
   )
 
@@ -512,14 +546,17 @@ set_image_webshot <- function(content, ...) {
     warning(glue::glue(
       "WARNING: unable to take webshot for content ",
       "'{content_details$guid}' because authentication is not possible yet. ",
-      "Set access_type='all' to proceed."))
+      "Set access_type='all' to proceed."
+    ))
     return(content)
   }
 
   # default args
   args <- rlang::list2(...)
 
-  if(!"cliprect" %in% names(args)) {args["cliprect"] <- "viewport"}
+  if (!"cliprect" %in% names(args)) {
+    args["cliprect"] <- "viewport"
+  }
 
 
   rlang::inject(webshot2::webshot(
@@ -562,7 +599,7 @@ set_vanity_url <- function(content, url, force = FALSE) {
   # TODO: Check that the URL provided is appropriate
 
   res <- con$PUT(
-    path = glue::glue("v1/content/{guid}/vanity"),
+    path = v1_url("content", guid, "vanity"),
     body = list(
       path = url,
       force = force
@@ -585,7 +622,7 @@ delete_vanity_url <- function(content) {
   error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  con$DELETE(glue::glue("/v1/content/{guid}/vanity"))
+  con$DELETE(v1_url("content", guid, "vanity"))
 
   content
 }
@@ -606,12 +643,15 @@ get_vanity_url <- function(content) {
   error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  van <- tryCatch({
-    con$GET(glue::glue("/v1/content/{guid}/vanity"))
-  }, error = function(e) {
-    # TODO: check to ensure that this error was expected
-    return(NULL)
-  })
+  van <- tryCatch(
+    {
+      con$GET(v1_url("content", guid, "vanity"))
+    },
+    error = function(e) {
+      # TODO: check to ensure that this error was expected
+      return(NULL)
+    }
+  )
   if (is.null(van)) {
     return(NULL)
   }

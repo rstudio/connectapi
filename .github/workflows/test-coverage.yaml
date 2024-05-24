@@ -10,15 +10,16 @@ name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RSC_VERSION: 2022.09.0
+      CONNECT_VERSION: 2024.03.0
       RSC_LICENSE: ${{ secrets.RSC_LICENSE }}
+      CONNECT_LICENSE_FILE: ${{ secrets.CONNECT_LICENSE_FILE }}
       CONNECTAPI_INTEGRATED: true
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -32,27 +33,37 @@ jobs:
           extra-packages: any::covr, local::.
           needs: coverage
 
+      - name: Set up license file
+        run: echo "$CONNECT_LICENSE_FILE" > $RSC_LICENSE
+
       - name: Setup test environment
         run: |
           connectapi:::build_test_env()
         shell: Rscript {0}
 
       - name: Test coverage
-        id: coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          system(paste0("echo ::set-output name=OUTDIR::", Sys.getenv("R_SESSION_TMPDIR")))
-          tryCatch({
-            covr::codecov(clean = FALSE, quiet = FALSE)
-          }, error = function(e) {
-            message(e)
-          })
-          fs::dir_copy(Sys.getenv("R_SESSION_TMPDIR"), "/tmp/outputs")
+          token <- Sys.getenv("CODECOV_TOKEN", "")
+          covr::codecov(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package"),
+            token = if (token != "") token
+          )
         shell: Rscript {0}
 
-      - name: Archive tempdir artifacts
-        uses: actions/upload-artifact@v2
+      - name: Show testthat output
         if: always()
+        run: |
+          ## --------------------------------------------------------------------
+          find '${{ runner.temp }}/package' -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          name: tmpdir artifacts
-          path: |
-            /tmp/outputs
+          name: coverage-test-failures
+          path: ${{ runner.temp }}/package

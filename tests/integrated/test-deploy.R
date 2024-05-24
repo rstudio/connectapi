@@ -1,10 +1,4 @@
-context("deploy")
-
 # setup ---------------------------------------------------
-
-# should connect with env vars
-test_conn_1 <- connect(prefix = "TEST_1")
-test_conn_2 <- connect(prefix = "TEST_2")
 
 cont1_name <- uuid::UUIDgenerate()
 cont1_title <- "Test Content 1"
@@ -80,7 +74,7 @@ test_that("download_bundle works", {
   expect_equal(
     system(glue::glue("shasum {downloaded$path} | cut -d ' ' -f 1"), intern = TRUE),
     system(glue::glue("shasum {bund$path} | cut -d ' ' -f 1"), intern = TRUE)
-    )
+  )
 })
 
 test_that("delete_bundle() and get_bundles() work", {
@@ -262,15 +256,20 @@ test_that("set_image_url works", {
 
 test_that("set_image_webshot works", {
   scoped_experimental_silence()
-  cont1_content$update(access_type="all")
+  cont1_content$update(access_type = "all")
   res <- set_image_webshot(cont1_content)
 
   expect_true(validate_R6_class(res, "Content"))
   # TODO: verify round-trip on the image is actually correct... SHA?
 
   # returns content even when it cannot take the webshot
-  cont1_content$update(access_type="acl")
-  expect_warning({res <- set_image_webshot(cont1_content)}, "authentication")
+  cont1_content$update(access_type = "acl")
+  expect_warning(
+    {
+      res <- set_image_webshot(cont1_content)
+    },
+    "authentication"
+  )
 
   expect_true(validate_R6_class(res, "Content"))
 })
@@ -324,7 +323,7 @@ test_that("get_vanity_url works", {
   # with a vanity
   res <- set_vanity_url(tmp_content, tmp_content_name)
   existing_vanity <- get_vanity_url(tmp_content)
-  expect_is(existing_vanity, "character")
+  expect_type(existing_vanity, "character")
   expect_equal(existing_vanity, paste0("/", tmp_content_name, "/"))
 })
 
@@ -425,11 +424,22 @@ test_that("deployment timestamps respect timezone", {
   myc_guid <- myc$get_content()$guid
 
   # will fail without the png package
-  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e){}))
+  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e) {}))
 
-  allusg <- get_usage_static(test_conn_1, content_guid = myc_guid)
+  all_usage <- get_usage_static(test_conn_1, content_guid = myc_guid)
+  for (i in 1:5) {
+    if (nrow(all_usage) == 0) {
+      # We may need to wait a beat for the metrics to show up.
+      # Retry a few times just in case.
+      # This did not show up testing against Connect versions <= 2022.09.0,
+      # but 2023.03.0 and newer seemed to hit this
+      Sys.sleep(1)
+      all_usage <- get_usage_static(test_conn_1, content_guid = myc_guid)
+    }
+  }
+  expect_equal(nrow(all_usage), 1)
 
   # we just did this, so it should be less than 1 minute ago...
   # (really protecting against being off by hours b/c of timezone differences)
-  expect_true(any((Sys.time() - allusg$time) < lubridate::make_difftime(60, "seconds")))
+  expect_lt(Sys.time() - all_usage$time, lubridate::make_difftime(60, "seconds"))
 })
