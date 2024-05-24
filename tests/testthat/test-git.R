@@ -1,4 +1,6 @@
 without_internet({
+  scoped_experimental_silence()
+
   test_that("Query params to repo_account", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
