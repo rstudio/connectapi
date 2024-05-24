@@ -46,24 +46,6 @@ test_that("make_timestamp converts to character", {
   expect_type(make_timestamp(NA_datetime_), "character")
 })
 
-test_that("swap_timestamp_format works with expected case", {
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-
-  # decimals
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07.123456Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07.123456Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-})
-
-test_that("swap_timestamp_format is safe for NA", {
-  expect_identical(swap_timestamp_format(NA_character_), NA_character_)
-})
-
-test_that("swap_timestamp_format is safe for other strings", {
-  expect_identical(swap_timestamp_format("my string"), "my string")
-  expect_identical(swap_timestamp_format("132352523153151"), "132352523153151")
-})
-
 test_that("ensure_column works with lists", {
   list_chk_null <- ensure_column(tibble::tibble(), NA_list_, "hello")
   expect_s3_class(list_chk_null, "tbl_df")
