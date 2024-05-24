@@ -37,9 +37,7 @@ Imports:
     jsonlite
 Suggests:
     covr,
-    crayon,
     dbplyr,
-    devtools,
     dplyr,
     flexdashboard,
     ggplot2,
