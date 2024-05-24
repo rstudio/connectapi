@@ -6,6 +6,9 @@
 - The functions `Connect$download_bundle()` and
   `Connect$bundle_delete()` have been removed. Use `Content$bundle_download()`
   and `Content$bundle_delete()` instead.
+- `audit_vanity_urls()` has been removed. To check if a vanity URL is in use,
+  use `vanity_is_available()` instead.
+- Other `audit_*` functions have been modified to accept the result of `get_content()` rather than `cache_apps()` (which is now removed). They are faster as a result.
 - dplyr is no longer a required dependency. If you use `tbl_connect()`,
   you will need to install dplyr and dbplyr explicitly. (#246)
 
