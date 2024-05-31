@@ -17,3 +17,4 @@
 ^connectapi.*\.tar\.gz$
 ^connectapi.*\.tgz$
 \.orig$
+^.lintr$
