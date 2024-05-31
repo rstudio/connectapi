@@ -21,14 +21,6 @@ make_timestamp <- function(input) {
   safe_format(input, "%Y-%m-%dT%H:%M:%SZ")
 }
 
-swap_timestamp_format <- function(.col) {
-  if (is.character(.col)) {
-    gsub("([0-9]{4}-[0-9]{2}-[0-9]{2})T([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)", "\\1 \\2", .col)
-  } else {
-    .col
-  }
-}
-
 ensure_columns <- function(.data, ptype) {
   # Given a prototype, ensure that all columns are present and cast to the correct type.
   # If a column is missing in .data, it will be created with all missing values of the correct type.
@@ -48,7 +40,6 @@ ensure_column <- function(data, default, name) {
     col <- vctrs::vec_rep(default, nrow(data))
     col <- vctrs::vec_cast(col, default)
   } else {
-    col <- swap_timestamp_format(col)
     if (vctrs::vec_is(default, NA_datetime_) && !vctrs::vec_is(col, NA_datetime_)) {
       # manual fix because vctrs::vec_cast cannot cast double -> datetime or char -> datetime
       col <- coerce_datetime(col, default, name = name)
@@ -116,7 +107,8 @@ coerce_datetime <- function(x, to, ...) {
   } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
-    as.POSIXct(x, tz = tzone(to))
+    # Parse as ISO8601
+    as.POSIXct(strptime(x, format = "%Y-%m-%dT%H:%M:%SZ"), tz = tzone(to))
   } else if (inherits(x, "POSIXct")) {
     x
   } else if (all(is.logical(x) & is.na(x)) && length(is.logical(x) & is.na(x)) > 0) {

@@ -5,7 +5,7 @@ test_that("coerce_fsbytes fills the void", {
 })
 
 test_that("coerce_datetime fills the void", {
-  chardate <- "2020-05-19 01:36:27Z"
+  chardate <- "2023-10-25T17:04:08Z"
   numdate <- as.double(Sys.time())
   expect_s3_class(coerce_datetime(chardate, NA_datetime_), "POSIXct")
   expect_s3_class(coerce_datetime(c(chardate, chardate), NA_datetime_), "POSIXct")
@@ -26,8 +26,8 @@ test_that("coerce_datetime fills the void", {
 })
 
 test_that("make_timestamp works with POSIXct", {
-  ts <- as.POSIXct("2020-01-01 01:02:03Z")
   outcome <- "2020-01-01T01:02:03Z"
+  ts <- coerce_datetime(outcome, NA_datetime_)
   expect_equal(make_timestamp(ts), outcome)
   expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
 
@@ -44,24 +44,6 @@ test_that("make_timestamp is safe for strings", {
 
 test_that("make_timestamp converts to character", {
   expect_type(make_timestamp(NA_datetime_), "character")
-})
-
-test_that("swap_timestamp_format works with expected case", {
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-
-  # decimals
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07.123456Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07.123456Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-})
-
-test_that("swap_timestamp_format is safe for NA", {
-  expect_identical(swap_timestamp_format(NA_character_), NA_character_)
-})
-
-test_that("swap_timestamp_format is safe for other strings", {
-  expect_identical(swap_timestamp_format("my string"), "my string")
-  expect_identical(swap_timestamp_format("132352523153151"), "132352523153151")
 })
 
 test_that("ensure_column works with lists", {

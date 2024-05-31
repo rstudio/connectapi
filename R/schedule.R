@@ -119,8 +119,8 @@ VariantSchedule <- R6::R6Class(
         c(
           desc,
           # TODO: a nice way to print out relative times...?
-          glue::glue("Starting {swap_timestamp_format(rawdata$start_time)} ({tz_offset})"),
-          glue::glue("Next Run {swap_timestamp_format(rawdata$next_run)} ({tz_offset})")
+          glue::glue("Starting {rawdata$start_time} ({tz_offset})"),
+          glue::glue("Next Run {rawdata$next_run} ({tz_offset})")
         )
       }
     }
