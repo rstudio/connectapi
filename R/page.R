@@ -102,8 +102,7 @@ optional_progress_bar <- function(...) {
   } else {
     # Return a mock object that behaves enough like a progress bar object
     list(
-      tick = function() {},
-      finished = TRUE
+      tick = function() {}
     )
   }
 }
