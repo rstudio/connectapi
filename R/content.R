@@ -180,7 +180,7 @@ Content <- R6::R6Class(
           id = NA_character_,
           content_guid = guid,
           # TODO: what if groups can own content?
-          principal_guid = self$get_content()$owner,
+          principal_guid = self$get_content()$owner_guid,
           principal_type = "user",
           role = "owner"
         )

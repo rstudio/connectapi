@@ -1,4 +1,6 @@
 with_mock_api({
+  scoped_experimental_silence()
+
   test_that("Variant requests", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     content <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")

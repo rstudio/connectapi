@@ -15,6 +15,8 @@
   There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (#244)
 - Now correctly provides methods for `tbl_connect`, rather than `tbl_lazy`,
   preventing problems when also using dplyr (#177).
+- `progress` is now an optional dependency. To show pretty progress bars, install
+  the package explicitly. (#269)
 - `Content$tag_delete()` removes the tag from the target content item rather
   than removing the tag entirely. (#194)
 - `audit_r_versions()` returns a bar chart instead of a histogram (#179)

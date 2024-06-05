@@ -291,12 +291,6 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
   }
 }
 
-.get_content_permission_with_progress <- function(src, guid, .pb = NULL) {
-  if (!is.null(.pb)) {
-    if (!.pb$finished) .pb$tick()
-  }
-  get_content_permissions(content_item(src, guid))
-}
 
 #' Get Content List with Permissions
 #'
@@ -334,13 +328,16 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   content_list <- get_content(src, .p = .p)
 
   message("Getting permission list")
-  pb <- progress::progress_bar$new(
+  pb <- optional_progress_bar(
     total = nrow(content_list),
     format = "[:bar] :percent :eta"
   )
-  content_list[["permission"]] <- purrr::map(
-    content_list$guid,
-    function(.x) .get_content_permission_with_progress(src, .x, pb)
+  content_list[["permission"]] <- purrr::pmap(
+    content_list,
+    function(...) {
+      pb$tick()
+      get_content_permissions(Content$new(connect = src, content = list(...)))
+    }
   )
 
   content_list
