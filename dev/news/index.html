@@ -82,6 +82,8 @@
 <ul><li>The package is now tested against many versions of Connect, back to 1.8.8.2 (May 2021). There are now fewer warnings about version mismatches: you should only see a warning if your Connect server is older than that. (<a href="https://github.com/rstudio/connectapi/issues/244" class="external-link">#244</a>)</li>
 <li>Now correctly provides methods for <code>tbl_connect</code>, rather than <code>tbl_lazy</code>, preventing problems when also using dplyr (<a href="https://github.com/rstudio/connectapi/issues/177" class="external-link">#177</a>).</li>
 <li>
+<code>progress</code> is now an optional dependency. To show pretty progress bars, install the package explicitly. (<a href="https://github.com/rstudio/connectapi/issues/269" class="external-link">#269</a>)</li>
+<li>
 <code>Content$tag_delete()</code> removes the tag from the target content item rather than removing the tag entirely. (<a href="https://github.com/rstudio/connectapi/issues/194" class="external-link">#194</a>)</li>
 <li>
 <code><a href="../reference/audit_r_versions.html">audit_r_versions()</a></code> returns a bar chart instead of a histogram (<a href="https://github.com/rstudio/connectapi/issues/179" class="external-link">#179</a>)</li>
