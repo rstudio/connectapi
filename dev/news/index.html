@@ -75,6 +75,9 @@
 <h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
 <ul><li>All previously deprecated functions are now removed.</li>
 <li>The functions <code>Connect$download_bundle()</code> and <code>Connect$bundle_delete()</code> have been removed. Use <code>Content$bundle_download()</code> and <code>Content$bundle_delete()</code> instead.</li>
+<li>
+<code>audit_vanity_urls()</code> has been removed. To check if a vanity URL is in use, use <code><a href="../reference/vanity_is_available.html">vanity_is_available()</a></code> instead.</li>
+<li>Other <code>audit_*</code> functions have been modified to accept the result of <code><a href="../reference/get_content.html">get_content()</a></code> rather than <code>cache_apps()</code> (which is now removed). They are faster as a result.</li>
 <li>dplyr is no longer a required dependency. If you use <code><a href="../reference/tbl_connect.html">tbl_connect()</a></code>, you will need to install dplyr and dbplyr explicitly. (<a href="https://github.com/rstudio/connectapi/issues/246" class="external-link">#246</a>)</li>
 </ul></div>
 <div class="section level3">

@@ -85,9 +85,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/audit_runas.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/audit_vanity_urls.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/browse.html</loc>
   </url>
   <url>
@@ -98,9 +95,6 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/bundle_static.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/cache_apps.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/connect.html</loc>
@@ -245,6 +239,9 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/users_create_remote.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/vanity_is_available.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/variant.html</loc>
