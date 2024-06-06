@@ -79,9 +79,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/VariantTask.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/acl_add.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/audit_access_open.html</loc>
   </url>
   <url>
@@ -89,9 +86,6 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/audit_runas.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/audit_vanity_urls.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/browse.html</loc>
@@ -104,12 +98,6 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/bundle_static.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/cache_apps.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/collect.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/connect.html</loc>
@@ -160,9 +148,6 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/environment.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/get_acl.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_audit_logs.html</loc>
   </url>
   <url>
@@ -170,9 +155,6 @@
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_content.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/get_content_old.html</loc>
   </url>
   <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/get_group_members.html</loc>
@@ -262,15 +244,12 @@
     <loc>https://pkgs.rstudio.com/connectapi/reference/users_create_remote.html</loc>
   </url>
   <url>
+    <loc>https://pkgs.rstudio.com/connectapi/reference/vanity_is_available.html</loc>
+  </url>
+  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/variant.html</loc>
   </url>
   <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/vec_cast.fs_bytes.html</loc>
-  </url>
-  <url>
     <loc>https://pkgs.rstudio.com/connectapi/reference/verify_content_name.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgs.rstudio.com/connectapi/reference/wait_for_process.html</loc>
   </url>
 </urlset>
