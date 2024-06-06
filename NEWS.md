@@ -1,4 +1,4 @@
-# connectapi (development version)
+# connectapi 0.2.0
 
 ## Breaking changes
 
