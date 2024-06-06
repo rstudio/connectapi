@@ -27,6 +27,7 @@ acl
 api
 browseURL
 cloneable
+dbplyr
 dirs
 dplyr
 funder
