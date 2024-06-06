@@ -42,8 +42,9 @@ Variant <- R6::R6Class(
       url <- unversioned_url("variants", self$get_variant()$id, "sender")
       self$get_connect()$POST(
         path = url,
-        body = list(
-          email = arg_match(to)
+        query = list(
+          email = arg_match(to),
+          rendering_id = self$get_variant()$rendering_id
         )
       )
     },
@@ -93,13 +94,12 @@ Variant <- R6::R6Class(
     #' @description Render this variant.
     render = function() {
       warn_experimental("render")
-      # TODO: why both in query AND in body?
-      path <- unversioned_url("variants", self$get_variant()$id, "render?email=none&activate=true")
+      path <- unversioned_url("variants", self$get_variant()$id, "render")
       res <- self$get_connect()$POST(
         path = path,
-        body = list(
+        query = list(
           email = "none",
-          activate = TRUE
+          activate = "true"
         )
       )
 
