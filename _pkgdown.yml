@@ -68,7 +68,6 @@ reference:
       Oher functions
     contents:
       - promote
-      - cache_apps
       - connect
       - tbl_connect
       - page_cursor

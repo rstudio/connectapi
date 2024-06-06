@@ -12,6 +12,7 @@ utils::globalVariables(
     "access_type",
     "connectapi_ptypes",
     "guid",
+    "last_deployed_time",
     "owner_guid",
     "parse_connectapi_typed",
     "permission",

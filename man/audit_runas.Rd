@@ -4,10 +4,10 @@
 \alias{audit_runas}
 \title{Audit Run As Settings}
 \usage{
-audit_runas(apps)
+audit_runas(content)
 }
 \arguments{
-\item{apps}{App list, see \code{cache_apps}}
+\item{content}{\code{data.frame} of content information, as from \code{\link[=get_content]{get_content()}}}
 }
 \value{
 A data frame with the app name and the Run As user if the Run As user
@@ -20,7 +20,6 @@ is not the default
 Other audit functions: 
 \code{\link{audit_access_open}()},
 \code{\link{audit_r_versions}()},
-\code{\link{audit_vanity_urls}()},
-\code{\link{cache_apps}()}
+\code{\link{vanity_is_available}()}
 }
 \concept{audit functions}
