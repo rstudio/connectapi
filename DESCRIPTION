@@ -21,9 +21,11 @@ License: MIT + file LICENSE
 URL: https://pkgs.rstudio.com/connectapi/, https://github.com/rstudio/connectapi
 BugReports: https://github.com/rstudio/connectapi/issues
 Imports:
+    bit64,
     fs,
     glue,
     httr,
+    jsonlite,
     lifecycle,
     magrittr,
     purrr,
@@ -31,9 +33,7 @@ Imports:
     rlang (>= 0.4.2),
     tibble,
     uuid,
-    vctrs (>= 0.3.0),
-    bit64,
-    jsonlite
+    vctrs (>= 0.3.0)
 Suggests:
     covr,
     dbplyr,
