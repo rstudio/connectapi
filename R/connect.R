@@ -104,56 +104,34 @@ Connect <- R6::R6Class(
       }
     },
 
-    #' @description Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
-    #' @param path API path.
-    #' @param writer Controls where the response is written.
-    #' @param parser How the response is parsed.
-    #' @param ... Arguments to the httr::GET.
-    GET = function(path, writer = httr::write_memory(), parser = "parsed", ...) {
-      req <- paste0(self$server, "/__api__/", path)
-      self$GET_URL(url = req, writer = writer, parser = parser, ...)
-    },
-
-    #' @description Perform an HTTP GET request of the named API path. Returns the HTTP response object.
-    #' @param path API path.
-    #' @param writer Controls where the response is written.
-    #' @param ... Arguments to the httr::GET.
-    GET_RESULT = function(path, writer = httr::write_memory(), ...) {
-      req <- paste0(self$server, "/__api__/", path)
-      self$GET_RESULT_URL(url = req, writer = writer, ...)
-    },
-
-    #' @description Perform an HTTP GET request of the named URL. Returns an object parsed from the HTTP response.
-    #' @param url Target URL.
-    #' @param writer Controls where the response is written.
-    #' @param parser How the response is parsed.
-    #' @param ... Arguments to the httr::GET.
-    GET_URL = function(url, writer = httr::write_memory(), parser = "parsed", ...) {
-      res <- self$GET_RESULT_URL(url = url, writer = writer, ...)
-      self$raise_error(res)
-      httr::content(res, as = parser)
-    },
-
-    #' @description Perform an HTTP GET request of the named URL. Returns the HTTP response object.
-    #' @param url Target URL.
-    #' @param writer Controls where the response is written.
-    #' @param ... Arguments to the httr::GET.
-    GET_RESULT_URL = function(url, writer = httr::write_memory(), ...) {
-      params <- rlang::list2(...)
+    #' @description Perform an HTTP GET request of the named API path.
+    #' @param path API path relative to the server's `/__api__` root.
+    #' @param url Target URL. Default uses `path`, but provide `url` to request
+    #' a server resource that is not under `/__api__`
+    #' @param parser How the response is parsed. If `FALSE`, the `httr_response`
+    #' will be returned. Otherwise, the argument is forwarded to
+    #' `httr::content(res, as = parser)`.
+    #' @param ... Arguments to httr::GET.
+    GET = function(path, url = paste0(self$server, "/__api__/", path), parser = "parsed", ...) {
       res <- rlang::exec(
         httr::GET,
         !!!c(
           list(
             url,
-            self$add_auth(),
-            writer
+            self$add_auth()
           ),
-          params,
+          rlang::list2(...),
           self$httr_additions
         )
       )
       check_debug(res)
-      res
+
+      if (identical(parser, FALSE)) {
+        res
+      } else {
+        self$raise_error(res)
+        httr::content(res, as = parser)
+      }
     },
 
     #' @description Perform an HTTP PUT request of the named API path. Returns an object parsed from the HTTP response.

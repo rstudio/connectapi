@@ -102,10 +102,9 @@ warn_once <- function(msg, id = msg, ...) {
 
 check_connect_license <- function(url) {
   if (is_R6_class(url, "Connect")) {
-    res <- url$GET_RESULT_URL(url$server)
-  } else {
-    res <- httr::GET(glue::glue("{url}/__ping__"))
+    url <- url$server
   }
+  res <- httr::GET(glue::glue("{url}/__ping__"))
   if (res$status_code == 402) {
     stop(glue::glue("ERROR: The Connect server's license is expired ({url})"))
   }
