@@ -37,7 +37,6 @@ with_mock_api({
     # (but the API is not documented). Function does not look like it would
     # send valid JSON in the POST body
 
-    # See code comment in this function: does it really need query params and body?
     expect_POST(
       variant$render(),
       "https://connect.example/__api__/variants/12345/render",
