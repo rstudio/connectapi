@@ -422,7 +422,7 @@ get_image <- function(content, path = NULL) {
 
   res <- con$GET(
     unversioned_url("applications", guid, "image"),
-    parser = FALSE
+    parser = NULL
   )
 
   if (httr::status_code(res) == 204) {
@@ -476,7 +476,7 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
-  res <- con$GET(unversioned_url("applications", guid, "image"), parser = FALSE)
+  res <- con$GET(unversioned_url("applications", guid, "image"), parser = NULL)
 
   httr::status_code(res) != 204
 }
@@ -522,7 +522,7 @@ set_image_url <- function(content, url) {
   validate_R6_class(content, "Content")
   parsed_url <- httr::parse_url(url)
   imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
-  httr::GET(url, httr::write_disk(imgfile))
+  httr::GET(url, writer = httr::write_disk(imgfile))
 
   set_image_path(content = content, path = imgfile)
 }

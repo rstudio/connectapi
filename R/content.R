@@ -47,7 +47,7 @@ Content <- R6::R6Class(
     #' @param overwrite Overwrite an existing filename.
     bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext = ".tar.gz"), overwrite = FALSE) {
       url <- v1_url("content", self$get_content()$guid, "bundles", bundle_id, "download")
-      self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), "raw")
+      self$get_connect()$GET(url, writer = httr::write_disk(filename, overwrite = overwrite), "raw")
       return(filename)
     },
     #' @description Delete a content bundle.
@@ -66,20 +66,15 @@ Content <- R6::R6Class(
     update = function(...) {
       con <- self$get_connect()
       error_if_less_than(con, "1.8.6")
-      params <- rlang::list2(...)
       url <- v1_url("content", self$get_content()$guid)
-      res <- con$PATCH(
-        url,
-        params
-      )
+      res <- con$PATCH(url, body = rlang::list2(...))
       return(self)
     },
     #' @description Delete this content item.
     danger_delete = function() {
       con <- self$get_connect()
       url <- v1_url("content", self$get_content()$guid)
-      res <- con$DELETE(url)
-      return(res)
+      con$DELETE(url)
     },
     #' @description Return the URL for this content.
     get_url = function() {
@@ -184,18 +179,18 @@ Content <- R6::R6Class(
           principal_type = "user",
           role = "owner"
         )
-        return(c(res, list(owner_entry)))
+        res <- c(res, list(owner_entry))
       }
-      return(res)
+      res
     },
     #' @description Return the environment variables set for this content.
     environment = function() {
       url <- v1_url("content", self$get_content()$guid, "environment")
-      res <- self$get_connect()$GET(url)
-      return(res)
+      self$get_connect()$GET(url)
     },
     #' @description Adjust the environment variables set for this content.
-    #' @param ... Environment variable names and values.
+    #' @param ... Environment variable names and values. Use `NA` as the value
+    #' to unset variables.
     environment_set = function(...) {
       url <- v1_url("content", self$get_content()$guid, "environment")
       # post with
@@ -207,11 +202,7 @@ Content <- R6::R6Class(
       })
       names(body) <- NULL
 
-      res <- self$get_connect()$PATCH(
-        path = url,
-        body = body
-      )
-      res
+      self$get_connect()$PATCH(path = url, body = body)
     },
     #' @description Overwrite the environment variables set for this content.
     #' @param ... Environment variable names and values.
@@ -219,18 +210,18 @@ Content <- R6::R6Class(
       url <- v1_url("content", self$get_content()$guid, "environment")
 
       vals <- rlang::list2(...)
-      body <- purrr::imap(vals, function(.x, .y) {
-        # TODO: evaluate whether we should be coercing to character or erroring
-        return(list(name = .y, value = as.character(.x)))
-      })
-      names(body) <- NULL
+      if (length(vals) == 0) {
+        # Make sure we send an empty array and not an empty list
+        body <- "[]"
+      } else {
+        body <- purrr::imap(vals, function(.x, .y) {
+          # TODO: evaluate whether we should be coercing to character or erroring
+          return(list(name = .y, value = as.character(.x)))
+        })
+        names(body) <- NULL
+      }
 
-      res <- self$get_connect()$PUT(
-        path = url,
-        body = body,
-        .empty_object = FALSE
-      )
-      res
+      self$get_connect()$PUT(path = url, body = body)
     },
     #' @description Deploy this content
     #' @param bundle_id Target bundle identifier.

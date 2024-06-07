@@ -182,12 +182,12 @@ create_first_admin <- function(url,
     tryCatch(
       {
         first_admin <- client$POST(
+          path = v1_url("users"),
           body = list(
             username = user,
             password = password,
             email = email
-          ),
-          path = "v1/users"
+          )
         )
       },
       error = function(e) {
@@ -208,7 +208,7 @@ create_first_admin <- function(url,
   user_info <- client$me()
 
   api_key <- client$POST(
-    path = "keys",
+    path = unversioned_url("keys"),
     body = list(name = keyname)
   )
 

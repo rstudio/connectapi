@@ -416,7 +416,8 @@ Adjust the environment variables set for this content.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Environment variable names and values.}
+\item{\code{...}}{Environment variable names and values. Use \code{NA} as the value
+to unset variables.}
 }
 \if{html}{\out{</div>}}
 }
