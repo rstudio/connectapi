@@ -15,8 +15,8 @@ with_mock_api({
 
     expect_POST(
       variant$send_mail(),
-      "https://connect.example/__api__/variants/12345/sender",
-      '{"email":"me"}'
+      "https://connect.example/__api__/variants/12345/sender?email=me&rendering_id=12",
+      "{}"
     )
 
     expect_GET(
@@ -40,8 +40,8 @@ with_mock_api({
     # See code comment in this function: does it really need query params and body?
     expect_POST(
       variant$render(),
-      "https://connect.example/__api__/variants/12345/render?email=none&activate=true",
-      '{"email":"none","activate":true}'
+      "https://connect.example/__api__/variants/12345/render",
+      "{}"
     )
 
     expect_GET(
