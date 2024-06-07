@@ -47,7 +47,7 @@ Content <- R6::R6Class(
     #' @param overwrite Overwrite an existing filename.
     bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext = ".tar.gz"), overwrite = FALSE) {
       url <- v1_url("content", self$get_content()$guid, "bundles", bundle_id, "download")
-      self$get_connect()$GET(url, writer = httr::write_disk(filename, overwrite = overwrite), "raw")
+      self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), parser = "raw")
       return(filename)
     },
     #' @description Delete a content bundle.

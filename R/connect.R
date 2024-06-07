@@ -117,7 +117,7 @@ Connect <- R6::R6Class(
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
     #' @param ... Additional arguments passed to the request function
-    request = function(method, url, parser = "parsed", ...) {
+    request = function(method, url, ..., parser = "parsed") {
       httr_verb <- get(method, envir = asNamespace("httr"))
       res <- rlang::exec(
         httr_verb,
@@ -142,92 +142,92 @@ Connect <- R6::R6Class(
 
     #' @description Perform an HTTP GET request of the named API path.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param ... Arguments to `httr::GET()`
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    #' @param ... Arguments to `httr::GET()`
-    GET = function(path, url = self$api_url(path), parser = "parsed", ...) {
+    GET = function(path, ..., url = self$api_url(path), parser = "parsed") {
       self$request("GET", url, parser = parser, ...)
     },
 
     #' @description Perform an HTTP PUT request of the named API path.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param body The HTTP payload.
+    #' @param ... Arguments to `httr::PUT()`
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
-    #' @param body The HTTP payload.
     #' @param encode How the payload is encoded.
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    #' @param ... Arguments to `httr::PUT()`
     PUT = function(path,
-                   url = self$api_url(path),
                    body = "{}",
+                   ...,
+                   url = self$api_url(path),
                    encode = "json",
-                   parser = "parsed",
-                   ...) {
+                   parser = "parsed") {
       self$request("PUT", url, parser = parser, body = body, encode = encode, ...)
     },
 
     #' @description Perform an HTTP HEAD request of the named API path.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param ... Arguments to `httr::HEAD()`
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
     #' `httr::content(res, as = parser)`.
-    #' @param ... Arguments to `httr::HEAD()`
-    HEAD = function(path, url = self$api_url(path), ...) {
+    HEAD = function(path, ..., url = self$api_url(path)) {
       self$request("HEAD", url, parser = NULL, ...)
     },
 
     #' @description Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param ... Arguments to `httr::DELETE()`
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
-    #' @param ... Arguments to `httr::DELETE()`
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    DELETE = function(path, url = self$api_url(path), parser = NULL, ...) {
+    DELETE = function(path, ..., url = self$api_url(path), parser = NULL) {
       self$request("DELETE", url, parser = NULL, ...)
     },
 
     #' @description Perform an HTTP PATCH request of the named API path.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param ... Arguments to `httr::PATCH()`
+    #' @param body The HTTP payload.
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
-    #' @param body The HTTP payload.
     #' @param encode How the payload is encoded.
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    #' @param ... Arguments to `httr::PATCH()`
     PATCH = function(path,
-                     url = self$api_url(path),
                      body = "{}",
+                     ...,
+                     url = self$api_url(path),
                      encode = "json",
-                     parser = "parsed",
-                     ...) {
+                     parser = "parsed") {
       self$request("PATCH", url, parser = parser, body = body, encode = encode, ...)
     },
 
     #' @description Perform an HTTP POST request of the named API path.
     #' @param path API path relative to the server's `/__api__` root.
+    #' @param ... Arguments to `httr::POST()`
+    #' @param body The HTTP payload.
     #' @param url Target URL. Default uses `path`, but provide `url` to request
     #' a server resource that is not under `/__api__`
-    #' @param body The HTTP payload.
     #' @param encode How the payload is encoded.
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    #' @param ... Arguments to `httr::POST()`
     POST = function(path,
-                    url = self$api_url(path),
                     body = "{}",
+                    ...,
+                    url = self$api_url(path),
                     encode = "json",
-                    parser = "parsed",
-                    ...) {
+                    parser = "parsed") {
       self$request("POST", url, parser = parser, body = body, encode = encode, ...)
     },
 
@@ -416,9 +416,11 @@ Connect <- R6::R6Class(
     #' @param guid The content GUID.
     content_upload = function(bundle_path, guid) {
       # todo : add X-Content-Checksum
-      path <- v1_url("content", guid, "bundles")
-      res <- self$POST(path, body = httr::upload_file(bundle_path), "raw")
-      return(res)
+      self$POST(
+        v1_url("content", guid, "bundles"),
+        body = httr::upload_file(bundle_path),
+        encode = "raw"
+      )
     },
 
     #' @description Deploy a content bundle.
@@ -426,8 +428,7 @@ Connect <- R6::R6Class(
     #' @param bundle_id The bundle identifier.
     content_deploy = function(guid, bundle_id) {
       path <- v1_url("content", guid, "deploy")
-      res <- self$POST(path, body = list(bundle_id = as.character(bundle_id)))
-      return(res)
+      self$POST(path, body = list(bundle_id = as.character(bundle_id)))
     },
 
     #' @description Get a content item.
