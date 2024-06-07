@@ -67,8 +67,12 @@ Content <- R6::R6Class(
       con <- self$get_connect()
       error_if_less_than(con, "1.8.6")
       url <- v1_url("content", self$get_content()$guid)
-      res <- con$PATCH(url, body = rlang::list2(...))
-      return(self)
+      body <- rlang::list2(...)
+      if (length(body)) {
+        # Only need to make a request if there are changes
+        con$PATCH(url, body = body)
+      }
+      self
     },
     #' @description Delete this content item.
     danger_delete = function() {
