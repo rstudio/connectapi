@@ -95,13 +95,7 @@ Variant <- R6::R6Class(
     render = function() {
       warn_experimental("render")
       path <- unversioned_url("variants", self$get_variant()$id, "render")
-      res <- self$get_connect()$POST(
-        path = path,
-        query = list(
-          email = "none",
-          activate = "true"
-        )
-      )
+      res <- self$get_connect()$POST(path)
 
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
