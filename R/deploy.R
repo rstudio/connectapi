@@ -420,9 +420,9 @@ get_image <- function(content, path = NULL) {
 
   con <- content$get_connect()
 
-  res <- con$GET_RESULT(
-    path = unversioned_url("applications", guid, "image"),
-    writer = httr::write_memory()
+  res <- con$GET(
+    unversioned_url("applications", guid, "image"),
+    parser = NULL
   )
 
   if (httr::status_code(res) == 204) {
@@ -476,13 +476,9 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
-  res <- con$GET_RESULT(unversioned_url("applications", guid, "image"))
+  res <- con$GET(unversioned_url("applications", guid, "image"), parser = NULL)
 
-  if (httr::status_code(res) == 204) {
-    FALSE
-  } else {
-    TRUE
-  }
+  httr::status_code(res) != 204
 }
 
 #' Set the Content Image

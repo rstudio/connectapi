@@ -129,7 +129,7 @@ Variant <- R6::R6Class(
       params <- rlang::list2(...)
       # TODO: allow updating a variant
       url <- unversioned_url("variants", self$get_variant()$id)
-      res <- self$get_connect()$POST(url, params)
+      res <- self$get_connect()$POST(url, body = params)
       return(self)
     },
     #' @description Jobs for this variant.

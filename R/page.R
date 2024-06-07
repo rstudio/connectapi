@@ -29,7 +29,7 @@ page_cursor <- function(client, req, limit = Inf) {
     prg$tick()
 
     next_url <- response$paging$`next`
-    response <- client$GET_URL(next_url)
+    response <- client$GET(url = next_url)
 
     res <- c(res, response$results)
   }
