@@ -15,8 +15,8 @@ with_mock_api({
 
     expect_POST(
       variant$send_mail(),
-      "https://connect.example/__api__/variants/12345/sender",
-      '{"email":"me"}'
+      "https://connect.example/__api__/variants/12345/sender?email=me&rendering_id=12",
+      "{}"
     )
 
     expect_GET(
@@ -37,11 +37,10 @@ with_mock_api({
     # (but the API is not documented). Function does not look like it would
     # send valid JSON in the POST body
 
-    # See code comment in this function: does it really need query params and body?
     expect_POST(
       variant$render(),
-      "https://connect.example/__api__/variants/12345/render?email=none&activate=true",
-      '{"email":"none","activate":true}'
+      "https://connect.example/__api__/variants/12345/render",
+      "{}"
     )
 
     expect_GET(
