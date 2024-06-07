@@ -85,4 +85,16 @@ with_mock_api({
     )
     suppressMessages(untrace("browse_url", where = connectapi::browse_solo))
   })
+
+  test_that("httr_config", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    con$httr_config(httr::add_headers(MY_MAGIC_HEADER = "value"))
+    expect_header(
+      expect_GET(
+        con$GET("v1/content"),
+        "https://connect.example/__api__/v1/content"
+      ),
+      "MY_MAGIC_HEADER: value"
+    )
+  })
 })
