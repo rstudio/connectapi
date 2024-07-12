@@ -36,13 +36,6 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Install dependencies
-        # TODO: a way to do this using setup-r-dependencies action...?
-        run: |
-          # TODO: dev version for pkg_lifecycle_statuses function
-          remotes::install_github("r-lib/lifecycle")
-        shell: Rscript {0}
-
       - name: Set up license file
         run: echo "$CONNECT_LICENSE_FILE" > $RSC_LICENSE
 
