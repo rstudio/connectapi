@@ -231,7 +231,7 @@ VariantTask <- R6::R6Class(
 #' \lifecycle{experimental} Work with variants
 #'
 #' - `get_variants()` returns a `tibble` with variant data for a `content_item`
-#' - `get_default_variant()` returns the default variant for a `content_item`
+#' - `get_variant_default()` returns the default variant for a `content_item`
 #' - `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
 #'
 #' @param content An R6 Content object. Returned from `content_item()`

@@ -925,3 +925,24 @@ get_content_permissions <- function(content, add_owner = TRUE) {
   res <- content$permissions(add_owner = add_owner)
   parse_connectapi_typed(res, connectapi_ptypes$permissions)
 }
+
+
+#' @rdname refresh
+#' @export
+content_refresh <- function(content, variant_key = NULL) {
+  warn_experimental("content_refresh")
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+
+  # TODO: Get all variants, warn if more than one and no key provided.
+  if (!is.null(variant_key)) {
+    variant <- get_variant(content, variant_key)
+  } else {
+    variant <- get_variant_default(content)
+  }
+
+  rendered <- variant$render()
+  rendered$task_id <- rendered$id
+
+  VariantTask$new(connect = variant$get_connect(), content = content$get_content(), key = variant$key, task = rendered)
+}
