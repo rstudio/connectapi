@@ -29,11 +29,14 @@ Variant <- R6::R6Class(
     #' @param key The variant key.
     initialize = function(connect, content, key) {
       super$initialize(connect = connect, content = content)
-      self$key <- key
       # TODO: a better way to GET self
       all_variants <- self$variants()
-      this_variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
-      self$variant <- this_variant
+      if (identical(key, "default")) {
+        self$variant <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
+      } else {
+        self$variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
+      }
+      self$key <- self$variant$key
     },
     #' @description Mail previously rendered content.
     #' @param to Targeting.
@@ -254,25 +257,19 @@ get_variants <- function(content) {
 #' @rdname variant
 #' @family variant functions
 #' @export
-get_variant_default <- function(content) {
-  warn_experimental("get_variant_default")
+get_variant <- function(content, key) {
+  warn_experimental("get_variant")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  all_variants <- content$variants()
-  the_default <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
-  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = the_default$key)
-  return(variant)
+  Variant$new(connect = content$get_connect(), content = content$get_content(), key = key)
 }
 
 #' @rdname variant
 #' @family variant functions
 #' @export
-get_variant <- function(content, key) {
-  warn_experimental("get_variant")
-  scoped_experimental_silence()
-  validate_R6_class(content, "Content")
-  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = key)
-  return(variant)
+get_variant_default <- function(content) {
+  # TODO: deprecate this in favor of just calling this?
+  get_variant(content, "default")
 }
 
 #' Render a Variant
