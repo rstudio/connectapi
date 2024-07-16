@@ -273,6 +273,44 @@ Content <- R6::R6Class(
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
       cat("\n")
       invisible(self)
+    },
+
+    #' @description Render this content item. If parameterized, the default
+    #' variant is rendered by default. Only operates on rendered content types.
+    #' @param variant_key Optionally specify a variant key to render a
+    #' specific variant.
+    render = function(variant_key = NULL) {
+      # TODO: If non-renderable app mode, warn.
+      if (is.null(variant_key)) {
+        variant <- self$default_variant
+      } else {
+        variant <- get_variant(self, variant_key)
+      }
+
+      rendered <- variant$render()
+      rendered$task_id <- rendered$id
+    
+      # TODO: Wait and return invisible(self)?
+      VariantTask$new(connect = variant$get_connect(), content = content$get_content(), key = variant$key, task = rendered)
+    },
+
+    #' @description Restart this application. Only operates on interactive content.
+    restart = function() {
+      random_hash = token_hex(32)
+      # https://rlang.r-lib.org/reference/glue-operators.html#what-s-the-deal-with-
+      self$environment_set("{random_hash}" = random_hash)
+      self$environment_set("{random_hash}" = NA)
+    }
+  
+  ),
+  active = list(
+    #' @description The default variant for this object.
+    default_variant = function(value) {
+      if (missing(value)) {
+        get_variant(self, "default")
+      } else {
+        stop("Cannot set default variant.", call. = FALSE)
+      }
     }
   )
 )
