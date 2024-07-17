@@ -275,33 +275,45 @@ Content <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Render or restart this content item.
+    refresh = function() {
+      if (is_rendered(self$content$app_mode)) {
+        self$render()
+      } else if (is_interactive(self$content$app_mode)) {
+        self$restart()
+      } else {
+        warning("Content app mode cannot be rendered or restarted.")
+      }
+    },
+
     #' @description Render this content item. If parameterized, the default
     #' variant is rendered by default. Only operates on rendered content types.
-    #' @param variant_key Optionally specify a variant key to render a
-    #' specific variant.
-    render = function(variant_key = NULL) {
-      # TODO: If non-renderable app mode, warn.
-      if (is.null(variant_key)) {
-        variant <- self$default_variant
-      } else {
-        variant <- get_variant(self, variant_key)
+    render = function() {
+      # TODO: better messages
+      if (!is_rendered(self$content$app_mode)) {
+        warning("This content cannot be rendered because it is not a rendered content type.")
+        return(invisible(self))
       }
-
-      rendered <- variant$render()
+      rendered <- self$default_variant$render()
       rendered$task_id <- rendered$id
     
       # TODO: Wait and return invisible(self)?
-      VariantTask$new(connect = variant$get_connect(), content = content$get_content(), key = variant$key, task = rendered)
+      # VariantTask$new(connect = self$default_variant$get_connect(), content = self$get_content(), key = self$default_variant$key, task = rendered)
+      invisible(self)
     },
 
     #' @description Restart this application. Only operates on interactive content.
     restart = function() {
+      if (!is_interactive(self$content$app_mode)) {
+        warning("This content cannot be restarted because it is not an interactive content type.")
+        return(invisible(self))
+      }
       random_hash = token_hex(32)
       # https://rlang.r-lib.org/reference/glue-operators.html#what-s-the-deal-with-
       self$environment_set("{random_hash}" = random_hash)
       self$environment_set("{random_hash}" = NA)
+      invisible(self)
     }
-  
   ),
   active = list(
     #' @description The default variant for this object.
