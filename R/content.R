@@ -298,8 +298,8 @@ Content <- R6::R6Class(
       rendered$task_id <- rendered$id
     
       # TODO: Wait and return invisible(self)?
-      # VariantTask$new(connect = self$default_variant$get_connect(), content = self$get_content(), key = self$default_variant$key, task = rendered)
-      invisible(self)
+      # invisible(self)
+      VariantTask$new(connect = self$default_variant$get_connect(), content = self$get_content(), key = self$default_variant$key, task = rendered)
     },
 
     #' @description Restart this application. Only operates on interactive content.
