@@ -30,6 +30,15 @@ Other R6 classes:
 \item{\code{connect}}{An R6 Connect object}
 
 \item{\code{content}}{The content details from Posit Connect}
+
+\item{\code{The}}{default variant for this object.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{The}}{default variant for this object.}
 }
 \if{html}{\out{</div>}}
 }
@@ -65,6 +74,9 @@ Other R6 classes:
 \item \href{#method-Content-repo_enable}{\code{Content$repo_enable()}}
 \item \href{#method-Content-repo_set}{\code{Content$repo_set()}}
 \item \href{#method-Content-print}{\code{Content$print()}}
+\item \href{#method-Content-refresh}{\code{Content$refresh()}}
+\item \href{#method-Content-render}{\code{Content$render()}}
+\item \href{#method-Content-restart}{\code{Content$restart()}}
 \item \href{#method-Content-clone}{\code{Content$clone()}}
 }
 }
@@ -510,6 +522,40 @@ Print this object.
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Content-refresh"></a>}}
+\if{latex}{\out{\hypertarget{method-Content-refresh}{}}}
+\subsection{Method \code{refresh()}}{
+Render or restart this content item.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$refresh()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Content-render"></a>}}
+\if{latex}{\out{\hypertarget{method-Content-render}{}}}
+\subsection{Method \code{render()}}{
+Renders this content item. Only works for reports and
+rendered content types. If this content is interactive (an app or an
+API), do nothing. For parameterized reports, renders the default variant.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$render()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Content-restart"></a>}}
+\if{latex}{\out{\hypertarget{method-Content-restart}{}}}
+\subsection{Method \code{restart()}}{
+Restarts this content item. Only works for applications,
+APIs, and interactive content types. If this content is rendered (a
+report or notebook), does nothing.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$restart()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Content-clone"></a>}}

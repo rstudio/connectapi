@@ -286,23 +286,27 @@ Content <- R6::R6Class(
       }
     },
 
-    #' @description Render this content item. If parameterized, the default
-    #' variant is rendered by default. Only operates on rendered content types.
+    #' @description Renders this content item. Only works for reports and
+    #' rendered content types. If this content is interactive (an app or an
+    #' API), do nothing. For parameterized reports, renders the default variant.
     render = function() {
       # TODO: better messages
       if (!is_rendered(self$content$app_mode)) {
         warning("This content cannot be rendered because it is not a rendered content type.")
-        return(invisible(self))
+        # TODO: Figure out the return values.
+        return(NULL)
       }
       rendered <- self$default_variant$render()
       rendered$task_id <- rendered$id
     
       # TODO: Wait and return invisible(self)?
-      # invisible(self)
       VariantTask$new(connect = self$default_variant$get_connect(), content = self$get_content(), key = self$default_variant$key, task = rendered)
+      # invisible(self)
     },
 
-    #' @description Restart this application. Only operates on interactive content.
+    #' @description Restarts this content item. Only works for applications,
+    #' APIs, and interactive content types. If this content is rendered (a
+    #' report or notebook), does nothing.
     restart = function() {
       if (!is_interactive(self$content$app_mode)) {
         warning("This content cannot be restarted because it is not an interactive content type.")
@@ -316,7 +320,7 @@ Content <- R6::R6Class(
     }
   ),
   active = list(
-    #' @description The default variant for this object.
+    #' @field The default variant for this object.
     default_variant = function(value) {
       if (missing(value)) {
         get_variant(self, "default")

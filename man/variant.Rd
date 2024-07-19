@@ -2,15 +2,15 @@
 % Please edit documentation in R/variant.R
 \name{get_variants}
 \alias{get_variants}
-\alias{get_variant_default}
 \alias{get_variant}
+\alias{get_variant_default}
 \title{Get Variant}
 \usage{
 get_variants(content)
 
-get_variant_default(content)
-
 get_variant(content, key)
+
+get_variant_default(content)
 }
 \arguments{
 \item{content}{An R6 Content object. Returned from \code{content_item()}}
@@ -23,7 +23,7 @@ get_variant(content, key)
 \details{
 \itemize{
 \item \code{get_variants()} returns a \code{tibble} with variant data for a \code{content_item}
-\item \code{get_default_variant()} returns the default variant for a \code{content_item}
+\item \code{get_variant_default()} returns the default variant for a \code{content_item}
 \item \code{get_variant()} returns a specific variant for a \code{content_item} (specified by \code{key})
 }
 }
