@@ -313,7 +313,7 @@ Content <- R6::R6Class(
         return(invisible(self))
       }
       random_hash = token_hex(32)
-      # https://rlang.r-lib.org/reference/glue-operators.html#what-s-the-deal-with-
+      # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
       self$environment_set("{random_hash}" = random_hash)
       self$environment_set("{random_hash}" = NA)
       invisible(self)
