@@ -273,59 +273,15 @@ Content <- R6::R6Class(
       cat('content_item(client, guid = "', self$get_content()$guid, '")', "\n", sep = "")
       cat("\n")
       invisible(self)
-    },
-
-    #' @description Render or restart this content item.
-    refresh = function() {
-      if (is_rendered(self$content$app_mode)) {
-        self$render()
-      } else if (is_interactive(self$content$app_mode)) {
-        self$restart()
-      } else {
-        warning("Content app mode cannot be rendered or restarted.")
-      }
-    },
-
-    #' @description Renders this content item. Only works for reports and
-    #' rendered content types. If this content is interactive (an app or an
-    #' API), do nothing. For parameterized reports, renders the default variant.
-    render = function() {
-      # TODO: better messages
-      if (!is_rendered(self$content$app_mode)) {
-        warning("This content cannot be rendered because it is not a rendered content type.")
-        # TODO: Figure out the return values.
-        return(NULL)
-      }
-      rendered <- self$default_variant$render()
-      rendered$task_id <- rendered$id
-    
-      # TODO: Wait and return invisible(self)?
-      VariantTask$new(connect = self$default_variant$get_connect(), content = self$get_content(), key = self$default_variant$key, task = rendered)
-      # invisible(self)
-    },
-
-    #' @description Restarts this content item. Only works for applications,
-    #' APIs, and interactive content types. If this content is rendered (a
-    #' report or notebook), does nothing.
-    restart = function() {
-      if (!is_interactive(self$content$app_mode)) {
-        warning("This content cannot be restarted because it is not an interactive content type.")
-        return(invisible(self))
-      }
-      random_hash = token_hex(32)
-      # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
-      self$environment_set("{random_hash}" = random_hash)
-      self$environment_set("{random_hash}" = NA)
-      invisible(self)
     }
   ),
   active = list(
-    #' @field The default variant for this object.
+    #' @field default_variant The default variant for this object.
     default_variant = function(value) {
       if (missing(value)) {
         get_variant(self, "default")
       } else {
-        stop("Cannot set default variant.", call. = FALSE)
+        stop("Could not find default variant for content.", call. = FALSE)
       }
     }
   )
@@ -980,23 +936,52 @@ get_content_permissions <- function(content, add_owner = TRUE) {
   parse_connectapi_typed(res, connectapi_ptypes$permissions)
 }
 
-
-#' @rdname refresh
+#' Render a content item.
+#' 
+#' @description Submit a request to render a content item. Once submitted, the
+#' server runs an asynchronous process to render the content. This might be
+#' useful if content needs to be updated after its source data has changed,
+#' especially if this doesn't happen on a regular schedule.
+#' 
+#' Only valid for rendered content (e.g., most Quarto documents, Jupyter
+#' notebooks, R Markdown reports).
+#' 
+#' @return A [VariantTask] object that can be used to track completion of the render.
 #' @export
-content_refresh <- function(content, variant_key = NULL) {
-  warn_experimental("content_refresh")
-  scoped_experimental_silence()
+render <- function(content) {
   validate_R6_class(content, "Content")
-
-  # TODO: Get all variants, warn if more than one and no key provided.
-  if (!is.null(variant_key)) {
-    variant <- get_variant(content, variant_key)
-  } else {
-    variant <- get_variant_default(content)
+  if (!is_rendered(content$content$app_mode)) {
+    stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean restart()?"))
   }
-
-  rendered <- variant$render()
+  rendered <- content$default_variant$render()
   rendered$task_id <- rendered$id
 
-  VariantTask$new(connect = variant$get_connect(), content = content$get_content(), key = variant$key, task = rendered)
+  VariantTask$new(connect = content$default_variant$get_connect(), content = content$get_content(), key = content$default_variant$key, task = rendered)
+}
+
+#' Restart a content item.
+#' 
+#' @description Submit a request to restart a content item. Once submitted, the
+#' server performs an asynchronous request to kill all processes associated with
+#' the content item, starting new processes as needed. This might be useful if
+#' the application relies on data that is loaded at startup, or if its memory
+#' usage has grown over time.
+#' 
+#' Note that users interacting with certain types of applications may have their
+#' workflows interrupted.
+#' 
+#' Only valid for interactive content (e.g., applications, APIs).
+#' 
+#' @export
+restart <- function(content) {
+  validate_R6_class(content, "Content")
+  if (!is_interactive(content$content$app_mode)) {
+    stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean render()?"))
+  }
+  random_hash = token_hex(32)
+  env_var_name = glue::glue("CONNECT_RESTART_{random_hash}")
+  # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
+  content$environment_set("{env_var_name}" := random_hash)
+  content$environment_set("{env_var_name}" := NA)
+  invisible(NULL)
 }

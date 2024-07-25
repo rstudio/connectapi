@@ -268,7 +268,6 @@ get_variant <- function(content, key) {
 #' @family variant functions
 #' @export
 get_variant_default <- function(content) {
-  # TODO: deprecate this in favor of just calling this?
   get_variant(content, "default")
 }
 
@@ -282,7 +281,7 @@ get_variant_default <- function(content) {
 #'
 #' @param variant An R6 Variant object. As returned by `get_variant()` or `get_variant_default()`
 #'
-#' @rdname render
+#' @rdname variant_render
 #' @family variant functions
 #' @export
 get_variant_renderings <- function(variant) {
@@ -294,7 +293,7 @@ get_variant_renderings <- function(variant) {
   parse_connectapi_typed(renders, connectapi_ptypes$rendering)
 }
 
-#' @rdname render
+#' @rdname variant_render
 #' @export
 variant_render <- function(variant) {
   warn_experimental("variant_render")
