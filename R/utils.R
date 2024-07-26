@@ -179,7 +179,7 @@ token_hex <- function(n) {
   raw_to_hex(raw)
 }
 
-is_rendered <- function(app_mode) {
+content_is_rendered <- function(app_mode) {
   if ((app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
     TRUE
   } else {
@@ -187,7 +187,7 @@ is_rendered <- function(app_mode) {
   }
 }
 
-is_interactive <- function(app_mode) {
+content_is_interactive <- function(app_mode) {
   interactive_app_modes <- c(
     "shiny",
     "rmd-shiny",
