@@ -949,14 +949,16 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' @return A [VariantTask] object that can be used to track completion of the render.
 #' @export
 content_render <- function(content) {
-  validate_R6_class(content, "Content")
-  if (!is_rendered(content$content$app_mode)) {
-    stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean restart()?"))
-  }
-  rendered <- content$default_variant$render()
-  rendered$task_id <- rendered$id
-
-  VariantTask$new(connect = content$default_variant$get_connect(), content = content$get_content(), key = content$default_variant$key, task = rendered)
+  suppressWarnings({
+    validate_R6_class(content, "Content")
+    if (!is_rendered(content$content$app_mode)) {
+      stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean restart()?"))
+    }
+    rendered <- content$default_variant$render()
+    rendered$task_id <- rendered$id
+  
+    ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = rendered)
+  })
 }
 
 #' Restart a content item.
