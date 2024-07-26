@@ -948,7 +948,7 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' 
 #' @return A [VariantTask] object that can be used to track completion of the render.
 #' @export
-render <- function(content) {
+content_render <- function(content) {
   validate_R6_class(content, "Content")
   if (!is_rendered(content$content$app_mode)) {
     stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean restart()?"))
@@ -973,7 +973,7 @@ render <- function(content) {
 #' Only valid for interactive content (e.g., applications, APIs).
 #' 
 #' @export
-restart <- function(content) {
+content_restart <- function(content) {
   validate_R6_class(content, "Content")
   if (!is_interactive(content$content$app_mode)) {
     stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean render()?"))

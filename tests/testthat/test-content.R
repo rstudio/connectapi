@@ -185,7 +185,7 @@ with_mock_api({
   test_that("we can render a content item", {
     client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
     x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
-    render_task <- x$render()
+    render_task <- content_render(x)
     expect_equal(render_task$task[["id"]], "v9XYo7OKkAQJPraI")
   })
 })
