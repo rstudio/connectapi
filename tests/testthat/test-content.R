@@ -181,12 +181,6 @@ without_internet({
   })
 })
 
-# content_render
-
-# content_render() calls the correct endpoint for the content item
-# content_render returns an appropriate task object
-# content_render raises an error if the content is the wrong app mode
-
 with_mock_api({
   test_that("content_render() calls the correct endpoint, returns task on success", {
     client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
@@ -203,10 +197,9 @@ with_mock_api({
   })
 
   test_that("content_render returns an error when called on incorrect class", {
-    
+
   })
 })
-
 
 with_mock_api({
   test_that("content_restart() calls the correct endpoint", {
@@ -222,3 +215,13 @@ with_mock_api({
     expect_error(content_restart(x), "Restart not supported for application mode: quarto-static. Did you mean content_render()?", fixed = TRUE)
   })
 })
+
+with_mock_api({
+  test_that("content$default_variant gets the default variant", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    v <- x$default_variant # TODO Can't figure out why I can't use `expect_GET`
+    expect_identical(v$key, "WrEKKa77")
+  })
+})
+
