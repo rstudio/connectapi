@@ -951,8 +951,8 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 content_render <- function(content) {
   suppressWarnings({
     validate_R6_class(content, "Content")
-    if (!is_rendered(content$content$app_mode)) {
-      stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean restart()?"))
+    if (!content_is_rendered(content$content$app_mode)) {
+      stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
     }
     rendered <- content$default_variant$render()
     rendered$task_id <- rendered$id
@@ -977,8 +977,8 @@ content_render <- function(content) {
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")
-  if (!is_interactive(content$content$app_mode)) {
-    stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean render()?"))
+  if (!content_is_interactive(content$content$app_mode)) {
+    stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
   }
   random_hash = token_hex(32)
   env_var_name = glue::glue("CONNECT_RESTART_{random_hash}")
