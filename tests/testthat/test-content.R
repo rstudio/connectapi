@@ -220,8 +220,9 @@ with_mock_api({
   test_that("content$default_variant gets the default variant", {
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
-    v <- x$default_variant # TODO Can't figure out why I can't use `expect_GET`
-    expect_identical(v$key, "WrEKKa77")
+    # v <- x$default_variant # TODO Can't figure out why I can't use `expect_GET`
+    expect_GET(x$default_variant, url="https://connect.example/__api__/applications/951bf3ad/variants")
+    # expect_identical(v$key, "WrEKKa77")
   })
 })
 
