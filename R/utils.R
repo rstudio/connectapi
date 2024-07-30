@@ -178,33 +178,3 @@ token_hex <- function(n) {
   raw <- as.raw(sample(0:255, n, replace = TRUE))
   raw_to_hex(raw)
 }
-
-content_is_rendered <- function(app_mode) {
-  if ((app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
-    TRUE
-  } else {
-    FALSE
-  }
-}
-
-content_is_interactive <- function(app_mode) {
-  interactive_app_modes <- c(
-    "shiny",
-    "rmd-shiny",
-    "jupyter-voila",
-    "python-api",
-    "python-dash",
-    "python-streamlit",
-    "python-bokeh",
-    "python-fastapi",
-    "python-shiny",
-    "quarto-shiny",
-    "tensorflow-saved-model",
-    "api"
-  )
-  if ((app_mode) %in% interactive_app_modes) {
-    TRUE
-  } else {
-    FALSE
-  }
-}

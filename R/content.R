@@ -281,7 +281,47 @@ Content <- R6::R6Class(
       if (missing(value)) {
         get_variant(self, "default")
       } else {
-        stop("Could not find default variant for content.", call. = FALSE)
+        stop("Default variant cannot be set.", call. = FALSE)
+      }
+    },
+
+    #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
+    is_rendered = function(value) {
+      if (missing(value)) {
+        if ((self$content$app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
+          TRUE
+        } else {
+          FALSE
+        }
+      } else {
+        stop("This property cannot be manually assigned.", call. = FALSE)
+      }
+    },
+  
+    #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
+    is_interactive = function(value) {
+      if (missing(value)) {
+        interactive_app_modes <- c(
+          "shiny",
+          "rmd-shiny",
+          "jupyter-voila",
+          "python-api",
+          "python-dash",
+          "python-streamlit",
+          "python-bokeh",
+          "python-fastapi",
+          "python-shiny",
+          "quarto-shiny",
+          "tensorflow-saved-model",
+          "api"
+        )
+        if ((self$content$app_mode) %in% interactive_app_modes) {
+          TRUE
+        } else {
+          FALSE
+        }
+      } else {
+        stop("This property cannot be manually assigned.", call. = FALSE)
       }
     }
   )
@@ -951,13 +991,13 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 content_render <- function(content) {
   suppressWarnings({
     validate_R6_class(content, "Content")
-    if (!content_is_rendered(content$content$app_mode)) {
+    if (!content$is_rendered) {
       stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
     }
-    rendered <- content$default_variant$render()
-    rendered$task_id <- rendered$id
+    render_task <- content$default_variant$render()
+    render_task$task_id <- render_task$id
   
-    ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = rendered)
+    ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
   })
 }
 
@@ -977,7 +1017,7 @@ content_render <- function(content) {
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")
-  if (!content_is_interactive(content$content$app_mode)) {
+  if (!content$is_interactive) {
     stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
   }
   random_hash = token_hex(32)
