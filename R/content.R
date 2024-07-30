@@ -1021,7 +1021,7 @@ content_restart <- function(content) {
     stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
   }
   random_hash = token_hex(32)
-  env_var_name = glue::glue("CONNECT_RESTART_{random_hash}")
+  env_var_name = glue::glue("_CONNECT_RESTART_{random_hash}")
   # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
   content$environment_set("{env_var_name}" := random_hash)
   content$environment_set("{env_var_name}" := NA)
