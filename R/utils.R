@@ -172,9 +172,6 @@ check_connect_version <- function(using_version, minimum_tested_version = "1.8.8
 }
 
 token_hex <- function(n) {
-  raw_to_hex <- function(raw) {
-    paste(as.character(raw), collapse = "")
-  }
   raw <- as.raw(sample(0:255, n, replace = TRUE))
-  raw_to_hex(raw)
+  paste(as.character(raw), collapse = "")
 }
