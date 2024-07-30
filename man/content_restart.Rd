@@ -6,6 +6,9 @@
 \usage{
 content_restart(content)
 }
+\arguments{
+\item{content}{The content item you wish to restart.}
+}
 \description{
 Submit a request to restart a content item. Once submitted, the
 server performs an asynchronous request to kill all processes associated with

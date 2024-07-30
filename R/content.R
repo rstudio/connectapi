@@ -986,6 +986,7 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' Only valid for rendered content (e.g., most Quarto documents, Jupyter
 #' notebooks, R Markdown reports).
 #' 
+#' #' @param content The content item you wish to render.
 #' @return A [VariantTask] object that can be used to track completion of the render.
 #' @export
 content_render <- function(content) {
@@ -1014,6 +1015,7 @@ content_render <- function(content) {
 #' 
 #' Only valid for interactive content (e.g., applications, APIs).
 #' 
+#' @param content The content item you wish to restart.
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")

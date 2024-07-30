@@ -195,18 +195,14 @@ with_mock_api({
     x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
     expect_error(content_render(x), "Render not supported for application mode: shiny. Did you mean content_restart()?", fixed = TRUE)
   })
-
-  test_that("content_render returns an error when called on incorrect class", {
-
-  })
 })
 
 with_mock_api({
   test_that("content_restart() calls the correct endpoint", {
     client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
     x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
-    expect_PATCH(content_restart(x)) # No returned value, so we just test that it succeeded.
-    # TODO: Understand if it's possible to set expectations when using a randomized env var.
+    expect_PATCH(content_restart(x), url = "https://connect.example/__api__/v1/content/8f37d6e0/environment")
+    # No returned is returned value; we just test that it made the right calls.
   })
 
   test_that("content_restart() raises an error when called on interactive content", {
@@ -220,9 +216,8 @@ with_mock_api({
   test_that("content$default_variant gets the default variant", {
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
-    # v <- x$default_variant # TODO Can't figure out why I can't use `expect_GET`
-    expect_GET(x$default_variant, url="https://connect.example/__api__/applications/951bf3ad/variants")
-    # expect_identical(v$key, "WrEKKa77")
+    v <- x$default_variant
+    expect_identical(v$key, "WrEKKa77")
   })
 })
 
