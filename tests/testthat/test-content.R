@@ -202,7 +202,6 @@ with_mock_api({
     client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
     x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
     expect_PATCH(content_restart(x), url = "https://connect.example/__api__/v1/content/8f37d6e0/environment")
-    # No returned is returned value; we just test that it made the right calls.
   })
 
   test_that("content_restart() raises an error when called on interactive content", {
