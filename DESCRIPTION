@@ -2,16 +2,23 @@ Type: Package
 Package: connectapi
 Title: Utilities for Interacting with the 'Posit Connect' Server API
 Version: 0.2.0.9000
-Authors@R:
-    c(person(given = "Sean",
-             family = "Lopp",
-             role = c("aut")),
-      person(given = "Cole",
-             family = "Arendt",
-             role = c("aut", "cre"),
-             email = "cole@posit.co"),
-      person(given = "Posit, PBC",
-             role = c("cph", "fnd")))
+Authors@R: c(
+    person(given = "Toph",
+           family = "Allen",
+           role = c("aut", "cre"),
+           email = "toph@posit.co"),
+    person(given = "Neal",
+           family = "Richards",
+           role = c("aut")),
+    person(given = "Sean",
+           family = "Lopp",
+           role = c("aut")),
+    person(given = "Cole",
+           family = "Arendt",
+           role = c("aut"),
+           email = "cole@posit.co"),
+    person(given = "Posit, PBC",
+           role = c("cph", "fnd")))
 Description: Provides a helpful 'R6' class and methods for interacting with
     the 'Posit Connect' Server API along with some meaningful utility functions
     for regular tasks. API documentation varies by 'Posit Connect' installation
