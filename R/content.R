@@ -277,51 +277,39 @@ Content <- R6::R6Class(
   ),
   active = list(
     #' @field default_variant The default variant for this object.
-    default_variant = function(value) {
-      if (missing(value)) {
-        get_variant(self, "default")
-      } else {
-        stop("Default variant cannot be set.", call. = FALSE)
-      }
+    default_variant = function() {
+      get_variant(self, "default")
     },
 
     #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
-    is_rendered = function(value) {
-      if (missing(value)) {
-        if ((self$content$app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
-          TRUE
-        } else {
-          FALSE
-        }
+    is_rendered = function() {
+      if ((self$content$app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
+        TRUE
       } else {
-        stop("This property cannot be manually assigned.", call. = FALSE)
+        FALSE
       }
     },
   
     #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
-    is_interactive = function(value) {
-      if (missing(value)) {
-        interactive_app_modes <- c(
-          "shiny",
-          "rmd-shiny",
-          "jupyter-voila",
-          "python-api",
-          "python-dash",
-          "python-streamlit",
-          "python-bokeh",
-          "python-fastapi",
-          "python-shiny",
-          "quarto-shiny",
-          "tensorflow-saved-model",
-          "api"
-        )
-        if ((self$content$app_mode) %in% interactive_app_modes) {
-          TRUE
-        } else {
-          FALSE
-        }
+    is_interactive = function() {
+      interactive_app_modes <- c(
+        "shiny",
+        "rmd-shiny",
+        "jupyter-voila",
+        "python-api",
+        "python-dash",
+        "python-streamlit",
+        "python-bokeh",
+        "python-fastapi",
+        "python-shiny",
+        "quarto-shiny",
+        "tensorflow-saved-model",
+        "api"
+      )
+      if ((self$content$app_mode) %in% interactive_app_modes) {
+        TRUE
       } else {
-        stop("This property cannot be manually assigned.", call. = FALSE)
+        FALSE
       }
     }
   )
