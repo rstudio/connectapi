@@ -18,3 +18,4 @@
 ^connectapi.*\.tgz$
 \.orig$
 ^.lintr$
+^cran-comments\.md$
