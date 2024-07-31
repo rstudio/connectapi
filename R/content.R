@@ -274,6 +274,36 @@ Content <- R6::R6Class(
       cat("\n")
       invisible(self)
     }
+  ),
+  active = list(
+    #' @field default_variant The default variant for this object.
+    default_variant = function() {
+      get_variant(self, "default")
+    },
+
+    #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
+    is_rendered = function() {
+      self$content$app_mode %in% c("rmd-static", "jupyter-static", "quarto-static")
+    },
+  
+    #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
+    is_interactive = function() {
+      interactive_app_modes <- c(
+        "shiny",
+        "rmd-shiny",
+        "jupyter-voila",
+        "python-api",
+        "python-dash",
+        "python-streamlit",
+        "python-bokeh",
+        "python-fastapi",
+        "python-shiny",
+        "quarto-shiny",
+        "tensorflow-saved-model",
+        "api"
+      )
+      self$content$app_mode %in% interactive_app_modes
+    }
   )
 )
 
@@ -924,4 +954,74 @@ get_content_permissions <- function(content, add_owner = TRUE) {
   validate_R6_class(content, "Content")
   res <- content$permissions(add_owner = add_owner)
   parse_connectapi_typed(res, connectapi_ptypes$permissions)
+}
+
+#' Render a content item.
+#' 
+#' @description Submit a request to render a content item. Once submitted, the
+#' server runs an asynchronous process to render the content. This might be
+#' useful if content needs to be updated after its source data has changed,
+#' especially if this doesn't happen on a regular schedule.
+#' 
+#' Only valid for rendered content (e.g., most Quarto documents, Jupyter
+#' notebooks, R Markdown reports).
+#' 
+#' @param content The content item you wish to render.
+#' @return A [VariantTask] object that can be used to track completion of the render.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+#' task <- content_render(item)
+#' poll_task(task)
+#' }
+#' 
+#' @export
+content_render <- function(content) {
+  scoped_experimental_silence()
+  validate_R6_class(content, "Content")
+  if (!content$is_rendered) {
+    stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
+  }
+  render_task <- content$default_variant$render()
+  render_task$task_id <- render_task$id
+
+  ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
+}
+
+#' Restart a content item.
+#' 
+#' @description Submit a request to restart a content item. Once submitted, the
+#' server performs an asynchronous request to kill all processes associated with
+#' the content item, starting new processes as needed. This might be useful if
+#' the application relies on data that is loaded at startup, or if its memory
+#' usage has grown over time.
+#' 
+#' Note that users interacting with certain types of applications may have their
+#' workflows interrupted.
+#' 
+#' Only valid for interactive content (e.g., applications, APIs).
+#' 
+#' @param content The content item you wish to restart.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' content_restart(item)
+#' }
+#' 
+#' @export
+content_restart <- function(content) {
+  validate_R6_class(content, "Content")
+  if (!content$is_interactive) {
+    stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
+  }
+  unix_epoch_in_seconds <- as.integer(Sys.time())
+  env_var_name <- glue::glue("_CONNECT_RESTART_{unix_epoch_in_seconds}")
+  # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
+  content$environment_set("{env_var_name}" := unix_epoch_in_seconds)
+  content$environment_set("{env_var_name}" := NA)
+  invisible(NULL)
 }

@@ -180,3 +180,43 @@ without_internet({
     )
   })
 })
+
+with_mock_api({
+  test_that("content_render() calls the correct endpoint, returns task on success", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    render_task <- content_render(x)
+    expect_equal(render_task$task[["id"]], "v9XYo7OKkAQJPraI")
+    expect_equal(render_task$connect, client)
+  })
+
+  test_that("content_render() raises an error when called on interactive content", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+    expect_error(content_render(x), "Render not supported for application mode: shiny. Did you mean content_restart()?", fixed = TRUE)
+  })
+})
+
+with_mock_api({
+  test_that("content_restart() calls the correct endpoint", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+    expect_PATCH(content_restart(x), url = "https://connect.example/__api__/v1/content/8f37d6e0/environment")
+  })
+
+  test_that("content_restart() raises an error when called on interactive content", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    expect_error(content_restart(x), "Restart not supported for application mode: quarto-static. Did you mean content_render()?", fixed = TRUE)
+  })
+})
+
+with_mock_api({
+  test_that("content$default_variant gets the default variant", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    v <- x$default_variant
+    expect_identical(v$key, "WrEKKa77")
+  })
+})
+

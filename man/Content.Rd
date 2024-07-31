@@ -33,6 +33,17 @@ Other R6 classes:
 }
 \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{default_variant}}{The default variant for this object.}
+
+\item{\code{is_rendered}}{TRUE if this is a rendered content type, otherwise FALSE.}
+
+\item{\code{is_interactive}}{TRUE if this is a rendered content type, otherwise FALSE.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{

@@ -170,3 +170,8 @@ check_connect_version <- function(using_version, minimum_tested_version = "1.8.8
   }
   invisible()
 }
+
+token_hex <- function(n) {
+  raw <- as.raw(sample(0:255, n, replace = TRUE))
+  paste(as.character(raw), collapse = "")
+}

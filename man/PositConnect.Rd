@@ -233,7 +233,7 @@ Build a URL relative to the API root
 \subsection{Method \code{request()}}{
 General wrapper around \code{httr} verbs
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, parser = "parsed", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, ..., parser = "parsed")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -243,11 +243,11 @@ General wrapper around \code{httr} verbs
 
 \item{\code{url}}{URL to request}
 
+\item{\code{...}}{Additional arguments passed to the request function}
+
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Additional arguments passed to the request function}
 }
 \if{html}{\out{</div>}}
 }
@@ -258,7 +258,7 @@ will be returned. Otherwise, the argument is forwarded to
 \subsection{Method \code{GET()}}{
 Perform an HTTP GET request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, url = self$api_url(path), parser = "parsed", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, ..., url = self$api_url(path), parser = "parsed")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -266,14 +266,14 @@ Perform an HTTP GET request of the named API path.
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{...}}{Arguments to \code{httr::GET()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
 
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::GET()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -286,11 +286,11 @@ Perform an HTTP PUT request of the named API path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(
   path,
-  url = self$api_url(path),
   body = "{}",
+  ...,
+  url = self$api_url(path),
   encode = "json",
-  parser = "parsed",
-  ...
+  parser = "parsed"
 )}\if{html}{\out{</div>}}
 }
 
@@ -299,18 +299,18 @@ Perform an HTTP PUT request of the named API path.
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{body}}{The HTTP payload.}
+
+\item{\code{...}}{Arguments to \code{httr::PUT()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{body}}{The HTTP payload.}
 
 \item{\code{encode}}{How the payload is encoded.}
 
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::PUT()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -321,7 +321,7 @@ will be returned. Otherwise, the argument is forwarded to
 \subsection{Method \code{HEAD()}}{
 Perform an HTTP HEAD request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, url = self$api_url(path), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ..., url = self$api_url(path))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -329,11 +329,11 @@ Perform an HTTP HEAD request of the named API path.
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{...}}{Arguments to \code{httr::HEAD()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::HEAD()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -344,7 +344,7 @@ a server resource that is not under \verb{/__api__}
 \subsection{Method \code{DELETE()}}{
 Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, url = self$api_url(path), parser = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ..., url = self$api_url(path), parser = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -352,14 +352,14 @@ Perform an HTTP DELETE request of the named API path. Returns the HTTP response 
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{...}}{Arguments to \code{httr::DELETE()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
 
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::DELETE()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -372,11 +372,11 @@ Perform an HTTP PATCH request of the named API path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(
   path,
-  url = self$api_url(path),
   body = "{}",
+  ...,
+  url = self$api_url(path),
   encode = "json",
-  parser = "parsed",
-  ...
+  parser = "parsed"
 )}\if{html}{\out{</div>}}
 }
 
@@ -385,18 +385,18 @@ Perform an HTTP PATCH request of the named API path.
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{body}}{The HTTP payload.}
+
+\item{\code{...}}{Arguments to \code{httr::PATCH()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{body}}{The HTTP payload.}
 
 \item{\code{encode}}{How the payload is encoded.}
 
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::PATCH()}}
 }
 \if{html}{\out{</div>}}
 }
@@ -409,11 +409,11 @@ Perform an HTTP POST request of the named API path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$POST(
   path,
-  url = self$api_url(path),
   body = "{}",
+  ...,
+  url = self$api_url(path),
   encode = "json",
-  parser = "parsed",
-  ...
+  parser = "parsed"
 )}\if{html}{\out{</div>}}
 }
 
@@ -422,18 +422,18 @@ Perform an HTTP POST request of the named API path.
 \describe{
 \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
+\item{\code{body}}{The HTTP payload.}
+
+\item{\code{...}}{Arguments to \code{httr::POST()}}
+
 \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{body}}{The HTTP payload.}
 
 \item{\code{encode}}{How the payload is encoded.}
 
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
-
-\item{\code{...}}{Arguments to \code{httr::POST()}}
 }
 \if{html}{\out{</div>}}
 }
