@@ -976,18 +976,27 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' 
 #' @param content The content item you wish to render.
 #' @return A [VariantTask] object that can be used to track completion of the render.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+#' task <- content_render(item)
+#' poll_task(task)
+#' }
+#' 
 #' @export
 content_render <- function(content) {
+  validate_R6_class(content, "Content")
+  if (!content$is_rendered) {
+    stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
+  }
   suppressWarnings({
-    validate_R6_class(content, "Content")
-    if (!content$is_rendered) {
-      stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
-    }
     render_task <- content$default_variant$render()
-    render_task$task_id <- render_task$id
-  
-    ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
   })
+  render_task$task_id <- render_task$id
+
+  ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
 }
 
 #' Restart a content item.
@@ -1004,16 +1013,24 @@ content_render <- function(content) {
 #' Only valid for interactive content (e.g., applications, APIs).
 #' 
 #' @param content The content item you wish to restart.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' content_restart(item)
+#' }
+#' 
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")
   if (!content$is_interactive) {
     stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
   }
-  random_hash <- token_hex(32)
-  env_var_name = glue::glue("_CONNECT_RESTART_{random_hash}")
+  unix_epoch_in_seconds <- as.integer(Sys.time())
+  env_var_name <- glue::glue("_CONNECT_RESTART_{unix_epoch_in_seconds}")
   # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
-  content$environment_set("{env_var_name}" := random_hash)
+  content$environment_set("{env_var_name}" := unix_epoch_in_seconds)
   content$environment_set("{env_var_name}" := NA)
   invisible(NULL)
 }
