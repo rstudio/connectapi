@@ -979,13 +979,12 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' 
 #' @export
 content_render <- function(content) {
+  scoped_experimental_silence()
   validate_R6_class(content, "Content")
   if (!content$is_rendered) {
     stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
   }
-  suppressWarnings({
-    render_task <- content$default_variant$render()
-  })
+  render_task <- content$default_variant$render()
   render_task$task_id <- render_task$id
 
   ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
