@@ -283,11 +283,7 @@ Content <- R6::R6Class(
 
     #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
     is_rendered = function() {
-      if ((self$content$app_mode) %in% c("rmd-static", "jupyter-static", "quarto-static")) {
-        TRUE
-      } else {
-        FALSE
-      }
+      self$content$app_mode %in% c("rmd-static", "jupyter-static", "quarto-static")
     },
   
     #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
@@ -306,11 +302,7 @@ Content <- R6::R6Class(
         "tensorflow-saved-model",
         "api"
       )
-      if ((self$content$app_mode) %in% interactive_app_modes) {
-        TRUE
-      } else {
-        FALSE
-      }
+      self$content$app_mode %in% interactive_app_modes
     }
   )
 )
