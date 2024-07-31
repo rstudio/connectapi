@@ -37,6 +37,8 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/content_item.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/content_list.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/content_list_with_permissions.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/content_render.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/content_restart.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/content_title.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/content_update.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/create_random_name.html</loc></url>
@@ -69,7 +71,6 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/pipe.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/poll_task.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/promote.html</loc></url>
-<url><loc>https://pkgs.rstudio.com/connectapi/reference/render.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/set_image.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/set_run_as.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/set_schedule.html</loc></url>
@@ -81,6 +82,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/users_create_remote.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/vanity_is_available.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/variant.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/variant_render.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/verify_content_name.html</loc></url>
 </urlset>
 

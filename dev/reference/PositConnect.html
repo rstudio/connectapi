@@ -306,7 +306,7 @@ API. Authentication is done by providing an API key.</p>
 <h3 id="method-request-">Method <code>request()</code><a class="anchor" aria-label="anchor" href="#method-request-"></a></h3>
 <p>General wrapper around <code>httr</code> verbs</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">request</span><span class="op">(</span><span class="va">method</span>, <span class="va">url</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">request</span><span class="op">(</span><span class="va">method</span>, <span class="va">url</span>, <span class="va">...</span>, parser <span class="op">=</span> <span class="st">"parsed"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -319,14 +319,14 @@ API. Authentication is done by providing an API key.</p>
 <dd><p>URL to request</p></dd>
 
 
+<dt><code>...</code></dt>
+<dd><p>Additional arguments passed to the request function</p></dd>
+
+
 <dt><code>parser</code></dt>
 <dd><p>How the response is parsed. If <code>NULL</code>, the <code>httr_response</code>
 will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Additional arguments passed to the request function</p></dd>
 
 
 </dl><p></p></div>
@@ -336,13 +336,17 @@ will be returned. Otherwise, the argument is forwarded to
 <h3 id="method-get-">Method <code>GET()</code><a class="anchor" aria-label="anchor" href="#method-get-"></a></h3>
 <p>Perform an HTTP GET request of the named API path.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET</span><span class="op">(</span><span class="va">path</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">httr::GET()</a></code></p></dd>
 
 
 <dt><code>url</code></dt>
@@ -354,10 +358,6 @@ a server resource that is not under <code>/__api__</code></p></dd>
 <dd><p>How the response is parsed. If <code>NULL</code>, the <code>httr_response</code>
 will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">httr::GET()</a></code></p></dd>
 
 
 </dl><p></p></div>
@@ -369,11 +369,11 @@ will be returned. Otherwise, the argument is forwarded to
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PUT</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
-<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  encode <span class="op">=</span> <span class="st">"json"</span>,</span>
-<span>  parser <span class="op">=</span> <span class="st">"parsed"</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  parser <span class="op">=</span> <span class="st">"parsed"</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -383,13 +383,17 @@ will be returned. Otherwise, the argument is forwarded to
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
 
+<dt><code>body</code></dt>
+<dd><p>The HTTP payload.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">httr::PUT()</a></code></p></dd>
+
+
 <dt><code>url</code></dt>
 <dd><p>Target URL. Default uses <code>path</code>, but provide <code>url</code> to request
 a server resource that is not under <code>/__api__</code></p></dd>
-
-
-<dt><code>body</code></dt>
-<dd><p>The HTTP payload.</p></dd>
 
 
 <dt><code>encode</code></dt>
@@ -402,10 +406,6 @@ will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
 
 
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">httr::PUT()</a></code></p></dd>
-
-
 </dl><p></p></div>
 </div>
 
@@ -413,7 +413,7 @@ will be returned. Otherwise, the argument is forwarded to
 <h3 id="method-head-">Method <code>HEAD()</code><a class="anchor" aria-label="anchor" href="#method-head-"></a></h3>
 <p>Perform an HTTP HEAD request of the named API path.</p><div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">HEAD</span><span class="op">(</span><span class="va">path</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">HEAD</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -422,14 +422,14 @@ will be returned. Otherwise, the argument is forwarded to
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
 
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/HEAD.html" class="external-link">httr::HEAD()</a></code></p></dd>
+
+
 <dt><code>url</code></dt>
 <dd><p>Target URL. Default uses <code>path</code>, but provide <code>url</code> to request
 a server resource that is not under <code>/__api__</code>
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/HEAD.html" class="external-link">httr::HEAD()</a></code></p></dd>
 
 
 </dl><p></p></div>
@@ -439,13 +439,17 @@ a server resource that is not under <code>/__api__</code>
 <h3 id="method-delete-">Method <code>DELETE()</code><a class="anchor" aria-label="anchor" href="#method-delete-"></a></h3>
 <p>Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.</p><div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">DELETE</span><span class="op">(</span><span class="va">path</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">DELETE</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">httr::DELETE()</a></code></p></dd>
 
 
 <dt><code>url</code></dt>
@@ -457,10 +461,6 @@ a server resource that is not under <code>/__api__</code></p></dd>
 <dd><p>How the response is parsed. If <code>NULL</code>, the <code>httr_response</code>
 will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">httr::DELETE()</a></code></p></dd>
 
 
 </dl><p></p></div>
@@ -472,11 +472,11 @@ will be returned. Otherwise, the argument is forwarded to
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PATCH</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
-<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  encode <span class="op">=</span> <span class="st">"json"</span>,</span>
-<span>  parser <span class="op">=</span> <span class="st">"parsed"</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  parser <span class="op">=</span> <span class="st">"parsed"</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -486,13 +486,17 @@ will be returned. Otherwise, the argument is forwarded to
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
 
+<dt><code>body</code></dt>
+<dd><p>The HTTP payload.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/PATCH.html" class="external-link">httr::PATCH()</a></code></p></dd>
+
+
 <dt><code>url</code></dt>
 <dd><p>Target URL. Default uses <code>path</code>, but provide <code>url</code> to request
 a server resource that is not under <code>/__api__</code></p></dd>
-
-
-<dt><code>body</code></dt>
-<dd><p>The HTTP payload.</p></dd>
 
 
 <dt><code>encode</code></dt>
@@ -503,10 +507,6 @@ a server resource that is not under <code>/__api__</code></p></dd>
 <dd><p>How the response is parsed. If <code>NULL</code>, the <code>httr_response</code>
 will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/PATCH.html" class="external-link">httr::PATCH()</a></code></p></dd>
 
 
 </dl><p></p></div>
@@ -518,11 +518,11 @@ will be returned. Otherwise, the argument is forwarded to
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">POST</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
-<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>,</span>
 <span>  encode <span class="op">=</span> <span class="st">"json"</span>,</span>
-<span>  parser <span class="op">=</span> <span class="st">"parsed"</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  parser <span class="op">=</span> <span class="st">"parsed"</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -532,13 +532,17 @@ will be returned. Otherwise, the argument is forwarded to
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
 
+<dt><code>body</code></dt>
+<dd><p>The HTTP payload.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">httr::POST()</a></code></p></dd>
+
+
 <dt><code>url</code></dt>
 <dd><p>Target URL. Default uses <code>path</code>, but provide <code>url</code> to request
 a server resource that is not under <code>/__api__</code></p></dd>
-
-
-<dt><code>body</code></dt>
-<dd><p>The HTTP payload.</p></dd>
 
 
 <dt><code>encode</code></dt>
@@ -549,10 +553,6 @@ a server resource that is not under <code>/__api__</code></p></dd>
 <dd><p>How the response is parsed. If <code>NULL</code>, the <code>httr_response</code>
 will be returned. Otherwise, the argument is forwarded to
 <code>httr::content(res, as = parser)</code>.</p></dd>
-
-
-<dt><code>...</code></dt>
-<dd><p>Arguments to <code><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">httr::POST()</a></code></p></dd>
 
 
 </dl><p></p></div>
