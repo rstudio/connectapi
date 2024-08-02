@@ -4,13 +4,15 @@
 \alias{content_render}
 \title{Render a content item.}
 \usage{
-content_render(content)
+content_render(content, variant_key = NULL)
 }
 \arguments{
 \item{content}{The content item you wish to render.}
+
+\item{variant_key}{If a variant key is provided, render that variant. Otherwise, render the default variant.}
 }
 \value{
-A \link{VariantTask} object that can be used to track completion of the render.
+A \link{Task} object that can be used to track completion of the render.
 }
 \description{
 Submit a request to render a content item. Once submitted, the
@@ -20,4 +22,13 @@ especially if this doesn't happen on a regular schedule.
 
 Only valid for rendered content (e.g., most Quarto documents, Jupyter
 notebooks, R Markdown reports).
+}
+\examples{
+\dontrun{
+client <- connect()
+item <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+task <- content_render(item)
+poll_task(task)
+}
+
 }

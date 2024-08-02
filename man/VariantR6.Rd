@@ -25,7 +25,7 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Super class}{
-\code{connectapi::Content} -> \code{Variant}
+\code{\link[connectapi:Content]{connectapi::Content}} -> \code{Variant}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -115,7 +115,7 @@ Get and store the (remote) variant data.
 \subsection{Method \code{new()}}{
 Initialize this variant.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$new(connect, content, key)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Variant$new(connect, content, key = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
