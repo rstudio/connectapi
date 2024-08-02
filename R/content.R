@@ -278,7 +278,7 @@ Content <- R6::R6Class(
   active = list(
     #' @field default_variant The default variant for this object.
     default_variant = function() {
-      get_variant(self, "default")
+      get_variant(self)
     },
 
     #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
@@ -967,7 +967,8 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' notebooks, R Markdown reports).
 #' 
 #' @param content The content item you wish to render.
-#' @return A [VariantTask] object that can be used to track completion of the render.
+#' @param variant_key If a variant key is provided, render that variant. Otherwise, render the default variant.
+#' @return A [Task] object that can be used to track completion of the render.
 #' 
 #' @examples
 #' \dontrun{
@@ -978,16 +979,16 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' }
 #' 
 #' @export
-content_render <- function(content) {
+content_render <- function(content, variant_key = NULL) {
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
   if (!content$is_rendered) {
     stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
   }
-  render_task <- content$default_variant$render()
-  render_task$task_id <- render_task$id
+  target_variant <- get_variant(content, variant_key)
+  render_task <- target_variant$render()
 
-  ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
+  Task$new(connect = content$get_connect(), task = render_task)
 }
 
 #' Restart a content item.
