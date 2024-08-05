@@ -967,6 +967,7 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' notebooks, R Markdown reports).
 #' 
 #' @param content The content item you wish to render.
+#' @param variant_key If a variant key is provided, render that variant. Otherwise, render the default variant.
 #' @return A [VariantTask] object that can be used to track completion of the render.
 #' 
 #' @examples
@@ -978,16 +979,20 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' }
 #' 
 #' @export
-content_render <- function(content) {
+content_render <- function(content, variant_key = NULL) {
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
   if (!content$is_rendered) {
     stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
   }
-  render_task <- content$default_variant$render()
-  render_task$task_id <- render_task$id
+  if (is.null(variant_key)) {
+    target_variant <- get_variant(content, "default")
+  } else {
+    target_variant <- get_variant(content, variant_key)
+  }
+  render_task <- target_variant$render()
 
-  ContentTask$new(connect = content$get_connect(), content = content$get_content(), task = render_task)
+  VariantTask$new(connect = content$connect, content = content$content, key = target_variant$key, task = render_task)
 }
 
 #' Restart a content item.

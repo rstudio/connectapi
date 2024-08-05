@@ -21,3 +21,11 @@ workflows interrupted.
 
 Only valid for interactive content (e.g., applications, APIs).
 }
+\examples{
+\dontrun{
+client <- connect()
+item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+content_restart(item)
+}
+
+}
