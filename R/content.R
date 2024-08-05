@@ -278,7 +278,7 @@ Content <- R6::R6Class(
   active = list(
     #' @field default_variant The default variant for this object.
     default_variant = function() {
-      get_variant(self)
+      get_variant(self, "default")
     },
 
     #' @field is_rendered TRUE if this is a rendered content type, otherwise FALSE.
@@ -985,7 +985,11 @@ content_render <- function(content, variant_key = NULL) {
   if (!content$is_rendered) {
     stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
   }
-  target_variant <- get_variant(content, variant_key)
+  if (is.null(variant_key)) {
+    target_variant <- get_variant(content, "default")
+  } else {
+    target_variant <- get_variant(content, variant_key)
+  }
   render_task <- target_variant$render()
 
   Task$new(connect = content$get_connect(), task = render_task)

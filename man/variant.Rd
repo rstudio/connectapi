@@ -8,7 +8,7 @@
 \usage{
 get_variants(content)
 
-get_variant(content, key = NULL)
+get_variant(content, key)
 
 get_variant_default(content)
 }

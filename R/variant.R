@@ -27,11 +27,11 @@ Variant <- R6::R6Class(
     #' @param connect The `Connect` instance.
     #' @param content The `Content` instance.
     #' @param key The variant key.
-    initialize = function(connect, content, key = NULL) {
+    initialize = function(connect, content, key) {
       super$initialize(connect = connect, content = content)
       # TODO: a better way to GET self
       all_variants <- self$variants()
-      if (is.null(key)) {
+      if (identical(key, "default")) {
         self$variant <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
       } else {
         self$variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
@@ -257,7 +257,7 @@ get_variants <- function(content) {
 #' @rdname variant
 #' @family variant functions
 #' @export
-get_variant <- function(content, key = NULL) {
+get_variant <- function(content, key) {
   warn_experimental("get_variant")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
@@ -268,7 +268,7 @@ get_variant <- function(content, key = NULL) {
 #' @family variant functions
 #' @export
 get_variant_default <- function(content) {
-  get_variant(content)
+  get_variant(content, "default")
 }
 
 #' Render a Variant
