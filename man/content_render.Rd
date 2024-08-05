@@ -12,7 +12,7 @@ content_render(content, variant_key = NULL)
 \item{variant_key}{If a variant key is provided, render that variant. Otherwise, render the default variant.}
 }
 \value{
-A \link{Task} object that can be used to track completion of the render.
+A \link{VariantTask} object that can be used to track completion of the render.
 }
 \description{
 Submit a request to render a content item. Once submitted, the

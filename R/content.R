@@ -968,7 +968,7 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' 
 #' @param content The content item you wish to render.
 #' @param variant_key If a variant key is provided, render that variant. Otherwise, render the default variant.
-#' @return A [Task] object that can be used to track completion of the render.
+#' @return A [VariantTask] object that can be used to track completion of the render.
 #' 
 #' @examples
 #' \dontrun{
@@ -992,7 +992,7 @@ content_render <- function(content, variant_key = NULL) {
   }
   render_task <- target_variant$render()
 
-  Task$new(connect = content$get_connect(), task = render_task)
+  VariantTask$new(connect = content$connect, content = content$content, key = target_variant$key, task = render_task)
 }
 
 #' Restart a content item.
