@@ -25,6 +25,13 @@ test_that("coerce_datetime fills the void", {
   expect_error(coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"), class = "vctrs_error_incompatible_type")
 })
 
+test_that("coerce_datetime works with time zone offsets containing colons", {
+  ts_no_colon <- "2024-08-27T16:44:14-0400"
+  ts_colon <- "2024-08-27T16:44:14-04:00"
+  parsed <- as.POSIXct(ts_no_colon, format = "%Y-%m-%dT%H:%M:%S%z")
+  expect_equal(coerce_datetime(ts_colon, to = parsed), parsed)
+})
+
 test_that("make_timestamp works with POSIXct", {
   outcome <- "2020-01-01T01:02:03Z"
   ts <- coerce_datetime(outcome, NA_datetime_)

@@ -107,8 +107,9 @@ coerce_datetime <- function(x, to, ...) {
   } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
-    # Parse as ISO8601
-    as.POSIXct(strptime(x, format = "%Y-%m-%dT%H:%M:%SZ"), tz = tzone(to))
+    # Parse as ISO 8601 / RFC 3339. Need to remove colon in tz offsets
+    x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
+    as.POSIXct(strptime(x, format = "%Y-%m-%dT%H:%M:%S%z"), tz = tzone(to))
   } else if (inherits(x, "POSIXct")) {
     x
   } else if (all(is.logical(x) & is.na(x)) && length(is.logical(x) & is.na(x)) > 0) {
