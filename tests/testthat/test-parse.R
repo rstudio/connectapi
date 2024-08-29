@@ -25,20 +25,44 @@ test_that("coerce_datetime fills the void", {
   expect_error(coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"), class = "vctrs_error_incompatible_type")
 })
 
-test_that("coerce_datetime works with time zone offsets containing colons", {
-  ts_no_colon <- "2024-08-27T16:44:14-0400"
-  ts_colon <- "2024-08-27T16:44:14-04:00"
-  parsed <- as.POSIXct(ts_no_colon, format = "%Y-%m-%dT%H:%M:%S%z")
-  expect_equal(coerce_datetime(ts_colon, to = parsed), parsed)
+test_that("parse_connect_rfc3339 parses timestamps we expect from Connect", {
+  xs <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z",
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+
+  expected <- as.POSIXct(strptime(c(
+    "2023-08-22T14:13:14+0000",
+    "2020-01-01T01:02:03+0000",
+    "2023-08-22T15:13:14+0100",
+    "2020-01-01T00:02:03-0100"
+  ), format = "%Y-%m-%dT%H:%M:%S%z", tz = "UTC"))
+
+  expect_identical(parse_connect_rfc3339(xs), expected)
 })
 
-test_that("make_timestamp works with POSIXct", {
-  outcome <- "2020-01-01T01:02:03Z"
+test_that("make_timestamp produces expected output", {
+  inputs <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z",
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+  outcome <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z",
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z"
+  )
   ts <- coerce_datetime(outcome, NA_datetime_)
   expect_equal(make_timestamp(ts), outcome)
-  expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
 
-  # idempotent
+  # Works on a single item
+  expect_equal(make_timestamp(ts[1]), outcome[1])
+
+  # Idempotent
   expect_equal(make_timestamp(make_timestamp(ts)), outcome)
 })
 
