@@ -26,6 +26,9 @@ test_that("coerce_datetime fills the void", {
 })
 
 test_that("parse_connect_rfc3339 parses timestamps we expect from Connect", {
+  original_tz <- Sys.getenv("TZ")
+  withr::defer(Sys.setenv(TZ = original_tz))
+
   xs <- c(
     "2023-08-22T14:13:14Z",
     "2020-01-01T01:02:03Z",
@@ -40,10 +43,17 @@ test_that("parse_connect_rfc3339 parses timestamps we expect from Connect", {
     "2020-01-01T00:02:03-0100"
   ), format = "%Y-%m-%dT%H:%M:%S%z", tz = "UTC"))
 
+  Sys.setenv(TZ = "America/New_York")
+  expect_identical(parse_connect_rfc3339(xs), expected)
+
+  Sys.setenv(TZ = "UTC")
   expect_identical(parse_connect_rfc3339(xs), expected)
 })
 
 test_that("make_timestamp produces expected output", {
+  original_tz <- Sys.getenv("TZ")
+  withr::defer(Sys.setenv(TZ = original_tz))
+
   inputs <- c(
     "2023-08-22T14:13:14Z",
     "2020-01-01T01:02:03Z",
@@ -56,6 +66,19 @@ test_that("make_timestamp produces expected output", {
     "2023-08-22T14:13:14Z",
     "2020-01-01T01:02:03Z"
   )
+  Sys.setenv(TZ = "America/New_York")
+  
+  ts <- coerce_datetime(outcome, NA_datetime_)
+  expect_equal(make_timestamp(ts), outcome)
+
+  # Works on a single item
+  expect_equal(make_timestamp(ts[1]), outcome[1])
+
+  # Idempotent
+  expect_equal(make_timestamp(make_timestamp(ts)), outcome)
+
+  Sys.setenv(TZ = "UTC")
+  
   ts <- coerce_datetime(outcome, NA_datetime_)
   expect_equal(make_timestamp(ts), outcome)
 
