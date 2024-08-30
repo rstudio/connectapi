@@ -56,7 +56,8 @@ Suggests:
     rsconnect,
     spelling,
     testthat,
-    webshot2
+    webshot2,
+    withr
 VignetteBuilder:
     knitr
 RdMacros:

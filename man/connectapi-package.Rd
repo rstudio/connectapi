@@ -20,11 +20,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Cole Arendt \email{cole@posit.co}
+\strong{Maintainer}: Toph Allen \email{toph@posit.co}
 
 Authors:
 \itemize{
+  \item Neal Richardson
   \item Sean Lopp
+  \item Cole Arendt \email{cole@posit.co}
 }
 
 Other contributors:
