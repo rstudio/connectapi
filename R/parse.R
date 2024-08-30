@@ -123,15 +123,15 @@ coerce_datetime <- function(x, to, ...) {
   }
 }
 
-# Parse character dates received from Connect which use RFC 3339.
+# Parses a character vector of dates received from Connect, using use RFC 3339,
+# returning a vector of POSIXct datetimes.
 #
-# R parses as ISO 8601. When specifying %z, it expects time zones to be
-# specified as `-1400` to `+1400`.
-# Connect returns times in RFC 3339. It denotes time zones with `-14:00` to
-# `+14:00`, and indicates zero offset with `Z`.
+# R parses character timestamps as ISO 8601. When specifying %z, it expects time
+# zones to be specified as `-1400` to `+1400`.
+#
+# Connect's API sends times in a specific RFC 3339 format: indicating time zone
+# offsets with `-14:00` to `+14:00`, and zero offset with `Z`.
 # https://github.com/golang/go/blob/54fe0fd43fcf8609666c16ae6d15ed92873b1564/src/time/format.go#L86
-# I don't understand why replacing Z with `+0000` and parsing with %z doesn't work, but it doesn't.
-# We have to parse zero-offset time stamps expecting literal Zs.
 # For example:
 # - "2023-08-22T14:13:14Z"
 # - "2023-08-22T15:13:14+01:00"
@@ -139,15 +139,11 @@ coerce_datetime <- function(x, to, ...) {
 parse_connect_rfc3339 <- function(x) {
   # Convert any timestamps with offsets to a format recognized by `strptime`.
   x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
-  
-  # Times with and without offsets require different formats, so create a vector
-  # of formats to be used in parallel.
-  format_strings <- ifelse(
-    grepl("Z$", x),
-    "%Y-%m-%dT%H:%M:%SZ",
-    "%Y-%m-%dT%H:%M:%S%z"
-  )
 
+  # `purrr::map2_vec()` converts to POSIXct automatically, but we need
+  # `as.POSIXct()` in there to account vectors of length 1, which it seems are
+  # not converted.
+  # 
   # Parse with an inner call to `strptime()`; convert the resulting `POSIXlt`
   # object to `POSIXct`.
   #
@@ -161,11 +157,14 @@ parse_connect_rfc3339 <- function(x) {
   # [1] "America/New_York"
   # > as.POSIXct(xlt, tz = "UTC")
   # [1] "2024-08-29 16:36:33 UTC"
-  #
-  # `purrr::map2_vec()` converts to POSIXct automatically, but we need
-  # `as.POSIXct()` in there to account for only one item.
-  purrr::map2_vec(x, format_strings, function(.x, .y) {
-    as.POSIXct(strptime(.x, format = .y, tz = "UTC"))
+  purrr::map_vec(x, function(.x) {
+  # Times with and without offsets require different formats.
+    format_string = ifelse(
+      grepl("Z$", .x),
+      "%Y-%m-%dT%H:%M:%SZ",
+      "%Y-%m-%dT%H:%M:%S%z"
+    )
+    as.POSIXct(strptime(.x, format = format_string, tz = "UTC"))
   })
 }
 
