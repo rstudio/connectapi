@@ -113,6 +113,7 @@ Other R6 classes:
 \item \href{#method-Connect-repo_branches}{\code{Connect$repo_branches()}}
 \item \href{#method-Connect-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
 \item \href{#method-Connect-schedules}{\code{Connect$schedules()}}
+\item \href{#method-Connect-oauth_credentials}{\code{Connect$oauth_credentials()}}
 \item \href{#method-Connect-docs}{\code{Connect$docs()}}
 \item \href{#method-Connect-audit_logs}{\code{Connect$audit_logs()}}
 \item \href{#method-Connect-server_settings_r}{\code{Connect$server_settings_r()}}
@@ -1221,6 +1222,33 @@ Get schedules.
 \item{\code{end}}{Ending time.}
 
 \item{\code{detailed}}{Indicates detailed schedule information.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-oauth_credentials"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-oauth_credentials}{}}}
+\subsection{Method \code{oauth_credentials()}}{
+Perform an OAuth credential exchange to obtain a
+viewer's OAuth access token.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$oauth_credentials(user_session_token)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{user_session_token}}{The content viewer's session token. This token
+can only be obtained when the content is running on a Connect server. The token
+identifies the user who is viewing the content interactively on the Connect server.
+
+Read this value from the HTTP header: \code{Posit-Connect-User-Session-Token}
+
+For example, to read the token from a Shiny session:
+\code{user_session_token <- session$request$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN}
+or, to read the token from an inbound HTTP request with Plumbler:
+\code{user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN}}
 }
 \if{html}{\out{</div>}}
 }
