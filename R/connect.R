@@ -787,36 +787,6 @@ Connect <- R6::R6Class(
       return(res[["schedules"]])
     },
 
-    # oauth integrations --------------------------------------------
-
-    #' @description Perform an OAuth credential exchange to obtain a
-    #' viewer's OAuth access token.
-    #' @param user_session_token The content viewer's session token. This token
-    #' can only be obtained when the content is running on a Connect server. The token
-    #' identifies the user who is viewing the content interactively on the Connect server.
-    #'
-    #' Read this value from the HTTP header: `Posit-Connect-User-Session-Token`
-    #'
-    #' For example, to read the token from a Shiny session:
-    #'     `user_session_token <- session$request$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN`
-    #' or, to read the token from an inbound HTTP request with Plumbler:
-    #'     `user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN`
-    oauth_credentials = function(user_session_token) {
-      url <- v1_url("oauth", "integrations", "credentials")
-      body <- c(
-        list(
-          grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
-          subject_token_type = "urn:posit:connect:user-session-token",
-          subject_token = user_session_token
-        )
-      )
-      self$POST(
-        url,
-        encode = "form",
-        body = body
-      )
-    },
-
     # misc utilities --------------------------------------------
 
     #' @description Get documentation.

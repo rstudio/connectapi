@@ -5,7 +5,7 @@
 
 ## Enhancements and fixes
 
-- Implement `connect$oauth_credentials` for interacting with Connect's
+- Implement `get_oauth_credentials()` for interacting with Connect's
   `/v1/oauth/integrations/credentials` endpoint. This endpoint allows
   content running on Posit Connect to obtain the content viewer's OAuth access token.
 
