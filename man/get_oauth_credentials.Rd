@@ -7,13 +7,13 @@
 get_oauth_credentials(connect, user_session_token)
 }
 \arguments{
+\item{connect}{A Connect R6 object.}
+
 \item{user_session_token}{The content viewer's session token. This token
 can only be obtained when the content is running on a Connect server. The token
 identifies the user who is viewing the content interactively on the Connect server.
 
 Read this value from the HTTP header: \code{Posit-Connect-User-Session-Token}}
-
-\item{client}{A Connect R6 object.}
 }
 \value{
 The OAuth credential exchange response.

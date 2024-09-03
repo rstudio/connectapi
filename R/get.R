@@ -655,7 +655,7 @@ get_procs <- function(src) {
 
 #' Perform an OAuth credential exchange to obtain a viewer's OAuth access token.
 #'
-#' @param client A Connect R6 object.
+#' @param connect A Connect R6 object.
 #' @param user_session_token The content viewer's session token. This token
 #' can only be obtained when the content is running on a Connect server. The token
 #' identifies the user who is viewing the content interactively on the Connect server.
