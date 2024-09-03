@@ -188,7 +188,19 @@ with_mock_api({
     render_task <- content_render(x)
     expect_equal(render_task$task[["id"]], "v9XYo7OKkAQJPraI")
     expect_equal(render_task$connect, client)
+    # TODO think about how to get variant key into response
+    # expect_equal(render_task$variant_key, "WrEKKa77")
   })
+
+  test_that("content_render() can render a non-default variant", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    render_task <- content_render(x, variant_key = "SECOND")
+    expect_equal(render_task$task[["id"]], "variant2_task_id")
+    expect_equal(render_task$connect, client)
+    # TODO think about how to get variant key into response
+  })
+
 
   test_that("content_render() raises an error when called on interactive content", {
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
