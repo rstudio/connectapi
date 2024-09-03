@@ -18,7 +18,13 @@ make_timestamp <- function(input) {
     # TODO: make sure this is the right timestamp format
     return(input)
   }
-  safe_format(input, "%Y-%m-%dT%H:%M:%SZ")
+  
+  # In the call to `safe_format`:
+  # - The format specifier adds a literal "Z" to the end of the timestamp, which
+  #   tells Connect "This is UTC".
+  # - The `tz` argument tells R to produce times in the UTC time zone.
+  # - The `usetz` argument says "Don't concatenate ' UTC' to the end of the string".
+  safe_format(input, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC", usetz = FALSE)
 }
 
 ensure_columns <- function(.data, ptype) {
@@ -107,8 +113,7 @@ coerce_datetime <- function(x, to, ...) {
   } else if (is.numeric(x)) {
     vctrs::new_datetime(as.double(x), tzone = tzone(to))
   } else if (is.character(x)) {
-    # Parse as ISO8601
-    as.POSIXct(strptime(x, format = "%Y-%m-%dT%H:%M:%SZ"), tz = tzone(to))
+    parse_connect_rfc3339(x)
   } else if (inherits(x, "POSIXct")) {
     x
   } else if (all(is.logical(x) & is.na(x)) && length(is.logical(x) & is.na(x)) > 0) {
@@ -116,6 +121,51 @@ coerce_datetime <- function(x, to, ...) {
   } else {
     vctrs::stop_incompatible_cast(x = x, to = to, x_arg = tmp_name, to_arg = "to")
   }
+}
+
+# Parses a character vector of dates received from Connect, using use RFC 3339,
+# returning a vector of POSIXct datetimes.
+#
+# R parses character timestamps as ISO 8601. When specifying %z, it expects time
+# zones to be specified as `-1400` to `+1400`.
+#
+# Connect's API sends times in a specific RFC 3339 format: indicating time zone
+# offsets with `-14:00` to `+14:00`, and zero offset with `Z`.
+# https://github.com/golang/go/blob/54fe0fd43fcf8609666c16ae6d15ed92873b1564/src/time/format.go#L86
+# For example:
+# - "2023-08-22T14:13:14Z"
+# - "2023-08-22T15:13:14+01:00"
+# - "2020-01-01T00:02:03-01:00"
+parse_connect_rfc3339 <- function(x) {
+  # Convert any timestamps with offsets to a format recognized by `strptime`.
+  x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
+
+  # `purrr::map2_vec()` converts to POSIXct automatically, but we need
+  # `as.POSIXct()` in there to account vectors of length 1, which it seems are
+  # not converted.
+  # 
+  # Parse with an inner call to `strptime()`; convert the resulting `POSIXlt`
+  # object to `POSIXct`.
+  #
+  # We must specify `tz` in the inner call to correctly compute date math.
+  # Specifying `tz` when parsing just changes the time zone without doing any
+  # date math!
+  #
+  # > xlt
+  # [1] "2024-08-29 16:36:33 EDT"
+  # > tzone(xlt)
+  # [1] "America/New_York"
+  # > as.POSIXct(xlt, tz = "UTC")
+  # [1] "2024-08-29 16:36:33 UTC"
+  purrr::map_vec(x, function(.x) {
+  # Times with and without offsets require different formats.
+    format_string = ifelse(
+      grepl("Z$", .x),
+      "%Y-%m-%dT%H:%M:%SZ",
+      "%Y-%m-%dT%H:%M:%S%z"
+    )
+    as.POSIXct(strptime(.x, format = format_string, tz = "UTC"))
+  })
 }
 
 vec_cast.POSIXct.double <- function(x, to, ...) {
