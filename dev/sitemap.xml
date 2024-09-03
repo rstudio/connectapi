@@ -55,6 +55,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_group_members.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_groups.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_image.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_oauth_credentials.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_procs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_timezones.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_usage_shiny.html</loc></url>
