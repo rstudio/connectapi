@@ -1,4 +1,12 @@
-# connectapi 0.2.0.9000
+# Unreleased
+
+## Enhancements and fixes
+
+- Fixed a bug where timestamps from Connect not in UTC were parsed as `NA` (#290)
+- Fixed a bug where timestamps sent to Connect may have added the difference between the local time zone and UTC (#291)
+- Implement `get_oauth_credentials()` for interacting with Connect's
+  `/v1/oauth/integrations/credentials` endpoint. This endpoint allows
+  content running on Posit Connect to obtain the content viewer's OAuth access token. (#297)
 
 # connectapi 0.2.0
 
