@@ -1,5 +1,12 @@
 # Unreleased
 
+## Breaking changes
+
+- `set_image_path()`, `set_image_url()`, and `set_image_webshot()` have been
+  deprecated and will be removed in a future update. They have been replaced by
+  `set_content_image(content, path)`, which works both with local file paths and
+  remote URLs to images.
+
 ## Enhancements and fixes
 
 - Fixed a bug where timestamps from Connect not in UTC were parsed as `NA` (#290)

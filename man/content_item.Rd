@@ -41,7 +41,7 @@ Other content functions:
 \code{\link{get_vanity_url}()},
 \code{\link{git}},
 \code{\link{permissions}},
-\code{\link{set_image_path}()},
+\code{\link{set_content_image}()},
 \code{\link{set_run_as}()},
 \code{\link{set_vanity_url}()},
 \code{\link{swap_vanity_url}()},
