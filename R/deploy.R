@@ -487,49 +487,65 @@ has_image <- function(content) {
 #'
 #' Set the Content Image using a variety of methods.
 #'
-#' NOTE: `set_image_webshot()` requires [webshot2::webshot()], but currently
-#' skips and warns for any content that requires authentication until the
-#' `webshot2` package supports authentication.
-#'
 #' @param content A content object
-#' @param path The path to an image on disk
-#' @param url The url for an image
-#' @param ... Additional arguments passed on to [webshot2::webshot()]
+#' @param path A file path or URL to an image
 #'
-#' @rdname set_image
 #' @family content functions
+#' @rdname set_content_image
 #' @export
-set_image_path <- function(content, path) {
-  warn_experimental("set_image_path")
+set_content_image <- function(content, path) {
+  warn_experimental("set_content_image")
   validate_R6_class(content, "Content")
-  guid <- content$get_content()$guid
 
+  valid_path <- NULL
+  if (file.exists(path)) {
+    valid_path <- path
+  } else {
+    parsed <- httr::parse_url(path)
+    if (parsed$scheme %in% c("http", "https")) {
+      valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
+      httr::GET(url, httr::write_disk(valid_path))
+      on.exit(unlink(valid_path))
+    }
+  }
+  if (is.null(valid_path)) {
+    stop("Could not locate image at `path`")
+  }
+
+  guid <- content$get_content()$guid
   con <- content$get_connect()
 
   res <- con$POST(
     path = unversioned_url("applications", guid, "image"),
-    body = httr::upload_file(path)
+    body = httr::upload_file(valid_path)
   )
 
   # return the input (in case it inherits more than just Content)
   content
 }
 
-#' @rdname set_image
-#' @export
-set_image_url <- function(content, url) {
-  warn_experimental("set_image_url")
-  validate_R6_class(content, "Content")
-  parsed_url <- httr::parse_url(url)
-  imgfile <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed_url[["path"]]))
-  httr::GET(url, httr::write_disk(imgfile))
 
-  set_image_path(content = content, path = imgfile)
+#' @rdname set_content_image
+#' @export
+set_image_path <- function(content, path) {
+  lifecycle::deprecate_warn("0.3.1", "set_image_path()", "set_content_image()")
+  set_content_image(content, path)
 }
 
-#' @rdname set_image
+
+#' @rdname set_content_image
+#' @export
+set_image_url <- function(content, path) {
+  lifecycle::deprecate_warn("0.3.1", "set_image_url()", "set_content_image()")
+  set_content_image(content, path)
+}
+
+
+
+#' @rdname set_content_image
 #' @export
 set_image_webshot <- function(content, ...) {
+  lifecycle::deprecate_warn("0.3.1", "set_image_webshot()", "set_content_image()")
   warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "webshot", ext = ".png")
@@ -561,7 +577,7 @@ set_image_webshot <- function(content, ...) {
     !!!args
   ))
 
-  set_image_path(content = content, path = imgfile)
+  set_content_image(content = content, path = imgfile)
 }
 
 

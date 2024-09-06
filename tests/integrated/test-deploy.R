@@ -165,11 +165,11 @@ test_that("deploy_current works", {
 
 # image ---------------------------------------------------
 
-test_that("set_image_path works", {
+test_that("set_content_image works with local images", {
   scoped_experimental_silence()
   img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
 
-  res <- set_image_path(cont1_content, img_path)
+  res <- set_content_image(cont1_content, img_path)
 
   expect_true(validate_R6_class(res, "Content"))
 })
@@ -244,35 +244,14 @@ test_that("get_image returns NA if no image", {
   expect_true(is.na(response))
 })
 
-test_that("set_image_url works", {
+test_that("set_content_image works with remote paths", {
   scoped_experimental_silence()
 
-  res <- set_image_url(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
+  res <- set_content_image(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
 
   expect_true(validate_R6_class(res, "Content"))
 
   # TODO: verify round-trip on the image is actually correct... SHA?
-})
-
-test_that("set_image_webshot works", {
-  skip("test fails commonly in CI")
-  scoped_experimental_silence()
-  cont1_content$update(access_type = "all")
-  res <- set_image_webshot(cont1_content)
-
-  expect_true(validate_R6_class(res, "Content"))
-  # TODO: verify round-trip on the image is actually correct... SHA?
-
-  # returns content even when it cannot take the webshot
-  cont1_content$update(access_type = "acl")
-  expect_warning(
-    {
-      res <- set_image_webshot(cont1_content)
-    },
-    "authentication"
-  )
-
-  expect_true(validate_R6_class(res, "Content"))
 })
 
 # vanity_url ---------------------------------------------------
