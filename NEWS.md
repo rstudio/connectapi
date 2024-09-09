@@ -2,18 +2,42 @@
 
 ## Breaking changes
 
-- `set_image_path()`, `set_image_url()`, and `set_image_webshot()` have been
-  deprecated and will be removed in a future update. They have been replaced by
-  `set_content_image(content, path)`, which works both with local file paths and
-  remote URLs to images.
+- `set_image_path()`, `set_image_url()`, have been deprecated and will be
+  removed in a future update. `set_image_webshot()` has been moved to the
+  Connect SDK Cookbook. They have been replaced by `set_content_image(content,
+  path)`, which works both with local file paths and remote URLs to images.
 
-## Enhancements and fixes
+# connectapi 0.3.0
 
-- Fixed a bug where timestamps from Connect not in UTC were parsed as `NA` (#290)
-- Fixed a bug where timestamps sent to Connect may have added the difference between the local time zone and UTC (#291)
-- Implement `get_oauth_credentials()` for interacting with Connect's
-  `/v1/oauth/integrations/credentials` endpoint. This endpoint allows
-  content running on Posit Connect to obtain the content viewer's OAuth access token. (#297)
+## Breaking changes
+
+- `GET_URL()`, `GET_RESULT()`, and `GET_RESULT_URL()` have been eliminated in
+  favor of `GET()` (#274).
+- The `.empty_object` argument has been removed from `PUT`/`PATCH`/`POST` (#274).
+
+## New features
+
+- New `content_render()` and `content_restart()` functions. `content_render()`
+  allows you to programmatically re-render content such as Quarto and R Markdown
+  reports and Jupyter notebooks, optionally passing in a `variant_key` to render
+  a specific variant of parameterized content. `content_restart()` lets you
+  restart interactive content, such as Shiny applications, APIs, or dashboards
+  (#283, #289)
+- New `get_oauth_credentials()` function for interacting with Connect's
+  `/v1/oauth/integrations/credentials` endpoint. This endpoint allows content
+  running on Posit Connect to obtain the content viewer's OAuth access token
+  (#297).
+
+## Minor improvements and fixes
+
+- Timestamps with non-zero offsets received from Connect no longer parse as `NA`
+  (#290).
+- Timestamps sent to Connect are now correctly converted to UTC, instead of
+  simply being labeled as GMT (#291).
+- Functions to render variants and email reports now contain the request
+  query that Connect expects (#277).
+- HTTP verb functions can take any URL, not just one relative to API root, and
+  can optionally return the `httr_response` object (#274).
 
 # connectapi 0.2.0
 
