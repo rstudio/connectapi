@@ -14,13 +14,7 @@ Fixes #
 > If applicable:
 > - Include guidance for reviewers (rewrites ..., start with ..., commit-by-commit, etc.).
 > - Link to notes and discussions about this work.
-
-## Automated Testing
-
-> Describe the automated testing of this change.
->
-> - What cases are covered by unit tests?
-> - What cases are covered by integration tests?
+> - Any relevant information about tests, automated or manual.
 
 ## Checklist
 
