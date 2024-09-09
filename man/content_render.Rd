@@ -4,10 +4,12 @@
 \alias{content_render}
 \title{Render a content item.}
 \usage{
-content_render(content)
+content_render(content, variant_key = NULL)
 }
 \arguments{
 \item{content}{The content item you wish to render.}
+
+\item{variant_key}{If a variant key is provided, render that variant. Otherwise, render the default variant.}
 }
 \value{
 A \link{VariantTask} object that can be used to track completion of the render.
