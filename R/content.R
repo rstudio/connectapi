@@ -1017,6 +1017,7 @@ content_render <- function(content, variant_key = NULL) {
 #' content_restart(item)
 #' }
 #' 
+#' @importFrom rlang :=
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")
