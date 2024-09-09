@@ -414,16 +414,21 @@ deploy_current <- function(content) {
 #' @family content functions
 #' @export
 get_image <- function(content, path = NULL) {
-  warn_experimental("get_image")
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
   con <- content$get_connect()
 
   res <- con$GET(
-    unversioned_url("applications", guid, "image"),
+    v1_url("content", guid, "thumbnail"),
     parser = NULL
   )
+  if (httr::status_code(res) == 404) {
+    res <- con$GET(
+      unversioned_url("applications", guid, "image"),
+      parser = NULL
+    )
+  }
 
   if (httr::status_code(res) == 204) {
     return(NA)
@@ -451,7 +456,6 @@ get_image <- function(content, path = NULL) {
 #' @rdname get_image
 #' @export
 delete_image <- function(content, path = NULL) {
-  warn_experimental("delete_image")
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
@@ -462,7 +466,16 @@ delete_image <- function(content, path = NULL) {
     get_image(content, path)
   }
 
-  res <- con$DELETE(unversioned_url("applications", guid, "image"))
+  res <- con$DELETE(
+    v1_url("content", guid, "thumbnail"),
+    parser = NULL
+  )
+  if (httr::status_code(res) != 404) {
+    con$raise_error(res)
+    res <- httr::content(as = "parsed")
+  } else {
+    res <- con$DELETE(unversioned_url("applications", guid, "image"))
+  }
 
   return(content)
 }
@@ -476,7 +489,16 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
-  res <- con$GET(unversioned_url("applications", guid, "image"), parser = NULL)
+  res <- con$GET(
+    v1_url("content", guid, "thumbnail"),
+    parser = NULL
+  )
+  if (httr::status_code(res) == 404) {
+    res <- con$GET(
+      unversioned_url("applications", guid, "image"),
+      parser = NULL
+    )
+  }
 
   httr::status_code(res) != 204
 }
@@ -494,7 +516,6 @@ has_image <- function(content) {
 #' @rdname set_content_image
 #' @export
 set_content_image <- function(content, path) {
-  warn_experimental("set_content_image")
   validate_R6_class(content, "Content")
 
   valid_path <- NULL
@@ -509,17 +530,27 @@ set_content_image <- function(content, path) {
     }
   }
   if (is.null(valid_path)) {
-    stop("Could not locate image at `path`")
+    stop(glue::glue("Could not locate image at path: {path}"))
   }
 
-  guid <- content$get_content()$guid
-  con <- content$get_connect()
+  guid <- content$content$guid
+  con <- content$connect
 
-  res <- con$POST(
-    path = unversioned_url("applications", guid, "image"),
-    body = httr::upload_file(valid_path)
+  res <- con$PUT(
+    path = v1_url("content", guid, "thumbnail"),
+    body = httr::upload_file(valid_path),
+    parser = NULL
   )
-
+  if (httr::status_code(res) != 404) {
+    con$raise_error(res)
+    res <- httr::content(res, as = "parsed")
+  } else {
+    res <- con$POST(
+      path = unversioned_url("applications", guid, "image"),
+      body = httr::upload_file(valid_path),
+    )
+  }
+  
   # return the input (in case it inherits more than just Content)
   content
 }
@@ -546,7 +577,6 @@ set_image_url <- function(content, path) {
 #' @export
 set_image_webshot <- function(content, ...) {
   lifecycle::deprecate_warn("0.3.1", "set_image_webshot()", "set_content_image()")
-  warn_experimental("set_image_webshot")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "webshot", ext = ".png")
 
