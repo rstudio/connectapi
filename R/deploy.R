@@ -419,8 +419,11 @@ get_image <- function(content, path = NULL) {
 
   con <- content$get_connect()
 
+  # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
+  # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$GET(
-    v1_url("content", guid, "thumbnail"),
+    path = NA, # `path` is used only if `url` is not provided.
+    url = con$server_url("content", guid, "__thumbnail__"),
     parser = NULL
   )
   if (httr::status_code(res) == 404) {
@@ -466,16 +469,19 @@ delete_image <- function(content, path = NULL) {
     get_image(content, path)
   }
 
+  # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
+  # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$DELETE(
     v1_url("content", guid, "thumbnail"),
     parser = NULL
   )
-  if (httr::status_code(res) != 404) {
-    con$raise_error(res)
-    res <- httr::content(as = "parsed")
-  } else {
-    res <- con$DELETE(unversioned_url("applications", guid, "image"))
+  if (httr::status_code(res) == 404) {
+    res <- con$DELETE(
+      unversioned_url("applications", guid, "image"),
+      parser = NULL
+    )
   }
+  con$raise_error(res)
 
   return(content)
 }
@@ -489,6 +495,8 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
+  # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
+  # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$GET(
     v1_url("content", guid, "thumbnail"),
     parser = NULL
@@ -499,7 +507,7 @@ has_image <- function(content) {
       parser = NULL
     )
   }
-
+  con$raise_error(res)
   httr::status_code(res) != 204
 }
 
@@ -536,20 +544,21 @@ set_content_image <- function(content, path) {
   guid <- content$content$guid
   con <- content$connect
 
+  # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
+  # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$PUT(
     path = v1_url("content", guid, "thumbnail"),
     body = httr::upload_file(valid_path),
     parser = NULL
   )
-  if (httr::status_code(res) != 404) {
-    con$raise_error(res)
-    res <- httr::content(res, as = "parsed")
-  } else {
+  if (httr::status_code(res) == 404) {
     res <- con$POST(
       path = unversioned_url("applications", guid, "image"),
       body = httr::upload_file(valid_path),
+      parser = NULL
     )
   }
+  con$raise_error(res)
   
   # return the input (in case it inherits more than just Content)
   content

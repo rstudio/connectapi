@@ -110,6 +110,12 @@ Connect <- R6::R6Class(
       paste(self$server, "__api__", ..., sep = "/")
     },
 
+    #' @description Build a URL relative to the server root
+    #' @param ... path segments
+    server_url = function(...) {
+      paste(self$server, ..., sep = "/")
+    },
+
     #' @description General wrapper around `httr` verbs
     #' @param method HTTP request method
     #' @param url URL to request
