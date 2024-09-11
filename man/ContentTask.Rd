@@ -25,7 +25,7 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Super class}{
-\code{\link[connectapi:Content]{connectapi::Content}} -> \code{ContentTask}
+\code{connectapi::Content} -> \code{ContentTask}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

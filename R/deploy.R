@@ -400,20 +400,20 @@ deploy_current <- function(content) {
 }
 
 
-#' Get the Content Image
+#' Get the Content Thumbnail
 #'
 #' \lifecycle{experimental}
-#' `get_image` saves the content image to the given path (default: temp file).
-#' `delete_image` removes the image (optionally saving to the given path)
-#' `has_image` returns whether the content has an image
+#' `get_thumbnail` saves the content thumbnail to the given path (default: temp file).
+#' `delete_thumbnail` removes the thumbnail (optionally saving to the given path)
+#' `has_thumbnail` returns whether the content has an thumbnail
 #'
 #' @param content A content object
 #' @param path optional. The path to the image on disk
 #'
-#' @rdname get_image
+#' @rdname get_thumbnail
 #' @family content functions
 #' @export
-get_image <- function(content, path = NULL) {
+get_thumbnail <- function(content, path = NULL) {
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
@@ -456,9 +456,16 @@ get_image <- function(content, path = NULL) {
   return(fs::as_fs_path(path))
 }
 
-#' @rdname get_image
+#' @rdname get_thumbnail
 #' @export
-delete_image <- function(content, path = NULL) {
+get_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
+  get_thumbnail(content, path)
+}
+
+#' @rdname get_thumbnail
+#' @export
+delete_thumbnail <- function(content, path = NULL) {
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
@@ -466,7 +473,7 @@ delete_image <- function(content, path = NULL) {
 
   if (!is.null(path)) {
     scoped_experimental_silence()
-    get_image(content, path)
+    get_thumbnail(content, path)
   }
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
@@ -486,10 +493,17 @@ delete_image <- function(content, path = NULL) {
   return(content)
 }
 
-#' @rdname get_image
+#' @rdname get_thumbnail
 #' @export
-has_image <- function(content) {
-  warn_experimental("has_image")
+delete_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "delete_image()", "delete_thumbnail()")
+  delete_thumbnail(content, path)
+}
+
+#' @rdname get_thumbnail
+#' @export
+has_thumbnail <- function(content) {
+  warn_experimental("has_thumbnail")
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
@@ -511,19 +525,26 @@ has_image <- function(content) {
   httr::status_code(res) != 204
 }
 
-#' Set the Content Image
+#' @rdname get_thumbnail
+#' @export
+has_image <- function(content) {
+  lifecycle::deprecate_warn("0.3.1", "has_image()", "has_thumbnail()")
+  has_thumbnail(content)
+}
+
+#' Set the Content Thumbnail
 #'
 #' \lifecycle{experimental}
 #'
-#' Set the Content Image using a variety of methods.
+#' Set the Content thumbnail using a variety of methods.
 #'
 #' @param content A content object
 #' @param path A file path or URL to an image
 #'
 #' @family content functions
-#' @rdname set_content_image
+#' @rdname set_thumbnail
 #' @export
-set_content_image <- function(content, path) {
+set_thumbnail <- function(content, path) {
   validate_R6_class(content, "Content")
 
   valid_path <- NULL
@@ -565,27 +586,27 @@ set_content_image <- function(content, path) {
 }
 
 
-#' @rdname set_content_image
+#' @rdname set_thumbnail
 #' @export
 set_image_path <- function(content, path) {
-  lifecycle::deprecate_warn("0.3.1", "set_image_path()", "set_content_image()")
-  set_content_image(content, path)
+  lifecycle::deprecate_warn("0.3.1", "set_image_path()", "set_thumbnail()")
+  set_thumbnail(content, path)
 }
 
 
-#' @rdname set_content_image
+#' @rdname set_thumbnail
 #' @export
 set_image_url <- function(content, path) {
-  lifecycle::deprecate_warn("0.3.1", "set_image_url()", "set_content_image()")
-  set_content_image(content, path)
+  lifecycle::deprecate_warn("0.3.1", "set_image_url()", "set_thumbnail()")
+  set_thumbnail(content, path)
 }
 
 
 
-#' @rdname set_content_image
+#' @rdname set_thumbnail
 #' @export
 set_image_webshot <- function(content, ...) {
-  lifecycle::deprecate_warn("0.3.1", "set_image_webshot()", "set_content_image()")
+  lifecycle::deprecate_warn("0.3.1", "set_image_webshot()", "set_thumbnail()")
   validate_R6_class(content, "Content")
   imgfile <- fs::file_temp(pattern = "webshot", ext = ".png")
 
@@ -616,7 +637,7 @@ set_image_webshot <- function(content, ...) {
     !!!args
   ))
 
-  set_content_image(content = content, path = imgfile)
+  set_thumbnail(content = content, path = imgfile)
 }
 
 
