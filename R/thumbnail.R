@@ -1,6 +1,5 @@
 #' Get the Content Thumbnail
 #'
-#' \lifecycle{experimental}
 #' `get_thumbnail` saves the content thumbnail to the given path (default: temp file).
 #' `delete_thumbnail` removes the thumbnail (optionally saving to the given path)
 #' `has_thumbnail` returns whether the content has an thumbnail
@@ -20,7 +19,6 @@ get_thumbnail <- function(content, path = NULL) {
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$GET(
-    path = NA, # `path` is used only if `url` is not provided.
     url = con$server_url("content", guid, "__thumbnail__"),
     parser = NULL
   )
@@ -101,7 +99,6 @@ delete_image <- function(content, path = NULL) {
 #' @rdname get_thumbnail
 #' @export
 has_thumbnail <- function(content) {
-  warn_experimental("has_thumbnail")
   validate_R6_class(content, "Content")
   guid <- content$get_content()$guid
 
@@ -131,8 +128,6 @@ has_image <- function(content) {
 }
 
 #' Set the Content Thumbnail
-#'
-#' \lifecycle{experimental}
 #'
 #' Set the Content thumbnail using a variety of methods.
 #'
