@@ -602,7 +602,6 @@ set_image_url <- function(content, path) {
 }
 
 
-
 #' @rdname set_thumbnail
 #' @export
 set_image_webshot <- function(content, ...) {

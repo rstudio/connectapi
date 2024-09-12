@@ -163,7 +163,7 @@ test_that("deploy_current works", {
   expect_true(tsk$get_content_remote()$last_deployed_time > first_deploy)
 })
 
-# image ---------------------------------------------------
+# thumbnail ---------------------------------------------------
 
 test_that("set_thumbnail works with local images", {
   scoped_experimental_silence()

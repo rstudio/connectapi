@@ -1,0 +1,31 @@
+structure(list(url = "content/f2ba0f64/__thumbnail__", 
+    status_code = 404L, headers = structure(list(date = "Thu, 12 Sep 2024 15:11:23 GMT", 
+        `content-type` = "text/plain", `content-length` = "18", 
+        `set-cookie` = "AWSALB=ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt; Expires=Thu, 19 Sep 2024 15:11:23 GMT; Path=/", 
+        `set-cookie` = "AWSALBCORS=ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt; Expires=Thu, 19 Sep 2024 15:11:23 GMT; Path=/; SameSite=None; Secure", 
+        server = "Posit Connect v2024.09.0-dev+77-g9296f96ffb", 
+        `strict-transport-security` = "max-age=2592000", `x-content-type-options` = "nosniff", 
+        `x-correlation-id` = "de9b16a5-d610-4c44-b84a-ecd71ecb62bb"), class = c("insensitive", 
+    "list")), all_headers = list(list(status = 404L, version = "HTTP/2", 
+        headers = structure(list(date = "Thu, 12 Sep 2024 15:11:23 GMT", 
+            `content-type` = "text/plain", `content-length` = "18", 
+            `set-cookie` = "AWSALB=ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt; Expires=Thu, 19 Sep 2024 15:11:23 GMT; Path=/", 
+            `set-cookie` = "AWSALBCORS=ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt; Expires=Thu, 19 Sep 2024 15:11:23 GMT; Path=/; SameSite=None; Secure", 
+            server = "Posit Connect v2024.09.0-dev+77-g9296f96ffb", 
+            `strict-transport-security` = "max-age=2592000", 
+            `x-content-type-options` = "nosniff", `x-correlation-id` = "de9b16a5-d610-4c44-b84a-ecd71ecb62bb"), class = c("insensitive", 
+        "list")))), cookies = structure(list(domain = c("rsc.radixu.com", 
+    "rsc.radixu.com", "#HttpOnly_rsc.radixu.com", "#HttpOnly_rsc.radixu.com"
+    ), flag = c(FALSE, FALSE, FALSE, FALSE), path = c("/", "/", 
+    "/", "/"), secure = c(FALSE, TRUE, TRUE, TRUE), expiration = structure(c(1726758683, 
+    1726758683, 1726239678, 1726239678), class = c("POSIXct", 
+    "POSIXt")), name = c("AWSALB", "AWSALBCORS", "rscid", "rscid-legacy"
+    ), value = c("ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt", 
+    "ImB25fpeH3haJIVJ6hC3jaC/3koL6No7tCCw0nG1BAlzIFNAwjSjeSo+zBaLQfjb3J0i+I9bcWxmNhf2fCoLsWwxIxQnxCpk4SgVxsJX1R8OFar/ZSzz358rdnvt", 
+    "MTcyNjE1MzI3OHxEWDhFQVFMX2dBQUJFQUVRQUFBMl80QUFBd1p6ZEhKcGJtY01CZ0FFUjFWSlJCSmpiMjV1WldOMEwzTjBiM0psTGtkVlNVVF9nUVlCQVFSSFZVbEVBZi1DQUFBQUVQLURCZ0VCQkZWVlNVUUJfNFFBQUFCVl80SVNBQkJOMldoWEZjaFBBclItQzVFblA2Z09Cbk4wY21sdVp3d0pBQWRqY21WaGRHVmtCV2x1ZERZMEJBWUFfTTNHQkh3R2MzUnlhVzVuREFrQUIzSmxabkpsYzJnRmFXNTBOalFFQmdEOHpjWUVmQT09fJXllAtTjtN011GmEwVT3eI8Ng5BwccByJ00mvqII3NS", 
+    "MTcyNjE1MzI3OHxEWDhFQVFMX2dBQUJFQUVRQUFBMl80QUFBd1p6ZEhKcGJtY01CZ0FFUjFWSlJCSmpiMjV1WldOMEwzTjBiM0psTGtkVlNVVF9nUVlCQVFSSFZVbEVBZi1DQUFBQUVQLURCZ0VCQkZWVlNVUUJfNFFBQUFCVl80SVNBQkJOMldoWEZjaFBBclItQzVFblA2Z09Cbk4wY21sdVp3d0pBQWRqY21WaGRHVmtCV2x1ZERZMEJBWUFfTTNHQkh3R2MzUnlhVzVuREFrQUIzSmxabkpsYzJnRmFXNTBOalFFQmdEOHpjWUVmQT09fJXllAtTjtN011GmEwVT3eI8Ng5BwccByJ00mvqII3NS"
+    )), row.names = c(NA, -4L), class = "data.frame"), content = charToRaw("404 page not found"), 
+    date = structure(1726153883, class = c("POSIXct", "POSIXt"
+    ), tzone = "GMT"), times = c(redirect = 0, namelookup = 0.190135, 
+    connect = 0.211004, pretransfer = 0.240552, starttransfer = 0.355614, 
+    total = 0.355789)), class = "response")
