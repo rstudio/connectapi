@@ -1,5 +1,8 @@
 # connectapi (development version)
 
+## Minor improvements and fixes
+- Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
+
 # connectapi 0.3.0
 
 ## Breaking changes
