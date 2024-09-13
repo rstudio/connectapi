@@ -4,10 +4,10 @@
 \alias{audit_r_versions}
 \title{Audit R Versions}
 \usage{
-audit_r_versions(apps)
+audit_r_versions(content)
 }
 \arguments{
-\item{apps}{App list, see \code{cache_apps}}
+\item{content}{\code{data.frame} of content information, as from \code{\link[=get_content]{get_content()}}}
 }
 \value{
 A plot that shows the R version used by content over time and in
@@ -20,7 +20,6 @@ aggregate.
 Other audit functions: 
 \code{\link{audit_access_open}()},
 \code{\link{audit_runas}()},
-\code{\link{audit_vanity_urls}()},
-\code{\link{cache_apps}()}
+\code{\link{vanity_is_available}()}
 }
 \concept{audit functions}

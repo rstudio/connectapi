@@ -17,3 +17,6 @@
 ^connectapi.*\.tar\.gz$
 ^connectapi.*\.tgz$
 \.orig$
+^.lintr$
+^cran-comments\.md$
+^CRAN-SUBMISSION$

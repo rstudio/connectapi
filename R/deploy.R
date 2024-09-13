@@ -420,9 +420,9 @@ get_image <- function(content, path = NULL) {
 
   con <- content$get_connect()
 
-  res <- con$GET_RESULT(
-    path = glue::glue("applications/{guid}/image"),
-    writer = httr::write_memory()
+  res <- con$GET(
+    unversioned_url("applications", guid, "image"),
+    parser = NULL
   )
 
   if (httr::status_code(res) == 204) {
@@ -462,9 +462,7 @@ delete_image <- function(content, path = NULL) {
     get_image(content, path)
   }
 
-  res <- con$DELETE(
-    glue::glue("applications/{guid}/image")
-  )
+  res <- con$DELETE(unversioned_url("applications", guid, "image"))
 
   return(content)
 }
@@ -478,15 +476,9 @@ has_image <- function(content) {
 
   con <- content$get_connect()
 
-  res <- con$GET_RESULT(
-    glue::glue("applications/{guid}/image")
-  )
+  res <- con$GET(unversioned_url("applications", guid, "image"), parser = NULL)
 
-  if (httr::status_code(res) == 204) {
-    FALSE
-  } else {
-    TRUE
-  }
+  httr::status_code(res) != 204
 }
 
 #' Set the Content Image
@@ -515,7 +507,7 @@ set_image_path <- function(content, path) {
   con <- content$get_connect()
 
   res <- con$POST(
-    path = glue::glue("applications/{guid}/image"),
+    path = unversioned_url("applications", guid, "image"),
     body = httr::upload_file(path)
   )
 
@@ -603,7 +595,7 @@ set_vanity_url <- function(content, url, force = FALSE) {
   # TODO: Check that the URL provided is appropriate
 
   res <- con$PUT(
-    path = glue::glue("v1/content/{guid}/vanity"),
+    path = v1_url("content", guid, "vanity"),
     body = list(
       path = url,
       force = force
@@ -626,7 +618,7 @@ delete_vanity_url <- function(content) {
   error_if_less_than(con, "1.8.6")
   guid <- content$get_content()$guid
 
-  con$DELETE(glue::glue("/v1/content/{guid}/vanity"))
+  con$DELETE(v1_url("content", guid, "vanity"))
 
   content
 }
@@ -649,7 +641,7 @@ get_vanity_url <- function(content) {
 
   van <- tryCatch(
     {
-      con$GET(glue::glue("/v1/content/{guid}/vanity"))
+      con$GET(v1_url("content", guid, "vanity"))
     },
     error = function(e) {
       # TODO: check to ensure that this error was expected

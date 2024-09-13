@@ -1,36 +1,15 @@
-# this function helps creating query parameters
-safe_query <- function(expr, prefix = "", collapse = "|") {
-  if (is.null(expr)) {
-    return("")
-  } else if (identical(expr, TRUE)) {
-    return(paste0(prefix, "true"))
-  } else if (identical(expr, FALSE)) {
-    return(paste0(prefix, "false"))
-  } else {
-    return(paste0(prefix, glue::glue_collapse(expr, sep = collapse)))
-  }
+# Helpers to make it easier to identify where we're calling public APIs and not
+v1_url <- function(...) {
+  paste("v1", ..., sep = "/")
 }
 
-query_args <- function(...) {
-  args <- rlang::list2(...)
+unversioned_url <- function(...) {
+  paste(..., sep = "/")
+}
 
-  args <- purrr::discard(args, ~ is.null(.x))
-  args <- purrr::discard(args, ~ is.na(.x))
-
-  prep <- purrr::map2_chr(
-    names(args),
-    args,
-    function(name, arg) {
-      glue::glue("{name}={arg}")
-    }
-  )
-
-  joined <- glue::glue_collapse(prep, sep = "&")
-
-  if (length(joined) > 0 && nchar(joined) > 0) {
-    return(paste0("?", joined))
-  }
-  return("")
+valid_page_size <- function(x, min = 1, max = 500) {
+  # This could be changed to error if x is outside the range
+  min(max(min, x), max)
 }
 
 generate_R6_print_output <- function() {
@@ -113,40 +92,19 @@ scoped_dire_silence <- function(frame = rlang::caller_env()) {
   )
 }
 
-warn_clear <- function(id) {
-  rm(list = id, envir = warn_env)
-}
-
-warn_once <- function(msg, id = msg) {
+warn_once <- function(msg, id = msg, ...) {
   if (rlang::is_true(rlang::peek_option("connectapi_disable_warnings"))) {
     return(invisible(NULL))
   }
 
-  if (rlang::env_has(warn_env, id)) {
-    return(invisible(NULL))
-  }
-
-  has_color <- function() rlang::is_installed("crayon") && crayon::has_color()
-  silver <- function(x) if (has_color()) crayon::silver(x) else x
-
-  msg <- paste0(
-    msg,
-    "\n",
-    silver("This warning is displayed once per session.")
-  )
-
-  rlang::env_poke(warn_env, id, TRUE)
-
-  rlang::signal(msg, .subclass = "warning")
+  rlang::warn(msg, .frequency = "once", .frequency_id = id, ...)
 }
-warn_env <- new.env(parent = emptyenv())
 
 check_connect_license <- function(url) {
   if (is_R6_class(url, "Connect")) {
-    res <- url$GET_RESULT_URL(url$server)
-  } else {
-    res <- httr::GET(glue::glue("{url}/__ping__"))
+    url <- url$server
   }
+  res <- httr::GET(glue::glue("{url}/__ping__"))
   if (res$status_code == 402) {
     stop(glue::glue("ERROR: The Connect server's license is expired ({url})"))
   }
@@ -211,4 +169,9 @@ check_connect_version <- function(using_version, minimum_tested_version = "1.8.8
     ), id = "old-connect")
   }
   invisible()
+}
+
+token_hex <- function(n) {
+  raw <- as.raw(sample(0:255, n, replace = TRUE))
+  paste(as.character(raw), collapse = "")
 }

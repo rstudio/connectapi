@@ -1,0 +1,9 @@
+// TODO: PUT REAL DATA HERE
+// This is just a stub, enough to make `get_variant(content, "12345")` not fail
+[
+    {
+        "id": "12345",
+        "key": "12345",
+        "rendering_id": "12"
+    }
+]

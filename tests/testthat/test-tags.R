@@ -57,7 +57,7 @@ test_that("[ works as expected", {
   expect_type(simple_tag_tree["hi"], "list")
 
   # clear "warn_once" state
-  warn_clear("[.connect_tag_tree")
+  rlang::reset_warning_verbosity("[.connect_tag_tree")
 })
 
 test_that("[[ works as expected", {

@@ -19,7 +19,8 @@ Variant <- R6::R6Class(
     },
     #' @description Get and store the (remote) variant data.
     get_variant_remote = function() {
-      variant <- self$get_connect()$GET(glue::glue("variants/{self$get_variant()$id}"))
+      path <- unversioned_url("variants", self$get_variant()$id)
+      self$variant <- self$get_connect()$GET(path)
       self$variant
     },
     #' @description Initialize this variant.
@@ -28,22 +29,25 @@ Variant <- R6::R6Class(
     #' @param key The variant key.
     initialize = function(connect, content, key) {
       super$initialize(connect = connect, content = content)
-      self$key <- key
       # TODO: a better way to GET self
       all_variants <- self$variants()
-      this_variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
-      self$variant <- this_variant
+      if (identical(key, "default")) {
+        self$variant <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
+      } else {
+        self$variant <- purrr::keep(all_variants, ~ .x$key == key)[[1]]
+      }
+      self$key <- self$variant$key
     },
     #' @description Mail previously rendered content.
     #' @param to Targeting.
     send_mail = function(to = c("me", "collaborators", "collaborators_viewers")) {
       warn_experimental("send_mail")
-      if (length(to) > 1) to <- "me"
-      url <- glue::glue("variants/{self$get_variant()$id}/sender")
+      url <- unversioned_url("variants", self$get_variant()$id, "sender")
       self$get_connect()$POST(
         path = url,
-        body = list(
-          email = to
+        query = list(
+          email = arg_match(to),
+          rendering_id = self$get_variant()$rendering_id
         )
       )
     },
@@ -54,10 +58,9 @@ Variant <- R6::R6Class(
     #' @description Get the (remote) schedule data.
     get_schedule_remote = function() {
       warn_experimental("get_schedule_remote")
-      url <- glue::glue("variants/{self$get_variant()$id}/schedules")
-      res <- self$get_connect()$GET(
-        path = url
-      )
+      url <- unversioned_url("variants", self$get_variant()$id, "schedules")
+      res <- self$get_connect()$GET(url)
+
       if (length(res) == 1) {
         res <- res[[1]]
       }
@@ -74,36 +77,28 @@ Variant <- R6::R6Class(
     #' @description Get the subscribers.
     get_subscribers = function() {
       warn_experimental("subscribers")
-      self$get_connect()$GET(glue::glue("variants/{self$get_variant()$id}/subscribers"))
+      path <- unversioned_url("variants", self$get_variant()$id, "subscribers")
+      self$get_connect()$GET(path)
     },
     #' @description Remove a named subscriber.
     #' @param guid User GUID.
     remove_subscriber = function(guid) {
       warn_experimental("subscribers")
-      self$get_connect()$DELETE(glue::glue("variants/{self$get_variant()$id}/subscribers/{guid}"))
+      path <- unversioned_url("variants", self$get_variant()$id, "subscribers", guid)
+      self$get_connect()$DELETE(path)
     },
     #' @description Add named subscribers.
     #' @param guids User GUIDs.
     add_subscribers = function(guids) {
       warn_experimental("subscribers")
-      url <- glue::glue("variants/{self$get_variant()$id}/subscribers")
-      self$get_connect()$POST(
-        path = url,
-        body = guids
-      )
+      path <- unversioned_url("variants", self$get_variant()$id, "subscribers")
+      self$get_connect()$POST(path = path, body = guids)
     },
     #' @description Render this variant.
     render = function() {
       warn_experimental("render")
-      # TODO: why both in query AND in body?
-      url <- glue::glue("variants/{self$get_variant()$id}/render?email=none&activate=true")
-      res <- self$get_connect()$POST(
-        path = url,
-        body = list(
-          email = "none",
-          activate = TRUE
-        )
-      )
+      path <- unversioned_url("variants", self$get_variant()$id, "render")
+      res <- self$get_connect()$POST(path)
 
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
@@ -114,10 +109,8 @@ Variant <- R6::R6Class(
     #' @description List the renderings of this variant.
     renderings = function() {
       warn_experimental("renderings")
-      url <- glue::glue("variants/{self$get_variant()$id}/renderings")
-      res <- self$get_connect()$GET(
-        path = url
-      )
+      url <- unversioned_url("variants", self$get_variant()$id, "renderings")
+      res <- self$get_connect()$GET(path = url)
       # add the content guid and variant key
       content_guid <- self$get_content()$guid
       variant_key <- self$key
@@ -132,11 +125,8 @@ Variant <- R6::R6Class(
     update_variant = function(...) {
       params <- rlang::list2(...)
       # TODO: allow updating a variant
-      url <- glue::glue("variants/{self$get_variant()$id}")
-      res <- self$get_connect()$POST(
-        url,
-        params
-      )
+      url <- unversioned_url("variants", self$get_variant()$id)
+      res <- self$get_connect()$POST(url, body = params)
       return(self)
     },
     #' @description Jobs for this variant.
@@ -244,7 +234,7 @@ VariantTask <- R6::R6Class(
 #' \lifecycle{experimental} Work with variants
 #'
 #' - `get_variants()` returns a `tibble` with variant data for a `content_item`
-#' - `get_default_variant()` returns the default variant for a `content_item`
+#' - `get_variant_default()` returns the default variant for a `content_item`
 #' - `get_variant()` returns a specific variant for a `content_item` (specified by `key`)
 #'
 #' @param content An R6 Content object. Returned from `content_item()`
@@ -267,25 +257,18 @@ get_variants <- function(content) {
 #' @rdname variant
 #' @family variant functions
 #' @export
-get_variant_default <- function(content) {
-  warn_experimental("get_variant_default")
+get_variant <- function(content, key) {
+  warn_experimental("get_variant")
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
-  all_variants <- content$variants()
-  the_default <- purrr::keep(all_variants, ~ .x[["is_default"]])[[1]]
-  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = the_default$key)
-  return(variant)
+  Variant$new(connect = content$get_connect(), content = content$get_content(), key = key)
 }
 
 #' @rdname variant
 #' @family variant functions
 #' @export
-get_variant <- function(content, key) {
-  warn_experimental("get_variant")
-  scoped_experimental_silence()
-  validate_R6_class(content, "Content")
-  variant <- Variant$new(connect = content$get_connect(), content = content$get_content(), key = key)
-  return(variant)
+get_variant_default <- function(content) {
+  get_variant(content, "default")
 }
 
 #' Render a Variant
@@ -298,7 +281,7 @@ get_variant <- function(content, key) {
 #'
 #' @param variant An R6 Variant object. As returned by `get_variant()` or `get_variant_default()`
 #'
-#' @rdname render
+#' @rdname variant_render
 #' @family variant functions
 #' @export
 get_variant_renderings <- function(variant) {
@@ -310,7 +293,7 @@ get_variant_renderings <- function(variant) {
   parse_connectapi_typed(renders, connectapi_ptypes$rendering)
 }
 
-#' @rdname render
+#' @rdname variant_render
 #' @export
 variant_render <- function(variant) {
   warn_experimental("variant_render")

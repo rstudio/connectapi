@@ -5,7 +5,7 @@ test_that("coerce_fsbytes fills the void", {
 })
 
 test_that("coerce_datetime fills the void", {
-  chardate <- "2020-05-19 01:36:27Z"
+  chardate <- "2023-10-25T17:04:08Z"
   numdate <- as.double(Sys.time())
   expect_s3_class(coerce_datetime(chardate, NA_datetime_), "POSIXct")
   expect_s3_class(coerce_datetime(c(chardate, chardate), NA_datetime_), "POSIXct")
@@ -25,14 +25,125 @@ test_that("coerce_datetime fills the void", {
   expect_error(coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"), class = "vctrs_error_incompatible_type")
 })
 
-test_that("make_timestamp works with POSIXct", {
-  ts <- as.POSIXct("2020-01-01 01:02:03Z")
-  outcome <- "2020-01-01T01:02:03Z"
-  expect_equal(make_timestamp(ts), outcome)
-  expect_equal(make_timestamp(rep(ts, 10)), rep(outcome, 10))
+test_that("parse_connect_rfc3339 parses timestamps we expect from Connect", {
+  withr::defer(Sys.setenv(TZ = Sys.getenv("TZ")))
 
-  # idempotent
-  expect_equal(make_timestamp(make_timestamp(ts)), outcome)
+  x_mixed <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z",
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+
+  x_zero_offset <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z"
+  )
+
+  x_plus_one <- c(
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T02:02:03+01:00"
+  )
+
+  x_minus_one <- c(
+    "2023-08-22T13:13:14-01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+
+  single_zero_offset <- "2023-08-22T14:13:14Z"
+
+  single_offset <- "2023-08-22T15:13:14+01:00"
+
+  expected <- as.POSIXct(strptime(c(
+    "2023-08-22T14:13:14+0000",
+    "2020-01-01T01:02:03+0000"
+  ), format = "%Y-%m-%dT%H:%M:%S%z", tz = "UTC"))
+
+  Sys.setenv(TZ = "America/New_York")
+  expect_identical(parse_connect_rfc3339(x_mixed), rep(expected, 2))
+  expect_identical(parse_connect_rfc3339(x_zero_offset), expected)
+  expect_identical(parse_connect_rfc3339(x_plus_one), expected)
+  expect_identical(parse_connect_rfc3339(x_minus_one), expected)
+  expect_identical(parse_connect_rfc3339(single_zero_offset), expected[1])
+  expect_identical(parse_connect_rfc3339(single_offset), expected[1])
+
+  Sys.setenv(TZ = "UTC")
+  expect_identical(parse_connect_rfc3339(x_mixed), rep(expected, 2))
+  expect_identical(parse_connect_rfc3339(x_zero_offset), expected)
+  expect_identical(parse_connect_rfc3339(x_plus_one), expected)
+  expect_identical(parse_connect_rfc3339(x_minus_one), expected)
+  expect_identical(parse_connect_rfc3339(single_zero_offset), expected[1])
+  expect_identical(parse_connect_rfc3339(single_offset), expected[1])
+
+  Sys.setenv(TZ = "Asia/Tokyo")
+  expect_identical(parse_connect_rfc3339(x_mixed), rep(expected, 2))
+  expect_identical(parse_connect_rfc3339(x_zero_offset), expected)
+  expect_identical(parse_connect_rfc3339(x_plus_one), expected)
+  expect_identical(parse_connect_rfc3339(x_minus_one), expected)
+  expect_identical(parse_connect_rfc3339(single_zero_offset), expected[1])
+  expect_identical(parse_connect_rfc3339(single_offset), expected[1])
+})
+
+test_that("make_timestamp produces expected output", {
+  withr::defer(Sys.setenv(TZ = Sys.getenv("TZ")))
+
+  x_mixed <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z",
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+
+  x_zero_offset <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z"
+  )
+
+  x_plus_one <- c(
+    "2023-08-22T15:13:14+01:00",
+    "2020-01-01T02:02:03+01:00"
+  )
+
+  x_minus_one <- c(
+    "2023-08-22T13:13:14-01:00",
+    "2020-01-01T00:02:03-01:00"
+  )
+
+  single_zero_offset <- "2023-08-22T14:13:14Z"
+
+  single_offset <- "2023-08-22T15:13:14+01:00"
+
+  outcome <- c(
+    "2023-08-22T14:13:14Z",
+    "2020-01-01T01:02:03Z"
+  )
+
+  Sys.setenv(TZ = "America/New_York")
+  expect_equal(make_timestamp(coerce_datetime(x_mixed, NA_datetime_)), rep(outcome, 2))
+  expect_equal(make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(coerce_datetime(single_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(outcome), outcome)
+
+  Sys.setenv(TZ = "UTC")
+  expect_equal(make_timestamp(coerce_datetime(x_mixed, NA_datetime_)), rep(outcome, 2))
+  expect_equal(make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(coerce_datetime(single_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(outcome), outcome)
+
+  Sys.setenv(TZ = "Asia/Tokyo")
+  expect_equal(make_timestamp(coerce_datetime(x_mixed, NA_datetime_)), rep(outcome, 2))
+  expect_equal(make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)), outcome)
+  expect_equal(make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(coerce_datetime(single_offset, NA_datetime_)), outcome[1])
+  expect_equal(make_timestamp(outcome), outcome)
 })
 
 test_that("make_timestamp is safe for strings", {
@@ -44,24 +155,6 @@ test_that("make_timestamp is safe for strings", {
 
 test_that("make_timestamp converts to character", {
   expect_type(make_timestamp(NA_datetime_), "character")
-})
-
-test_that("swap_timestamp_format works with expected case", {
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-
-  # decimals
-  expect_match(swap_timestamp_format("2020-01-07T11:21:07.123456Z"), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-  expect_match(swap_timestamp_format(rep("2020-01-07T11:21:07.123456Z", 10)), "([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.*[0-9]*Z)")
-})
-
-test_that("swap_timestamp_format is safe for NA", {
-  expect_identical(swap_timestamp_format(NA_character_), NA_character_)
-})
-
-test_that("swap_timestamp_format is safe for other strings", {
-  expect_identical(swap_timestamp_format("my string"), "my string")
-  expect_identical(swap_timestamp_format("132352523153151"), "132352523153151")
 })
 
 test_that("ensure_column works with lists", {

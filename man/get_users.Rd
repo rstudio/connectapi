@@ -4,7 +4,7 @@
 \alias{get_users}
 \title{Get user information from the Posit Connect server}
 \usage{
-get_users(src, page_size = 20, prefix = NULL, limit = 25)
+get_users(src, page_size = 500, prefix = NULL, limit = Inf)
 }
 \arguments{
 \item{src}{The source object}

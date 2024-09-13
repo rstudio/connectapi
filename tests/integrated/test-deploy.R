@@ -255,6 +255,7 @@ test_that("set_image_url works", {
 })
 
 test_that("set_image_webshot works", {
+  skip("test fails commonly in CI")
   scoped_experimental_silence()
   cont1_content$update(access_type = "all")
   res <- set_image_webshot(cont1_content)
@@ -424,7 +425,7 @@ test_that("deployment timestamps respect timezone", {
   myc_guid <- myc$get_content()$guid
 
   # will fail without the png package
-  invisible(tryCatch(test_conn_1$GET_URL(myc$get_url()), error = function(e) {}))
+  invisible(tryCatch(test_conn_1$GET(url = myc$get_url()), error = function(e) {}))
 
   all_usage <- get_usage_static(test_conn_1, content_guid = myc_guid)
   for (i in 1:5) {

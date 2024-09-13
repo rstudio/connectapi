@@ -39,7 +39,7 @@
 #' }
 #'
 #' @export
-get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
+get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
   res <- page_offset(
@@ -83,7 +83,7 @@ get_users <- function(src, page_size = 20, prefix = NULL, limit = 25) {
 #' }
 #'
 #' @export
-get_groups <- function(src, page_size = 20, prefix = NULL, limit = 25) {
+get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
   res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
@@ -291,12 +291,6 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
   }
 }
 
-.get_content_permission_with_progress <- function(src, guid, .pb = NULL) {
-  if (!is.null(.pb)) {
-    if (!.pb$finished) .pb$tick()
-  }
-  get_content_permissions(content_item(src, guid))
-}
 
 #' Get Content List with Permissions
 #'
@@ -334,13 +328,16 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
   content_list <- get_content(src, .p = .p)
 
   message("Getting permission list")
-  pb <- progress::progress_bar$new(
+  pb <- optional_progress_bar(
     total = nrow(content_list),
     format = "[:bar] :percent :eta"
   )
-  content_list[["permission"]] <- purrr::map(
-    content_list$guid,
-    function(.x) .get_content_permission_with_progress(src, .x, pb)
+  content_list[["permission"]] <- purrr::pmap(
+    content_list,
+    function(...) {
+      pb$tick()
+      get_content_permissions(Content$new(connect = src, content = list(...)))
+    }
   )
 
   content_list
@@ -361,7 +358,7 @@ content_list_by_tag <- function(src, tag) {
   validate_R6_class(src, "Connect")
   tag_id <- .get_tag_id(tag)
 
-  res <- src$GET(glue::glue("v1/tags/{tag_id}/content"))
+  res <- src$GET(v1_url("tags", tag_id, "content"))
 
   out <- parse_connectapi_typed(res, connectapi_ptypes$content)
   return(out)
@@ -438,7 +435,7 @@ get_usage_shiny <- function(src, content_guid = NULL,
                             min_data_version = NULL,
                             from = NULL,
                             to = NULL,
-                            limit = 20,
+                            limit = 500,
                             previous = NULL,
                             nxt = NULL,
                             asc_order = TRUE) {
@@ -531,7 +528,7 @@ get_usage_static <- function(src, content_guid = NULL,
                              min_data_version = NULL,
                              from = NULL,
                              to = NULL,
-                             limit = 20,
+                             limit = 500,
                              previous = NULL,
                              nxt = NULL,
                              asc_order = TRUE) {
@@ -596,7 +593,7 @@ get_usage_static <- function(src, content_guid = NULL,
 #' }
 #'
 #' @export
-get_audit_logs <- function(src, limit = 20L, previous = NULL,
+get_audit_logs <- function(src, limit = 500, previous = NULL,
                            nxt = NULL, asc_order = TRUE) {
   validate_R6_class(src, "Connect")
 
@@ -654,4 +651,54 @@ get_procs <- function(src) {
   tbl_data <- parse_connectapi_typed(proc_prep, connectapi_ptypes$procs)
 
   return(tbl_data)
+}
+
+#' Perform an OAuth credential exchange to obtain a viewer's OAuth access token.
+#'
+#' @param connect A Connect R6 object.
+#' @param user_session_token The content viewer's session token. This token
+#' can only be obtained when the content is running on a Connect server. The token
+#' identifies the user who is viewing the content interactively on the Connect server.
+#'
+#' Read this value from the HTTP header: `Posit-Connect-User-Session-Token`
+#'
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' library(plumber)
+#' client <- connect()
+#'
+#' #* @get /do
+#' function(req){
+#'   user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN
+#'   credentials <- get_oauth_credentials(client, user_session_token)
+#'
+#'   # ... do something with `credentials$access_token` ...
+#'
+#'   "done"
+#' }
+#' }
+#'
+#' @return The OAuth credential exchange response.
+#'
+#' @details
+#' Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-viewer-oauth-access-token
+#' for more information.
+#'
+#' @export
+get_oauth_credentials = function(connect, user_session_token) {
+  validate_R6_class(connect, "Connect")
+  url <- v1_url("oauth", "integrations", "credentials")
+  body <- c(
+    list(
+      grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+      subject_token_type = "urn:posit:connect:user-session-token",
+      subject_token = user_session_token
+    )
+  )
+  connect$POST(
+    url,
+    encode = "form",
+    body = body
+  )
 }

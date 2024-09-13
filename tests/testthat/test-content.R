@@ -119,4 +119,116 @@ with_mock_api({
       "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/permissions"
     )
   })
+
+  test_that("content environment vars", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    item <- content_item(con, "f2f37341-e21d-3d80-c698-a935ad614066")
+
+    expect_GET(
+      item$environment(),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/environment"
+    )
+    expect_PATCH(
+      item$environment_set(VAR_NAME = "new_value"),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/environment",
+      '[{"name":"VAR_NAME","value":"new_value"}]'
+    )
+    expect_PATCH(
+      item$environment_set(VAR_NAME = NA),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/environment",
+      '[{"name":"VAR_NAME","value":null}]'
+    )
+    expect_PUT(
+      item$environment_all(VAR_NAME = "new_value"),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/environment",
+      '[{"name":"VAR_NAME","value":"new_value"}]'
+    )
+    expect_PUT(
+      item$environment_all(),
+      "https://connect.example/__api__/v1/content/f2f37341-e21d-3d80-c698-a935ad614066/environment",
+      "[]"
+    )
+  })
 })
+
+without_internet({
+  test_that("Query params to connect$content()", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    expect_GET(
+      con$content(),
+      "https://connect.example/__api__/v1/content?include=tags%2Cowner"
+    )
+
+    expect_GET(
+      con$content("a01792e3-2e67-402e-99af-be04a48da074"),
+      "https://connect.example/__api__/v1/content/a01792e3-2e67-402e-99af-be04a48da074"
+    )
+
+    expect_GET(
+      con$content(include = NULL),
+      "https://connect.example/__api__/v1/content"
+    )
+
+    expect_GET(
+      con$content(owner_guid = "a01792e3-2e67-402e-99af-be04a48da074"),
+      "https://connect.example/__api__/v1/content?owner_guid=a01792e3-2e67-402e-99af-be04a48da074&include=tags%2Cowner"
+    )
+
+    expect_GET(
+      con$content(name = "A name for content"),
+      "https://connect.example/__api__/v1/content?name=A%20name%20for%20content&include=tags%2Cowner"
+    )
+  })
+})
+
+with_mock_api({
+  test_that("content_render() calls the correct endpoint, returns task on success", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    render_task <- content_render(x)
+    expect_equal(render_task$task[["id"]], "v9XYo7OKkAQJPraI")
+    expect_equal(render_task$connect, client)
+    # TODO think about how to get variant key into response
+    # expect_equal(render_task$variant_key, "WrEKKa77")
+  })
+
+  test_that("content_render() can render a non-default variant", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    render_task <- content_render(x, variant_key = "SECOND")
+    expect_equal(render_task$task[["id"]], "variant2_task_id")
+    expect_equal(render_task$connect, client)
+    # TODO think about how to get variant key into response
+  })
+
+
+  test_that("content_render() raises an error when called on interactive content", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+    expect_error(content_render(x), "Render not supported for application mode: shiny. Did you mean content_restart()?", fixed = TRUE)
+  })
+})
+
+with_mock_api({
+  test_that("content_restart() calls the correct endpoint", {
+    client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+    expect_PATCH(content_restart(x), url = "https://connect.example/__api__/v1/content/8f37d6e0/environment")
+  })
+
+  test_that("content_restart() raises an error when called on interactive content", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    expect_error(content_restart(x), "Restart not supported for application mode: quarto-static. Did you mean content_render()?", fixed = TRUE)
+  })
+})
+
+with_mock_api({
+  test_that("content$default_variant gets the default variant", {
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
+    v <- x$default_variant
+    expect_identical(v$key, "WrEKKa77")
+  })
+})
+

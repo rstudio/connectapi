@@ -1,18 +1,3 @@
-test_that("safe_query handles values correctly", {
-  pref <- "prefixed"
-  nullval <- NULL
-  expect_identical(safe_query(nullval, pref), "")
-
-  oneval <- "blah"
-  expect_identical(safe_query(oneval, pref), paste0(pref, oneval))
-
-  moreval <- c("blah", "blah2")
-  expect_identical(safe_query(moreval, pref), paste0(pref, paste(moreval, collapse = "|")))
-
-  morenull <- c(NULL, NULL)
-  expect_identical(safe_query(morenull, pref, "|"), "")
-})
-
 test_that("simplify_version works", {
   expect_identical(simplify_version("1.8.2-4"), "1.8.2")
   expect_identical(simplify_version("1.8.2.1-4"), "1.8.2")
@@ -40,7 +25,7 @@ test_that("check_connect_version works", {
 
   # warnings for minor version changes
   expect_warning(check_connect_version("1.8.2-4", "2.8.0.5-1"), "older")
-  warn_clear("old-connect")
+  rlang::reset_warning_verbosity("old-connect")
 })
 
 test_that("check_connect_version warning snapshot", {
@@ -49,5 +34,5 @@ test_that("check_connect_version warning snapshot", {
   # No warning
   expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
   expect_snapshot(capture_warning(check_connect_version("2022.01", "2022.02")))
-  warn_clear("old-connect")
+  rlang::reset_warning_verbosity("old-connect")
 })

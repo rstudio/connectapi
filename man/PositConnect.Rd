@@ -65,10 +65,9 @@ Other R6 classes:
 \item \href{#method-Connect-print}{\code{Connect$print()}}
 \item \href{#method-Connect-raise_error}{\code{Connect$raise_error()}}
 \item \href{#method-Connect-add_auth}{\code{Connect$add_auth()}}
+\item \href{#method-Connect-api_url}{\code{Connect$api_url()}}
+\item \href{#method-Connect-request}{\code{Connect$request()}}
 \item \href{#method-Connect-GET}{\code{Connect$GET()}}
-\item \href{#method-Connect-GET_RESULT}{\code{Connect$GET_RESULT()}}
-\item \href{#method-Connect-GET_URL}{\code{Connect$GET_URL()}}
-\item \href{#method-Connect-GET_RESULT_URL}{\code{Connect$GET_RESULT_URL()}}
 \item \href{#method-Connect-PUT}{\code{Connect$PUT()}}
 \item \href{#method-Connect-HEAD}{\code{Connect$HEAD()}}
 \item \href{#method-Connect-DELETE}{\code{Connect$DELETE()}}
@@ -79,12 +78,10 @@ Other R6 classes:
 \item \href{#method-Connect-get_tags}{\code{Connect$get_tags()}}
 \item \href{#method-Connect-get_tag_id}{\code{Connect$get_tag_id()}}
 \item \href{#method-Connect-get_tag_tree}{\code{Connect$get_tag_tree()}}
-\item \href{#method-Connect-get_tag_tree_old}{\code{Connect$get_tag_tree_old()}}
 \item \href{#method-Connect-tag_create_safe}{\code{Connect$tag_create_safe()}}
 \item \href{#method-Connect-tag_create}{\code{Connect$tag_create()}}
 \item \href{#method-Connect-tag}{\code{Connect$tag()}}
 \item \href{#method-Connect-tag_delete}{\code{Connect$tag_delete()}}
-\item \href{#method-Connect-get_n_apps}{\code{Connect$get_n_apps()}}
 \item \href{#method-Connect-get_apps}{\code{Connect$get_apps()}}
 \item \href{#method-Connect-get_schedule}{\code{Connect$get_schedule()}}
 \item \href{#method-Connect-content_create}{\code{Connect$content_create()}}
@@ -214,89 +211,69 @@ Returns HTTP authorization headers, or NULL when none are used.
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-api_url"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-api_url}{}}}
+\subsection{Method \code{api_url()}}{
+Build a URL relative to the API root
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$api_url(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{path segments}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-request"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-request}{}}}
+\subsection{Method \code{request()}}{
+General wrapper around \code{httr} verbs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, ..., parser = "parsed")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{method}}{HTTP request method}
+
+\item{\code{url}}{URL to request}
+
+\item{\code{...}}{Additional arguments passed to the request function}
+
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-GET"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-GET}{}}}
 \subsection{Method \code{GET()}}{
-Perform an HTTP GET request of the named API path. Returns an object parsed from the HTTP response.
+Perform an HTTP GET request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, ..., url = self$api_url(path), parser = "parsed")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
-\item{\code{writer}}{Controls where the response is written.}
+\item{\code{...}}{Arguments to \code{httr::GET()}}
 
-\item{\code{parser}}{How the response is parsed.}
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}}
 
-\item{\code{...}}{Arguments to the httr::GET.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-GET_RESULT"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-GET_RESULT}{}}}
-\subsection{Method \code{GET_RESULT()}}{
-Perform an HTTP GET request of the named API path. Returns the HTTP response object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT(path, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path.}
-
-\item{\code{writer}}{Controls where the response is written.}
-
-\item{\code{...}}{Arguments to the httr::GET.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-GET_URL"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-GET_URL}{}}}
-\subsection{Method \code{GET_URL()}}{
-Perform an HTTP GET request of the named URL. Returns an object parsed from the HTTP response.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_URL(url, writer = httr::write_memory(), parser = "parsed", ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{url}}{Target URL.}
-
-\item{\code{writer}}{Controls where the response is written.}
-
-\item{\code{parser}}{How the response is parsed.}
-
-\item{\code{...}}{Arguments to the httr::GET.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-GET_RESULT_URL"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-GET_RESULT_URL}{}}}
-\subsection{Method \code{GET_RESULT_URL()}}{
-Perform an HTTP GET request of the named URL. Returns the HTTP response object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET_RESULT_URL(url, writer = httr::write_memory(), ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{url}}{Target URL.}
-
-\item{\code{writer}}{Controls where the response is written.}
-
-\item{\code{...}}{Arguments to the httr::GET.}
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -305,23 +282,35 @@ Perform an HTTP GET request of the named URL. Returns the HTTP response object.
 \if{html}{\out{<a id="method-Connect-PUT"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-PUT}{}}}
 \subsection{Method \code{PUT()}}{
-Perform an HTTP PUT request of the named API path. Returns an object parsed from the HTTP response.
+Perform an HTTP PUT request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(path, body, encode = "json", ..., .empty_object = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(
+  path,
+  body = "{}",
+  ...,
+  url = self$api_url(path),
+  encode = "json",
+  parser = "parsed"
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
 \item{\code{body}}{The HTTP payload.}
 
+\item{\code{...}}{Arguments to \code{httr::PUT()}}
+
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}}
+
 \item{\code{encode}}{How the payload is encoded.}
 
-\item{\code{...}}{Arguments to the httr::PUT.}
-
-\item{\code{.empty_object}}{Indicates that an empty JSON object is sent when the body is empty.}
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -330,17 +319,21 @@ Perform an HTTP PUT request of the named API path. Returns an object parsed from
 \if{html}{\out{<a id="method-Connect-HEAD"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-HEAD}{}}}
 \subsection{Method \code{HEAD()}}{
-Perform an HTTP HEAD request of the named API path. Returns the HTTP response object.
+Perform an HTTP HEAD request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ..., url = self$api_url(path))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
-\item{\code{...}}{Arguments to the httr::HEAD.}
+\item{\code{...}}{Arguments to \code{httr::HEAD()}}
+
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -351,15 +344,22 @@ Perform an HTTP HEAD request of the named API path. Returns the HTTP response ob
 \subsection{Method \code{DELETE()}}{
 Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ..., url = self$api_url(path), parser = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
-\item{\code{...}}{Arguments to the httr::DELETE.}
+\item{\code{...}}{Arguments to \code{httr::DELETE()}}
+
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}}
+
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -368,32 +368,35 @@ Perform an HTTP DELETE request of the named API path. Returns the HTTP response 
 \if{html}{\out{<a id="method-Connect-PATCH"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-PATCH}{}}}
 \subsection{Method \code{PATCH()}}{
-Perform an HTTP PATCH request of the named API path. Returns an object parsed from the HTTP response.
+Perform an HTTP PATCH request of the named API path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(
   path,
-  body,
-  encode = "json",
-  prefix = "/__api__/",
+  body = "{}",
   ...,
-  .empty_object = TRUE
+  url = self$api_url(path),
+  encode = "json",
+  parser = "parsed"
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
 \item{\code{body}}{The HTTP payload.}
 
+\item{\code{...}}{Arguments to \code{httr::PATCH()}}
+
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}}
+
 \item{\code{encode}}{How the payload is encoded.}
 
-\item{\code{prefix}}{API path prefix.}
-
-\item{\code{...}}{Arguments to the httr::PATCH.}
-
-\item{\code{.empty_object}}{Indicates that an empty JSON object is sent when the body is empty.}
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -402,32 +405,35 @@ Perform an HTTP PATCH request of the named API path. Returns an object parsed fr
 \if{html}{\out{<a id="method-Connect-POST"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-POST}{}}}
 \subsection{Method \code{POST()}}{
-Perform an HTTP POST request of the named API path. Returns an object parsed from the HTTP response.
+Perform an HTTP POST request of the named API path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$POST(
   path,
-  body,
-  encode = "json",
-  prefix = "/__api__/",
+  body = "{}",
   ...,
-  .empty_object = TRUE
+  url = self$api_url(path),
+  encode = "json",
+  parser = "parsed"
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{API path.}
+\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
 
 \item{\code{body}}{The HTTP payload.}
 
+\item{\code{...}}{Arguments to \code{httr::POST()}}
+
+\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+a server resource that is not under \verb{/__api__}}
+
 \item{\code{encode}}{How the payload is encoded.}
 
-\item{\code{prefix}}{API path prefix.}
-
-\item{\code{...}}{Arguments to the httr::POST.}
-
-\item{\code{.empty_object}}{Indicates that an empty JSON object is sent when the body is empty.}
+\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+will be returned. Otherwise, the argument is forwarded to
+\code{httr::content(res, as = parser)}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -493,16 +499,6 @@ Get the identifier for the named tag.
 Get the tag tree.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-get_tag_tree_old"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-get_tag_tree_old}{}}}
-\subsection{Method \code{get_tag_tree_old()}}{
-Get the tag tree.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree_old()}\if{html}{\out{</div>}}
 }
 
 }
@@ -577,16 +573,6 @@ Delete a tag.
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-get_n_apps"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-get_n_apps}{}}}
-\subsection{Method \code{get_n_apps()}}{
-Get the number of content items.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_n_apps()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_apps"></a>}}
@@ -797,7 +783,7 @@ Get user details.
 \subsection{Method \code{users()}}{
 Get users.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -945,7 +931,7 @@ Update a user.
 \subsection{Method \code{groups()}}{
 Get groups.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -1055,7 +1041,7 @@ Create a remote group.
 \subsection{Method \code{groups_remote()}}{
 Get remote groups.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 20)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 500)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -1079,7 +1065,7 @@ Get (non-interactive) content visits.
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -1122,7 +1108,7 @@ Get (non-interactive) content visits.
   min_data_version = NULL,
   from = NULL,
   to = NULL,
-  limit = 20,
+  limit = 500,
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
@@ -1264,7 +1250,7 @@ Get documentation.
 \subsection{Method \code{audit_logs()}}{
 Get auditing.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 20L, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

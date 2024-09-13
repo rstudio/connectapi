@@ -39,6 +39,34 @@ test_that("Handling error responses", {
   expect_error(con$raise_error(resp), "Bad Request")
 })
 
+test_that("Handling deprecation warnings", {
+  rlang::reset_warning_verbosity("X-Deprecated-Endpoint")
+  on.exit(rlang::reset_warning_verbosity("X-Deprecated-Endpoint"))
+
+  # No warning here
+  resp <- fake_response("https://connect.example/__api__/", headers = list(
+    `Content-Type` = "application/json"
+  ))
+  expect_warning(check_debug(resp), NA)
+
+  # Yes warning here
+  resp <- fake_response("https://connect.example/__api__/", headers = list(
+    `X-Deprecated-Endpoint` = "/v1"
+  ))
+  expect_warning(
+    check_debug(resp),
+    paste(
+      "https://connect.example/__api__/ is deprecated and will be removed in a",
+      "future version of Connect. Please upgrade `connectapi` in order to use",
+      "the new APIs."
+    ),
+    class = "deprecatedWarning"
+  )
+
+  # No warning if you do it again because we only warn the first time
+  expect_warning(check_debug(resp), NA)
+})
+
 with_mock_api({
   test_that("browse URLs", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
@@ -56,5 +84,17 @@ with_mock_api({
       "Opening https://connect.example/__docs__/api"
     )
     suppressMessages(untrace("browse_url", where = connectapi::browse_solo))
+  })
+
+  test_that("httr_config", {
+    con <- Connect$new(server = "https://connect.example", api_key = "fake")
+    con$httr_config(httr::add_headers(MY_MAGIC_HEADER = "value"))
+    expect_header(
+      expect_GET(
+        con$GET("v1/content"),
+        "https://connect.example/__api__/v1/content"
+      ),
+      "MY_MAGIC_HEADER: value"
+    )
   })
 })

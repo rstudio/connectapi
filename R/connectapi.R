@@ -1,5 +1,6 @@
 #' @importFrom utils compareVersion untar
 #' @importFrom lifecycle deprecate_warn
+#' @importFrom rlang arg_match
 "_PACKAGE"
 
 # Even if we don't currently have any references to functions in lifecycle,
@@ -11,6 +12,7 @@ utils::globalVariables(
     "access_type",
     "connectapi_ptypes",
     "guid",
+    "last_deployed_time",
     "owner_guid",
     "parse_connectapi_typed",
     "permission",
