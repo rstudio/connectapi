@@ -1,5 +1,8 @@
 url: https://pkgs.rstudio.com/connectapi/
 
+template:
+  bootstrap: 5
+
 development:
    mode: auto
 
