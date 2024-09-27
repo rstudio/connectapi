@@ -1,20 +1,19 @@
 #' Get the Content Thumbnail
 #'
 #' `get_thumbnail` saves the content thumbnail to the given path (default: temp file).
-#' `delete_thumbnail` removes the thumbnail (optionally saving to the given path)
+#' `delete_thumbnail` removes the thumbnail.
 #' `has_thumbnail` returns whether the content has an thumbnail
 #'
-#' @param content A content object
-#' @param path optional. The path to the image on disk
+#' @param content A content object.
+#' @param path Optional. The path to the image on disk.
 #'
-#' @rdname get_thumbnail
+#' @family thumbnail functions
 #' @family content functions
 #' @export
 get_thumbnail <- function(content, path = NULL) {
   validate_R6_class(content, "Content")
-  guid <- content$get_content()$guid
-
-  con <- content$get_connect()
+  guid <- content$content$guid
+  con <- content$connect
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
@@ -30,47 +29,34 @@ get_thumbnail <- function(content, path = NULL) {
   }
 
   if (httr::status_code(res) == 204) {
-    return(NA)
+    return(NA_character_)
   }
 
-  # guess file extension
+  # Guess file extension
   if (is.null(path)) {
     ct <- httr::headers(res)$`content-type`
     if (grepl("^image/", ct)) {
-      # just strip off 'image/'
+      # Just strip off 'image/'
       ext <- substr(ct, 7, nchar(ct))
-      path <- fs::file_temp(pattern = "content_image_", ext = ext)
+      path <- tempfile(pattern = "content_image_", fileext = ext)
     } else {
-      # try png
+      # Try png
       warning(glue::glue("Could not infer file extension from content type: {ct}. Using '.png'"))
-      path <- fs::file_temp(pattern = "content_image_", ext = ".png")
+      path <- tempfile(pattern = "content_image_", fileext = ".png")
     }
   }
 
   writeBin(httr::content(res, as = "raw"), path)
 
-  return(fs::as_fs_path(path))
+  return(normalizePath(path))
 }
 
 #' @rdname get_thumbnail
 #' @export
-get_image <- function(content, path = NULL) {
-  lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
-  get_thumbnail(content, path)
-}
-
-#' @rdname get_thumbnail
-#' @export
-delete_thumbnail <- function(content, path = NULL) {
+delete_thumbnail <- function(content) {
   validate_R6_class(content, "Content")
-  guid <- content$get_content()$guid
-
-  con <- content$get_connect()
-
-  if (!is.null(path)) {
-    scoped_experimental_silence()
-    get_thumbnail(content, path)
-  }
+  guid <- content$content$guid
+  con <- content$connect
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
@@ -86,23 +72,15 @@ delete_thumbnail <- function(content, path = NULL) {
   }
   con$raise_error(res)
 
-  return(content)
-}
-
-#' @rdname get_thumbnail
-#' @export
-delete_image <- function(content, path = NULL) {
-  lifecycle::deprecate_warn("0.3.1", "delete_image()", "delete_thumbnail()")
-  delete_thumbnail(content, path)
+  invisible(content)
 }
 
 #' @rdname get_thumbnail
 #' @export
 has_thumbnail <- function(content) {
   validate_R6_class(content, "Content")
-  guid <- content$get_content()$guid
-
-  con <- content$get_connect()
+  guid <- content$content$guid
+  con <- content$connect
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
@@ -118,6 +96,26 @@ has_thumbnail <- function(content) {
   }
   con$raise_error(res)
   httr::status_code(res) != 204
+}
+
+#' @rdname get_thumbnail
+#' @export
+get_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
+  
+  get_thumbnail(content, path)
+}
+
+#' @rdname get_thumbnail
+#' @export
+delete_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "delete_image()", "delete_thumbnail()")
+
+  if (!is.null(path)) {
+    get_thumbnail(content, path)
+  }
+  
+  delete_thumbnail(content, path)
 }
 
 #' @rdname get_thumbnail
@@ -147,8 +145,9 @@ set_thumbnail <- function(content, path) {
     parsed <- httr::parse_url(path)
     if (parsed$scheme %in% c("http", "https")) {
       valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
-      httr::GET(url, httr::write_disk(valid_path))
+      res <- httr::GET(path, httr::write_disk(valid_path))
       on.exit(unlink(valid_path))
+      content$connect$raise_error(res)
     }
   }
   if (is.null(valid_path)) {

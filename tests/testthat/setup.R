@@ -34,4 +34,5 @@ set_redactor(
 
 # Mocks are in directories by Connect version. 2024.08.0 contains all mocks
 # created before 2024.09.0.
-.mockPaths("tests/testthat/_mocks/2024.08.0")
+.mockPaths("_mocks/2024.08.0")
+
