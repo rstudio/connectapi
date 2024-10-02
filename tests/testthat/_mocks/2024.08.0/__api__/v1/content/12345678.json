@@ -1,7 +1,7 @@
 {
-    "guid": "f2ba0f64",
-    "name": "shinyapp-2024-08-22",
-    "title": "shinyapp-2024-08-22",
+    "guid": "12345678",
+    "name": "fake-app-2000",
+    "title": "fake-app-2000",
     "description": "",
     "access_type": "acl",
     "locked": false,
@@ -40,8 +40,8 @@
     "run_as": null,
     "run_as_current_user": false,
     "owner_guid": "fe07bf64",
-    "content_url": "https://rsc.radixu.com/content/f2ba0f64/",
-    "dashboard_url": "https://rsc.radixu.com/connect/#/apps/f2ba0f64",
+    "content_url": "https://connect.example/content/12345678/",
+    "dashboard_url": "https://connect.example/connect/#/apps/12345678",
     "app_role": "owner",
     "id": "56746"
 }

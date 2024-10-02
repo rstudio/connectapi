@@ -1,4 +1,4 @@
-structure(list(url = "__api__/applications/f2ba0f64/image", status_code = 200L, 
+structure(list(url = "__api__/applications/01234567/image", status_code = 200L, 
     headers = structure(list(date = "Thu, 26 Sep 2024 21:08:40 GMT", 
         `content-type` = "image/jpeg", `content-length` = "141", 
         `set-cookie` = "AWSALB=OW+w4Ocdg6pexoONUla1GeC57GefdxEXWjqFNoVtlm0NXcKbRYl2UnDgIiAxMyLMER0k4dQwNx0pOqTuy5PT+mbFHCJQAQSiZaRI/34X+QrRZZWoiny1L1PTQZPZ; Expires=Thu, 03 Oct 2024 21:08:40 GMT; Path=/", 

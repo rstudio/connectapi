@@ -27,6 +27,7 @@ get_thumbnail <- function(content, path = NULL) {
       parser = NULL
     )
   }
+  con$raise_error(res)
 
   if (httr::status_code(res) == 204) {
     return(NA_character_)
@@ -38,7 +39,7 @@ get_thumbnail <- function(content, path = NULL) {
     if (grepl("^image/", ct)) {
       # Just strip off 'image/'
       ext <- substr(ct, 7, nchar(ct))
-      path <- tempfile(pattern = "content_image_", fileext = ext)
+      path <- tempfile(pattern = "content_image_", fileext = paste0(".", ext))
     } else {
       # Try png
       warning(glue::glue("Could not infer file extension from content type: {ct}. Using '.png'"))
@@ -46,9 +47,10 @@ get_thumbnail <- function(content, path = NULL) {
     }
   }
 
-  writeBin(httr::content(res, as = "raw"), path)
+  contents <- httr::content(res, as = "raw")
+  writeBin(contents, path)
 
-  return(normalizePath(path))
+  return(path)
 }
 
 #' @rdname get_thumbnail
@@ -85,7 +87,7 @@ has_thumbnail <- function(content) {
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
   res <- con$GET(
-    v1_url("content", guid, "thumbnail"),
+    url = con$server_url("content", guid, "__thumbnail__"),
     parser = NULL
   )
   if (httr::status_code(res) == 404) {
@@ -143,7 +145,8 @@ set_thumbnail <- function(content, path) {
     valid_path <- path
   } else {
     parsed <- httr::parse_url(path)
-    if (parsed$scheme %in% c("http", "https")) {
+    print(parsed)
+    if (!is.null(parsed$scheme) && parsed$scheme %in% c("http", "https")) {
       valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
       res <- httr::GET(path, httr::write_disk(valid_path))
       on.exit(unlink(valid_path))

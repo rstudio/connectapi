@@ -1,4 +1,4 @@
-structure(list(url = "__api__/v1/content/f2ba0f64/thumbnail", 
+structure(list(url = "__api__/v1/applications/01234567/thumbnail", 
     status_code = 404L, headers = structure(list(date = "Thu, 12 Sep 2024 15:08:27 GMT", 
         `content-type` = "text/plain", `content-length` = "18", 
         `set-cookie` = "AWSALB=vpore3Njbtw57tP6d8vcHmzlCyeFM6tQUf5zW9CaUifNtIkiLiRk5acKj5cs/CJtdBcW4g4po1moSYYhgLZ9R74k/pJcfj7Lw6Dq1aXu0r7CkvZt3t5GUPFerj9t; Expires=Thu, 19 Sep 2024 15:08:27 GMT; Path=/", 

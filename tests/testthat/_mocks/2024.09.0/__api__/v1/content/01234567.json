@@ -1,5 +1,5 @@
 {
-    "guid": "f2ba0f64",
+    "guid": "01234567",
     "name": "shinyapp-2024-08-22",
     "title": "shinyapp-2024-08-22",
     "description": "",
@@ -40,8 +40,8 @@
     "run_as": null,
     "run_as_current_user": false,
     "owner_guid": "fe07bf64",
-    "content_url": "https://rsc.radixu.com/content/f2ba0f64/",
-    "dashboard_url": "https://rsc.radixu.com/connect/#/apps/f2ba0f64",
+    "content_url": "https://rsc.radixu.com/content/01234567/",
+    "dashboard_url": "https://rsc.radixu.com/connect/#/apps/01234567",
     "app_role": "owner",
     "id": "56746"
 }
