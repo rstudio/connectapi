@@ -1,11 +1,21 @@
-#' Get the Content Thumbnail
+#' Get content item thumbnail
 #'
-#' `get_thumbnail` saves the content thumbnail to the given path (default: temp file).
-#' `delete_thumbnail` removes the thumbnail.
-#' `has_thumbnail` returns whether the content has an thumbnail
+#' Download the thumbnail for a content item on Connect to a file on your
+#' computer.
 #'
-#' @param content A content object.
-#' @param path Optional. The path to the image on disk.
+#' @param content A content item.
+#' @param path Optional. A path to a file used to write the thumbnail image. If
+#' no path is provided, a temporary file with the correct file extension is
+#' created. If the content item does not have a thumbnail, returns `NA`.
+#' 
+#' @returns The path to the image file.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' thumbnail <- get_thumbnail(item)
+#' }
 #'
 #' @family thumbnail functions
 #' @family content functions
@@ -47,13 +57,29 @@ get_thumbnail <- function(content, path = NULL) {
     }
   }
 
-  contents <- httr::content(res, as = "raw")
-  writeBin(contents, path)
+  writeBin(httr::content(res, as = "raw"), path)
 
   return(path)
 }
 
-#' @rdname get_thumbnail
+
+#' Delete content item thumbnail
+#'
+#' Delete the thumbnail from a content item on Connect.
+#'
+#' @param content A content item.
+#' 
+#' @returns The content item (invisibly).
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' thumbnail <- get_thumbnail(item)
+#' }
+#'
+#' @family thumbnail functions
+#' @family content functions
 #' @export
 delete_thumbnail <- function(content) {
   validate_R6_class(content, "Content")
@@ -77,7 +103,23 @@ delete_thumbnail <- function(content) {
   invisible(content)
 }
 
-#' @rdname get_thumbnail
+#' Check content item thumbnail
+#'
+#' Check whether a content item has a thumbnail.
+#'
+#' @param content A content item.
+#' 
+#' @returns `TRUE` if the content item has a thumbnail, otherwise `FALSE`.
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' has_thumbnail(item)
+#' }
+#'
+#' @family thumbnail functions
+#' @family content functions
 #' @export
 has_thumbnail <- function(content) {
   validate_R6_class(content, "Content")
@@ -127,15 +169,26 @@ has_image <- function(content) {
   has_thumbnail(content)
 }
 
-#' Set the Content Thumbnail
+#' Set content item thumbnail
 #'
-#' Set the Content thumbnail using a variety of methods.
+#' Set the thumbnail for a content item.
 #'
-#' @param content A content object
-#' @param path A file path or URL to an image
+#' @param content A content item.
+#' @param path Either a path to a local file or a URL to an image available over
+#' HTTP/HTTPS. If `path` begins with `"http"` or `"https"`, the image will first
+#' be downloaded.
+
+#' @returns The content item (invisibly).
+#' 
+#' @examples
+#' \dontrun{
+#' client <- connect()
+#' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+#' set_thumbnail(item, "resources/image.png")
+#' }
 #'
+#' @family thumbnail functions
 #' @family content functions
-#' @rdname set_thumbnail
 #' @export
 set_thumbnail <- function(content, path) {
   validate_R6_class(content, "Content")
@@ -179,7 +232,7 @@ set_thumbnail <- function(content, path) {
   con$raise_error(res)
   
   # return the input (in case it inherits more than just Content)
-  content
+  invisible(content)
 }
 
 

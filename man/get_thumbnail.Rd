@@ -2,18 +2,12 @@
 % Please edit documentation in R/thumbnail.R
 \name{get_thumbnail}
 \alias{get_thumbnail}
-\alias{delete_thumbnail}
-\alias{has_thumbnail}
 \alias{get_image}
 \alias{delete_image}
 \alias{has_image}
-\title{Get the Content Thumbnail}
+\title{Get content item thumbnail}
 \usage{
 get_thumbnail(content, path = NULL)
-
-delete_thumbnail(content)
-
-has_thumbnail(content)
 
 get_image(content, path = NULL)
 
@@ -22,16 +16,33 @@ delete_image(content, path = NULL)
 has_image(content)
 }
 \arguments{
-\item{content}{A content object.}
+\item{content}{A content item.}
 
-\item{path}{Optional. The path to the image on disk.}
+\item{path}{Optional. A path to a file used to write the thumbnail image. If
+no path is provided, a temporary file with the correct file extension is
+created. If the content item does not have a thumbnail, returns \code{NA}.}
+}
+\value{
+The path to the image file.
 }
 \description{
-\code{get_thumbnail} saves the content thumbnail to the given path (default: temp file).
-\code{delete_thumbnail} removes the thumbnail.
-\code{has_thumbnail} returns whether the content has an thumbnail
+Download the thumbnail for a content item on Connect to a file on your
+computer.
+}
+\examples{
+\dontrun{
+client <- connect()
+item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+thumbnail <- get_thumbnail(item)
+}
+
 }
 \seealso{
+Other thumbnail functions: 
+\code{\link{delete_thumbnail}()},
+\code{\link{has_thumbnail}()},
+\code{\link{set_thumbnail}()}
+
 Other content functions: 
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
@@ -40,6 +51,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url}()},
 \code{\link{dashboard_url_chr}()},
+\code{\link{delete_thumbnail}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
 \code{\link{get_bundles}()},
@@ -47,6 +59,7 @@ Other content functions:
 \code{\link{get_jobs}()},
 \code{\link{get_vanity_url}()},
 \code{\link{git}},
+\code{\link{has_thumbnail}()},
 \code{\link{permissions}},
 \code{\link{set_run_as}()},
 \code{\link{set_thumbnail}()},

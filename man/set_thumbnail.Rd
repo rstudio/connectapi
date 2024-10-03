@@ -5,7 +5,7 @@
 \alias{set_image_path}
 \alias{set_image_url}
 \alias{set_image_webshot}
-\title{Set the Content Thumbnail}
+\title{Set content item thumbnail}
 \usage{
 set_thumbnail(content, path)
 
@@ -16,14 +16,32 @@ set_image_url(content, path)
 set_image_webshot(content, ...)
 }
 \arguments{
-\item{content}{A content object}
+\item{content}{A content item.}
 
-\item{path}{A file path or URL to an image}
+\item{path}{Either a path to a local file or a URL to an image available over
+HTTP/HTTPS. If \code{path} begins with \code{"http"} or \code{"https"}, the image will first
+be downloaded.}
+}
+\value{
+The content item (invisibly).
 }
 \description{
-Set the Content thumbnail using a variety of methods.
+Set the thumbnail for a content item.
+}
+\examples{
+\dontrun{
+client <- connect()
+item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
+set_thumbnail(item, "resources/image.png")
+}
+
 }
 \seealso{
+Other thumbnail functions: 
+\code{\link{delete_thumbnail}()},
+\code{\link{get_thumbnail}()},
+\code{\link{has_thumbnail}()}
+
 Other content functions: 
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
@@ -32,6 +50,7 @@ Other content functions:
 \code{\link{create_random_name}()},
 \code{\link{dashboard_url}()},
 \code{\link{dashboard_url_chr}()},
+\code{\link{delete_thumbnail}()},
 \code{\link{delete_vanity_url}()},
 \code{\link{deploy_repo}()},
 \code{\link{get_bundles}()},
@@ -40,6 +59,7 @@ Other content functions:
 \code{\link{get_thumbnail}()},
 \code{\link{get_vanity_url}()},
 \code{\link{git}},
+\code{\link{has_thumbnail}()},
 \code{\link{permissions}},
 \code{\link{set_run_as}()},
 \code{\link{set_vanity_url}()},
@@ -47,3 +67,4 @@ Other content functions:
 \code{\link{verify_content_name}()}
 }
 \concept{content functions}
+\concept{thumbnail functions}

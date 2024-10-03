@@ -82,7 +82,7 @@ while you wait for deployment to complete:
 
 ```r
 content_1 %>%
-  set_content_image("https://gph.is/29vyb0s") %>%
+  set_thumbnail("https://gph.is/29vyb0s") %>%
   set_vanity_url("/my_clever_content")
 
 # ensure the vanity URL is set as expected
