@@ -142,42 +142,15 @@ has_thumbnail <- function(content) {
   httr::status_code(res) != 204
 }
 
-#' @rdname get_thumbnail
-#' @export
-get_image <- function(content, path = NULL) {
-  lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
-  
-  get_thumbnail(content, path)
-}
-
-#' @rdname get_thumbnail
-#' @export
-delete_image <- function(content, path = NULL) {
-  lifecycle::deprecate_warn("0.3.1", "delete_image()", "delete_thumbnail()")
-
-  if (!is.null(path)) {
-    get_thumbnail(content, path)
-  }
-  
-  delete_thumbnail(content, path)
-}
-
-#' @rdname get_thumbnail
-#' @export
-has_image <- function(content) {
-  lifecycle::deprecate_warn("0.3.1", "has_image()", "has_thumbnail()")
-  has_thumbnail(content)
-}
-
 #' Set content item thumbnail
 #'
 #' Set the thumbnail for a content item.
 #'
 #' @param content A content item.
 #' @param path Either a path to a local file or a URL to an image available over
-#' HTTP/HTTPS. If `path` begins with `"http"` or `"https"`, the image will first
+#' HTTP/HTTPS. If `path` is an HTTP or HTTPS URL, the image will first
 #' be downloaded.
-
+#' 
 #' @returns The content item (invisibly).
 #' 
 #' @examples
@@ -236,7 +209,72 @@ set_thumbnail <- function(content, path) {
 }
 
 
-#' @rdname set_thumbnail
+#' Get the Content Image
+#' 
+#' @description
+#' 
+#' \lifecycle{deprecated}
+#' 
+#' Please use [`get_thumbnail`],
+#' [`delete_thumbnail`], and [`has_thumbnail`] instead.
+#' 
+#' `get_image` saves the content image to the given path (default: temp file).
+#' `delete_image` removes the image (optionally saving to the given path)
+#' `has_image` returns whether the content has an image
+#'
+#' @param content A content object
+#' @param path optional. The path to the image on disk
+#'
+#' @rdname get_image
+#' @family content functions
+#' @export
+get_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
+  
+  get_thumbnail(content, path)
+}
+
+#' @rdname get_image
+#' @export
+delete_image <- function(content, path = NULL) {
+  lifecycle::deprecate_warn("0.3.1", "delete_image()", "delete_thumbnail()")
+
+  if (!is.null(path)) {
+    get_thumbnail(content, path)
+  }
+  
+  delete_thumbnail(content, path)
+}
+
+#' @rdname get_image
+#' @export
+has_image <- function(content) {
+  lifecycle::deprecate_warn("0.3.1", "has_image()", "has_thumbnail()")
+  has_thumbnail(content)
+}
+
+
+#' Set the Content Image
+#'
+#' @description
+#' 
+#' \lifecycle{deprecated}
+#' 
+#' Please use [`set_thumbnail`] instead.
+#' 
+#' Set the Content Image using a variety of methods.
+#'
+#' @details NOTE: `set_image_webshot()` requires [webshot2::webshot()], but currently
+#' skips and warns for any content that requires authentication until the
+#' `webshot2` package supports authentication.
+#'
+#' @param content A content object
+#' @param path The path to an image on disk
+#' @param url The url for an image
+#' @param ... Additional arguments passed on to [webshot2::webshot()]
+#'
+#' @rdname set_image
+#' @family content functions
 #' @export
 set_image_path <- function(content, path) {
   lifecycle::deprecate_warn("0.3.1", "set_image_path()", "set_thumbnail()")
@@ -244,7 +282,7 @@ set_image_path <- function(content, path) {
 }
 
 
-#' @rdname set_thumbnail
+#' @rdname set_image
 #' @export
 set_image_url <- function(content, path) {
   lifecycle::deprecate_warn("0.3.1", "set_image_url()", "set_thumbnail()")
@@ -252,7 +290,7 @@ set_image_url <- function(content, path) {
 }
 
 
-#' @rdname set_thumbnail
+#' @rdname set_image
 #' @export
 set_image_webshot <- function(content, ...) {
   lifecycle::deprecate_warn("0.3.1", "set_image_webshot()", "set_thumbnail()")

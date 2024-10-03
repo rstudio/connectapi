@@ -2,18 +2,9 @@
 % Please edit documentation in R/thumbnail.R
 \name{get_thumbnail}
 \alias{get_thumbnail}
-\alias{get_image}
-\alias{delete_image}
-\alias{has_image}
 \title{Get content item thumbnail}
 \usage{
 get_thumbnail(content, path = NULL)
-
-get_image(content, path = NULL)
-
-delete_image(content, path = NULL)
-
-has_image(content)
 }
 \arguments{
 \item{content}{A content item.}
@@ -56,11 +47,13 @@ Other content functions:
 \code{\link{deploy_repo}()},
 \code{\link{get_bundles}()},
 \code{\link{get_environment}()},
+\code{\link{get_image}()},
 \code{\link{get_jobs}()},
 \code{\link{get_vanity_url}()},
 \code{\link{git}},
 \code{\link{has_thumbnail}()},
 \code{\link{permissions}},
+\code{\link{set_image_path}()},
 \code{\link{set_run_as}()},
 \code{\link{set_thumbnail}()},
 \code{\link{set_vanity_url}()},
