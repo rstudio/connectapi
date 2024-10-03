@@ -1,5 +1,4 @@
 # Old unversioned API
-print(.mockPaths())
 with_mock_api({
   test_that("get_thumbnail() gets the thumbnail (unversioned)", {
     client <- connect(server = "https://connect.example", api_key = "fake")
@@ -10,7 +9,7 @@ with_mock_api({
     received_path <- get_thumbnail(item, user_path)
     received <- readBin(received_path, "raw", n = 8)
     expected <- as.raw(c(0x4e, 0x41))
-    expect_equal(normalizePath(user_path), normalizePath(received_path))
+    expect_equal(user_path, received_path)
     expect_equal(received, expected)
     
     # Automatic path
@@ -145,7 +144,7 @@ with_mock_dir("_mocks/2024.09.0", {
       received_path <- get_thumbnail(item, user_path)
       received <- readBin(received_path, "raw", n = 8)
       expected <- as.raw(c(0x4e, 0x41))
-      expect_equal(normalizePath(user_path), normalizePath(received_path))
+      expect_equal(user_path, received_path)
       expect_equal(received, expected)
       
       # Automatic path
