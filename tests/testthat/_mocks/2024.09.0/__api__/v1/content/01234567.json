@@ -40,8 +40,8 @@
     "run_as": null,
     "run_as_current_user": false,
     "owner_guid": "fe07bf64",
-    "content_url": "https://rsc.radixu.com/content/01234567/",
-    "dashboard_url": "https://rsc.radixu.com/connect/#/apps/01234567",
+    "content_url": "https://connect.example/content/01234567/",
+    "dashboard_url": "https://connect.example/connect/#/apps/01234567",
     "app_role": "owner",
     "id": "56746"
 }

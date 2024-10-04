@@ -1,33 +1,9 @@
-structure(list(url = "content/01234567/__thumbnail__", status_code = 200L, 
-    headers = structure(list(date = "Thu, 12 Sep 2024 15:01:40 GMT", 
-        `content-type` = "image/jpeg", `content-length` = "141", 
-        `set-cookie` = "AWSALB=BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW; Expires=Thu, 19 Sep 2024 15:01:40 GMT; Path=/", 
-        `set-cookie` = "AWSALBCORS=BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW; Expires=Thu, 19 Sep 2024 15:01:40 GMT; Path=/; SameSite=None; Secure", 
-        `accept-ranges` = "bytes", `last-modified` = "Thu, 12 Sep 2024 15:01:00 GMT", 
-        server = "Posit Connect v2024.09.0-dev+77-g9296f96ffb", 
-        `strict-transport-security` = "max-age=2592000", `x-content-type-options` = "nosniff", 
-        `x-correlation-id` = "a225737f-0d12-4e18-a56f-1de2ae183523"), class = c("insensitive", 
-    "list")), all_headers = list(list(status = 200L, version = "HTTP/2", 
-        headers = structure(list(date = "Thu, 12 Sep 2024 15:01:40 GMT", 
-            `content-type` = "image/jpeg", `content-length` = "141", 
-            `set-cookie` = "AWSALB=BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW; Expires=Thu, 19 Sep 2024 15:01:40 GMT; Path=/", 
-            `set-cookie` = "AWSALBCORS=BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW; Expires=Thu, 19 Sep 2024 15:01:40 GMT; Path=/; SameSite=None; Secure", 
-            `accept-ranges` = "bytes", `last-modified` = "Thu, 12 Sep 2024 15:01:00 GMT", 
-            server = "Posit Connect v2024.09.0-dev+77-g9296f96ffb", 
-            `strict-transport-security` = "max-age=2592000", 
-            `x-content-type-options` = "nosniff", `x-correlation-id` = "a225737f-0d12-4e18-a56f-1de2ae183523"), class = c("insensitive", 
-        "list")))), cookies = structure(list(domain = c("rsc.radixu.com", 
-    "rsc.radixu.com", "#HttpOnly_rsc.radixu.com", "#HttpOnly_rsc.radixu.com"
-    ), flag = c(FALSE, FALSE, FALSE, FALSE), path = c("/", "/", 
-    "/", "/"), secure = c(FALSE, TRUE, TRUE, TRUE), expiration = structure(c(1726758100, 
-    1726758100, 1726239678, 1726239678), class = c("POSIXct", 
-    "POSIXt")), name = c("AWSALB", "AWSALBCORS", "rscid", "rscid-legacy"
-    ), value = c("BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW", 
-    "BcsYS/5aHrniFMQdP29nJ/3nmstVqDADqDc2tF8IjRunL0bFpINjDitCQgd9CC6jPyOFz5Ixdsgwwm7fdhxGj7YIgV6u0C4Cw5RnNaYmXcPR7Tx+AOS1G8AEXvgW", 
-    "MTcyNjE1MzI3OHxEWDhFQVFMX2dBQUJFQUVRQUFBMl80QUFBd1p6ZEhKcGJtY01CZ0FFUjFWSlJCSmpiMjV1WldOMEwzTjBiM0psTGtkVlNVVF9nUVlCQVFSSFZVbEVBZi1DQUFBQUVQLURCZ0VCQkZWVlNVUUJfNFFBQUFCVl80SVNBQkJOMldoWEZjaFBBclItQzVFblA2Z09Cbk4wY21sdVp3d0pBQWRqY21WaGRHVmtCV2x1ZERZMEJBWUFfTTNHQkh3R2MzUnlhVzVuREFrQUIzSmxabkpsYzJnRmFXNTBOalFFQmdEOHpjWUVmQT09fJXllAtTjtN011GmEwVT3eI8Ng5BwccByJ00mvqII3NS", 
-    "MTcyNjE1MzI3OHxEWDhFQVFMX2dBQUJFQUVRQUFBMl80QUFBd1p6ZEhKcGJtY01CZ0FFUjFWSlJCSmpiMjV1WldOMEwzTjBiM0psTGtkVlNVVF9nUVlCQVFSSFZVbEVBZi1DQUFBQUVQLURCZ0VCQkZWVlNVUUJfNFFBQUFCVl80SVNBQkJOMldoWEZjaFBBclItQzVFblA2Z09Cbk4wY21sdVp3d0pBQWRqY21WaGRHVmtCV2x1ZERZMEJBWUFfTTNHQkh3R2MzUnlhVzVuREFrQUIzSmxabkpsYzJnRmFXNTBOalFFQmdEOHpjWUVmQT09fJXllAtTjtN011GmEwVT3eI8Ng5BwccByJ00mvqII3NS"
-    )), row.names = c(NA, -4L), class = "data.frame"), content = as.raw(c(0x4e, 
-    0x41)), date = structure(1726153300, class = c("POSIXct", 
-    "POSIXt"), tzone = "GMT"), times = c(redirect = 0, namelookup = 3.9e-05, 
-    connect = 0, pretransfer = 0.000254, starttransfer = 0.136124, 
-    total = 0.136232)), class = "response")
+structure(list(
+  url = "content/01234567/__thumbnail__", status_code = 200L,
+  headers = structure(list(
+    `content-type` = "image/jpeg"
+  )), content = as.raw(c(
+    0x4e,
+    0x41
+  ))
+), class = "response")
