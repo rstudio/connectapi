@@ -2,6 +2,12 @@
 # functions; they are taken from `tests/integrated/test-deploy.R` where they
 # test the *_image.R functions.
 
+cont1_name <- uuid::UUIDgenerate()
+cont1_title <- "Test Content 1"
+cont1_guid <- NULL
+cont1_bundle <- NULL
+cont1_content <- NULL
+
 test_that("set_thumbnail works with local images", {
   scoped_experimental_silence()
   img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
