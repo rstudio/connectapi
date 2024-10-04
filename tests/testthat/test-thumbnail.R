@@ -1,6 +1,6 @@
 mock_dirs <- c(
-  "unversioned" = "_mocks/2024.08.0",
-  "v1" = "_mocks/2024.09.0"
+  "unversioned" = "2024.08.0",
+  "v1" = "2024.09.0"
 )
 
 # The mocked content items are as follows:
