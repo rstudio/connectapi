@@ -163,6 +163,120 @@ test_that("deploy_current works", {
   expect_true(tsk$get_content_remote()$last_deployed_time > first_deploy)
 })
 
+# image ---------------------------------------------------
+
+test_that("set_image_path works", {
+  scoped_experimental_silence()
+  img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
+
+  res <- set_image_path(cont1_content, img_path)
+
+  expect_true(validate_R6_class(res, "Content"))
+})
+
+test_that("get_image works", {
+  scoped_experimental_silence()
+  img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
+
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  get_image(cont1_content, tmp_img)
+
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+
+  # works again (i.e. does not append data)
+  get_image(cont1_content, tmp_img)
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+
+  # works with no path
+  auto_path <- get_image(cont1_content)
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(auto_path, "raw")
+  )
+  expect_identical(fs::path_ext(auto_path), "png")
+})
+
+test_that("has_image works with an image", {
+  scoped_experimental_silence()
+
+  expect_true(has_image(cont1_content))
+})
+
+test_that("delete_image works", {
+  scoped_experimental_silence()
+  # from above
+  img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
+
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  # retains the image at the path
+  expect_false(fs::file_exists(tmp_img))
+  expect_true(validate_R6_class(delete_image(cont1_content, tmp_img), "Content"))
+  expect_true(fs::file_exists(tmp_img))
+  expect_identical(
+    readBin(img_path, "raw"),
+    readBin(tmp_img, "raw")
+  )
+  expect_false(has_image(cont1_content))
+
+  # works again - i.e. if no image available
+  expect_true(validate_R6_class(delete_image(cont1_content), "Content"))
+})
+
+test_that("has_image works with no image", {
+  scoped_experimental_silence()
+
+  expect_false(has_image(cont1_content))
+})
+
+test_that("get_image returns NA if no image", {
+  scoped_experimental_silence()
+
+  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
+  response <- get_image(cont1_content, tmp_img)
+
+  expect_false(identical(tmp_img, response))
+  expect_true(is.na(response))
+})
+
+test_that("set_image_url works", {
+  scoped_experimental_silence()
+
+  res <- set_image_url(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
+
+  expect_true(validate_R6_class(res, "Content"))
+
+  # TODO: verify round-trip on the image is actually correct... SHA?
+})
+
+test_that("set_image_webshot works", {
+  skip("test fails commonly in CI")
+  scoped_experimental_silence()
+  cont1_content$update(access_type = "all")
+  res <- set_image_webshot(cont1_content)
+
+  expect_true(validate_R6_class(res, "Content"))
+  # TODO: verify round-trip on the image is actually correct... SHA?
+
+  # returns content even when it cannot take the webshot
+  cont1_content$update(access_type = "acl")
+  expect_warning(
+    {
+      res <- set_image_webshot(cont1_content)
+    },
+
+
+    "authentication"
+  )
+
+  expect_true(validate_R6_class(res, "Content"))
+})
+
 # vanity_url ---------------------------------------------------
 
 test_that("set_vanity_url works", {

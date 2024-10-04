@@ -1,3 +1,7 @@
+# The tests in this file were not written explicitly for the *_thumbnail()
+# functions; they are taken from `tests/integrated/test-deploy.R` where they
+# test the *_image.R functions.
+
 test_that("set_thumbnail works with local images", {
   scoped_experimental_silence()
   img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
