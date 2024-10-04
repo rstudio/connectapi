@@ -172,7 +172,7 @@ set_thumbnail <- function(content, path) {
   } else {
     parsed <- httr::parse_url(path)
     if (!is.null(parsed$scheme) && parsed$scheme %in% c("http", "https")) {
-      valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
+      valid_path <- tempfile(pattern = "image", fileext = paste0(".", tools::file_ext(parsed[["path"]])))
       res <- httr::GET(path, httr::write_disk(valid_path))
       on.exit(unlink(valid_path))
       if (httr::http_error(res)) {
