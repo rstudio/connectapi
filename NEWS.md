@@ -5,7 +5,9 @@
 - `set_image_path()`, `set_image_url()`, have been deprecated and will be
   removed in a future update. `set_image_webshot()` has been moved to the
   Connect SDK Cookbook. They have been replaced by `set_thumbnail()`, which
-  works both with local file paths and remote URLs to images.
+  works both with local file paths and remote URLs to images. Likewise,
+  `has_image()` and `delete_image()` have been deprecated in favor of
+  `has_thumbnail()` and `delete_thumbnail()`.
 
 # connectapi 0.3.0
 
