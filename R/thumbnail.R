@@ -175,7 +175,9 @@ set_thumbnail <- function(content, path) {
       valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
       res <- httr::GET(path, httr::write_disk(valid_path))
       on.exit(unlink(valid_path))
-      content$connect$raise_error(res)
+      if (httr::http_error(res)) {
+        stop(glue::glue("Could not download image from {path}: {httr::http_status(res)$message}"))
+      }
     }
   } 
   if (is.null(valid_path)) {
