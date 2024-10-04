@@ -87,6 +87,4 @@ test_that("set_thumbnail works with remote paths", {
   res <- set_thumbnail(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
 
   expect_true(validate_R6_class(res, "Content"))
-
-  # TODO: verify round-trip on the image is actually correct... SHA?
 })
