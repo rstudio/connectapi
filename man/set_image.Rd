@@ -8,7 +8,7 @@
 \usage{
 set_image_path(content, path)
 
-set_image_url(content, path)
+set_image_url(content, url)
 
 set_image_webshot(content, ...)
 }
@@ -17,9 +17,9 @@ set_image_webshot(content, ...)
 
 \item{path}{The path to an image on disk}
 
-\item{...}{Additional arguments passed on to \code{\link[webshot2:webshot]{webshot2::webshot()}}}
-
 \item{url}{The url for an image}
+
+\item{...}{Additional arguments passed on to \code{\link[webshot2:webshot]{webshot2::webshot()}}}
 }
 \description{
 \lifecycle{deprecated}

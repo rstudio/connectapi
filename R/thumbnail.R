@@ -283,9 +283,9 @@ set_image_path <- function(content, path) {
 
 #' @rdname set_image
 #' @export
-set_image_url <- function(content, path) {
+set_image_url <- function(content, url) {
   lifecycle::deprecate_warn("0.3.1", "set_image_url()", "set_thumbnail()")
-  set_thumbnail(content, path)
+  set_thumbnail(content, url)
 }
 
 
