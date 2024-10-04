@@ -242,7 +242,7 @@ delete_image <- function(content, path = NULL) {
     get_thumbnail(content, path)
   }
   
-  delete_thumbnail(content, path)
+  delete_thumbnail(content)
 }
 
 #' @rdname get_image
