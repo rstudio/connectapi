@@ -171,16 +171,13 @@ set_thumbnail <- function(content, path) {
     valid_path <- path
   } else {
     parsed <- httr::parse_url(path)
-    print(parsed)
     if (!is.null(parsed$scheme) && parsed$scheme %in% c("http", "https")) {
       valid_path <- fs::file_temp(pattern = "image", ext = fs::path_ext(parsed[["path"]]))
       res <- httr::GET(path, httr::write_disk(valid_path))
-      print(res)
       on.exit(unlink(valid_path))
-      print(readBin(valid_path, "raw", n = 999))
       content$connect$raise_error(res)
     }
-  }
+  } 
   if (is.null(valid_path)) {
     stop(glue::glue("Could not locate image at path: {path}"))
   }
