@@ -48,7 +48,7 @@ get_thumbnail <- function(content, path = NULL) {
     ct <- httr::headers(res)$`content-type`
     if (grepl("^image/", ct)) {
       # Just strip off 'image/'
-      ext <- substr(ct, 7, nchar(ct))
+      ext <- names(mime::mimemap[mime::mimemap == ct])[1]
       path <- tempfile(pattern = "content_image_", fileext = paste0(".", ext))
     } else {
       # Try png

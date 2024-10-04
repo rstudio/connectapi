@@ -269,8 +269,6 @@ test_that("set_image_webshot works", {
     {
       res <- set_image_webshot(cont1_content)
     },
-
-
     "authentication"
   )
 
