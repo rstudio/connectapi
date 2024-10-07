@@ -492,18 +492,8 @@ test_that("has_thumbnail works with an image", {
 
 test_that("delete_thumbnail works", {
   scoped_experimental_silence()
-  # from above
-  img_path <- rprojroot::find_package_root_file("tests/testthat/examples/logo.png")
 
-  tmp_img <- fs::file_temp(pattern = "img", ext = ".png")
-  # retains the image at the path
-  expect_false(fs::file_exists(tmp_img))
-  expect_true(validate_R6_class(delete_thumbnail(cont1_content, tmp_img), "Content"))
-  expect_true(fs::file_exists(tmp_img))
-  expect_identical(
-    readBin(img_path, "raw"),
-    readBin(tmp_img, "raw")
-  )
+  expect_true(validate_R6_class(delete_thumbnail(cont1_content), "Content"))
   expect_false(has_thumbnail(cont1_content))
 
   # works again - i.e. if no image available

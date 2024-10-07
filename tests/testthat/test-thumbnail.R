@@ -26,6 +26,14 @@ for (api_ver in names(mock_dirs)) {
         expected <- as.raw(c(0x4e, 0x41))
         expect_equal(user_path, received_path)
         expect_equal(received, expected)
+
+        # User-specified path (wrong extension)
+        user_path <- tempfile("thumbnail_", fileext = ".png")
+        received_path <- get_thumbnail(item, user_path)
+        received <- readBin(received_path, "raw", n = 8)
+        expected <- as.raw(c(0x4e, 0x41))
+        expect_equal(paste0(user_path, ".jpeg"), received_path)
+        expect_equal(received, expected)
         
         # Automatic path
         received_path <- get_thumbnail(item)
@@ -101,10 +109,15 @@ for (api_ver in names(mock_dirs)) {
         item <- content_item(client, "01234567")
         expect_identical(delete_thumbnail(item), item)
       })
-    
-      test_that(glue::glue("delete_thumbnail() raises an error when delete fails ({api_ver} - {mock_dir})"), {
+      
+      test_that(glue::glue("delete_thumbnail() throws an error for other 404 errors ({api_ver} - {mock_dir})"), {
         item <- content_item(client, "23456789")
         expect_error(delete_thumbnail(item), "request failed with Client error: \\(404\\) Not Found")
+      })
+      
+      test_that(glue::glue("delete_thumbnail() returns the content for 404s indicating no thumbnail ({api_ver} - {mock_dir})"), {
+        item <- content_item(client, "34567890")
+        expect_identical(delete_thumbnail(item), item)
       })
     })
   })
