@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - "2024.09.0"
           - "2024.03.0" # jammy
           - "2023.09.0" # jammy
           - "2023.03.0" # bionic
