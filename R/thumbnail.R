@@ -6,9 +6,9 @@
 #' @param content A content item.
 #' @param path Optional. A path to a file used to write the thumbnail image. If
 #' no path is provided, a temporary file with the correct file extension is
-#' created. If the content item does not have a thumbnail, returns `NA`.
+#' created.
 #' 
-#' @returns The path to the image file.
+#' @returns The path to the downloaded image file, if `content` has a thumbnail; otherwise `NA`.
 #' 
 #' @examples
 #' \dontrun{
