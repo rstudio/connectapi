@@ -15,13 +15,13 @@ jobs:
       fail-fast: false
       matrix:
         version:
+          - "2024.09.0"
           - "2024.03.0" # jammy
           - "2023.09.0" # jammy
           - "2023.03.0" # bionic
           - "2022.09.0" # bionic
           - "2022.03.2"
           - "2021.09.0"
-          - "1.8.8.2"
 
     env:
       CONNECT_VERSION: ${{ matrix.version }}

@@ -162,8 +162,8 @@ Connect cluster to do the operation in question
 **Warning about version numbers**
 
 We test the package against a range of versions of Connect, as old as
-1.8.8.2 (May 2021). If your Connect server is older than that, the
-package may still work, but `connectapi` will warn you.
+2021.09.0. If your Connect server is older than that, the package may
+still work, but `connectapi` will warn you.
 
 We strive to:
 

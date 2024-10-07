@@ -159,7 +159,7 @@ compare_connect_version <- function(using_version, tested_version) {
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
-check_connect_version <- function(using_version, minimum_tested_version = "1.8.8.2") {
+check_connect_version <- function(using_version, minimum_tested_version = "2021.09.0") {
   comp <- compare_connect_version(using_version, minimum_tested_version)
   if (comp < 0) {
     warn_once(glue::glue(
