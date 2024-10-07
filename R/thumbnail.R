@@ -46,15 +46,13 @@ get_thumbnail <- function(content, path = NULL) {
   # Guess file extension
   if (is.null(path)) {
     ct <- httr::headers(res)$`content-type`
-    if (grepl("^image/", ct)) {
-      # Just strip off 'image/'
-      ext <- names(mime::mimemap[mime::mimemap == ct])[1]
-      path <- tempfile(pattern = "content_image_", fileext = paste0(".", ext))
-    } else {
-      # Try png
+    ext <- if (any(mime::mimemap == ct)) {  
+      names(mime::mimemap[mime::mimemap == ct])[1]  
+    } else {  
       warning(glue::glue("Could not infer file extension from content type: {ct}. Using '.png'"))
-      path <- tempfile(pattern = "content_image_", fileext = ".png")
-    }
+      "png"  
+    }  
+    path <- tempfile(pattern = glue::glue("content_image_{content$content$guid}_"), fileext = paste0(".", ext))
   }
 
   writeBin(httr::content(res, as = "raw"), path)
@@ -110,7 +108,7 @@ delete_thumbnail <- function(content) {
 #' @param content A content item.
 #' 
 #' @returns `TRUE` if the content item has a thumbnail, otherwise `FALSE`.
-#' 
+#'   Throws an error if you do not have permission to view the thumbnail.
 #' @examples
 #' \dontrun{
 #' client <- connect()

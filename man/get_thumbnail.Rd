@@ -11,10 +11,10 @@ get_thumbnail(content, path = NULL)
 
 \item{path}{Optional. A path to a file used to write the thumbnail image. If
 no path is provided, a temporary file with the correct file extension is
-created. If the content item does not have a thumbnail, returns \code{NA}.}
+created.}
 }
 \value{
-The path to the image file.
+The path to the downloaded image file, if \code{content} has a thumbnail; otherwise \code{NA}.
 }
 \description{
 Download the thumbnail for a content item on Connect to a file on your

@@ -11,6 +11,7 @@ has_thumbnail(content)
 }
 \value{
 \code{TRUE} if the content item has a thumbnail, otherwise \code{FALSE}.
+Throws an error if you do not have permission to view the thumbnail.
 }
 \description{
 Check whether a content item has a thumbnail.
