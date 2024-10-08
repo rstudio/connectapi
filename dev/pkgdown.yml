@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   articles/connectapi_tags: connectapi_tags.html
@@ -7,7 +7,7 @@ articles:
   customize-http: customize-http.html
   getting-started: getting-started.html
   articles/lifecycle-statuses: lifecycle-statuses.html
-last_built: 2024-09-09T16:54Z
+last_built: 2024-10-08T20:10Z
 urls:
   reference: https://pkgs.rstudio.com/connectapi/reference
   article: https://pkgs.rstudio.com/connectapi/articles
