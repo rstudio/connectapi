@@ -150,6 +150,7 @@ API. Authentication is done by providing an API key.</p>
 <li><p><a href="#method-Connect-raise_error"><code>Connect$raise_error()</code></a></p></li>
 <li><p><a href="#method-Connect-add_auth"><code>Connect$add_auth()</code></a></p></li>
 <li><p><a href="#method-Connect-api_url"><code>Connect$api_url()</code></a></p></li>
+<li><p><a href="#method-Connect-server_url"><code>Connect$server_url()</code></a></p></li>
 <li><p><a href="#method-Connect-request"><code>Connect$request()</code></a></p></li>
 <li><p><a href="#method-Connect-GET"><code>Connect$GET()</code></a></p></li>
 <li><p><a href="#method-Connect-PUT"><code>Connect$PUT()</code></a></p></li>
@@ -302,15 +303,31 @@ API. Authentication is done by providing an API key.</p>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-request"></a><div class="section">
-<h3 id="method-request-">Method <code>request()</code><a class="anchor" aria-label="anchor" href="#method-request-"></a></h3>
-<p>General wrapper around <code>httr</code> verbs</p><div class="section">
+</div><p></p><hr><a id="method-Connect-server_url"></a><div class="section">
+<h3 id="method-server-url-">Method <code>server_url()</code><a class="anchor" aria-label="anchor" href="#method-server-url-"></a></h3>
+<p>Build a URL relative to the server root</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">request</span><span class="op">(</span><span class="va">method</span>, <span class="va">url</span>, <span class="va">...</span>, parser <span class="op">=</span> <span class="st">"parsed"</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_url</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>path segments</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Connect-request"></a><div class="section">
+<h3 id="method-request-">Method <code>request()</code><a class="anchor" aria-label="anchor" href="#method-request-"></a></h3>
+<p>General wrapper around <code>httr</code> verbs</p><div class="section">
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">request</span><span class="op">(</span><span class="va">method</span>, <span class="va">url</span>, <span class="va">...</span>, parser <span class="op">=</span> <span class="st">"parsed"</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>method</code></dt>
 <dd><p>HTTP request method</p></dd>
 
@@ -335,12 +352,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-GET"></a><div class="section">
 <h3 id="method-get-">Method <code>GET()</code><a class="anchor" aria-label="anchor" href="#method-get-"></a></h3>
 <p>Perform an HTTP GET request of the named API path.</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">GET</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="st">"parsed"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -366,7 +383,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-PUT"></a><div class="section">
 <h3 id="method-put-">Method <code>PUT()</code><a class="anchor" aria-label="anchor" href="#method-put-"></a></h3>
 <p>Perform an HTTP PUT request of the named API path.</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PUT</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
@@ -378,7 +395,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -412,12 +429,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-HEAD"></a><div class="section">
 <h3 id="method-head-">Method <code>HEAD()</code><a class="anchor" aria-label="anchor" href="#method-head-"></a></h3>
 <p>Perform an HTTP HEAD request of the named API path.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">HEAD</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -438,12 +455,12 @@ a server resource that is not under <code>/__api__</code>
 </div><p></p><hr><a id="method-Connect-DELETE"></a><div class="section">
 <h3 id="method-delete-">Method <code>DELETE()</code><a class="anchor" aria-label="anchor" href="#method-delete-"></a></h3>
 <p>Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.</p><div class="section">
-<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">DELETE</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, url <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="fu">api_url</span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, parser <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -469,7 +486,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-PATCH"></a><div class="section">
 <h3 id="method-patch-">Method <code>PATCH()</code><a class="anchor" aria-label="anchor" href="#method-patch-"></a></h3>
 <p>Perform an HTTP PATCH request of the named API path.</p><div class="section">
-<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
+<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">PATCH</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
@@ -481,7 +498,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -515,7 +532,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-POST"></a><div class="section">
 <h3 id="method-post-">Method <code>POST()</code><a class="anchor" aria-label="anchor" href="#method-post-"></a></h3>
 <p>Perform an HTTP POST request of the named API path.</p><div class="section">
-<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
+<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">POST</span><span class="op">(</span></span>
 <span>  <span class="va">path</span>,</span>
 <span>  body <span class="op">=</span> <span class="st">"{}"</span>,</span>
@@ -527,7 +544,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>API path relative to the server's <code>/__api__</code> root.</p></dd>
 
@@ -561,7 +578,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-me"></a><div class="section">
 <h3 id="method-me-">Method <code>me()</code><a class="anchor" aria-label="anchor" href="#method-me-"></a></h3>
 <p>Perform an HTTP GET request of the "me" server endpoint.</p><div class="section">
-<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
+<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">me</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -569,7 +586,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-get_dashboard_url"></a><div class="section">
 <h3 id="method-get-dashboard-url-">Method <code>get_dashboard_url()</code><a class="anchor" aria-label="anchor" href="#method-get-dashboard-url-"></a></h3>
 <p>Return the base URL of the Connect server.</p><div class="section">
-<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
+<h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_dashboard_url</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -577,12 +594,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-get_tags"></a><div class="section">
 <h3 id="method-get-tags-">Method <code><a href="tags.html">get_tags()</a></code><a class="anchor" aria-label="anchor" href="#method-get-tags-"></a></h3>
 <p>Return all tags.</p><div class="section">
-<h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
+<h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tags</span><span class="op">(</span>use_cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
+<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>use_cache</code></dt>
 <dd><p>Indicates that a cached set of tags is used.</p></dd>
 
@@ -593,12 +610,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-get_tag_id"></a><div class="section">
 <h3 id="method-get-tag-id-">Method <code>get_tag_id()</code><a class="anchor" aria-label="anchor" href="#method-get-tag-id-"></a></h3>
 <p>Get the identifier for the named tag.</p><div class="section">
-<h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
+<h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_id</span><span class="op">(</span><span class="va">tagname</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
+<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>tagname</code></dt>
 <dd><p>The name of the tag.</p></dd>
 
@@ -609,7 +626,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-get_tag_tree"></a><div class="section">
 <h3 id="method-get-tag-tree-">Method <code>get_tag_tree()</code><a class="anchor" aria-label="anchor" href="#method-get-tag-tree-"></a></h3>
 <p>Get the tag tree.</p><div class="section">
-<h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
+<h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_tag_tree</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -617,28 +634,8 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-tag_create_safe"></a><div class="section">
 <h3 id="method-tag-create-safe-">Method <code>tag_create_safe()</code><a class="anchor" aria-label="anchor" href="#method-tag-create-safe-"></a></h3>
 <p>Create a tag.</p><div class="section">
-<h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create_safe</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>name</code></dt>
-<dd><p>The tag name.</p></dd>
-
-
-<dt><code>parent_id</code></dt>
-<dd><p>The parent identifier.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Connect-tag_create"></a><div class="section">
-<h3 id="method-tag-create-">Method <code>tag_create()</code><a class="anchor" aria-label="anchor" href="#method-tag-create-"></a></h3>
-<p>Create a tag.</p><div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create_safe</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -654,27 +651,31 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-tag"></a><div class="section">
-<h3 id="method-tag-">Method <code>tag()</code><a class="anchor" aria-label="anchor" href="#method-tag-"></a></h3>
-<p>Get a tag.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-tag_create"></a><div class="section">
+<h3 id="method-tag-create-">Method <code>tag_create()</code><a class="anchor" aria-label="anchor" href="#method-tag-create-"></a></h3>
+<p>Create a tag.</p><div class="section">
 <h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_create</span><span class="op">(</span><span class="va">name</span>, parent_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-16">Arguments<a class="anchor" aria-label="anchor" href="#arguments-16"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>id</code></dt>
-<dd><p>The tag identifier.</p></dd>
+<p></p><div class="arguments"><dl><dt><code>name</code></dt>
+<dd><p>The tag name.</p></dd>
+
+
+<dt><code>parent_id</code></dt>
+<dd><p>The parent identifier.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-tag_delete"></a><div class="section">
-<h3 id="method-tag-delete-">Method <code>tag_delete()</code><a class="anchor" aria-label="anchor" href="#method-tag-delete-"></a></h3>
-<p>Delete a tag.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-tag"></a><div class="section">
+<h3 id="method-tag-">Method <code>tag()</code><a class="anchor" aria-label="anchor" href="#method-tag-"></a></h3>
+<p>Get a tag.</p><div class="section">
 <h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_delete</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -686,15 +687,31 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-get_apps"></a><div class="section">
-<h3 id="method-get-apps-">Method <code>get_apps()</code><a class="anchor" aria-label="anchor" href="#method-get-apps-"></a></h3>
-<p>Get content items.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-tag_delete"></a><div class="section">
+<h3 id="method-tag-delete-">Method <code>tag_delete()</code><a class="anchor" aria-label="anchor" href="#method-tag-delete-"></a></h3>
+<p>Delete a tag.</p><div class="section">
 <h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span>filter <span class="op">=</span> <span class="cn">NULL</span>, .collapse <span class="op">=</span> <span class="st">"&amp;"</span>, .limit <span class="op">=</span> <span class="cn">Inf</span>, page_size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">tag_delete</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-18">Arguments<a class="anchor" aria-label="anchor" href="#arguments-18"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>id</code></dt>
+<dd><p>The tag identifier.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Connect-get_apps"></a><div class="section">
+<h3 id="method-get-apps-">Method <code>get_apps()</code><a class="anchor" aria-label="anchor" href="#method-get-apps-"></a></h3>
+<p>Get content items.</p><div class="section">
+<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_apps</span><span class="op">(</span>filter <span class="op">=</span> <span class="cn">NULL</span>, .collapse <span class="op">=</span> <span class="st">"&amp;"</span>, .limit <span class="op">=</span> <span class="cn">Inf</span>, page_size <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-19">Arguments<a class="anchor" aria-label="anchor" href="#arguments-19"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>filter</code></dt>
 <dd><p>Named list containing filter conditions.</p></dd>
 
@@ -717,12 +734,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-get_schedule"></a><div class="section">
 <h3 id="method-get-schedule-">Method <code>get_schedule()</code><a class="anchor" aria-label="anchor" href="#method-get-schedule-"></a></h3>
 <p>Get a schedule.</p><div class="section">
-<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">get_schedule</span><span class="op">(</span><span class="va">schedule_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-19">Arguments<a class="anchor" aria-label="anchor" href="#arguments-19"></a></h4>
+<h4 id="arguments-20">Arguments<a class="anchor" aria-label="anchor" href="#arguments-20"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>schedule_id</code></dt>
 <dd><p>The schedule identifier.</p></dd>
 
@@ -733,12 +750,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-content_create"></a><div class="section">
 <h3 id="method-content-create-">Method <code>content_create()</code><a class="anchor" aria-label="anchor" href="#method-content-create-"></a></h3>
 <p>Create content.</p><div class="section">
-<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
+<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_create</span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-20">Arguments<a class="anchor" aria-label="anchor" href="#arguments-20"></a></h4>
+<h4 id="arguments-21">Arguments<a class="anchor" aria-label="anchor" href="#arguments-21"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p>The content name.</p></dd>
 
@@ -757,12 +774,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-content_upload"></a><div class="section">
 <h3 id="method-content-upload-">Method <code>content_upload()</code><a class="anchor" aria-label="anchor" href="#method-content-upload-"></a></h3>
 <p>Upload a content bundle.</p><div class="section">
-<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_upload</span><span class="op">(</span><span class="va">bundle_path</span>, <span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-21">Arguments<a class="anchor" aria-label="anchor" href="#arguments-21"></a></h4>
+<h4 id="arguments-22">Arguments<a class="anchor" aria-label="anchor" href="#arguments-22"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>bundle_path</code></dt>
 <dd><p>The path to the bundle archive.</p></dd>
 
@@ -777,12 +794,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-content_deploy"></a><div class="section">
 <h3 id="method-content-deploy-">Method <code>content_deploy()</code><a class="anchor" aria-label="anchor" href="#method-content-deploy-"></a></h3>
 <p>Deploy a content bundle.</p><div class="section">
-<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
+<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content_deploy</span><span class="op">(</span><span class="va">guid</span>, <span class="va">bundle_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-22">Arguments<a class="anchor" aria-label="anchor" href="#arguments-22"></a></h4>
+<h4 id="arguments-23">Arguments<a class="anchor" aria-label="anchor" href="#arguments-23"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>guid</code></dt>
 <dd><p>The content GUID.</p></dd>
 
@@ -797,7 +814,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-content"></a><div class="section">
 <h3 id="method-content-">Method <code>content()</code><a class="anchor" aria-label="anchor" href="#method-content-"></a></h3>
 <p>Get a content item.</p><div class="section">
-<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
+<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">content</span><span class="op">(</span></span>
 <span>  guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  owner_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -807,7 +824,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-23">Arguments<a class="anchor" aria-label="anchor" href="#arguments-23"></a></h4>
+<h4 id="arguments-24">Arguments<a class="anchor" aria-label="anchor" href="#arguments-24"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>guid</code></dt>
 <dd><p>The content GUID.</p></dd>
 
@@ -830,12 +847,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-task"></a><div class="section">
 <h3 id="method-task-">Method <code>task()</code><a class="anchor" aria-label="anchor" href="#method-task-"></a></h3>
 <p>Get a task.</p><div class="section">
-<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
+<h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">task</span><span class="op">(</span><span class="va">task_id</span>, first <span class="op">=</span> <span class="fl">0</span>, wait <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-24">Arguments<a class="anchor" aria-label="anchor" href="#arguments-24"></a></h4>
+<h4 id="arguments-25">Arguments<a class="anchor" aria-label="anchor" href="#arguments-25"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>task_id</code></dt>
 <dd><p>The task identifier.</p></dd>
 
@@ -854,28 +871,8 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-set_content_tag"></a><div class="section">
 <h3 id="method-set-content-tag-">Method <code>set_content_tag()</code><a class="anchor" aria-label="anchor" href="#method-set-content-tag-"></a></h3>
 <p>Set a tag for a content item.</p><div class="section">
-<h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">set_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-25">Arguments<a class="anchor" aria-label="anchor" href="#arguments-25"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>content_id</code></dt>
-<dd><p>The content identifier.</p></dd>
-
-
-<dt><code>tag_id</code></dt>
-<dd><p>The tag identifier.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Connect-remove_content_tag"></a><div class="section">
-<h3 id="method-remove-content-tag-">Method <code>remove_content_tag()</code><a class="anchor" aria-label="anchor" href="#method-remove-content-tag-"></a></h3>
-<p>Remove a tag from a content item.</p><div class="section">
 <h4 id="usage-31">Usage<a class="anchor" aria-label="anchor" href="#usage-31"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">remove_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">set_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -891,15 +888,35 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-user"></a><div class="section">
-<h3 id="method-user-">Method <code>user()</code><a class="anchor" aria-label="anchor" href="#method-user-"></a></h3>
-<p>Get user details.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-remove_content_tag"></a><div class="section">
+<h3 id="method-remove-content-tag-">Method <code>remove_content_tag()</code><a class="anchor" aria-label="anchor" href="#method-remove-content-tag-"></a></h3>
+<p>Remove a tag from a content item.</p><div class="section">
 <h4 id="usage-32">Usage<a class="anchor" aria-label="anchor" href="#usage-32"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">user</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">remove_content_tag</span><span class="op">(</span><span class="va">content_id</span>, <span class="va">tag_id</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-27">Arguments<a class="anchor" aria-label="anchor" href="#arguments-27"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>content_id</code></dt>
+<dd><p>The content identifier.</p></dd>
+
+
+<dt><code>tag_id</code></dt>
+<dd><p>The tag identifier.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Connect-user"></a><div class="section">
+<h3 id="method-user-">Method <code>user()</code><a class="anchor" aria-label="anchor" href="#method-user-"></a></h3>
+<p>Get user details.</p><div class="section">
+<h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">user</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-28">Arguments<a class="anchor" aria-label="anchor" href="#arguments-28"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>guid</code></dt>
 <dd><p>The user GUID.</p></dd>
 
@@ -910,12 +927,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-users"></a><div class="section">
 <h3 id="method-users-">Method <code>users()</code><a class="anchor" aria-label="anchor" href="#method-users-"></a></h3>
 <p>Get users.</p><div class="section">
-<h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
+<h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-28">Arguments<a class="anchor" aria-label="anchor" href="#arguments-28"></a></h4>
+<h4 id="arguments-29">Arguments<a class="anchor" aria-label="anchor" href="#arguments-29"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>page_number</code></dt>
 <dd><p>The page number.</p></dd>
 
@@ -934,12 +951,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-users_remote"></a><div class="section">
 <h3 id="method-users-remote-">Method <code>users_remote()</code><a class="anchor" aria-label="anchor" href="#method-users-remote-"></a></h3>
 <p>Get remote users.</p><div class="section">
-<h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
+<h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_remote</span><span class="op">(</span><span class="va">prefix</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-29">Arguments<a class="anchor" aria-label="anchor" href="#arguments-29"></a></h4>
+<h4 id="arguments-30">Arguments<a class="anchor" aria-label="anchor" href="#arguments-30"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>prefix</code></dt>
 <dd><p>The search term.</p></dd>
 
@@ -950,7 +967,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-users_create"></a><div class="section">
 <h3 id="method-users-create-">Method <code>users_create()</code><a class="anchor" aria-label="anchor" href="#method-users-create-"></a></h3>
 <p>Create a user.</p><div class="section">
-<h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
+<h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create</span><span class="op">(</span></span>
 <span>  <span class="va">username</span>,</span>
 <span>  <span class="va">email</span>,</span>
@@ -964,7 +981,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-30">Arguments<a class="anchor" aria-label="anchor" href="#arguments-30"></a></h4>
+<h4 id="arguments-31">Arguments<a class="anchor" aria-label="anchor" href="#arguments-31"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>username</code></dt>
 <dd><p>The username.</p></dd>
 
@@ -1003,12 +1020,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-users_create_remote"></a><div class="section">
 <h3 id="method-users-create-remote-">Method <code><a href="users_create_remote.html">users_create_remote()</a></code><a class="anchor" aria-label="anchor" href="#method-users-create-remote-"></a></h3>
 <p>Create a remote user.</p><div class="section">
-<h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
+<h4 id="usage-37">Usage<a class="anchor" aria-label="anchor" href="#usage-37"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-31">Arguments<a class="anchor" aria-label="anchor" href="#arguments-31"></a></h4>
+<h4 id="arguments-32">Arguments<a class="anchor" aria-label="anchor" href="#arguments-32"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>temp_ticket</code></dt>
 <dd><p>Ticket identifying target remote user.</p></dd>
 
@@ -1019,24 +1036,8 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-users_lock"></a><div class="section">
 <h3 id="method-users-lock-">Method <code>users_lock()</code><a class="anchor" aria-label="anchor" href="#method-users-lock-"></a></h3>
 <p>Lock a user.</p><div class="section">
-<h4 id="usage-37">Usage<a class="anchor" aria-label="anchor" href="#usage-37"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_lock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-32">Arguments<a class="anchor" aria-label="anchor" href="#arguments-32"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>user_guid</code></dt>
-<dd><p>User GUID.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Connect-users_unlock"></a><div class="section">
-<h3 id="method-users-unlock-">Method <code>users_unlock()</code><a class="anchor" aria-label="anchor" href="#method-users-unlock-"></a></h3>
-<p>Unlock a user.</p><div class="section">
 <h4 id="usage-38">Usage<a class="anchor" aria-label="anchor" href="#usage-38"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_unlock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_lock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -1048,15 +1049,31 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-users_update"></a><div class="section">
-<h3 id="method-users-update-">Method <code>users_update()</code><a class="anchor" aria-label="anchor" href="#method-users-update-"></a></h3>
-<p>Update a user.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-users_unlock"></a><div class="section">
+<h3 id="method-users-unlock-">Method <code>users_unlock()</code><a class="anchor" aria-label="anchor" href="#method-users-unlock-"></a></h3>
+<p>Unlock a user.</p><div class="section">
 <h4 id="usage-39">Usage<a class="anchor" aria-label="anchor" href="#usage-39"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_update</span><span class="op">(</span><span class="va">user_guid</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_unlock</span><span class="op">(</span><span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-34">Arguments<a class="anchor" aria-label="anchor" href="#arguments-34"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>user_guid</code></dt>
+<dd><p>User GUID.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Connect-users_update"></a><div class="section">
+<h3 id="method-users-update-">Method <code>users_update()</code><a class="anchor" aria-label="anchor" href="#method-users-update-"></a></h3>
+<p>Update a user.</p><div class="section">
+<h4 id="usage-40">Usage<a class="anchor" aria-label="anchor" href="#usage-40"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users_update</span><span class="op">(</span><span class="va">user_guid</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-35">Arguments<a class="anchor" aria-label="anchor" href="#arguments-35"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>user_guid</code></dt>
 <dd><p>User GUID.</p></dd>
 
@@ -1071,12 +1088,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-groups"></a><div class="section">
 <h3 id="method-groups-">Method <code>groups()</code><a class="anchor" aria-label="anchor" href="#method-groups-"></a></h3>
 <p>Get groups.</p><div class="section">
-<h4 id="usage-40">Usage<a class="anchor" aria-label="anchor" href="#usage-40"></a></h4>
+<h4 id="usage-41">Usage<a class="anchor" aria-label="anchor" href="#usage-41"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-35">Arguments<a class="anchor" aria-label="anchor" href="#arguments-35"></a></h4>
+<h4 id="arguments-36">Arguments<a class="anchor" aria-label="anchor" href="#arguments-36"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>page_number</code></dt>
 <dd><p>The page number.</p></dd>
 
@@ -1095,12 +1112,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-group_members"></a><div class="section">
 <h3 id="method-group-members-">Method <code>group_members()</code><a class="anchor" aria-label="anchor" href="#method-group-members-"></a></h3>
 <p>Get group members.</p><div class="section">
-<h4 id="usage-41">Usage<a class="anchor" aria-label="anchor" href="#usage-41"></a></h4>
+<h4 id="usage-42">Usage<a class="anchor" aria-label="anchor" href="#usage-42"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_members</span><span class="op">(</span><span class="va">guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-36">Arguments<a class="anchor" aria-label="anchor" href="#arguments-36"></a></h4>
+<h4 id="arguments-37">Arguments<a class="anchor" aria-label="anchor" href="#arguments-37"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>guid</code></dt>
 <dd><p>The group GUID.</p></dd>
 
@@ -1111,28 +1128,8 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-group_member_add"></a><div class="section">
 <h3 id="method-group-member-add-">Method <code>group_member_add()</code><a class="anchor" aria-label="anchor" href="#method-group-member-add-"></a></h3>
 <p>Add a group member.</p><div class="section">
-<h4 id="usage-42">Usage<a class="anchor" aria-label="anchor" href="#usage-42"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_add</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-37">Arguments<a class="anchor" aria-label="anchor" href="#arguments-37"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>group_guid</code></dt>
-<dd><p>The group GUID.</p></dd>
-
-
-<dt><code>user_guid</code></dt>
-<dd><p>The user GUID.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Connect-group_member_remove"></a><div class="section">
-<h3 id="method-group-member-remove-">Method <code>group_member_remove()</code><a class="anchor" aria-label="anchor" href="#method-group-member-remove-"></a></h3>
-<p>Remove a group member.</p><div class="section">
 <h4 id="usage-43">Usage<a class="anchor" aria-label="anchor" href="#usage-43"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_remove</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_add</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -1148,15 +1145,35 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Connect-groups_create"></a><div class="section">
-<h3 id="method-groups-create-">Method <code>groups_create()</code><a class="anchor" aria-label="anchor" href="#method-groups-create-"></a></h3>
-<p>Create a group.</p><div class="section">
+</div><p></p><hr><a id="method-Connect-group_member_remove"></a><div class="section">
+<h3 id="method-group-member-remove-">Method <code>group_member_remove()</code><a class="anchor" aria-label="anchor" href="#method-group-member-remove-"></a></h3>
+<p>Remove a group member.</p><div class="section">
 <h4 id="usage-44">Usage<a class="anchor" aria-label="anchor" href="#usage-44"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">group_member_remove</span><span class="op">(</span><span class="va">group_guid</span>, <span class="va">user_guid</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-39">Arguments<a class="anchor" aria-label="anchor" href="#arguments-39"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>group_guid</code></dt>
+<dd><p>The group GUID.</p></dd>
+
+
+<dt><code>user_guid</code></dt>
+<dd><p>The user GUID.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Connect-groups_create"></a><div class="section">
+<h3 id="method-groups-create-">Method <code>groups_create()</code><a class="anchor" aria-label="anchor" href="#method-groups-create-"></a></h3>
+<p>Create a group.</p><div class="section">
+<h4 id="usage-45">Usage<a class="anchor" aria-label="anchor" href="#usage-45"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-40">Arguments<a class="anchor" aria-label="anchor" href="#arguments-40"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p>The group name.</p></dd>
 
@@ -1167,12 +1184,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-groups_create_remote"></a><div class="section">
 <h3 id="method-groups-create-remote-">Method <code><a href="groups_create_remote.html">groups_create_remote()</a></code><a class="anchor" aria-label="anchor" href="#method-groups-create-remote-"></a></h3>
 <p>Create a remote group.</p><div class="section">
-<h4 id="usage-45">Usage<a class="anchor" aria-label="anchor" href="#usage-45"></a></h4>
+<h4 id="usage-46">Usage<a class="anchor" aria-label="anchor" href="#usage-46"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_create_remote</span><span class="op">(</span><span class="va">temp_ticket</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-40">Arguments<a class="anchor" aria-label="anchor" href="#arguments-40"></a></h4>
+<h4 id="arguments-41">Arguments<a class="anchor" aria-label="anchor" href="#arguments-41"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>temp_ticket</code></dt>
 <dd><p>Ticket identifying target remote group.</p></dd>
 
@@ -1183,12 +1200,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-groups_remote"></a><div class="section">
 <h3 id="method-groups-remote-">Method <code>groups_remote()</code><a class="anchor" aria-label="anchor" href="#method-groups-remote-"></a></h3>
 <p>Get remote groups.</p><div class="section">
-<h4 id="usage-46">Usage<a class="anchor" aria-label="anchor" href="#usage-46"></a></h4>
+<h4 id="usage-47">Usage<a class="anchor" aria-label="anchor" href="#usage-47"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">groups_remote</span><span class="op">(</span>prefix <span class="op">=</span> <span class="cn">NULL</span>, limit <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-41">Arguments<a class="anchor" aria-label="anchor" href="#arguments-41"></a></h4>
+<h4 id="arguments-42">Arguments<a class="anchor" aria-label="anchor" href="#arguments-42"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>prefix</code></dt>
 <dd><p>The search term.</p></dd>
 
@@ -1203,63 +1220,8 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-inst_content_visits"></a><div class="section">
 <h3 id="method-inst-content-visits-">Method <code>inst_content_visits()</code><a class="anchor" aria-label="anchor" href="#method-inst-content-visits-"></a></h3>
 <p>Get (non-interactive) content visits.</p><div class="section">
-<h4 id="usage-47">Usage<a class="anchor" aria-label="anchor" href="#usage-47"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_content_visits</span><span class="op">(</span></span>
-<span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  limit <span class="op">=</span> <span class="fl">500</span>,</span>
-<span>  previous <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  nxt <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  asc_order <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-42">Arguments<a class="anchor" aria-label="anchor" href="#arguments-42"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>content_guid</code></dt>
-<dd><p>Content GUID.</p></dd>
-
-
-<dt><code>min_data_version</code></dt>
-<dd><p>Data version for request.</p></dd>
-
-
-<dt><code>from</code></dt>
-<dd><p>Start of range.</p></dd>
-
-
-<dt><code>to</code></dt>
-<dd><p>End of range.</p></dd>
-
-
-<dt><code>limit</code></dt>
-<dd><p>Result set size.</p></dd>
-
-
-<dt><code>previous</code></dt>
-<dd><p>Previous item.</p></dd>
-
-
-<dt><code>nxt</code></dt>
-<dd><p>Next item.</p></dd>
-
-
-<dt><code>asc_order</code></dt>
-<dd><p>Indicates ascending result order.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Connect-inst_shiny_usage"></a><div class="section">
-<h3 id="method-inst-shiny-usage-">Method <code>inst_shiny_usage()</code><a class="anchor" aria-label="anchor" href="#method-inst-shiny-usage-"></a></h3>
-<p>Get interactive content visits.</p>
-
-<p>Get (non-interactive) content visits.</p><div class="section">
 <h4 id="usage-48">Usage<a class="anchor" aria-label="anchor" href="#usage-48"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_shiny_usage</span><span class="op">(</span></span>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_content_visits</span><span class="op">(</span></span>
 <span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -1308,10 +1270,65 @@ will be returned. Otherwise, the argument is forwarded to
 </dl><p></p></div>
 </div>
 
+</div><p></p><hr><a id="method-Connect-inst_shiny_usage"></a><div class="section">
+<h3 id="method-inst-shiny-usage-">Method <code>inst_shiny_usage()</code><a class="anchor" aria-label="anchor" href="#method-inst-shiny-usage-"></a></h3>
+<p>Get interactive content visits.</p>
+
+<p>Get (non-interactive) content visits.</p><div class="section">
+<h4 id="usage-49">Usage<a class="anchor" aria-label="anchor" href="#usage-49"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">inst_shiny_usage</span><span class="op">(</span></span>
+<span>  content_guid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_data_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  previous <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nxt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asc_order <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-44">Arguments<a class="anchor" aria-label="anchor" href="#arguments-44"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>content_guid</code></dt>
+<dd><p>Content GUID.</p></dd>
+
+
+<dt><code>min_data_version</code></dt>
+<dd><p>Data version for request.</p></dd>
+
+
+<dt><code>from</code></dt>
+<dd><p>Start of range.</p></dd>
+
+
+<dt><code>to</code></dt>
+<dd><p>End of range.</p></dd>
+
+
+<dt><code>limit</code></dt>
+<dd><p>Result set size.</p></dd>
+
+
+<dt><code>previous</code></dt>
+<dd><p>Previous item.</p></dd>
+
+
+<dt><code>nxt</code></dt>
+<dd><p>Next item.</p></dd>
+
+
+<dt><code>asc_order</code></dt>
+<dd><p>Indicates ascending result order.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
 </div><p></p><hr><a id="method-Connect-procs"></a><div class="section">
 <h3 id="method-procs-">Method <code>procs()</code><a class="anchor" aria-label="anchor" href="#method-procs-"></a></h3>
 <p>Get running processes.</p><div class="section">
-<h4 id="usage-49">Usage<a class="anchor" aria-label="anchor" href="#usage-49"></a></h4>
+<h4 id="usage-50">Usage<a class="anchor" aria-label="anchor" href="#usage-50"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">procs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -1319,12 +1336,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-repo_account"></a><div class="section">
 <h3 id="method-repo-account-">Method <code>repo_account()</code><a class="anchor" aria-label="anchor" href="#method-repo-account-"></a></h3>
 <p>Determine if Git repository is associated with authorization.</p><div class="section">
-<h4 id="usage-50">Usage<a class="anchor" aria-label="anchor" href="#usage-50"></a></h4>
+<h4 id="usage-51">Usage<a class="anchor" aria-label="anchor" href="#usage-51"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_account</span><span class="op">(</span><span class="va">host</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-44">Arguments<a class="anchor" aria-label="anchor" href="#arguments-44"></a></h4>
+<h4 id="arguments-45">Arguments<a class="anchor" aria-label="anchor" href="#arguments-45"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>host</code></dt>
 <dd><p>Repository URL.</p></dd>
 
@@ -1335,12 +1352,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-repo_branches"></a><div class="section">
 <h3 id="method-repo-branches-">Method <code>repo_branches()</code><a class="anchor" aria-label="anchor" href="#method-repo-branches-"></a></h3>
 <p>Get Git repository branches.</p><div class="section">
-<h4 id="usage-51">Usage<a class="anchor" aria-label="anchor" href="#usage-51"></a></h4>
+<h4 id="usage-52">Usage<a class="anchor" aria-label="anchor" href="#usage-52"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_branches</span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-45">Arguments<a class="anchor" aria-label="anchor" href="#arguments-45"></a></h4>
+<h4 id="arguments-46">Arguments<a class="anchor" aria-label="anchor" href="#arguments-46"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>repo</code></dt>
 <dd><p>Repository URL.</p></dd>
 
@@ -1351,12 +1368,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-repo_manifest_dirs"></a><div class="section">
 <h3 id="method-repo-manifest-dirs-">Method <code>repo_manifest_dirs()</code><a class="anchor" aria-label="anchor" href="#method-repo-manifest-dirs-"></a></h3>
 <p>Get Git repository directories.</p><div class="section">
-<h4 id="usage-52">Usage<a class="anchor" aria-label="anchor" href="#usage-52"></a></h4>
+<h4 id="usage-53">Usage<a class="anchor" aria-label="anchor" href="#usage-53"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">repo_manifest_dirs</span><span class="op">(</span><span class="va">repo</span>, <span class="va">branch</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-46">Arguments<a class="anchor" aria-label="anchor" href="#arguments-46"></a></h4>
+<h4 id="arguments-47">Arguments<a class="anchor" aria-label="anchor" href="#arguments-47"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>repo</code></dt>
 <dd><p>Repository URL.</p></dd>
 
@@ -1371,7 +1388,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-schedules"></a><div class="section">
 <h3 id="method-schedules-">Method <code>schedules()</code><a class="anchor" aria-label="anchor" href="#method-schedules-"></a></h3>
 <p>Get schedules.</p><div class="section">
-<h4 id="usage-53">Usage<a class="anchor" aria-label="anchor" href="#usage-53"></a></h4>
+<h4 id="usage-54">Usage<a class="anchor" aria-label="anchor" href="#usage-54"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">schedules</span><span class="op">(</span></span>
 <span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">7</span>,</span>
@@ -1380,7 +1397,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="section">
-<h4 id="arguments-47">Arguments<a class="anchor" aria-label="anchor" href="#arguments-47"></a></h4>
+<h4 id="arguments-48">Arguments<a class="anchor" aria-label="anchor" href="#arguments-48"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>start</code></dt>
 <dd><p>Starting time.</p></dd>
 
@@ -1399,12 +1416,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-docs"></a><div class="section">
 <h3 id="method-docs-">Method <code>docs()</code><a class="anchor" aria-label="anchor" href="#method-docs-"></a></h3>
 <p>Get documentation.</p><div class="section">
-<h4 id="usage-54">Usage<a class="anchor" aria-label="anchor" href="#usage-54"></a></h4>
+<h4 id="usage-55">Usage<a class="anchor" aria-label="anchor" href="#usage-55"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">docs</span><span class="op">(</span>docs <span class="op">=</span> <span class="st">"api"</span>, browse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-48">Arguments<a class="anchor" aria-label="anchor" href="#arguments-48"></a></h4>
+<h4 id="arguments-49">Arguments<a class="anchor" aria-label="anchor" href="#arguments-49"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>docs</code></dt>
 <dd><p>Named document.</p></dd>
 
@@ -1419,12 +1436,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-audit_logs"></a><div class="section">
 <h3 id="method-audit-logs-">Method <code>audit_logs()</code><a class="anchor" aria-label="anchor" href="#method-audit-logs-"></a></h3>
 <p>Get auditing.</p><div class="section">
-<h4 id="usage-55">Usage<a class="anchor" aria-label="anchor" href="#usage-55"></a></h4>
+<h4 id="usage-56">Usage<a class="anchor" aria-label="anchor" href="#usage-56"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">audit_logs</span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">500</span>, previous <span class="op">=</span> <span class="cn">NULL</span>, nxt <span class="op">=</span> <span class="cn">NULL</span>, asc_order <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-49">Arguments<a class="anchor" aria-label="anchor" href="#arguments-49"></a></h4>
+<h4 id="arguments-50">Arguments<a class="anchor" aria-label="anchor" href="#arguments-50"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>limit</code></dt>
 <dd><p>Result set size.</p></dd>
 
@@ -1447,7 +1464,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-server_settings_r"></a><div class="section">
 <h3 id="method-server-settings-r-">Method <code>server_settings_r()</code><a class="anchor" aria-label="anchor" href="#method-server-settings-r-"></a></h3>
 <p>Get R installations.</p><div class="section">
-<h4 id="usage-56">Usage<a class="anchor" aria-label="anchor" href="#usage-56"></a></h4>
+<h4 id="usage-57">Usage<a class="anchor" aria-label="anchor" href="#usage-57"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings_r</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -1455,7 +1472,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-server_settings"></a><div class="section">
 <h3 id="method-server-settings-">Method <code>server_settings()</code><a class="anchor" aria-label="anchor" href="#method-server-settings-"></a></h3>
 <p>Get server settings.</p><div class="section">
-<h4 id="usage-57">Usage<a class="anchor" aria-label="anchor" href="#usage-57"></a></h4>
+<h4 id="usage-58">Usage<a class="anchor" aria-label="anchor" href="#usage-58"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">server_settings</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -1463,12 +1480,12 @@ will be returned. Otherwise, the argument is forwarded to
 </div><p></p><hr><a id="method-Connect-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-58">Usage<a class="anchor" aria-label="anchor" href="#usage-58"></a></h4>
+<h4 id="usage-59">Usage<a class="anchor" aria-label="anchor" href="#usage-59"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-50">Arguments<a class="anchor" aria-label="anchor" href="#arguments-50"></a></h4>
+<h4 id="arguments-51">Arguments<a class="anchor" aria-label="anchor" href="#arguments-51"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -1492,7 +1509,7 @@ will be returned. Otherwise, the argument is forwarded to
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer></div>
