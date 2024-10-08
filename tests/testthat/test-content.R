@@ -231,4 +231,3 @@ with_mock_api({
     expect_identical(v$key, "WrEKKa77")
   })
 })
-

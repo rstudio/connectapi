@@ -66,6 +66,7 @@ Other R6 classes:
 \item \href{#method-Connect-raise_error}{\code{Connect$raise_error()}}
 \item \href{#method-Connect-add_auth}{\code{Connect$add_auth()}}
 \item \href{#method-Connect-api_url}{\code{Connect$api_url()}}
+\item \href{#method-Connect-server_url}{\code{Connect$server_url()}}
 \item \href{#method-Connect-request}{\code{Connect$request()}}
 \item \href{#method-Connect-GET}{\code{Connect$GET()}}
 \item \href{#method-Connect-PUT}{\code{Connect$PUT()}}
@@ -217,6 +218,23 @@ Returns HTTP authorization headers, or NULL when none are used.
 Build a URL relative to the API root
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$api_url(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{path segments}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-server_url"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-server_url}{}}}
+\subsection{Method \code{server_url()}}{
+Build a URL relative to the server root
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$server_url(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
