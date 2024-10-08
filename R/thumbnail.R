@@ -27,6 +27,7 @@ get_thumbnail <- function(content, path = NULL) {
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
+  # The "content/{guid}/__thumbnail__" URL is not under "__api__".
   res <- con$GET(
     url = con$server_url("content", guid, "__thumbnail__"),
     parser = NULL
@@ -139,6 +140,7 @@ has_thumbnail <- function(content) {
 
   # Connect 2024.09.0 introduced public endpoints for content thumbnails. We
   # prefer those, falling back to the unversioned endpoints if unavailable.
+  # The "content/{guid}/__thumbnail__" URL is not under "__api__".
   res <- con$GET(
     url = con$server_url("content", guid, "__thumbnail__"),
     parser = NULL

@@ -107,7 +107,7 @@ Connect <- R6::R6Class(
     #' @description Build a URL relative to the API root
     #' @param ... path segments
     api_url = function(...) {
-      paste(self$server, "__api__", ..., sep = "/")
+      self$server_url("__api__", ...)
     },
 
     #' @description Build a URL relative to the server root
