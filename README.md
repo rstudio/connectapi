@@ -107,15 +107,15 @@ content <- client %>%
 # set an image for content
 
 content %>%
-  set_image_path("./my/local/image.png")
+  set_thumbnail("./my/local/image.png")
 
 content %>%
-  set_image_url("http://url.example.com/image.png")
+  set_thumbnail("http://url.example.com/image.png")
 
 # set image and a vanity URL
 
 content %>%
-  set_image_path("./my/local/image.png") %>%
+  set_thumbnail("./my/local/image.png") %>%
   set_vanity_url("/my-awesome-app")
 
 # change access_type to "anyone"

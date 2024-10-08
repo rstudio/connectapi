@@ -1,6 +1,25 @@
 # connectapi (development version)
 
+# Unreleased
+
+## New features
+
+- New functions `set_thumbnail()`, `get_thumbnail()`, `delete_thumbnail()` and
+  `has_thumbnail()` let you interact with content thumbnails, replacing older
+  `*_image()` functions. (#294, #304)
+
+## Lifecycle changes
+
+### Newly deprecated
+
+- `set_image_path()`, `set_image_url()`, and `set_image_webshot()` have been
+  deprecated and will be removed in a future update. They have been replaced by
+  `set_thumbnail()`, which works both with local file paths and remote URLs to
+  images. Likewise, `has_image()` and `delete_image()` have been deprecated in
+  favor of `has_thumbnail()` and `delete_thumbnail()`. (#294, #304)
+  
 ## Minor improvements and fixes
+
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
 
 # connectapi 0.3.0

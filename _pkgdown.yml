@@ -36,6 +36,7 @@ reference:
     contents:
       - matches("content")
       - matches("variant")
+      - matches("thumbnail")
       - matches("image")
       - matches("vanity")
       - matches("schedule")
