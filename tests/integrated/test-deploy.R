@@ -247,6 +247,10 @@ test_that("get_image returns NA if no image", {
 test_that("set_image_url works", {
   scoped_experimental_silence()
 
+  # This test fails with the 1.8.8.2 image. The failure is to do with
+  # downloading the favicon, used in the test as the remote image.
+  skip_if_connect_older_than(cont1_content$connect, "2021.09.0")
+
   res <- set_image_url(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
 
   expect_true(validate_R6_class(res, "Content"))
@@ -518,6 +522,10 @@ test_that("get_thumbnail returns NA if no image", {
 
 test_that("set_thumbnail works with remote paths", {
   scoped_experimental_silence()
+
+  # This test fails with the 1.8.8.2 image. The failure is to do with
+  # downloading the favicon, used in the test as the remote image.
+  skip_if_connect_older_than(cont1_content$connect, "2021.09.0")
 
   res <- set_thumbnail(cont1_content, glue::glue("{cont1_content$get_connect()$server}/connect/__favicon__"))
 

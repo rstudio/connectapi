@@ -21,6 +21,7 @@ jobs:
           - "2022.09.0" # bionic
           - "2022.03.2"
           - "2021.09.0"
+          - "1.8.8.2"
 
     env:
       CONNECT_VERSION: ${{ matrix.version }}

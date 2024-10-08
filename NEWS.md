@@ -8,8 +8,6 @@
 
 ## Lifecycle changes
 
-- `connectapi` is not tested against Connect versions older than 2021.09.0.
-
 ### Newly deprecated
 
 - `set_image_path()`, `set_image_url()`, and `set_image_webshot()` have been
