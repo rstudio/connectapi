@@ -886,7 +886,7 @@ connect <- function(
   tryCatch(
     {
       check_connect_license(con)
-      check_connect_version(using_version = safe_server_version(con))
+      warn_old_connect(using_version = safe_server_version(con))
     },
     error = function(err) {
       if (.check_is_fatal) {

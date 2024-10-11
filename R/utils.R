@@ -134,8 +134,7 @@ safe_server_version <- function(client) {
   version <- safe_server_settings(client)$version
   if (is.null(version) || nchar(version) == 0) {
     message("Version information is not exposed by this Posit Connect instance.")
-    # Return 0 so this will always show up as "too old"
-    version <- "0"
+    version <- NULL
   }
   version
 }
@@ -143,11 +142,18 @@ safe_server_version <- function(client) {
 error_if_less_than <- function(client, tested_version) {
   server_version <- safe_server_version(client)
   comp <- compare_connect_version(server_version, tested_version)
-  if (comp < 0) {
-    msg <- paste0(
-      "ERROR: This API requires Posit Connect version ", tested_version,
-      " but you are using", server_version, ". Please use a previous version",
-      " of the `connectapi` package, upgrade Posit Connect, or review the API ",
+  if (is.null(comp)) {
+    msg <- glue::glue(
+      "WARNING: This API requires Posit Connect version {tested_version} ",
+      "but the server version is not exposed by this Posit Connect instance. ",
+      "You may be experience errors when using this functionality."
+    )
+    warn_once(msg)
+  } else if (comp < 0) {
+    msg <- glue::glue(
+      "ERROR: This API requires Posit Connect version {tested_version} ",
+      "but you are using {server_version}. Please use a previous version ",
+      "of the `connectapi` package, upgrade Posit Connect, or review the API ",
       "documentation corresponding to your version."
     )
     stop(msg)
@@ -156,10 +162,11 @@ error_if_less_than <- function(client, tested_version) {
 }
 
 compare_connect_version <- function(using_version, tested_version) {
+  if (is.null(using_version)) return(NULL)
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
-check_connect_version <- function(using_version, minimum_tested_version = "1.8.8.2") {
+warn_old_connect <- function(using_version, minimum_tested_version = "1.8.8.2") {
   comp <- compare_connect_version(using_version, minimum_tested_version)
   if (comp < 0) {
     warn_once(glue::glue(
@@ -169,6 +176,19 @@ check_connect_version <- function(using_version, minimum_tested_version = "1.8.8
     ), id = "old-connect")
   }
   invisible()
+}
+
+connect_version_gte <- function(client_version, target_version) {
+  comp <- compare_connect_version(client_version, target_version)
+  if (is.null(comp)) {
+    return(NULL)
+  } else {
+    return(comp >= 0)
+  }
+}
+
+connect_version_lt <- function(client_version, target_version) {
+  isTRUE(compare_connect_version(client_version, target_version))
 }
 
 token_hex <- function(n) {
