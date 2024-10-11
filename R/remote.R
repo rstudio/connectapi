@@ -9,14 +9,14 @@
 #' NOTE: there can be problems with usernames that are not unique. Please open
 #' an issue if you run into any problems.
 #'
-#' @param connect A R6 Connect object
-#' @param prefix character. The prefix of the user name to search for
-#' @param expect number. Optional. The number of responses to expect for this search
-#' @param check boolean. Optional. Whether to check for local existence first
+#' @param connect An R6 Connect object.
+#' @param prefix character. The prefix of the user name to search for.
+#' @param expect number. Optional. The number of responses to expect for this search.
+#' @param check boolean. Optional. Whether to check for local existence first.
 #' @param exact boolean. Optional. Whether to only create users whose username
 #'   exactly matches the provided `prefix`.
 #'
-#' @return The results of creating the users
+#' @return The results of creating the users.
 #'
 #' @export
 users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact = FALSE) {
@@ -63,12 +63,14 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
 
 #' Create a Remote Group
 #'
-#' @param connect A R6 Connect object
-#' @param prefix character. The prefix of the group name to search for
-#' @param expect number. The number of responses to expect for this search
-#' @param check boolean. Whether to check for local existence first
+#' @param connect An R6 Connect object.
+#' @param prefix character. The prefix of the user name to search for.
+#' @param expect number. Optional. The number of responses to expect for this search.
+#' @param check boolean. Optional. Whether to check for local existence first.
+#' @param exact boolean. Optional. Whether to only create groups whose name
+#'   exactly matches the provided `prefix`.
 #'
-#' @return The results of creating the groups
+#' @return The results of creating the groups.
 #'
 #' @export
 groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact = FALSE) {
