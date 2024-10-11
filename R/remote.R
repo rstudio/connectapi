@@ -96,9 +96,9 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exac
     remote_groups_res <- purrr::keep(remote_groups_res, ~ .x[["name"]] == prefix)
   }
   if (length(remote_groups_res) != expect) {
-    message(glue::glue("Found {length(remote_groups_res)} remote groups Expected {expect}"))
+    message(glue::glue("Found {length(remote_groups_res)} remote groups. Expected {expect}"))
     if (length(remote_groups_res) > 0) {
-      message(glue::glue("Users found: {glue::glue_collapse(purrr::map_chr(remote_groups_res, ~ .x[['name']]), sep = \", \")}"))
+      message(glue::glue("Groups found: {glue::glue_collapse(purrr::map_chr(remote_groups_res, ~ .x[['name']]), sep = \", \")}"))
     }
     stop("The expected group(s) were not found. Please specify a more accurate 'prefix'")
   }
