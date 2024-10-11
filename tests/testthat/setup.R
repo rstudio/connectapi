@@ -31,3 +31,7 @@ set_redactor(
     )
   }
 )
+
+# Mocks are in directories by Connect version. 2024.08.0 contains all mocks
+# created before 2024.09.0, and is the default mock path.
+.mockPaths("2024.08.0")

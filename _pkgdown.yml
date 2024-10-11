@@ -1,5 +1,8 @@
 url: https://pkgs.rstudio.com/connectapi/
 
+template:
+  bootstrap: 5
+
 development:
    mode: auto
 
@@ -33,6 +36,7 @@ reference:
     contents:
       - matches("content")
       - matches("variant")
+      - matches("thumbnail")
       - matches("image")
       - matches("vanity")
       - matches("schedule")
