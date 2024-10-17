@@ -6,14 +6,15 @@ test_that("simplify_version works", {
 })
 
 test_that("error_if_less_than errors as expected", {
-  with_mock_api({
-    con <- Connect$new(server = "https://connect.example", api_key = "fake")
-    expect_silent(error_if_less_than(con, "1.8.6"))
-    expect_error(
-      error_if_less_than(con, "2024.09"),
-      "ERROR: This API requires Posit Connect version 2024.09"
-    )
-  })
+  expect_silent(error_if_less_than("2024.09.0", "1.8.6"))
+  expect_error(
+    error_if_less_than("2024.08.2", "2024.09"),
+    "ERROR: This API requires Posit Connect version 2024.09"
+  )
+  expect_warning(
+    error_if_less_than(NA, "2024.09"),
+    "WARNING: This API requires Posit Connect version 2024.09"
+  )
 })
 
 test_that("warn_untested_connect works", {
