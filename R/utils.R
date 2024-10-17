@@ -134,15 +134,15 @@ safe_server_version <- function(client) {
   version <- safe_server_settings(client)$version
   if (is.null(version) || nchar(version) == 0) {
     message("Version information is not exposed by this Posit Connect instance.")
-    version <- NULL
+    version <- NA
   }
   version
 }
 
 error_if_less_than <- function(client, tested_version) {
-  server_version <- safe_server_version(client)
+  server_version <- client$version
   comp <- compare_connect_version(server_version, tested_version)
-  if (is.null(comp)) {
+  if (is.na(comp)) {
     msg <- glue::glue(
       "WARNING: This API requires Posit Connect version {tested_version} ",
       "but the server version is not exposed by this Posit Connect instance. ",
@@ -162,11 +162,21 @@ error_if_less_than <- function(client, tested_version) {
 }
 
 compare_connect_version <- function(using_version, tested_version) {
-  if (is.null(using_version)) return(NULL)
+  if (is.na(using_version)) return(NA)
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
-warn_old_connect <- function(using_version, minimum_tested_version = "1.8.8.2") {
+connect_version_gte <- function(client_version, target_version) {
+  comp <- compare_connect_version(client_version, target_version)
+  isTRUE(comp >= 0)
+}
+
+connect_version_lt <- function(client_version, target_version) {
+  comp <- compare_connect_version(client_version, target_version)
+  isTRUE(comp < 0)
+}
+
+warn_untested_connect <- function(using_version, minimum_tested_version = "1.8.8.2") {
   comp <- compare_connect_version(using_version, minimum_tested_version)
   if (comp < 0) {
     warn_once(glue::glue(
@@ -176,19 +186,6 @@ warn_old_connect <- function(using_version, minimum_tested_version = "1.8.8.2") 
     ), id = "old-connect")
   }
   invisible()
-}
-
-connect_version_gte <- function(client_version, target_version) {
-  comp <- compare_connect_version(client_version, target_version)
-  if (is.null(comp)) {
-    return(NULL)
-  } else {
-    return(comp >= 0)
-  }
-}
-
-connect_version_lt <- function(client_version, target_version) {
-  isTRUE(compare_connect_version(client_version, target_version))
 }
 
 token_hex <- function(n) {

@@ -1,14 +1,14 @@
-# warn_old_connect warning snapshot
+# warn_untested_connect warning snapshot
 
     Code
-      capture_warning(warn_old_connect("2022.02", "2022.01"))
+      capture_warning(warn_untested_connect("2022.02", "2022.01"))
     Output
       NULL
 
 ---
 
     Code
-      capture_warning(warn_old_connect("2022.01", "2022.02"))
+      capture_warning(warn_untested_connect("2022.01", "2022.02"))
     Output
       <warning/rlang_warning>
       Warning:

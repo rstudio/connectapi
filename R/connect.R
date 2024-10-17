@@ -833,6 +833,17 @@ Connect <- R6::R6Class(
     }
 
     # end --------------------------------------------------------
+  ),
+  private = list(
+    .version = NULL
+  ),
+  active = list(
+    version = function() {
+      if (is.null(private$.version)) {
+        private$.version <- safe_server_version(self)
+      }
+      private$.version
+    }
   )
 )
 
@@ -886,7 +897,7 @@ connect <- function(
   tryCatch(
     {
       check_connect_license(con)
-      warn_old_connect(using_version = safe_server_version(con))
+      warn_untested_connect(using_version = safe_server_version(con))
     },
     error = function(err) {
       if (.check_is_fatal) {

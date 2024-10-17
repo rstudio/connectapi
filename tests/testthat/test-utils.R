@@ -16,23 +16,23 @@ test_that("error_if_less_than errors as expected", {
   })
 })
 
-test_that("warn_old_connect works", {
+test_that("warn_untested_connect works", {
   # silent for patch version changes
-  expect_silent(warn_old_connect("1.8.2.1-10", "1.8.2-4"))
+  expect_silent(warn_untested_connect("1.8.2.1-10", "1.8.2-4"))
 
   # silent if newer
-  expect_silent(warn_old_connect("1.8.2-4", "1.8.0.5-1"))
+  expect_silent(warn_untested_connect("1.8.2-4", "1.8.0.5-1"))
 
   # warnings for minor version changes
-  expect_warning(warn_old_connect("1.8.2-4", "2.8.0.5-1"), "older")
+  expect_warning(warn_untested_connect("1.8.2-4", "2.8.0.5-1"), "older")
   rlang::reset_warning_verbosity("old-connect")
 })
 
-test_that("warn_old_connect warning snapshot", {
+test_that("warn_untested_connect warning snapshot", {
   # warning messages seem to cause issues in different environments based on color codes
   skip_on_cran()
   # No warning
-  expect_snapshot(capture_warning(warn_old_connect("2022.02", "2022.01")))
-  expect_snapshot(capture_warning(warn_old_connect("2022.01", "2022.02")))
+  expect_snapshot(capture_warning(warn_untested_connect("2022.02", "2022.01")))
+  expect_snapshot(capture_warning(warn_untested_connect("2022.01", "2022.02")))
   rlang::reset_warning_verbosity("old-connect")
 })
