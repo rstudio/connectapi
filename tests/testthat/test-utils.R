@@ -6,33 +6,34 @@ test_that("simplify_version works", {
 })
 
 test_that("error_if_less_than errors as expected", {
-  with_mock_api({
-    con <- Connect$new(server = "https://connect.example", api_key = "fake")
-    expect_silent(error_if_less_than(con, "1.8.6"))
-    expect_error(
-      error_if_less_than(con, "2024.09"),
-      "ERROR: This API requires Posit Connect version 2024.09"
-    )
-  })
+  expect_silent(error_if_less_than("2024.09.0", "1.8.6"))
+  expect_error(
+    error_if_less_than("2024.08.2", "2024.09"),
+    "ERROR: This API requires Posit Connect version 2024.09"
+  )
+  expect_warning(
+    error_if_less_than(NA, "2024.09"),
+    "WARNING: This API requires Posit Connect version 2024.09"
+  )
 })
 
-test_that("check_connect_version works", {
+test_that("warn_untested_connect works", {
   # silent for patch version changes
-  expect_silent(check_connect_version("1.8.2.1-10", "1.8.2-4"))
+  expect_silent(warn_untested_connect("1.8.2.1-10", "1.8.2-4"))
 
   # silent if newer
-  expect_silent(check_connect_version("1.8.2-4", "1.8.0.5-1"))
+  expect_silent(warn_untested_connect("1.8.2-4", "1.8.0.5-1"))
 
   # warnings for minor version changes
-  expect_warning(check_connect_version("1.8.2-4", "2.8.0.5-1"), "older")
+  expect_warning(warn_untested_connect("1.8.2-4", "2.8.0.5-1"), "older")
   rlang::reset_warning_verbosity("old-connect")
 })
 
-test_that("check_connect_version warning snapshot", {
+test_that("warn_untested_connect warning snapshot", {
   # warning messages seem to cause issues in different environments based on color codes
   skip_on_cran()
   # No warning
-  expect_snapshot(capture_warning(check_connect_version("2022.02", "2022.01")))
-  expect_snapshot(capture_warning(check_connect_version("2022.01", "2022.02")))
+  expect_snapshot(capture_warning(warn_untested_connect("2022.02", "2022.01")))
+  expect_snapshot(capture_warning(warn_untested_connect("2022.01", "2022.02")))
   rlang::reset_warning_verbosity("old-connect")
 })

@@ -1,8 +1,7 @@
 {
-    "hostname": "dogfood01",
-    "version": "2024.09.0-dev+77-g9296f96ffb",
-    "build": "v2024.08.0-77-g9296f96ffb",
-    "about": "Posit Connect v2024.09.0-dev+77-g9296f96ffb",
+    "hostname": "example",
+    "version": "2024.09.0",
+    "about": "Posit Connect v2024.09.0",
     "authentication": {
         "handles_credentials": false,
         "handles_login": true,
