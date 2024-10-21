@@ -341,9 +341,8 @@ get_timezones <- function(connect) {
 
   # If the version is greater than or equal to the target version, or if no
   # version is available, we try the new path.
-  if (!connect_version_lt(safe_server_version(connect), "2024.09.0")) {
+  if (!connect_version_lt(connect$version, "2024.09.0")) {
     res <- connect$GET(v1_url("timezones"), parser = NULL)
-    print(res)
     if (httr::status_code(res) == 404) {
       # We will try the old URL.
       res <- NULL 
@@ -351,7 +350,6 @@ get_timezones <- function(connect) {
   }
   if (is.null(res)) {
     res <- connect$GET(unversioned_url("timezones"), parser = NULL)
-    print(res)
   }
   connect$raise_error(res)
   
