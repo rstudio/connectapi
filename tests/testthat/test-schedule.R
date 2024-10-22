@@ -1,7 +1,7 @@
 library(R6)
 
 BaseMockConnect <- R6Class(
-  "BaseMockConnect", 
+  "BaseMockConnect",
   inherit = Connect,
   private = list(
     urls = character()
@@ -66,7 +66,7 @@ test_that("get_timezones() gets timeszones from v1 url when available", {
 
   # With version available
   MockConnect <- R6Class(
-    "MockConnect", 
+    "MockConnect",
     inherit = BaseMockConnect,
     public = list(
       GET = mock_get_2024.09.0
@@ -122,7 +122,7 @@ test_that("get_timezones() gets timeszones from unversioned url when v1 returns 
     } else {
       stop("Unexpected URL called")
     }
-    
+
     if (is.null(parser)) {
       res
     } else {
@@ -133,7 +133,7 @@ test_that("get_timezones() gets timeszones from unversioned url when v1 returns 
 
   # With version available
   MockConnect <- R6Class(
-    "MockConnect", 
+    "MockConnect",
     inherit = BaseMockConnect,
     public = list(
       GET = mock_get_2024.08.0
@@ -190,7 +190,7 @@ test_that("get_timezones() raises 404 error when v1 and unversioned return 404",
     } else {
       stop("Unexpected URL called")
     }
-    
+
     if (is.null(parser)) {
       res
     } else {
@@ -199,25 +199,23 @@ test_that("get_timezones() raises 404 error when v1 and unversioned return 404",
     }
   }
 
-    # With version available
-    MockConnect <- R6Class(
-      "MockConnect", 
-      inherit = BaseMockConnect,
-      public = list(
-        GET = mock_get_both_404
-      )
+  # With version available
+  MockConnect <- R6Class(
+    "MockConnect",
+    inherit = BaseMockConnect,
+    public = list(
+      GET = mock_get_both_404
     )
-  
-    client <- MockConnect$new()
-  
-    expect_error(
-      get_timezones(client),
-      regexp = "timezones request failed with Client error"
-    )
-    expect_equal(
-      client$called_with(),
-      c("v1/timezones", "timezones")
-    )
-  
-})
+  )
 
+  client <- MockConnect$new()
+
+  expect_error(
+    get_timezones(client),
+    regexp = "timezones request failed with Client error"
+  )
+  expect_equal(
+    client$called_with(),
+    c("v1/timezones", "timezones")
+  )
+})
