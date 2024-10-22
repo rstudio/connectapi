@@ -1,94 +1,15 @@
-library(R6)
-
-MockConnect <- R6Class(
-  "MockConnect",
-  inherit = Connect,
-  public = list(
-    initialize = function(version = NA) {
-      self$server <- "https://connect.example"
-      self$api_key <- "fake"
-      private$.version <- version
-    },
-    request = function(method, url, ..., parser = "parsed") {
-      # Record call
-      self$log_call(paste(method, url))
-
-      # Look for response
-      if (!(url %in% names(self$responses))) {
-        stop("Unexpected URL")
-      }
-      res <- self$responses[[url]]
-
-      if (is.null(parser)) {
-        res
-      } else {
-        self$raise_error(res)
-        httr::content(res, as = parser)
-      }
-    },
-    responses = list(),
-    add_mock_response = function(path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
-      url <- self$api_url(path)
-      res <- mock_response(url, content, status_code, headers)
-      self$responses[[url]] <- res
-    },
-    call_log = character(),
-    log_call = function(call) {
-      self$call_log <- c(self$call_log, call)
-    }
-  )
-)
-
-mock_response <- function(url, content, status_code, headers = character()) {
-  # Headers in responses are case-insensitive lists.
-  names(headers) <- tolower(names(headers))
-  headers <- as.list(headers)
-  headers <- structure(as.list(headers), class = c("insensitive", class(headers)))
-
-  # Treat content similarly to httr::POST, with a subset of behaviors
-  if (is.character(content) && length(content) == 1) {
-    content <- charToRaw(content)
-  } else if (is.list(content)) {
-    content <- charToRaw(toJSON(content, auto_unbox = TRUE))
-  }
-
-  structure(
-    list(
-      url = url,
-      status_code = status_code,
-      request = structure(list(url = url), class = "request"),
-      headers = headers,
-      content = content
-    ),
-    class = "response"
-  )
-}
-
-mock_response_404 <- function(url) {
-  mock_response(url, content = "404 page not found", status_code = 404L, headers = c("Content-Type" = "text/plain"))
-}
-
-
-mock_response(
-  url = "v1/timezones",
-  body = list(
-    list(timezone = "Africa/Abidjan", offset = "+00:00"),
-    list(timezone = "Africa/Accra", offset = "+00:00")
-  )
-)
-
 test_that("get_timezones() gets timeszones from v1 url when available", {
   # With version available
   client <- MockConnect$new()
 
-  client$add_mock_response(
+  client$mock_response(
     path = "v1/timezones",
     content = list(
       list(timezone = "Africa/Abidjan", offset = "+00:00"),
       list(timezone = "Africa/Accra", offset = "+00:00")
     )
   )
-  client$add_mock_response(
+  client$mock_response(
     path = "timezones",
     content = list(
       list(timezone = "Africa/Abidjan", offset = "+00:00"),
@@ -154,13 +75,13 @@ test_that("get_timezones() gets timeszones from unversioned url when v1 returns 
 
   client <- MockConnect$new()
 
-  client$add_mock_response(
+  client$mock_response(
     path = "v1/timezones",
     content = "404 page not found",
     status_code = 404L,
     headers = c("Content-Type" = "text/plain; charset=utf-8")
   )
-  client$add_mock_response(
+  client$mock_response(
     path = "timezones",
     content = list(
       list(timezone = "Africa/Abidjan", offset = "+00:00"),
@@ -184,13 +105,13 @@ test_that("get_timezones() gets timeszones from unversioned url when v1 returns 
 test_that("get_timezones() raises 404 error when v1 and unversioned return 404", {
   client <- MockConnect$new()
 
-  client$add_mock_response(
+  client$mock_response(
     path = "v1/timezones",
     content = "404 page not found",
     status_code = 404L,
     headers = c("Content-Type" = "text/plain; charset=utf-8")
   )
-  client$add_mock_response(
+  client$mock_response(
     path = "timezones",
     content = "404 page not found",
     status_code = 404L,

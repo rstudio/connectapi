@@ -1,4 +1,5 @@
 library(httptest)
+library(R6)
 
 set_requester(
   function(r) {
@@ -35,3 +36,67 @@ set_redactor(
 # Mocks are in directories by Connect version. 2024.08.0 contains all mocks
 # created before 2024.09.0, and is the default mock path.
 .mockPaths("2024.08.0")
+
+MockConnect <- R6Class(
+  "MockConnect",
+  inherit = Connect,
+  public = list(
+    initialize = function(version = NA) {
+      self$server <- "https://connect.example"
+      self$api_key <- "fake"
+      private$.version <- version
+    },
+    request = function(method, url, ..., parser = "parsed") {
+      # Record call
+      self$log_call(paste(method, url))
+
+      # Look for response
+      if (!(url %in% names(self$responses))) {
+        stop("Unexpected URL")
+      }
+      res <- self$responses[[url]]
+
+      if (is.null(parser)) {
+        res
+      } else {
+        self$raise_error(res)
+        httr::content(res, as = parser)
+      }
+    },
+    responses = list(),
+    mock_response = function(path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
+      url <- self$api_url(path)
+      res <- new_mock_response(url, content, status_code, headers)
+      self$responses[[url]] <- res
+    },
+    call_log = character(),
+    log_call = function(call) {
+      self$call_log <- c(self$call_log, call)
+    }
+  )
+)
+
+new_mock_response <- function(url, content, status_code, headers = character()) {
+  # Headers in responses are case-insensitive lists.
+  names(headers) <- tolower(names(headers))
+  headers <- as.list(headers)
+  headers <- structure(as.list(headers), class = c("insensitive", class(headers)))
+
+  # Treat content similarly to httr::POST, with a subset of behaviors
+  if (is.character(content) && length(content) == 1) {
+    content <- charToRaw(content)
+  } else if (is.list(content)) {
+    content <- charToRaw(jsonlite::toJSON(content, auto_unbox = TRUE))
+  }
+
+  structure(
+    list(
+      url = url,
+      status_code = status_code,
+      request = structure(list(url = url), class = "request"),
+      headers = headers,
+      content = content
+    ),
+    class = "response"
+  )
+}
