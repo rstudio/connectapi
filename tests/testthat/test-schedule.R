@@ -7,7 +7,7 @@ BaseMockConnect <- R6Class(
     urls = character()
   ),
   public = list(
-    initialize = function(version) {
+    initialize = function(version = NA) {
       self$server <- "https://connect.example"
       self$api_key <- "fake"
       private$.version <- version
@@ -21,9 +21,8 @@ BaseMockConnect <- R6Class(
   )
 )
 
-test_that("get_timezones() gets timeszones", {
-  # --- >= 2024.09.0 ---
-  mock_get_2024.09.0 <- function(url, ...) {
+test_that("get_timezones() gets timeszones from v1 url when available", {
+  mock_get_2024.09.0 <- function(url, parser = "parsed", ...) {
     self$called_with(url)
     if (url == "v1/timezones") {
       res <- structure(
@@ -57,7 +56,12 @@ test_that("get_timezones() gets timeszones", {
       )
     }
 
-    return(res)
+    if (is.null(parser)) {
+      res
+    } else {
+      self$raise_error(res)
+      httr::content(res, as = parser)
+    }
   }
 
   # With version available
@@ -79,36 +83,24 @@ test_that("get_timezones() gets timeszones", {
     client$called_with(),
     "v1/timezones"
   )
+})
 
-  # Without version available
-
-  client <- MockConnect$new(NA)
-
-  expect_equal(
-    get_timezones(client),
-    list(`Africa/Abidjan (+00:00)` = "Africa/Abidjan", `Africa/Accra (+00:00)` = "Africa/Accra")
-  )
-  expect_equal(
-    client$called_with(),
-    "v1/timezones"
-  )
-
-  # --- < 2024.09.0 ---
-
-  mock_get_2024.08.0 <- function(url, ...) {
+test_that("get_timezones() gets timeszones from unversioned url when v1 returns 404", {
+  mock_get_2024.08.0 <- function(url, parser = "parsed", ...) {
     self$called_with(url)
     if (url == "v1/timezones") {
       res <- structure(
         list(
           url = "__api__/v1/timezones",
           status_code = 404L,
+          request = structure(list(url = "__api__/v1/timezones"), class = "request"),
           headers = structure(
             list(
               "content-type" = "text/plain"
             ),
             class = c("insensitive", "list")
           ),
-          content = "404 page not found"
+          content = charToRaw("404 page not found")
         ),
         class = "response"
       )
@@ -131,7 +123,12 @@ test_that("get_timezones() gets timeszones", {
       stop("Unexpected URL called")
     }
     
-    return(res)
+    if (is.null(parser)) {
+      res
+    } else {
+      self$raise_error(res)
+      httr::content(res, as = parser)
+    }
   }
 
   # With version available
@@ -151,20 +148,76 @@ test_that("get_timezones() gets timeszones", {
   )
   expect_equal(
     client$called_with(),
-    "timezones"
-  )
-
-  # Without version available
-
-  client <- MockConnect$new(NA)
-
-  expect_equal(
-    get_timezones(client),
-    list(`Africa/Abidjan (+00:00)` = "Africa/Abidjan", `Africa/Accra (+00:00)` = "Africa/Accra")
-  )
-  expect_equal(
-    client$called_with(),
     c("v1/timezones", "timezones")
   )
+})
+
+test_that("get_timezones() raises 404 error when v1 and unversioned return 404", {
+  mock_get_both_404 <- function(url, parser = "parsed", ...) {
+    self$called_with(url)
+    if (url == "v1/timezones") {
+      res <- structure(
+        list(
+          url = "__api__/v1/timezones",
+          status_code = 404L,
+          request = structure(list(url = "__api__/v1/timezones"), class = "request"),
+          headers = structure(
+            list(
+              "content-type" = "text/plain"
+            ),
+            class = c("insensitive", "list")
+          ),
+          content = charToRaw("404 page not found")
+        ),
+        class = "response"
+      )
+    } else if (url == "timezones") {
+      res <- structure(
+        list(
+          url = "__api__/timezones",
+          status_code = 404L,
+          request = structure(list(url = "__api__/timezones"), class = "request"),
+          headers = structure(
+            list(
+              "content-type" = "text/plain"
+            ),
+            class = c("insensitive", "list")
+          ),
+          content = charToRaw("404 page not found")
+        ),
+        class = "response"
+      )
+    } else {
+      stop("Unexpected URL called")
+    }
+    
+    if (is.null(parser)) {
+      res
+    } else {
+      self$raise_error(res)
+      httr::content(res, as = parser)
+    }
+  }
+
+    # With version available
+    MockConnect <- R6Class(
+      "MockConnect", 
+      inherit = BaseMockConnect,
+      public = list(
+        GET = mock_get_both_404
+      )
+    )
+  
+    client <- MockConnect$new()
+  
+    expect_error(
+      get_timezones(client),
+      regexp = "timezones request failed with Client error"
+    )
+    expect_equal(
+      client$called_with(),
+      c("v1/timezones", "timezones")
+    )
+  
 })
 

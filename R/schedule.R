@@ -337,23 +337,12 @@ schedule_describe <- function(.schedule) {
 #' @family schedule functions
 #' @export
 get_timezones <- function(connect) {
-  res <- NULL
-
-  # If the version is greater than or equal to the target version, or if no
-  # version is available, we try the new path.
-  if (!connect_version_lt(connect$version, "2024.09.0")) {
-    res <- connect$GET(v1_url("timezones"), parser = NULL)
-    if (httr::status_code(res) == 404) {
-      # We will try the old URL.
-      res <- NULL 
+  raw_tz <- tryCatch(
+    connect$GET(v1_url("timezones")),
+    error = function(e) {
+      connect$GET(unversioned_url("timezones"))
     }
-  }
-  if (is.null(res)) {
-    res <- connect$GET(unversioned_url("timezones"), parser = NULL)
-  }
-  connect$raise_error(res)
-  
-  raw_tz <- httr::content(res)
+  )
 
   tz_values <- purrr::map_chr(raw_tz, ~ .x[["timezone"]])
   tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
