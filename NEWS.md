@@ -21,6 +21,8 @@
 ## Minor improvements and fixes
 
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
+- The `get_timezones()` function now uses the `v1/timezones` endpoint if
+  available. (#300)
 
 # connectapi 0.3.0
 
