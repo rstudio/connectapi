@@ -139,8 +139,8 @@ safe_server_version <- function(client) {
   version
 }
 
-error_if_less_than <- function(client_version, tested_version) {
-  comp <- compare_connect_version(client_version, tested_version)
+error_if_less_than <- function(using_version, tested_version) {
+  comp <- compare_connect_version(using_version, tested_version)
   if (is.na(comp)) {
     msg <- glue::glue(
       "WARNING: This API requires Posit Connect version {tested_version} ",
@@ -151,7 +151,7 @@ error_if_less_than <- function(client_version, tested_version) {
   } else if (comp < 0) {
     msg <- glue::glue(
       "ERROR: This API requires Posit Connect version {tested_version} ",
-      "but you are using {client_version}. Please use a previous version ",
+      "but you are using {using_version}. Please use a previous version ",
       "of the `connectapi` package, upgrade Posit Connect, or review the API ",
       "documentation corresponding to your version."
     )

@@ -838,6 +838,7 @@ Connect <- R6::R6Class(
     .version = NULL
   ),
   active = list(
+    #' @field version The server version.
     version = function() {
       if (is.null(private$.version)) {
         private$.version <- safe_server_version(self)
