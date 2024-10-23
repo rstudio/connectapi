@@ -252,7 +252,7 @@ Connect <- R6::R6Class(
     #' @description Return all tags.
     #' @param use_cache Indicates that a cached set of tags is used.
     get_tags = function(use_cache = FALSE) {
-      error_if_less_than(self, "1.8.6")
+      error_if_less_than(self$version, "1.8.6")
       # TODO: check cache "age"?
       if (is.null(self$tags) || !use_cache) {
         self$tags <- self$tag()
@@ -305,7 +305,7 @@ Connect <- R6::R6Class(
     #' @param name The tag name.
     #' @param parent_id The parent identifier.
     tag_create = function(name, parent_id = NULL) {
-      error_if_less_than(self, "1.8.6")
+      error_if_less_than(self$version, "1.8.6")
       dat <- list(
         name = name
       )
@@ -328,7 +328,7 @@ Connect <- R6::R6Class(
     #' @description Get a tag.
     #' @param id The tag identifier.
     tag = function(id = NULL) {
-      error_if_less_than(self, "1.8.6")
+      error_if_less_than(self$version, "1.8.6")
       if (is.null(id)) {
         path <- v1_url("tags")
       } else {
@@ -833,6 +833,18 @@ Connect <- R6::R6Class(
     }
 
     # end --------------------------------------------------------
+  ),
+  private = list(
+    .version = NULL
+  ),
+  active = list(
+    #' @field version The server version.
+    version = function() {
+      if (is.null(private$.version)) {
+        private$.version <- safe_server_version(self)
+      }
+      private$.version
+    }
   )
 )
 
@@ -886,7 +898,7 @@ connect <- function(
   tryCatch(
     {
       check_connect_license(con)
-      check_connect_version(using_version = safe_server_version(con))
+      warn_untested_connect(using_version = safe_server_version(con))
     },
     error = function(err) {
       if (.check_is_fatal) {
