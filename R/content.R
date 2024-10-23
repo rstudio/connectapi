@@ -65,7 +65,7 @@ Content <- R6::R6Class(
     #' @param ... Content fields.
     update = function(...) {
       con <- self$get_connect()
-      error_if_less_than(con, "1.8.6")
+      error_if_less_than(con$version, "1.8.6")
       url <- v1_url("content", self$get_content()$guid)
       body <- rlang::list2(...)
       if (length(body)) {

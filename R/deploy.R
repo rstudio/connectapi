@@ -422,7 +422,7 @@ deploy_current <- function(content) {
 set_vanity_url <- function(content, url, force = FALSE) {
   validate_R6_class(content, "Content")
   con <- content$get_connect()
-  error_if_less_than(con, "1.8.6")
+  error_if_less_than(con$version, "1.8.6")
   guid <- content$get_content()$guid
 
   scoped_experimental_silence()
@@ -449,7 +449,7 @@ set_vanity_url <- function(content, url, force = FALSE) {
 #' @export
 delete_vanity_url <- function(content) {
   con <- content$get_connect()
-  error_if_less_than(con, "1.8.6")
+  error_if_less_than(con$version, "1.8.6")
   guid <- content$get_content()$guid
 
   con$DELETE(v1_url("content", guid, "vanity"))
@@ -470,7 +470,7 @@ delete_vanity_url <- function(content) {
 get_vanity_url <- function(content) {
   validate_R6_class(content, "Content")
   con <- content$get_connect()
-  error_if_less_than(con, "1.8.6")
+  error_if_less_than(con$version, "1.8.6")
   guid <- content$get_content()$guid
 
   van <- tryCatch(

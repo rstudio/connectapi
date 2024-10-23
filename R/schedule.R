@@ -337,7 +337,13 @@ schedule_describe <- function(.schedule) {
 #' @family schedule functions
 #' @export
 get_timezones <- function(connect) {
-  raw_tz <- connect$GET(unversioned_url("timezones"))
+  raw_tz <- tryCatch(
+    connect$GET(v1_url("timezones")),
+    error = function(e) {
+      connect$GET(unversioned_url("timezones"))
+    }
+  )
+
   tz_values <- purrr::map_chr(raw_tz, ~ .x[["timezone"]])
   tz_display <- purrr::map_chr(raw_tz, ~ glue::glue("{.x[['timezone']]} ({.x[['offset']]})"))
 

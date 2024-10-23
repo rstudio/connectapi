@@ -134,20 +134,25 @@ safe_server_version <- function(client) {
   version <- safe_server_settings(client)$version
   if (is.null(version) || nchar(version) == 0) {
     message("Version information is not exposed by this Posit Connect instance.")
-    # Return 0 so this will always show up as "too old"
-    version <- "0"
+    version <- NA
   }
   version
 }
 
-error_if_less_than <- function(client, tested_version) {
-  server_version <- safe_server_version(client)
-  comp <- compare_connect_version(server_version, tested_version)
-  if (comp < 0) {
-    msg <- paste0(
-      "ERROR: This API requires Posit Connect version ", tested_version,
-      " but you are using", server_version, ". Please use a previous version",
-      " of the `connectapi` package, upgrade Posit Connect, or review the API ",
+error_if_less_than <- function(using_version, tested_version) {
+  comp <- compare_connect_version(using_version, tested_version)
+  if (is.na(comp)) {
+    msg <- glue::glue(
+      "WARNING: This API requires Posit Connect version {tested_version} ",
+      "but the server version is not exposed by this Posit Connect instance. ",
+      "You may be experience errors when using this functionality."
+    )
+    warn_once(msg)
+  } else if (comp < 0) {
+    msg <- glue::glue(
+      "ERROR: This API requires Posit Connect version {tested_version} ",
+      "but you are using {using_version}. Please use a previous version ",
+      "of the `connectapi` package, upgrade Posit Connect, or review the API ",
       "documentation corresponding to your version."
     )
     stop(msg)
@@ -156,12 +161,13 @@ error_if_less_than <- function(client, tested_version) {
 }
 
 compare_connect_version <- function(using_version, tested_version) {
+  if (is.na(using_version)) return(NA)
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
-check_connect_version <- function(using_version, minimum_tested_version = "1.8.8.2") {
+warn_untested_connect <- function(using_version, minimum_tested_version = "1.8.8.2") {
   comp <- compare_connect_version(using_version, minimum_tested_version)
-  if (comp < 0) {
+  if (isTRUE(comp < 0)) {
     warn_once(glue::glue(
       "You are using an older version of Posit Connect ",
       "({using_version}) than is tested ({minimum_tested_version}). ",
