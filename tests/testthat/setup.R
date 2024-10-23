@@ -47,14 +47,17 @@ MockConnect <- R6Class(
       private$.version <- version
     },
     request = function(method, url, ..., parser = "parsed") {
+      route <- paste(method, url)
+      print(route)
+      
       # Record call
-      self$log_call(paste(method, url))
+      self$log_call(route)
 
       # Look for response
-      if (!(url %in% names(self$responses))) {
-        stop("Unexpected URL")
+      if (!(route %in% names(self$responses))) {
+        stop("Unexpected route")
       }
-      res <- self$responses[[url]]
+      res <- self$responses[[route]]
 
       if (is.null(parser)) {
         res
@@ -64,14 +67,16 @@ MockConnect <- R6Class(
       }
     },
     responses = list(),
-    mock_response = function(path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
+    mock_response = function(method, path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
       url <- self$api_url(path)
+      route <- paste(method, url)
+      print(route)
       res <- new_mock_response(url, content, status_code, headers)
-      self$responses[[url]] <- res
+      self$responses[[route]] <- res
     },
     call_log = character(),
-    log_call = function(call) {
-      self$call_log <- c(self$call_log, call)
+    log_call = function(route) {
+      self$call_log <- c(self$call_log, route)
     }
   )
 )

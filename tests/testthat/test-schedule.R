@@ -3,6 +3,7 @@ test_that("get_timezones() gets timeszones from v1 url when available", {
   client <- MockConnect$new()
 
   client$mock_response(
+    method = "GET",
     path = "v1/timezones",
     content = list(
       list(timezone = "Africa/Abidjan", offset = "+00:00"),
@@ -24,12 +25,14 @@ test_that("get_timezones() gets timeszones from unversioned url when v1 returns 
   client <- MockConnect$new()
 
   client$mock_response(
+    method = "GET",
     path = "v1/timezones",
     content = "404 page not found",
     status_code = 404L,
     headers = c("Content-Type" = "text/plain; charset=utf-8")
   )
   client$mock_response(
+    method = "GET",
     path = "timezones",
     content = list(
       list(timezone = "Africa/Abidjan", offset = "+00:00"),
@@ -54,12 +57,14 @@ test_that("get_timezones() raises 404 error when v1 and unversioned return 404",
   client <- MockConnect$new()
 
   client$mock_response(
+    method = "GET",
     path = "v1/timezones",
     content = "404 page not found",
     status_code = 404L,
     headers = c("Content-Type" = "text/plain; charset=utf-8")
   )
   client$mock_response(
+    method = "GET",
     path = "timezones",
     content = "404 page not found",
     status_code = 404L,

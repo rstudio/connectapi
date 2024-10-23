@@ -80,27 +80,6 @@ test_that("schedule display works", {
   expect_snapshot_output(schedule_describe(tmp))
 })
 
-# Doesn't work in integration tests for some reason.
-# test_that("timezones helper works", {
-#   tzs <- expect_success(get_timezones(test_conn_1))
-#   expect_match(names(tzs)[1], "[A-Za-z]+(\\/[A-Za-z]+)? \\([+-][0-9]{2}:[0-9]{2}\\)")
-# })
-
-# test_that("schedule timezone works", {
-#   scoped_experimental_silence()
-#
-#   tzs <- get_timezones(test_conn_1)
-#   set_schedule_remove(d_var_sch)
-#
-#   tmp <- set_schedule_minute(d_var_sch, n = 15, timezone = tzs$`America/New_York (-04:00)`)
-#   expect_equal(tmp$schedule_data$timezone, tzs$`America/New_York (-04:00)`)
-#
-#   tmp2 <- set_schedule_minute(d_var_sch, n = 10, timezone = tzs$`Universal (+00:00)`)
-#   expect_equal(tmp$schedule_data$timezone, tzs$`Universal (+00:00)`)
-#
-#   set_schedule_remove(d_var_sch)
-# })
-
 test_that("get_schedules works", {
   scoped_experimental_silence()
   # TODO: add a helper that makes this prettier
