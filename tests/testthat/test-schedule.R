@@ -9,13 +9,6 @@ test_that("get_timezones() gets timeszones from v1 url when available", {
       list(timezone = "Africa/Accra", offset = "+00:00")
     )
   )
-  client$mock_response(
-    path = "timezones",
-    content = list(
-      list(timezone = "Africa/Abidjan", offset = "+00:00"),
-      list(timezone = "Africa/Accra", offset = "+00:00")
-    )
-  )
 
   expect_equal(
     get_timezones(client),
