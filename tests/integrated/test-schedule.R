@@ -80,10 +80,10 @@ test_that("schedule display works", {
   expect_snapshot_output(schedule_describe(tmp))
 })
 
-# test_that("timezones helper works", {
-#   tzs <- get_timezones(test_conn_1)
-#   expect_snapshot(tzs)
-# })
+test_that("timezones helper works", {
+  tzs <- expect_success(get_timezones(test_conn_1))
+  expect_match(names(tzs)[1], "[A-Za-z]+(\\/[A-Za-z]+)? \\([+-][0-9]{2}:[0-9]{2}\\)")
+})
 
 # test_that("schedule timezone works", {
 #   scoped_experimental_silence()
