@@ -58,7 +58,7 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
     src = connect
   )
   message("Done creating remote users")
-  return(get_users(connect, prefix = prefix))
+  return(user_creation)
 }
 
 #' Create a Remote Group
@@ -108,10 +108,12 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exac
     remote_groups_res,
     function(.x, src) {
       message(glue::glue("Creating remote group: {.x[['name']]}"))
-      src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
+      r <- src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
+      print(r)
+      return(r)
     },
     src = connect
   )
   message("Done creating remote groups")
-  return(get_groups(connect, prefix = prefix, limit = 1))
+  return(group_creation)
 }
