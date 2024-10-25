@@ -79,10 +79,15 @@ MockConnect <- R6Class(
     # same URL.
     mock_response = function(method, path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
       url <- self$api_url(path)
-      route <- paste(method, url)
+    
       res <- new_mock_response(url, content, status_code, headers)
-      self$responses[[length(self$responses) + 1]] <- res
-      names(self$responses)[[length(self$responses)]] <- route
+
+      route <- paste(method, url)
+      new_response <- list(res)
+      new_response <- setNames(new_response, route)
+
+      self$responses <- append(self$responses, new_response)
+
     },
     call_log = character(),
     log_call = function(route) {
