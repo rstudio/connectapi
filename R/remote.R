@@ -108,9 +108,7 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exac
     remote_groups_res,
     function(.x, src) {
       message(glue::glue("Creating remote group: {.x[['name']]}"))
-      r <- src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
-      print(r)
-      return(r)
+      src$groups_create_remote(temp_ticket = .x[["temp_ticket"]])
     },
     src = connect
   )
