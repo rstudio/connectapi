@@ -7,6 +7,8 @@
 - New functions `set_thumbnail()`, `get_thumbnail()`, `delete_thumbnail()` and
   `has_thumbnail()` let you interact with content thumbnails, replacing older
   `*_image()` functions. (#294, #304)
+- New functions to let you view and delete runtime caches on a Connect server:
+  `get_runtime_caches()`, `delete_runtime_cache()` (#312)
 
 ## Lifecycle changes
 
@@ -23,6 +25,8 @@
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
 - The `get_timezones()` function now uses the `v1/timezones` endpoint if
   available. (#300)
+- `connect$DELETE()` now respects the `parser` argument rather than always using
+  `NULL`.
 
 # connectapi 0.3.0
 
