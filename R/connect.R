@@ -824,6 +824,7 @@ Connect <- R6::R6Class(
 
     #' @description Get R installations.
     server_settings_r = function() {
+      lifecycle::deprecate_soft("0.3.1", "Connect$server_settings_r()", "get_runtimes()")
       self$GET(v1_url("server_settings", "r"))
     },
 

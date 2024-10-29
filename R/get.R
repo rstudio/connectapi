@@ -702,3 +702,32 @@ get_oauth_credentials = function(connect, user_session_token) {
     body = body
   )
 }
+
+get_runtimes <- function(client, runtimes = NULL) {
+  validate_R6_class(client, "Connect")
+
+  # Construct valid runtimes for the Connect version.
+  available <- c("r", "python")
+  if (compare_connect_version(client$version, "2021.08.0") >= 0) {
+    available <- c(available, "quarto")
+  }
+  if (compare_connect_version(client$version, "2024.05.0") >= 0) {
+    available <- c(available, "tensorflow")
+  }
+  if (any(!runtimes %in% available)) {
+    stop(glue::glue(
+      "`runtimes` must be one of ",
+      "{paste(paste0('\"', available, '\"'), collapse = ', ')}; ",
+      "received: {paste(paste0('\"', runtimes, '\"'), collapse = ', ')}."
+    ))
+  }
+  if (is.null(runtimes)) {
+    runtimes <- available
+  }
+
+  purrr::map_dfr(runtimes, function(runtime) {
+    res <- client$GET(paste0("v1/server_settings/", runtime))
+    res_df <- purrr::map_dfr(res$installations, ~tibble::as_tibble(.))
+    tibble::add_column(res_df, runtime = runtime, .before = 1)
+  })
+}
