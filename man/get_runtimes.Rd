@@ -7,10 +7,12 @@
 get_runtimes(client, runtimes = NULL)
 }
 \arguments{
-\item{client}{A \code{Connect} object. @param runtimes Optional. A character
-vector of runtimes to include. Must be some combination of \code{"r"}, \code{"python"},
-\code{"quarto"}, and \code{"tensorflow"}. Quarto is only supported on Connect >=
-2021.08.0, and Tensorflow is only supported on Connect >= 2024.03.0.}
+\item{client}{A \code{Connect} object.}
+
+\item{runtimes}{Optional. A character vector of runtimes to include. Must be
+some combination of \code{"r"}, \code{"python"}, \code{"quarto"}, and \code{"tensorflow"}. Quarto
+is only supported on Connect >= 2021.08.0, and Tensorflow is only supported
+on Connect >= 2024.03.0.}
 }
 \value{
 A tibble with columns for \code{runtime}, \code{version}, and \code{cluster_name}
