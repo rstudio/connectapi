@@ -48,7 +48,6 @@ MockConnect <- R6Class(
     },
     request = function(method, url, ..., parser = "parsed") {
       route <- paste(method, url)
-      print(route)
       
       # Record call
       self$log_call(route)
@@ -70,7 +69,6 @@ MockConnect <- R6Class(
     mock_response = function(method, path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
       url <- self$api_url(path)
       route <- paste(method, url)
-      print(route)
       res <- new_mock_response(url, content, status_code, headers)
       self$responses[[route]] <- res
     },
