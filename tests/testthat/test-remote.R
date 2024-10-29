@@ -33,18 +33,35 @@ test_that("groups_create_remote: succeed when no local group exists", {
       owner_guid = NULL
     )
   )
+  client$mock_response(
+    method = "GET",
+    path = "v1/groups",
+    content = list(
+      results = list(
+        list(
+          guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
+          name = "Everyone", 
+          owner_guid = NULL
+        )
+      ),
+      current_page = 1L, 
+      total = 1L
+    )
+  )
+
   
   expect_message(
     res <- groups_create_remote(client, "Everyone"),
     "Creating remote group"
   )
-  expect_equal(res[[1]]$name, "Everyone")
+  expect_equal(res$name, "Everyone")
   expect_equal(
     client$call_log,
     c(
       "GET https://connect.example/__api__/v1/groups",
       "GET https://connect.example/__api__/v1/groups/remote",
-      "PUT https://connect.example/__api__/v1/groups"
+      "PUT https://connect.example/__api__/v1/groups",
+      "GET https://connect.example/__api__/v1/groups"
     )
   )
 })
@@ -73,15 +90,34 @@ test_that("groups_create_remote: succeed without checking local groups if check 
       owner_guid = NULL
     )
   )
+  client$mock_response(
+    method = "GET",
+    path = "v1/groups",
+    content = list(
+      results = list(
+        list(
+          guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
+          name = "Everyone", 
+          owner_guid = NULL
+        )
+      ),
+      current_page = 1L, 
+      total = 1L
+    )
+  )
 
   expect_message(
     res <- groups_create_remote(client, "Everyone", check = FALSE),
     "Creating remote group"
   )
-  expect_equal(res[[1]]$name, "Everyone")
+  expect_equal(res$name, "Everyone")
   expect_equal(
     client$call_log,
-    c("GET https://connect.example/__api__/v1/groups/remote", "PUT https://connect.example/__api__/v1/groups")
+    c(
+      "GET https://connect.example/__api__/v1/groups/remote",
+      "PUT https://connect.example/__api__/v1/groups",
+      "GET https://connect.example/__api__/v1/groups"
+      )
   )
 })
 
@@ -171,25 +207,34 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
       owner_guid = NULL
     )
   )
+  client$mock_response(
+    method = "GET",
+    path = "v1/groups",
+    content = list(
+      results = list(
+        list(
+          guid = "fake-guid-1",
+          name = "Everyone", 
+          owner_guid = NULL
+        ),
+        list(
+          guid = "fake-guid-2",
+          name = "Everyone two", 
+          owner_guid = NULL
+        )
+      ),
+      current_page = 1L, 
+      total = 1L
+    )
+  )
 
   expect_message(
     res <- groups_create_remote(client, "Everyone", expect = 2),
     "Creating remote group"
   )
   expect_identical(
-    res,
-    list(
-      list(
-        guid = "fake-guid-1",
-        name = "Everyone", 
-        owner_guid = NULL
-      ),
-      list(
-        guid = "fake-guid-2",
-        name = "Everyone two",
-        owner_guid = NULL
-      )
-    )
+    res$name,
+    c("Everyone", "Everyone two")
   )
   expect_identical(
     client$call_log,
@@ -197,7 +242,8 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
       "GET https://connect.example/__api__/v1/groups",
       "GET https://connect.example/__api__/v1/groups/remote",
       "PUT https://connect.example/__api__/v1/groups",
-      "PUT https://connect.example/__api__/v1/groups"
+      "PUT https://connect.example/__api__/v1/groups",
+      "GET https://connect.example/__api__/v1/groups"
     )
   )
 })
@@ -240,4 +286,4 @@ with_mock_api({
     groups_create_remote(mock_dir_client, "Art"),
     "The expected group\\(s\\) were not found"
   )
-})  
+})
