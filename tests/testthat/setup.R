@@ -46,6 +46,9 @@ MockConnect <- R6Class(
       self$api_key <- "fake"
       private$.version <- version
     },
+    # The request function matches the route against the routes in the names of
+    # the response list. When a response is selected, it is removed from the
+    # list.
     request = function(method, url, ..., parser = "parsed") {
       route <- paste(method, url)
       
@@ -54,9 +57,12 @@ MockConnect <- R6Class(
 
       # Look for response
       if (!(route %in% names(self$responses))) {
-        stop("Unexpected route")
+        stop(glue::glue("Unexpected route: {route}"))
       }
-      res <- self$responses[[route]]
+
+      idx <- match(route, names(self$responses))
+      res <- self$responses[[idx]]
+      self$responses <- self$responses[-idx]
 
       if (is.null(parser)) {
         res
@@ -66,11 +72,23 @@ MockConnect <- R6Class(
       }
     },
     responses = list(),
+    # Add a response to a list of responses. The response is keyed according to
+    # its route, represented as `{VERB} {URL}`. The URL is constructed as an API
+    # URL for the server (this will probably have to change in the future). Each
+    # response can only be used once. You can supply multiple responses for the
+    # same URL.
     mock_response = function(method, path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
       url <- self$api_url(path)
       route <- paste(method, url)
+
       res <- new_mock_response(url, content, status_code, headers)
-      self$responses[[route]] <- res
+
+      route <- paste(method, url)
+      new_response <- list(res)
+      new_response <- setNames(new_response, route)
+
+      self$responses <- append(self$responses, new_response)
+
     },
     call_log = character(),
     log_call = function(route) {
@@ -89,7 +107,7 @@ new_mock_response <- function(url, content, status_code, headers = character()) 
   if (is.character(content) && length(content) == 1) {
     content <- charToRaw(content)
   } else if (is.list(content)) {
-    content <- charToRaw(jsonlite::toJSON(content, auto_unbox = TRUE))
+    content <- charToRaw(jsonlite::toJSON(content, auto_unbox = TRUE, null = "null"))
   }
 
   structure(

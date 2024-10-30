@@ -196,7 +196,7 @@ Connect <- R6::R6Class(
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
     DELETE = function(path, ..., url = self$api_url(path), parser = NULL) {
-      self$request("DELETE", url, parser = NULL, ...)
+      self$request("DELETE", url, parser = parser, ...)
     },
 
     #' @description Perform an HTTP PATCH request of the named API path.

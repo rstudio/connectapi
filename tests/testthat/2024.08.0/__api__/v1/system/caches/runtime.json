@@ -1,0 +1,14 @@
+{
+    "caches": [
+        {
+            "language": "R",
+            "version": "4.3.0",
+            "image_name": "Local"
+        },
+        {
+            "language": "Python",
+            "version": "3.11.3",
+            "image_name": "Local"
+        }
+    ]
+}
