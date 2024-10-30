@@ -702,3 +702,59 @@ get_oauth_credentials = function(connect, user_session_token) {
     body = body
   )
 }
+
+#' Get available runtimes on server
+#' 
+#' Get a table showing available versions of R, Python, Quarto, and Tensorflow
+#' on the Connect server.
+#' 
+#' @param client A `Connect` object.
+#' @param runtimes Optional. A character vector of runtimes to include. Must be
+#' some combination of `"r"`, `"python"`, `"quarto"`, and `"tensorflow"`. Quarto
+#' is only supported on Connect >= 2021.08.0, and Tensorflow is only supported
+#' on Connect >= 2024.03.0.
+
+#' @return A tibble with columns for `runtime`, `version`, and `cluster_name`
+#' and `image_name`. Cluster name and image name are only meaningful on Connect
+#' instances running off-host execution.
+#' 
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' client <- connect()
+#' get_runtimes(client, runtimes = c("r", "python", "tensorflow"))
+#' }
+#' 
+#' @export
+get_runtimes <- function(client, runtimes = NULL) {
+  validate_R6_class(client, "Connect")
+
+  # Construct valid runtimes for the Connect version.
+  supported <- c(
+    "r",
+    "python",
+    if (compare_connect_version(client$version, "2021.08.0") >= 0) {
+      "quarto"
+    },
+    if (compare_connect_version(client$version, "2024.05.0") >= 0) {
+      "tensorflow"
+    }
+  )
+  if (is.null(runtimes)) {
+    runtimes <- supported
+  } else {
+    if (any(!runtimes %in% supported)) {
+      stop(glue::glue(
+        "`runtimes` must be one of ",
+        "{paste(paste0('\"', supported, '\"'), collapse = ', ')}; ",
+        "received: {paste(paste0('\"', runtimes, '\"'), collapse = ', ')}."
+      ))
+    }
+  }
+
+  purrr::map_dfr(runtimes, function(runtime) {
+    res <- client$GET(paste0("v1/server_settings/", runtime))
+    res_df <- purrr::map_dfr(res$installations, ~tibble::as_tibble(.))
+    tibble::add_column(res_df, runtime = runtime, .before = 1)
+  })
+}

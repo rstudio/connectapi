@@ -1,5 +1,4 @@
 test_that("get_timezones() gets timeszones from v1 url when available", {
-  # With version available
   client <- MockConnect$new()
 
   client$mock_response(

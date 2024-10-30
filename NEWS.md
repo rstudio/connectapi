@@ -12,7 +12,8 @@
   remote groups and checking for existing local groups. (#216)
 - New functions to let you view and delete runtime caches on a Connect server:
   `get_runtime_caches()`, `delete_runtime_cache()` (#312)
-
+- New `get_runtimes()` lets you view available runtimes and versions on a
+  Connect server. (#311)
 
 ## Lifecycle changes
 
@@ -23,6 +24,8 @@
   `set_thumbnail()`, which works both with local file paths and remote URLs to
   images. Likewise, `has_image()` and `delete_image()` have been deprecated in
   favor of `has_thumbnail()` and `delete_thumbnail()`. (#294, #304)
+- `Connect$server_settings_r()` has been deprecated in favor of
+  `get_runtimes(client, "r")`. (#311)
   
 ## Minor improvements and fixes
 
