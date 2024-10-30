@@ -1,0 +1,7 @@
+// v1/groups?page_number=1&page_size=500&prefix=Art
+{
+    "results": [
+    ],
+    "current_page": 1,
+    "total": 0
+}
