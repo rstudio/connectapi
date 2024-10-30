@@ -46,7 +46,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">groups_create_remote</span><span class="op">(</span><span class="va">connect</span>, <span class="va">prefix</span>, expect <span class="op">=</span> <span class="fl">1</span>, check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">groups_create_remote</span><span class="op">(</span><span class="va">connect</span>, <span class="va">prefix</span>, expect <span class="op">=</span> <span class="fl">1</span>, check <span class="op">=</span> <span class="cn">TRUE</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -54,24 +54,29 @@
 
 
 <dl><dt id="arg-connect">connect<a class="anchor" aria-label="anchor" href="#arg-connect"></a></dt>
-<dd><p>A R6 Connect object</p></dd>
+<dd><p>An R6 Connect object.</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
-<dd><p>character. The prefix of the group name to search for</p></dd>
+<dd><p>character. The prefix of the user name to search for.</p></dd>
 
 
 <dt id="arg-expect">expect<a class="anchor" aria-label="anchor" href="#arg-expect"></a></dt>
-<dd><p>number. The number of responses to expect for this search</p></dd>
+<dd><p>number. Optional. The number of responses to expect for this search.</p></dd>
 
 
 <dt id="arg-check">check<a class="anchor" aria-label="anchor" href="#arg-check"></a></dt>
-<dd><p>boolean. Whether to check for local existence first</p></dd>
+<dd><p>boolean. Optional. Whether to check for local existence first.</p></dd>
+
+
+<dt id="arg-exact">exact<a class="anchor" aria-label="anchor" href="#arg-exact"></a></dt>
+<dd><p>boolean. Optional. Whether to only create groups whose name
+exactly matches the provided <code>prefix</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The results of creating the groups</p>
+    <p>The results of creating the groups.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
