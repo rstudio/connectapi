@@ -737,15 +737,16 @@ get_runtimes <- function(client, runtimes = NULL) {
   if (compare_connect_version(client$version, "2024.05.0") >= 0) {
     supported <- c(supported, "tensorflow")
   }
-  if (any(!runtimes %in% supported)) {
-    stop(glue::glue(
-      "`runtimes` must be one of ",
-      "{paste(paste0('\"', supported, '\"'), collapse = ', ')}; ",
-      "received: {paste(paste0('\"', runtimes, '\"'), collapse = ', ')}."
-    ))
-  }
   if (is.null(runtimes)) {
     runtimes <- supported
+  } else {
+    if (any(!runtimes %in% supported)) {
+      stop(glue::glue(
+        "`runtimes` must be one of ",
+        "{paste(paste0('\"', supported, '\"'), collapse = ', ')}; ",
+        "received: {paste(paste0('\"', runtimes, '\"'), collapse = ', ')}."
+      ))
+    }
   }
 
   purrr::map_dfr(runtimes, function(runtime) {
