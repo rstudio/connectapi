@@ -1,7 +1,7 @@
 #' Get runtime caches
 #' 
 #' View the runtime caches on a Connect server.
-#' Requires administrator privileges.
+#' Requires Administrator privileges.
 #' 
 #' @param client A `Connect` object.
 #' 
@@ -27,7 +27,7 @@ get_runtime_caches <- function(client) {
 #' Delete a runtime cache
 #' 
 #' Delete a runtime cache from a Connect server.
-#' Requires administrator privileges.
+#' Requires Administrator privileges.
 #' 
 #' @param client A `Connect` object.
 #' @param language The language of the cache, either "R" or "Python".

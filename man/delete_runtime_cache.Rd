@@ -31,7 +31,7 @@ A \code{Task} object representing the deletion task. If \code{dry_run} is
 }
 \description{
 Delete a runtime cache from a Connect server.
-Requires administrator privileges.
+Requires Administrator privileges.
 }
 \examples{
 \dontrun{

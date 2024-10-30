@@ -16,7 +16,7 @@ A tibble of runtime caches on the server, showing \code{language},
 }
 \description{
 View the runtime caches on a Connect server.
-Requires administrator privileges.
+Requires Administrator privileges.
 }
 \examples{
 \dontrun{
