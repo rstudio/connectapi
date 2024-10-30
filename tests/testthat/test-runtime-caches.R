@@ -17,8 +17,8 @@ with_mock_api({
     expect_message(
       res <- delete_runtime_cache(client, "Python", "3.11.3", dry_run = TRUE),
       paste0(
-        "Runtime cache deletion dry run finished; ",
-        "language = Python, version = 3.11.3, image_name = Local"
+        "Runtime cache deletion dry run did not encounter any errors ",
+        '\\(language = "Python", version = "3.11.3", image_name = "Local"\\)'
       )
     )
     expect_null(res)

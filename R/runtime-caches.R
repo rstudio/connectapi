@@ -1,6 +1,7 @@
 #' Get runtime caches
 #' 
 #' View the runtime caches on a Connect server.
+#' Requires administrator privileges.
 #' 
 #' @param client A `Connect` object.
 #' 
@@ -25,6 +26,7 @@ get_runtime_caches <- function(client) {
 #' Delete a runtime cache
 #' 
 #' Delete a runtime cache from a Connect server.
+#' Requires administrator privileges.
 #' 
 #' @param client A `Connect` object.
 #' @param language The language of the cache, either "R" or "Python".
@@ -61,8 +63,8 @@ delete_runtime_cache <- function(client, language, version, image_name = "Local"
 
   if (dry_run == TRUE) {
     message(glue::glue(
-      "Runtime cache deletion dry run finished; ",
-      "language = {language}, version = {version}, image_name = {image_name}"
+      "Runtime cache deletion dry run did not encounter any errors ",
+      '(language = "{language}", version = "{version}", image_name = "{image_name}")'
     ))
     return(invisible(NULL))
   }
