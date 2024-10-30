@@ -14,7 +14,7 @@ get_groups(src, page_size = 500, prefix = NULL, limit = Inf)
 \item{prefix}{Filters groups by prefix (group name).
 The filter is case insensitive.}
 
-\item{limit}{The max number of pages to return.}
+\item{limit}{The max number of groups to return.}
 }
 \value{
 A tibble with the following columns:
