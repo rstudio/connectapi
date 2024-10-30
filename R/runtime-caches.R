@@ -33,7 +33,6 @@ get_runtime_caches <- function(client) {
 #'   the cache, or "Local" (the default) for native execution caches.
 #' @param dry_run Optional, default `FALSE`. If true, perform a dry run of
 #'   the deletion.
-#' 
 #'
 #' @returns A `Task` object representing the deletion task. If `dry_run` is
 #' `TRUE`, returns `NULL` or throws an error if the deletion would fail.
