@@ -58,7 +58,7 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
     src = connect
   )
   message("Done creating remote users")
-  return(user_creation)
+  return(get_users(connect, prefix = prefix))
 }
 
 #' Create a Remote Group

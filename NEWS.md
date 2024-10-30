@@ -10,9 +10,6 @@
 - `groups_create_remote()` now has an `exact` parameter. Setting `exact` causes
   the function to consider only exact group name matches when searching for
   remote groups and checking for existing local groups. (#216)
-- Previously, `groups_create_remote()` and `users_create_remote()` could return
-  a user or group other than the group(s) created. Now they always return the
-  details of the newly-created user(s) or group(s) in a list.
 
 ## Lifecycle changes
 

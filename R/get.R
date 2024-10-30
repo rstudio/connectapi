@@ -59,7 +59,7 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 #' @param page_size the number of records to return per page (max 500)
 #' @param prefix Filters groups by prefix (group name).
 #' The filter is case insensitive.
-#' @param limit The max number of pages to return.
+#' @param limit The max number of groups to return.
 #'
 #' @return
 #' A tibble with the following columns:
