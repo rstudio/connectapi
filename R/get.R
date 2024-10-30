@@ -730,13 +730,16 @@ get_runtimes <- function(client, runtimes = NULL) {
   validate_R6_class(client, "Connect")
 
   # Construct valid runtimes for the Connect version.
-  supported <- c("r", "python")
-  if (compare_connect_version(client$version, "2021.08.0") >= 0) {
-    supported <- c(supported, "quarto")
-  }
-  if (compare_connect_version(client$version, "2024.05.0") >= 0) {
-    supported <- c(supported, "tensorflow")
-  }
+  supported <- c(
+    "r",
+    "python",
+    if (compare_connect_version(client$version, "2021.08.0") >= 0) {
+      "quarto"
+    },
+    if (compare_connect_version(client$version, "2024.05.0") >= 0) {
+      "tensorflow"
+    }
+  )
   if (is.null(runtimes)) {
     runtimes <- supported
   } else {
