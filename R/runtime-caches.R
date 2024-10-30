@@ -40,7 +40,7 @@ get_runtime_caches <- function(client) {
 #' @examples
 #' \dontrun{
 #' client <- connect()
-#' task <- delete_runtime_cache(client, "R", "3.6.3")
+#' task <- delete_runtime_cache(client, "R", "4.3.3")
 #' poll_task(task)
 #' }
 #' 
