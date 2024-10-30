@@ -7,8 +7,8 @@
 - New functions `set_thumbnail()`, `get_thumbnail()`, `delete_thumbnail()` and
   `has_thumbnail()` let you interact with content thumbnails, replacing older
   `*_image()` functions. (#294, #304)
-  - New `get_runtimes()` lets you view available runtimes and versions on a
-    Connect server (#311).
+- New `get_runtimes()` lets you view available runtimes and versions on a
+  Connect server (#311).
 
 
 ## Lifecycle changes
