@@ -17,7 +17,7 @@ delete_runtime_cache(
 
 \item{language}{The language of the cache, either "R" or "Python".}
 
-\item{version}{The version of the cache, e.g. "3.6.3".}
+\item{version}{The version of the cache, e.g. "4.3.3".}
 
 \item{image_name}{Optional. The name of the off-host execution image for
 the cache, or "Local" (the default) for native execution caches.}
@@ -31,11 +31,12 @@ A \code{Task} object representing the deletion task. If \code{dry_run} is
 }
 \description{
 Delete a runtime cache from a Connect server.
+Requires administrator privileges.
 }
 \examples{
 \dontrun{
 client <- connect()
-task <- delete_runtime_cache(client, "R", "3.6.3")
+task <- delete_runtime_cache(client, "R", "4.3.3")
 poll_task(task)
 }
 
