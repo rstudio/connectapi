@@ -294,7 +294,7 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
 
 #' Get Content List with Permissions
 #'
-#' \lifecycle{experimental} These functions are experimental placeholders until the API supports
+#' `r lifecycle::badge('experimental')` These functions are experimental placeholders until the API supports
 #' this behavior.
 #'
 #' `content_list_with_permissions` loops through content and retrieves
@@ -345,7 +345,7 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
 
 #' Content List
 #'
-#' \lifecycle{experimental} Get a content list
+#' `r lifecycle::badge('experimental')` Get a content list
 #'
 #' `content_list_by_tag()` retrieves a content list by tag
 #'
@@ -613,7 +613,7 @@ get_audit_logs <- function(src, limit = 500, previous = NULL,
 
 #' Get Real-Time Process Data
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #' This returns real-time process data from the Posit Connect API. It requires
 #' administrator privileges to use. NOTE that this only returns data for the
 #' server that responds to the request (i.e. in a Highly Available cluster)
@@ -669,7 +669,7 @@ get_procs <- function(src) {
 #' client <- connect()
 #'
 #' #* @get /do
-#' function(req){
+#' function(req) {
 #'   user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN
 #'   credentials <- get_oauth_credentials(client, user_session_token)
 #'
@@ -686,7 +686,7 @@ get_procs <- function(src) {
 #' for more information.
 #'
 #' @export
-get_oauth_credentials = function(connect, user_session_token) {
+get_oauth_credentials <- function(connect, user_session_token) {
   validate_R6_class(connect, "Connect")
   url <- v1_url("oauth", "integrations", "credentials")
   body <- c(

@@ -143,7 +143,7 @@ schedule_describe(.schedule)
 An updated Schedule object
 }
 \description{
-\lifecycle{experimental} Sets the schedule for a given Variant. Requires a
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Sets the schedule for a given Variant. Requires a
 \code{Schedule} object (as returned by \code{get_variant_schedule()})
 }
 \details{

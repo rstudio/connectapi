@@ -18,7 +18,7 @@ has_image(content)
 \item{path}{optional. The path to the image on disk}
 }
 \description{
-\lifecycle{deprecated}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 Please use \code{\link{get_thumbnail}},
 \code{\link{delete_thumbnail}}, and \code{\link{has_thumbnail}} instead.

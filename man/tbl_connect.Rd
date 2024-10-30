@@ -21,6 +21,6 @@ tbl_connect(
 A \code{tbl_connect} object
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 A lazy tibble that automatically pages through API requests when \code{collect}ed.
 }

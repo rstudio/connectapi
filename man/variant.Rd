@@ -18,7 +18,7 @@ get_variant_default(content)
 \item{key}{The Variant key for a specific variant}
 }
 \description{
-\lifecycle{experimental} Work with variants
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Work with variants
 }
 \details{
 \itemize{

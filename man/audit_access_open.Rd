@@ -14,7 +14,7 @@ whose access control is set to "Everyone". If "logged_in", return a list of
 apps whose access control is set to "All logged in users"}
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{
 Other audit functions: 

@@ -139,7 +139,7 @@ VariantSchedule <- R6::R6Class(
 
 #' Get a Variant Schedule
 #'
-#' \lifecycle{experimental} Gets the schedule associated with a Variant.
+#' `r lifecycle::badge('experimental')` Gets the schedule associated with a Variant.
 #'
 #' @param variant A Variant object, as returned by `get_variant()` or `get_variant_default()`
 #'
@@ -164,7 +164,7 @@ get_variant_schedule <- function(variant) {
 
 #' Set a Schedule
 #'
-#' \lifecycle{experimental} Sets the schedule for a given Variant. Requires a
+#' `r lifecycle::badge('experimental')` Sets the schedule for a given Variant. Requires a
 #' `Schedule` object (as returned by `get_variant_schedule()`)
 #'
 #' - `set_schedule()` is a raw interface to Posit Connect's `schedule` API

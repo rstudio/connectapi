@@ -7,9 +7,9 @@
 #' @param path Optional. A path to a file used to write the thumbnail image. If
 #' no path is provided, a temporary file with the correct file extension is
 #' created.
-#' 
+#'
 #' @returns The path to the downloaded image file, if `content` has a thumbnail; otherwise `NA`.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
@@ -71,9 +71,9 @@ get_thumbnail <- function(content, path = NULL) {
 #' Delete the thumbnail from a content item on Connect.
 #'
 #' @param content A content item.
-#' 
+#'
 #' @returns The content item (invisibly).
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
@@ -109,7 +109,7 @@ delete_thumbnail <- function(content) {
   # We do not want to throw an error in this case.
   # https://docs.posit.co/connect/api/#overview--api-error-codes
   if (httr::status_code(res) == 404 && !("code" %in% names(httr::content(res)) && isTRUE(httr::content(res)$code == 17))) {
-      con$raise_error(res)
+    con$raise_error(res)
   }
 
   invisible(content)
@@ -120,7 +120,7 @@ delete_thumbnail <- function(content) {
 #' Check whether a content item has a thumbnail.
 #'
 #' @param content A content item.
-#' 
+#'
 #' @returns `TRUE` if the content item has a thumbnail, otherwise `FALSE`.
 #'   Throws an error if you do not have permission to view the thumbnail.
 #' @examples
@@ -163,9 +163,9 @@ has_thumbnail <- function(content) {
 #' @param path Either a path to a local file or a URL to an image available over
 #' HTTP/HTTPS. If `path` is an HTTP or HTTPS URL, the image will first
 #' be downloaded.
-#' 
+#'
 #' @returns The content item (invisibly).
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
@@ -192,7 +192,7 @@ set_thumbnail <- function(content, path) {
         stop(glue::glue("Could not download image from {path}: {httr::http_status(res)$message}"))
       }
     }
-  } 
+  }
   if (is.null(valid_path)) {
     stop(glue::glue("Could not locate image at path: {path}"))
   }
@@ -215,21 +215,21 @@ set_thumbnail <- function(content, path) {
     )
   }
   con$raise_error(res)
-  
+
   # return the input (in case it inherits more than just Content)
   invisible(content)
 }
 
 
 #' Get the Content Image
-#' 
+#'
 #' @description
-#' 
-#' \lifecycle{deprecated}
-#' 
+#'
+#' `r lifecycle::badge('deprecated')`
+#'
 #' Please use [`get_thumbnail`],
 #' [`delete_thumbnail`], and [`has_thumbnail`] instead.
-#' 
+#'
 #' `get_image` saves the content image to the given path (default: temp file).
 #' `delete_image` removes the image (optionally saving to the given path)
 #' `has_image` returns whether the content has an image
@@ -242,7 +242,7 @@ set_thumbnail <- function(content, path) {
 #' @export
 get_image <- function(content, path = NULL) {
   lifecycle::deprecate_warn("0.3.1", "get_image()", "get_thumbnail()")
-  
+
   get_thumbnail(content, path)
 }
 
@@ -254,7 +254,7 @@ delete_image <- function(content, path = NULL) {
   if (!is.null(path)) {
     get_thumbnail(content, path)
   }
-  
+
   delete_thumbnail(content)
 }
 
@@ -269,11 +269,11 @@ has_image <- function(content) {
 #' Set the Content Image
 #'
 #' @description
-#' 
-#' \lifecycle{deprecated}
-#' 
+#'
+#' `r lifecycle::badge('deprecated')`
+#'
 #' Please use [`set_thumbnail`] instead.
-#' 
+#'
 #' Set the Content Image using a variety of methods.
 #'
 #' @details NOTE: `set_image_webshot()` requires [webshot2::webshot()], but currently

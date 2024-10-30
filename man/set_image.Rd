@@ -22,7 +22,7 @@ set_image_webshot(content, ...)
 \item{...}{Additional arguments passed on to \code{\link[webshot2:webshot]{webshot2::webshot()}}}
 }
 \description{
-\lifecycle{deprecated}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 Please use \code{\link{set_thumbnail}} instead.
 

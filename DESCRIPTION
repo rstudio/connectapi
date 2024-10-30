@@ -61,8 +61,6 @@ Suggests:
     withr
 VignetteBuilder:
     knitr
-RdMacros:
-    lifecycle
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.3.2

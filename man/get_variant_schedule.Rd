@@ -13,7 +13,7 @@ get_variant_schedule(variant)
 A VariantSchedule object
 }
 \description{
-\lifecycle{experimental} Gets the schedule associated with a Variant.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Gets the schedule associated with a Variant.
 }
 \seealso{
 Other schedule functions: 

@@ -43,7 +43,7 @@ deploy_repo_update(content)
 A ContentTask object, for use with \code{poll_task()} (if you want to follow the logs)
 }
 \description{
-\lifecycle{experimental} Deploy a git repository directly to Posit Connect,
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Deploy a git repository directly to Posit Connect,
 using Posit Connect's "pull-based" "git-polling" method of deployment.
 }
 \details{

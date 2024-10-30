@@ -9,7 +9,7 @@
 # - show example usage...
 #' Connect Tibble
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #' A lazy tibble that automatically pages through API requests when `collect`ed.
 #'
 #' @param src The source object

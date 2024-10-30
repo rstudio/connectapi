@@ -15,7 +15,7 @@ get_job(content, key)
 \item{key}{The key for a job}
 }
 \description{
-\lifecycle{experimental} Retrieve details about jobs associated with a \code{content_item}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Retrieve details about jobs associated with a \code{content_item}.
 "Jobs" in Posit Connect are content executions
 }
 \seealso{

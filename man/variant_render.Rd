@@ -13,7 +13,7 @@ variant_render(variant)
 \item{variant}{An R6 Variant object. As returned by \code{get_variant()} or \code{get_variant_default()}}
 }
 \description{
-\lifecycle{experimental} Get details about renderings (i.e. render history)
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Get details about renderings (i.e. render history)
 or execute a variant on demand
 }
 \details{

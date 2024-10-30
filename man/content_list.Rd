@@ -12,7 +12,7 @@ content_list_by_tag(src, tag)
 \item{tag}{A \code{connect_tag_tree} object or tag ID}
 }
 \description{
-\lifecycle{experimental} Get a content list
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Get a content list
 }
 \details{
 \code{content_list_by_tag()} retrieves a content list by tag

@@ -285,7 +285,7 @@ Content <- R6::R6Class(
     is_rendered = function() {
       self$content$app_mode %in% c("rmd-static", "jupyter-static", "quarto-static")
     },
-  
+
     #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
     is_interactive = function() {
       interactive_app_modes <- c(
@@ -577,7 +577,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 
 #' Get Jobs
 #'
-#' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
+#' `r lifecycle::badge('experimental')` Retrieve details about jobs associated with a `content_item`.
 #' "Jobs" in Posit Connect are content executions
 #'
 #' @param content A Content object, as returned by `content_item()`
@@ -957,19 +957,19 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 }
 
 #' Render a content item.
-#' 
+#'
 #' @description Submit a request to render a content item. Once submitted, the
 #' server runs an asynchronous process to render the content. This might be
 #' useful if content needs to be updated after its source data has changed,
 #' especially if this doesn't happen on a regular schedule.
-#' 
+#'
 #' Only valid for rendered content (e.g., most Quarto documents, Jupyter
 #' notebooks, R Markdown reports).
-#' 
+#'
 #' @param content The content item you wish to render.
 #' @param variant_key If a variant key is provided, render that variant. Otherwise, render the default variant.
 #' @return A [VariantTask] object that can be used to track completion of the render.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
@@ -977,7 +977,7 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' task <- content_render(item)
 #' poll_task(task)
 #' }
-#' 
+#'
 #' @export
 content_render <- function(content, variant_key = NULL) {
   scoped_experimental_silence()
@@ -996,27 +996,27 @@ content_render <- function(content, variant_key = NULL) {
 }
 
 #' Restart a content item.
-#' 
+#'
 #' @description Submit a request to restart a content item. Once submitted, the
 #' server performs an asynchronous request to kill all processes associated with
 #' the content item, starting new processes as needed. This might be useful if
 #' the application relies on data that is loaded at startup, or if its memory
 #' usage has grown over time.
-#' 
+#'
 #' Note that users interacting with certain types of applications may have their
 #' workflows interrupted.
-#' 
+#'
 #' Only valid for interactive content (e.g., applications, APIs).
-#' 
+#'
 #' @param content The content item you wish to restart.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
 #' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
 #' content_restart(item)
 #' }
-#' 
+#'
 #' @importFrom rlang :=
 #' @export
 content_restart <- function(content) {

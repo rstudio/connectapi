@@ -231,7 +231,7 @@ VariantTask <- R6::R6Class(
 
 #' Get Variant
 #'
-#' \lifecycle{experimental} Work with variants
+#' `r lifecycle::badge('experimental')` Work with variants
 #'
 #' - `get_variants()` returns a `tibble` with variant data for a `content_item`
 #' - `get_variant_default()` returns the default variant for a `content_item`
@@ -273,7 +273,7 @@ get_variant_default <- function(content) {
 
 #' Render a Variant
 #'
-#' \lifecycle{experimental} Get details about renderings (i.e. render history)
+#' `r lifecycle::badge('experimental')` Get details about renderings (i.e. render history)
 #' or execute a variant on demand
 #'
 #' - `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`

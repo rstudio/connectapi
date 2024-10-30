@@ -32,7 +32,7 @@ library(plumber)
 client <- connect()
 
 #* @get /do
-function(req){
+function(req) {
   user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN
   credentials <- get_oauth_credentials(client, user_session_token)
 
