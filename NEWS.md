@@ -7,6 +7,9 @@
 - New functions `set_thumbnail()`, `get_thumbnail()`, `delete_thumbnail()` and
   `has_thumbnail()` let you interact with content thumbnails, replacing older
   `*_image()` functions. (#294, #304)
+- `groups_create_remote()` now has an `exact` parameter. Setting `exact` causes
+  the function to consider only exact group name matches when searching for
+  remote groups and checking for existing local groups. (#216)
 
 ## Lifecycle changes
 
