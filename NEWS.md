@@ -10,6 +10,9 @@
 - `groups_create_remote()` now has an `exact` parameter. Setting `exact` causes
   the function to consider only exact group name matches when searching for
   remote groups and checking for existing local groups. (#216)
+- New functions to let you view and delete runtime caches on a Connect server:
+  `get_runtime_caches()`, `delete_runtime_cache()` (#312)
+
 
 ## Lifecycle changes
 
@@ -26,6 +29,8 @@
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
 - The `get_timezones()` function now uses the `v1/timezones` endpoint if
   available. (#300)
+- `connect$DELETE()` now respects the `parser` argument rather than always using
+  `NULL`.
 
 # connectapi 0.3.0
 
