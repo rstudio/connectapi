@@ -28,7 +28,7 @@ get_runtime_caches <- function(client) {
 #' 
 #' @param client A `Connect` object.
 #' @param language The language of the cache, either "R" or "Python".
-#' @param version The version of the cache, e.g. "3.6.3".
+#' @param version The version of the cache, e.g. "4.3.3".
 #' @param image_name Optional. The name of the off-host execution image for
 #'   the cache, or "Local" (the default) for native execution caches.
 #' @param dry_run Optional, default `FALSE`. If true, perform a dry run of
