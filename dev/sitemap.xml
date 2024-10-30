@@ -61,6 +61,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_oauth_credentials.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_procs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_runtime_caches.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_runtimes.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_thumbnail.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_timezones.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_usage_shiny.html</loc></url>
