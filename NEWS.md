@@ -8,8 +8,7 @@
   `has_thumbnail()` let you interact with content thumbnails, replacing older
   `*_image()` functions. (#294, #304)
 - New `get_runtimes()` lets you view available runtimes and versions on a
-  Connect server (#311).
-
+  Connect server. (#311)
 
 ## Lifecycle changes
 
@@ -20,6 +19,8 @@
   `set_thumbnail()`, which works both with local file paths and remote URLs to
   images. Likewise, `has_image()` and `delete_image()` have been deprecated in
   favor of `has_thumbnail()` and `delete_thumbnail()`. (#294, #304)
+- `Connect$server_settings_r()` has been deprecated in favor of
+  `get_runtimes(client, "r")`. (#311)
   
 ## Minor improvements and fixes
 
