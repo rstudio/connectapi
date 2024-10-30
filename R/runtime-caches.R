@@ -16,6 +16,7 @@
 #' }
 #' 
 #' @family server management functions
+#' @seealso [delete_runtime_cache()]
 #' @export
 get_runtime_caches <- function(client) {
   validate_R6_class(client, "Connect")
@@ -47,6 +48,7 @@ get_runtime_caches <- function(client) {
 #' }
 #' 
 #' @family server management functions
+#' @seealso [get_runtime_caches()]
 #' @export
 delete_runtime_cache <- function(client, language, version, image_name = "Local", dry_run = FALSE) {
   res <- client$DELETE(

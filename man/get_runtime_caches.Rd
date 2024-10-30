@@ -26,6 +26,8 @@ get_runtime_caches(client)
 
 }
 \seealso{
+\code{\link[=delete_runtime_cache]{delete_runtime_cache()}}
+
 Other server management functions: 
 \code{\link{delete_runtime_cache}()}
 }
