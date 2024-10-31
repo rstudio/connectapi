@@ -49,7 +49,7 @@ MockConnect <- R6Class(
     request = function(method, url, ..., parser = "parsed") {
       route <- paste(method, url)
       print(route)
-      
+
       # Record call
       self$log_call(route)
 

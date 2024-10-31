@@ -98,7 +98,7 @@ with_mock_api({
     )
   })
 
-  
+
   test_that("client$version is NA when server settings lacks version info", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_message(v <- con$version, "Version information is not exposed by this Posit Connect instance")

@@ -1,11 +1,13 @@
 #' Git Repository Helpers
 #'
-#' `r lifecycle::badge('experimental')` These functions help use Posit Connect's configured authorization to query
-#' available branches and subdirectories for deployment using `deploy_repo()`
+#' `r lifecycle::badge('experimental')` These functions help use Posit Connect's
+#' configured authorization to query available branches and subdirectories for
+#' deployment using `deploy_repo()`
 #'
 #' - `repo_check_account()` messages whether an account is in use, and then returns that account
 #' - `repo_check_branches()` retrieves which branches are available, returning in a named list
-#' - `repo_check_manifest_dirs()` retrieves which directories contain a `manifest.json`, returning in a named list
+#' - `repo_check_manifest_dirs()` retrieves which directories contain a
+#'   `manifest.json`, returning in a named list
 #'
 #' @param client A Connect R6 object
 #' @param host The git repository host (with schema). For example, "https://github.com"
@@ -82,7 +84,8 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 #' using Posit Connect's "pull-based" "git-polling" method of deployment.
 #'
 #' - `deploy_repo_enable()` enables (or disables) Posit Connect's git polling for a piece of content
-#' - `deploy_repo_update()` triggers an update of the content from its git repository, if any are present
+#' - `deploy_repo_update()` triggers an update of the content from its git
+#'   repository, if any are present
 #'
 #' @param client A Connect R6 object
 #' @param repository The git repository to deploy
@@ -101,7 +104,14 @@ repo_check_manifest_dirs <- function(client, repository, branch) {
 #' @family content functions
 #' @rdname deploy_repo
 #' @export
-deploy_repo <- function(client, repository, branch, subdirectory, name = create_random_name(), title = name, ...) {
+deploy_repo <- function(
+    client,
+    repository,
+    branch,
+    subdirectory,
+    name = create_random_name(),
+    title = name,
+    ...) {
   validate_R6_class(client, "Connect")
   warn_experimental("deploy_repo")
 

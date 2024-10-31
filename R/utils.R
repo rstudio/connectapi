@@ -161,7 +161,9 @@ error_if_less_than <- function(using_version, tested_version) {
 }
 
 compare_connect_version <- function(using_version, tested_version) {
-  if (is.na(using_version)) return(NA)
+  if (is.na(using_version)) {
+    return(NA)
+  }
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 

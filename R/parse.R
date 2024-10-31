@@ -18,7 +18,7 @@ make_timestamp <- function(input) {
     # TODO: make sure this is the right timestamp format
     return(input)
   }
-  
+
   # In the call to `safe_format`:
   # - The format specifier adds a literal "Z" to the end of the timestamp, which
   #   tells Connect "This is UTC".
@@ -143,7 +143,7 @@ parse_connect_rfc3339 <- function(x) {
   # `purrr::map2_vec()` converts to POSIXct automatically, but we need
   # `as.POSIXct()` in there to account vectors of length 1, which it seems are
   # not converted.
-  # 
+  #
   # Parse with an inner call to `strptime()`; convert the resulting `POSIXlt`
   # object to `POSIXct`.
   #
@@ -158,8 +158,8 @@ parse_connect_rfc3339 <- function(x) {
   # > as.POSIXct(xlt, tz = "UTC")
   # [1] "2024-08-29 16:36:33 UTC"
   purrr::map_vec(x, function(.x) {
-  # Times with and without offsets require different formats.
-    format_string = ifelse(
+    # Times with and without offsets require different formats.
+    format_string <- ifelse(
       grepl("Z$", .x),
       "%Y-%m-%dT%H:%M:%SZ",
       "%Y-%m-%dT%H:%M:%S%z"

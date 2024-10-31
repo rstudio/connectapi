@@ -121,7 +121,7 @@ c2_tags
 # List all content associated with a tag
 
 Once tags have been defined, you can also search for all of the content
-associated with a tag. 
+associated with a tag.
 
 ```{r}
 content_list_by_tag(client, all_tags$DemoAudience$Sales)
@@ -147,5 +147,3 @@ delete_tag(client, latest_tags$DemoAudience)
 
 # TODO: delete content
 ```
-
-

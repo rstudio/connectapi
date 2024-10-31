@@ -53,7 +53,10 @@ audit_r_versions <- function(content) {
 
   # timeline
   p2 <- ggplot2::ggplot(timeline) +
-    ggplot2::geom_point(pch = 4, ggplot2::aes(x = last_deployed_time, color = r_version, y = r_version)) +
+    ggplot2::geom_point(
+      pch = 4,
+      ggplot2::aes(x = last_deployed_time, color = r_version, y = r_version)
+    ) +
     ggplot2::theme_minimal() +
     ggplot2::labs(
       title = "Content by Time",
