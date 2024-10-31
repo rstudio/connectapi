@@ -7,6 +7,13 @@
 - New functions `set_thumbnail()`, `get_thumbnail()`, `delete_thumbnail()` and
   `has_thumbnail()` let you interact with content thumbnails, replacing older
   `*_image()` functions. (#294, #304)
+- `groups_create_remote()` now has an `exact` parameter. Setting `exact` causes
+  the function to consider only exact group name matches when searching for
+  remote groups and checking for existing local groups. (#216)
+- New functions to let you view and delete runtime caches on a Connect server:
+  `get_runtime_caches()`, `delete_runtime_cache()` (#312)
+- New `get_runtimes()` lets you view available runtimes and versions on a
+  Connect server. (#311)
 
 ## Lifecycle changes
 
@@ -17,12 +24,16 @@
   `set_thumbnail()`, which works both with local file paths and remote URLs to
   images. Likewise, `has_image()` and `delete_image()` have been deprecated in
   favor of `has_thumbnail()` and `delete_thumbnail()`. (#294, #304)
+- `Connect$server_settings_r()` has been deprecated in favor of
+  `get_runtimes(client, "r")`. (#311)
   
 ## Minor improvements and fixes
 
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
 - The `get_timezones()` function now uses the `v1/timezones` endpoint if
   available. (#300)
+- `connect$DELETE()` now respects the `parser` argument rather than always using
+  `NULL`.
 
 # connectapi 0.3.0
 

@@ -1,0 +1,17 @@
+// v1/groups/remote?limit=500&prefix=Art
+{
+    "results": [
+        {
+            "name": "Art",
+            "guid": null,
+            "temp_ticket": "fake-art"
+        },
+        {
+            "name": "Arthur O Eve - E O P Program",
+            "guid": null,
+            "temp_ticket": "fake-arthur"
+        }
+    ],
+    "current_page": 1,
+    "total": 2
+}
