@@ -1,7 +1,9 @@
 linters: linters_with_defaults(
-  line_length_linter = line_length_linter(100),
+  line_length_linter = line_length_linter(120L),
   object_name_linter = object_name_linter(styles = c("snake_case", "symbols", "CamelCase")),
-  cyclocomp_linter = cyclocomp_linter(30L)
+  cyclocomp_linter = cyclocomp_linter(30L),
+  object_length_linter(32L),
+  indentation_linter = indentation_linter(hanging_indent_style = "tidy")
   )
 exclusions: list(
   "tests/testthat/2024.08.0/",
