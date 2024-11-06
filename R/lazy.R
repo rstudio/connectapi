@@ -1,3 +1,4 @@
+# nolint start: object_name_linter
 # TODO
 # - next stop: vanity URLs?
 # - figure out filtering... and such...?
@@ -149,3 +150,4 @@ dim.tbl_connect <- function(x) {
 dimnames.tbl_connect <- function(x) {
   list(NULL, connect_vars(x[["ops"]]))
 }
+# nolint end

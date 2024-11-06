@@ -227,7 +227,7 @@ set_content_tag_tree <- function(content, ...) {
 set_content_tags <- function(content, ...) {
   validate_R6_class(content, "Content")
   new_tags <- rlang::list2(...)
-  tmp <- purrr::map(
+  purrr::map(
     new_tags,
     function(.x) {
       content$tag_set(.get_tag_id(.x))
@@ -306,7 +306,10 @@ tag_tree_parse_data <- function(tag_data) {
 }
 
 tag_tree_parse_data_impl <- function(target, tag_data) {
-  filtered_data <- purrr::keep(tag_data, ~ !is.null(.x[["parent_id"]]) && !is.na(.x[["parent_id"]]) && .x[["parent_id"]] == target[["id"]])
+  filtered_data <- purrr::keep(
+    tag_data,
+    ~ !is.null(.x[["parent_id"]]) && !is.na(.x[["parent_id"]]) && .x[["parent_id"]] == target[["id"]]
+  )
 
   # recurse through the tree
   output <- purrr::map(filtered_data, tag_tree_parse_data_impl, tag_data = tag_data)
@@ -423,7 +426,17 @@ recursive_tag_print <- function(x, indent) {
 
 recursive_tag_restructure <- function(.x) {
   if (length(.x$children) > 0) {
-    rlang::set_names(list(c(purrr::flatten(purrr::map(.x$children, recursive_tag_restructure)), id = as.character(.x$id), name = .x$name)), .x$name)
+    rlang::set_names(
+      list(c(
+        purrr::flatten(purrr::map(
+          .x$children,
+          recursive_tag_restructure
+        )),
+        id = as.character(.x$id),
+        name = .x$name
+      )),
+      .x$name
+    )
   } else {
     rlang::set_names(list(list(id = as.character(.x$id), name = .x$name)), .x$name)
   }

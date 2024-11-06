@@ -10,7 +10,10 @@ test_that("get_users works", {
   users <- get_users(test_conn_1)
 
   expect_s3_class(users, c("tbl_df", "tbl", "data.frame"))
-  expect_equal(purrr::map_chr(vctrs::vec_ptype(users), typeof), purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof))
+  expect_equal(
+    purrr::map_chr(vctrs::vec_ptype(users), typeof),
+    purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof)
+  )
 })
 
 test_that("get_groups works", {
@@ -83,7 +86,10 @@ test_that("content_list_with_permissions predicate works", {
   uniq_id <- uuid::UUIDgenerate()
   deployed <- deploy(test_conn_1, bnd, uniq_id)
 
-  rlang::with_options(progress_enabled = FALSE, cl <- content_list_with_permissions(test_conn_1, .p = ~ .x$guid == deployed$get_content()$guid))
+  rlang::with_options(
+    progress_enabled = FALSE,
+    cl <- content_list_with_permissions(test_conn_1, .p = ~ .x$guid == deployed$get_content()$guid)
+  )
 
   expect_true("permission" %in% names(cl))
   expect_s3_class(cl, "tbl_df")

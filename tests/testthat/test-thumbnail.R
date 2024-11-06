@@ -1,3 +1,4 @@
+# nolint start: line_length_linter
 mock_dirs <- c(
   "unversioned" = "2024.08.0",
   "v1" = "2024.09.0"
@@ -126,3 +127,4 @@ for (api_ver in names(mock_dirs)) {
     })
   })
 }
+# nolint end

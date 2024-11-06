@@ -12,7 +12,11 @@ test_that("dashboard_url_chr works with various length inputs", {
 })
 
 test_that("dashboard_url_chr fails with invalid inputs", {
-  class <- if (packageVersion("purrr") >= "0.9000") "vctrs_error_incompatible_size" else "purrr_error_bad_element_length"
+  class <- if (packageVersion("purrr") >= "0.9000") {
+    "vctrs_error_incompatible_size"
+  } else {
+    "purrr_error_bad_element_length"
+  }
 
   expect_error(
     dashboard_url_chr(c("a", "b", "c"), "d", c("e", "f")),

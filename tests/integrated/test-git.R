@@ -5,12 +5,24 @@ cont1_bundle <- NULL
 
 test_that("git deployment works", {
   scoped_experimental_silence()
-  cont0 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "main", "tests/testthat/examples/static")
+  cont0 <- deploy_repo(
+    test_conn_1,
+    "https://github.com/rstudio/connectapi",
+    "main",
+    "tests/testthat/examples/static"
+  )
   expect_true(validate_R6_class(cont0, "Content"))
   expect_true(validate_R6_class(cont0, "ContentTask"))
 
   new_name <- uuid::UUIDgenerate()
-  cont1 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "main", "tests/testthat/examples/static", new_name, cont1_title)
+  cont1 <- deploy_repo(
+    test_conn_1,
+    "https://github.com/rstudio/connectapi",
+    "main",
+    "tests/testthat/examples/static",
+    new_name,
+    cont1_title
+  )
   expect_true(validate_R6_class(cont1, "Content"))
   expect_true(validate_R6_class(cont1, "ContentTask"))
 
@@ -69,7 +81,14 @@ test_that("deploy_repo_enable works", {
   scoped_experimental_silence()
 
   new_name <- uuid::UUIDgenerate()
-  cont1 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "main", "tests/testthat/examples/static", new_name, "deploy_repo_enable test")
+  cont1 <- deploy_repo(
+    test_conn_1,
+    "https://github.com/rstudio/connectapi",
+    "main",
+    "tests/testthat/examples/static",
+    new_name,
+    "deploy_repo_enable test"
+  )
   expect_true(validate_R6_class(cont1, "Content"))
   expect_true(validate_R6_class(cont1, "ContentTask"))
 
@@ -88,7 +107,14 @@ test_that("deploy_repo_update works", {
   # this is really hard to test... because we need a git repo that changes
 
   new_name <- uuid::UUIDgenerate()
-  cont1 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "main", "tests/testthat/examples/static", new_name, "deploy_repo_update test - good")
+  cont1 <- deploy_repo(
+    test_conn_1,
+    "https://github.com/rstudio/connectapi",
+    "main",
+    "tests/testthat/examples/static",
+    new_name,
+    "deploy_repo_update test - good"
+  )
   expect_true(validate_R6_class(cont1, "Content"))
   expect_true(validate_R6_class(cont1, "ContentTask"))
 
@@ -96,7 +122,14 @@ test_that("deploy_repo_update works", {
   expect_true(validate_R6_class(res, "Content"))
 
   wrong_branch <- uuid::UUIDgenerate()
-  cont2 <- deploy_repo(test_conn_1, "https://github.com/rstudio/connectapi", "master-not-a-real-branch", "tests/testthat/examples/static", wrong_branch, "deploy_repo_update test - wrong branch")
+  cont2 <- deploy_repo(
+    test_conn_1,
+    "https://github.com/rstudio/connectapi",
+    "master-not-a-real-branch",
+    "tests/testthat/examples/static",
+    wrong_branch,
+    "deploy_repo_update test - wrong branch"
+  )
   expect_true(validate_R6_class(cont2, "Content"))
   expect_true(validate_R6_class(cont2, "ContentTask"))
 

@@ -123,6 +123,7 @@ coerce_datetime <- function(x, to, ...) {
   }
 }
 
+# nolint start: commented_code_linter
 # Parses a character vector of dates received from Connect, using use RFC 3339,
 # returning a vector of POSIXct datetimes.
 #
@@ -136,6 +137,7 @@ coerce_datetime <- function(x, to, ...) {
 # - "2023-08-22T14:13:14Z"
 # - "2023-08-22T15:13:14+01:00"
 # - "2020-01-01T00:02:03-01:00"
+# nolint end
 parse_connect_rfc3339 <- function(x) {
   # Convert any timestamps with offsets to a format recognized by `strptime`.
   x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
@@ -168,12 +170,12 @@ parse_connect_rfc3339 <- function(x) {
   })
 }
 
-vec_cast.POSIXct.double <- function(x, to, ...) {
+vec_cast.POSIXct.double <- function(x, to, ...) { # nolint: object_name_linter
   warn_experimental("vec_cast.POSIXct.double")
   vctrs::new_datetime(x, tzone = tzone(to))
 }
 
-vec_cast.POSIXct.character <- function(x, to, ...) {
+vec_cast.POSIXct.character <- function(x, to, ...) { # nolint: object_name_linter
   as.POSIXct(x, tz = tzone(to))
 }
 

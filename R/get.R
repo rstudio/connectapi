@@ -153,8 +153,9 @@ get_group_members <- function(src, guid) {
 #' @param guid The guid for a particular content item
 #' @param owner_guid The unique identifier of the user who owns the content
 #' @param name The content name specified when the content was created
-#' @param ... Extra arguments. Currently not used
-#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()` before turning the response into a tibble. Can be useful for performance
+#' @param ... Extra arguments. Currently not used.
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()`
+#'   before turning the response into a tibble. Can be useful for performance.
 #'
 #' @return
 #' A tibble with the following columns:
@@ -287,7 +288,7 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
 
 .make_predicate <- function(.expr) {
   function(.x) {
-    masked_expr <- rlang::enexpr(.expr)
+    masked_expr <- rlang::enexpr(.expr) # nolint: object_usage_linter
   }
 }
 
@@ -704,10 +705,10 @@ get_oauth_credentials <- function(connect, user_session_token) {
 }
 
 #' Get available runtimes on server
-#' 
+#'
 #' Get a table showing available versions of R, Python, Quarto, and Tensorflow
 #' on the Connect server.
-#' 
+#'
 #' @param client A `Connect` object.
 #' @param runtimes Optional. A character vector of runtimes to include. Must be
 #' some combination of `"r"`, `"python"`, `"quarto"`, and `"tensorflow"`. Quarto
@@ -717,14 +718,14 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #' @return A tibble with columns for `runtime`, `version`, and `cluster_name`
 #' and `image_name`. Cluster name and image name are only meaningful on Connect
 #' instances running off-host execution.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' library(connectapi)
 #' client <- connect()
 #' get_runtimes(client, runtimes = c("r", "python", "tensorflow"))
 #' }
-#' 
+#'
 #' @export
 get_runtimes <- function(client, runtimes = NULL) {
   validate_R6_class(client, "Connect")

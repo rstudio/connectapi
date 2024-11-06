@@ -1,5 +1,5 @@
-NA_datetime_ <- vctrs::new_datetime(NA_real_, tzone = "UTC")
-NA_list_ <- list(list())
+NA_datetime_ <- vctrs::new_datetime(NA_real_, tzone = "UTC") # nolint: object_name_linter
+NA_list_ <- list(list()) # nolint: object_name_linter
 
 connectapi_ptypes <- list(
   users = tibble::tibble(

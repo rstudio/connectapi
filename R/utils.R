@@ -12,7 +12,7 @@ valid_page_size <- function(x, min = 1, max = 500) {
   min(max(min, x), max)
 }
 
-generate_R6_print_output <- function() {
+generate_R6_print_output <- function() { # nolint: object_name_linter
   con <- Connect$new(server = "http://test_host", api_key = "test_key")
   bnd <- Bundle$new(path = "/test/path")
 
@@ -44,13 +44,13 @@ generate_R6_print_output <- function() {
   ))
 }
 
-is_R6_class <- function(instance, class) {
+is_R6_class <- function(instance, class) { # nolint: object_name_linter
   return(R6::is.R6(instance) && inherits(instance, class))
 }
 
-validate_R6_class <- function(instance, class) {
+validate_R6_class <- function(instance, class) { # nolint: object_name_linter
   obj <- rlang::enquo(instance)
-  if (!R6::is.R6(instance) | !inherits(instance, class)) {
+  if (!R6::is.R6(instance) || !inherits(instance, class)) {
     stop(paste(rlang::quo_text(obj), "must be an R6", glue::glue_collapse(class, sep = " or "), "object"))
   }
   invisible(TRUE)

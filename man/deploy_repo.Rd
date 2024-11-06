@@ -49,7 +49,8 @@ using Posit Connect's "pull-based" "git-polling" method of deployment.
 \details{
 \itemize{
 \item \code{deploy_repo_enable()} enables (or disables) Posit Connect's git polling for a piece of content
-\item \code{deploy_repo_update()} triggers an update of the content from its git repository, if any are present
+\item \code{deploy_repo_update()} triggers an update of the content from its git
+repository, if any are present
 }
 }
 \seealso{

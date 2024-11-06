@@ -1,20 +1,20 @@
 #' Get runtime caches
-#' 
+#'
 #' View the runtime caches on a Connect server.
 #' Requires Administrator privileges.
-#' 
+#'
 #' @param client A `Connect` object.
-#' 
+#'
 #' @returns A tibble of runtime caches on the server, showing `language`,
 #' `version` and `image_name`. For Connect servers not using off-host execution,
 #' `image_name` is `"Local"`.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
 #' get_runtime_caches(client)
 #' }
-#' 
+#'
 #' @family server management functions
 #' @seealso [delete_runtime_cache()]
 #' @export
@@ -25,10 +25,10 @@ get_runtime_caches <- function(client) {
 }
 
 #' Delete a runtime cache
-#' 
+#'
 #' Delete a runtime cache from a Connect server.
 #' Requires Administrator privileges.
-#' 
+#'
 #' @param client A `Connect` object.
 #' @param language The language of the cache, either "R" or "Python".
 #' @param version The version of the cache, e.g. "4.3.3".
@@ -46,7 +46,7 @@ get_runtime_caches <- function(client) {
 #' task <- delete_runtime_cache(client, "R", "4.3.3")
 #' poll_task(task)
 #' }
-#' 
+#'
 #' @family server management functions
 #' @seealso [get_runtime_caches()]
 #' @export

@@ -1,3 +1,4 @@
+# nolint start
 # this (nonstandard) test checks output against a file
 # thus allowing an easy preview of expected output
 # AND some level of standard / consistency / expectation
@@ -8,3 +9,4 @@
 test_that("output matches previous expectation", {
   expect_snapshot(generate_R6_print_output())
 })
+# nolint end

@@ -21,7 +21,10 @@ Bundle <- R6::R6Class(
       self$path <- path
       self$size <- fs::file_size(path = path)
       if (fs::file_exists(path) && self$size > fs::as_fs_bytes(max_bundle_size)) {
-        warning(glue::glue("Bundle size is greater than {max_bundle_size}. Please ensure your bundle is not including too much."))
+        warning(glue::glue(
+          "Bundle size is greater than {max_bundle_size}. ",
+          "Please ensure your bundle is not including too much."
+        ))
       }
     },
 
@@ -302,7 +305,12 @@ bundle_path <- function(path) {
 #'
 #' @family deployment functions
 #' @export
-download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"), bundle_id = NULL, overwrite = FALSE) {
+download_bundle <- function(
+  content,
+  filename = fs::file_temp(pattern = "bundle", ext = ".tar.gz"),
+  bundle_id = NULL,
+  overwrite = FALSE
+) {
   validate_R6_class(content, "Content")
 
   from_content <- content$get_content_remote()
@@ -345,7 +353,8 @@ download_bundle <- function(content, filename = fs::file_temp(pattern = "bundle"
 #' @param title optional The title to be used for the content on the server
 #' @param guid optional The GUID if the content already exists on the server
 #' @param ... Additional arguments passed along to the content creation
-#' @param .pre_deploy An expression to execute before deploying the new bundle. The variables `content` and `bundle_id` are supplied
+#' @param .pre_deploy An expression to execute before deploying the new bundle.
+#'   The variables `content` and `bundle_id` are supplied
 #' @param content A Content object
 #'
 #' @return Task A task object
@@ -382,7 +391,10 @@ deploy <- function(connect, bundle, name = create_random_name(), title = name, g
   new_bundle_id <- con$content_upload(bundle_path = bundle$path, guid = content$guid)[["id"]]
 
   pre_deploy_expr <- rlang::enexpr(.pre_deploy)
-  rlang::eval_bare(pre_deploy_expr, env = rlang::env(content = content_item(con, content$guid), bundle_id = new_bundle_id))
+  rlang::eval_bare(
+    pre_deploy_expr,
+    env = rlang::env(content = content_item(con, content$guid), bundle_id = new_bundle_id)
+  )
 
   message("Deploying bundle")
   # deploy

@@ -15,9 +15,10 @@ get_content(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .p = NULL)
 
 \item{name}{The content name specified when the content was created}
 
-\item{...}{Extra arguments. Currently not used}
+\item{...}{Extra arguments. Currently not used.}
 
-\item{.p}{Optional. A predicate function, passed as-is to \code{purrr::keep()} before turning the response into a tibble. Can be useful for performance}
+\item{.p}{Optional. A predicate function, passed as-is to \code{purrr::keep()}
+before turning the response into a tibble. Can be useful for performance.}
 }
 \value{
 A tibble with the following columns:

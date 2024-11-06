@@ -1,3 +1,4 @@
+# nolint start: line_length_linter
 without_internet({
   test_that("Query params to inst_content_visits", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
@@ -87,3 +88,4 @@ without_internet({
     )
   })
 })
+# nolint end

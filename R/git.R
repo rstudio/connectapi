@@ -118,7 +118,7 @@ deploy_repo <- function(
   content_metadata <- content_ensure(connect = client, name = name, title = title, ..., .permitted = c("new"))
 
   deployed_content <- content_item(client, content_metadata$guid)
-  res <- deployed_content$repo_set(repository = repository, branch = branch, subdirectory = subdirectory)
+  deployed_content$repo_set(repository = repository, branch = branch, subdirectory = subdirectory)
 
   task <- deployed_content$deploy()
 
