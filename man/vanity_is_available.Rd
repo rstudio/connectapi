@@ -15,7 +15,7 @@ vanity_is_available(connect, vanity)
 logical indicating if the vanity URL is available.
 }
 \description{
-\lifecycle{experimental}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{
 Other audit functions: 

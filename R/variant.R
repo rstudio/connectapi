@@ -163,12 +163,13 @@ Variant <- R6::R6Class(
       base_content <- super$get_dashboard_url("")
       glue::glue("{base_content}{pane}/{self$get_variant()$id}")
     },
+    # nolint start: commented_code_linter
     # TODO: dashboard cannot navigate directly to renderings today
     # get_dashboard_url_rev = function(rev, pane = "") {
     #  base_content <- self$get_dashboard_url("")
     #  glue::glue("{base_content}_rev{rev}")
     # },
-
+    # nolint end
     #' @description Print this object.
     #' @param ... Unused.
     print = function(...) {
@@ -231,7 +232,7 @@ VariantTask <- R6::R6Class(
 
 #' Get Variant
 #'
-#' \lifecycle{experimental} Work with variants
+#' `r lifecycle::badge('experimental')` Work with variants
 #'
 #' - `get_variants()` returns a `tibble` with variant data for a `content_item`
 #' - `get_variant_default()` returns the default variant for a `content_item`
@@ -273,7 +274,7 @@ get_variant_default <- function(content) {
 
 #' Render a Variant
 #'
-#' \lifecycle{experimental} Get details about renderings (i.e. render history)
+#' `r lifecycle::badge('experimental')` Get details about renderings (i.e. render history)
 #' or execute a variant on demand
 #'
 #' - `get_variant_renderings()` returns all renderings / content for a particular variant. Returns a `tibble`

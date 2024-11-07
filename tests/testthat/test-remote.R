@@ -1,5 +1,5 @@
 
-  
+
 test_that("groups_create_remote: succeed when no local group exists", {
   client <- MockConnect$new()
   client$mock_response(
@@ -7,7 +7,7 @@ test_that("groups_create_remote: succeed when no local group exists", {
     path = "v1/groups",
     content = list(
       results = list(),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
@@ -19,7 +19,7 @@ test_that("groups_create_remote: succeed when no local group exists", {
         name = "Everyone",
         guid = NULL,
         temp_ticket = "fake"
-      )), 
+      )),
       current_page = 1L,
       total = 1L
     )
@@ -29,7 +29,7 @@ test_that("groups_create_remote: succeed when no local group exists", {
     path = "v1/groups",
     content = list(
       guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
-      name = "Everyone", 
+      name = "Everyone",
       owner_guid = NULL
     )
   )
@@ -40,16 +40,16 @@ test_that("groups_create_remote: succeed when no local group exists", {
       results = list(
         list(
           guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
-          name = "Everyone", 
+          name = "Everyone",
           owner_guid = NULL
         )
       ),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
 
-  
+
   expect_message(
     res <- groups_create_remote(client, "Everyone"),
     "Creating remote group"
@@ -76,7 +76,7 @@ test_that("groups_create_remote: succeed without checking local groups if check 
         name = "Everyone",
         guid = NULL,
         temp_ticket = "fake"
-      )), 
+      )),
       current_page = 1L,
       total = 1L
     )
@@ -86,7 +86,7 @@ test_that("groups_create_remote: succeed without checking local groups if check 
     path = "v1/groups",
     content = list(
       guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
-      name = "Everyone", 
+      name = "Everyone",
       owner_guid = NULL
     )
   )
@@ -97,11 +97,11 @@ test_that("groups_create_remote: succeed without checking local groups if check 
       results = list(
         list(
           guid = "1c1ab604-4a6a-4d07-9477-a88ac08386cd",
-          name = "Everyone", 
+          name = "Everyone",
           owner_guid = NULL
         )
       ),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
@@ -117,7 +117,7 @@ test_that("groups_create_remote: succeed without checking local groups if check 
       "GET https://connect.example/__api__/v1/groups/remote",
       "PUT https://connect.example/__api__/v1/groups",
       "GET https://connect.example/__api__/v1/groups"
-      )
+    )
   )
 })
 
@@ -128,7 +128,7 @@ test_that("groups_create_remote: err if number of remote groups != `expect`", {
     path = "v1/groups",
     content = list(
       results = list(),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
@@ -140,12 +140,12 @@ test_that("groups_create_remote: err if number of remote groups != `expect`", {
         name = "Everyone",
         guid = NULL,
         temp_ticket = "fake"
-      )), 
+      )),
       current_page = 1L,
       total = 1L
     )
   )
-  
+
   expect_error(
     res <- groups_create_remote(client, "Everyone", expect = 2),
     "The expected group\\(s\\) were not found. Please specify a more accurate 'prefix'"
@@ -175,7 +175,7 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
           guid = NULL,
           temp_ticket = "fake"
         )
-      ), 
+      ),
       current_page = 1L,
       total = 1L
     )
@@ -185,7 +185,7 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
     path = "v1/groups",
     content = list(
       results = list(),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
@@ -194,7 +194,7 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
     path = "v1/groups",
     content = list(
       guid = "fake-guid-1",
-      name = "Everyone", 
+      name = "Everyone",
       owner_guid = NULL
     )
   )
@@ -203,7 +203,7 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
     path = "v1/groups",
     content = list(
       guid = "fake-guid-2",
-      name = "Everyone two", 
+      name = "Everyone two",
       owner_guid = NULL
     )
   )
@@ -214,16 +214,16 @@ test_that("groups_create_remote: create groups if multiple found and n == `expec
       results = list(
         list(
           guid = "fake-guid-1",
-          name = "Everyone", 
+          name = "Everyone",
           owner_guid = NULL
         ),
         list(
           guid = "fake-guid-2",
-          name = "Everyone two", 
+          name = "Everyone two",
           owner_guid = NULL
         )
       ),
-      current_page = 1L, 
+      current_page = 1L,
       total = 1L
     )
   )
@@ -257,7 +257,7 @@ with_mock_api({
       "The expected group\\(s\\) were not found. Please specify a more accurate 'prefix'"
     )
   })
- 
+
   test_that("groups_create_remote: message when local group exists and check is TRUE", {
     expect_message(
       res <- groups_create_remote(mock_dir_client, "Everyone"),
@@ -273,7 +273,7 @@ with_mock_api({
     )
     expect_identical(res$name, "Everyone Else")
   })
-  
+
   test_that("groups_create_remote: only consider exact matches when exact is TRUE", {
 
     expect_message(

@@ -1,6 +1,6 @@
 #' Check to see if a vanity URL is currently in use
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' @param connect A Connect R6 object
 #' @param vanity string of the vanity URL to check
@@ -23,7 +23,7 @@ vanity_is_available <- function(connect, vanity) {
 
 #' Audit R Versions
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' @param content `data.frame` of content information, as from [get_content()]
 #'
@@ -53,7 +53,10 @@ audit_r_versions <- function(content) {
 
   # timeline
   p2 <- ggplot2::ggplot(timeline) +
-    ggplot2::geom_point(pch = 4, ggplot2::aes(x = last_deployed_time, color = r_version, y = r_version)) +
+    ggplot2::geom_point(
+      pch = 4,
+      ggplot2::aes(x = last_deployed_time, color = r_version, y = r_version)
+    ) +
     ggplot2::theme_minimal() +
     ggplot2::labs(
       title = "Content by Time",
@@ -67,7 +70,7 @@ audit_r_versions <- function(content) {
 
 #' Audit Run As Settings
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' @param content `data.frame` of content information, as from [get_content()]
 #'
@@ -85,7 +88,7 @@ audit_runas <- function(content) {
 # type can be all, logged_in, acl
 #' Audit Access Controls
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #'
 #' @param content `data.frame` of content information, as from [get_content()]
 #' @param type One of "all" or "logged_in". If "all", return a list of apps

@@ -22,9 +22,17 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::lintr, local::.
+          extra-packages: local::., any::lintr, any::devtools, any::testthat
           needs: lint
 
       - name: Lint
-        run: lintr::lint_package()
         shell: Rscript {0}
+        run: |
+          Sys.setlocale(locale = "C")
+          devtools::load_all() # helps with object usage linter
+
+          package_lints <- devtools::lint(cache = FALSE)
+
+          # Assert that there are no lint errors
+          if (length(package_lints) > 0) print(package_lints)
+          testthat::expect_length(package_lints, 0)

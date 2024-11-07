@@ -122,8 +122,8 @@ test_that("strange name re-casing does not break things", {
   deploy2 <- deploy(test_conn_1, bnd, testname)
 
   testname2 <- "test_Test"
-  deployA <- deploy(test_conn_1, bnd, testname2)
-  deployB <- deploy(test_conn_1, bnd, testname2)
+  deploy(test_conn_1, bnd, testname2)
+  deploy(test_conn_1, bnd, testname2)
 })
 
 test_that(".pre_deploy hook works", {

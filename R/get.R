@@ -153,8 +153,9 @@ get_group_members <- function(src, guid) {
 #' @param guid The guid for a particular content item
 #' @param owner_guid The unique identifier of the user who owns the content
 #' @param name The content name specified when the content was created
-#' @param ... Extra arguments. Currently not used
-#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()` before turning the response into a tibble. Can be useful for performance
+#' @param ... Extra arguments. Currently not used.
+#' @param .p Optional. A predicate function, passed as-is to `purrr::keep()`
+#'   before turning the response into a tibble. Can be useful for performance.
 #'
 #' @return
 #' A tibble with the following columns:
@@ -287,14 +288,14 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
 
 .make_predicate <- function(.expr) {
   function(.x) {
-    masked_expr <- rlang::enexpr(.expr)
+    masked_expr <- rlang::enexpr(.expr) # nolint: object_usage_linter
   }
 }
 
 
 #' Get Content List with Permissions
 #'
-#' \lifecycle{experimental} These functions are experimental placeholders until the API supports
+#' `r lifecycle::badge('experimental')` These functions are experimental placeholders until the API supports
 #' this behavior.
 #'
 #' `content_list_with_permissions` loops through content and retrieves
@@ -345,7 +346,7 @@ content_list_with_permissions <- function(src, ..., .p = NULL) {
 
 #' Content List
 #'
-#' \lifecycle{experimental} Get a content list
+#' `r lifecycle::badge('experimental')` Get a content list
 #'
 #' `content_list_by_tag()` retrieves a content list by tag
 #'
@@ -613,7 +614,7 @@ get_audit_logs <- function(src, limit = 500, previous = NULL,
 
 #' Get Real-Time Process Data
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #' This returns real-time process data from the Posit Connect API. It requires
 #' administrator privileges to use. NOTE that this only returns data for the
 #' server that responds to the request (i.e. in a Highly Available cluster)
@@ -669,7 +670,7 @@ get_procs <- function(src) {
 #' client <- connect()
 #'
 #' #* @get /do
-#' function(req){
+#' function(req) {
 #'   user_session_token <- req$HTTP_POSIT_CONNECT_USER_SESSION_TOKEN
 #'   credentials <- get_oauth_credentials(client, user_session_token)
 #'
@@ -686,7 +687,7 @@ get_procs <- function(src) {
 #' for more information.
 #'
 #' @export
-get_oauth_credentials = function(connect, user_session_token) {
+get_oauth_credentials <- function(connect, user_session_token) {
   validate_R6_class(connect, "Connect")
   url <- v1_url("oauth", "integrations", "credentials")
   body <- c(
@@ -704,10 +705,10 @@ get_oauth_credentials = function(connect, user_session_token) {
 }
 
 #' Get available runtimes on server
-#' 
+#'
 #' Get a table showing available versions of R, Python, Quarto, and Tensorflow
 #' on the Connect server.
-#' 
+#'
 #' @param client A `Connect` object.
 #' @param runtimes Optional. A character vector of runtimes to include. Must be
 #' some combination of `"r"`, `"python"`, `"quarto"`, and `"tensorflow"`. Quarto
@@ -717,14 +718,14 @@ get_oauth_credentials = function(connect, user_session_token) {
 #' @return A tibble with columns for `runtime`, `version`, and `cluster_name`
 #' and `image_name`. Cluster name and image name are only meaningful on Connect
 #' instances running off-host execution.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' library(connectapi)
 #' client <- connect()
 #' get_runtimes(client, runtimes = c("r", "python", "tensorflow"))
 #' }
-#' 
+#'
 #' @export
 get_runtimes <- function(client, runtimes = NULL) {
   validate_R6_class(client, "Connect")

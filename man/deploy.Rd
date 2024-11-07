@@ -31,7 +31,8 @@ deploy_current(content)
 
 \item{...}{Additional arguments passed along to the content creation}
 
-\item{.pre_deploy}{An expression to execute before deploying the new bundle. The variables \code{content} and \code{bundle_id} are supplied}
+\item{.pre_deploy}{An expression to execute before deploying the new bundle.
+The variables \code{content} and \code{bundle_id} are supplied}
 
 \item{content}{A Content object}
 }

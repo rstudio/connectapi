@@ -60,7 +60,11 @@ test_that(".check_is_fatal toggle works", {
   )
 
   # TODO: suppressing the message in the tryCatch handler does not work...?
-  rsc1 <- suppressMessages(connect(server = "http://fake-value.example.com", api_key = "fake-value", .check_is_fatal = FALSE))
+  rsc1 <- suppressMessages(connect(
+    server = "http://fake-value.example.com",
+    api_key = "fake-value",
+    .check_is_fatal = FALSE
+  ))
   expect_true(
     validate_R6_class(rsc1, "Connect")
   )

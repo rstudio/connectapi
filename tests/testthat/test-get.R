@@ -5,7 +5,7 @@ test_that("get_runtimes() gets all runtimes if none specified", {
     "GET", "v1/server_settings/r",
     content = list(
       installations = list(
-        list(version = "4.3.1", cluster_name = "Local", image_name = "Local"), 
+        list(version = "4.3.1", cluster_name = "Local", image_name = "Local"),
         list(version = "4.4.0", cluster_name = "Local", image_name = "Local")
       )
     )
@@ -14,7 +14,7 @@ test_that("get_runtimes() gets all runtimes if none specified", {
     "GET", "v1/server_settings/python",
     content = list(
       installations = list(
-        list(version = "3.11.3", cluster_name = "Local", image_name = "Local"), 
+        list(version = "3.11.3", cluster_name = "Local", image_name = "Local"),
         list(version = "3.12.4", cluster_name = "Local", image_name = "Local")
       )
     )
@@ -23,7 +23,7 @@ test_that("get_runtimes() gets all runtimes if none specified", {
     "GET", "v1/server_settings/quarto",
     content = list(
       installations = list(
-        list(version = "1.4.557", cluster_name = "Local", image_name = "Local"), 
+        list(version = "1.4.557", cluster_name = "Local", image_name = "Local"),
         list(version = "1.5.55", cluster_name = "Local", image_name = "Local")
       )
     )
@@ -39,8 +39,8 @@ test_that("get_runtimes() gets all runtimes if none specified", {
 
   expected <- tibble::as_tibble(list(
     runtime = c(
-    "r", "r", "python", "python", "quarto",
-    "quarto", "tensorflow"
+      "r", "r", "python", "python", "quarto",
+      "quarto", "tensorflow"
     ), version = c(
       "4.3.1", "4.4.0", "3.11.3",
       "3.12.4", "1.4.557", "1.5.55", "2.16.1"
@@ -68,7 +68,7 @@ test_that("get_runtimes() only specified runtimes", {
     "GET", "v1/server_settings/python",
     content = list(
       installations = list(
-        list(version = "3.11.3", cluster_name = "Local", image_name = "Local"), 
+        list(version = "3.11.3", cluster_name = "Local", image_name = "Local"),
         list(version = "3.12.4", cluster_name = "Local", image_name = "Local")
       )
     )
@@ -85,7 +85,7 @@ test_that("get_runtimes() only specified runtimes", {
   expected <- tibble::as_tibble(list(
     runtime = c("python", "python", "tensorflow"),
     version = c("3.11.3", "3.12.4", "2.16.1"),
-    cluster_name = c("Local", "Local", "Local"), 
+    cluster_name = c("Local", "Local", "Local"),
     image_name = c("Local", "Local", "Local")
   ))
   expect_identical(get_runtimes(client, c("python", "tensorflow")), expected)
@@ -114,4 +114,3 @@ test_that("get_runtimes() restricts available runtimes based on Connect version.
     '`runtimes` must be one of "r", "python"; received: "r", "quarto".'
   )
 })
-

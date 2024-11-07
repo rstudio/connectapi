@@ -516,7 +516,12 @@ test_that("returns owner permission", {
 
 test_that("add a collaborator works", {
   # create a user
-  collab <- test_conn_1$users_create(username = glue::glue("test_collab{create_random_name()}"), email = "collab@example.com", user_must_set_password = TRUE, user_role = "publisher")
+  collab <- test_conn_1$users_create(
+    username = glue::glue("test_collab{create_random_name()}"),
+    email = "collab@example.com",
+    user_must_set_password = TRUE,
+    user_role = "publisher"
+  )
   collab_guid <<- collab$guid
 
   # no permission at first
@@ -545,7 +550,12 @@ test_that("add collaborator twice works", {
 
 test_that("add a viewer works", {
   # create a user
-  view_user <- test_conn_1$users_create(username = glue::glue("test_viewer{create_random_name()}"), email = "viewer@example.com", user_must_set_password = TRUE, user_role = "viewer")
+  view_user <- test_conn_1$users_create(
+    username = glue::glue("test_viewer{create_random_name()}"),
+    email = "viewer@example.com",
+    user_must_set_password = TRUE,
+    user_role = "viewer"
+  )
   viewer_guid <<- view_user$guid
 
   # no permission at first

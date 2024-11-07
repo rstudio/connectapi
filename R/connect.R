@@ -67,7 +67,15 @@ Connect <- R6::R6Class(
     print = function(...) {
       cat("Posit Connect API Client: \n")
       cat("  Posit Connect Server: ", self$server, "\n", sep = "")
-      cat("  Posit Connect API Key: ", paste0(strrep("*", 11), substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))), "\n", sep = "")
+      cat(
+        "  Posit Connect API Key: ",
+        paste0(
+          strrep("*", 11),
+          substr(self$api_key, nchar(self$api_key) - 3, nchar(self$api_key))
+        ),
+        "\n",
+        sep = ""
+      )
       # TODO: something about API key... role... ?
       # TODO: point to docs on methods... how to see methods?
       cat("\n")
@@ -358,7 +366,7 @@ Connect <- R6::R6Class(
         count = min(page_size, .limit)
       )
       if (!is.null(filter)) {
-        query$filter <- paste(sapply(1:length(filter), function(i) {
+        query$filter <- paste(sapply(seq_along(filter), function(i) {
           sprintf("%s:%s", names(filter)[i], filter[[i]])
         }), collapse = .collapse)
       }

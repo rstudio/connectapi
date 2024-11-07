@@ -181,7 +181,7 @@ create_first_admin <- function(url,
   if (provider == "password") {
     tryCatch(
       {
-        first_admin <- client$POST(
+        client$POST(
           path = v1_url("users"),
           body = list(
             username = user,
@@ -200,12 +200,14 @@ create_first_admin <- function(url,
     stop("Unsupported authentication provider")
   }
 
-  login <- client$login(
+  client$login(
     user = user,
     password = password
   )
 
-  user_info <- client$me()
+  # Is this called to ensure that it succeeds?
+  # It was flagged by lintr as assigning a variable that is not used.
+  client$me()
 
   api_key <- client$POST(
     path = unversioned_url("keys"),

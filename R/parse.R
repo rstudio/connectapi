@@ -18,7 +18,7 @@ make_timestamp <- function(input) {
     # TODO: make sure this is the right timestamp format
     return(input)
   }
-  
+
   # In the call to `safe_format`:
   # - The format specifier adds a literal "Z" to the end of the timestamp, which
   #   tells Connect "This is UTC".
@@ -123,6 +123,7 @@ coerce_datetime <- function(x, to, ...) {
   }
 }
 
+# nolint start: commented_code_linter
 # Parses a character vector of dates received from Connect, using use RFC 3339,
 # returning a vector of POSIXct datetimes.
 #
@@ -136,6 +137,7 @@ coerce_datetime <- function(x, to, ...) {
 # - "2023-08-22T14:13:14Z"
 # - "2023-08-22T15:13:14+01:00"
 # - "2020-01-01T00:02:03-01:00"
+# nolint end
 parse_connect_rfc3339 <- function(x) {
   # Convert any timestamps with offsets to a format recognized by `strptime`.
   x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
@@ -143,7 +145,7 @@ parse_connect_rfc3339 <- function(x) {
   # `purrr::map2_vec()` converts to POSIXct automatically, but we need
   # `as.POSIXct()` in there to account vectors of length 1, which it seems are
   # not converted.
-  # 
+  #
   # Parse with an inner call to `strptime()`; convert the resulting `POSIXlt`
   # object to `POSIXct`.
   #
@@ -158,8 +160,8 @@ parse_connect_rfc3339 <- function(x) {
   # > as.POSIXct(xlt, tz = "UTC")
   # [1] "2024-08-29 16:36:33 UTC"
   purrr::map_vec(x, function(.x) {
-  # Times with and without offsets require different formats.
-    format_string = ifelse(
+    # Times with and without offsets require different formats.
+    format_string <- ifelse(
       grepl("Z$", .x),
       "%Y-%m-%dT%H:%M:%SZ",
       "%Y-%m-%dT%H:%M:%S%z"
@@ -168,14 +170,16 @@ parse_connect_rfc3339 <- function(x) {
   })
 }
 
-vec_cast.POSIXct.double <- function(x, to, ...) {
-  warn_experimental("vec_cast.POSIXct.double")
-  vctrs::new_datetime(x, tzone = tzone(to))
-}
+vec_cast.POSIXct.double <- # nolint: object_name_linter
+  function(x, to, ...) {
+    warn_experimental("vec_cast.POSIXct.double")
+    vctrs::new_datetime(x, tzone = tzone(to))
+  }
 
-vec_cast.POSIXct.character <- function(x, to, ...) {
-  as.POSIXct(x, tz = tzone(to))
-}
+vec_cast.POSIXct.character <- # nolint: object_name_linter
+  function(x, to, ...) {
+    as.POSIXct(x, tz = tzone(to))
+  }
 
 tzone <- function(x) {
   attr(x, "tzone")[[1]] %||% ""

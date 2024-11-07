@@ -9,7 +9,7 @@
 # - show example usage...
 #' Connect Tibble
 #'
-#' \lifecycle{experimental}
+#' `r lifecycle::badge('experimental')`
 #' A lazy tibble that automatically pages through API requests when `collect`ed.
 #'
 #' @param src The source object
@@ -37,9 +37,10 @@ tbl_connect <- function(src, from = c("users", "groups", "content", "usage_shiny
 }
 
 # This will be registered in .onLoad if dplyr is available
-collect.tbl_connect <- function(x, ..., n = Inf) {
-  api_build(op = x[["ops"]], con = x[["src"]], n = n)
-}
+collect.tbl_connect <-  # nolint
+  function(x, ..., n = Inf) {
+    api_build(op = x[["ops"]], con = x[["src"]], n = n)
+  }
 
 api_build <- function(op, con = NULL, ..., n = NULL) {
   UseMethod("api_build")
@@ -94,7 +95,13 @@ print.tbl_connect <- function(x, ..., n = NULL) {
 }
 
 #' @export
-as.data.frame.tbl_connect <- function(x, row.names = NULL, optional = NULL, ..., n = Inf) {
+as.data.frame.tbl_connect <- function(
+  x,
+  row.names = NULL, # nolint
+  optional = NULL,
+  ...,
+  n = Inf
+) {
   # We don't need to check if dplyr is available here
   # because you won't have a tbl_connect without first
   # checking for dplyr.

@@ -26,14 +26,16 @@ repo_check_manifest_dirs(client, repository, branch)
 \item{branch}{The git branch to explore for subdirectories}
 }
 \description{
-\lifecycle{experimental} These functions help use Posit Connect's configured authorization to query
-available branches and subdirectories for deployment using \code{deploy_repo()}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} These functions help use Posit Connect's
+configured authorization to query available branches and subdirectories for
+deployment using \code{deploy_repo()}
 }
 \details{
 \itemize{
 \item \code{repo_check_account()} messages whether an account is in use, and then returns that account
 \item \code{repo_check_branches()} retrieves which branches are available, returning in a named list
-\item \code{repo_check_manifest_dirs()} retrieves which directories contain a \code{manifest.json}, returning in a named list
+\item \code{repo_check_manifest_dirs()} retrieves which directories contain a
+\code{manifest.json}, returning in a named list
 }
 }
 \seealso{

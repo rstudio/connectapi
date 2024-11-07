@@ -45,7 +45,11 @@ Content <- R6::R6Class(
     #' @param bundle_id The bundle identifer.
     #' @param filename Where to write the result.
     #' @param overwrite Overwrite an existing filename.
-    bundle_download = function(bundle_id, filename = tempfile(pattern = "bundle", fileext = ".tar.gz"), overwrite = FALSE) {
+    bundle_download = function(
+      bundle_id,
+      filename = tempfile(pattern = "bundle", fileext = ".tar.gz"),
+      overwrite = FALSE
+    ) {
       url <- v1_url("content", self$get_content()$guid, "bundles", bundle_id, "download")
       self$get_connect()$GET(url, httr::write_disk(filename, overwrite = overwrite), parser = "raw")
       return(filename)
@@ -285,7 +289,7 @@ Content <- R6::R6Class(
     is_rendered = function() {
       self$content$app_mode %in% c("rmd-static", "jupyter-static", "quarto-static")
     },
-  
+
     #' @field is_interactive TRUE if this is a rendered content type, otherwise FALSE.
     is_interactive = function() {
       interactive_app_modes <- c(
@@ -513,7 +517,14 @@ content_title <- function(connect, guid, default = "Unknown Content") {
 }
 
 #' @importFrom uuid UUIDgenerate
-content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, guid = NULL, ..., .permitted = c("new", "existing")) {
+content_ensure <- function(
+  connect,
+  name = uuid::UUIDgenerate(),
+  title = name,
+  guid = NULL,
+  ...,
+  .permitted = c("new", "existing")
+) {
   if (!is.null(guid)) {
     # guid-based deployment
     # just in case we get a 404 back...
@@ -577,7 +588,7 @@ content_ensure <- function(connect, name = uuid::UUIDgenerate(), title = name, g
 
 #' Get Jobs
 #'
-#' \lifecycle{experimental} Retrieve details about jobs associated with a `content_item`.
+#' `r lifecycle::badge('experimental')` Retrieve details about jobs associated with a `content_item`.
 #' "Jobs" in Posit Connect are content executions
 #'
 #' @param content A Content object, as returned by `content_item()`
@@ -708,7 +719,7 @@ content_delete <- function(content, force = FALSE) {
 content_update <- function(content, ...) {
   validate_R6_class(content, "Content")
 
-  res <- content$update(...)
+  content$update(...)
 
   content$get_content_remote()
 
@@ -747,7 +758,10 @@ content_update_owner <- function(content, owner_guid) {
 #' @export
 verify_content_name <- function(name) {
   if (grepl("[^\\-\\_a-zA-Z0-9]", name, perl = TRUE) || nchar(name) < 3 || nchar(name) > 64) {
-    stop(glue::glue("ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, dashes, and underscores"))
+    stop(glue::glue(
+      "ERROR: content name '{name}' must be between 3 and 64 alphanumeric characters, ",
+      "dashes, and underscores"
+    ))
   }
   return(name)
 }
@@ -831,7 +845,7 @@ content_add_user <- function(content, guid, role = c("viewer", "owner")) {
   validate_R6_class(content, "Content")
   role <- .define_role(role)
 
-  res <- purrr::map(guid, ~ .content_add_permission_impl(content, "user", .x, role))
+  purrr::map(guid, ~ .content_add_permission_impl(content, "user", .x, role))
 
   return(content)
 }
@@ -840,10 +854,9 @@ content_add_user <- function(content, guid, role = c("viewer", "owner")) {
 #' @export
 content_add_group <- function(content, guid, role = c("viewer", "owner")) {
   validate_R6_class(content, "Content")
-  existing <- .get_permission(content, "group", guid)
   role <- .define_role(role)
 
-  res <- purrr::map(guid, ~ .content_add_permission_impl(content = content, type = "group", guid = .x, role = role))
+  purrr::map(guid, ~ .content_add_permission_impl(content = content, type = "group", guid = .x, role = role))
 
   return(content)
 }
@@ -885,7 +898,7 @@ content_add_group <- function(content, guid, role = c("viewer", "owner")) {
 #' @export
 content_delete_user <- function(content, guid) {
   validate_R6_class(content, "Content")
-  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "user", guid = .x))
+  purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "user", guid = .x))
   return(content)
 }
 
@@ -893,7 +906,7 @@ content_delete_user <- function(content, guid) {
 #' @export
 content_delete_group <- function(content, guid) {
   validate_R6_class(content, "Content")
-  res <- purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "group", guid = .x))
+  purrr::map(guid, ~ .content_delete_permission_impl(content = content, type = "group", guid = .x))
   return(content)
 }
 
@@ -957,19 +970,19 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 }
 
 #' Render a content item.
-#' 
+#'
 #' @description Submit a request to render a content item. Once submitted, the
 #' server runs an asynchronous process to render the content. This might be
 #' useful if content needs to be updated after its source data has changed,
 #' especially if this doesn't happen on a regular schedule.
-#' 
+#'
 #' Only valid for rendered content (e.g., most Quarto documents, Jupyter
 #' notebooks, R Markdown reports).
-#' 
+#'
 #' @param content The content item you wish to render.
 #' @param variant_key If a variant key is provided, render that variant. Otherwise, render the default variant.
 #' @return A [VariantTask] object that can be used to track completion of the render.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
@@ -977,13 +990,16 @@ get_content_permissions <- function(content, add_owner = TRUE) {
 #' task <- content_render(item)
 #' poll_task(task)
 #' }
-#' 
+#'
 #' @export
 content_render <- function(content, variant_key = NULL) {
   scoped_experimental_silence()
   validate_R6_class(content, "Content")
   if (!content$is_rendered) {
-    stop(glue::glue("Render not supported for application mode: {content$content$app_mode}. Did you mean content_restart()?"))
+    stop(glue::glue(
+      "Render not supported for application mode: {content$content$app_mode}. ",
+      "Did you mean content_restart()?"
+    ))
   }
   if (is.null(variant_key)) {
     target_variant <- get_variant(content, "default")
@@ -992,42 +1008,52 @@ content_render <- function(content, variant_key = NULL) {
   }
   render_task <- target_variant$render()
 
-  VariantTask$new(connect = content$connect, content = content$content, key = target_variant$key, task = render_task)
+  VariantTask$new(
+    connect = content$connect,
+    content = content$content,
+    key = target_variant$key,
+    task = render_task
+  )
 }
 
 #' Restart a content item.
-#' 
+#'
 #' @description Submit a request to restart a content item. Once submitted, the
 #' server performs an asynchronous request to kill all processes associated with
 #' the content item, starting new processes as needed. This might be useful if
 #' the application relies on data that is loaded at startup, or if its memory
 #' usage has grown over time.
-#' 
+#'
 #' Note that users interacting with certain types of applications may have their
 #' workflows interrupted.
-#' 
+#'
 #' Only valid for interactive content (e.g., applications, APIs).
-#' 
+#'
 #' @param content The content item you wish to restart.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' client <- connect()
 #' item <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
 #' content_restart(item)
 #' }
-#' 
+#'
 #' @importFrom rlang :=
 #' @export
 content_restart <- function(content) {
   validate_R6_class(content, "Content")
   if (!content$is_interactive) {
-    stop(glue::glue("Restart not supported for application mode: {content$content$app_mode}. Did you mean content_render()?"))
+    stop(glue::glue(
+      "Restart not supported for application mode: {content$content$app_mode}. ",
+      "Did you mean content_render()?"
+    ))
   }
   unix_epoch_in_seconds <- as.integer(Sys.time())
-  env_var_name <- glue::glue("_CONNECT_RESTART_{unix_epoch_in_seconds}")
+  # nolint start: object_usage_linter, object_name_linter
   # https://rlang.r-lib.org/reference/glue-operators.html#using-glue-syntax-in-packages
+  env_var_name <- glue::glue("_CONNECT_RESTART_{unix_epoch_in_seconds}")
   content$environment_set("{env_var_name}" := unix_epoch_in_seconds)
   content$environment_set("{env_var_name}" := NA)
+  # nolint end
   invisible(NULL)
 }

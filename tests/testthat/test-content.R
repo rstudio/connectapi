@@ -55,7 +55,10 @@ with_mock_api({
     # Inject into this function something other than utils::browseURL
     # so we can assert that it is being called without actually trying to open a browser
     suppressMessages(trace("browse_url", where = connectapi::browse_solo, tracer = quote({
-      browseURL <- function(x) warning(paste("Opening", x))
+      browseURL <- # nolint: object_name_linter
+        function(x) {
+          warning(paste("Opening", x))
+        }
     }), at = 1, print = FALSE))
     expect_warning(
       browse_solo(item),
@@ -189,7 +192,6 @@ with_mock_api({
     expect_equal(render_task$task[["id"]], "v9XYo7OKkAQJPraI")
     expect_equal(render_task$connect, client)
     # TODO think about how to get variant key into response
-    # expect_equal(render_task$variant_key, "WrEKKa77")
   })
 
   test_that("content_render() can render a non-default variant", {
@@ -205,7 +207,11 @@ with_mock_api({
   test_that("content_render() raises an error when called on interactive content", {
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     x <- content_item(client, "8f37d6e0-3395-4a2c-aa6a-d7f2fe1babd0")
-    expect_error(content_render(x), "Render not supported for application mode: shiny. Did you mean content_restart()?", fixed = TRUE)
+    expect_error(
+      content_render(x),
+      "Render not supported for application mode: shiny. Did you mean content_restart()?",
+      fixed = TRUE
+    )
   })
 })
 
@@ -219,7 +225,11 @@ with_mock_api({
   test_that("content_restart() raises an error when called on interactive content", {
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     x <- content_item(client, "951bf3ad-82d0-4bca-bba8-9b27e35c49fa")
-    expect_error(content_restart(x), "Restart not supported for application mode: quarto-static. Did you mean content_render()?", fixed = TRUE)
+    expect_error(
+      content_restart(x),
+      "Restart not supported for application mode: quarto-static. Did you mean content_render()?",
+      fixed = TRUE
+    )
   })
 })
 

@@ -73,7 +73,10 @@ with_mock_api({
     # Inject into this function something other than utils::browseURL
     # so we can assert that it is being called without actually trying to open a browser
     suppressMessages(trace("browse_url", where = connectapi::browse_solo, tracer = quote({
-      browseURL <- function(x) warning(paste("Opening", x))
+      browseURL <- # nolint: object_name_linter
+        function(x) {
+          warning(paste("Opening", x))
+        }
     }), at = 1, print = FALSE))
     expect_warning(
       browse_connect(con),
@@ -98,7 +101,7 @@ with_mock_api({
     )
   })
 
-  
+
   test_that("client$version is NA when server settings lacks version info", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_message(v <- con$version, "Version information is not exposed by this Posit Connect instance")

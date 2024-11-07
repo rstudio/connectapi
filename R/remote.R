@@ -49,7 +49,7 @@ users_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exact
     }
     stop("The expected user(s) were not found. Please specify a more accurate 'prefix'")
   }
-  user_creation <- purrr::map(
+  purrr::map(
     remote_users_res,
     function(.x, src) {
       message(glue::glue("Creating remote user: {.x[['username']]}"))
@@ -105,7 +105,7 @@ groups_create_remote <- function(connect, prefix, expect = 1, check = TRUE, exac
     }
     stop("The expected group(s) were not found. Please specify a more accurate 'prefix'")
   }
-  group_creation <- purrr::map(
+  purrr::map(
     remote_groups_res,
     function(.x, src) {
       message(glue::glue("Creating remote group: {.x[['name']]}"))

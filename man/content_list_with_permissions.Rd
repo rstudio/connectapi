@@ -23,7 +23,7 @@ how many items to get permissions for}
 \item{guid}{A user or group GUID to filter the content list by whether they have access}
 }
 \description{
-\lifecycle{experimental} These functions are experimental placeholders until the API supports
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} These functions are experimental placeholders until the API supports
 this behavior.
 }
 \details{

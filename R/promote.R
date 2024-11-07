@@ -36,7 +36,12 @@ promote <- function(from,
   # find app on "from" server
   from_app <- from_client$get_apps(list(name = name))
   if (length(from_app) != 1) {
-    stop(sprintf("Found %d apps matching app name %s on %s. Content must have a unique name.", length(from_app), name, from))
+    stop(sprintf(
+      "Found %d apps matching app name %s on %s. Content must have a unique name.",
+      length(from_app),
+      name,
+      from
+    ))
   }
   from_app <- content_item(from_client, guid = from_app[[1]]$guid)
 

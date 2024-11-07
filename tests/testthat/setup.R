@@ -51,7 +51,7 @@ MockConnect <- R6Class(
     # list.
     request = function(method, url, ..., parser = "parsed") {
       route <- paste(method, url)
-      
+
       # Record call
       self$log_call(route)
 
@@ -77,7 +77,13 @@ MockConnect <- R6Class(
     # URL for the server (this will probably have to change in the future). Each
     # response can only be used once. You can supply multiple responses for the
     # same URL.
-    mock_response = function(method, path, content, status_code = 200L, headers = c("Content-Type" = "application/json; charset=utf-8")) {
+    mock_response = function(
+      method,
+      path,
+      content,
+      status_code = 200L,
+      headers = c("Content-Type" = "application/json; charset=utf-8")
+    ) {
       url <- self$api_url(path)
       route <- paste(method, url)
 

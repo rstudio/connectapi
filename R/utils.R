@@ -12,49 +12,52 @@ valid_page_size <- function(x, min = 1, max = 500) {
   min(max(min, x), max)
 }
 
-generate_R6_print_output <- function() {
-  con <- Connect$new(server = "http://test_host", api_key = "test_key")
-  bnd <- Bundle$new(path = "/test/path")
+generate_R6_print_output <- # nolint: object_name_linter
+  function() {
+    con <- Connect$new(server = "http://test_host", api_key = "test_key")
+    bnd <- Bundle$new(path = "/test/path")
 
-  ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
-  cnt1 <- Content$new(connect = con, ex_content)
+    ex_content <- list(guid = "content-guid", title = "content-title", url = "http://content-url")
+    cnt1 <- Content$new(connect = con, ex_content)
 
-  ex_task <- list(task_id = "task-id")
-  tsk1 <- ContentTask$new(connect = con, content = ex_content, task = ex_task)
+    ex_task <- list(task_id = "task-id")
+    tsk1 <- ContentTask$new(connect = con, content = ex_content, task = ex_task)
 
-  ex_vanity <- list(path_prefix = "vanity-prefix")
-  van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)
+    ex_vanity <- list(path_prefix = "vanity-prefix")
+    van1 <- Vanity$new(connect = con, content = ex_content, vanity = ex_vanity)
 
-  obj_list <- list(con, bnd, cnt1, tsk1, van1)
+    obj_list <- list(con, bnd, cnt1, tsk1, van1)
 
-  unlist(mapply(
-    function(.x, .y) {
-      c(
-        "----------------------------",
-        .y,
-        "----------------------------",
-        capture.output(print(.x))
-      )
-    },
-    .x = obj_list,
-    .y = lapply(obj_list, function(x) {
-      class(x)[[1]]
-    }),
-    SIMPLIFY = FALSE
-  ))
-}
-
-is_R6_class <- function(instance, class) {
-  return(R6::is.R6(instance) && inherits(instance, class))
-}
-
-validate_R6_class <- function(instance, class) {
-  obj <- rlang::enquo(instance)
-  if (!R6::is.R6(instance) | !inherits(instance, class)) {
-    stop(paste(rlang::quo_text(obj), "must be an R6", glue::glue_collapse(class, sep = " or "), "object"))
+    unlist(mapply(
+      function(.x, .y) {
+        c(
+          "----------------------------",
+          .y,
+          "----------------------------",
+          capture.output(print(.x))
+        )
+      },
+      .x = obj_list,
+      .y = lapply(obj_list, function(x) {
+        class(x)[[1]]
+      }),
+      SIMPLIFY = FALSE
+    ))
   }
-  invisible(TRUE)
-}
+
+is_R6_class <- # nolint: object_name_linter
+  function(instance, class) {
+    return(R6::is.R6(instance) && inherits(instance, class))
+  }
+
+validate_R6_class <- # nolint: object_name_linter
+  function(instance, class) {
+    obj <- rlang::enquo(instance)
+    if (!R6::is.R6(instance) || !inherits(instance, class)) {
+      stop(paste(rlang::quo_text(obj), "must be an R6", glue::glue_collapse(class, sep = " or "), "object"))
+    }
+    invisible(TRUE)
+  }
 
 # super useful examples
 # https://github.com/tidyverse/tibble/blob/master/R/compat-lifecycle.R
@@ -161,7 +164,9 @@ error_if_less_than <- function(using_version, tested_version) {
 }
 
 compare_connect_version <- function(using_version, tested_version) {
-  if (is.na(using_version)) return(NA)
+  if (is.na(using_version)) {
+    return(NA)
+  }
   compareVersion(simplify_version(using_version), simplify_version(tested_version))
 }
 
