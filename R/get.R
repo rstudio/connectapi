@@ -60,7 +60,7 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 #' @param prefix Filters groups by prefix (group name).
 #' The filter is case insensitive.
 #' @param limit The number of groups to retrieve before paging stops.
-#' 
+#'
 #' `limit` will be ignored is `prefix` is not `NULL`.
 #' To limit results when `prefix` is not `NULL`, change `page_size`.
 #'
