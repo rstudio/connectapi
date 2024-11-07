@@ -25,7 +25,7 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Super classes}{
-\code{\link[connectapi:Content]{connectapi::Content}} -> \code{\link[connectapi:Variant]{connectapi::Variant}} -> \code{VariantTask}
+\code{connectapi::Content} -> \code{connectapi::Variant} -> \code{VariantTask}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
