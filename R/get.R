@@ -286,12 +286,6 @@ get_content <- function(src, guid = NULL, owner_guid = NULL, name = NULL, ..., .
   return(out)
 }
 
-.make_predicate <- function(.expr) {
-  function(.x) {
-    masked_expr <- rlang::enexpr(.expr) # nolint: object_usage_linter
-  }
-}
-
 
 #' Get Content List with Permissions
 #'
