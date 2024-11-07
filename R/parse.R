@@ -170,14 +170,16 @@ parse_connect_rfc3339 <- function(x) {
   })
 }
 
-vec_cast.POSIXct.double <- function(x, to, ...) { # nolint: object_name_linter
-  warn_experimental("vec_cast.POSIXct.double")
-  vctrs::new_datetime(x, tzone = tzone(to))
-}
+vec_cast.POSIXct.double <- # nolint: object_name_linter
+  function(x, to, ...) {
+    warn_experimental("vec_cast.POSIXct.double")
+    vctrs::new_datetime(x, tzone = tzone(to))
+  }
 
-vec_cast.POSIXct.character <- function(x, to, ...) { # nolint: object_name_linter
-  as.POSIXct(x, tz = tzone(to))
-}
+vec_cast.POSIXct.character <- # nolint: object_name_linter
+  function(x, to, ...) {
+    as.POSIXct(x, tz = tzone(to))
+  }
 
 tzone <- function(x) {
   attr(x, "tzone")[[1]] %||% ""

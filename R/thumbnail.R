@@ -98,13 +98,12 @@ delete_thumbnail <- function(content) {
   # API error code 17 indicates that the request was successful but the thumbnail does not exist.
   # In this case, we don't need to make another request.
   # https://docs.posit.co/connect/api/#overview--api-error-codes
-  # nolint start: indentation_linter
   if (
     httr::status_code(res) == 404 &&
-    !(
-      "code" %in% names(httr::content(res)) &&
-      isTRUE(httr::content(res)$code == 17)
-    )
+      !(
+        "code" %in% names(httr::content(res)) &&
+          isTRUE(httr::content(res)$code == 17)
+      )
   ) {
     res <- con$DELETE(
       unversioned_url("applications", guid, "image"),
@@ -117,16 +116,15 @@ delete_thumbnail <- function(content) {
   # https://docs.posit.co/connect/api/#overview--api-error-codes
   if (
     httr::status_code(res) == 404 &&
-    !(
-      "code" %in% names(httr::content(res)) &&
-      isTRUE(httr::content(res)$code == 17))
+      !(
+        "code" %in% names(httr::content(res)) &&
+          isTRUE(httr::content(res)$code == 17))
   ) {
     con$raise_error(res)
   }
 
   invisible(content)
 }
-# nolint end
 
 #' Check content item thumbnail
 #'

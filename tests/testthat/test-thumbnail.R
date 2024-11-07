@@ -1,4 +1,3 @@
-# nolint start: line_length_linter
 mock_dirs <- c(
   "unversioned" = "2024.08.0",
   "v1" = "2024.09.0"
@@ -77,17 +76,26 @@ for (api_ver in names(mock_dirs)) {
         expect_error(has_thumbnail(item), "request failed with Client error: \\(404\\) Not Found")
       })
 
-      test_that(glue::glue("set_thumbnail() returns returns the content item when successful ({api_ver} - {mock_dir})"), {
-        item <- content_item(client, "01234567")
-        received <- set_thumbnail(item, "resources/smol.jpg")
-        expect_true(validate_R6_class(received, "Content"))
-        expect_identical(item, received)
-      })
+      test_that(
+        glue::glue("set_thumbnail() returns returns the content item when successful ({api_ver} - {mock_dir})"),
+        {
+          item <- content_item(client, "01234567")
+          received <- set_thumbnail(item, "resources/smol.jpg")
+          expect_true(validate_R6_class(received, "Content"))
+          expect_identical(item, received)
+        }
+      )
 
-      test_that(glue::glue("set_thumbnail() raises an error when the endpoint returns a 404 ({api_ver} - {mock_dir})"), {
-        item <- content_item(client, "23456789")
-        expect_error(set_thumbnail(item, "resources/smol.jpg"), "request failed with Client error: \\(404\\) Not Found")
-      })
+      test_that(
+        glue::glue("set_thumbnail() raises an error when the endpoint returns a 404 ({api_ver} - {mock_dir})"),
+        {
+          item <- content_item(client, "23456789")
+          expect_error(
+            set_thumbnail(item, "resources/smol.jpg"),
+            "request failed with Client error: \\(404\\) Not Found"
+          )
+        }
+      )
 
       test_that(glue::glue("set_thumbnail() works with remote images ({api_ver} - {mock_dir})"), {
         item <- content_item(client, "01234567")
@@ -102,13 +110,16 @@ for (api_ver in names(mock_dirs)) {
         # as getting and writing to disk works, we are good.
       })
 
-      test_that(glue::glue("set_thumbnail() returns an error when the remote image cannot be found ({api_ver} - {mock_dir})"), {
-        item <- content_item(client, "01234567")
-        expect_error(
-          set_thumbnail(item, "https://other.server/non-connect/missing-image/image.png"),
-          "Could not download image from https"
-        )
-      })
+      test_that(
+        glue::glue("set_thumbnail() returns an error when the remote image cannot be found ({api_ver} - {mock_dir})"),
+        {
+          item <- content_item(client, "01234567")
+          expect_error(
+            set_thumbnail(item, "https://other.server/non-connect/missing-image/image.png"),
+            "Could not download image from https"
+          )
+        }
+      )
 
       test_that(glue::glue("delete_thumbnail() returns the content item when delete works ({api_ver} - {mock_dir})"), {
         item <- content_item(client, "01234567")
@@ -120,11 +131,13 @@ for (api_ver in names(mock_dirs)) {
         expect_error(delete_thumbnail(item), "request failed with Client error: \\(404\\) Not Found")
       })
 
-      test_that(glue::glue("delete_thumbnail() returns the content for 404s indicating no thumbnail ({api_ver} - {mock_dir})"), {
-        item <- content_item(client, "34567890")
-        expect_identical(delete_thumbnail(item), item)
-      })
+      test_that(
+        glue::glue("delete_thumbnail() returns the content for 404s indicating no thumbnail ({api_ver} - {mock_dir})"),
+        {
+          item <- content_item(client, "34567890")
+          expect_identical(delete_thumbnail(item), item)
+        }
+      )
     })
   })
 }
-# nolint end

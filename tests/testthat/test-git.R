@@ -1,11 +1,15 @@
 without_internet({
   scoped_experimental_silence()
 
+  repo_path <- function(subpath) {
+    glue::glue("https://connect.example/__api__/repo/{subpath}")
+  }
+
   test_that("Query params to repo_account", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
       con$repo_account("https://github.com/rstudio/connectapi"),
-      "https://connect.example/__api__/repo/account?url=https%3A%2F%2Fgithub.com"
+      repo_path("account?url=https%3A%2F%2Fgithub.com")
     )
     expect_error(
       con$repo_account("asdf"),
@@ -17,7 +21,7 @@ without_internet({
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
       con$repo_branches("https://github.com/rstudio/connectapi"),
-      "https://connect.example/__api__/repo/branches?url=https%3A%2F%2Fgithub.com%2Frstudio%2Fconnectapi"
+      repo_path("branches?url=https%3A%2F%2Fgithub.com%2Frstudio%2Fconnectapi")
     )
   })
 
@@ -25,7 +29,7 @@ without_internet({
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_GET(
       con$repo_manifest_dirs("https://github.com/rstudio/connectapi", "main"),
-      "https://connect.example/__api__/repo/manifest-dirs?url=https%3A%2F%2Fgithub.com%2Frstudio%2Fconnectapi&branch=main" # nolint
+      repo_path("manifest-dirs?url=https%3A%2F%2Fgithub.com%2Frstudio%2Fconnectapi&branch=main")
     )
   })
 })
