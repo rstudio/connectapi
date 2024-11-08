@@ -54,11 +54,11 @@
 
 
 <dl><dt id="arg-src">src<a class="anchor" aria-label="anchor" href="#arg-src"></a></dt>
-<dd><p>The source object</p></dd>
+<dd><p>The source object.</p></dd>
 
 
 <dt id="arg-page-size">page_size<a class="anchor" aria-label="anchor" href="#arg-page-size"></a></dt>
-<dd><p>the number of records to return per page (max 500)</p></dd>
+<dd><p>The number of records to return per page (max 500).</p></dd>
 
 
 <dt id="arg-prefix">prefix<a class="anchor" aria-label="anchor" href="#arg-prefix"></a></dt>
@@ -67,7 +67,9 @@ The filter is case insensitive.</p></dd>
 
 
 <dt id="arg-limit">limit<a class="anchor" aria-label="anchor" href="#arg-limit"></a></dt>
-<dd><p>The max number of groups to return.</p></dd>
+<dd><p>The number of groups to retrieve before paging stops.</p>
+<p><code>limit</code> will be ignored is <code>prefix</code> is not <code>NULL</code>.
+To limit results when <code>prefix</code> is not <code>NULL</code>, change <code>page_size</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -80,8 +82,12 @@ will always be null.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Please see https://docs.posit.co/connect/api/#getGroups for more information.</p>
-    </div>
+
+<ul><li><p>the api request is paginated and limit is when paging stops</p></li>
+<li><p>limit is not relevant when using a prefix because pagination does not happen</p></li>
+<li><p>thus page-size is basically the limit when using prefix
+Please see https://docs.posit.co/connect/api/#get-/v1/groups for more information.</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
