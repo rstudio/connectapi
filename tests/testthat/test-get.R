@@ -123,9 +123,11 @@ with_mock_api({
     # groups-125d47.json
 
     result <- get_groups(client, page_size = 5, limit = 10)
-    expected_names <- c("~!@#$%^&*()_+", "1111", "2_viewer_group", "amanda_test_group",
+    expected_names <- c(
+      "~!@#$%^&*()_+", "1111", "2_viewer_group", "amanda_test_group",
       "a_new_group", "azurepipelines", "cgGroup01", "chris_test_group",
-      "connect_dev", "cool_kids_of_the_dmv")
+      "connect_dev", "cool_kids_of_the_dmv"
+    )
     expect_identical(result$name, expected_names)
   })
 
