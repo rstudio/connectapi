@@ -1,6 +1,4 @@
-# connectapi (development version)
-
-# Unreleased
+# connectapi 0.4.0
 
 ## New features
 
@@ -26,7 +24,7 @@
   favor of `has_thumbnail()` and `delete_thumbnail()`. (#294, #304)
 - `Connect$server_settings_r()` has been deprecated in favor of
   `get_runtimes(client, "r")`. (#311)
-  
+
 ## Minor improvements and fixes
 
 - Upgrade `pkgdown` to bootstrap 5 to enable search (@fh-mthomson, #275)
