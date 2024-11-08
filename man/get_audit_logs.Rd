@@ -40,7 +40,7 @@ A tibble with the following columns:
 Get Audit Logs from Posit Connect Server
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getAuditLogs for more
+Please see https://docs.posit.co/connect/api/#get-/v1/audit_logs for more
 information.
 }
 \examples{

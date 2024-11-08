@@ -71,8 +71,8 @@ Guide explains how to interpret data_version values.
 Get usage information for deployed shiny applications
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more
-information.
+Please see https://docs.posit.co/connect/api/#get-/v1/instrumentation/shiny/usage
+for more information.
 }
 \examples{
 \dontrun{
