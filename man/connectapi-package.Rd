@@ -37,7 +37,7 @@ Authors:
 \itemize{
   \item Neal Richardson
   \item Sean Lopp
-  \item Cole Arendt \email{cole@posit.co}
+  \item Cole Arendt
 }
 
 Other contributors:
