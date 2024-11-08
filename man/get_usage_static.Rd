@@ -76,8 +76,8 @@ This function retrieves usage information from static content
 on the Posit Connect server (e.g. Rmarkdown, Jupyter Notebooks)
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getContentVisits for more
-information.
+Please see https://docs.posit.co/connect/api/#get-/v1/instrumentation/content/visits
+for more information.
 }
 \examples{
 \dontrun{

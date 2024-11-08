@@ -19,4 +19,4 @@ Fixes #
 ## Checklist
 
 - [ ] Does this change update `NEWS.md` (referencing the connected issue if necessary)?
-- [ ] Does this change need documentation? Have you run `document()?
+- [ ] Does this change need documentation? Have you run `devtools::document()`?

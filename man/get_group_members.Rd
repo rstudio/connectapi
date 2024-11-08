@@ -37,8 +37,8 @@ authentication.
 Get users within a specific group
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getGroupMembers for more
-information.
+Please see https://docs.posit.co/connect/api/#get-/v1/groups/-group_guid-/members
+for more information.
 }
 \examples{
 \dontrun{

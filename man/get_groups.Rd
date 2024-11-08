@@ -33,12 +33,7 @@ will always be null.
 Get group information from the Posit Connect server
 }
 \details{
-\itemize{
-\item the api request is paginated and limit is when paging stops
-\item limit is not relevant when using a prefix because pagination does not happen
-\item thus page-size is basically the limit when using prefix
 Please see https://docs.posit.co/connect/api/#get-/v1/groups for more information.
-}
 }
 \examples{
 \dontrun{
