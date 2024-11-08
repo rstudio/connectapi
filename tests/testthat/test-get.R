@@ -114,3 +114,27 @@ test_that("get_runtimes() restricts available runtimes based on Connect version.
     '`runtimes` must be one of "r", "python"; received: "r", "quarto".'
   )
 })
+
+with_mock_api({
+  client <- connect(server = "https://connect.example", api_key = "fake")
+  test_that("get_groups() paginates with no prefix", {
+    # To get this result, the code has to paginate through two API requests.
+    # groups-4eaf46.json
+    # groups-125d47.json
+
+    result <- get_groups(client, page_size = 5, limit = 10)
+    expected_names <- c("~!@#$%^&*()_+", "1111", "2_viewer_group", "amanda_test_group",
+      "a_new_group", "azurepipelines", "cgGroup01", "chris_test_group",
+      "connect_dev", "cool_kids_of_the_dmv")
+    expect_identical(result$name, expected_names)
+  })
+
+  test_that("get_groups() does not paginate when called with a prefix", {
+    # Only one response exists for this query; by succeeding this test verifies
+    # that the pagination behavior is not engaged.
+    # groups-deae1f.json
+
+    result <- get_groups(client, page_size = 2, prefix = "c")
+    expect_identical(result$name, c("connect_dev", "cool_kids_of_the_dmv"))
+  })
+})

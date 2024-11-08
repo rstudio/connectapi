@@ -89,11 +89,14 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
+  # The `v1/groups` endpoint always returns the first page when `prefix` is
+  # specified, so the page_offset function, which increments until it hits an
+  # empty page, fails.
   if (!is.null(prefix)) {
     response <- src$groups(page_size = page_size, prefix = prefix)
     res <- response$results
   } else {
-    res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
+    res <- page_offset(src, src$groups(page_size = page_size, prefix = NULL), limit = limit)
   }
 
   out <- parse_connectapi_typed(res, connectapi_ptypes$groups)

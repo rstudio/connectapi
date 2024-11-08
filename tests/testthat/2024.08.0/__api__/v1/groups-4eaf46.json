@@ -1,0 +1,33 @@
+// get_groups(client, page_size = 5, limit = 10)
+// used in test-get.R
+{
+    "results": [
+        {
+            "guid": "129334f1",
+            "name": "azurepipelines",
+            "owner_guid": "0fc96747"
+        },
+        {
+            "guid": "b72c488e",
+            "name": "cgGroup01",
+            "owner_guid": "fd9158a2"
+        },
+        {
+            "guid": "567c9bd7",
+            "name": "chris_test_group",
+            "owner_guid": "6634098f"
+        },
+        {
+            "guid": "a6fb5cea",
+            "name": "connect_dev",
+            "owner_guid": "1a7a5703"
+        },
+        {
+            "guid": "68bad75b",
+            "name": "cool_kids_of_the_dmv",
+            "owner_guid": "1270410b"
+        }
+    ],
+    "current_page": 2,
+    "total": 67
+}

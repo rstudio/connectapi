@@ -1,0 +1,33 @@
+// get_groups(client, page_size = 5, limit = 10)
+// used in test-get.R
+{
+    "results": [
+        {
+            "guid": "54ed1e9d",
+            "name": "~!@#$%^&*()_+",
+            "owner_guid": "6ca57cef"
+        },
+        {
+            "guid": "bdba3381",
+            "name": "1111",
+            "owner_guid": "434f97ab"
+        },
+        {
+            "guid": "bd3f6262",
+            "name": "2_viewer_group",
+            "owner_guid": "0fc96747"
+        },
+        {
+            "guid": "88777348",
+            "name": "amanda_test_group",
+            "owner_guid": "f7e346b4"
+        },
+        {
+            "guid": "3d6971cd",
+            "name": "a_new_group",
+            "owner_guid": "3be5e66d"
+        }
+    ],
+    "current_page": 1,
+    "total": 67
+}
