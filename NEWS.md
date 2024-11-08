@@ -34,6 +34,7 @@
   available. (#300)
 - `connect$DELETE()` now respects the `parser` argument rather than always using
   `NULL`.
+- `get_groups()` no longer hangs when a search `prefix` is provided. (#319)
 
 # connectapi 0.3.0
 

@@ -7,14 +7,17 @@
 get_groups(src, page_size = 500, prefix = NULL, limit = Inf)
 }
 \arguments{
-\item{src}{The source object}
+\item{src}{The source object.}
 
-\item{page_size}{the number of records to return per page (max 500)}
+\item{page_size}{The number of records to return per page (max 500).}
 
 \item{prefix}{Filters groups by prefix (group name).
 The filter is case insensitive.}
 
-\item{limit}{The max number of groups to return.}
+\item{limit}{The number of groups to retrieve before paging stops.
+
+\code{limit} will be ignored is \code{prefix} is not \code{NULL}.
+To limit results when \code{prefix} is not \code{NULL}, change \code{page_size}.}
 }
 \value{
 A tibble with the following columns:
@@ -30,7 +33,12 @@ will always be null.
 Get group information from the Posit Connect server
 }
 \details{
-Please see https://docs.posit.co/connect/api/#getGroups for more information.
+\itemize{
+\item the api request is paginated and limit is when paging stops
+\item limit is not relevant when using a prefix because pagination does not happen
+\item thus page-size is basically the limit when using prefix
+Please see https://docs.posit.co/connect/api/#get-/v1/groups for more information.
+}
 }
 \examples{
 \dontrun{

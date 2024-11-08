@@ -55,11 +55,14 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 
 #' Get group information from the Posit Connect server
 #'
-#' @param src The source object
-#' @param page_size the number of records to return per page (max 500)
+#' @param src The source object.
+#' @param page_size The number of records to return per page (max 500).
 #' @param prefix Filters groups by prefix (group name).
 #' The filter is case insensitive.
-#' @param limit The max number of groups to return.
+#' @param limit The number of groups to retrieve before paging stops.
+#'
+#' `limit` will be ignored is `prefix` is not `NULL`.
+#' To limit results when `prefix` is not `NULL`, change `page_size`.
 #'
 #' @return
 #' A tibble with the following columns:
@@ -71,7 +74,7 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 #'     will always be null.
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getGroups for more information.
+#' Please see https://docs.posit.co/connect/api/#get-/v1/groups for more information.
 #'
 #' @examples
 #' \dontrun{
@@ -86,7 +89,15 @@ get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
   validate_R6_class(src, "Connect")
 
-  res <- page_offset(src, src$groups(page_size = page_size, prefix = prefix), limit = limit)
+  # The `v1/groups` endpoint always returns the first page when `prefix` is
+  # specified, so the page_offset function, which increments until it hits an
+  # empty page, fails.
+  if (!is.null(prefix)) {
+    response <- src$groups(page_size = page_size, prefix = prefix)
+    res <- response$results
+  } else {
+    res <- page_offset(src, src$groups(page_size = page_size, prefix = NULL), limit = limit)
+  }
 
   out <- parse_connectapi_typed(res, connectapi_ptypes$groups)
 
