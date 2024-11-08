@@ -46,6 +46,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/create_random_name.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/dashboard_url.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/dashboard_url_chr.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/delete_runtime_cache.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/delete_thumbnail.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/delete_vanity_url.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/deploy.html</loc></url>
@@ -60,6 +61,8 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_image.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_oauth_credentials.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_procs.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_runtime_caches.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_runtimes.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_thumbnail.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_timezones.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_usage_shiny.html</loc></url>
