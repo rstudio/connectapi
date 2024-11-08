@@ -131,8 +131,8 @@ get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 #'   * `guid`: The user's GUID, or unique identifier, in UUID RFC4122 format
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getGroupMembers for more
-#' information.
+#' Please see https://docs.posit.co/connect/api/#get-/v1/groups/-group_guid-/members
+#' for more information.
 #'
 #' @examples
 #' \dontrun{
@@ -430,8 +430,8 @@ content_list_guid_has_access <- function(content_list, guid) {
 #'     Guide explains how to interpret data_version values.
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getShinyAppUsage for more
-#' information.
+#' Please see https://docs.posit.co/connect/api/#get-/v1/instrumentation/shiny/usage
+#' for more information.
 #'
 #' @examples
 #' \dontrun{
@@ -523,8 +523,8 @@ get_usage_shiny <- function(src, content_guid = NULL,
 #'     values.
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getContentVisits for more
-#' information.
+#' Please see https://docs.posit.co/connect/api/#get-/v1/instrumentation/content/visits
+#' for more information.
 #'
 #' @examples
 #' \dontrun{
@@ -592,7 +592,7 @@ get_usage_static <- function(src, content_guid = NULL,
 #'   * `event_description`: Description of action
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/api/#getAuditLogs for more
+#' Please see https://docs.posit.co/connect/api/#get-/v1/audit_logs for more
 #' information.
 #'
 #' @examples
