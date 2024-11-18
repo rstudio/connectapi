@@ -5,6 +5,10 @@
 #' @param prefix Filters users by prefix (username, first name, or last name).
 #' The filter is case insensitive.
 #' @param limit The max number of records to return
+#' @param user_role Filter by user role ("administrator", "publisher",
+#' "viewer"). Pass in a vector of multiple roles to match any value.
+#' @param account_status Filter by account status ("locked", "licensed",
+#' "inactive"). Pass a vector of multiple statuses to match any value.
 #'
 #' @return
 #' A tibble with the following columns:
@@ -34,17 +38,36 @@
 #' library(connectapi)
 #' client <- connect()
 #'
-#' # get all users
-#' get_users(client, limit = Inf)
+#' # Get all users
+#' get_users(client)
+#'
+#' # Get all licensed users
+#' get_users(client, account_status = "licensed")
+#'
+#' # Get all users who are administrators or publishers
+#' get_users(client, user_role = c("administrator", "publisher"))
 #' }
 #'
 #' @export
-get_users <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
+get_users <- function(
+  src,
+  page_size = 500,
+  prefix = NULL,
+  limit = Inf,
+  page_number = NULL,
+  user_role = NULL,
+  account_status = NULL
+) {
   validate_R6_class(src, "Connect")
 
   res <- page_offset(
     src,
-    src$users(page_size = page_size, prefix = prefix),
+    src$users(
+      page_size = page_size,
+      prefix = prefix,
+      user_role = user_role,
+      account_status = account_status
+    ),
     limit = limit
   )
 
