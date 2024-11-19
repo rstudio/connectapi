@@ -16,10 +16,10 @@ test_that("get_users works", {
   )
 
   publishers <- get_users(test_conn_1, user_role = "publisher")
-  expect_equal(nrow(publishers), 0)
+  expect_equal(nrow(publishers), 0, label = capture.output(print(publishers)))
 
   locked <- get_users(test_conn_1, account_status = "locked")
-  expect_equal(nrow(publishers), 0)
+  expect_equal(nrow(publishers), 0, label = capture.output(print(publishers)))
 })
 
 test_that("get_groups works", {
