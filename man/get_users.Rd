@@ -4,7 +4,15 @@
 \alias{get_users}
 \title{Get user information from the Posit Connect server}
 \usage{
-get_users(src, page_size = 500, prefix = NULL, limit = Inf)
+get_users(
+  src,
+  page_size = 500,
+  prefix = NULL,
+  limit = Inf,
+  page_number = NULL,
+  user_role = NULL,
+  account_status = NULL
+)
 }
 \arguments{
 \item{src}{The source object}
@@ -15,6 +23,12 @@ get_users(src, page_size = 500, prefix = NULL, limit = Inf)
 The filter is case insensitive.}
 
 \item{limit}{The max number of records to return}
+
+\item{user_role}{Filter by user role ("administrator", "publisher",
+"viewer"). Pass in a vector of multiple roles to match any value.}
+
+\item{account_status}{Filter by account status ("locked", "licensed",
+"inactive"). Pass a vector of multiple statuses to match any value.}
 }
 \value{
 A tibble with the following columns:
@@ -48,8 +62,14 @@ Please see https://docs.posit.co/connect/api/#get-/v1/users for more information
 library(connectapi)
 client <- connect()
 
-# get all users
-get_users(client, limit = Inf)
+# Get all users
+get_users(client)
+
+# Get all licensed users
+get_users(client, account_status = "licensed")
+
+# Get all users who are administrators or publishers
+get_users(client, user_role = c("administrator", "publisher"))
 }
 
 }

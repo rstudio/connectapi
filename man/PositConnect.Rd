@@ -808,7 +808,13 @@ Get user details.
 \subsection{Method \code{users()}}{
 Get users.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$users(
+  page_number = 1,
+  prefix = NULL,
+  page_size = 500,
+  user_role = NULL,
+  account_status = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -819,6 +825,10 @@ Get users.
 \item{\code{prefix}}{The search term.}
 
 \item{\code{page_size}}{The page size.}
+
+\item{\code{user_role}}{Filter by user role.}
+
+\item{\code{account_status}}{Filter by account status.}
 }
 \if{html}{\out{</div>}}
 }
