@@ -15,11 +15,13 @@ test_that("get_users works", {
     purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof)
   )
 
-  viewers <- get_users(test_conn_1, user_role = "viewer")
-  expect_equal(nrow(viewers), 0, label = capture.output(print(viewers)))
+  # Other tests create users, so specifying the exact number here is conditional
+  # on the contents of other tests and the order that tests run in.
+  admins <- get_users(test_conn_1, user_role = "administrator")
+  expect_true(nrow(admins) > 1, label = capture.output(print(admins)))
 
-  locked <- get_users(test_conn_1, account_status = "inactive")
-  expect_equal(nrow(locked), 0, label = capture.output(print(locked)))
+  licensed <- get_users(test_conn_1, account_status = "licensed")
+  expect_true(nrow(licensed) > 1, label = capture.output(print(licensed)))
 })
 
 test_that("get_groups works", {

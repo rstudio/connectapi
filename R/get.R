@@ -54,7 +54,6 @@ get_users <- function(
   page_size = 500,
   prefix = NULL,
   limit = Inf,
-  page_number = NULL,
   user_role = NULL,
   account_status = NULL
 ) {

@@ -9,7 +9,6 @@ get_users(
   page_size = 500,
   prefix = NULL,
   limit = Inf,
-  page_number = NULL,
   user_role = NULL,
   account_status = NULL
 )
