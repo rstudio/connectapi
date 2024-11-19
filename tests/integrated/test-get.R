@@ -18,10 +18,10 @@ test_that("get_users works", {
   # Other tests create users, so specifying the exact number here is conditional
   # on the contents of other tests and the order that tests run in.
   admins <- get_users(test_conn_1, user_role = "administrator")
-  expect_true(nrow(admins) > 1, label = capture.output(print(admins)))
+  expect_true(nrow(admins) > 1, label = glue::glue("nrow(admins) is {nrow(admins)}"))
 
   licensed <- get_users(test_conn_1, account_status = "licensed")
-  expect_true(nrow(licensed) > 1, label = capture.output(print(licensed)))
+  expect_true(nrow(licensed) > 1, label = glue::glue("nrow(licensed) is {nrow(licensed)}"))
 })
 
 test_that("get_groups works", {
