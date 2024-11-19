@@ -14,6 +14,12 @@ test_that("get_users works", {
     purrr::map_chr(vctrs::vec_ptype(users), typeof),
     purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof)
   )
+
+  publishers <- get_users(test_conn_1, user_role = "publisher")
+  expect_equal(nrow(publishers), 0)
+
+  locked <- get_users(test_conn_1, account_status = "locked")
+  expect_equal(nrow(publishers), 0)
 })
 
 test_that("get_groups works", {
