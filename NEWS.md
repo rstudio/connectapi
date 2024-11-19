@@ -1,3 +1,11 @@
+# connectapi (development version)
+
+## New features
+
+- `get_users()` now supports filtering users with the `account_status` and
+  `user_role` parameters. This allows you to, for example, find all licensed
+  users on a Connect server. (#311)
+
 # connectapi 0.4.0
 
 ## New features
