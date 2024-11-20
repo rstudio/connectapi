@@ -5,10 +5,13 @@
 #' @param prefix Filters users by prefix (username, first name, or last name).
 #' The filter is case insensitive.
 #' @param limit The max number of records to return
-#' @param user_role Filter by user role ("administrator", "publisher",
-#' "viewer"). Pass in a vector of multiple roles to match any value.
-#' @param account_status Filter by account status ("locked", "licensed",
-#' "inactive"). Pass a vector of multiple statuses to match any value.
+#' @param user_role Optionally filter by user role ("administrator",
+#' "publisher", "viewer"). Pass in a vector of multiple roles to match any value
+#' (boolean OR). When `NULL` (the default), results are not filtered.
+#' @param account_status Optionally filter by account status ("locked",
+#' "licensed", "inactive"). Pass a vector of multiple statuses to match any
+#' value (boolean OR). When `NULL` (the default), results are not filtered.
+
 #'
 #' @return
 #' A tibble with the following columns:

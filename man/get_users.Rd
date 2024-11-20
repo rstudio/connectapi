@@ -23,11 +23,13 @@ The filter is case insensitive.}
 
 \item{limit}{The max number of records to return}
 
-\item{user_role}{Filter by user role ("administrator", "publisher",
-"viewer"). Pass in a vector of multiple roles to match any value.}
+\item{user_role}{Optionally filter by user role ("administrator",
+"publisher", "viewer"). Pass in a vector of multiple roles to match any value
+(boolean OR). When \code{NULL} (the default), results are not filtered.}
 
-\item{account_status}{Filter by account status ("locked", "licensed",
-"inactive"). Pass a vector of multiple statuses to match any value.}
+\item{account_status}{Optionally filter by account status ("locked",
+"licensed", "inactive"). Pass a vector of multiple statuses to match any
+value (boolean OR). When \code{NULL} (the default), results are not filtered.}
 }
 \value{
 A tibble with the following columns:
