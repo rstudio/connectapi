@@ -2,6 +2,9 @@
 ^\.Rproj\.user$
 ^\.Renviron$
 ^\.github$
+^\.envrc$
+^\.vscode$
+^.*\.lic$
 ^renv$
 ^renv\.lock$
 ^README\.Rmd$
