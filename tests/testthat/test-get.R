@@ -163,7 +163,10 @@ without_internet({
         user_role = c("administrator", "publisher"),
         account_status = "licensed"
       ),
-      "https://connect.example/__api__/v1/users?page_number=1&page_size=500&user_role=administrator%7Cpublisher&account_status=licensed"
+      paste0(
+        "https://connect.example/__api__/v1/users?page_number=1&page_size=500&",
+        "user_role=administrator%7Cpublisher&account_status=licensed"
+      )
     )
   })
 })
