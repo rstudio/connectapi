@@ -687,6 +687,13 @@ Connect <- R6::R6Class(
       self$GET(path, query = query)
     },
 
+    #' @description Get content to which a group has access
+    #' @param guid The group GUID.
+    group_content = function(guid) {
+      path <- v1_url("experimental", "groups", guid, "content")
+      self$GET(path)
+    },
+
     # instrumentation --------------------------------------------
 
     #' @description Get (non-interactive) content visits.
