@@ -140,3 +140,33 @@ with_mock_api({
     expect_identical(result$name, c("connect_dev", "cool_kids_of_the_dmv"))
   })
 })
+
+without_internet({
+  client <- Connect$new(server = "https://connect.example", api_key = "fake")
+  test_that("get_users() works with user_role and account_status", {
+    # No filter parameters specified
+    expect_GET(
+      get_users(client),
+      "https://connect.example/__api__/v1/users?page_number=1&page_size=500"
+    )
+
+    # Filter just on one parameter
+    expect_GET(
+      get_users(client, user_role = "administrator"),
+      "https://connect.example/__api__/v1/users?page_number=1&page_size=500&user_role=administrator"
+    )
+
+    # Filter on two parameters, one requiring concatenation
+    expect_GET(
+      get_users(
+        client,
+        user_role = c("administrator", "publisher"),
+        account_status = "licensed"
+      ),
+      paste0(
+        "https://connect.example/__api__/v1/users?page_number=1&page_size=500&",
+        "user_role=administrator%7Cpublisher&account_status=licensed"
+      )
+    )
+  })
+})

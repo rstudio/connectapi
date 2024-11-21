@@ -14,6 +14,14 @@ test_that("get_users works", {
     purrr::map_chr(vctrs::vec_ptype(users), typeof),
     purrr::map_chr(vctrs::vec_ptype(connectapi_ptypes$users), typeof)
   )
+
+  # Other tests create users, so specifying the exact number here is conditional
+  # on the contents of other tests and the order that tests run in.
+  admins <- get_users(test_conn_1, user_role = "administrator")
+  expect_true(nrow(admins) > 0)
+
+  licensed <- get_users(test_conn_1, account_status = "licensed")
+  expect_true(nrow(licensed) > 0)
 })
 
 test_that("get_groups works", {
