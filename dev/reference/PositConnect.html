@@ -907,7 +907,13 @@ will be returned. Otherwise, the argument is forwarded to
 <h3 id="method-users-">Method <code>users()</code><a class="anchor" aria-label="anchor" href="#method-users-"></a></h3>
 <p>Get users.</p><div class="section">
 <h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users</span><span class="op">(</span>page_number <span class="op">=</span> <span class="fl">1</span>, prefix <span class="op">=</span> <span class="cn">NULL</span>, page_size <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Connect</span><span class="op">$</span><span class="fu">users</span><span class="op">(</span></span>
+<span>  page_number <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page_size <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  user_role <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  account_status <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -922,6 +928,14 @@ will be returned. Otherwise, the argument is forwarded to
 
 <dt><code>page_size</code></dt>
 <dd><p>The page size.</p></dd>
+
+
+<dt><code>user_role</code></dt>
+<dd><p>Filter by user role.</p></dd>
+
+
+<dt><code>account_status</code></dt>
+<dd><p>Filter by account status.</p></dd>
 
 
 </dl><p></p></div>
