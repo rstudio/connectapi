@@ -141,7 +141,6 @@ get_group_members <- function(src, guid) {
 #'
 #' @family groups functions
 #' @export
-#' @importFrom dplyr .data
 get_group_content <- function(src, groups) {
   validate_R6_class(src, "Connect")
   validate_df_ptype(groups, tibble::tibble(
@@ -150,13 +149,13 @@ get_group_content <- function(src, groups) {
   ))
 
   purrr::pmap_dfr(
-    dplyr::select(groups, .data$guid, .data$name),
+    dplyr::select(groups, "guid", "name"),
     get_group_content_impl,
     src = src
   )
 }
 
-#' @importFrom dplyr .data
+#' @importFrom rlang .data
 get_group_content_impl <- function(src, guid, name) {
   validate_R6_class(src, "Connect")
 
@@ -166,10 +165,10 @@ get_group_content_impl <- function(src, guid, name) {
   dplyr::transmute(parsed,
     group_guid = guid,
     group_name = name,
-    .data$content_guid,
-    .data$content_name,
-    .data$content_title,
-    .data$access_type,
+    "content_guid",
+    "content_name",
+    "content_title",
+    "access_type",
     role = purrr::map_chr(
       .data$permissions,
       extract_role,
