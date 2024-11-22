@@ -1,0 +1,74 @@
+[
+    {
+        "content_guid": "8b57f54e",
+        "content_name": "app-1197-9825-test2",
+        "content_title": "app-1197-9825-test2",
+        "access_type": "acl",
+        "permissions": [
+            {
+                "principal_guid": "434f97ab",
+                "principal_name": "test",
+                "principal_role": "author",
+                "principal_type": "user"
+            },
+            {
+                "principal_guid": "a6fb5cea",
+                "principal_name": "connect_dev",
+                "principal_role": "publisher",
+                "principal_type": "group"
+            },
+            {
+                "principal_guid": "e5c8d844",
+                "principal_name": "other_user",
+                "principal_role": "publisher",
+                "principal_type": "user"
+            }
+        ]
+    },
+    {
+        "content_guid": "8bf70c85",
+        "content_name": "quarto-email-demo-stock-report-python",
+        "content_title": "quarto-email-demo-stock-report-python",
+        "access_type": "acl",
+        "permissions": [
+            {
+                "principal_guid": "81b09132",
+                "principal_name": "aron",
+                "principal_role": "author",
+                "principal_type": "user"
+            },
+            {
+                "principal_guid": "a6fb5cea",
+                "principal_name": "connect_dev",
+                "principal_role": "viewer",
+                "principal_type": "group"
+            },
+            {
+                "principal_guid": "e36cdf86",
+                "principal_name": "toph",
+                "principal_role": "viewer",
+                "principal_type": "user"
+            }
+        ]
+    },
+    {
+        "content_guid": "fcad1958",
+        "content_name": "top-queries",
+        "content_title": "top-queries",
+        "access_type": "logged_in",
+        "permissions": [
+            {
+                "principal_guid": "1a7a5703",
+                "principal_name": "test_user",
+                "principal_role": "author",
+                "principal_type": "user"
+            },
+            {
+                "principal_guid": "a6fb5cea",
+                "principal_name": "connect_dev",
+                "principal_role": "publisher",
+                "principal_type": "group"
+            }
+        ]
+    }
+]

@@ -220,3 +220,32 @@ connectapi_ptypes <- list(
     permissions = NA_list_
   )
 )
+
+# Validates an input data frame against a required schema ptype.
+# 1. is a data frame or similar object;
+# 2. contains all the names from the required;
+# 3. that all matching names have the correct ptype.
+validate_df_ptype <- function(input, required) {
+  if (!inherits(input, "data.frame")) {
+    stop("Input must be a data frame.")
+  }
+  if (!all(names(input) %in% required)) {
+    missing <- setdiff(names(required), names(input))
+    if (length(missing) > 0) {
+      stop(glue::glue("Missing required columns: {paste0(missing, collapse = ', ')}"))
+    }
+  }
+
+  for (col in names(required)) {
+    tryCatch(
+      vctrs::vec_ptype_common(input[[col]], required[[col]]),
+      error = function(e) {
+        stop(glue::glue(
+          "Column `{col}` has type `{vctrs::vec_ptype_abbr(input[[col]])}`; ",
+          "needs `{vctrs::vec_ptype_abbr(required[[col]])}:`\n",
+          conditionMessage(e)
+        ))
+      }
+    )
+  }
+}

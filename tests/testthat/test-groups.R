@@ -74,7 +74,7 @@ test_that("extract_role() extracts the role for the named principal", {
     )
   )
   expect_equal(
-    purrr::map_chr(p_list, extract_role, principal_name = "connect_dev"),
+    purrr::map_chr(p_list, extract_role, principal_name = "connect_dev", principal_type = "group"),
     c("viewer", "publisher")
   )
 })
@@ -101,7 +101,30 @@ test_that("extract_role() errs when multiple entries exist for the same principa
     )
   )
   expect_error(
-    extract_role(p_list, principal_name = "connect_dev"),
+    extract_role(p_list, principal_name = "connect_dev", principal_type = "group"),
     "Unexpected permissions structure."
   )
+})
+
+with_mock_api({
+  client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+
+  test_that("get_group_content() successfully gets the content for multiple groups", {
+    groups_df <- tibble::tibble(
+      guid = c(
+        "a6fb5cea",
+        "ae5c3b2c"
+      ),
+      name = c(
+        "connect_dev",
+        "group12"
+      ),
+      owner_guid = c(
+        "1a7a5703",
+        "434f97ab"
+      )
+    )
+
+    expect_snapshot(get_group_content(client, groups_df))
+  })
 })
