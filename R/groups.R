@@ -172,23 +172,22 @@ get_group_content_impl <- function(src, guid, name) {
     role = purrr::map_chr(
       .data$permissions,
       extract_role,
-      principal_name = name,
-      principal_type = "group"
+      principal_guid = guid
     )
   )
 }
 
 # Given the list of permissions for a content item, extract the role for the
-# provided principal_name and principal_type.
-extract_role <- function(permissions, principal_name, principal_type) {
+# provided principal_guid
+extract_role <- function(permissions, principal_guid) {
   matched <- purrr::keep(
     permissions,
-    ~ .x[["principal_name"]] == principal_name && .x[["principal_type"]] == principal_type
+    ~ .x[["principal_guid"]] == principal_guid
   )
   if (length(matched) == 1) {
     return(matched[[1]][["principal_role"]])
   } else {
     stop("Unexpected permissions structure.")
   }
-  stop(glue::glue("Could not find permissions for \"{principal_name}\""))
+  stop(glue::glue("Could not find permissions for \"{principal_guid}\""))
 }

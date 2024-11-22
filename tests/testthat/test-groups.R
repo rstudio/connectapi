@@ -40,13 +40,13 @@ test_that("extract_role() extracts the role for the named principal", {
   p_list <- list(
     list(
       list(
-        principal_guid = "not-a-guid",
+        principal_guid = "fake-guid-1",
         principal_name = "User1",
         principal_role = "author",
         principal_type = "user"
       ),
       list(
-        principal_guid = "not-a-guid",
+        principal_guid = "fake-target-guid",
         principal_name = "connect_dev",
         principal_role = "viewer",
         principal_type = "group"
@@ -54,19 +54,19 @@ test_that("extract_role() extracts the role for the named principal", {
     ),
     list(
       list(
-        principal_guid = "not-a-guid",
+        principal_guid = "fake-guid-2",
         principal_name = "User2",
         principal_role = "author",
         principal_type = "user"
       ),
       list(
-        principal_guid = "not-a-guid",
+        principal_guid = "fake-target-guid",
         principal_name = "connect_dev",
         principal_role = "publisher",
         principal_type = "group"
       ),
       list(
-        principal_guid = "not-a-guid",
+        principal_guid = "fake-guid-3",
         principal_name = "toph",
         principal_role = "publisher",
         principal_type = "user"
@@ -74,7 +74,7 @@ test_that("extract_role() extracts the role for the named principal", {
     )
   )
   expect_equal(
-    purrr::map_chr(p_list, extract_role, principal_name = "connect_dev", principal_type = "group"),
+    purrr::map_chr(p_list, extract_role, principal_guid = "fake-target-guid"),
     c("viewer", "publisher")
   )
 })
@@ -82,26 +82,26 @@ test_that("extract_role() extracts the role for the named principal", {
 test_that("extract_role() errs when multiple entries exist for the same principal", {
   p_list <- list(
     list(
-      principal_guid = "not-a-guid",
+      principal_guid = "fake-guid-1",
       principal_name = "User1",
       principal_role = "author",
       principal_type = "user"
     ),
     list(
-      principal_guid = "not-a-guid",
+      principal_guid = "fake-target-guid",
       principal_name = "connect_dev",
       principal_role = "viewer",
       principal_type = "group"
     ),
     list(
-      principal_guid = "not-a-guid",
+      principal_guid = "fake-target-guid",
       principal_name = "connect_dev",
       principal_role = "publisher",
       principal_type = "group"
     )
   )
   expect_error(
-    extract_role(p_list, principal_name = "connect_dev", principal_type = "group"),
+    extract_role(p_list, principal_guid = "fake-target-guid"),
     "Unexpected permissions structure."
   )
 })
