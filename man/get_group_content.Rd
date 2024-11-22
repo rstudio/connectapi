@@ -9,7 +9,7 @@ get_group_content(src, groups)
 \arguments{
 \item{src}{The source object}
 
-\item{groups}{A data frame or tibble of groups}
+\item{groups}{Either a data frame of groups, or a character vector of group guids}
 }
 \value{
 A tibble with the following columns:
@@ -42,6 +42,9 @@ dplyr::filter(groups, name = "research_scientists") \%>\%
 
 # Get permissions for all groups by passing in the entire groups data frame.
 get_group_content(client, groups)
+
+# You can also pass in a guid or guids as a character vector.
+get_group_content(client, groups$guid[1])
 }
 
 }

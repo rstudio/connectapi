@@ -127,4 +127,13 @@ with_mock_api({
 
     expect_snapshot(get_group_content(client, groups_df))
   })
+
+  test_that("get_group_content() works when just provided group guids", {
+    group_guids <- c(
+      "a6fb5cea",
+      "ae5c3b2c"
+    )
+
+    expect_snapshot(get_group_content(client, group_guids))
+  })
 })

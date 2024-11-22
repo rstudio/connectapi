@@ -108,7 +108,7 @@ get_group_members <- function(src, guid) {
 #' Get content access permissions for a group or groups
 #'
 #' @param src The source object
-#' @param groups A data frame or tibble of groups
+#' @param groups Either a data frame of groups, or a character vector of group guids
 #'
 #' @return
 #' A tibble with the following columns:
@@ -137,16 +137,27 @@ get_group_members <- function(src, guid) {
 #'
 #' # Get permissions for all groups by passing in the entire groups data frame.
 #' get_group_content(client, groups)
+#'
+#' # You can also pass in a guid or guids as a character vector.
+#' get_group_content(client, groups$guid[1])
 #' }
 #'
 #' @family groups functions
 #' @export
 get_group_content <- function(src, groups) {
   validate_R6_class(src, "Connect")
-  validate_df_ptype(groups, tibble::tibble(
-    guid = NA_character_,
-    name = NA_character_
-  ))
+  if (inherits(groups, "data.frame")) {
+    validate_df_ptype(groups, tibble::tibble(
+      guid = NA_character_,
+      name = NA_character_
+    ))
+  } else if (inherits(groups, "character")) {
+    # If a character vector, we assume we are receiving group guids, and call
+    # the endpoint to fetch the group name.
+    groups <- purrr::map_dfr(groups, src$group_details)
+  } else {
+    stop("`groups` must be a data frame or character vector.")
+  }
 
   purrr::pmap_dfr(
     dplyr::select(groups, "guid", "name"),
