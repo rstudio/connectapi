@@ -93,24 +93,28 @@ Content <- R6::R6Class(
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
     },
-    #' @description Return the jobs for this content.
+    #' @description Return the jobs for this content
     jobs = function() {
-      warn_experimental("jobs")
-      url <- unversioned_url("applications", self$get_content()$guid, "jobs")
-      res <- self$get_connect()$GET(url)
+      url <- unversioned_url("applications", self$content$guid, "jobs")
+      res <- self$connect$GET(url)
     },
     #' @description Return a single job for this content.
     #' @param key The job key.
     job = function(key) {
-      warn_experimental("job")
-      url <- unversioned_url("applications", self$get_content()$guid, "job", key)
-      res <- self$get_connect()$GET(url)
+      url <- unversioned_url("applications", self$content$guid, "job", key)
+      res <- self$connect$GET(url)
 
-      content_guid <- self$get_content()$guid
+      content_guid <- self$content$guid
       purrr::map(
         list(res),
         ~ purrr::list_modify(.x, app_guid = content_guid)
       )[[1]]
+    },
+    #' @description Terminate a single job for this content item.
+    terminate_job = function(key) {
+      con <- self$connect
+      url <- v1_url("content", self$content$guid, "jobs", key)
+      self$connect$DELETE(url)
     },
     #' @description Return the variants for this content.
     variants = function() {
@@ -598,8 +602,6 @@ content_ensure <- function(
 #' @family content functions
 #' @export
 get_jobs <- function(content) {
-  warn_experimental("get_jobs")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
@@ -610,8 +612,6 @@ get_jobs <- function(content) {
 #' @rdname jobs
 #' @export
 get_job <- function(content, key) {
-  warn_experimental("get_job")
-  scoped_experimental_silence()
   validate_R6_class(content, "Content")
 
   job <- content$job(key = key)
@@ -621,6 +621,14 @@ get_job <- function(content, key) {
   # a bit of an abuse
   # since stdout / stderr / logged_error are here now...
   parse_connectapi_typed(list(job), connectapi_ptypes$job)
+}
+
+terminate_job <- function(content, key) {
+  validate_R6_class(content, "Content")
+
+  res <- content$terminate_job(key)
+  content$connect$raise_error(res)
+  httr::content(res)$result
 }
 
 #' Set RunAs User
