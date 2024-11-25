@@ -4,12 +4,12 @@
 \alias{get_group_content}
 \title{Get content access permissions for a group or groups}
 \usage{
-get_group_content(src, groups)
+get_group_content(src, guids)
 }
 \arguments{
-\item{src}{The source object}
+\item{src}{A Connect client object}
 
-\item{groups}{Either a data frame of groups, or a character vector of group guids}
+\item{guids}{A character vector of group guids}
 }
 \value{
 A tibble with the following columns:
@@ -36,15 +36,13 @@ client <- connect()
 groups <- get_groups(client)
 
 # Get permissions for a single group by passing in the corresponding row.
-get_group_content(client, groups[1, ])
+get_group_content(client, groups[1, "guid"])
 dplyr::filter(groups, name = "research_scientists") \%>\%
-  get_group_content(client, groups = .)
+  dplyr::pull(guid) \%>\%
+  get_group_content(client, .)
 
-# Get permissions for all groups by passing in the entire groups data frame.
-get_group_content(client, groups)
-
-# You can also pass in a guid or guids as a character vector.
-get_group_content(client, groups$guid[1])
+# Get permissions for all groups by passing in all group guids.
+get_group_content(client, groups$guid)
 }
 
 }

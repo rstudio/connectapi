@@ -7,7 +7,7 @@
 get_group_members(src, guid)
 }
 \arguments{
-\item{src}{The source object}
+\item{src}{A Connect client object}
 
 \item{guid}{A group GUID identifier}
 }

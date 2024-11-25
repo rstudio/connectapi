@@ -52,7 +52,7 @@ get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
 
 #' Get users within a specific group
 #'
-#' @param src The source object
+#' @param src A Connect client object
 #' @param guid A group GUID identifier
 #'
 #' @return
@@ -107,8 +107,8 @@ get_group_members <- function(src, guid) {
 
 #' Get content access permissions for a group or groups
 #'
-#' @param src The source object
-#' @param groups Either a data frame of groups, or a character vector of group guids
+#' @param src A Connect client object
+#' @param guids A character vector of group guids
 #'
 #' @return
 #' A tibble with the following columns:
@@ -131,75 +131,60 @@ get_group_members <- function(src, guid) {
 #' groups <- get_groups(client)
 #'
 #' # Get permissions for a single group by passing in the corresponding row.
-#' get_group_content(client, groups[1, ])
+#' get_group_content(client, groups[1, "guid"])
 #' dplyr::filter(groups, name = "research_scientists") %>%
-#'   get_group_content(client, groups = .)
+#'   dplyr::pull(guid) %>%
+#'   get_group_content(client, .)
 #'
-#' # Get permissions for all groups by passing in the entire groups data frame.
-#' get_group_content(client, groups)
-#'
-#' # You can also pass in a guid or guids as a character vector.
-#' get_group_content(client, groups$guid[1])
+#' # Get permissions for all groups by passing in all group guids.
+#' get_group_content(client, groups$guid)
 #' }
 #'
 #' @family groups functions
 #' @export
 #' @importFrom rlang .data
-get_group_content <- function(src, groups) {
+get_group_content <- function(src, guids) {
   validate_R6_class(src, "Connect")
-  if (inherits(groups, "data.frame")) {
-    validate_df_ptype(groups, tibble::tibble(
-      guid = NA_character_,
-      name = NA_character_
-    ))
-  } else if (inherits(groups, "character")) {
-    # If a character vector, we assume we are receiving group guids, and call
-    # the endpoint to fetch the group name.
-    groups <- purrr::map_dfr(groups, src$group_details)
-  } else {
-    stop("`groups` must be a data frame or character vector.")
-  }
 
-  purrr::pmap_dfr(
-    dplyr::select(groups, .data$guid, .data$name),
-    get_group_content_impl,
-    src = src
+  purrr::map_dfr(
+    guids,
+    ~ get_group_content_impl(src = src, guid = .x)
   )
 }
 
 #' @importFrom rlang .data
-get_group_content_impl <- function(src, guid, name) {
+get_group_content_impl <- function(src, guid) {
   validate_R6_class(src, "Connect")
 
   res <- src$group_content(guid)
+  if (length(res) == 0) {
+    return(tibble::tibble(
+      group_guid = NA_character_,
+      group_name = NA_character_,
+      content_guid = NA_character_,
+      content_name = NA_character_,
+      content_title = NA_character_,
+      access_type = NA_character_,
+      role = NA_character_
+    ))
+  }
   parsed <- parse_connectapi_typed(res, connectapi_ptypes$group_content)
+
+  permissions_df <- purrr::map_dfr(
+    parsed$permissions,
+    ~ purrr::keep(
+      .x,
+      ~ .x[["principal_guid"]] == guid
+    )
+  )
 
   dplyr::transmute(parsed,
     group_guid = guid,
-    group_name = name,
+    group_name = permissions_df$principal_name,
     .data$content_guid,
     .data$content_name,
     .data$content_title,
     .data$access_type,
-    role = purrr::map_chr(
-      .data$permissions,
-      extract_role,
-      principal_guid = guid
-    )
+    role = permissions_df$principal_role
   )
-}
-
-# Given the list of permissions for a content item, extract the role for the
-# provided principal_guid
-extract_role <- function(permissions, principal_guid) {
-  matched <- purrr::keep(
-    permissions,
-    ~ .x[["principal_guid"]] == principal_guid
-  )
-  if (length(matched) == 1) {
-    return(matched[[1]][["principal_role"]])
-  } else {
-    stop("Unexpected permissions structure.")
-  }
-  stop(glue::glue("Could not find permissions for \"{principal_guid}\""))
 }
