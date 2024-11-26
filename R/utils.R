@@ -186,3 +186,10 @@ token_hex <- function(n) {
   raw <- as.raw(sample(0:255, n, replace = TRUE))
   paste(as.character(raw), collapse = "")
 }
+
+endpoint_does_not_exist <- function(res) {
+  return(
+    httr::status_code(res) == "404" &&
+    "code" %in% names(httr::content(res))
+  )
+}

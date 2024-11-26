@@ -95,18 +95,26 @@ Content <- R6::R6Class(
     },
     #' @description Return the jobs for this content
     jobs = function() {
-      url <- unversioned_url("applications", self$content$guid, "jobs")
-      res <- self$connect$GET(url)
+      res <- self$connect$GET(v1_url("content", self$content$guid, "jobs"), parser = NULL)
+      if (endpoint_does_not_exist(res)) {
+        res <- self$connect$GET(unversioned_url("applications", self$content$guid, "jobs"), parser = NULL)
+      }
+      self$connect$raise_error(res)
+      httr::content(res, as = "parsed")
     },
     #' @description Return a single job for this content.
     #' @param key The job key.
     job = function(key) {
-      url <- unversioned_url("applications", self$content$guid, "job", key)
-      res <- self$connect$GET(url)
+      res <- self$connect$GET(v1("content", self$content$guid, "job", key), parser = NULL)
+      if (endpoint_does_not_exist(res)) {
+        res <- self$connect$GET(unversioned_url("applications", self$content$guid, "job", key), parser = NULL)
+      }
+      self$connect$raise_error(res)
+      parsed <- httr::content(res, as = "parsed")
 
       content_guid <- self$content$guid
       purrr::map(
-        list(res),
+        list(parsed),
         ~ purrr::list_modify(.x, app_guid = content_guid)
       )[[1]]
     },
