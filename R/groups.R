@@ -178,13 +178,13 @@ get_group_content_impl <- function(src, guid) {
     )
   )
 
-  dplyr::transmute(parsed,
+    tibble::tibble(
     group_guid = guid,
     group_name = permissions_df$principal_name,
-    .data$content_guid,
-    .data$content_name,
-    .data$content_title,
-    .data$access_type,
+    content_guid = parsed$content_guid,
+    content_name = parsed$content_name,
+    content_title = parsed$content_title,
+    access_type = parsed$access_type,
     role = permissions_df$principal_role
   )
 }
