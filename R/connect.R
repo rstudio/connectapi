@@ -694,13 +694,6 @@ Connect <- R6::R6Class(
       self$GET(path)
     },
 
-    #' @description Get the details for a group
-    #' @param guid The group GUID.
-    group_details = function(guid) {
-      path <- v1_url("groups", guid)
-      self$GET(path)
-    },
-
     # instrumentation --------------------------------------------
 
     #' @description Get (non-interactive) content visits.
