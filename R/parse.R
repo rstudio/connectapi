@@ -59,7 +59,7 @@ ensure_column <- function(data, default, name) {
     if (inherits(default, "list") && !inherits(col, "list")) {
       col <- list(col)
     }
-    col <- vctrs::vec_cast(col, default)
+    col <- vctrs::vec_cast(col, default, x_arg = name)
   }
   data[[name]] <- col
   data
@@ -185,6 +185,9 @@ tzone <- function(x) {
   attr(x, "tzone")[[1]] %||% ""
 }
 
+vec_cast.character.integer <- function(x, to, ...) { # nolint: object_name_linter
+  as.character(x)
+}
 
 new_datetime <- function(x = double(), tzone = "") {
   tzone <- tzone %||% ""

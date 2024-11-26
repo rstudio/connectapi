@@ -631,12 +631,23 @@ get_job <- function(content, key) {
   parse_connectapi_typed(list(job), connectapi_ptypes$job)
 }
 
-terminate_job <- function(content, key) {
+terminate_job <- function(content, keys = NULL) {
   validate_R6_class(content, "Content")
 
-  res <- content$terminate_job(key)
-  content$connect$raise_error(res)
-  httr::content(res)$result
+  if (is.null(keys)) {
+    all_jobs <- get_jobs(content)
+    active_jobs <- all_jobs[isFALSE(all_jobs$finalized), ]
+    keys <- active_jobs$key
+  }
+
+  res <- purrr::map(keys, content$terminate_job)
+  tibble::tibble(
+    key = keys,
+    status = purrr::map_vec(res, httr::status_code),
+    content = purrr::map(res, httr::content)
+  )
+  # content$connect$raise_error(res)
+  # httr::content(res)$result
 }
 
 #' Set RunAs User
