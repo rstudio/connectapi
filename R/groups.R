@@ -142,18 +142,16 @@ get_group_members <- function(src, guid) {
 #'
 #' @family groups functions
 #' @export
-#' @importFrom rlang .data
 get_group_content <- function(src, guids) {
   validate_R6_class(src, "Connect")
 
   purrr::map_dfr(
     guids,
-    ~ get_group_content_impl(src = src, guid = .x)
+    ~ get_one_group_content(src = src, guid = .x)
   )
 }
 
-#' @importFrom rlang .data
-get_group_content_impl <- function(src, guid) {
+get_one_group_content <- function(src, guid) {
   validate_R6_class(src, "Connect")
 
   res <- src$group_content(guid)
@@ -178,7 +176,7 @@ get_group_content_impl <- function(src, guid) {
     )
   )
 
-    tibble::tibble(
+  tibble::tibble(
     group_guid = guid,
     group_name = permissions_df$principal_name,
     content_guid = parsed$content_guid,
