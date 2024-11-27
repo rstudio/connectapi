@@ -409,7 +409,6 @@ test_that("content_render works", {
 
   # wait for tasks to complete...
   suppressMessages(poll_task(rnd))
-  suppressMessages(poll_task(rnd2))
 })
 
 test_that("get_variant_renderings works", {
