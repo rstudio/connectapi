@@ -580,7 +580,7 @@ poll_task <- function(task, wait = 1, callback = message) {
   code <- -1
   first <- 0
   while (!finished) {
-    task_data <- con$task(task$task$task_id, wait = wait, first = first)
+    task_data <- con$task(task$get_task()$task_id, wait = wait, first = first)
     finished <- task_data[["finished"]]
     code <- task_data[["code"]]
     first <- task_data[["last"]]

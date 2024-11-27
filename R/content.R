@@ -1007,9 +1007,6 @@ content_render <- function(content, variant_key = NULL) {
     target_variant <- get_variant(content, variant_key)
   }
   render_task <- target_variant$render()
-  # Tasks returned from variant render endpoint look different from those
-  # returned by deploy.
-  render_task$task_id <- render_task$id
 
   VariantTask$new(
     connect = content$connect,
