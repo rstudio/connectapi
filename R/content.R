@@ -1007,6 +1007,7 @@ content_render <- function(content, variant_key = NULL) {
     target_variant <- get_variant(content, variant_key)
   }
   render_task <- target_variant$render()
+  # render_task$task_id <- render_task$id
 
   VariantTask$new(
     connect = content$connect,
