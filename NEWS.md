@@ -8,6 +8,11 @@
 - The new `get_group_content()` function lets you view the content that groups
   have permission to access. (#334)
 
+## Minor improvements and fixes
+
+- The task returned by `content_render()` now has the expected `task_id`
+  parameter and is able to be polled. (#338)
+
 # connectapi 0.4.0
 
 ## New features
