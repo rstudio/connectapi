@@ -1,0 +1,34 @@
+[
+    {
+        "content_guid": "46fb83eb",
+        "content_name": "forecast-email-demo",
+        "content_title": "forecast-email-demo",
+        "access_type": "logged_in",
+        "permissions": [
+            {
+                "principal_guid": "36943913",
+                "principal_name": "test_user_3",
+                "principal_role": "author",
+                "principal_type": "user"
+            },
+            {
+                "principal_guid": "651413bd",
+                "principal_name": "group11",
+                "principal_role": "publisher",
+                "principal_type": "group"
+            },
+            {
+                "principal_guid": "ae5c3b2c",
+                "principal_name": "group12",
+                "principal_role": "viewer",
+                "principal_type": "group"
+            },
+            {
+                "principal_guid": "c4ff90b8",
+                "principal_name": "alice",
+                "principal_role": "publisher",
+                "principal_type": "user"
+            }
+        ]
+    }
+]

@@ -35,3 +35,22 @@ without_internet({
     )
   })
 })
+
+with_mock_api({
+  client <- Connect$new(server = "https://connect.example", api_key = "not-a-key")
+
+  test_that("get_group_content() works", {
+    group_guids <- c(
+      "a6fb5cea",
+      "ae5c3b2c"
+    )
+
+    expect_snapshot(get_group_content(client, group_guids))
+  })
+
+  test_that("get_group_content() returns an empty data frame when no content exists", {
+    group_guid <- "a6fb5cff"
+
+    expect_snapshot(get_group_content(client, group_guid))
+  })
+})
