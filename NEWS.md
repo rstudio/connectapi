@@ -6,6 +6,11 @@
   `user_role` parameters. For example, this allows you to find all licensed
   users on a Connect server. (#311)
 
+## Minor improvements and fixes
+
+- The task returned by `content_render()` now has the expected `task_id`
+  parameter and is able to be polled. (#338)
+
 # connectapi 0.4.0
 
 ## New features
