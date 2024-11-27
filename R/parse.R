@@ -185,7 +185,6 @@ tzone <- function(x) {
   attr(x, "tzone")[[1]] %||% ""
 }
 
-
 new_datetime <- function(x = double(), tzone = "") {
   tzone <- tzone %||% ""
   if (is.integer(x)) {
