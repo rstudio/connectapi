@@ -145,11 +145,11 @@ get_group_content <- function(src, guids) {
 
   purrr::map_dfr(
     guids,
-    ~ get_one_group_content(src = src, guid = .x)
+    ~ get_one_groups_content(src = src, guid = .x)
   )
 }
 
-get_one_group_content <- function(src, guid) {
+get_one_groups_content <- function(src, guid) {
   validate_R6_class(src, "Connect")
 
   res <- src$group_content(guid)
