@@ -55,6 +55,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_audit_logs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_bundles.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_content.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_group_content.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_group_members.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_groups.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/dev/reference/get_image.html</loc></url>
