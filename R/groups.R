@@ -100,9 +100,7 @@ get_group_members <- function(src, guid) {
 
   res <- src$group_members(guid)
 
-  out <- parse_connectapi(res$results)
-
-  return(out)
+  parse_connectapi(res$results)
 }
 
 #' Get content access permissions for a group or groups

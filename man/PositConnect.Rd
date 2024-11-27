@@ -115,7 +115,6 @@ Other R6 classes:
 \item \href{#method-Connect-groups_create_remote}{\code{Connect$groups_create_remote()}}
 \item \href{#method-Connect-groups_remote}{\code{Connect$groups_remote()}}
 \item \href{#method-Connect-group_content}{\code{Connect$group_content()}}
-\item \href{#method-Connect-group_details}{\code{Connect$group_details()}}
 \item \href{#method-Connect-inst_content_visits}{\code{Connect$inst_content_visits()}}
 \item \href{#method-Connect-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
 \item \href{#method-Connect-procs}{\code{Connect$procs()}}
@@ -1098,23 +1097,6 @@ Get remote groups.
 Get content to which a group has access
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connect$group_content(guid)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The group GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-group_details"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-group_details}{}}}
-\subsection{Method \code{group_details()}}{
-Get the details for a group
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$group_details(guid)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
