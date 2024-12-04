@@ -16,6 +16,10 @@
   have permission to access. (#334)
 - The new `terminate_jobs()` function lets you terminate processes associated
   with a content item. (#332)
+- New `get_oauth_content_credentials()` function for interacting with Connect's
+  `/v1/oauth/integrations/credentials` endpoint. This endpoint allows content
+  running on Posit Connect to obtain an OAuth access token using the client
+  credentials flow. (#344).
 
 ## Minor improvements and fixes
 

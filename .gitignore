@@ -15,6 +15,7 @@ connectapi*.tgz
 *.orig
 tests/integrated/integrated-results-check.txt
 tests/integrated/testthat-problems.rds
-CRAN-SUBMISSION
+tests/testthat/check-results-check.txt
 tests/testthat/Rplots.pdf
+CRAN-SUBMISSION
 *.lic
