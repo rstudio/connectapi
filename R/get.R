@@ -629,6 +629,58 @@ get_oauth_credentials <- function(connect, user_session_token) {
   )
 }
 
+#' Perform an OAuth credential exchange to obtain a content-specific OAuth
+#' access token.
+#'
+#' @param connect A Connect R6 object.
+#' @param content_session_token The content session token. This token can only
+#' be obtained when the content is running on a Connect server. The token
+#' identifies the service account integration previously configured by the publisher
+#' on the Connect server.
+#'
+#' Read this value from the environment variable: `CONNECT_CONTENT_SESSION_TOKEN`
+#'
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' library(plumber)
+#' client <- connect()
+#'
+#' #* @get /do
+#' function(req) {
+#'   content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
+#'   credentials <- get_oauth_content_credentials(client, content_session_token)
+#'
+#'   # ... do something with `credentials$access_token` ...
+#'
+#'   "done"
+#' }
+#' }
+#'
+#' @return The OAuth credential exchange response.
+#'
+#' @details
+#' Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-content-oauth-access-token
+#' for more information.
+#'
+#' @export
+get_oauth_content_credentials <- function(connect, content_session_token) {
+  validate_R6_class(connect, "Connect")
+  url <- v1_url("oauth", "integrations", "credentials")
+  body <- c(
+    list(
+      grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+      subject_token_type = "urn:posit:connect:content-session-token",
+      subject_token = content_session_token
+    )
+  )
+  connect$POST(
+    url,
+    encode = "form",
+    body = body
+  )
+}
+
 #' Get available runtimes on server
 #'
 #' Get a table showing available versions of R, Python, Quarto, and Tensorflow
