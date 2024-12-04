@@ -217,5 +217,12 @@ connectapi_ptypes <- list(
     principal_guid = NA_character_,
     principal_type = NA_character_,
     role = NA_character_
+  ),
+  group_content = tibble::tibble(
+    content_guid = NA_character_,
+    content_name = NA_character_,
+    content_title = NA_character_,
+    access_type = NA_character_,
+    permissions = NA_list_
   )
 )

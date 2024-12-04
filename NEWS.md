@@ -5,6 +5,13 @@
 - `get_users()` now supports filtering users with the `account_status` and
   `user_role` parameters. For example, this allows you to find all licensed
   users on a Connect server. (#311)
+- The new `get_group_content()` function lets you view the content that groups
+  have permission to access. (#334)
+
+## Minor improvements and fixes
+
+- The task returned by `content_render()` now has the expected `task_id`
+  parameter and is able to be polled. (#338)
 
 # connectapi 0.4.0
 

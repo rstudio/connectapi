@@ -402,6 +402,15 @@ test_that("variant_render works", {
   suppressMessages(poll_task(rnd2))
 })
 
+test_that("content_render works", {
+  rnd <- content_render(rmd_content)
+
+  expect_true(validate_R6_class(rnd, "VariantTask"))
+
+  # wait for tasks to complete...
+  suppressMessages(poll_task(rnd))
+})
+
 test_that("get_variant_renderings works", {
   scoped_experimental_silence()
 

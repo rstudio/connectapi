@@ -201,7 +201,9 @@ VariantTask <- R6::R6Class(
     #' @param task The task data.
     initialize = function(connect, content, key, task) {
       super$initialize(connect = connect, content = content, key = key)
-      # TODO: need to validate task (needs task_id)
+      if (is.null(task$task_id)) {
+        task$task_id <- task$id
+      }
       self$task <- task
     },
     #' @description Return the underlying task.
@@ -302,7 +304,6 @@ variant_render <- function(variant) {
   validate_R6_class(variant, "Variant")
 
   rendered <- variant$render()
-  rendered$task_id <- rendered$id
 
   VariantTask$new(connect = variant$get_connect(), content = variant$get_content(), key = variant$key, task = rendered)
 }
