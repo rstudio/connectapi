@@ -193,6 +193,6 @@ token_hex <- function(n) {
 endpoint_does_not_exist <- function(res) {
   return(
     httr::status_code(res) == "404" &&
-    !("code" %in% names(httr::content(res, as = "parsed")))
+      !("code" %in% names(httr::content(res, as = "parsed")))
   )
 }

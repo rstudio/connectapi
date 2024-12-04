@@ -16,21 +16,34 @@ A data frame with a row for each job, with the following columns:
 \item \code{ppid}: The job's parent process identifier (see Note 1).
 \item \code{pid}: The job's process identifier.
 \item \code{key}: The job's unique key identifier.
-\item \code{remote_id}: The job's identifier for off-host execution configurations (see Note 1).
+\item \code{remote_id}: The job's identifier for off-host execution configurations
+(see Note 1).
 \item \code{app_id}: The job's parent content identifier
 \item \code{variant_id}: The identifier of the variant owning this job.
 \item \code{bundle_id}: The identifier of a content bundle linked to this job.
 \item \code{start_time}: The timestamp (RFC3339) indicating when this job started.
 \item \code{end_time}: The timestamp (RFC3339) indicating when this job finished.
-\item \code{last_heartbeat_time}: The timestamp (RFC3339) indicating the last time this job was observed to be running (see Note 1).
-\item \code{queued_time}: The timestamp (RFC3339) indicating when this job was added to the queue to be processed. Only scheduled reports will present a value for this field (see Note 1).
-\item \code{queue_name}: The name of the queue which processes the job. Only scheduled reports will present a value for this field (see Note 1).
-\item \code{tag}: A tag to identify the nature of the job. It can be one of unknown, build_report, build_site, build_jupyter, packrat_restore, python_restore, configure_report, run_app, run_api, run_tensorflow, run_python_api, run_dash_app, run_streamlit, run_bokeh_app, run_fastapi_app, run_pyshiny_app, render_shiny, run_voila_app, testing, git, val_py_ext_pkg, val_r_ext_pkg, val_r_install.
+\item \code{last_heartbeat_time}: The timestamp (RFC3339) indicating the last time
+this job was observed to be running (see Note 1).
+\item \code{queued_time}: The timestamp (RFC3339) indicating when this job was added
+to the queue to be processed. Only scheduled reports will present a value
+for this field (see Note 1).
+\item \code{queue_name}: The name of the queue which processes the job. Only
+scheduled reports will present a value for this field (see Note 1).
+\item \code{tag}: A tag to identify the nature of the job.
 \item \code{exit_code}: The job's exit code. Present only when job is finished.
-\item \code{status}: The current status of the job. On Connect 2022.10.0 and newer, one of Active: 0, Finished: 1, Finalized: 2; on earlier versions, Active: 0, otherwise \code{NA}.
+\item \code{status}: The current status of the job. On Connect 2022.10.0 and newer,
+one of Active: 0, Finished: 1, Finalized: 2; on earlier versions, Active:
+0, otherwise \code{NA}.
 \item \code{hostname}: The name of the node which processes the job.
-\item \code{cluster}: The location where this content runs. Content running on the same server as Connect will have either a null value or the string Local. Gives the name of the cluster when run external to the Connect host (see Note 1).
-\item \code{image}: The location where this content runs. Content running on the same server as Connect will have either a null value or the string Local. References the name of the target image when content runs in a clustered environment such as Kubernetes (see Note 1).
+\item \code{cluster}: The location where this content runs. Content running on the
+same server as Connect will have either a null value or the string Local.
+Gives the name of the cluster when run external to the Connect host
+(see Note 1).
+\item \code{image}: The location where this content runs. Content running on
+the same server as Connect will have either a null value or the string
+Local. References the name of the target image when content runs in
+a clustered environment such as Kubernetes (see Note 1).
 \item \code{run_as}: The UNIX user that executed this job.
 }
 }
