@@ -187,9 +187,12 @@ token_hex <- function(n) {
   paste(as.character(raw), collapse = "")
 }
 
+# Checks to see if an http status contains a 404 error, and that that 404
+# response does not contain an error code indicating that an endpoint was called
+# but encountered a 404 for some other reason.
 endpoint_does_not_exist <- function(res) {
   return(
     httr::status_code(res) == "404" &&
-    "code" %in% names(httr::content(res))
+    !("code" %in% names(httr::content(res, as = "parsed")))
   )
 }

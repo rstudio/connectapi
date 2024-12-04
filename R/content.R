@@ -96,33 +96,35 @@ Content <- R6::R6Class(
     #' @description Return the jobs for this content
     jobs = function() {
       res <- self$connect$GET(v1_url("content", self$content$guid, "jobs"), parser = NULL)
-      if (endpoint_does_not_exist(res)) {
+      use_unversioned <- endpoint_does_not_exist(res)
+      if (use_unversioned) {
         res <- self$connect$GET(unversioned_url("applications", self$content$guid, "jobs"), parser = NULL)
       }
       self$connect$raise_error(res)
-      httr::content(res, as = "parsed")
+      parsed <- httr::content(res, as = "parsed")
+      if (use_unversioned) {
+        # The unversioned endpoint does not contain a `status` field. Its field
+        # `finalized` is `FALSE` corresponds to active jobs. The `finalized`
+        # field is dropped during parsing.
+        parsed <- purrr::modify_if(parsed, ~ isFALSE(.x$finalized), function(x) {
+          x$status = 0
+          x
+        })
+      }
+      parsed
     },
     #' @description Return a single job for this content.
     #' @param key The job key.
     job = function(key) {
-      res <- self$connect$GET(v1("content", self$content$guid, "job", key), parser = NULL)
-      if (endpoint_does_not_exist(res)) {
-        res <- self$connect$GET(unversioned_url("applications", self$content$guid, "job", key), parser = NULL)
-      }
-      self$connect$raise_error(res)
-      parsed <- httr::content(res, as = "parsed")
+      warn_experimental("job")
+      url <- unversioned_url("applications", self$get_content()$guid, "job", key)
+      res <- self$get_connect()$GET(url)
 
-      content_guid <- self$content$guid
+      content_guid <- self$get_content()$guid
       purrr::map(
-        list(parsed),
+        list(res),
         ~ purrr::list_modify(.x, app_guid = content_guid)
       )[[1]]
-    },
-    #' @description Terminate a single job for this content item.
-    terminate_job = function(key) {
-      con <- self$connect
-      url <- v1_url("content", self$content$guid, "jobs", key)
-      self$connect$DELETE(url)
     },
     #' @description Return the variants for this content.
     variants = function() {
@@ -600,26 +602,64 @@ content_ensure <- function(
 
 #' Get Jobs
 #'
-#' `r lifecycle::badge('experimental')` Retrieve details about jobs associated with a `content_item`.
-#' "Jobs" in Posit Connect are content executions
+#' Retrieve details about server processes associated with a `content_item`,
+#' such as a FastAPI app or a Quarto render.
+#'
+#' Note that Connect versions below 2022.10.0 use a legacy endpoint, and will
+#' not return the complete set of information provided by newer versions.
 #'
 #' @param content A Content object, as returned by `content_item()`
-#' @param key The key for a job
 #'
-#' @rdname jobs
+#' @return A data frame with a row for each job, with the following columns:
+#'
+#' - `id`: The job identifier.
+#' - `ppid`: The job's parent process identifier (see Note 1).
+#' - `pid`: The job's process identifier.
+#' - `key`: The job's unique key identifier.
+#' - `remote_id`: The job's identifier for off-host execution configurations (see Note 1).
+#' - `app_id`: The job's parent content identifier
+#' - `variant_id`: The identifier of the variant owning this job.
+#' - `bundle_id`: The identifier of a content bundle linked to this job.
+#' - `start_time`: The timestamp (RFC3339) indicating when this job started.
+#' - `end_time`: The timestamp (RFC3339) indicating when this job finished.
+#' - `last_heartbeat_time`: The timestamp (RFC3339) indicating the last time this job was observed to be running (see Note 1).
+#' - `queued_time`: The timestamp (RFC3339) indicating when this job was added to the queue to be processed. Only scheduled reports will present a value for this field (see Note 1).
+#' - `queue_name`: The name of the queue which processes the job. Only scheduled reports will present a value for this field (see Note 1).
+#' - `tag`: A tag to identify the nature of the job. It can be one of unknown, build_report, build_site, build_jupyter, packrat_restore, python_restore, configure_report, run_app, run_api, run_tensorflow, run_python_api, run_dash_app, run_streamlit, run_bokeh_app, run_fastapi_app, run_pyshiny_app, render_shiny, run_voila_app, testing, git, val_py_ext_pkg, val_r_ext_pkg, val_r_install.
+#' - `exit_code`: The job's exit code. Present only when job is finished.
+#' - `status`: The current status of the job. On Connect 2022.10.0 and newer, one of Active: 0, Finished: 1, Finalized: 2; on earlier versions, Active: 0, otherwise `NA`.
+#' - `hostname`: The name of the node which processes the job.
+#' - `cluster`: The location where this content runs. Content running on the same server as Connect will have either a null value or the string Local. Gives the name of the cluster when run external to the Connect host (see Note 1).
+#' - `image`: The location where this content runs. Content running on the same server as Connect will have either a null value or the string Local. References the name of the target image when content runs in a clustered environment such as Kubernetes (see Note 1).
+#' - `run_as`: The UNIX user that executed this job.
+#'
+#' @note
+#' 1. On Connect instances earlier than 2022.10.0, these columns will contain `NA` values.
+#'
+#' @family job functions
 #' @family content functions
 #' @export
 get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, connectapi_ptypes$jobs)
+  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, order_columns = TRUE)
 }
 
 # TODO: Need to test `logged_error` on a real error
-#' @rdname jobs
+#'
+#' Retrieve details about a server process
+#' associated with a `content_item`, such as a FastAPI app or a Quarto render.
+#'
+#' @param content A Content object, as returned by `content_item()`
+#' @param key The key for a job
+#'
+#' @family job functions
+#' @family content functions
 #' @export
 get_job <- function(content, key) {
+  warn_experimental("get_job")
+  scoped_experimental_silence()
   validate_R6_class(content, "Content")
 
   job <- content$job(key = key)
@@ -629,25 +669,6 @@ get_job <- function(content, key) {
   # a bit of an abuse
   # since stdout / stderr / logged_error are here now...
   parse_connectapi_typed(list(job), connectapi_ptypes$job)
-}
-
-terminate_job <- function(content, keys = NULL) {
-  validate_R6_class(content, "Content")
-
-  if (is.null(keys)) {
-    all_jobs <- get_jobs(content)
-    active_jobs <- all_jobs[isFALSE(all_jobs$finalized), ]
-    keys <- active_jobs$key
-  }
-
-  res <- purrr::map(keys, content$terminate_job)
-  tibble::tibble(
-    key = keys,
-    status = purrr::map_vec(res, httr::status_code),
-    content = purrr::map(res, httr::content)
-  )
-  # content$connect$raise_error(res)
-  # httr::content(res)$result
 }
 
 #' Set RunAs User
