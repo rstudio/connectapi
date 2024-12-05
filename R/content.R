@@ -127,10 +127,14 @@ Content <- R6::R6Class(
       )[[1]]
     },
     #' @description Terminate a single job for this content item.
-    terminate_job = function(key) {
+    register_job_kill_order = function(key) {
       con <- self$connect
       url <- v1_url("content", self$content$guid, "jobs", key)
-      self$connect$DELETE(url)
+      res <- self$connect$DELETE(url)
+      if (endpoint_does_not_exist(res)) {
+        con$raise_error(res)
+      }
+      res
     },
     #' @description Return the variants for this content.
     variants = function() {
@@ -690,22 +694,56 @@ get_job <- function(content, key) {
   parse_connectapi_typed(list(job), connectapi_ptypes$job)
 }
 
-terminate_job <- function(content, keys = NULL) {
+#' Terminate Jobs
+#'
+#' Register a job kill order for one or more jobs associated with a content
+#' item. Requires Connect 2022.10.0 or newer.
+#'
+#' @param content A Content object, as returned by `content_item()`
+#' @param key Optional. One or more job keys, which can be obtained using
+#' `get_jobs(content)`. If no keys are provided, will terminate all active
+#' jobs for the provided content item.
+
+#' @return A data frame with a row for each requested termination.
+#'
+#' - `app_id`: The content item's identifier.
+#' - `app_guid`: The content item's GUID.
+#' - `job_key`: The job key.
+#' - `job_id`: The job's identifier.
+#' - `result`: The result string returned by Connect.
+#' - `code`: An error code, `NA` if the request was successful.
+#' - `error`: An error message, `NA` if the result was successful.
+#'
+#' Note that `app_id`, `app_guid`, `job_id`, and `result` are `NA` if if the
+#' request returned an error.
+#'
+#' @family job functions
+#' @family content functions
+#' @export
+terminate_jobs <- function(content, keys = NULL) {
   validate_R6_class(content, "Content")
 
   if (is.null(keys)) {
     all_jobs <- get_jobs(content)
-    active_jobs <- all_jobs[all_jobs$status == 0, "key"]
+    keys <- all_jobs[all_jobs$status == 0, ]$key
+    if (length(keys) == 0) {
+      message("No active jobs found.")
+      return(vctrs::vec_ptype(connectapi_ptypes$job_termination))
+    }
   }
 
-  res <- purrr::map(keys, content$terminate_job)
-  tibble::tibble(
-    key = keys,
-    status = purrr::map_vec(res, httr::status_code),
-    content = purrr::map(res, httr::content)
+
+  res <- purrr::map(keys, content$register_job_kill_order)
+  res_content <- purrr::map(res, httr::content)
+  res_df <- tibble::tibble(
+    parse_connectapi_typed(
+      res_content,
+      connectapi_ptypes$job_termination,
+      order_columns = TRUE)
   )
-  # content$connect$raise_error(res)
-  # httr::content(res)$result
+  # Errors will not have the job_key.
+  res_df$job_key <- keys
+  res_df
 }
 
 #' Set RunAs User
