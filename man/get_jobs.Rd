@@ -61,11 +61,11 @@ not return the complete set of information provided by newer versions.
 }
 }
 \seealso{
-Other job functions:
+Other job functions: 
 \code{\link{get_job}()},
 \code{\link{terminate_jobs}()}
 
-Other content functions:
+Other content functions: 
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},

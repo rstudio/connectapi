@@ -17,11 +17,11 @@ Retrieve details about a server process
 associated with a \code{content_item}, such as a FastAPI app or a Quarto render.
 }
 \seealso{
-Other job functions:
+Other job functions: 
 \code{\link{get_jobs}()},
 \code{\link{terminate_jobs}()}
 
-Other content functions:
+Other content functions: 
 \code{\link{content_delete}()},
 \code{\link{content_item}()},
 \code{\link{content_title}()},

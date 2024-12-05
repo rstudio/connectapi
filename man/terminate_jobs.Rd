@@ -14,7 +14,7 @@ terminate_jobs(content, keys = NULL)
 jobs for the provided content item.}
 }
 \value{
-A data frame with a row for each requested termination.
+A data frame with the status of each termination request.
 \itemize{
 \item \code{app_id}: The content item's identifier.
 \item \code{app_guid}: The content item's GUID.
@@ -25,8 +25,8 @@ A data frame with a row for each requested termination.
 \item \code{error}: An error message, \code{NA} if the result was successful.
 }
 
-Note that \code{app_id}, \code{app_guid}, \code{job_id}, and \code{result} are \code{NA} if if the
-request returned an error.
+Note that \code{app_id}, \code{app_guid}, \code{job_id}, and \code{result} are \code{NA} if the
+request returns an error.
 }
 \description{
 Register a job kill order for one or more jobs associated with a content

@@ -684,7 +684,7 @@ get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, order_columns = TRUE)
+  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, strict = TRUE)
 }
 
 # TODO: Need to test `logged_error` on a real error
@@ -722,7 +722,7 @@ get_job <- function(content, key) {
 #' `get_jobs(content)`. If no keys are provided, will terminate all active
 #' jobs for the provided content item.
 
-#' @return A data frame with a row for each requested termination.
+#' @return A data frame with the status of each termination request.
 #'
 #' - `app_id`: The content item's identifier.
 #' - `app_guid`: The content item's GUID.
@@ -732,8 +732,8 @@ get_job <- function(content, key) {
 #' - `code`: An error code, `NA` if the request was successful.
 #' - `error`: An error message, `NA` if the result was successful.
 #'
-#' Note that `app_id`, `app_guid`, `job_id`, and `result` are `NA` if if the
-#' request returned an error.
+#' Note that `app_id`, `app_guid`, `job_id`, and `result` are `NA` if the
+#' request returns an error.
 #'
 #' @family job functions
 #' @family content functions
@@ -757,7 +757,7 @@ terminate_jobs <- function(content, keys = NULL) {
     parse_connectapi_typed(
       res_content,
       connectapi_ptypes$job_termination,
-      use_ptype_cols = TRUE
+      strict = TRUE
     )
   )
   # Errors will not have the job_key.
