@@ -93,7 +93,7 @@ Content <- R6::R6Class(
     get_dashboard_url = function(pane = "") {
       dashboard_url_chr(self$connect$server, self$content$guid, pane = pane)
     },
-    #' @description Return the jobs for this content
+    #' @description Return the jobs for this content.
     jobs = function() {
       res <- self$connect$GET(v1_url("content", self$content$guid, "jobs"), parser = NULL)
       use_unversioned <- endpoint_does_not_exist(res)
