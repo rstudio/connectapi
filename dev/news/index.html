@@ -42,6 +42,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
 <div class="section level3">
+<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/get_jobs.html">get_jobs()</a></code> now uses the public endpoint. The data returned by this function has changed. In particular, the <code>finalized</code> column is no longer present, replaced by <code>status</code>. <code>status == 0</code> corresponds to <code>isFALSE(finalized)</code>. See <code>?get_jobs()</code> for more details about the new return format. (<a href="https://github.com/rstudio/connectapi/issues/340" class="external-link">#340</a>)</li>
+</ul></div>
+<div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/get_users.html">get_users()</a></code> now supports filtering users with the <code>account_status</code> and <code>user_role</code> parameters. For example, this allows you to find all licensed users on a Connect server. (<a href="https://github.com/rstudio/connectapi/issues/311" class="external-link">#311</a>)</li>
