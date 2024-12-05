@@ -127,6 +127,7 @@ Content <- R6::R6Class(
       )[[1]]
     },
     #' @description Terminate a single job for this content item.
+    #' @param key The job key.
     register_job_kill_order = function(key) {
       con <- self$connect
       url <- v1_url("content", self$content$guid, "jobs", key)
@@ -700,7 +701,7 @@ get_job <- function(content, key) {
 #' item. Requires Connect 2022.10.0 or newer.
 #'
 #' @param content A Content object, as returned by `content_item()`
-#' @param key Optional. One or more job keys, which can be obtained using
+#' @param keys Optional. One or more job keys, which can be obtained using
 #' `get_jobs(content)`. If no keys are provided, will terminate all active
 #' jobs for the provided content item.
 

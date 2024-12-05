@@ -58,6 +58,7 @@ Other content functions:
 \code{\link{set_run_as}()},
 \code{\link{set_vanity_url}()},
 \code{\link{swap_vanity_url}()},
+\code{\link{terminate_jobs}()},
 \code{\link{verify_content_name}()}
 }
 \concept{content functions}
