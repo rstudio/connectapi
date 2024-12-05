@@ -1,5 +1,12 @@
 # connectapi (development version)
 
+## Breaking changes
+
+- `get_jobs()` now uses the public endpoint. The data returned by this function
+  has changed. In particular, the `finalized` column is no longer present,
+  replaced by `status`. `status == 0` corresponds to `isFALSE(finalized)`. See
+  `?get_jobs()` for more details about the new return format. (#340)
+
 ## New features
 
 - `get_users()` now supports filtering users with the `account_status` and
