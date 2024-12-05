@@ -37,7 +37,7 @@ ensure_columns <- function(.data, ptype, order_columns = FALSE) {
   }
 
   if (order_columns) {
-    .data <- .data[, names(ptype), drop = FALSE]
+    .data <- .data[, unique(c(names(ptype), names(.data))), drop = FALSE]
   }
 
   .data
