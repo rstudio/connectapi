@@ -1,0 +1,18 @@
+{
+    "ppid": 2509183,
+    "pid": 2509199,
+    "key": "QBZ5jkKfmf9iT9k8",
+    "app_id": 52389,
+    "variant_id": 0,
+    "bundle_id": 127015,
+    "tag": "run_app",
+    "finalized": true,
+    "hostname": "dogfood02",
+    "origin": "0001-01-01T00:00:00Z",
+    "stdout": "2024/11/25 22:17:43.386988748 Running on host: dogfood02\n2024/11/25 22:17:43.387008093 Process ID: 2509199\n2024/11/25 22:17:43.430980380 Linux distribution: Ubuntu 22.04.2 LTS (jammy)\n2024/11/25 22:17:43.441252960 Running as user: uid=1031(rstudio-connect) gid=999(rstudio-connect) groups=999(rstudio-connect)\n2024/11/25 22:17:43.441266159 Connect version: 2024.12.0-dev+41-g32b4bddee2\n2024/11/25 22:17:43.441426656 LANG: C.UTF-8\n2024/11/25 22:17:43.441433843 Working directory: /opt/rstudio-connect/mnt/app\n2024/11/25 22:17:43.442234301 Using R 4.3.1\n2024/11/25 22:17:43.442251215 R.home(): /opt/R/4.3.1/lib/R\n2024/11/25 22:17:43.447902588 Content will use associated Packrat library\n2024/11/25 22:17:43.582826876 Adding Packrat library to R_LIBS and .libPaths: /opt/rstudio-connect/mnt/app/packrat/lib/x86_64-pc-linux-gnu/4.3.1\n2024/11/25 22:17:43.583062744 R_LIBS: /opt/rstudio-connect/mnt/app/packrat/lib/x86_64-pc-linux-gnu/4.3.1\n2024/11/25 22:17:43.583081371 .libPaths(): /opt/rstudio-connect/mnt/app/packrat/lib/x86_64-pc-linux-gnu/4.3.1, /opt/R/4.3.1/lib/R/library\n2024/11/25 22:17:43.614560696 shiny version: 1.7.4\n2024/11/25 22:17:43.614602630 httpuv version: 1.6.11\n2024/11/25 22:17:43.614782708 rmarkdown version: (none)\n2024/11/25 22:17:43.614785084 knitr version: (none)\n2024/11/25 22:17:43.614794794 jsonlite version: 1.8.4\n2024/11/25 22:17:43.614795565 RJSONIO version: (none)\n2024/11/25 22:17:43.614802828 htmltools version: 0.5.5\n2024/11/25 22:17:43.614803648 reticulate version: (none)\n2024/11/25 22:17:43.615021102 Using pandoc: /opt/rstudio-connect/ext/pandoc/2.16\n2024/11/25 22:17:44.634166987 Using Shiny bookmarking base directory /opt/rstudio-connect/mnt/bookmarks\n2024/11/25 22:17:44.635399206 Shiny application starting ...\n",
+    "stderr": "2024/11/25 22:17:43.030795136 [rsc-session] Content GUID: 8f37d6e0\n2024/11/25 22:17:43.030842219 [rsc-session] Content ID: 52389\n2024/11/25 22:17:43.030849040 [rsc-session] Bundle ID: 127015\n2024/11/25 22:17:43.030854033 [rsc-session] Job Key: QBZ5jkKfmf9iT9k8\n2024/11/25 22:17:45.068540867 \n2024/11/25 22:17:45.068555326 Listening on http://127.0.0.1:33545\n",
+    "logged_error": null,
+    "exit_code": 0,
+    "start_time": 1732573062,
+    "end_time": null
+}
