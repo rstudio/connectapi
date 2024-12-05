@@ -112,6 +112,23 @@ Content <- R6::R6Class(
         })
       }
       parsed
+      res <- self$connect$GET(v1_url("content", self$content$guid, "jobs"), parser = NULL)
+      use_unversioned <- endpoint_does_not_exist(res)
+      if (use_unversioned) {
+        res <- self$connect$GET(unversioned_url("applications", self$content$guid, "jobs"), parser = NULL)
+      }
+      self$connect$raise_error(res)
+      parsed <- httr::content(res, as = "parsed")
+      if (use_unversioned) {
+        # The unversioned endpoint does not contain a `status` field. Its field
+        # `finalized` is `FALSE` corresponds to active jobs. The `finalized`
+        # field is dropped during parsing.
+        parsed <- purrr::modify_if(parsed, ~ isFALSE(.x$finalized), function(x) {
+          x$status <- 0
+          x
+        })
+      }
+      parsed
     },
     #' @description Return a single job for this content.
     #' @param key The job key.
@@ -667,7 +684,7 @@ get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, use_ptype_cols = TRUE)
+  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, order_columns = TRUE)
 }
 
 # TODO: Need to test `logged_error` on a real error

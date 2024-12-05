@@ -27,7 +27,7 @@ make_timestamp <- function(input) {
   safe_format(input, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC", usetz = FALSE)
 }
 
-ensure_columns <- function(.data, ptype, use_ptype_cols = FALSE) {
+ensure_columns <- function(.data, ptype, order_columns = FALSE) {
   # Given a prototype, ensure that all columns are present and cast to the correct type.
   # If a column is missing in .data, it will be created with all missing values of the correct type.
   # If a column is present in both, it will be cast to the correct type.
@@ -36,8 +36,8 @@ ensure_columns <- function(.data, ptype, use_ptype_cols = FALSE) {
     .data <- ensure_column(.data, ptype[[i]], i)
   }
 
-  if (use_ptype_cols) {
-    .data <- .data[, names(ptype), drop = FALSE]
+  if (order_columns) {
+    .data <- .data[, unique(c(names(ptype), names(.data))), drop = FALSE]
   }
 
   .data
@@ -70,8 +70,8 @@ ensure_column <- function(data, default, name) {
   data
 }
 
-parse_connectapi_typed <- function(data, ptype, use_ptype_cols = FALSE) {
-  ensure_columns(parse_connectapi(data), ptype, use_ptype_cols)
+parse_connectapi_typed <- function(data, ptype, order_columns = FALSE) {
+  ensure_columns(parse_connectapi(data), ptype, order_columns)
 }
 
 parse_connectapi <- function(data) {
