@@ -667,7 +667,7 @@ get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, order_columns = TRUE)
+  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, use_ptype_cols = TRUE)
 }
 
 # TODO: Need to test `logged_error` on a real error
@@ -740,7 +740,8 @@ terminate_jobs <- function(content, keys = NULL) {
     parse_connectapi_typed(
       res_content,
       connectapi_ptypes$job_termination,
-      order_columns = TRUE)
+      use_ptype_cols = TRUE
+    )
   )
   # Errors will not have the job_key.
   res_df$job_key <- keys
