@@ -126,6 +126,12 @@ Content <- R6::R6Class(
         ~ purrr::list_modify(.x, app_guid = content_guid)
       )[[1]]
     },
+    #' @description Terminate a single job for this content item.
+    terminate_job = function(key) {
+      con <- self$connect
+      url <- v1_url("content", self$content$guid, "jobs", key)
+      self$connect$DELETE(url)
+    },
     #' @description Return the variants for this content.
     variants = function() {
       warn_experimental("variants")
@@ -682,6 +688,24 @@ get_job <- function(content, key) {
   # a bit of an abuse
   # since stdout / stderr / logged_error are here now...
   parse_connectapi_typed(list(job), connectapi_ptypes$job)
+}
+
+terminate_job <- function(content, keys = NULL) {
+  validate_R6_class(content, "Content")
+
+  if (is.null(keys)) {
+    all_jobs <- get_jobs(content)
+    active_jobs <- all_jobs[all_jobs$status == 0, "key"]
+  }
+
+  res <- purrr::map(keys, content$terminate_job)
+  tibble::tibble(
+    key = keys,
+    status = purrr::map_vec(res, httr::status_code),
+    content = purrr::map(res, httr::content)
+  )
+  # content$connect$raise_error(res)
+  # httr::content(res)$result
 }
 
 #' Set RunAs User
