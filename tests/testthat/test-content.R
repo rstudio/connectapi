@@ -241,3 +241,32 @@ with_mock_api({
     expect_identical(v$key, "WrEKKa77")
   })
 })
+
+# jobs -----
+
+test_that("get_jobs() using the old and new endpoints returns sensible results", {
+  with_mock_api({
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    item <- content_item(client, "8f37d6e0")
+    jobs_v1 <- get_jobs(item)
+    TRUE
+  })
+
+  with_mock_dir("2024.07.0", {
+    jobs_v0 <- get_jobs(item)
+  })
+
+  # Columns we expect to be identical
+  common_cols <- c(
+    "id", "pid", "key", "app_id", "variant_id", "bundle_id", "start_time",
+    "end_time", "tag", "exit_code", "hostname"
+  )
+  expect_equal(
+    jobs_v1[common_cols],
+    jobs_v1[common_cols]
+  )
+
+  # Status columns line up as expected
+  expect_equal(jobs_v1$status, c(0L, 2L, 2L, 2L, 2L))
+  expect_equal(jobs_v0$status, c(0L, NA, NA, NA, NA))
+})

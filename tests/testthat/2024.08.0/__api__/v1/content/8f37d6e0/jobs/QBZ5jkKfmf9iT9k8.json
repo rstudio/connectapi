@@ -1,0 +1,22 @@
+{
+    "id": "40096649",
+    "ppid": "2509183",
+    "pid": "2509199",
+    "key": "QBZ5jkKfmf9iT9k8",
+    "remote_id": null,
+    "app_id": "52389",
+    "variant_id": "0",
+    "bundle_id": "127015",
+    "start_time": "2024-11-25T22:17:42Z",
+    "end_time": null,
+    "last_heartbeat_time": "2024-11-25T22:20:23Z",
+    "queued_time": null,
+    "queue_name": null,
+    "tag": "run_app",
+    "exit_code": null,
+    "status": 2,
+    "hostname": "dogfood02",
+    "cluster": null,
+    "image": null,
+    "run_as": "rstudio-connect"
+}
