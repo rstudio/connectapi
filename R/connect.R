@@ -853,6 +853,12 @@ Connect <- R6::R6Class(
       self$GET(path = path, query = query)
     },
 
+    #' @description Get all vanity URLs
+    vanities = function() {
+      path <- v1_url("vanities")
+      self$GET(path = path)
+    },
+
     #' @description Get R installations.
     server_settings_r = function() {
       lifecycle::deprecate_soft("0.3.1", "Connect$server_settings_r()", "get_runtimes()")

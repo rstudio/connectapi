@@ -14,6 +14,8 @@
   users on a Connect server. (#311)
 - The new `get_group_content()` function lets you view the content that groups
   have permission to access. (#334)
+- New `get_vanity_urls()` function to get all vanity URLs on a Connect server
+  (#333)
 
 ## Minor improvements and fixes
 

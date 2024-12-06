@@ -224,5 +224,10 @@ connectapi_ptypes <- list(
     content_title = NA_character_,
     access_type = NA_character_,
     permissions = NA_list_
+  ),
+  vanities = tibble::tibble(
+    content_guid = NA_character_,
+    path = NA_character_,
+    created_time = NA_datetime_
   )
 )

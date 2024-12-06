@@ -10,7 +10,7 @@
 #' @family audit functions
 #' @export
 vanity_is_available <- function(connect, vanity) {
-  current_vanities <- connect$GET(v1_url("vanities"))
+  current_vanities <- connect$vanities()
   current_vanity_paths <- purrr::map_chr(current_vanities, "path")
 
   # In case a full URL has been given, prune it down to just the path
