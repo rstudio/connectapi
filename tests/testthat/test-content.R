@@ -249,7 +249,6 @@ test_that("get_jobs() using the old and new endpoints returns sensible results",
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     item <- content_item(client, "8f37d6e0")
     jobs_v1 <- get_jobs(item)
-    TRUE
   })
 
   with_mock_dir("2024.07.0", {
@@ -261,12 +260,67 @@ test_that("get_jobs() using the old and new endpoints returns sensible results",
     "id", "pid", "key", "app_id", "variant_id", "bundle_id", "start_time",
     "end_time", "tag", "exit_code", "hostname"
   )
-  expect_equal(
+  expect_identical(
     jobs_v1[common_cols],
-    jobs_v1[common_cols]
+    jobs_v0[common_cols]
   )
 
   # Status columns line up as expected
-  expect_equal(jobs_v1$status, c(0L, 2L, 2L, 2L, 2L))
-  expect_equal(jobs_v0$status, c(0L, NA, NA, NA, NA))
+  expect_equal(jobs_v1$status, c(0L, 0L, 2L, 2L, 2L, 2L))
+  expect_equal(jobs_v0$status, c(0L, 0L, NA, NA, NA, NA))
+})
+
+with_mock_api({
+  client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+
+  test_that("terminate_jobs() returns expected data when active jobs exist", {
+    item <- content_item(client, "8f37d6e0")
+    expect_equal(
+      terminate_jobs(item),
+      tibble::tibble(
+        app_id = c(NA, 52389L),
+        app_guid = c(NA, "8f37d6e0"),
+        job_key = c("waaTO7v75I84S1hQ", "k3sHkEoWJNwQim7g"),
+        job_id = c(NA, "40669829"),
+        result = c(NA, "Order to kill job registered"),
+        code = c(163L, NA),
+        error = c(
+          "The specified job cannot be terminated because it is not active",
+          NA
+        )
+      )
+    )
+  })
+
+  test_that("terminate_jobs() functions as expected with no active jobs", {
+    item <- content_item(client, "01234567")
+    expect_message(
+      expect_equal(
+        terminate_jobs(item),
+        tibble::tibble(
+          app_id = integer(),
+          app_guid = character(),
+          job_key = character(),
+          job_id = character(),
+          result = character(),
+          code = integer(),
+          error = character()
+        )
+      ),
+      "No active jobs found."
+    )
+  })
+})
+
+test_that("an error is raised when terminate_jobs() calls a bad URL", {
+  with_mock_api({
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    item <- content_item(client, "8f37d6e0")
+  })
+
+  with_mock_dir("2024.07.0", {
+    expect_error(
+      terminate_jobs(item, "waaTO7v75I84S1hQ")
+    )
+  })
 })

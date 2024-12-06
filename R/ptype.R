@@ -224,5 +224,14 @@ connectapi_ptypes <- list(
     content_title = NA_character_,
     access_type = NA_character_,
     permissions = NA_list_
+  ),
+  job_termination = tibble::tibble(
+    app_id = NA_integer_,
+    app_guid = NA_character_,
+    job_key = NA_character_,
+    job_id = NA_character_,
+    result = NA_character_,
+    code = NA_integer_,
+    error = NA_character_
   )
 )
