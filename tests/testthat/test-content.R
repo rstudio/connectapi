@@ -249,7 +249,6 @@ test_that("get_jobs() using the old and new endpoints returns sensible results",
     client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
     item <- content_item(client, "8f37d6e0")
     jobs_v1 <- get_jobs(item)
-    TRUE
   })
 
   with_mock_dir("2024.07.0", {

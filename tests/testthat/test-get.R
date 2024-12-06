@@ -170,3 +170,26 @@ without_internet({
     )
   })
 })
+
+test_that("get_vanity_urls() works", {
+  with_mock_api({
+    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+    expect_equal(
+      get_vanity_urls(client),
+      tibble::tibble(
+        content_guid = c(
+          "39c8d85a-37ae-4b8b-8655-30a06adff2f1",
+          "93a3cd6d-5a1b-236c-9808-6045f2a73fb5"
+        ),
+        path = c(
+          "/team-dashboard/",
+          "/streamlit/my-app/"
+        ),
+        created_time = structure(c(
+          1602623489,
+          1677679943
+        ), tzone = "UTC", class = c("POSIXct", "POSIXt"))
+      )
+    )
+  })
+})
