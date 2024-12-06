@@ -271,8 +271,9 @@ test_that("get_jobs() using the old and new endpoints returns sensible results",
 })
 
 with_mock_api({
-  test_that("terminate_jobs() returns expected data", {
-    client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+  client <- Connect$new(server = "http://connect.example", api_key = "not-a-key")
+
+  test_that("terminate_jobs() returns expected data when active jobs exist", {
     item <- content_item(client, "8f37d6e0")
     expect_equal(
       terminate_jobs(item),
@@ -288,6 +289,25 @@ with_mock_api({
           NA
         )
       )
+    )
+  })
+
+  test_that("terminate_jobs() functions as expected with no active jobs", {
+    item <- content_item(client, "01234567")
+    expect_message(
+      expect_equal(
+        terminate_jobs(item),
+        tibble::tibble(
+          app_id = integer(),
+          app_guid = character(),
+          job_key = character(),
+          job_id = character(),
+          result = character(),
+          code = integer(),
+          error = character()
+        )
+      ),
+      "No active jobs found."
     )
   })
 })
