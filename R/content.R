@@ -750,7 +750,6 @@ terminate_jobs <- function(content, keys = NULL) {
     }
   }
 
-
   res <- purrr::map(keys, content$register_job_kill_order)
   res_content <- purrr::map(res, httr::content)
   res_df <- tibble::tibble(
