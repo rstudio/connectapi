@@ -5,17 +5,16 @@
 \title{Perform an OAuth credential exchange to obtain a content-specific OAuth
 access token.}
 \usage{
-get_oauth_content_credentials(connect, content_session_token)
+get_oauth_content_credentials(connect, content_session_token = NULL)
 }
 \arguments{
 \item{connect}{A Connect R6 object.}
 
-\item{content_session_token}{The content session token. This token can only
-be obtained when the content is running on a Connect server. The token
-identifies the service account integration previously configured by the publisher
-on the Connect server.
-
-Read this value from the environment variable: \code{CONNECT_CONTENT_SESSION_TOKEN}}
+\item{content_session_token}{Optional. The content session token. This token
+can only be obtained when the content is running on a Connect server. The
+token identifies the service account integration previously configured by
+the publisher on the Connect server. Defaults to the value from the
+environment variable: \code{CONNECT_CONTENT_SESSION_TOKEN}}
 }
 \value{
 The OAuth credential exchange response.
@@ -36,8 +35,7 @@ client <- connect()
 
 #* @get /do
 function(req) {
-  content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
-  credentials <- get_oauth_content_credentials(client, content_session_token)
+  credentials <- get_oauth_content_credentials(client)
 
   # ... do something with `credentials$access_token` ...
 
