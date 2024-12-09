@@ -24,7 +24,7 @@ Perform an OAuth credential exchange to obtain a content-specific OAuth
 access token.
 }
 \details{
-Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-content-oauth-access-token
+Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-service-account-oauth-access-token
 for more information.
 }
 \examples{

@@ -656,7 +656,7 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #' @return The OAuth credential exchange response.
 #'
 #' @details
-#' Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-content-oauth-access-token
+#' Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-service-account-oauth-access-token
 #' for more information.
 #'
 #' @export
