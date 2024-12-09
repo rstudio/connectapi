@@ -47,7 +47,6 @@ with_mock_api({
   test_that("we cannot retrieve the oauth content credentials without a token or env var", {
     con <- Connect$new(server = "https://connect.example", api_key = "fake")
     expect_true(validate_R6_class(con, "Connect"))
-    credentials <-
     expect_error(
       get_oauth_content_credentials(con),
       "Could not find the CONNECT_CONTENT_SESSION_TOKEN environment variable."
