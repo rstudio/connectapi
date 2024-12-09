@@ -633,12 +633,11 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #' access token.
 #'
 #' @param connect A Connect R6 object.
-#' @param content_session_token The content session token. This token can only
-#' be obtained when the content is running on a Connect server. The token
-#' identifies the service account integration previously configured by the publisher
-#' on the Connect server.
-#'
-#' Read this value from the environment variable: `CONNECT_CONTENT_SESSION_TOKEN`
+#' @param content_session_token Optional. The content session token. This token
+#' can only be obtained when the content is running on a Connect server. The
+#' token identifies the service account integration previously configured by
+#' the publisher on the Connect server. Defaults to the value from the
+#' environment variable: `CONNECT_CONTENT_SESSION_TOKEN`
 #'
 #' @examples
 #' \dontrun{
@@ -648,8 +647,7 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #'
 #' #* @get /do
 #' function(req) {
-#'   content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
-#'   credentials <- get_oauth_content_credentials(client, content_session_token)
+#'   credentials <- get_oauth_content_credentials(client)
 #'
 #'   # ... do something with `credentials$access_token` ...
 #'
@@ -664,8 +662,14 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #' for more information.
 #'
 #' @export
-get_oauth_content_credentials <- function(connect, content_session_token) {
+get_oauth_content_credentials <- function(connect, content_session_token = NULL) {
   validate_R6_class(connect, "Connect")
+  if (is.null(content_session_token)) {
+    content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
+    if (nchar(content_session_token) == 0) {
+      stop("Could not find the CONNECT_CONTENT_SESSION_TOKEN environment variable.")
+    }
+  }
   url <- v1_url("oauth", "integrations", "credentials")
   body <- c(
     list(
