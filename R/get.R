@@ -615,12 +615,10 @@ get_procs <- function(src) {
 get_oauth_credentials <- function(connect, user_session_token) {
   validate_R6_class(connect, "Connect")
   url <- v1_url("oauth", "integrations", "credentials")
-  body <- c(
-    list(
-      grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type = "urn:posit:connect:user-session-token",
-      subject_token = user_session_token
-    )
+  body <- list(
+    grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+    subject_token_type = "urn:posit:connect:user-session-token",
+    subject_token = user_session_token
   )
   connect$POST(
     url,
@@ -672,12 +670,10 @@ get_oauth_content_credentials <- function(connect, content_session_token = NULL)
     }
   }
   url <- v1_url("oauth", "integrations", "credentials")
-  body <- c(
-    list(
-      grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type = "urn:posit:connect:content-session-token",
-      subject_token = content_session_token
-    )
+  body <- list(
+    grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+    subject_token_type = "urn:posit:connect:content-session-token",
+    subject_token = content_session_token
   )
   connect$POST(
     url,
