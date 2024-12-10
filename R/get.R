@@ -684,3 +684,26 @@ get_runtimes <- function(client, runtimes = NULL) {
     tibble::add_column(res_df, runtime = runtime, .before = 1)
   })
 }
+
+#' Get all vanity URLs
+#'
+#' Get a table of all vanity URLs on the server. Requires administrator
+#' privileges.
+#'
+#' @param client A `Connect` object.
+#'
+#' @return A tibble with columns for `content_guid`, `path`, and
+#' `created_time`.
+#'
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' client <- connect()
+#' get_vanity_urls(client)
+#' }
+#'
+#' @export
+get_vanity_urls <- function(client) {
+  res <- client$vanities()
+  parse_connectapi_typed(res, connectapi_ptypes$vanities)
+}

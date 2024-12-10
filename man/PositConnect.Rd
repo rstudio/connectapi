@@ -124,6 +124,7 @@ Other R6 classes:
 \item \href{#method-Connect-schedules}{\code{Connect$schedules()}}
 \item \href{#method-Connect-docs}{\code{Connect$docs()}}
 \item \href{#method-Connect-audit_logs}{\code{Connect$audit_logs()}}
+\item \href{#method-Connect-vanities}{\code{Connect$vanities()}}
 \item \href{#method-Connect-server_settings_r}{\code{Connect$server_settings_r()}}
 \item \href{#method-Connect-server_settings}{\code{Connect$server_settings()}}
 \item \href{#method-Connect-clone}{\code{Connect$clone()}}
@@ -1319,6 +1320,16 @@ Get auditing.
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connect-vanities"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-vanities}{}}}
+\subsection{Method \code{vanities()}}{
+Get all vanity URLs
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connect$vanities()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-server_settings_r"></a>}}
