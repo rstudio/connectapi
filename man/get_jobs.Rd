@@ -62,7 +62,8 @@ not return the complete set of information provided by newer versions.
 }
 \seealso{
 Other job functions: 
-\code{\link{get_job}()}
+\code{\link{get_job}()},
+\code{\link{terminate_jobs}()}
 
 Other content functions: 
 \code{\link{content_delete}()},
@@ -89,6 +90,7 @@ Other content functions:
 \code{\link{set_thumbnail}()},
 \code{\link{set_vanity_url}()},
 \code{\link{swap_vanity_url}()},
+\code{\link{terminate_jobs}()},
 \code{\link{verify_content_name}()}
 }
 \concept{content functions}

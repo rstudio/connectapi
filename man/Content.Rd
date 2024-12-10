@@ -61,6 +61,7 @@ Other R6 classes:
 \item \href{#method-Content-get_dashboard_url}{\code{Content$get_dashboard_url()}}
 \item \href{#method-Content-jobs}{\code{Content$jobs()}}
 \item \href{#method-Content-job}{\code{Content$job()}}
+\item \href{#method-Content-register_job_kill_order}{\code{Content$register_job_kill_order()}}
 \item \href{#method-Content-variants}{\code{Content$variants()}}
 \item \href{#method-Content-tag_set}{\code{Content$tag_set()}}
 \item \href{#method-Content-tag_delete}{\code{Content$tag_delete()}}
@@ -261,6 +262,23 @@ Return the jobs for this content.
 Return a single job for this content.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$job(key)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{The job key.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Content-register_job_kill_order"></a>}}
+\if{latex}{\out{\hypertarget{method-Content-register_job_kill_order}{}}}
+\subsection{Method \code{register_job_kill_order()}}{
+Terminate a single job for this content item.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Content$register_job_kill_order(key)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

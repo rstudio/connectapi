@@ -40,6 +40,7 @@ reference:
       - matches("image")
       - matches("vanity")
       - matches("schedule")
+      - matches("job")
       - set_run_as
 
   - title: "Users and groups"
