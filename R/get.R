@@ -664,6 +664,7 @@ get_oauth_credentials <- function(connect, user_session_token) {
 #' @export
 get_oauth_content_credentials <- function(connect, content_session_token = NULL) {
   validate_R6_class(connect, "Connect")
+  error_if_less_than(connect$version, "2024.12.0")
   if (is.null(content_session_token)) {
     content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
     if (nchar(content_session_token) == 0) {
