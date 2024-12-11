@@ -615,12 +615,65 @@ get_procs <- function(src) {
 get_oauth_credentials <- function(connect, user_session_token) {
   validate_R6_class(connect, "Connect")
   url <- v1_url("oauth", "integrations", "credentials")
-  body <- c(
-    list(
-      grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type = "urn:posit:connect:user-session-token",
-      subject_token = user_session_token
-    )
+  body <- list(
+    grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+    subject_token_type = "urn:posit:connect:user-session-token",
+    subject_token = user_session_token
+  )
+  connect$POST(
+    url,
+    encode = "form",
+    body = body
+  )
+}
+
+#' Perform an OAuth credential exchange to obtain a content-specific OAuth
+#' access token.
+#'
+#' @param connect A Connect R6 object.
+#' @param content_session_token Optional. The content session token. This token
+#' can only be obtained when the content is running on a Connect server. The
+#' token identifies the service account integration previously configured by
+#' the publisher on the Connect server. Defaults to the value from the
+#' environment variable: `CONNECT_CONTENT_SESSION_TOKEN`
+#'
+#' @examples
+#' \dontrun{
+#' library(connectapi)
+#' library(plumber)
+#' client <- connect()
+#'
+#' #* @get /do
+#' function(req) {
+#'   credentials <- get_oauth_content_credentials(client)
+#'
+#'   # ... do something with `credentials$access_token` ...
+#'
+#'   "done"
+#' }
+#' }
+#'
+#' @return The OAuth credential exchange response.
+#'
+#' @details
+#' Please see https://docs.posit.co/connect/user/oauth-integrations/#obtaining-a-service-account-oauth-access-token
+#' for more information.
+#'
+#' @export
+get_oauth_content_credentials <- function(connect, content_session_token = NULL) {
+  validate_R6_class(connect, "Connect")
+  error_if_less_than(connect$version, "2024.12.0")
+  if (is.null(content_session_token)) {
+    content_session_token <- Sys.getenv("CONNECT_CONTENT_SESSION_TOKEN")
+    if (nchar(content_session_token) == 0) {
+      stop("Could not find the CONNECT_CONTENT_SESSION_TOKEN environment variable.")
+    }
+  }
+  url <- v1_url("oauth", "integrations", "credentials")
+  body <- list(
+    grant_type = "urn:ietf:params:oauth:grant-type:token-exchange",
+    subject_token_type = "urn:posit:connect:content-session-token",
+    subject_token = content_session_token
   )
   connect$POST(
     url,
