@@ -249,7 +249,7 @@ Return the URL for this content in the Posit Connect dashboard.
 \if{html}{\out{<a id="method-Content-jobs"></a>}}
 \if{latex}{\out{\hypertarget{method-Content-jobs}{}}}
 \subsection{Method \code{jobs()}}{
-Return the jobs for this content.
+Return the jobs for this content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Content$jobs()}\if{html}{\out{</div>}}
 }
