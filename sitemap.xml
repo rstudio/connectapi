@@ -56,9 +56,13 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_audit_logs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_bundles.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_content.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_group_content.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_group_members.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_groups.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_image.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_job.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_jobs.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_oauth_content_credentials.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_oauth_credentials.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_procs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_runtime_caches.html</loc></url>
@@ -69,12 +73,12 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_usage_static.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_users.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_vanity_url.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/get_vanity_urls.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/get_variant_schedule.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/git.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/groups_create_remote.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/has_thumbnail.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/index.html</loc></url>
-<url><loc>https://pkgs.rstudio.com/connectapi/reference/jobs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/paging.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/permissions.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/pipe.html</loc></url>
@@ -88,6 +92,7 @@
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/swap_vanity_url.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/tags.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/tbl_connect.html</loc></url>
+<url><loc>https://pkgs.rstudio.com/connectapi/reference/terminate_jobs.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/user.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/users_create_remote.html</loc></url>
 <url><loc>https://pkgs.rstudio.com/connectapi/reference/vanity_is_available.html</loc></url>
