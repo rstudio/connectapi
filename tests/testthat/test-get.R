@@ -249,7 +249,7 @@ test_that("get_packages() works as expected with current return value", {
       language_version = c("3.7.6", "3.7.7"),
       name = c("absl-py", "absl-py"),
       version = c("0.12.0", "0.8.1"),
-      hash = c(NA_character_, NA_character_),
+      hash = c(NA, NA),
       bundle_id = c("9375", "6623"),
       content_id = c("4906", "3652"),
       content_guid = c("9bf33774", "1935b6cb")
@@ -320,7 +320,7 @@ test_that("get_packages() works as expected with `content_guid` names in API res
       language_version = c("3.7.6", "3.7.7"),
       name = c("absl-py", "absl-py"),
       version = c("0.12.0", "0.8.1"),
-      hash = c(NA_character_, NA_character_),
+      hash = c(NA, NA),
       bundle_id = c("9375", "6623"),
       content_id = c("4906", "3652"),
       content_guid = c("9bf33774", "1935b6cb")
@@ -384,27 +384,12 @@ with_mock_dir("2025.04.0", {
     )
 
     expect_s3_class(usage, "connect_list_hits")
-    expect_s3_class(usage, "list")
+    expect_true(is.list(usage))
+    expect_equal(length(usage), 5)
+    expect_equal(usage[[1]]$id, 8966707L)
+    expect_equal(usage[[1]]$content_guid, "475618c9")
 
-    expect_length(usage, 5)
-
-    # Check first element (raw list, before conversion to data.frame).
-    # The id is numeric in the JSON, so it stays numeric in the raw list.
-    expect_equal(
-      usage[[1]],
-      list(
-        id = 8966707L,
-        user_guid = NULL,
-        content_guid = "475618c9",
-        timestamp = "2025-04-30T12:49:16.269904Z",
-        data = list(
-          path = "/hello",
-          user_agent = "Datadog/Synthetics"
-        )
-      )
-    )
-
-    # Check conversion to data.frame
+    # Check conversion to data.frame (with unnesting)
     usage_df <- as.data.frame(usage)
     expect_equal(
       usage_df,

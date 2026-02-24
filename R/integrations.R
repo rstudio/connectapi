@@ -136,7 +136,10 @@ as.data.frame.connect_integration_list <- function(
 #' @return A tibble with one row per integration.
 #' @export
 as_tibble.connect_integration_list <- function(x, ...) {
-  parse_connectapi_typed(x, connectapi_ptypes$integrations)
+  parse_connectapi_typed(
+    x,
+    datetime_cols = c("created_time", "updated_time")
+  )
 }
 
 # Integration class ----

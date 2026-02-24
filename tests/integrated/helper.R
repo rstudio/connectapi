@@ -1,11 +1,24 @@
-expect_ptype_equal <- function(actual, expected, exact = TRUE) {
+expect_column_types <- function(actual, expected_types, exact = TRUE) {
+  # expected_types is a named list: list(col_name = "type_string", ...)
   if (!exact) {
-    # Keep only the columns from each that are in the other
-    shared_names <- intersect(names(actual), names(expected))
-    actual <- actual[, shared_names]
-    expected <- expected[, shared_names]
+    shared_names <- intersect(names(actual), names(expected_types))
+    expected_types <- expected_types[shared_names]
   }
-  expect_equal(vctrs::vec_ptype(actual), vctrs::vec_ptype(expected))
+  for (nm in names(expected_types)) {
+    expect_true(
+      nm %in% names(actual),
+      info = paste("Expected column", nm, "not found")
+    )
+    if (nm %in% names(actual)) {
+      expect_true(
+        inherits(actual[[nm]], expected_types[[nm]]),
+        info = paste0(
+          "Column '", nm, "': expected ", expected_types[[nm]],
+          ", got ", paste(class(actual[[nm]]), collapse = "/")
+        )
+      )
+    }
+  }
 }
 
 skip_if_connect_older_than <- function(client, version) {

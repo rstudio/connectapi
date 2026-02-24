@@ -257,7 +257,11 @@ get_variants <- function(content) {
 
   variants <- content$variants()
 
-  parse_connectapi_typed(variants, connectapi_ptypes$variant)
+  out <- parse_connectapi_typed(
+    variants,
+    datetime_cols = c("created_time", "render_time")
+  )
+  coerce_integer64(out, "render_duration")
 }
 
 #' @rdname variant
@@ -300,7 +304,8 @@ get_variant_renderings <- function(variant) {
   validate_R6_class(variant, "Variant")
 
   renders <- variant$renderings()
-  parse_connectapi_typed(renders, connectapi_ptypes$rendering)
+  out <- parse_connectapi_typed(renders, datetime_cols = "render_time")
+  coerce_integer64(out, "render_duration")
 }
 
 #' @rdname variant_render

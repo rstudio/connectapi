@@ -251,7 +251,7 @@ Build a URL relative to the server root
 \subsection{Method \code{request()}}{
 General wrapper around \code{httr} verbs
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, ..., parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, ..., parser = "parsed", simplify = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -266,6 +266,10 @@ General wrapper around \code{httr} verbs
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+
+\item{\code{simplify}}{Logical; if \code{TRUE}, JSON arrays of objects are
+simplified to data frames by jsonlite. Default \code{FALSE} preserves
+list-of-lists for compatibility with pagination helpers.}
 }
 \if{html}{\out{</div>}}
 }
@@ -276,7 +280,13 @@ will be returned. Otherwise, the argument is forwarded to
 \subsection{Method \code{GET()}}{
 Perform an HTTP GET request of the named API path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, ..., url = self$api_url(path), parser = "parsed")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(
+  path,
+  ...,
+  url = self$api_url(path),
+  parser = "parsed",
+  simplify = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -292,6 +302,10 @@ a server resource that is not under \verb{/__api__}}
 \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+
+\item{\code{simplify}}{Logical; if \code{TRUE}, JSON arrays of objects are
+simplified to data frames by jsonlite. Default \code{FALSE} preserves
+list-of-lists for compatibility with pagination helpers.}
 }
 \if{html}{\out{</div>}}
 }

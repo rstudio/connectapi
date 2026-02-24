@@ -98,7 +98,7 @@ groups_create_remote <- function(
   expect <- as.integer(expect)
   if (check) {
     local_groups <- get_groups(connect, prefix = prefix)
-    if (exact) {
+    if (exact && nrow(local_groups) > 0) {
       local_groups <- local_groups[local_groups["name"] == prefix, ]
     }
     if (nrow(local_groups) > 0) {

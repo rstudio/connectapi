@@ -788,7 +788,23 @@ get_jobs <- function(content) {
   validate_R6_class(content, "Content")
 
   jobs <- content$jobs()
-  parse_connectapi_typed(jobs, connectapi_ptypes$jobs, strict = TRUE)
+  out <- parse_connectapi_typed(
+    jobs,
+    datetime_cols = c("start_time", "end_time", "last_heartbeat_time", "queued_time")
+  )
+
+  # The older /applications/ endpoint returns timestamps as Unix epoch integers
+  # and ID fields as integers. Normalize to match the v1 endpoint's types.
+  # For the v1 endpoint these are already character/POSIXct, so the coercions
+  # are no-ops.
+  out <- coerce_epoch_to_posixct(
+    out,
+    c("start_time", "end_time", "last_heartbeat_time", "queued_time")
+  )
+  coerce_to_character(
+    out,
+    c("id", "ppid", "pid", "app_id", "content_id", "variant_id", "bundle_id")
+  )
 }
 
 #' Terminate Jobs
@@ -832,22 +848,19 @@ terminate_jobs <- function(content, keys = NULL) {
     keys <- all_jobs[all_jobs$status == 0, ]$key
     if (length(keys) == 0) {
       message("No active jobs found.")
-      return(vctrs::vec_ptype(connectapi_ptypes$job_termination))
+      return(tibble::tibble())
     }
   }
 
   res <- purrr::map(keys, content$register_job_kill_order)
   res_content <- purrr::map(res, httr::content)
-  res_df <- tibble::tibble(
-    parse_connectapi_typed(
-      res_content,
-      connectapi_ptypes$job_termination,
-      strict = TRUE
-    )
-  )
+  res_df <- parse_connectapi_typed(res_content)
   # Errors will not have the job_key.
   res_df$job_key <- keys
-  res_df
+  # Keep only the columns relevant to job termination; the API response
+  # includes extra fields (e.g. payload, guid) on error that vary by outcome.
+  keep <- c("app_id", "app_guid", "job_key", "job_id", "result", "code", "error")
+  res_df[, intersect(keep, names(res_df)), drop = FALSE]
 }
 
 #' @rdname get_jobs
@@ -896,7 +909,7 @@ get_log <- function(job, max_log_lines = NULL) {
     v1_url("content", job$app_guid, "jobs", job$key, "log"),
     query = query
   )
-  parse_connectapi_typed(res$entries, connectapi_ptypes$job_log)
+  parse_connectapi_typed(res$entries, datetime_cols = "timestamp")
 }
 
 #' Set RunAs User
@@ -1141,7 +1154,8 @@ get_bundles <- function(content) {
   validate_R6_class(content, "Content")
   bundles <- content$get_bundles()
 
-  parse_connectapi_typed(bundles, connectapi_ptypes$bundles)
+  out <- parse_connectapi_typed(bundles, datetime_cols = "created_time")
+  coerce_fs_bytes(out, "size")
 }
 
 #' @rdname get_bundles
@@ -1347,7 +1361,7 @@ get_group_permission <- function(content, guid) {
 get_content_permissions <- function(content, add_owner = TRUE) {
   validate_R6_class(content, "Content")
   res <- content$permissions(add_owner = add_owner)
-  parse_connectapi_typed(res, connectapi_ptypes$permissions)
+  parse_connectapi_typed(res)
 }
 
 #' Render a content item.
@@ -1495,7 +1509,7 @@ content_restart <- function(content) {
 get_content_packages <- function(content) {
   error_if_less_than(content$connect$version, "2025.01.0")
   res <- content$packages()
-  parse_connectapi_typed(res, connectapi_ptypes$content_packages)
+  parse_connectapi_typed(res)
 }
 
 #' Search for content on the Connect server
@@ -1627,5 +1641,8 @@ as.data.frame.connect_content_list <- function(
 #' @export
 as_tibble.connect_content_list <- function(x, ...) {
   content_data <- purrr::map(x, "content")
-  parse_connectapi_typed(content_data, connectapi_ptypes$content)
+  parse_connectapi_typed(
+    content_data,
+    datetime_cols = c("created_time", "last_deployed_time")
+  )
 }

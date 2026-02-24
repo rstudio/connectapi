@@ -10,7 +10,11 @@ test_that("get_users works", {
   users <- get_users(client)
 
   expect_s3_class(users, c("tbl_df", "tbl", "data.frame"))
-  expect_ptype_equal(users, connectapi_ptypes$users, exact = FALSE)
+
+  expect_true("guid" %in% names(users))
+  expect_true("email" %in% names(users))
+  expect_true("username" %in% names(users))
+  expect_s3_class(users$created_time, "POSIXct")
 
   # Other tests create users, so specifying the exact number here is conditional
   # on the contents of other tests and the order that tests run in.
@@ -22,39 +26,41 @@ test_that("get_users works", {
 })
 
 test_that("get_groups works", {
+  # Create a group so we have data to assert against (test-get.R runs before
+  # test-groups.R alphabetically).
+  client$groups_create(name = paste0("test-get-groups-", uuid::UUIDgenerate()))
+
   groups_list <- get_groups(client)
   expect_s3_class(groups_list, c("tbl_df", "tbl", "data.frame"))
-
-  expect_ptype_equal(groups_list, connectapi_ptypes$groups)
+  expect_true(nrow(groups_list) > 0)
+  expect_true("guid" %in% names(groups_list))
+  expect_true("name" %in% names(groups_list))
 })
 
 test_that("get_content works", {
   scoped_experimental_silence()
   content_list <- get_content(client)
   expect_s3_class(content_list, c("tbl_df", "tbl", "data.frame"))
-
-  # various attributes have been added over the years, so exact match
-  # doesn't work against all versions of Connect
-  expect_ptype_equal(content_list, connectapi_ptypes$content, exact = FALSE)
+  expect_true("guid" %in% names(content_list))
+  expect_true("name" %in% names(content_list))
+  expect_s3_class(content_list$created_time, "POSIXct")
 })
 
 test_that("get_usage_shiny works", {
   shiny_usage <- get_usage_shiny(client)
   expect_s3_class(shiny_usage, c("tbl_df", "tbl", "data.frame"))
-
-  expect_ptype_equal(shiny_usage, connectapi_ptypes$usage_shiny)
+  # No shiny apps are deployed in integration tests, so this may be empty.
+  if (nrow(shiny_usage) > 0) {
+    expect_true("content_guid" %in% names(shiny_usage))
+    expect_s3_class(shiny_usage$started, "POSIXct")
+  }
 })
 
 test_that("get_usage_static works", {
   content_visits <- get_usage_static(client)
   expect_s3_class(content_visits, c("tbl_df", "tbl", "data.frame"))
-
-  # path was added to usage_static in 2024
-  expect_ptype_equal(
-    content_visits,
-    connectapi_ptypes$usage_static,
-    exact = FALSE
-  )
+  expect_true("content_guid" %in% names(content_visits))
+  expect_s3_class(content_visits$time, "POSIXct")
 })
 
 test_that("get_audit_logs works", {
@@ -63,17 +69,19 @@ test_that("get_audit_logs works", {
 
   # This is different on older versions, not sure it's worth worrying about how
   skip_if_connect_older_than(client, "2022.09.0")
-  expect_ptype_equal(audit_list, connectapi_ptypes$audit_logs)
+  expect_true("id" %in% names(audit_list))
+  expect_s3_class(audit_list$time, "POSIXct")
 })
 
 test_that("get_procs works", {
   scoped_experimental_silence()
   proc_data <- get_procs(client)
 
-  # TODO: This is not a great test, since no processes are running
-  # we could always start a content restoration...
+  # No long-running processes on a fresh test server, so this is usually empty.
   expect_s3_class(proc_data, "tbl_df")
-  expect_ptype_equal(proc_data, connectapi_ptypes$procs)
+  if (nrow(proc_data) > 0) {
+    expect_true(all(c("pid", "appId", "appGuid") %in% names(proc_data)))
+  }
 })
 
 # experimental --------------------------------------------

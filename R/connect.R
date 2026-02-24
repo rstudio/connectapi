@@ -138,8 +138,11 @@ Connect <- R6::R6Class(
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
+    #' @param simplify Logical; if `TRUE`, JSON arrays of objects are
+    #' simplified to data frames by jsonlite. Default `FALSE` preserves
+    #' list-of-lists for compatibility with pagination helpers.
     #' @param ... Additional arguments passed to the request function
-    request = function(method, url, ..., parser = "parsed") {
+    request = function(method, url, ..., parser = "parsed", simplify = FALSE) {
       old_opt <- options(scipen = 999)
       on.exit(options(old_opt), add = TRUE)
 
@@ -161,7 +164,21 @@ Connect <- R6::R6Class(
         res
       } else {
         self$raise_error(res)
-        httr::content(res, as = parser)
+        if (parser != "parsed") {
+          return(httr::content(res, as = parser))
+        }
+        if (is.null(res$content) || length(res$content) == 0) {
+          return(NULL)
+        }
+        content_text <- httr::content(res, as = "text", encoding = "UTF-8")
+        if (is.null(content_text) || nchar(content_text) == 0) {
+          return(NULL)
+        }
+        jsonlite::fromJSON(
+          content_text,
+          simplifyVector = simplify,
+          simplifyDataFrame = simplify
+        )
       }
     },
 
@@ -173,8 +190,11 @@ Connect <- R6::R6Class(
     #' @param parser How the response is parsed. If `NULL`, the `httr_response`
     #' will be returned. Otherwise, the argument is forwarded to
     #' `httr::content(res, as = parser)`.
-    GET = function(path, ..., url = self$api_url(path), parser = "parsed") {
-      self$request("GET", url, parser = parser, ...)
+    #' @param simplify Logical; if `TRUE`, JSON arrays of objects are
+    #' simplified to data frames by jsonlite. Default `FALSE` preserves
+    #' list-of-lists for compatibility with pagination helpers.
+    GET = function(path, ..., url = self$api_url(path), parser = "parsed", simplify = FALSE) {
+      self$request("GET", url, parser = parser, simplify = simplify, ...)
     },
 
     #' @description Perform an HTTP PUT request of the named API path.

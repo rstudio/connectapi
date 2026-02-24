@@ -16,6 +16,7 @@ user_guid_from_username <- function(client, username) {
 
   user <- client$users(prefix = username)
   res <- user$results
+
   if (length(res) == 0) {
     stop("ERROR: user not found")
   } else if (length(res) > 1) {

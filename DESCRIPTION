@@ -87,7 +87,6 @@ Collate:
     'page.R'
     'parse.R'
     'promote.R'
-    'ptype.R'
     'remote.R'
     'runtime-caches.R'
     'schedule.R'

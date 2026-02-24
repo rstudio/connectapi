@@ -1,51 +1,3 @@
-test_that("coerce_fsbytes fills the void", {
-  expect_s3_class(coerce_fsbytes(1L, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
-  expect_s3_class(coerce_fsbytes(1, fs::as_fs_bytes(NA_integer_)), "fs_bytes")
-  expect_error(
-    coerce_fsbytes(data.frame(), fs::as_fs_bytes(NA_integer_)),
-    class = "vctrs_error_incompatible_type"
-  )
-})
-
-test_that("coerce_datetime fills the void", {
-  chardate <- "2023-10-25T17:04:08Z"
-  numdate <- as.double(Sys.time())
-  expect_s3_class(coerce_datetime(chardate, NA_datetime_), "POSIXct")
-  expect_s3_class(
-    coerce_datetime(c(chardate, chardate), NA_datetime_),
-    "POSIXct"
-  )
-  expect_s3_class(coerce_datetime(numdate, NA_datetime_), "POSIXct")
-  expect_s3_class(coerce_datetime(c(numdate, numdate), NA_datetime_), "POSIXct")
-  expect_s3_class(coerce_datetime(NA_datetime_, NA_datetime_), "POSIXct")
-  expect_s3_class(
-    coerce_datetime(c(NA_datetime_, NA_datetime_), NA_datetime_),
-    "POSIXct"
-  )
-  expect_s3_class(coerce_datetime(NA_integer_, NA_datetime_), "POSIXct")
-  expect_s3_class(
-    coerce_datetime(c(NA_integer_, NA_integer_), NA_datetime_),
-    "POSIXct"
-  )
-  expect_s3_class(coerce_datetime(NA, NA_datetime_), "POSIXct")
-  expect_s3_class(coerce_datetime(c(NA, NA), NA), "POSIXct")
-  expect_s3_class(coerce_datetime(NULL, NA), "POSIXct")
-
-  expect_error(
-    coerce_datetime(data.frame(), NA_datetime_),
-    class = "vctrs_error_incompatible_type"
-  )
-  expect_error(
-    coerce_datetime(list(), NA_datetime_, name = "list"),
-    class = "vctrs_error_incompatible_type"
-  )
-
-  expect_error(
-    coerce_datetime(NA_complex_, NA_datetime_, name = "complexity"),
-    class = "vctrs_error_incompatible_type"
-  )
-})
-
 test_that("parse_connect_rfc3339() parses timestamps with offsets as expected", {
   x_mixed <- c(
     "2023-08-22T14:13:14Z",
@@ -139,6 +91,20 @@ test_that("parse_connect_rfc3339() handles fractional seconds", {
   expect_identical(parse_connect_rfc3339(x), expected)
 })
 
+test_that("parse_connect_rfc3339() handles NA values", {
+  withr::local_envvar(TZ = "UTC")
+  result <- parse_connect_rfc3339(c("2023-08-22T14:13:14Z", NA))
+  expect_s3_class(result, "POSIXct")
+  expect_equal(length(result), 2)
+  expect_false(is.na(result[1]))
+  expect_true(is.na(result[2]))
+
+  # All NA
+  result <- parse_connect_rfc3339(c(NA_character_, NA_character_))
+  expect_s3_class(result, "POSIXct")
+  expect_true(all(is.na(result)))
+})
+
 test_that("make_timestamp produces expected output", {
   x_mixed <- c(
     "2023-08-22T14:13:14Z",
@@ -173,81 +139,81 @@ test_that("make_timestamp produces expected output", {
 
   withr::local_envvar(TZ = "America/New_York")
   expect_equal(
-    make_timestamp(coerce_datetime(x_mixed, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_mixed)),
     rep(outcome, 2)
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_zero_offset)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_plus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_minus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_zero_offset)),
     outcome[1]
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_offset)),
     outcome[1]
   )
   expect_equal(make_timestamp(outcome), outcome)
 
   withr::local_envvar(TZ = "UTC")
   expect_equal(
-    make_timestamp(coerce_datetime(x_mixed, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_mixed)),
     rep(outcome, 2)
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_zero_offset)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_plus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_minus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_zero_offset)),
     outcome[1]
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_offset)),
     outcome[1]
   )
   expect_equal(make_timestamp(outcome), outcome)
 
   withr::local_envvar(TZ = "Asia/Tokyo")
   expect_equal(
-    make_timestamp(coerce_datetime(x_mixed, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_mixed)),
     rep(outcome, 2)
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_zero_offset)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_plus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_plus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(x_minus_one, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(x_minus_one)),
     outcome
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_zero_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_zero_offset)),
     outcome[1]
   )
   expect_equal(
-    make_timestamp(coerce_datetime(single_offset, NA_datetime_)),
+    make_timestamp(parse_connect_rfc3339(single_offset)),
     outcome[1]
   )
   expect_equal(make_timestamp(outcome), outcome)
@@ -261,49 +227,8 @@ test_that("make_timestamp is safe for strings", {
 })
 
 test_that("make_timestamp converts to character", {
-  expect_type(make_timestamp(NA_datetime_), "character")
-})
-
-test_that("ensure_column works with lists", {
-  list_chk_null <- ensure_column(tibble::tibble(), NA_list_, "hello")
-  expect_s3_class(list_chk_null, "tbl_df")
-  expect_type(list_chk_null$hello, "list")
-
-  list_chk_same <- ensure_column(
-    tibble::tibble(hello = list(list(1, 2, 3), list(1, 2, 3, 4))),
-    NA_list_,
-    "hello"
-  )
-  expect_s3_class(list_chk_same, "tbl_df")
-  expect_type(list_chk_same$hello, "list")
-})
-
-test_that("ensure_column works with POSIXct", {
-  time_chk_null <- ensure_column(tibble::tibble(), NA_datetime_, "hello")
-  expect_s3_class(time_chk_null, "tbl_df")
-  expect_s3_class(time_chk_null$hello, "POSIXct")
-
-  time_chk_some <- ensure_column(
-    tibble::tibble(one = c(1, 2, 3)),
-    NA_datetime_,
-    "hello"
-  )
-  expect_s3_class(time_chk_some, "tbl_df")
-  expect_s3_class(time_chk_some$hello, "POSIXct")
-
-  skip("Ahh! this fails presently. Are double -> POSIXct conversions allowed?")
-  time_chk_convert <- ensure_column(
-    tibble::tibble(hello = c(1, 2, 3)),
-    NA_datetime_,
-    "hello"
-  )
-  expect_s3_class(time_chk_convert, "tbl_df")
-  expect_s3_class(time_chk_convert$hello, "POSIXct")
-})
-
-test_that("converts length one list", {
-  hm <- ensure_column(tibble::tibble(one = "hi"), NA_list_, "one")
-  expect_type(hm$one, "list")
+  ts <- .POSIXct(NA_real_, tz = Sys.timezone())
+  expect_type(make_timestamp(ts), "character")
 })
 
 test_that("parse_connectapi handles mixed null/non-null character values", {
@@ -345,45 +270,96 @@ test_that("parse_connectapi handles mixed null/non-null integer timestamps", {
   expect_identical(result$end_time, c(NA_real_, 1732556770))
 })
 
-test_that("ensure_column coerces integer to character when ptype expects character", {
-  # Old Connect returns integer IDs
-  int_data <- tibble::tibble(id = c(100L, 200L, 300L))
-  result <- ensure_column(int_data, NA_character_, "id")
-  expect_type(result$id, "character")
-  expect_identical(result$id, c("100", "200", "300"))
-
-  # New Connect returns character IDs
-
-  char_data <- tibble::tibble(id = c("100", "200", "300"))
-  result <- ensure_column(char_data, NA_character_, "id")
-  expect_type(result$id, "character")
-  expect_identical(result$id, c("100", "200", "300"))
+test_that("coerce_datetime handles character (RFC 3339)", {
+  withr::local_envvar(TZ = "UTC")
+  result <- coerce_datetime(c("2023-08-22T14:13:14Z", "2020-01-01T01:02:03Z"))
+  expect_s3_class(result, "POSIXct")
+  expect_equal(length(result), 2)
 })
 
-test_that("parse_connectapi_typed produces character id for usage with integer input", {
-  # Simulates old Connect returning integer IDs
-  int_hits <- list(
-    list(id = 123L, user_guid = "abc", content_guid = "def",
-         timestamp = "2025-04-30T12:00:00Z", data = list(path = "/test")),
-    list(id = 456L, user_guid = "ghi", content_guid = "jkl",
-         timestamp = "2025-04-30T13:00:00Z", data = list(path = "/other"))
-  )
-
-  result <- parse_connectapi_typed(int_hits, connectapi_ptypes$usage)
-  expect_type(result$id, "character")
-  expect_identical(result$id, c("123", "456"))
+test_that("coerce_datetime handles numeric (epoch seconds)", {
+  result <- coerce_datetime(1692713594)
+  expect_s3_class(result, "POSIXct")
+  expect_equal(as.double(result), 1692713594, tolerance = 1)
 })
 
-test_that("parse_connectapi_typed produces character id for usage with character input", {
-  # Simulates new Connect returning character IDs
-  char_hits <- list(
-    list(id = "123", user_guid = "abc", content_guid = "def",
-         timestamp = "2025-04-30T12:00:00Z", data = list(path = "/test")),
-    list(id = "456", user_guid = "ghi", content_guid = "jkl",
-         timestamp = "2025-04-30T13:00:00Z", data = list(path = "/other"))
+test_that("coerce_datetime handles POSIXct pass-through", {
+  ts <- as.POSIXct("2023-08-22 14:13:14", tz = "UTC")
+  result <- coerce_datetime(ts)
+  expect_identical(result, ts)
+})
+
+test_that("coerce_datetime handles NULL", {
+  result <- coerce_datetime(NULL)
+  expect_s3_class(result, "POSIXct")
+  expect_equal(length(result), 0)
+})
+
+test_that("coerce_datetime handles all-NA logical", {
+  result <- coerce_datetime(c(NA, NA))
+  expect_s3_class(result, "POSIXct")
+  expect_true(all(is.na(result)))
+  expect_equal(length(result), 2)
+})
+
+test_that("coerce_datetime rejects unsupported types", {
+  expect_error(coerce_datetime(data.frame()), "Cannot coerce")
+  expect_error(coerce_datetime(NA_complex_), "Cannot coerce")
+})
+
+test_that("parse_connectapi_typed converts specified datetime columns", {
+  data <- list(
+    list(guid = "aaa", created_time = "2023-08-22T14:13:14Z"),
+    list(guid = "bbb", created_time = "2020-01-01T01:02:03Z")
   )
 
-  result <- parse_connectapi_typed(char_hits, connectapi_ptypes$usage)
-  expect_type(result$id, "character")
-  expect_identical(result$id, c("123", "456"))
+  result <- parse_connectapi_typed(data, datetime_cols = "created_time")
+  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result$created_time, "POSIXct")
+  expect_type(result$guid, "character")
+})
+
+test_that("parse_connectapi_typed leaves columns alone without datetime_cols", {
+  data <- list(
+    list(guid = "aaa", created_time = "2023-08-22T14:13:14Z"),
+    list(guid = "bbb", created_time = "2020-01-01T01:02:03Z")
+  )
+
+  result <- parse_connectapi_typed(data)
+  expect_s3_class(result, "tbl_df")
+  # Without datetime_cols, timestamps stay as character
+  expect_type(result$created_time, "character")
+})
+
+test_that("parse_connectapi_typed handles data frame input (fast path)", {
+  df <- data.frame(
+    guid = c("aaa", "bbb"),
+    created_time = c("2023-08-22T14:13:14Z", "2020-01-01T01:02:03Z"),
+    stringsAsFactors = FALSE
+  )
+
+  result <- parse_connectapi_typed(df, datetime_cols = "created_time")
+  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result$created_time, "POSIXct")
+})
+
+test_that("parse_connectapi_typed handles empty input", {
+  result <- parse_connectapi_typed(list())
+  expect_s3_class(result, "tbl_df")
+  expect_equal(nrow(result), 0)
+
+  result <- parse_connectapi_typed(tibble::tibble())
+  expect_s3_class(result, "tbl_df")
+  expect_equal(nrow(result), 0)
+})
+
+test_that("parse_connectapi_typed handles all-NA datetime column", {
+  data <- list(
+    list(guid = "aaa", active_time = NULL),
+    list(guid = "bbb", active_time = NULL)
+  )
+
+  result <- parse_connectapi_typed(data, datetime_cols = "active_time")
+  expect_s3_class(result$active_time, "POSIXct")
+  expect_true(all(is.na(result$active_time)))
 })
