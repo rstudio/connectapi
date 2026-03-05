@@ -860,7 +860,7 @@ terminate_jobs <- function(content, keys = NULL) {
   # Keep only the columns relevant to job termination; the API response
   # includes extra fields (e.g. payload, guid) on error that vary by outcome.
   keep <- c("app_id", "app_guid", "job_key", "job_id", "result", "code", "error")
-  res_df[, intersect(keep, names(res_df)), drop = FALSE]
+  res_df[, keep, drop = FALSE]
 }
 
 #' @rdname get_jobs
