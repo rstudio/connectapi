@@ -24,20 +24,34 @@ page_cursor <- function(client, req, limit = Inf) {
   prg$tick()
   response <- req
 
-  # collect whole pages, then flatten once at the end
-  pages <- list(response$results)
-  n_items <- length(response$results)
+  # Convert the first page (list-of-lists from simplify=FALSE) to a data frame.
+  # Subsequent pages use simplify=TRUE so jsonlite builds data frames in C,
+  # which is significantly faster for high-volume endpoints.
+  first_results <- response$results
+  if (length(first_results) > 0 && !is.data.frame(first_results)) {
+    first_results <- parse_connectapi(first_results)
+  }
+
+  pages <- list(first_results)
+  n_items <- if (is.data.frame(first_results)) nrow(first_results) else length(first_results)
+
   while (!is.null(response$paging$`next`) && n_items < limit) {
     prg$tick()
 
     next_url <- response$paging$`next`
-    response <- client$GET(url = next_url)
+    response <- client$GET(url = next_url, simplify = TRUE)
 
     pages[[length(pages) + 1L]] <- response$results
-    n_items <- n_items + length(response$results)
+    n_items <- n_items + nrow(response$results)
   }
 
-  head(do.call(c, pages), n = limit)
+  if (length(pages) == 1L && !is.data.frame(pages[[1L]])) {
+    # Single empty page — return as-is for downstream handling
+    return(pages[[1L]])
+  }
+
+  out <- vctrs::vec_rbind(!!!pages)
+  head(out, n = limit)
 }
 # TODO: Decide if this `limit = Inf` is helpful or a hack...
 #       it is essentially a "row limit" on paging
