@@ -75,7 +75,7 @@ get_users <- function(
 
   out <- parse_connectapi_typed(
     res,
-    datetime_cols = c("created_time", "updated_time", "active_time")
+    datetime_cols = datetime_columns$users
   )
 
   return(out)
@@ -254,7 +254,7 @@ get_content <- function(
 
   out <- parse_connectapi_typed(
     res,
-    datetime_cols = c("created_time", "last_deployed_time")
+    datetime_cols = datetime_columns$content
   )
 
   return(out)
@@ -331,7 +331,7 @@ content_list_by_tag <- function(src, tag) {
 
   out <- parse_connectapi_typed(
     res,
-    datetime_cols = c("created_time", "last_deployed_time")
+    datetime_cols = datetime_columns$content
   )
   return(out)
 }
@@ -430,7 +430,7 @@ get_usage_shiny <- function(
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, datetime_cols = c("started", "ended"))
+  out <- parse_connectapi_typed(res, datetime_cols = datetime_columns$usage_shiny)
 
   return(out)
 }
@@ -526,7 +526,7 @@ get_usage_static <- function(
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, datetime_cols = "time")
+  out <- parse_connectapi_typed(res, datetime_cols = datetime_columns$usage_static)
 
   return(out)
 }
@@ -755,7 +755,7 @@ get_audit_logs <- function(
 
   res <- page_cursor(src, res, limit = limit)
 
-  out <- parse_connectapi_typed(res, datetime_cols = "time")
+  out <- parse_connectapi_typed(res, datetime_cols = datetime_columns$audit_logs)
 
   return(out)
 }

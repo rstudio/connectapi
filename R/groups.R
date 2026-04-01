@@ -53,7 +53,7 @@ get_groups <- function(src, page_size = 500, prefix = NULL, limit = Inf) {
     limit = limit
   )
 
-  parse_connectapi_typed(res)
+  parse_connectapi_typed(res, datetime_cols = datetime_columns$groups)
 }
 
 #' Get users within a specific group

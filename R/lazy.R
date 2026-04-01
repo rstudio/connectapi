@@ -50,18 +50,6 @@ tbl_connect <- function(
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
 }
 
-# Datetime columns for each lazy table type. These must match the
-# datetime_cols passed in the corresponding getter functions:
-# get_users(), get_groups(), get_content(), get_usage_shiny(),
-# get_usage_static(), get_audit_logs().
-lazy_datetime_cols <- list(
-  users = c("created_time", "updated_time", "active_time"),
-  groups = character(),
-  content = c("created_time", "last_deployed_time"),
-  usage_shiny = c("started", "ended"),
-  usage_static = "time",
-  audit_logs = "time"
-)
 
 # Fetch data for a lazy table endpoint. Shared by tbl_connect (for column
 # discovery) and api_build.op_base_connect (for full collection).
@@ -85,7 +73,7 @@ tbl_lazy_fetch <- function(src, from, limit = Inf) {
   } else {
     stop(glue::glue("'{from}' is not recognized"))
   }
-  parse_connectapi_typed(res, datetime_cols = lazy_datetime_cols[[from]])
+  parse_connectapi_typed(res, datetime_cols = datetime_columns[[from]])
 }
 
 # This will be registered in .onLoad if dplyr is available

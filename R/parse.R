@@ -63,6 +63,17 @@ coerce_to_character <- function(df, cols) {
   df
 }
 
+# Datetime columns by endpoint, shared by getter functions (get_users, etc.)
+# and tbl_lazy_fetch(). Define once here so the two stay in sync.
+datetime_columns <- list(
+  users = c("created_time", "updated_time", "active_time"),
+  groups = character(),
+  content = c("created_time", "last_deployed_time"),
+  usage_shiny = c("started", "ended"),
+  usage_static = "time",
+  audit_logs = "time"
+)
+
 parse_connectapi_typed <- function(data, datetime_cols = character()) {
   if (inherits(data, "data.frame")) {
     # Strip custom S3 classes to avoid dispatch loops (e.g., connect_list_hits

@@ -1643,6 +1643,6 @@ as_tibble.connect_content_list <- function(x, ...) {
   content_data <- purrr::map(x, "content")
   parse_connectapi_typed(
     content_data,
-    datetime_cols = c("created_time", "last_deployed_time")
+    datetime_cols = datetime_columns$content
   )
 }
