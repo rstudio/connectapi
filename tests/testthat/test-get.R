@@ -375,7 +375,7 @@ test_that("get_content only requests vanity URLs for Connect 2024.06.0 and up", 
   })
 })
 
-with_mock_dir("2025.04.0", {
+with_mock_dir("2026.03.0", {
   test_that("get_usage() returns usage data in the expected shape", {
     client <- connect(server = "https://connect.example", api_key = "fake")
     usage <- get_usage(
@@ -386,8 +386,25 @@ with_mock_dir("2025.04.0", {
     expect_s3_class(usage, "connect_list_hits")
     expect_true(is.list(usage))
     expect_equal(length(usage), 5)
-    expect_equal(usage[[1]]$id, 8966707L)
+    expect_equal(usage[[1]]$id, "8966707")
     expect_equal(usage[[1]]$content_guid, "475618c9")
+
+    expect_length(usage, 5)
+
+    # Check first element (raw list, before conversion to data.frame).
+    expect_equal(
+      usage[[1]],
+      list(
+        id = "8966707",
+        user_guid = NULL,
+        content_guid = "475618c9",
+        timestamp = "2025-04-30T12:49:16.269904Z",
+        data = list(
+          path = "/hello",
+          user_agent = "Datadog/Synthetics"
+        )
+      )
+    )
 
     # Check conversion to data.frame (with unnesting)
     usage_df <- as.data.frame(usage)
