@@ -473,6 +473,35 @@ with_mock_dir("2026.03.0", {
   })
 })
 
+# The hits `id` field is transitioning from integer to string across Connect
+# versions. The fixture in 2025.04.0/ uses integer IDs (older API); the
+# fixture in 2026.03.0/ uses string IDs (newer API).
+test_that("get_usage() handles both integer and string ids", {
+  with_mock_dir("2025.04.0", {
+    client <- connect(server = "https://connect.example", api_key = "fake")
+    usage <- get_usage(
+      client,
+      from = as.POSIXct("2025-04-01 00:00:01", tz = "UTC")
+    )
+    usage_df <- as.data.frame(usage)
+    expect_type(usage_df$id, "integer")
+    expect_equal(usage_df$id, c(8966707L, 8966708L, 8967206L, 8967210L, 8966214L))
+    expect_s3_class(usage_df$timestamp, "POSIXct")
+  })
+
+  with_mock_dir("2026.03.0", {
+    client <- connect(server = "https://connect.example", api_key = "fake")
+    usage <- get_usage(
+      client,
+      from = as.POSIXct("2025-04-01 00:00:01", tz = "UTC")
+    )
+    usage_df <- as.data.frame(usage)
+    expect_type(usage_df$id, "character")
+    expect_equal(usage_df$id, c("8966707", "8966708", "8967206", "8967210", "8966214"))
+    expect_s3_class(usage_df$timestamp, "POSIXct")
+  })
+})
+
 with_mock_dir("2026.01.0", {
   test_that("content_guid is passed to the hits endpoint", {
     client <- Connect$new(server = "https://connect.example", api_key = "fake")
