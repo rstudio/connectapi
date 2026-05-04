@@ -45,7 +45,7 @@ packages <- get_packages(client)
 
 }
 \seealso{
-Other packages functions: 
-\code{\link{get_content_packages}()}
+Other packages functions:
+\code{\link[=get_content_packages]{get_content_packages()}}
 }
 \concept{packages functions}

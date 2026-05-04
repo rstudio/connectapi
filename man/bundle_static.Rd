@@ -32,11 +32,11 @@ bundle_static(system.file("logo.png", package = "connectapi"))
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other deployment functions: 
-\code{\link{bundle_dir}()},
-\code{\link{bundle_path}()},
-\code{\link{deploy}()},
-\code{\link{download_bundle}()},
-\code{\link{poll_task}()}
+Other deployment functions:
+\code{\link[=bundle_dir]{bundle_dir()}},
+\code{\link[=bundle_path]{bundle_path()}},
+\code{\link[=deploy]{deploy()}},
+\code{\link[=download_bundle]{download_bundle()}},
+\code{\link[=poll_task]{poll_task()}}
 }
 \concept{deployment functions}

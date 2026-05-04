@@ -47,42 +47,42 @@ my_app_integrations <- purrr::map(
 \seealso{
 \code{\link[=set_integrations]{set_integrations()}}, \code{\link[=get_integrations]{get_integrations()}}, \code{\link[=get_integration]{get_integration()}}
 
-Other oauth integration functions: 
-\code{\link{create_integration}()},
-\code{\link{delete_integration}()},
-\code{\link{get_integration}()},
-\code{\link{get_integrations}()},
-\code{\link{set_integrations}()},
-\code{\link{update_integration}()}
+Other oauth integration functions:
+\code{\link[=create_integration]{create_integration()}},
+\code{\link[=delete_integration]{delete_integration()}},
+\code{\link[=get_integration]{get_integration()}},
+\code{\link[=get_integrations]{get_integrations()}},
+\code{\link[=set_integrations]{set_integrations()}},
+\code{\link[=update_integration]{update_integration()}}
 
-Other content functions: 
-\code{\link{content_delete}()},
-\code{\link{content_item}()},
-\code{\link{content_title}()},
-\code{\link{content_update}()},
-\code{\link{create_random_name}()},
-\code{\link{dashboard_url}()},
-\code{\link{delete_thumbnail}()},
-\code{\link{delete_vanity_url}()},
-\code{\link{deploy_repo}()},
-\code{\link{get_bundles}()},
-\code{\link{get_environment}()},
-\code{\link{get_jobs}()},
-\code{\link{get_log}()},
-\code{\link{get_thumbnail}()},
-\code{\link{get_vanity_url}()},
+Other content functions:
+\code{\link[=content_delete]{content_delete()}},
+\code{\link[=content_item]{content_item()}},
+\code{\link[=content_title]{content_title()}},
+\code{\link[=content_update]{content_update()}},
+\code{\link[=create_random_name]{create_random_name()}},
+\code{\link[=dashboard_url]{dashboard_url()}},
+\code{\link[=delete_thumbnail]{delete_thumbnail()}},
+\code{\link[=delete_vanity_url]{delete_vanity_url()}},
+\code{\link[=deploy_repo]{deploy_repo()}},
+\code{\link[=get_bundles]{get_bundles()}},
+\code{\link[=get_environment]{get_environment()}},
+\code{\link[=get_jobs]{get_jobs()}},
+\code{\link[=get_log]{get_log()}},
+\code{\link[=get_thumbnail]{get_thumbnail()}},
+\code{\link[=get_vanity_url]{get_vanity_url()}},
 \code{\link{git}},
-\code{\link{has_thumbnail}()},
-\code{\link{lock_content}()},
+\code{\link[=has_thumbnail]{has_thumbnail()}},
+\code{\link[=lock_content]{lock_content()}},
 \code{\link{permissions}},
-\code{\link{search_content}()},
-\code{\link{set_integrations}()},
-\code{\link{set_run_as}()},
-\code{\link{set_thumbnail}()},
-\code{\link{set_vanity_url}()},
-\code{\link{swap_vanity_urls}()},
-\code{\link{terminate_jobs}()},
-\code{\link{verify_content_name}()}
+\code{\link[=search_content]{search_content()}},
+\code{\link[=set_integrations]{set_integrations()}},
+\code{\link[=set_run_as]{set_run_as()}},
+\code{\link[=set_thumbnail]{set_thumbnail()}},
+\code{\link[=set_vanity_url]{set_vanity_url()}},
+\code{\link[=swap_vanity_urls]{swap_vanity_urls()}},
+\code{\link[=terminate_jobs]{terminate_jobs()}},
+\code{\link[=verify_content_name]{verify_content_name()}}
 }
 \concept{content functions}
 \concept{oauth integration functions}

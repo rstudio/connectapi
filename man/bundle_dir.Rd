@@ -27,11 +27,11 @@ bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi")
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other deployment functions: 
-\code{\link{bundle_path}()},
-\code{\link{bundle_static}()},
-\code{\link{deploy}()},
-\code{\link{download_bundle}()},
-\code{\link{poll_task}()}
+Other deployment functions:
+\code{\link[=bundle_path]{bundle_path()}},
+\code{\link[=bundle_static]{bundle_static()}},
+\code{\link[=deploy]{deploy()}},
+\code{\link[=download_bundle]{download_bundle()}},
+\code{\link[=poll_task]{poll_task()}}
 }
 \concept{deployment functions}

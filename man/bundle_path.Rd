@@ -22,11 +22,11 @@ bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "conn
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other deployment functions: 
-\code{\link{bundle_dir}()},
-\code{\link{bundle_static}()},
-\code{\link{deploy}()},
-\code{\link{download_bundle}()},
-\code{\link{poll_task}()}
+Other deployment functions:
+\code{\link[=bundle_dir]{bundle_dir()}},
+\code{\link[=bundle_static]{bundle_static()}},
+\code{\link[=deploy]{deploy()}},
+\code{\link[=download_bundle]{download_bundle()}},
+\code{\link[=poll_task]{poll_task()}}
 }
 \concept{deployment functions}

@@ -5,23 +5,15 @@
 \alias{connectapi-package}
 \title{connectapi: Utilities for Interacting with the 'Posit Connect' Server API}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
 Provides a helpful 'R6' class and methods for interacting with the 'Posit Connect' Server API along with some meaningful utility functions for regular tasks. API documentation varies by 'Posit Connect' installation and version, but the latest documentation is also hosted publicly at \url{https://docs.posit.co/connect/api/}.
 
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
 Provides a helpful 'R6' class and methods for interacting with the 'Posit Connect' Server API along with some meaningful utility functions for regular tasks. API documentation varies by 'Posit Connect' installation and version, but the latest documentation is also hosted publicly at \url{https://docs.posit.co/connect/api/}.
 }
 \seealso{
-Useful links:
-\itemize{
-  \item \url{https://posit-dev.github.io/connectapi/}
-  \item \url{https://github.com/posit-dev/connectapi}
-  \item Report bugs at \url{https://github.com/posit-dev/connectapi/issues}
-}
-
-
 Useful links:
 \itemize{
   \item \url{https://posit-dev.github.io/connectapi/}
@@ -35,6 +27,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Kara Woo \email{kara.woo@posit.co}
   \item Toph Allen \email{toph@posit.co}
   \item Neal Richardson
   \item Sean Lopp

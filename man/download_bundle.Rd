@@ -28,11 +28,11 @@ Bundle A bundle object
 Downloads a Content item's active bundle, or (optionally) one of its other bundles.
 }
 \seealso{
-Other deployment functions: 
-\code{\link{bundle_dir}()},
-\code{\link{bundle_path}()},
-\code{\link{bundle_static}()},
-\code{\link{deploy}()},
-\code{\link{poll_task}()}
+Other deployment functions:
+\code{\link[=bundle_dir]{bundle_dir()}},
+\code{\link[=bundle_path]{bundle_path()}},
+\code{\link[=bundle_static]{bundle_static()}},
+\code{\link[=deploy]{deploy()}},
+\code{\link[=poll_task]{poll_task()}}
 }
 \concept{deployment functions}

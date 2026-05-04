@@ -16,8 +16,8 @@ A VariantSchedule object
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Gets the schedule associated with a Variant.
 }
 \seealso{
-Other schedule functions: 
-\code{\link{get_timezones}()},
-\code{\link{set_schedule}()}
+Other schedule functions:
+\code{\link[=get_timezones]{get_timezones()}},
+\code{\link[=set_schedule]{set_schedule()}}
 }
 \concept{schedule functions}

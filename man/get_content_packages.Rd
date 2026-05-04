@@ -30,7 +30,7 @@ packages <- get_content_packages(item)
 
 }
 \seealso{
-Other packages functions: 
-\code{\link{get_packages}()}
+Other packages functions:
+\code{\link[=get_packages]{get_packages()}}
 }
 \concept{packages functions}

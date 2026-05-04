@@ -17,9 +17,9 @@ aggregate.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{
-Other audit functions: 
-\code{\link{audit_access_open}()},
-\code{\link{audit_runas}()},
-\code{\link{vanity_is_available}()}
+Other audit functions:
+\code{\link[=audit_access_open]{audit_access_open()}},
+\code{\link[=audit_runas]{audit_runas()}},
+\code{\link[=vanity_is_available]{vanity_is_available()}}
 }
 \concept{audit functions}

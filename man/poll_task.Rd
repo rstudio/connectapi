@@ -25,11 +25,11 @@ available to retrieve the results.
 For a simple way to silence messages, set \code{callback = NULL}
 }
 \seealso{
-Other deployment functions: 
-\code{\link{bundle_dir}()},
-\code{\link{bundle_path}()},
-\code{\link{bundle_static}()},
-\code{\link{deploy}()},
-\code{\link{download_bundle}()}
+Other deployment functions:
+\code{\link[=bundle_dir]{bundle_dir()}},
+\code{\link[=bundle_path]{bundle_path()}},
+\code{\link[=bundle_static]{bundle_static()}},
+\code{\link[=deploy]{deploy()}},
+\code{\link[=download_bundle]{download_bundle()}}
 }
 \concept{deployment functions}

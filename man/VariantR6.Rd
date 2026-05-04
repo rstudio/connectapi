@@ -4,15 +4,10 @@
 \alias{Variant}
 \title{Variant}
 \description{
-Variant
-
-Variant
-}
-\details{
 An R6 class that represents a Variant
 }
 \seealso{
-Other R6 classes: 
+Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{ContentTask}},
@@ -25,306 +20,336 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Super class}{
-\code{\link[connectapi:Content]{connectapi::Content}} -> \code{Variant}
+\code{\link[connectapi:Content]{Content}} -> \code{Variant}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{key}}{The variant key.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{key}}{The variant key.}
 
-\item{\code{variant}}{The variant.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{variant}}{The variant.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Variant-get_variant_remote}{\code{Variant$get_variant_remote()}}
-\item \href{#method-Variant-new}{\code{Variant$new()}}
-\item \href{#method-Variant-send_mail}{\code{Variant$send_mail()}}
-\item \href{#method-Variant-get_schedule}{\code{Variant$get_schedule()}}
-\item \href{#method-Variant-get_schedule_remote}{\code{Variant$get_schedule_remote()}}
-\item \href{#method-Variant-get_subscribers}{\code{Variant$get_subscribers()}}
-\item \href{#method-Variant-remove_subscriber}{\code{Variant$remove_subscriber()}}
-\item \href{#method-Variant-add_subscribers}{\code{Variant$add_subscribers()}}
-\item \href{#method-Variant-render}{\code{Variant$render()}}
-\item \href{#method-Variant-renderings}{\code{Variant$renderings()}}
-\item \href{#method-Variant-update_variant}{\code{Variant$update_variant()}}
-\item \href{#method-Variant-jobs}{\code{Variant$jobs()}}
-\item \href{#method-Variant-get_url}{\code{Variant$get_url()}}
-\item \href{#method-Variant-get_url_rev}{\code{Variant$get_url_rev()}}
-\item \href{#method-Variant-get_dashboard_url}{\code{Variant$get_dashboard_url()}}
-\item \href{#method-Variant-print}{\code{Variant$print()}}
-\item \href{#method-Variant-clone}{\code{Variant$clone()}}
+  \itemize{
+    \item \href{#method-Variant-get_variant_remote}{\code{Variant$get_variant_remote()}}
+    \item \href{#method-Variant-initialize}{\code{Variant$new()}}
+    \item \href{#method-Variant-send_mail}{\code{Variant$send_mail()}}
+    \item \href{#method-Variant-get_schedule}{\code{Variant$get_schedule()}}
+    \item \href{#method-Variant-get_schedule_remote}{\code{Variant$get_schedule_remote()}}
+    \item \href{#method-Variant-get_subscribers}{\code{Variant$get_subscribers()}}
+    \item \href{#method-Variant-remove_subscriber}{\code{Variant$remove_subscriber()}}
+    \item \href{#method-Variant-add_subscribers}{\code{Variant$add_subscribers()}}
+    \item \href{#method-Variant-render}{\code{Variant$render()}}
+    \item \href{#method-Variant-renderings}{\code{Variant$renderings()}}
+    \item \href{#method-Variant-update_variant}{\code{Variant$update_variant()}}
+    \item \href{#method-Variant-jobs}{\code{Variant$jobs()}}
+    \item \href{#method-Variant-get_url}{\code{Variant$get_url()}}
+    \item \href{#method-Variant-get_url_rev}{\code{Variant$get_url_rev()}}
+    \item \href{#method-Variant-get_dashboard_url}{\code{Variant$get_dashboard_url()}}
+    \item \href{#method-Variant-print}{\code{Variant$print()}}
+    \item \href{#method-Variant-clone}{\code{Variant$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete"><a href='../../connectapi/html/Content.html#method-Content-bundle_delete'><code>connectapi::Content$bundle_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download"><a href='../../connectapi/html/Content.html#method-Content-bundle_download'><code>connectapi::Content$bundle_download()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete"><a href='../../connectapi/html/Content.html#method-Content-danger_delete'><code>connectapi::Content$danger_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-Content-deploy'><code>connectapi::Content$deploy()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment"><a href='../../connectapi/html/Content.html#method-Content-environment'><code>connectapi::Content$environment()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_all"><a href='../../connectapi/html/Content.html#method-Content-environment_all'><code>connectapi::Content$environment_all()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set"><a href='../../connectapi/html/Content.html#method-Content-environment_set'><code>connectapi::Content$environment_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-Content-get_bundles'><code>connectapi::Content$get_bundles()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="packages"><a href='../../connectapi/html/Content.html#method-Content-packages'><code>connectapi::Content$packages()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions"><a href='../../connectapi/html/Content.html#method-Content-permissions'><code>connectapi::Content$permissions()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add"><a href='../../connectapi/html/Content.html#method-Content-permissions_add'><code>connectapi::Content$permissions_add()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete"><a href='../../connectapi/html/Content.html#method-Content-permissions_delete'><code>connectapi::Content$permissions_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>connectapi::Content$permissions_update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="register_job_kill_order"><a href='../../connectapi/html/Content.html#method-Content-register_job_kill_order'><code>connectapi::Content$register_job_kill_order()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>connectapi::Content$repo_enable()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>connectapi::Content$repo_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repository"><a href='../../connectapi/html/Content.html#method-Content-repository'><code>connectapi::Content$repository()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>connectapi::Content$tag_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>connectapi::Content$tags()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-Content-update'><code>connectapi::Content$update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-Content-variants'><code>connectapi::Content$variants()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete"><a href='../../connectapi/html/Content.html#method-Content-bundle_delete'><code>Content$bundle_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download"><a href='../../connectapi/html/Content.html#method-Content-bundle_download'><code>Content$bundle_download()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete"><a href='../../connectapi/html/Content.html#method-Content-danger_delete'><code>Content$danger_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-Content-deploy'><code>Content$deploy()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment"><a href='../../connectapi/html/Content.html#method-Content-environment'><code>Content$environment()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_all"><a href='../../connectapi/html/Content.html#method-Content-environment_all'><code>Content$environment_all()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="environment_set"><a href='../../connectapi/html/Content.html#method-Content-environment_set'><code>Content$environment_set()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-Content-get_bundles'><code>Content$get_bundles()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>Content$get_content_remote()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="packages"><a href='../../connectapi/html/Content.html#method-Content-packages'><code>Content$packages()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions"><a href='../../connectapi/html/Content.html#method-Content-permissions'><code>Content$permissions()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add"><a href='../../connectapi/html/Content.html#method-Content-permissions_add'><code>Content$permissions_add()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete"><a href='../../connectapi/html/Content.html#method-Content-permissions_delete'><code>Content$permissions_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>Content$permissions_update()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="register_job_kill_order"><a href='../../connectapi/html/Content.html#method-Content-register_job_kill_order'><code>Content$register_job_kill_order()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>Content$repo_enable()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>Content$repo_set()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repository"><a href='../../connectapi/html/Content.html#method-Content-repository'><code>Content$repository()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>Content$tag_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>Content$tag_set()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>Content$tags()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-Content-update'><code>Content$update()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-Content-variants'><code>Content$variants()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_variant_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_variant_remote}{}}}
-\subsection{Method \code{get_variant_remote()}}{
-Get the underlying variant data.
+\subsection{\code{Variant$get_variant_remote()}}{
+  Get the underlying variant data.
 
 
-Get and store the (remote) variant data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_variant_remote()}\if{html}{\out{</div>}}
+  Get and store the (remote) variant data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_variant_remote()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Variant-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Variant-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$new(connect, content, key)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Variant-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Variant-initialize}{}}}
+\subsection{\code{Variant$new()}}{
+  Initialize this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$new(connect, content, key)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{connect}}{The \code{Connect} instance.}
+      \item{\code{content}}{The \code{Content} instance.}
+      \item{\code{key}}{The variant key.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{connect}}{The \code{Connect} instance.}
-
-\item{\code{content}}{The \code{Content} instance.}
-
-\item{\code{key}}{The variant key.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-send_mail"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-send_mail}{}}}
-\subsection{Method \code{send_mail()}}{
-Mail previously rendered content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$send_mail(to = c("me", "collaborators", "collaborators_viewers"))}\if{html}{\out{</div>}}
+\subsection{\code{Variant$send_mail()}}{
+  Mail previously rendered content.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$send_mail(to = c("me", "collaborators", "collaborators_viewers"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{to}}{Targeting.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{to}}{Targeting.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_schedule"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_schedule}{}}}
-\subsection{Method \code{get_schedule()}}{
-Get the (remote) schedule data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_schedule()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_schedule()}}{
+  Get the (remote) schedule data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_schedule()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_schedule_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_schedule_remote}{}}}
-\subsection{Method \code{get_schedule_remote()}}{
-Get the (remote) schedule data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_schedule_remote()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_schedule_remote()}}{
+  Get the (remote) schedule data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_schedule_remote()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_subscribers"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_subscribers}{}}}
-\subsection{Method \code{get_subscribers()}}{
-Get the subscribers.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_subscribers()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_subscribers()}}{
+  Get the subscribers.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_subscribers()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-remove_subscriber"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-remove_subscriber}{}}}
-\subsection{Method \code{remove_subscriber()}}{
-Remove a named subscriber.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$remove_subscriber(guid)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$remove_subscriber()}}{
+  Remove a named subscriber.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$remove_subscriber(guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{User GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{User GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-add_subscribers"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-add_subscribers}{}}}
-\subsection{Method \code{add_subscribers()}}{
-Add named subscribers.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$add_subscribers(guids)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$add_subscribers()}}{
+  Add named subscribers.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$add_subscribers(guids)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guids}}{User GUIDs.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guids}}{User GUIDs.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-render"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-render}{}}}
-\subsection{Method \code{render()}}{
-Render this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$render()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$render()}}{
+  Render this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$render()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-renderings"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-renderings}{}}}
-\subsection{Method \code{renderings()}}{
-List the renderings of this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$renderings()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$renderings()}}{
+  List the renderings of this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$renderings()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-update_variant"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-update_variant}{}}}
-\subsection{Method \code{update_variant()}}{
-Update this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$update_variant(...)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$update_variant()}}{
+  Update this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$update_variant(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Target fields and values.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Target fields and values.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-jobs"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-jobs}{}}}
-\subsection{Method \code{jobs()}}{
-Jobs for this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$jobs()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$jobs()}}{
+  Jobs for this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$jobs()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_url}{}}}
-\subsection{Method \code{get_url()}}{
-Return the URL for this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_url()}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_url()}}{
+  Return the URL for this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_url()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_url_rev"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_url_rev}{}}}
-\subsection{Method \code{get_url_rev()}}{
-Return the URL associated with one rendering for this variant.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_url_rev(rev)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_url_rev()}}{
+  Return the URL associated with one rendering for this variant.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_url_rev(rev)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{rev}}{Rendering identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{rev}}{Rendering identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-get_dashboard_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-get_dashboard_url}{}}}
-\subsection{Method \code{get_dashboard_url()}}{
-Return the URL for this variant in the Posit Connect dashboard.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$get_dashboard_url(pane = "access")}\if{html}{\out{</div>}}
+\subsection{\code{Variant$get_dashboard_url()}}{
+  Return the URL for this variant in the Posit Connect dashboard.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$get_dashboard_url(pane = "access")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{pane}}{The pane in the dashboard to link to.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{pane}}{The pane in the dashboard to link to.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-print}{}}}
-\subsection{Method \code{print()}}{
-Print this object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$print(...)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$print()}}{
+  Print this object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Unused.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Unused.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Variant-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Variant-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Variant$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Variant$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Variant$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

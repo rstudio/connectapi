@@ -23,7 +23,7 @@ or execute a variant on demand
 }
 }
 \seealso{
-Other variant functions: 
-\code{\link{get_variants}()}
+Other variant functions:
+\code{\link[=get_variants]{get_variants()}}
 }
 \concept{variant functions}

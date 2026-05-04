@@ -160,8 +160,8 @@ directly, and so can be a little clunky. Using the \verb{set_schedule_*()} is ge
 recommended.
 }
 \seealso{
-Other schedule functions: 
-\code{\link{get_timezones}()},
-\code{\link{get_variant_schedule}()}
+Other schedule functions:
+\code{\link[=get_timezones]{get_timezones()}},
+\code{\link[=get_variant_schedule]{get_variant_schedule()}}
 }
 \concept{schedule functions}
