@@ -158,41 +158,9 @@ parse_connectapi <- function(data) {
 # - "2020-01-01T00:02:03-01:00"
 # nolint end
 parse_connect_rfc3339 <- function(x) {
-  if (length(x) == 0) return(.POSIXct(double(), tz = Sys.timezone()))
-
-  na_mask <- is.na(x)
-  if (all(na_mask)) {
-    return(.POSIXct(rep(NA_real_, length(x)), tz = Sys.timezone()))
-  }
-
-  result <- rep(NA_real_, length(x))
-  xn <- x[!na_mask]
-
-  # The date portion is always at fixed positions: YYYY-MM-DDTHH:MM:SS
-  dates <- as.Date(substr(xn, 1, 10))
-  hour <- as.integer(substr(xn, 12, 13))
-  min <- as.integer(substr(xn, 15, 16))
-
-  # Seconds (with optional fractional part) run from position 18 to just before
-  # the timezone suffix. The suffix is either "Z" (1 char) or "+HH:MM" (6 chars).
-  nc <- nchar(xn)
-  is_utc <- endsWith(xn, "Z")
-  tz_len <- ifelse(is_utc, 1L, 6L)
-  sec <- as.double(substr(xn, 18, nc - tz_len))
-
-  # Compute timezone offset in seconds for non-UTC timestamps
-  tz_offset <- rep(0, length(xn))
-  non_utc <- which(!is_utc)
-  if (length(non_utc) > 0) {
-    tz_str <- substr(xn[non_utc], nc[non_utc] - 5, nc[non_utc])
-    tz_sign <- ifelse(substr(tz_str, 1, 1) == "+", 1, -1)
-    tz_h <- as.integer(substr(tz_str, 2, 3))
-    tz_m <- as.integer(substr(tz_str, 5, 6))
-    tz_offset[non_utc] <- tz_sign * (tz_h * 3600L + tz_m * 60L)
-  }
-
-  # Build epoch seconds directly: date days * 86400 + time of day - tz offset
-  epoch <- as.double(dates) * 86400 + hour * 3600 + min * 60 + sec - tz_offset
-  result[!na_mask] <- epoch
-  .POSIXct(result, tz = Sys.timezone())
+  # Convert offsets from RFC 3339 "+HH:MM" to strptime's "+HHMM", and "Z" to
+  # "+0000", so %z can parse them.
+  x <- gsub("([+-]\\d\\d):(\\d\\d)$", "\\1\\2", x)
+  x <- gsub("Z$", "+0000", x)
+  as.POSIXct(x, format = "%Y-%m-%dT%H:%M:%OS%z", tz = Sys.timezone())
 }
