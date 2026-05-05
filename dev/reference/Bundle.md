@@ -1,11 +1,5 @@
 # Bundle
 
-Bundle
-
-Bundle
-
-## Details
-
 An R6 class that represents a bundle
 
 ## See also
@@ -35,7 +29,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`Bundle$new()`](#method-Bundle-new)
+- [`Bundle$new()`](#method-Bundle-initialize)
 
 - [`Bundle$print()`](#method-Bundle-print)
 
@@ -43,7 +37,7 @@ Other R6 classes:
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Bundle$new()`
 
 Initialize this content bundle.
 
@@ -59,7 +53,7 @@ Initialize this content bundle.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Bundle$print()`
 
 Print this object.
 
@@ -75,7 +69,7 @@ Print this object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Bundle$clone()`
 
 The objects of this class are cloneable with this method.
 

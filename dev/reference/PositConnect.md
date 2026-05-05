@@ -2,9 +2,8 @@
 
 Class representing a Connect API client
 
-Class representing a Connect API client
-
 ## Usage
+
 
     client <- Connect$new(server = 'connect.example.com',
       api_key = 'mysecretkey')
@@ -70,7 +69,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`Connect$new()`](#method-Connect-new)
+- [`Connect$new()`](#method-Connect-initialize)
 
 - [`Connect$httr_config()`](#method-Connect-httr_config)
 
@@ -192,7 +191,7 @@ Other R6 classes:
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Connect$new()`
 
 Initialize a new connect.
 
@@ -212,7 +211,7 @@ Initialize a new connect.
 
 ------------------------------------------------------------------------
 
-### Method `httr_config()`
+### `Connect$httr_config()`
 
 Set additional `httr` configuration that is added to each HTTP call.
 
@@ -228,7 +227,7 @@ Set additional `httr` configuration that is added to each HTTP call.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Connect$print()`
 
 Print details about this instance.
 
@@ -244,7 +243,7 @@ Print details about this instance.
 
 ------------------------------------------------------------------------
 
-### Method `raise_error()`
+### `Connect$raise_error()`
 
 Raise an error when the HTTP result is an HTTP error.
 
@@ -260,7 +259,7 @@ Raise an error when the HTTP result is an HTTP error.
 
 ------------------------------------------------------------------------
 
-### Method `add_auth()`
+### `Connect$add_auth()`
 
 Returns HTTP authorization headers, or NULL when none are used.
 
@@ -270,7 +269,7 @@ Returns HTTP authorization headers, or NULL when none are used.
 
 ------------------------------------------------------------------------
 
-### Method `api_url()`
+### `Connect$api_url()`
 
 Build a URL relative to the API root
 
@@ -286,7 +285,7 @@ Build a URL relative to the API root
 
 ------------------------------------------------------------------------
 
-### Method `server_url()`
+### `Connect$server_url()`
 
 Build a URL relative to the server root
 
@@ -302,13 +301,13 @@ Build a URL relative to the server root
 
 ------------------------------------------------------------------------
 
-### Method `request()`
+### `Connect$request()`
 
 General wrapper around `httr` verbs
 
 #### Usage
 
-    Connect$request(method, url, ..., parser = "parsed")
+    Connect$request(method, url, ..., parser = "parsed", simplify = FALSE)
 
 #### Arguments
 
@@ -330,15 +329,27 @@ General wrapper around `httr` verbs
   returned. Otherwise, the argument is forwarded to
   `httr::content(res, as = parser)`.
 
+- `simplify`:
+
+  Logical; if `TRUE`, JSON arrays of objects are simplified to data
+  frames by jsonlite. Default `FALSE` preserves list-of-lists for
+  compatibility with pagination helpers.
+
 ------------------------------------------------------------------------
 
-### Method `GET()`
+### `Connect$GET()`
 
 Perform an HTTP GET request of the named API path.
 
 #### Usage
 
-    Connect$GET(path, ..., url = self$api_url(path), parser = "parsed")
+    Connect$GET(
+      path,
+      ...,
+      url = self$api_url(path),
+      parser = "parsed",
+      simplify = FALSE
+    )
 
 #### Arguments
 
@@ -362,9 +373,15 @@ Perform an HTTP GET request of the named API path.
   returned. Otherwise, the argument is forwarded to
   `httr::content(res, as = parser)`.
 
+- `simplify`:
+
+  Logical; if `TRUE`, JSON arrays of objects are simplified to data
+  frames by jsonlite. Default `FALSE` preserves list-of-lists for
+  compatibility with pagination helpers.
+
 ------------------------------------------------------------------------
 
-### Method `PUT()`
+### `Connect$PUT()`
 
 Perform an HTTP PUT request of the named API path.
 
@@ -411,7 +428,7 @@ Perform an HTTP PUT request of the named API path.
 
 ------------------------------------------------------------------------
 
-### Method `HEAD()`
+### `Connect$HEAD()`
 
 Perform an HTTP HEAD request of the named API path.
 
@@ -438,7 +455,7 @@ Perform an HTTP HEAD request of the named API path.
 
 ------------------------------------------------------------------------
 
-### Method `DELETE()`
+### `Connect$DELETE()`
 
 Perform an HTTP DELETE request of the named API path. Returns the HTTP
 response object.
@@ -471,7 +488,7 @@ response object.
 
 ------------------------------------------------------------------------
 
-### Method `PATCH()`
+### `Connect$PATCH()`
 
 Perform an HTTP PATCH request of the named API path.
 
@@ -518,7 +535,7 @@ Perform an HTTP PATCH request of the named API path.
 
 ------------------------------------------------------------------------
 
-### Method `POST()`
+### `Connect$POST()`
 
 Perform an HTTP POST request of the named API path.
 
@@ -565,7 +582,7 @@ Perform an HTTP POST request of the named API path.
 
 ------------------------------------------------------------------------
 
-### Method `me()`
+### `Connect$me()`
 
 Perform an HTTP GET request of the "me" server endpoint.
 
@@ -575,7 +592,7 @@ Perform an HTTP GET request of the "me" server endpoint.
 
 ------------------------------------------------------------------------
 
-### Method `get_dashboard_url()`
+### `Connect$get_dashboard_url()`
 
 Return the base URL of the Connect server.
 
@@ -585,7 +602,7 @@ Return the base URL of the Connect server.
 
 ------------------------------------------------------------------------
 
-### Method [`get_tags()`](https://posit-dev.github.io/connectapi/dev/reference/tags.md)
+### `Connect$get_tags()`
 
 Return all tags.
 
@@ -601,7 +618,7 @@ Return all tags.
 
 ------------------------------------------------------------------------
 
-### Method `get_tag_id()`
+### `Connect$get_tag_id()`
 
 Get the identifier for the named tag.
 
@@ -617,7 +634,7 @@ Get the identifier for the named tag.
 
 ------------------------------------------------------------------------
 
-### Method `get_tag_tree()`
+### `Connect$get_tag_tree()`
 
 Get the tag tree.
 
@@ -627,7 +644,7 @@ Get the tag tree.
 
 ------------------------------------------------------------------------
 
-### Method `tag_create_safe()`
+### `Connect$tag_create_safe()`
 
 Create a tag.
 
@@ -647,7 +664,7 @@ Create a tag.
 
 ------------------------------------------------------------------------
 
-### Method `tag_create()`
+### `Connect$tag_create()`
 
 Create a tag.
 
@@ -667,7 +684,7 @@ Create a tag.
 
 ------------------------------------------------------------------------
 
-### Method `tag()`
+### `Connect$tag()`
 
 Get a tag.
 
@@ -683,7 +700,7 @@ Get a tag.
 
 ------------------------------------------------------------------------
 
-### Method `tag_delete()`
+### `Connect$tag_delete()`
 
 Delete a tag.
 
@@ -699,7 +716,7 @@ Delete a tag.
 
 ------------------------------------------------------------------------
 
-### Method `get_schedule()`
+### `Connect$get_schedule()`
 
 Get a schedule.
 
@@ -715,7 +732,7 @@ Get a schedule.
 
 ------------------------------------------------------------------------
 
-### Method `content_create()`
+### `Connect$content_create()`
 
 Create content.
 
@@ -739,7 +756,7 @@ Create content.
 
 ------------------------------------------------------------------------
 
-### Method `content_upload()`
+### `Connect$content_upload()`
 
 Upload a content bundle.
 
@@ -759,7 +776,7 @@ Upload a content bundle.
 
 ------------------------------------------------------------------------
 
-### Method `content_deploy()`
+### `Connect$content_deploy()`
 
 Deploy a content bundle.
 
@@ -779,7 +796,7 @@ Deploy a content bundle.
 
 ------------------------------------------------------------------------
 
-### Method `content()`
+### `Connect$content()`
 
 Get a content item.
 
@@ -812,7 +829,7 @@ Get a content item.
 
 ------------------------------------------------------------------------
 
-### Method `task()`
+### `Connect$task()`
 
 Get a task.
 
@@ -836,7 +853,7 @@ Get a task.
 
 ------------------------------------------------------------------------
 
-### Method `set_content_tag()`
+### `Connect$set_content_tag()`
 
 Set a tag for a content item.
 
@@ -856,7 +873,7 @@ Set a tag for a content item.
 
 ------------------------------------------------------------------------
 
-### Method `remove_content_tag()`
+### `Connect$remove_content_tag()`
 
 Remove a tag from a content item.
 
@@ -876,7 +893,7 @@ Remove a tag from a content item.
 
 ------------------------------------------------------------------------
 
-### Method `user()`
+### `Connect$user()`
 
 Get user details.
 
@@ -892,7 +909,7 @@ Get user details.
 
 ------------------------------------------------------------------------
 
-### Method `users()`
+### `Connect$users()`
 
 Get users.
 
@@ -930,7 +947,7 @@ Get users.
 
 ------------------------------------------------------------------------
 
-### Method `users_remote()`
+### `Connect$users_remote()`
 
 Get remote users.
 
@@ -946,7 +963,7 @@ Get remote users.
 
 ------------------------------------------------------------------------
 
-### Method `users_create()`
+### `Connect$users_create()`
 
 Create a user.
 
@@ -999,7 +1016,7 @@ Create a user.
 
 ------------------------------------------------------------------------
 
-### Method [`users_create_remote()`](https://posit-dev.github.io/connectapi/dev/reference/users_create_remote.md)
+### `Connect$users_create_remote()`
 
 Create a remote user.
 
@@ -1015,7 +1032,7 @@ Create a remote user.
 
 ------------------------------------------------------------------------
 
-### Method `users_lock()`
+### `Connect$users_lock()`
 
 Lock a user.
 
@@ -1031,7 +1048,7 @@ Lock a user.
 
 ------------------------------------------------------------------------
 
-### Method `users_unlock()`
+### `Connect$users_unlock()`
 
 Unlock a user.
 
@@ -1047,7 +1064,7 @@ Unlock a user.
 
 ------------------------------------------------------------------------
 
-### Method `users_update()`
+### `Connect$users_update()`
 
 Update a user.
 
@@ -1067,7 +1084,7 @@ Update a user.
 
 ------------------------------------------------------------------------
 
-### Method `groups()`
+### `Connect$groups()`
 
 Get groups.
 
@@ -1091,7 +1108,7 @@ Get groups.
 
 ------------------------------------------------------------------------
 
-### Method `group_members()`
+### `Connect$group_members()`
 
 Get group members.
 
@@ -1107,7 +1124,7 @@ Get group members.
 
 ------------------------------------------------------------------------
 
-### Method `group_member_add()`
+### `Connect$group_member_add()`
 
 Add a group member.
 
@@ -1127,7 +1144,7 @@ Add a group member.
 
 ------------------------------------------------------------------------
 
-### Method `group_member_remove()`
+### `Connect$group_member_remove()`
 
 Remove a group member.
 
@@ -1147,7 +1164,7 @@ Remove a group member.
 
 ------------------------------------------------------------------------
 
-### Method `groups_create()`
+### `Connect$groups_create()`
 
 Create a group.
 
@@ -1163,7 +1180,7 @@ Create a group.
 
 ------------------------------------------------------------------------
 
-### Method [`groups_create_remote()`](https://posit-dev.github.io/connectapi/dev/reference/groups_create_remote.md)
+### `Connect$groups_create_remote()`
 
 Create a remote group.
 
@@ -1179,7 +1196,7 @@ Create a remote group.
 
 ------------------------------------------------------------------------
 
-### Method `groups_remote()`
+### `Connect$groups_remote()`
 
 Get remote groups.
 
@@ -1199,7 +1216,7 @@ Get remote groups.
 
 ------------------------------------------------------------------------
 
-### Method `group_content()`
+### `Connect$group_content()`
 
 Get content to which a group has access
 
@@ -1215,7 +1232,7 @@ Get content to which a group has access
 
 ------------------------------------------------------------------------
 
-### Method `inst_content_visits()`
+### `Connect$inst_content_visits()`
 
 Get (non-interactive) content visits.
 
@@ -1268,7 +1285,7 @@ Get (non-interactive) content visits.
 
 ------------------------------------------------------------------------
 
-### Method `inst_shiny_usage()`
+### `Connect$inst_shiny_usage()`
 
 Get interactive content visits.
 
@@ -1323,7 +1340,7 @@ Get (non-interactive) content visits.
 
 ------------------------------------------------------------------------
 
-### Method `procs()`
+### `Connect$procs()`
 
 Get running processes.
 
@@ -1333,7 +1350,7 @@ Get running processes.
 
 ------------------------------------------------------------------------
 
-### Method `repo_account()`
+### `Connect$repo_account()`
 
 Determine if Git repository is associated with authorization.
 
@@ -1349,7 +1366,7 @@ Determine if Git repository is associated with authorization.
 
 ------------------------------------------------------------------------
 
-### Method `repo_branches()`
+### `Connect$repo_branches()`
 
 Get Git repository branches.
 
@@ -1365,7 +1382,7 @@ Get Git repository branches.
 
 ------------------------------------------------------------------------
 
-### Method `repo_manifest_dirs()`
+### `Connect$repo_manifest_dirs()`
 
 Get Git repository directories.
 
@@ -1385,7 +1402,7 @@ Get Git repository directories.
 
 ------------------------------------------------------------------------
 
-### Method `schedules()`
+### `Connect$schedules()`
 
 Get schedules.
 
@@ -1413,7 +1430,7 @@ Get schedules.
 
 ------------------------------------------------------------------------
 
-### Method `packages()`
+### `Connect$packages()`
 
 Get packages. This endpoint is paginated.
 
@@ -1437,7 +1454,7 @@ Get packages. This endpoint is paginated.
 
 ------------------------------------------------------------------------
 
-### Method `docs()`
+### `Connect$docs()`
 
 Get documentation.
 
@@ -1457,7 +1474,7 @@ Get documentation.
 
 ------------------------------------------------------------------------
 
-### Method `audit_logs()`
+### `Connect$audit_logs()`
 
 Get auditing.
 
@@ -1485,7 +1502,7 @@ Get auditing.
 
 ------------------------------------------------------------------------
 
-### Method `vanities()`
+### `Connect$vanities()`
 
 Get all vanity URLs
 
@@ -1495,7 +1512,7 @@ Get all vanity URLs
 
 ------------------------------------------------------------------------
 
-### Method `server_settings()`
+### `Connect$server_settings()`
 
 Get server settings.
 
@@ -1505,7 +1522,7 @@ Get server settings.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Connect$clone()`
 
 The objects of this class are cloneable with this method.
 

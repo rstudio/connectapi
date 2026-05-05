@@ -37,6 +37,7 @@ Other deployment functions:
 ## Examples
 
 ``` r
+
 bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi"))
 #> Error in bundle_dir(system.file("tests/testthat/examples/shiny/", package = "connectapi")): fs::dir_exists(path) is not TRUE
 ```

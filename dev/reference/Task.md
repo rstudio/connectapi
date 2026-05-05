@@ -1,11 +1,5 @@
 # Task
 
-Task
-
-Task
-
-## Details
-
 An R6 class that represents a Task
 
 ## See also
@@ -39,7 +33,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`Task$new()`](#method-Task-new)
+- [`Task$new()`](#method-Task-initialize)
 
 - [`Task$get_task()`](#method-Task-get_task)
 
@@ -53,7 +47,7 @@ Other R6 classes:
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Task$new()`
 
 Initialize this task.
 
@@ -73,7 +67,7 @@ Initialize this task.
 
 ------------------------------------------------------------------------
 
-### Method `get_task()`
+### `Task$get_task()`
 
 Return the underlying task.
 
@@ -83,7 +77,7 @@ Return the underlying task.
 
 ------------------------------------------------------------------------
 
-### Method `add_data()`
+### `Task$add_data()`
 
 Set the data.
 
@@ -99,7 +93,7 @@ Set the data.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `Task$get_data()`
 
 Get the data.
 
@@ -109,7 +103,7 @@ Get the data.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Task$print()`
 
 Print this object.
 
@@ -125,7 +119,7 @@ Print this object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Task$clone()`
 
 The objects of this class are cloneable with this method.
 

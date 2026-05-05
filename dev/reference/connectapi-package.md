@@ -22,19 +22,13 @@ Useful links:
 
 - Report bugs at <https://github.com/posit-dev/connectapi/issues>
 
-Useful links:
-
-- <https://posit-dev.github.io/connectapi/>
-
-- <https://github.com/posit-dev/connectapi>
-
-- Report bugs at <https://github.com/posit-dev/connectapi/issues>
-
 ## Author
 
 **Maintainer**: Kara Woo <kara.woo@posit.co>
 
 Authors:
+
+- Kara Woo <kara.woo@posit.co>
 
 - Toph Allen <toph@posit.co>
 

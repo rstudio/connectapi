@@ -11,12 +11,14 @@ versions.
 To install from CRAN:
 
 ``` r
+
 install.packages("connectapi")
 ```
 
 To install the development version:
 
 ``` r
+
 remotes::install_github('posit-dev/connectapi')
 ```
 
@@ -25,6 +27,7 @@ remotes::install_github('posit-dev/connectapi')
 To create a client:
 
 ``` r
+
 library(connectapi)
 client <- connect(
   server = "https://connect.example.com",
@@ -44,6 +47,7 @@ These environment variable values will be used automatically if defined
 in your R session.
 
 ``` r
+
 library(connectapi)
 client <- connect()
 ```
@@ -58,6 +62,7 @@ You can use the `get_` methods to retrieve data from the Posit Connect
 server.
 
 ``` r
+
 library(connectapi)
 client <- connect()
 
@@ -80,6 +85,7 @@ Posit Connect Server API, then these `connectapi` helpers should be
 useful!
 
 ``` r
+
 library(connectapi)
 client <- connect()
 

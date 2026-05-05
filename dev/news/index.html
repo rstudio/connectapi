@@ -41,7 +41,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="connectapi-development-version">connectapi (development version)<a class="anchor" aria-label="anchor" href="#connectapi-development-version"></a></h2>
-</div>
+<ul><li>Improved performance of API response parsing and pagination. Data frames returned by getter functions now include all columns from the server, so new fields added in future Connect releases will appear automatically. Column names and types are now determined by the server response rather than a hardcoded schema, so they may vary across Connect versions.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.12.1" id="connectapi-0121">connectapi 0.12.1<a class="anchor" aria-label="anchor" href="#connectapi-0121"></a></h2><p class="text-muted">CRAN release: 2026-04-29</p>
 <ul><li>Fixed <code><a href="../reference/git.html">repo_check_branches()</a></code> and <code><a href="../reference/git.html">repo_check_branches_ref()</a></code> to handle the updated response format from newer versions of Connect (<a href="https://github.com/posit-dev/connectapi/issues/524" class="external-link">#524</a>).</li>
@@ -97,7 +98,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-8-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h3>
-<ul><li>New <code><a href="../reference/get_usage.html">get_usage()</a></code> function returns content usage data from Connect’s <code>GET   v1/instrumentation/content/hits</code> endpoint on Connect v2025.04.0 and higher. (<a href="https://github.com/posit-dev/connectapi/issues/390" class="external-link">#390</a>)</li>
+<ul><li>New <code><a href="../reference/get_usage.html">get_usage()</a></code> function returns content usage data from Connect’s <code>GET v1/instrumentation/content/hits</code> endpoint on Connect v2025.04.0 and higher. (<a href="https://github.com/posit-dev/connectapi/issues/390" class="external-link">#390</a>)</li>
 <li>The <code><a href="../reference/get_oauth_credentials.html">get_oauth_credentials()</a></code> and <code><a href="../reference/connect.html">connect()</a></code> functions have a new <code>audience</code> parameter. On Connect v2025.07.0 and higher, pass the GUID of an integration to this parameter to specify which OAuth integration you wish to use. (<a href="https://github.com/posit-dev/connectapi/issues/423" class="external-link">#423</a>)</li>
 <li>New <code><a href="../reference/get_integrations.html">get_integrations()</a></code> function lists all OAuth integrations available on the Connect server from the <code>GET v1/oauth/integrations</code> endpoint on Connect v2024.12.0 and higher. (<a href="https://github.com/posit-dev/connectapi/issues/413" class="external-link">#413</a>)</li>
 </ul></div>

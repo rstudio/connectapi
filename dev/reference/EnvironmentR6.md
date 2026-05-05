@@ -1,11 +1,5 @@
 # Environment
 
-Environment
-
-Environment
-
-## Details
-
 An R6 class that represents a Content's Environment Variables
 
 ## See also
@@ -23,7 +17,7 @@ Other R6 classes:
 
 ## Super class
 
-[`connectapi::Content`](https://posit-dev.github.io/connectapi/dev/reference/Content.md)
+[`Content`](https://posit-dev.github.io/connectapi/dev/reference/Content.md)
 -\> `Environment`
 
 ## Public fields
@@ -40,7 +34,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`Environment$new()`](#method-Environment-new)
+- [`Environment$new()`](#method-Environment-initialize)
 
 - [`Environment$environment()`](#method-Environment-environment)
 
@@ -56,33 +50,33 @@ Other R6 classes:
 
 Inherited methods
 
-- [`connectapi::Content$bundle_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_delete)
-- [`connectapi::Content$bundle_download()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_download)
-- [`connectapi::Content$danger_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-danger_delete)
-- [`connectapi::Content$deploy()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-deploy)
-- [`connectapi::Content$get_bundles()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_bundles)
-- [`connectapi::Content$get_content_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_content_remote)
-- [`connectapi::Content$get_dashboard_url()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_dashboard_url)
-- [`connectapi::Content$get_url()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_url)
-- [`connectapi::Content$jobs()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-jobs)
-- [`connectapi::Content$packages()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-packages)
-- [`connectapi::Content$permissions()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions)
-- [`connectapi::Content$permissions_add()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_add)
-- [`connectapi::Content$permissions_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_delete)
-- [`connectapi::Content$permissions_update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_update)
-- [`connectapi::Content$register_job_kill_order()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-register_job_kill_order)
-- [`connectapi::Content$repo_enable()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_enable)
-- [`connectapi::Content$repo_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_set)
-- [`connectapi::Content$repository()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repository)
-- [`connectapi::Content$tag_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_delete)
-- [`connectapi::Content$tag_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_set)
-- [`connectapi::Content$tags()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tags)
-- [`connectapi::Content$update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-update)
-- [`connectapi::Content$variants()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-variants)
+- [`Content$bundle_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_delete)
+- [`Content$bundle_download()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_download)
+- [`Content$danger_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-danger_delete)
+- [`Content$deploy()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-deploy)
+- [`Content$get_bundles()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_bundles)
+- [`Content$get_content_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_content_remote)
+- [`Content$get_dashboard_url()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_dashboard_url)
+- [`Content$get_url()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_url)
+- [`Content$jobs()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-jobs)
+- [`Content$packages()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-packages)
+- [`Content$permissions()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions)
+- [`Content$permissions_add()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_add)
+- [`Content$permissions_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_delete)
+- [`Content$permissions_update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_update)
+- [`Content$register_job_kill_order()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-register_job_kill_order)
+- [`Content$repo_enable()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_enable)
+- [`Content$repo_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_set)
+- [`Content$repository()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repository)
+- [`Content$tag_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_delete)
+- [`Content$tag_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_set)
+- [`Content$tags()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tags)
+- [`Content$update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-update)
+- [`Content$variants()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-variants)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Environment$new()`
 
 Initialize this set of environment variables.
 
@@ -102,7 +96,7 @@ Initialize this set of environment variables.
 
 ------------------------------------------------------------------------
 
-### Method [`environment()`](https://rdrr.io/r/base/environment.html)
+### `Environment$environment()`
 
 Fetch the set of environment variables.
 
@@ -112,7 +106,7 @@ Fetch the set of environment variables.
 
 ------------------------------------------------------------------------
 
-### Method `environment_set()`
+### `Environment$environment_set()`
 
 Update the set of environment variables.
 
@@ -128,7 +122,7 @@ Update the set of environment variables.
 
 ------------------------------------------------------------------------
 
-### Method `environment_all()`
+### `Environment$environment_all()`
 
 Overwrite the set of environment variables.
 
@@ -144,7 +138,7 @@ Overwrite the set of environment variables.
 
 ------------------------------------------------------------------------
 
-### Method `env_refresh()`
+### `Environment$env_refresh()`
 
 Fetch the set o environment variables.
 
@@ -154,7 +148,7 @@ Fetch the set o environment variables.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Environment$print()`
 
 Print this object.
 
@@ -170,7 +164,7 @@ Print this object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Environment$clone()`
 
 The objects of this class are cloneable with this method.
 

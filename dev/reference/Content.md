@@ -1,11 +1,5 @@
 # Content
 
-Content
-
-Content
-
-## Details
-
 An R6 class that represents content.
 
 ## See also
@@ -50,7 +44,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`Content$new()`](#method-Content-new)
+- [`Content$new()`](#method-Content-initialize)
 
 - [`Content$get_content_remote()`](#method-Content-get_content_remote)
 
@@ -110,7 +104,7 @@ Other R6 classes:
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Content$new()`
 
 Initialize this content.
 
@@ -130,7 +124,7 @@ Initialize this content.
 
 ------------------------------------------------------------------------
 
-### Method `get_content_remote()`
+### `Content$get_content_remote()`
 
 Obtain the content data from the Connect server.
 
@@ -140,7 +134,7 @@ Obtain the content data from the Connect server.
 
 ------------------------------------------------------------------------
 
-### Method [`get_bundles()`](https://posit-dev.github.io/connectapi/dev/reference/get_bundles.md)
+### `Content$get_bundles()`
 
 Return the set of content bundles.
 
@@ -150,7 +144,7 @@ Return the set of content bundles.
 
 ------------------------------------------------------------------------
 
-### Method `bundle_download()`
+### `Content$bundle_download()`
 
 Download the source archive for a content bundle.
 
@@ -178,7 +172,7 @@ Download the source archive for a content bundle.
 
 ------------------------------------------------------------------------
 
-### Method `bundle_delete()`
+### `Content$bundle_delete()`
 
 Delete a content bundle.
 
@@ -194,7 +188,7 @@ Delete a content bundle.
 
 ------------------------------------------------------------------------
 
-### Method [`update()`](https://rdrr.io/r/stats/update.html)
+### `Content$update()`
 
 Update this content item.
 
@@ -210,7 +204,7 @@ Update this content item.
 
 ------------------------------------------------------------------------
 
-### Method `danger_delete()`
+### `Content$danger_delete()`
 
 Delete this content item.
 
@@ -220,7 +214,7 @@ Delete this content item.
 
 ------------------------------------------------------------------------
 
-### Method `get_url()`
+### `Content$get_url()`
 
 Return the URL for this content.
 
@@ -230,7 +224,7 @@ Return the URL for this content.
 
 ------------------------------------------------------------------------
 
-### Method `get_dashboard_url()`
+### `Content$get_dashboard_url()`
 
 Return the URL for this content in the Posit Connect dashboard.
 
@@ -246,7 +240,7 @@ Return the URL for this content in the Posit Connect dashboard.
 
 ------------------------------------------------------------------------
 
-### Method `jobs()`
+### `Content$jobs()`
 
 Return the jobs for this content
 
@@ -256,7 +250,7 @@ Return the jobs for this content
 
 ------------------------------------------------------------------------
 
-### Method `register_job_kill_order()`
+### `Content$register_job_kill_order()`
 
 Terminate a single job for this content item.
 
@@ -272,7 +266,7 @@ Terminate a single job for this content item.
 
 ------------------------------------------------------------------------
 
-### Method `variants()`
+### `Content$variants()`
 
 Return the variants for this content.
 
@@ -282,7 +276,7 @@ Return the variants for this content.
 
 ------------------------------------------------------------------------
 
-### Method `tag_set()`
+### `Content$tag_set()`
 
 Set a tag for this content.
 
@@ -298,7 +292,7 @@ Set a tag for this content.
 
 ------------------------------------------------------------------------
 
-### Method `tag_delete()`
+### `Content$tag_delete()`
 
 Remove a tag for this content.
 
@@ -314,7 +308,7 @@ Remove a tag for this content.
 
 ------------------------------------------------------------------------
 
-### Method `tags()`
+### `Content$tags()`
 
 The tags for this content.
 
@@ -324,7 +318,7 @@ The tags for this content.
 
 ------------------------------------------------------------------------
 
-### Method `permissions_add()`
+### `Content$permissions_add()`
 
 Add a principal to the ACL for this content.
 
@@ -348,7 +342,7 @@ Add a principal to the ACL for this content.
 
 ------------------------------------------------------------------------
 
-### Method `permissions_update()`
+### `Content$permissions_update()`
 
 Alter a principal in the ACL for this content.
 
@@ -376,7 +370,7 @@ Alter a principal in the ACL for this content.
 
 ------------------------------------------------------------------------
 
-### Method `permissions_delete()`
+### `Content$permissions_delete()`
 
 Remove an entry from the ACL for this content.
 
@@ -392,7 +386,7 @@ Remove an entry from the ACL for this content.
 
 ------------------------------------------------------------------------
 
-### Method [`permissions()`](https://posit-dev.github.io/connectapi/dev/reference/permissions.md)
+### `Content$permissions()`
 
 Obtain some or all of the ACL for this content.
 
@@ -412,7 +406,7 @@ Obtain some or all of the ACL for this content.
 
 ------------------------------------------------------------------------
 
-### Method [`environment()`](https://rdrr.io/r/base/environment.html)
+### `Content$environment()`
 
 Return the environment variables set for this content.
 
@@ -422,7 +416,7 @@ Return the environment variables set for this content.
 
 ------------------------------------------------------------------------
 
-### Method `environment_set()`
+### `Content$environment_set()`
 
 Adjust the environment variables set for this content.
 
@@ -439,7 +433,7 @@ Adjust the environment variables set for this content.
 
 ------------------------------------------------------------------------
 
-### Method `environment_all()`
+### `Content$environment_all()`
 
 Overwrite the environment variables set for this content.
 
@@ -455,7 +449,7 @@ Overwrite the environment variables set for this content.
 
 ------------------------------------------------------------------------
 
-### Method [`deploy()`](https://posit-dev.github.io/connectapi/dev/reference/deploy.md)
+### `Content$deploy()`
 
 Deploy this content
 
@@ -471,7 +465,7 @@ Deploy this content
 
 ------------------------------------------------------------------------
 
-### Method `repository()`
+### `Content$repository()`
 
 Get Git repository details
 
@@ -497,7 +491,7 @@ NULL if no repo is set, otherwise a list with fields:
 
 ------------------------------------------------------------------------
 
-### Method `repo_enable()`
+### `Content$repo_enable()`
 
 Adjust Git polling.
 
@@ -513,7 +507,7 @@ Adjust Git polling.
 
 ------------------------------------------------------------------------
 
-### Method `repo_set()`
+### `Content$repo_set()`
 
 Adjust Git repository
 
@@ -541,7 +535,7 @@ Adjust Git repository
 
 ------------------------------------------------------------------------
 
-### Method `packages()`
+### `Content$packages()`
 
 Get package dependencies
 
@@ -551,7 +545,7 @@ Get package dependencies
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `Content$print()`
 
 Print this object.
 
@@ -567,7 +561,7 @@ Print this object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Content$clone()`
 
 The objects of this class are cloneable with this method.
 

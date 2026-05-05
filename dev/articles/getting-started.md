@@ -11,6 +11,7 @@ Once you have your API key, you can create a Connect object in your
 code, like so:
 
 ``` r
+
 library(connectapi)
 client <- connect(
   server = "http://example.com:3939",
@@ -27,6 +28,7 @@ environment variables:
 Then, those can be used in your code:
 
 ``` r
+
 library(connectapi)
 
 # this happens by default if you restart your R session
@@ -48,6 +50,7 @@ Once the `manifest.json` file is present, you can reference the
 directory and deploy it directly:
 
 ``` r
+
 bnd <- bundle_dir("./my/directory")
 
 # name must be unique on the server
@@ -60,6 +63,7 @@ The content object (`content_1`) includes information about the
 deployment that you just requested. This can be explored with:
 
 ``` r
+
 content_1 %>% poll_task()
 ```
 
@@ -67,6 +71,7 @@ Alternatively, you can immediately begin altering the settings of the
 content object while you wait for deployment to complete:
 
 ``` r
+
 content_1 %>%
   set_thumbnail("https://gph.is/29vyb0s") %>%
   set_vanity_url("/my_clever_content")
@@ -81,6 +86,7 @@ can do so using the content GUID (which you can find within Posit
 Connect in the Info pane).
 
 ``` r
+
 content_2 <- client %>%
   deploy(bnd, guid = "d78ba9f8-bb57-422e-b164-9ecd8e4c4fd6") %>%
   poll_task()
@@ -90,6 +96,7 @@ You can also use the Posit Connect content GUID to retrieve information
 about existing content (if you want to examine or change settings)
 
 ``` r
+
 content_3 <- client %>%
   content_item(guid = "96532fbc-725e-441b-9cc6-a5622535241b")
 ```

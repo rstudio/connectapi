@@ -1,11 +1,5 @@
 # VariantTask
 
-VariantTask
-
-VariantTask
-
-## Details
-
 An R6 class that represents a Variant Task
 
 ## See also
@@ -23,9 +17,9 @@ Other R6 classes:
 
 ## Super classes
 
-[`connectapi::Content`](https://posit-dev.github.io/connectapi/dev/reference/Content.md)
+[`Content`](https://posit-dev.github.io/connectapi/dev/reference/Content.md)
 -\>
-[`connectapi::Variant`](https://posit-dev.github.io/connectapi/dev/reference/VariantR6.md)
+[`Variant`](https://posit-dev.github.io/connectapi/dev/reference/VariantR6.md)
 -\> `VariantTask`
 
 ## Public fields
@@ -42,7 +36,7 @@ Other R6 classes:
 
 ### Public methods
 
-- [`VariantTask$new()`](#method-VariantTask-new)
+- [`VariantTask$new()`](#method-VariantTask-initialize)
 
 - [`VariantTask$get_task()`](#method-VariantTask-get_task)
 
@@ -56,47 +50,47 @@ Other R6 classes:
 
 Inherited methods
 
-- [`connectapi::Content$bundle_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_delete)
-- [`connectapi::Content$bundle_download()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_download)
-- [`connectapi::Content$danger_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-danger_delete)
-- [`connectapi::Content$deploy()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-deploy)
-- [`connectapi::Content$environment()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment)
-- [`connectapi::Content$environment_all()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment_all)
-- [`connectapi::Content$environment_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment_set)
-- [`connectapi::Content$get_bundles()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_bundles)
-- [`connectapi::Content$get_content_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_content_remote)
-- [`connectapi::Content$packages()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-packages)
-- [`connectapi::Content$permissions()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions)
-- [`connectapi::Content$permissions_add()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_add)
-- [`connectapi::Content$permissions_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_delete)
-- [`connectapi::Content$permissions_update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_update)
-- [`connectapi::Content$register_job_kill_order()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-register_job_kill_order)
-- [`connectapi::Content$repo_enable()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_enable)
-- [`connectapi::Content$repo_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_set)
-- [`connectapi::Content$repository()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repository)
-- [`connectapi::Content$tag_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_delete)
-- [`connectapi::Content$tag_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_set)
-- [`connectapi::Content$tags()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tags)
-- [`connectapi::Content$update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-update)
-- [`connectapi::Content$variants()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-variants)
-- [`connectapi::Variant$add_subscribers()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-add_subscribers)
-- [`connectapi::Variant$get_dashboard_url()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_dashboard_url)
-- [`connectapi::Variant$get_schedule()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_schedule)
-- [`connectapi::Variant$get_schedule_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_schedule_remote)
-- [`connectapi::Variant$get_subscribers()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_subscribers)
-- [`connectapi::Variant$get_url()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_url)
-- [`connectapi::Variant$get_url_rev()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_url_rev)
-- [`connectapi::Variant$get_variant_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_variant_remote)
-- [`connectapi::Variant$jobs()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-jobs)
-- [`connectapi::Variant$remove_subscriber()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-remove_subscriber)
-- [`connectapi::Variant$render()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-render)
-- [`connectapi::Variant$renderings()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-renderings)
-- [`connectapi::Variant$send_mail()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-send_mail)
-- [`connectapi::Variant$update_variant()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-update_variant)
+- [`Content$bundle_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_delete)
+- [`Content$bundle_download()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-bundle_download)
+- [`Content$danger_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-danger_delete)
+- [`Content$deploy()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-deploy)
+- [`Content$environment()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment)
+- [`Content$environment_all()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment_all)
+- [`Content$environment_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-environment_set)
+- [`Content$get_bundles()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_bundles)
+- [`Content$get_content_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-get_content_remote)
+- [`Content$packages()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-packages)
+- [`Content$permissions()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions)
+- [`Content$permissions_add()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_add)
+- [`Content$permissions_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_delete)
+- [`Content$permissions_update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-permissions_update)
+- [`Content$register_job_kill_order()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-register_job_kill_order)
+- [`Content$repo_enable()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_enable)
+- [`Content$repo_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repo_set)
+- [`Content$repository()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-repository)
+- [`Content$tag_delete()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_delete)
+- [`Content$tag_set()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tag_set)
+- [`Content$tags()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-tags)
+- [`Content$update()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-update)
+- [`Content$variants()`](https://posit-dev.github.io/connectapi/dev/reference/Content.html#method-variants)
+- [`Variant$add_subscribers()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-add_subscribers)
+- [`Variant$get_dashboard_url()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_dashboard_url)
+- [`Variant$get_schedule()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_schedule)
+- [`Variant$get_schedule_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_schedule_remote)
+- [`Variant$get_subscribers()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_subscribers)
+- [`Variant$get_url()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_url)
+- [`Variant$get_url_rev()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_url_rev)
+- [`Variant$get_variant_remote()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-get_variant_remote)
+- [`Variant$jobs()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-jobs)
+- [`Variant$remove_subscriber()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-remove_subscriber)
+- [`Variant$render()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-render)
+- [`Variant$renderings()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-renderings)
+- [`Variant$send_mail()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-send_mail)
+- [`Variant$update_variant()`](https://posit-dev.github.io/connectapi/dev/reference/Variant.html#method-update_variant)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `VariantTask$new()`
 
 Initialize this variant task.
 
@@ -124,7 +118,7 @@ Initialize this variant task.
 
 ------------------------------------------------------------------------
 
-### Method `get_task()`
+### `VariantTask$get_task()`
 
 Return the underlying task.
 
@@ -134,7 +128,7 @@ Return the underlying task.
 
 ------------------------------------------------------------------------
 
-### Method `add_data()`
+### `VariantTask$add_data()`
 
 Set the data.
 
@@ -150,7 +144,7 @@ Set the data.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `VariantTask$get_data()`
 
 Get the data.
 
@@ -160,7 +154,7 @@ Get the data.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `VariantTask$print()`
 
 Print this object.
 
@@ -176,7 +170,7 @@ Print this object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `VariantTask$clone()`
 
 The objects of this class are cloneable with this method.
 

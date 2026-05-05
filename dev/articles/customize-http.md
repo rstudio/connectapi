@@ -24,6 +24,7 @@ We will walk through a few examples below.
 ### Custom CA Bundle
 
 ``` r
+
 library(httr)
 library(connectapi)
 
@@ -51,6 +52,7 @@ However, it can be useful while the organization’s Certificate Authority
 certificate is procured from a public CA.
 
 ``` r
+
 # disabling certificate trust (can allow man-in-the-middle attacks, etc.)
 httr::set_config(httr::config(ssl_verifypeer = 0, ssl_verifyhost = 0))
 
@@ -62,6 +64,7 @@ get_users(client)
 You can also do this in a more scoped fashion:
 
 ``` r
+
 httr::with_config(
   httr::config(ssl_verifypeer = 0, ssl_verifyhost = 0),
   {
@@ -85,6 +88,7 @@ arguments will then be saved and passed to any subsequent `GET`, `PUT`,
 `POST`, `PATCH`, `HEAD`, `DELETE` requests you send with that client.
 
 ``` r
+
 # for instance, to set custom headers (i.e. to get through a proxy)
 client$httr_config(httr::add_headers(MY_MAGIC_HEADER = "value"))
 
@@ -114,6 +118,7 @@ authentication, which we are hoping to improve in a future release of
 Posit Connect.
 
 ``` r
+
 # disables authentication header that is included by default
 client$using_auth <- FALSE
 

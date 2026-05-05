@@ -38,9 +38,3 @@ get_variant_default(content)
 
 Other variant functions:
 [`get_variant_renderings()`](https://posit-dev.github.io/connectapi/dev/reference/variant_render.md)
-
-Other variant functions:
-[`get_variant_renderings()`](https://posit-dev.github.io/connectapi/dev/reference/variant_render.md)
-
-Other variant functions:
-[`get_variant_renderings()`](https://posit-dev.github.io/connectapi/dev/reference/variant_render.md)

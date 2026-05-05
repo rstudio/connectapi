@@ -30,6 +30,7 @@ Other deployment functions:
 ## Examples
 
 ``` r
+
 bundle_path(system.file("tests/testthat/examples/static.tar.gz", package = "connectapi"))
 #> Bundling path 
 #> Posit Connect Bundle: 

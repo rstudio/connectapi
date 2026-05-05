@@ -10,6 +10,7 @@ guide**](https://rstd.io/tidy-contrib).
 We recommend using the devtools package when developing connectapi.
 
 ``` r
+
 install.packages("devtools")
 ```
 
@@ -27,6 +28,7 @@ running Connect server.
 Run these in R with:
 
 ``` r
+
 devtools::test()
 ```
 
