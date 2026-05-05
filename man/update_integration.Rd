@@ -68,12 +68,12 @@ updated_integration <- update_integration(
 \code{\link[=get_integrations]{get_integrations()}}, \code{\link[=get_integration]{get_integration()}}, \code{\link[=create_integration]{create_integration()}},
 \code{\link[=delete_integration]{delete_integration()}}
 
-Other oauth integration functions: 
-\code{\link{create_integration}()},
-\code{\link{delete_integration}()},
-\code{\link{get_associations}()},
-\code{\link{get_integration}()},
-\code{\link{get_integrations}()},
-\code{\link{set_integrations}()}
+Other oauth integration functions:
+\code{\link[=create_integration]{create_integration()}},
+\code{\link[=delete_integration]{delete_integration()}},
+\code{\link[=get_associations]{get_associations()}},
+\code{\link[=get_integration]{get_integration()}},
+\code{\link[=get_integrations]{get_integrations()}},
+\code{\link[=set_integrations]{set_integrations()}}
 }
 \concept{oauth integration functions}

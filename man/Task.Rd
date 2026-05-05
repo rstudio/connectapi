@@ -4,15 +4,10 @@
 \alias{Task}
 \title{Task}
 \description{
-Task
-
-Task
-}
-\details{
 An R6 class that represents a Task
 }
 \seealso{
-Other R6 classes: 
+Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{ContentTask}},
@@ -25,115 +20,126 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{connect}}{The Connect instance.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{connect}}{The Connect instance.}
 
-\item{\code{task}}{The task.}
+    \item{\code{task}}{The task.}
 
-\item{\code{data}}{The task data.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{data}}{The task data.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Task-new}{\code{Task$new()}}
-\item \href{#method-Task-get_task}{\code{Task$get_task()}}
-\item \href{#method-Task-add_data}{\code{Task$add_data()}}
-\item \href{#method-Task-get_data}{\code{Task$get_data()}}
-\item \href{#method-Task-print}{\code{Task$print()}}
-\item \href{#method-Task-clone}{\code{Task$clone()}}
-}
+  \itemize{
+    \item \href{#method-Task-initialize}{\code{Task$new()}}
+    \item \href{#method-Task-get_task}{\code{Task$get_task()}}
+    \item \href{#method-Task-add_data}{\code{Task$add_data()}}
+    \item \href{#method-Task-get_data}{\code{Task$get_data()}}
+    \item \href{#method-Task-print}{\code{Task$print()}}
+    \item \href{#method-Task-clone}{\code{Task$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Task-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Task-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize this task.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$new(connect, task)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Task-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Task-initialize}{}}}
+\subsection{\code{Task$new()}}{
+  Initialize this task.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$new(connect, task)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{connect}}{The \code{Connect} instance.}
+      \item{\code{task}}{The task data.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{connect}}{The \code{Connect} instance.}
-
-\item{\code{task}}{The task data.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Task-get_task"></a>}}
 \if{latex}{\out{\hypertarget{method-Task-get_task}{}}}
-\subsection{Method \code{get_task()}}{
-Return the underlying task.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$get_task()}\if{html}{\out{</div>}}
+\subsection{\code{Task$get_task()}}{
+  Return the underlying task.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$get_task()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Task-add_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Task-add_data}{}}}
-\subsection{Method \code{add_data()}}{
-Set the data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$add_data(data)}\if{html}{\out{</div>}}
+\subsection{\code{Task$add_data()}}{
+  Set the data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$add_data(data)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{The data.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{The data.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Task-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Task-get_data}{}}}
-\subsection{Method \code{get_data()}}{
-Get the data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$get_data()}\if{html}{\out{</div>}}
+\subsection{\code{Task$get_data()}}{
+  Get the data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$get_data()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Task-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Task-print}{}}}
-\subsection{Method \code{print()}}{
-Print this object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$print(...)}\if{html}{\out{</div>}}
+\subsection{\code{Task$print()}}{
+  Print this object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Unused.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Unused.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Task-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Task-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Task$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Task$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Task$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

@@ -4,15 +4,10 @@
 \alias{Environment}
 \title{Environment}
 \description{
-Environment
-
-Environment
-}
-\details{
 An R6 class that represents a Content's Environment Variables
 }
 \seealso{
-Other R6 classes: 
+Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{ContentTask}},
@@ -25,163 +20,174 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Super class}{
-\code{\link[connectapi:Content]{connectapi::Content}} -> \code{Environment}
+\code{\link[connectapi:Content]{Content}} -> \code{Environment}
 }
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{env_raw}}{The (raw) set of environment variables.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{env_raw}}{The (raw) set of environment variables.}
 
-\item{\code{env_vars}}{The set of environment variables.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{env_vars}}{The set of environment variables.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Environment-new}{\code{Environment$new()}}
-\item \href{#method-Environment-environment}{\code{Environment$environment()}}
-\item \href{#method-Environment-environment_set}{\code{Environment$environment_set()}}
-\item \href{#method-Environment-environment_all}{\code{Environment$environment_all()}}
-\item \href{#method-Environment-env_refresh}{\code{Environment$env_refresh()}}
-\item \href{#method-Environment-print}{\code{Environment$print()}}
-\item \href{#method-Environment-clone}{\code{Environment$clone()}}
+  \itemize{
+    \item \href{#method-Environment-initialize}{\code{Environment$new()}}
+    \item \href{#method-Environment-environment}{\code{Environment$environment()}}
+    \item \href{#method-Environment-environment_set}{\code{Environment$environment_set()}}
+    \item \href{#method-Environment-environment_all}{\code{Environment$environment_all()}}
+    \item \href{#method-Environment-env_refresh}{\code{Environment$env_refresh()}}
+    \item \href{#method-Environment-print}{\code{Environment$print()}}
+    \item \href{#method-Environment-clone}{\code{Environment$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete"><a href='../../connectapi/html/Content.html#method-Content-bundle_delete'><code>connectapi::Content$bundle_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download"><a href='../../connectapi/html/Content.html#method-Content-bundle_download'><code>connectapi::Content$bundle_download()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete"><a href='../../connectapi/html/Content.html#method-Content-danger_delete'><code>connectapi::Content$danger_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-Content-deploy'><code>connectapi::Content$deploy()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-Content-get_bundles'><code>connectapi::Content$get_bundles()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>connectapi::Content$get_content_remote()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url"><a href='../../connectapi/html/Content.html#method-Content-get_dashboard_url'><code>connectapi::Content$get_dashboard_url()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url"><a href='../../connectapi/html/Content.html#method-Content-get_url'><code>connectapi::Content$get_url()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs"><a href='../../connectapi/html/Content.html#method-Content-jobs'><code>connectapi::Content$jobs()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="packages"><a href='../../connectapi/html/Content.html#method-Content-packages'><code>connectapi::Content$packages()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions"><a href='../../connectapi/html/Content.html#method-Content-permissions'><code>connectapi::Content$permissions()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add"><a href='../../connectapi/html/Content.html#method-Content-permissions_add'><code>connectapi::Content$permissions_add()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete"><a href='../../connectapi/html/Content.html#method-Content-permissions_delete'><code>connectapi::Content$permissions_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>connectapi::Content$permissions_update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="register_job_kill_order"><a href='../../connectapi/html/Content.html#method-Content-register_job_kill_order'><code>connectapi::Content$register_job_kill_order()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>connectapi::Content$repo_enable()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>connectapi::Content$repo_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repository"><a href='../../connectapi/html/Content.html#method-Content-repository'><code>connectapi::Content$repository()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>connectapi::Content$tag_delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>connectapi::Content$tag_set()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>connectapi::Content$tags()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-Content-update'><code>connectapi::Content$update()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-Content-variants'><code>connectapi::Content$variants()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_delete"><a href='../../connectapi/html/Content.html#method-Content-bundle_delete'><code>Content$bundle_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="bundle_download"><a href='../../connectapi/html/Content.html#method-Content-bundle_download'><code>Content$bundle_download()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="danger_delete"><a href='../../connectapi/html/Content.html#method-Content-danger_delete'><code>Content$danger_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="deploy"><a href='../../connectapi/html/Content.html#method-Content-deploy'><code>Content$deploy()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_bundles"><a href='../../connectapi/html/Content.html#method-Content-get_bundles'><code>Content$get_bundles()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_content_remote"><a href='../../connectapi/html/Content.html#method-Content-get_content_remote'><code>Content$get_content_remote()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_dashboard_url"><a href='../../connectapi/html/Content.html#method-Content-get_dashboard_url'><code>Content$get_dashboard_url()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="get_url"><a href='../../connectapi/html/Content.html#method-Content-get_url'><code>Content$get_url()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="jobs"><a href='../../connectapi/html/Content.html#method-Content-jobs'><code>Content$jobs()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="packages"><a href='../../connectapi/html/Content.html#method-Content-packages'><code>Content$packages()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions"><a href='../../connectapi/html/Content.html#method-Content-permissions'><code>Content$permissions()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_add"><a href='../../connectapi/html/Content.html#method-Content-permissions_add'><code>Content$permissions_add()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_delete"><a href='../../connectapi/html/Content.html#method-Content-permissions_delete'><code>Content$permissions_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="permissions_update"><a href='../../connectapi/html/Content.html#method-Content-permissions_update'><code>Content$permissions_update()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="register_job_kill_order"><a href='../../connectapi/html/Content.html#method-Content-register_job_kill_order'><code>Content$register_job_kill_order()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_enable"><a href='../../connectapi/html/Content.html#method-Content-repo_enable'><code>Content$repo_enable()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repo_set"><a href='../../connectapi/html/Content.html#method-Content-repo_set'><code>Content$repo_set()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="repository"><a href='../../connectapi/html/Content.html#method-Content-repository'><code>Content$repository()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_delete"><a href='../../connectapi/html/Content.html#method-Content-tag_delete'><code>Content$tag_delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tag_set"><a href='../../connectapi/html/Content.html#method-Content-tag_set'><code>Content$tag_set()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="tags"><a href='../../connectapi/html/Content.html#method-Content-tags'><code>Content$tags()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="update"><a href='../../connectapi/html/Content.html#method-Content-update'><code>Content$update()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="connectapi" data-topic="Content" data-id="variants"><a href='../../connectapi/html/Content.html#method-Content-variants'><code>Content$variants()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Environment-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Environment-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize this set of environment variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$new(connect, content)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Environment-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Environment-initialize}{}}}
+\subsection{\code{Environment$new()}}{
+  Initialize this set of environment variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$new(connect, content)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{connect}}{The \code{Connect} instance.}
+      \item{\code{content}}{The \code{Content} instance.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{connect}}{The \code{Connect} instance.}
-
-\item{\code{content}}{The \code{Content} instance.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-environment"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment}{}}}
-\subsection{Method \code{environment()}}{
-Fetch the set of environment variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$environment()}\if{html}{\out{</div>}}
+\subsection{\code{Environment$environment()}}{
+  Fetch the set of environment variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$environment()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-environment_set"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment_set}{}}}
-\subsection{Method \code{environment_set()}}{
-Update the set of environment variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$environment_set(...)}\if{html}{\out{</div>}}
+\subsection{\code{Environment$environment_set()}}{
+  Update the set of environment variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$environment_set(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Environment variable names and values.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Environment variable names and values.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-environment_all"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-environment_all}{}}}
-\subsection{Method \code{environment_all()}}{
-Overwrite the set of environment variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$environment_all(...)}\if{html}{\out{</div>}}
+\subsection{\code{Environment$environment_all()}}{
+  Overwrite the set of environment variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$environment_all(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Environment variable names and values.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Environment variable names and values.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-env_refresh"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-env_refresh}{}}}
-\subsection{Method \code{env_refresh()}}{
-Fetch the set o environment variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$env_refresh()}\if{html}{\out{</div>}}
+\subsection{\code{Environment$env_refresh()}}{
+  Fetch the set o environment variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$env_refresh()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-print}{}}}
-\subsection{Method \code{print()}}{
-Print this object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$print(...)}\if{html}{\out{</div>}}
+\subsection{\code{Environment$print()}}{
+  Print this object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Unused.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Unused.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Environment-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Environment-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Environment$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Environment$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Environment$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

@@ -6,8 +6,6 @@
 \title{Class representing a Connect API client}
 \description{
 Class representing a Connect API client
-
-Class representing a Connect API client
 }
 \section{Usage}{
 
@@ -28,7 +26,7 @@ API. Authentication is done by providing an API key.
 }
 
 \seealso{
-Other R6 classes: 
+Other R6 classes:
 \code{\link{Bundle}},
 \code{\link{Content}},
 \code{\link{ContentTask}},
@@ -41,792 +39,829 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{server}}{The base URL of your Posit Connect server.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{server}}{The base URL of your Posit Connect server.}
 
-\item{\code{api_key}}{Your Posit Connect API key.}
+    \item{\code{api_key}}{Your Posit Connect API key.}
 
-\item{\code{tags}}{The initial set of tags.}
+    \item{\code{tags}}{The initial set of tags.}
 
-\item{\code{tag_map}}{The initial tag map.}
+    \item{\code{tag_map}}{The initial tag map.}
 
-\item{\code{httr_additions}}{An initial set of \code{httr} configuration added to each HTTP call.}
+    \item{\code{httr_additions}}{An initial set of \code{httr} configuration added to each HTTP call.}
 
-\item{\code{using_auth}}{Indicates that the API key is added to each HTTP call.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{using_auth}}{Indicates that the API key is added to each HTTP call.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{version}}{The server version.}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{version}}{The server version.}
 
-\item{\code{timezones}}{The server timezones.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{timezones}}{The server timezones.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Connect-new}{\code{Connect$new()}}
-\item \href{#method-Connect-httr_config}{\code{Connect$httr_config()}}
-\item \href{#method-Connect-print}{\code{Connect$print()}}
-\item \href{#method-Connect-raise_error}{\code{Connect$raise_error()}}
-\item \href{#method-Connect-add_auth}{\code{Connect$add_auth()}}
-\item \href{#method-Connect-api_url}{\code{Connect$api_url()}}
-\item \href{#method-Connect-server_url}{\code{Connect$server_url()}}
-\item \href{#method-Connect-request}{\code{Connect$request()}}
-\item \href{#method-Connect-GET}{\code{Connect$GET()}}
-\item \href{#method-Connect-PUT}{\code{Connect$PUT()}}
-\item \href{#method-Connect-HEAD}{\code{Connect$HEAD()}}
-\item \href{#method-Connect-DELETE}{\code{Connect$DELETE()}}
-\item \href{#method-Connect-PATCH}{\code{Connect$PATCH()}}
-\item \href{#method-Connect-POST}{\code{Connect$POST()}}
-\item \href{#method-Connect-me}{\code{Connect$me()}}
-\item \href{#method-Connect-get_dashboard_url}{\code{Connect$get_dashboard_url()}}
-\item \href{#method-Connect-get_tags}{\code{Connect$get_tags()}}
-\item \href{#method-Connect-get_tag_id}{\code{Connect$get_tag_id()}}
-\item \href{#method-Connect-get_tag_tree}{\code{Connect$get_tag_tree()}}
-\item \href{#method-Connect-tag_create_safe}{\code{Connect$tag_create_safe()}}
-\item \href{#method-Connect-tag_create}{\code{Connect$tag_create()}}
-\item \href{#method-Connect-tag}{\code{Connect$tag()}}
-\item \href{#method-Connect-tag_delete}{\code{Connect$tag_delete()}}
-\item \href{#method-Connect-get_schedule}{\code{Connect$get_schedule()}}
-\item \href{#method-Connect-content_create}{\code{Connect$content_create()}}
-\item \href{#method-Connect-content_upload}{\code{Connect$content_upload()}}
-\item \href{#method-Connect-content_deploy}{\code{Connect$content_deploy()}}
-\item \href{#method-Connect-content}{\code{Connect$content()}}
-\item \href{#method-Connect-task}{\code{Connect$task()}}
-\item \href{#method-Connect-set_content_tag}{\code{Connect$set_content_tag()}}
-\item \href{#method-Connect-remove_content_tag}{\code{Connect$remove_content_tag()}}
-\item \href{#method-Connect-user}{\code{Connect$user()}}
-\item \href{#method-Connect-users}{\code{Connect$users()}}
-\item \href{#method-Connect-users_remote}{\code{Connect$users_remote()}}
-\item \href{#method-Connect-users_create}{\code{Connect$users_create()}}
-\item \href{#method-Connect-users_create_remote}{\code{Connect$users_create_remote()}}
-\item \href{#method-Connect-users_lock}{\code{Connect$users_lock()}}
-\item \href{#method-Connect-users_unlock}{\code{Connect$users_unlock()}}
-\item \href{#method-Connect-users_update}{\code{Connect$users_update()}}
-\item \href{#method-Connect-groups}{\code{Connect$groups()}}
-\item \href{#method-Connect-group_members}{\code{Connect$group_members()}}
-\item \href{#method-Connect-group_member_add}{\code{Connect$group_member_add()}}
-\item \href{#method-Connect-group_member_remove}{\code{Connect$group_member_remove()}}
-\item \href{#method-Connect-groups_create}{\code{Connect$groups_create()}}
-\item \href{#method-Connect-groups_create_remote}{\code{Connect$groups_create_remote()}}
-\item \href{#method-Connect-groups_remote}{\code{Connect$groups_remote()}}
-\item \href{#method-Connect-group_content}{\code{Connect$group_content()}}
-\item \href{#method-Connect-inst_content_visits}{\code{Connect$inst_content_visits()}}
-\item \href{#method-Connect-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
-\item \href{#method-Connect-procs}{\code{Connect$procs()}}
-\item \href{#method-Connect-repo_account}{\code{Connect$repo_account()}}
-\item \href{#method-Connect-repo_branches}{\code{Connect$repo_branches()}}
-\item \href{#method-Connect-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
-\item \href{#method-Connect-schedules}{\code{Connect$schedules()}}
-\item \href{#method-Connect-packages}{\code{Connect$packages()}}
-\item \href{#method-Connect-docs}{\code{Connect$docs()}}
-\item \href{#method-Connect-audit_logs}{\code{Connect$audit_logs()}}
-\item \href{#method-Connect-vanities}{\code{Connect$vanities()}}
-\item \href{#method-Connect-server_settings}{\code{Connect$server_settings()}}
-\item \href{#method-Connect-clone}{\code{Connect$clone()}}
-}
+  \itemize{
+    \item \href{#method-Connect-initialize}{\code{Connect$new()}}
+    \item \href{#method-Connect-httr_config}{\code{Connect$httr_config()}}
+    \item \href{#method-Connect-print}{\code{Connect$print()}}
+    \item \href{#method-Connect-raise_error}{\code{Connect$raise_error()}}
+    \item \href{#method-Connect-add_auth}{\code{Connect$add_auth()}}
+    \item \href{#method-Connect-api_url}{\code{Connect$api_url()}}
+    \item \href{#method-Connect-server_url}{\code{Connect$server_url()}}
+    \item \href{#method-Connect-request}{\code{Connect$request()}}
+    \item \href{#method-Connect-GET}{\code{Connect$GET()}}
+    \item \href{#method-Connect-PUT}{\code{Connect$PUT()}}
+    \item \href{#method-Connect-HEAD}{\code{Connect$HEAD()}}
+    \item \href{#method-Connect-DELETE}{\code{Connect$DELETE()}}
+    \item \href{#method-Connect-PATCH}{\code{Connect$PATCH()}}
+    \item \href{#method-Connect-POST}{\code{Connect$POST()}}
+    \item \href{#method-Connect-me}{\code{Connect$me()}}
+    \item \href{#method-Connect-get_dashboard_url}{\code{Connect$get_dashboard_url()}}
+    \item \href{#method-Connect-get_tags}{\code{Connect$get_tags()}}
+    \item \href{#method-Connect-get_tag_id}{\code{Connect$get_tag_id()}}
+    \item \href{#method-Connect-get_tag_tree}{\code{Connect$get_tag_tree()}}
+    \item \href{#method-Connect-tag_create_safe}{\code{Connect$tag_create_safe()}}
+    \item \href{#method-Connect-tag_create}{\code{Connect$tag_create()}}
+    \item \href{#method-Connect-tag}{\code{Connect$tag()}}
+    \item \href{#method-Connect-tag_delete}{\code{Connect$tag_delete()}}
+    \item \href{#method-Connect-get_schedule}{\code{Connect$get_schedule()}}
+    \item \href{#method-Connect-content_create}{\code{Connect$content_create()}}
+    \item \href{#method-Connect-content_upload}{\code{Connect$content_upload()}}
+    \item \href{#method-Connect-content_deploy}{\code{Connect$content_deploy()}}
+    \item \href{#method-Connect-content}{\code{Connect$content()}}
+    \item \href{#method-Connect-task}{\code{Connect$task()}}
+    \item \href{#method-Connect-set_content_tag}{\code{Connect$set_content_tag()}}
+    \item \href{#method-Connect-remove_content_tag}{\code{Connect$remove_content_tag()}}
+    \item \href{#method-Connect-user}{\code{Connect$user()}}
+    \item \href{#method-Connect-users}{\code{Connect$users()}}
+    \item \href{#method-Connect-users_remote}{\code{Connect$users_remote()}}
+    \item \href{#method-Connect-users_create}{\code{Connect$users_create()}}
+    \item \href{#method-Connect-users_create_remote}{\code{Connect$users_create_remote()}}
+    \item \href{#method-Connect-users_lock}{\code{Connect$users_lock()}}
+    \item \href{#method-Connect-users_unlock}{\code{Connect$users_unlock()}}
+    \item \href{#method-Connect-users_update}{\code{Connect$users_update()}}
+    \item \href{#method-Connect-groups}{\code{Connect$groups()}}
+    \item \href{#method-Connect-group_members}{\code{Connect$group_members()}}
+    \item \href{#method-Connect-group_member_add}{\code{Connect$group_member_add()}}
+    \item \href{#method-Connect-group_member_remove}{\code{Connect$group_member_remove()}}
+    \item \href{#method-Connect-groups_create}{\code{Connect$groups_create()}}
+    \item \href{#method-Connect-groups_create_remote}{\code{Connect$groups_create_remote()}}
+    \item \href{#method-Connect-groups_remote}{\code{Connect$groups_remote()}}
+    \item \href{#method-Connect-group_content}{\code{Connect$group_content()}}
+    \item \href{#method-Connect-inst_content_visits}{\code{Connect$inst_content_visits()}}
+    \item \href{#method-Connect-inst_shiny_usage}{\code{Connect$inst_shiny_usage()}}
+    \item \href{#method-Connect-procs}{\code{Connect$procs()}}
+    \item \href{#method-Connect-repo_account}{\code{Connect$repo_account()}}
+    \item \href{#method-Connect-repo_branches}{\code{Connect$repo_branches()}}
+    \item \href{#method-Connect-repo_manifest_dirs}{\code{Connect$repo_manifest_dirs()}}
+    \item \href{#method-Connect-schedules}{\code{Connect$schedules()}}
+    \item \href{#method-Connect-packages}{\code{Connect$packages()}}
+    \item \href{#method-Connect-docs}{\code{Connect$docs()}}
+    \item \href{#method-Connect-audit_logs}{\code{Connect$audit_logs()}}
+    \item \href{#method-Connect-vanities}{\code{Connect$vanities()}}
+    \item \href{#method-Connect-server_settings}{\code{Connect$server_settings()}}
+    \item \href{#method-Connect-clone}{\code{Connect$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connect-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Connect-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize a new connect.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$new(server, api_key)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Connect-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Connect-initialize}{}}}
+\subsection{\code{Connect$new()}}{
+  Initialize a new connect.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$new(server, api_key)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{server}}{The base URL of your Posit Connect server.}
+      \item{\code{api_key}}{Your Posit Connect API key.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{server}}{The base URL of your Posit Connect server.}
-
-\item{\code{api_key}}{Your Posit Connect API key.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-httr_config"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-httr_config}{}}}
-\subsection{Method \code{httr_config()}}{
-Set additional \code{httr} configuration that is added to each HTTP call.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$httr_config(...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$httr_config()}}{
+  Set additional \code{httr} configuration that is added to each HTTP call.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$httr_config(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Set of httr configurations.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Set of httr configurations.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-print}{}}}
-\subsection{Method \code{print()}}{
-Print details about this instance.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$print(...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$print()}}{
+  Print details about this instance.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Ignored.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Ignored.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-raise_error"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-raise_error}{}}}
-\subsection{Method \code{raise_error()}}{
-Raise an error when the HTTP result is an HTTP error.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$raise_error(res)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$raise_error()}}{
+  Raise an error when the HTTP result is an HTTP error.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$raise_error(res)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{res}}{HTTP result.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{res}}{HTTP result.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-add_auth"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-add_auth}{}}}
-\subsection{Method \code{add_auth()}}{
-Returns HTTP authorization headers, or NULL when none are used.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$add_auth()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$add_auth()}}{
+  Returns HTTP authorization headers, or NULL when none are used.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$add_auth()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-api_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-api_url}{}}}
-\subsection{Method \code{api_url()}}{
-Build a URL relative to the API root
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$api_url(...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$api_url()}}{
+  Build a URL relative to the API root
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$api_url(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{path segments}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{path segments}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-server_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-server_url}{}}}
-\subsection{Method \code{server_url()}}{
-Build a URL relative to the server root
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$server_url(...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$server_url()}}{
+  Build a URL relative to the server root
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$server_url(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{path segments}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{path segments}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-request"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-request}{}}}
-\subsection{Method \code{request()}}{
-General wrapper around \code{httr} verbs
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$request(method, url, ..., parser = "parsed")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{method}}{HTTP request method}
-
-\item{\code{url}}{URL to request}
-
-\item{\code{...}}{Additional arguments passed to the request function}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+\subsection{\code{Connect$request()}}{
+  General wrapper around \code{httr} verbs
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$request(method, url, ..., parser = "parsed", simplify = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{method}}{HTTP request method}
+      \item{\code{url}}{URL to request}
+      \item{\code{...}}{Additional arguments passed to the request function}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+      \item{\code{simplify}}{Logical; if \code{TRUE}, JSON arrays of objects are
+simplified to data frames by jsonlite. Default \code{FALSE} preserves
+list-of-lists for compatibility with pagination helpers.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-GET"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-GET}{}}}
-\subsection{Method \code{GET()}}{
-Perform an HTTP GET request of the named API path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$GET(path, ..., url = self$api_url(path), parser = "parsed")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{...}}{Arguments to \code{httr::GET()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+\subsection{\code{Connect$GET()}}{
+  Perform an HTTP GET request of the named API path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$GET(
+  path,
+  ...,
+  url = self$api_url(path),
+  parser = "parsed",
+  simplify = FALSE
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{...}}{Arguments to \code{httr::GET()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+      \item{\code{simplify}}{Logical; if \code{TRUE}, JSON arrays of objects are
+simplified to data frames by jsonlite. Default \code{FALSE} preserves
+list-of-lists for compatibility with pagination helpers.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-PUT"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-PUT}{}}}
-\subsection{Method \code{PUT()}}{
-Perform an HTTP PUT request of the named API path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PUT(
+\subsection{\code{Connect$PUT()}}{
+  Perform an HTTP PUT request of the named API path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$PUT(
   path,
   body = "{}",
   ...,
   url = self$api_url(path),
   encode = "json",
   parser = "parsed"
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{body}}{The HTTP payload.}
-
-\item{\code{...}}{Arguments to \code{httr::PUT()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{body}}{The HTTP payload.}
+      \item{\code{...}}{Arguments to \code{httr::PUT()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{encode}}{How the payload is encoded.}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+      \item{\code{encode}}{How the payload is encoded.}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-HEAD"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-HEAD}{}}}
-\subsection{Method \code{HEAD()}}{
-Perform an HTTP HEAD request of the named API path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$HEAD(path, ..., url = self$api_url(path))}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{...}}{Arguments to \code{httr::HEAD()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+\subsection{\code{Connect$HEAD()}}{
+  Perform an HTTP HEAD request of the named API path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$HEAD(path, ..., url = self$api_url(path))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{...}}{Arguments to \code{httr::HEAD()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}
 \code{httr::content(res, as = parser)}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-DELETE"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-DELETE}{}}}
-\subsection{Method \code{DELETE()}}{
-Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$DELETE(path, ..., url = self$api_url(path), parser = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{...}}{Arguments to \code{httr::DELETE()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+\subsection{\code{Connect$DELETE()}}{
+  Perform an HTTP DELETE request of the named API path. Returns the HTTP response object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$DELETE(path, ..., url = self$api_url(path), parser = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{...}}{Arguments to \code{httr::DELETE()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-PATCH"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-PATCH}{}}}
-\subsection{Method \code{PATCH()}}{
-Perform an HTTP PATCH request of the named API path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$PATCH(
+\subsection{\code{Connect$PATCH()}}{
+  Perform an HTTP PATCH request of the named API path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$PATCH(
   path,
   body = "{}",
   ...,
   url = self$api_url(path),
   encode = "json",
   parser = "parsed"
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{body}}{The HTTP payload.}
-
-\item{\code{...}}{Arguments to \code{httr::PATCH()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{body}}{The HTTP payload.}
+      \item{\code{...}}{Arguments to \code{httr::PATCH()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{encode}}{How the payload is encoded.}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+      \item{\code{encode}}{How the payload is encoded.}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-POST"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-POST}{}}}
-\subsection{Method \code{POST()}}{
-Perform an HTTP POST request of the named API path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$POST(
+\subsection{\code{Connect$POST()}}{
+  Perform an HTTP POST request of the named API path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$POST(
   path,
   body = "{}",
   ...,
   url = self$api_url(path),
   encode = "json",
   parser = "parsed"
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
-
-\item{\code{body}}{The HTTP payload.}
-
-\item{\code{...}}{Arguments to \code{httr::POST()}}
-
-\item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{API path relative to the server's \verb{/__api__} root.}
+      \item{\code{body}}{The HTTP payload.}
+      \item{\code{...}}{Arguments to \code{httr::POST()}}
+      \item{\code{url}}{Target URL. Default uses \code{path}, but provide \code{url} to request
 a server resource that is not under \verb{/__api__}}
-
-\item{\code{encode}}{How the payload is encoded.}
-
-\item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
+      \item{\code{encode}}{How the payload is encoded.}
+      \item{\code{parser}}{How the response is parsed. If \code{NULL}, the \code{httr_response}
 will be returned. Otherwise, the argument is forwarded to
 \code{httr::content(res, as = parser)}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-me"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-me}{}}}
-\subsection{Method \code{me()}}{
-Perform an HTTP GET request of the "me" server endpoint.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$me()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$me()}}{
+  Perform an HTTP GET request of the "me" server endpoint.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$me()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_dashboard_url"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-get_dashboard_url}{}}}
-\subsection{Method \code{get_dashboard_url()}}{
-Return the base URL of the Connect server.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_dashboard_url()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$get_dashboard_url()}}{
+  Return the base URL of the Connect server.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$get_dashboard_url()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_tags"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-get_tags}{}}}
-\subsection{Method \code{get_tags()}}{
-Return all tags.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_tags(use_cache = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$get_tags()}}{
+  Return all tags.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$get_tags(use_cache = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{use_cache}}{Indicates that a cached set of tags is used.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{use_cache}}{Indicates that a cached set of tags is used.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_tag_id"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-get_tag_id}{}}}
-\subsection{Method \code{get_tag_id()}}{
-Get the identifier for the named tag.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_id(tagname)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$get_tag_id()}}{
+  Get the identifier for the named tag.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$get_tag_id(tagname)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{tagname}}{The name of the tag.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{tagname}}{The name of the tag.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_tag_tree"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-get_tag_tree}{}}}
-\subsection{Method \code{get_tag_tree()}}{
-Get the tag tree.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_tag_tree()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$get_tag_tree()}}{
+  Get the tag tree.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$get_tag_tree()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-tag_create_safe"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-tag_create_safe}{}}}
-\subsection{Method \code{tag_create_safe()}}{
-Create a tag.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create_safe(name, parent_id = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$tag_create_safe()}}{
+  Create a tag.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$tag_create_safe(name, parent_id = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The tag name.}
+      \item{\code{parent_id}}{The parent identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The tag name.}
-
-\item{\code{parent_id}}{The parent identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-tag_create"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-tag_create}{}}}
-\subsection{Method \code{tag_create()}}{
-Create a tag.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_create(name, parent_id = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$tag_create()}}{
+  Create a tag.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$tag_create(name, parent_id = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The tag name.}
+      \item{\code{parent_id}}{The parent identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The tag name.}
-
-\item{\code{parent_id}}{The parent identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-tag"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-tag}{}}}
-\subsection{Method \code{tag()}}{
-Get a tag.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$tag(id = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$tag()}}{
+  Get a tag.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$tag(id = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{id}}{The tag identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{The tag identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-tag_delete"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-tag_delete}{}}}
-\subsection{Method \code{tag_delete()}}{
-Delete a tag.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$tag_delete(id)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$tag_delete()}}{
+  Delete a tag.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$tag_delete(id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{id}}{The tag identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{The tag identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-get_schedule"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-get_schedule}{}}}
-\subsection{Method \code{get_schedule()}}{
-Get a schedule.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$get_schedule(schedule_id)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$get_schedule()}}{
+  Get a schedule.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$get_schedule(schedule_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{schedule_id}}{The schedule identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{schedule_id}}{The schedule identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-content_create"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-content_create}{}}}
-\subsection{Method \code{content_create()}}{
-Create content.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content_create(name, title = name, ...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$content_create()}}{
+  Create content.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$content_create(name, title = name, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The content name.}
+      \item{\code{title}}{The content title.}
+      \item{\code{...}}{Other content fields.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The content name.}
-
-\item{\code{title}}{The content title.}
-
-\item{\code{...}}{Other content fields.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-content_upload"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-content_upload}{}}}
-\subsection{Method \code{content_upload()}}{
-Upload a content bundle.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content_upload(bundle_path, guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$content_upload()}}{
+  Upload a content bundle.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$content_upload(bundle_path, guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{bundle_path}}{The path to the bundle archive.}
+      \item{\code{guid}}{The content GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{bundle_path}}{The path to the bundle archive.}
-
-\item{\code{guid}}{The content GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-content_deploy"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-content_deploy}{}}}
-\subsection{Method \code{content_deploy()}}{
-Deploy a content bundle.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content_deploy(guid, bundle_id)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$content_deploy()}}{
+  Deploy a content bundle.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$content_deploy(guid, bundle_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{The content GUID.}
+      \item{\code{bundle_id}}{The bundle identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The content GUID.}
-
-\item{\code{bundle_id}}{The bundle identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-content"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-content}{}}}
-\subsection{Method \code{content()}}{
-Get a content item.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$content(
+\subsection{\code{Connect$content()}}{
+  Get a content item.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$content(
   guid = NULL,
   owner_guid = NULL,
   name = NULL,
   include = "tags,owner"
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{The content GUID.}
+      \item{\code{owner_guid}}{The target content owner.}
+      \item{\code{name}}{The target name.}
+      \item{\code{include}}{Additional response fields.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The content GUID.}
-
-\item{\code{owner_guid}}{The target content owner.}
-
-\item{\code{name}}{The target name.}
-
-\item{\code{include}}{Additional response fields.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-task"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-task}{}}}
-\subsection{Method \code{task()}}{
-Get a task.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$task(task_id, first = 0, wait = 5)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$task()}}{
+  Get a task.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$task(task_id, first = 0, wait = 5)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{task_id}}{The task identifier.}
+      \item{\code{first}}{The initial status position.}
+      \item{\code{wait}}{Maximum time to wait for update.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{task_id}}{The task identifier.}
-
-\item{\code{first}}{The initial status position.}
-
-\item{\code{wait}}{Maximum time to wait for update.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-set_content_tag"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-set_content_tag}{}}}
-\subsection{Method \code{set_content_tag()}}{
-Set a tag for a content item.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$set_content_tag(content_id, tag_id)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$set_content_tag()}}{
+  Set a tag for a content item.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$set_content_tag(content_id, tag_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content_id}}{The content identifier.}
+      \item{\code{tag_id}}{The tag identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content_id}}{The content identifier.}
-
-\item{\code{tag_id}}{The tag identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-remove_content_tag"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-remove_content_tag}{}}}
-\subsection{Method \code{remove_content_tag()}}{
-Remove a tag from a content item.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$remove_content_tag(content_id, tag_id)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$remove_content_tag()}}{
+  Remove a tag from a content item.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$remove_content_tag(content_id, tag_id)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content_id}}{The content identifier.}
+      \item{\code{tag_id}}{The tag identifier.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content_id}}{The content identifier.}
-
-\item{\code{tag_id}}{The tag identifier.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-user"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-user}{}}}
-\subsection{Method \code{user()}}{
-Get user details.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$user(guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$user()}}{
+  Get user details.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$user(guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{The user GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The user GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users}{}}}
-\subsection{Method \code{users()}}{
-Get users.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users(
+\subsection{\code{Connect$users()}}{
+  Get users.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users(
   page_number = 1,
   prefix = NULL,
   page_size = 500,
   user_role = NULL,
   account_status = NULL
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{page_number}}{The page number.}
+      \item{\code{prefix}}{The search term.}
+      \item{\code{page_size}}{The page size.}
+      \item{\code{user_role}}{Filter by user role.}
+      \item{\code{account_status}}{Filter by account status.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{page_number}}{The page number.}
-
-\item{\code{prefix}}{The search term.}
-
-\item{\code{page_size}}{The page size.}
-
-\item{\code{user_role}}{Filter by user role.}
-
-\item{\code{account_status}}{Filter by account status.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_remote}{}}}
-\subsection{Method \code{users_remote()}}{
-Get remote users.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_remote(prefix)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$users_remote()}}{
+  Get remote users.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_remote(prefix)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{prefix}}{The search term.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{prefix}}{The search term.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_create"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_create}{}}}
-\subsection{Method \code{users_create()}}{
-Create a user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_create(
+\subsection{\code{Connect$users_create()}}{
+  Create a user.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_create(
   username,
   email,
   first_name = NULL,
@@ -835,254 +870,267 @@ Create a user.
   user_must_set_password = NULL,
   user_role = NULL,
   unique_id = NULL
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{username}}{The username.}
+      \item{\code{email}}{Email address.}
+      \item{\code{first_name}}{First name.}
+      \item{\code{last_name}}{Last name.}
+      \item{\code{password}}{The password.}
+      \item{\code{user_must_set_password}}{Indicates that user sets password on first login.}
+      \item{\code{user_role}}{Role for user.}
+      \item{\code{unique_id}}{Identifier for user.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{username}}{The username.}
-
-\item{\code{email}}{Email address.}
-
-\item{\code{first_name}}{First name.}
-
-\item{\code{last_name}}{Last name.}
-
-\item{\code{password}}{The password.}
-
-\item{\code{user_must_set_password}}{Indicates that user sets password on first login.}
-
-\item{\code{user_role}}{Role for user.}
-
-\item{\code{unique_id}}{Identifier for user.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_create_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_create_remote}{}}}
-\subsection{Method \code{users_create_remote()}}{
-Create a remote user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_create_remote(temp_ticket)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$users_create_remote()}}{
+  Create a remote user.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_create_remote(temp_ticket)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{temp_ticket}}{Ticket identifying target remote user.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{temp_ticket}}{Ticket identifying target remote user.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_lock"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_lock}{}}}
-\subsection{Method \code{users_lock()}}{
-Lock a user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_lock(user_guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$users_lock()}}{
+  Lock a user.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_lock(user_guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{user_guid}}{User GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{user_guid}}{User GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_unlock"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_unlock}{}}}
-\subsection{Method \code{users_unlock()}}{
-Unlock a user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_unlock(user_guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$users_unlock()}}{
+  Unlock a user.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_unlock(user_guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{user_guid}}{User GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{user_guid}}{User GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-users_update"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-users_update}{}}}
-\subsection{Method \code{users_update()}}{
-Update a user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$users_update(user_guid, ...)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$users_update()}}{
+  Update a user.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$users_update(user_guid, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{user_guid}}{User GUID.}
+      \item{\code{...}}{User fields.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{user_guid}}{User GUID.}
-
-\item{\code{...}}{User fields.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-groups"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-groups}{}}}
-\subsection{Method \code{groups()}}{
-Get groups.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 500)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$groups()}}{
+  Get groups.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$groups(page_number = 1, prefix = NULL, page_size = 500)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{page_number}}{The page number.}
+      \item{\code{prefix}}{The search term.}
+      \item{\code{page_size}}{The page size.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{page_number}}{The page number.}
-
-\item{\code{prefix}}{The search term.}
-
-\item{\code{page_size}}{The page size.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-group_members"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-group_members}{}}}
-\subsection{Method \code{group_members()}}{
-Get group members.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$group_members(guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$group_members()}}{
+  Get group members.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$group_members(guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{The group GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The group GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-group_member_add"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-group_member_add}{}}}
-\subsection{Method \code{group_member_add()}}{
-Add a group member.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_add(group_guid, user_guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$group_member_add()}}{
+  Add a group member.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$group_member_add(group_guid, user_guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{group_guid}}{The group GUID.}
+      \item{\code{user_guid}}{The user GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{group_guid}}{The group GUID.}
-
-\item{\code{user_guid}}{The user GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-group_member_remove"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-group_member_remove}{}}}
-\subsection{Method \code{group_member_remove()}}{
-Remove a group member.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$group_member_remove(group_guid, user_guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$group_member_remove()}}{
+  Remove a group member.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$group_member_remove(group_guid, user_guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{group_guid}}{The group GUID.}
+      \item{\code{user_guid}}{The user GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{group_guid}}{The group GUID.}
-
-\item{\code{user_guid}}{The user GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-groups_create"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-groups_create}{}}}
-\subsection{Method \code{groups_create()}}{
-Create a group.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_create(name)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$groups_create()}}{
+  Create a group.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$groups_create(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The group name.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The group name.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-groups_create_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-groups_create_remote}{}}}
-\subsection{Method \code{groups_create_remote()}}{
-Create a remote group.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_create_remote(temp_ticket)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$groups_create_remote()}}{
+  Create a remote group.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$groups_create_remote(temp_ticket)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{temp_ticket}}{Ticket identifying target remote group.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{temp_ticket}}{Ticket identifying target remote group.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-groups_remote"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-groups_remote}{}}}
-\subsection{Method \code{groups_remote()}}{
-Get remote groups.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$groups_remote(prefix = NULL, limit = 500)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$groups_remote()}}{
+  Get remote groups.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$groups_remote(prefix = NULL, limit = 500)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{prefix}}{The search term.}
+      \item{\code{limit}}{The maximal result set size.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{prefix}}{The search term.}
-
-\item{\code{limit}}{The maximal result set size.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-group_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-group_content}{}}}
-\subsection{Method \code{group_content()}}{
-Get content to which a group has access
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$group_content(guid)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$group_content()}}{
+  Get content to which a group has access
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$group_content(guid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{guid}}{The group GUID.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{guid}}{The group GUID.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-inst_content_visits"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-inst_content_visits}{}}}
-\subsection{Method \code{inst_content_visits()}}{
-Get (non-interactive) content visits.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$inst_content_visits(
+\subsection{\code{Connect$inst_content_visits()}}{
+  Get (non-interactive) content visits.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$inst_content_visits(
   content_guid = NULL,
   min_data_version = NULL,
   from = NULL,
@@ -1091,41 +1139,36 @@ Get (non-interactive) content visits.
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content_guid}}{Content GUID.}
+      \item{\code{min_data_version}}{Data version for request.}
+      \item{\code{from}}{Start of range.}
+      \item{\code{to}}{End of range.}
+      \item{\code{limit}}{Result set size.}
+      \item{\code{previous}}{Previous item.}
+      \item{\code{nxt}}{Next item.}
+      \item{\code{asc_order}}{Indicates ascending result order.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content_guid}}{Content GUID.}
-
-\item{\code{min_data_version}}{Data version for request.}
-
-\item{\code{from}}{Start of range.}
-
-\item{\code{to}}{End of range.}
-
-\item{\code{limit}}{Result set size.}
-
-\item{\code{previous}}{Previous item.}
-
-\item{\code{nxt}}{Next item.}
-
-\item{\code{asc_order}}{Indicates ascending result order.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-inst_shiny_usage"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-inst_shiny_usage}{}}}
-\subsection{Method \code{inst_shiny_usage()}}{
-Get interactive content visits.
+\subsection{\code{Connect$inst_shiny_usage()}}{
+  Get interactive content visits.
 
 
-Get (non-interactive) content visits.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$inst_shiny_usage(
+  Get (non-interactive) content visits.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$inst_shiny_usage(
   content_guid = NULL,
   min_data_version = NULL,
   from = NULL,
@@ -1134,217 +1177,224 @@ Get (non-interactive) content visits.
   previous = NULL,
   nxt = NULL,
   asc_order = TRUE
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{content_guid}}{Content GUID.}
+      \item{\code{min_data_version}}{Data version for request.}
+      \item{\code{from}}{Start of range.}
+      \item{\code{to}}{End of range.}
+      \item{\code{limit}}{Result set size.}
+      \item{\code{previous}}{Previous item.}
+      \item{\code{nxt}}{Next item.}
+      \item{\code{asc_order}}{Indicates ascending result order.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{content_guid}}{Content GUID.}
-
-\item{\code{min_data_version}}{Data version for request.}
-
-\item{\code{from}}{Start of range.}
-
-\item{\code{to}}{End of range.}
-
-\item{\code{limit}}{Result set size.}
-
-\item{\code{previous}}{Previous item.}
-
-\item{\code{nxt}}{Next item.}
-
-\item{\code{asc_order}}{Indicates ascending result order.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-procs"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-procs}{}}}
-\subsection{Method \code{procs()}}{
-Get running processes.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$procs()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$procs()}}{
+  Get running processes.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$procs()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-repo_account"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-repo_account}{}}}
-\subsection{Method \code{repo_account()}}{
-Determine if Git repository is associated with authorization.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_account(host)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$repo_account()}}{
+  Determine if Git repository is associated with authorization.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$repo_account(host)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{host}}{Repository URL.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{host}}{Repository URL.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-repo_branches"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-repo_branches}{}}}
-\subsection{Method \code{repo_branches()}}{
-Get Git repository branches.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_branches(repo)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$repo_branches()}}{
+  Get Git repository branches.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$repo_branches(repo)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{repo}}{Repository URL.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{repo}}{Repository URL.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-repo_manifest_dirs"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-repo_manifest_dirs}{}}}
-\subsection{Method \code{repo_manifest_dirs()}}{
-Get Git repository directories.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$repo_manifest_dirs(repo, branch)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$repo_manifest_dirs()}}{
+  Get Git repository directories.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$repo_manifest_dirs(repo, branch)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{repo}}{Repository URL.}
+      \item{\code{branch}}{Repository branch.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{repo}}{Repository URL.}
-
-\item{\code{branch}}{Repository branch.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-schedules"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-schedules}{}}}
-\subsection{Method \code{schedules()}}{
-Get schedules.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$schedules(
+\subsection{\code{Connect$schedules()}}{
+  Get schedules.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$schedules(
   start = Sys.time(),
   end = Sys.time() + 60 * 60 * 24 * 7,
   detailed = FALSE
-)}\if{html}{\out{</div>}}
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{start}}{Starting time.}
+      \item{\code{end}}{Ending time.}
+      \item{\code{detailed}}{Indicates detailed schedule information.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{start}}{Starting time.}
-
-\item{\code{end}}{Ending time.}
-
-\item{\code{detailed}}{Indicates detailed schedule information.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-packages"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-packages}{}}}
-\subsection{Method \code{packages()}}{
-Get packages. This endpoint is paginated.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$packages(name = NULL, page_number = 1, page_size = 1e+05)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$packages()}}{
+  Get packages. This endpoint is paginated.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$packages(name = NULL, page_number = 1, page_size = 1e+05)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The package name to filter by.}
+      \item{\code{page_number}}{Page number.}
+      \item{\code{page_size}}{Page size, default 100000.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The package name to filter by.}
-
-\item{\code{page_number}}{Page number.}
-
-\item{\code{page_size}}{Page size, default 100000.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-docs"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-docs}{}}}
-\subsection{Method \code{docs()}}{
-Get documentation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$docs(docs = "api", browse = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$docs()}}{
+  Get documentation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$docs(docs = "api", browse = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{docs}}{Named document.}
+      \item{\code{browse}}{Open a browser.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{docs}}{Named document.}
-
-\item{\code{browse}}{Open a browser.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-audit_logs"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-audit_logs}{}}}
-\subsection{Method \code{audit_logs()}}{
-Get auditing.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$audit_logs(limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$audit_logs()}}{
+  Get auditing.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$audit_logs(limit = 500, previous = NULL, nxt = NULL, asc_order = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{limit}}{Result set size.}
+      \item{\code{previous}}{Previous item.}
+      \item{\code{nxt}}{Next item.}
+      \item{\code{asc_order}}{Indicates ascending result order.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{limit}}{Result set size.}
-
-\item{\code{previous}}{Previous item.}
-
-\item{\code{nxt}}{Next item.}
-
-\item{\code{asc_order}}{Indicates ascending result order.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-vanities"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-vanities}{}}}
-\subsection{Method \code{vanities()}}{
-Get all vanity URLs
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$vanities()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$vanities()}}{
+  Get all vanity URLs
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$vanities()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-server_settings"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-server_settings}{}}}
-\subsection{Method \code{server_settings()}}{
-Get server settings.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$server_settings()}\if{html}{\out{</div>}}
+\subsection{\code{Connect$server_settings()}}{
+  Get server settings.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$server_settings()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connect-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Connect-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connect$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Connect$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Connect$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

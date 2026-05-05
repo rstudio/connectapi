@@ -49,7 +49,7 @@ MockConnect <- R6Class(
     # The request function matches the route against the routes in the names of
     # the response list. When a response is selected, it is removed from the
     # list.
-    request = function(method, url, ..., parser = "parsed") {
+    request = function(method, url, ..., parser = "parsed", simplify = FALSE) {
       route <- paste(method, url)
 
       # Record call
@@ -67,7 +67,15 @@ MockConnect <- R6Class(
         res
       } else {
         self$raise_error(res)
-        httr::content(res, as = parser)
+        content_text <- httr::content(res, as = "text", encoding = "UTF-8")
+        if (is.null(content_text) || nchar(content_text) == 0) {
+          return(NULL)
+        }
+        jsonlite::fromJSON(
+          content_text,
+          simplifyVector = simplify,
+          simplifyDataFrame = simplify
+        )
       }
     },
     responses = list(),

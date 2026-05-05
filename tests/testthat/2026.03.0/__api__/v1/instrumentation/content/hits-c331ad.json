@@ -1,0 +1,52 @@
+[
+    {
+        "id": "8966707",
+        "user_guid": null,
+        "content_guid": "475618c9",
+        "timestamp": "2025-04-30T12:49:16.269904Z",
+        "data": {
+            "path": "/hello",
+            "user_agent": "Datadog/Synthetics"
+        }
+    },
+    {
+        "id": "8966708",
+        "user_guid": null,
+        "content_guid": "475618c9",
+        "timestamp": "2025-04-30T12:49:17.002848Z",
+        "data": {
+            "path": "/world",
+            "user_agent": null
+        }
+    },
+    {
+        "id": "8967206",
+        "user_guid": null,
+        "content_guid": "475618c9",
+        "timestamp": "2025-04-30T13:01:47.40738Z",
+        "data": {
+            "path": "/chinchilla",
+            "user_agent": "Datadog/Synthetics"
+        }
+    },
+    {
+        "id": "8967210",
+        "user_guid": null,
+        "content_guid": "475618c9",
+        "timestamp": "2025-04-30T13:04:13.176791Z",
+        "data": {
+            "path": "/lava-lamp",
+            "user_agent": "Datadog/Synthetics"
+        }
+    },
+    {
+        "id": "8966214",
+        "user_guid": "fecbd383",
+        "content_guid": "b0eaf295",
+        "timestamp": "2025-04-30T12:36:13.818466Z",
+        "data": {
+            "path": null,
+            "user_agent": null
+        }
+    }
+]

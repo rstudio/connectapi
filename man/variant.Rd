@@ -28,13 +28,7 @@ get_variant_default(content)
 }
 }
 \seealso{
-Other variant functions: 
-\code{\link{get_variant_renderings}()}
-
-Other variant functions: 
-\code{\link{get_variant_renderings}()}
-
-Other variant functions: 
-\code{\link{get_variant_renderings}()}
+Other variant functions:
+\code{\link[=get_variant_renderings]{get_variant_renderings()}}
 }
 \concept{variant functions}

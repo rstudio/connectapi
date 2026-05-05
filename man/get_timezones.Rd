@@ -16,8 +16,8 @@ A TimeZone vector to be used for setting time zones
 Get the available timezones from the server.
 }
 \seealso{
-Other schedule functions: 
-\code{\link{get_variant_schedule}()},
-\code{\link{set_schedule}()}
+Other schedule functions:
+\code{\link[=get_variant_schedule]{get_variant_schedule()}},
+\code{\link[=set_schedule]{set_schedule()}}
 }
 \concept{schedule functions}

@@ -4,15 +4,10 @@
 \alias{Bundle}
 \title{Bundle}
 \description{
-Bundle
-
-Bundle
-}
-\details{
 An R6 class that represents a bundle
 }
 \seealso{
-Other R6 classes: 
+Other R6 classes:
 \code{\link{Content}},
 \code{\link{ContentTask}},
 \code{\link{Environment}},
@@ -25,71 +20,77 @@ Other R6 classes:
 }
 \concept{R6 classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{path}}{The bundle path on disk.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{path}}{The bundle path on disk.}
 
-\item{\code{size}}{The size of the bundle.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{size}}{The size of the bundle.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Bundle-new}{\code{Bundle$new()}}
-\item \href{#method-Bundle-print}{\code{Bundle$print()}}
-\item \href{#method-Bundle-clone}{\code{Bundle$clone()}}
-}
+  \itemize{
+    \item \href{#method-Bundle-initialize}{\code{Bundle$new()}}
+    \item \href{#method-Bundle-print}{\code{Bundle$print()}}
+    \item \href{#method-Bundle-clone}{\code{Bundle$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bundle-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Bundle-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize this content bundle.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bundle$new(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Bundle-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Bundle-initialize}{}}}
+\subsection{\code{Bundle$new()}}{
+  Initialize this content bundle.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Bundle$new(path)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{path}}{The bundle path on disk.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{The bundle path on disk.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bundle-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Bundle-print}{}}}
-\subsection{Method \code{print()}}{
-Print this object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bundle$print(...)}\if{html}{\out{</div>}}
+\subsection{\code{Bundle$print()}}{
+  Print this object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Bundle$print(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Unused.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Unused.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bundle-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Bundle-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bundle$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Bundle$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Bundle$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

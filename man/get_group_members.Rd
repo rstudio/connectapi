@@ -55,8 +55,8 @@ get_group_members(client, guid = group_guid)
 
 }
 \seealso{
-Other groups functions: 
-\code{\link{get_group_content}()},
-\code{\link{get_groups}()}
+Other groups functions:
+\code{\link[=get_group_content]{get_group_content()}},
+\code{\link[=get_groups]{get_groups()}}
 }
 \concept{groups functions}

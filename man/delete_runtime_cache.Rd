@@ -44,7 +44,7 @@ poll_task(task)
 \seealso{
 \code{\link[=get_runtime_caches]{get_runtime_caches()}}
 
-Other server management functions: 
-\code{\link{get_runtime_caches}()}
+Other server management functions:
+\code{\link[=get_runtime_caches]{get_runtime_caches()}}
 }
 \concept{server management functions}

@@ -18,9 +18,9 @@ logical indicating if the vanity URL is available.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \seealso{
-Other audit functions: 
-\code{\link{audit_access_open}()},
-\code{\link{audit_r_versions}()},
-\code{\link{audit_runas}()}
+Other audit functions:
+\code{\link[=audit_access_open]{audit_access_open()}},
+\code{\link[=audit_r_versions]{audit_r_versions()}},
+\code{\link[=audit_runas]{audit_runas()}}
 }
 \concept{audit functions}

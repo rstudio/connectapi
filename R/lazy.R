@@ -37,14 +37,43 @@ tbl_connect <- function(
 
   from <- arg_match(from)
 
-  # TODO: go get the vars we should expect...
-  vars <- connectapi_ptypes[[from]]
-  if (is.null(vars)) vars <- character()
+  # Discover column names from a small API request rather than maintaining a
+  # hardcoded dictionary that must be updated every time the server changes.
+  vars <- tryCatch(
+    names(tbl_lazy_fetch(src, from, limit = 1)),
+    error = function(e) character()
+  )
 
   # TODO: figure out number of rows...
   ops <- op_base_connect(from, vars)
 
   dplyr::make_tbl(c("connect", "lazy"), src = src, ops = ops)
+}
+
+
+# Fetch data for a lazy table endpoint. Shared by tbl_connect (for column
+# discovery) and api_build.op_base_connect (for full collection).
+tbl_lazy_fetch <- function(src, from, limit = Inf) {
+  if (from == "users") {
+    res <- page_offset(src, src$users(), limit = limit)
+  } else if (from == "groups") {
+    res <- page_offset(src, src$groups(), limit = limit)
+  } else if (from == "content") {
+    # TODO: no limit notion here... we just pull all of them...
+    res <- src$content()
+  } else if (from == "usage_shiny") {
+    res <- src$inst_shiny_usage(limit = limit) %>%
+      page_cursor(src, ., limit = limit)
+  } else if (from == "usage_static") {
+    res <- src$inst_content_visits(limit = limit) %>%
+      page_cursor(src, ., limit = limit)
+  } else if (from == "audit_logs") {
+    res <- src$audit_logs(limit = limit) %>%
+      page_cursor(src, ., limit = limit)
+  } else {
+    stop(glue::glue("'{from}' is not recognized"))
+  }
+  parse_connectapi_typed(res, datetime_cols = datetime_columns[[from]])
 }
 
 # This will be registered in .onLoad if dplyr is available
@@ -65,23 +94,7 @@ api_build.op_head <- function(op, con, ..., n) {
 
 #' @export
 api_build.op_base_connect <- function(op, con, ..., n) {
-  if (op$x == "users") {
-    res <- page_offset(con, con$users(), limit = n)
-  } else if (op$x == "groups") {
-    res <- page_offset(con, con$groups(), limit = n)
-  } else if (op$x == "content") {
-    # TODO: no limit notion here... we just pull all of them...
-    res <- con$content()
-  } else if (op$x == "usage_shiny") {
-    res <- con$inst_shiny_usage(limit = n) %>% page_cursor(con, ., limit = n)
-  } else if (op$x == "usage_static") {
-    res <- con$inst_content_visits(limit = n) %>% page_cursor(con, ., limit = n)
-  } else if (op$x == "audit_logs") {
-    res <- con$audit_logs(limit = n) %>% page_cursor(con, ., limit = n)
-  } else {
-    stop(glue::glue("'{op$x}' is not recognized"))
-  }
-  parse_connectapi_typed(res, op$ptype)
+  tbl_lazy_fetch(con, op$x, limit = n)
 }
 
 cat_line <- function(...) {
@@ -124,13 +137,12 @@ op_base_connect <- function(x, vars) {
 }
 
 op_base <- function(x, vars, class = character()) {
-  stopifnot(is.character(vars) || is.character(names(vars)))
+  stopifnot(is.character(vars))
 
   structure(
     list(
       x = x,
-      vars = names(vars),
-      ptype = vars
+      vars = vars
     ),
     class = c(paste0("op_base_", class), "op_base", "op")
   )

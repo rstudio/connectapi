@@ -35,7 +35,9 @@ test_that("users works", {
   expect_type(colnames(users), "character")
   expect_gt(length(colnames(users)), 1)
 
-  expect_ptype_equal(users_local, connectapi_ptypes$users, exact = FALSE)
+  expect_true("guid" %in% names(users_local))
+  expect_true("email" %in% names(users_local))
+  expect_s3_class(users_local$created_time, "POSIXct")
 })
 
 test_that("usage_static works", {
@@ -49,12 +51,8 @@ test_that("usage_static works", {
   expect_type(colnames(content_visits), "character")
   expect_gt(length(colnames(content_visits)), 1)
 
-  # path was added in 2024
-  expect_ptype_equal(
-    content_visits_local,
-    connectapi_ptypes$usage_static,
-    exact = FALSE
-  )
+  expect_true("content_guid" %in% names(content_visits_local))
+  expect_s3_class(content_visits_local$time, "POSIXct")
 })
 
 test_that("usage_shiny works", {
@@ -66,9 +64,13 @@ test_that("usage_shiny works", {
 
   expect_true(is.na(nrow(shiny_usage)))
   expect_type(colnames(shiny_usage), "character")
-  expect_gt(length(colnames(shiny_usage)), 1)
 
-  expect_ptype_equal(shiny_usage_local, connectapi_ptypes$usage_shiny)
+  # No shiny apps are deployed in integration tests, so this may be empty.
+  if (nrow(shiny_usage_local) > 0) {
+    expect_gt(length(colnames(shiny_usage)), 1)
+    expect_true("content_guid" %in% names(shiny_usage_local))
+    expect_s3_class(shiny_usage_local$started, "POSIXct")
+  }
 })
 
 test_that("content works", {
@@ -83,13 +85,8 @@ test_that("content works", {
   expect_type(colnames(content_list), "character")
   expect_gt(length(colnames(content_list)), 1)
 
-  # various attributes have been added over the years, so exact match
-  # doesn't work against all versions of Connect
-  expect_ptype_equal(
-    content_list_local,
-    connectapi_ptypes$content,
-    exact = FALSE
-  )
+  expect_true("guid" %in% names(content_list_local))
+  expect_s3_class(content_list_local$created_time, "POSIXct")
 })
 
 test_that("groups works", {
@@ -104,7 +101,8 @@ test_that("groups works", {
   expect_type(colnames(groups_list), "character")
   expect_gt(length(colnames(groups_list)), 1)
 
-  expect_ptype_equal(groups_list_local, connectapi_ptypes$groups, exact = FALSE)
+  expect_true("guid" %in% names(groups_list_local))
+  expect_true("name" %in% names(groups_list_local))
 })
 
 test_that("audit_logs works", {
@@ -121,5 +119,6 @@ test_that("audit_logs works", {
 
   # This is different on older versions, not sure it's worth worrying about how
   skip_if_connect_older_than(client, "2022.09.0")
-  expect_ptype_equal(audit_list_local, connectapi_ptypes$audit_logs)
+  expect_true("id" %in% names(audit_list_local))
+  expect_s3_class(audit_list_local$time, "POSIXct")
 })

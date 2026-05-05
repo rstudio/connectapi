@@ -10,7 +10,6 @@ utils::globalVariables(
   c(
     ".",
     "access_type",
-    "connectapi_ptypes",
     "guid",
     "last_deployed_time",
     "owner_guid",
@@ -27,6 +26,5 @@ current_connect_version <- "2024.03.0"
 
 .onLoad <- function(...) {
   vctrs::s3_register("dplyr::collect", "tbl_connect")
-  vctrs::s3_register("vctrs::vec_cast", "character.integer")
   invisible()
 }

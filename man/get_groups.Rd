@@ -45,8 +45,8 @@ get_groups(client, limit = Inf)
 
 }
 \seealso{
-Other groups functions: 
-\code{\link{get_group_content}()},
-\code{\link{get_group_members}()}
+Other groups functions:
+\code{\link[=get_group_content]{get_group_content()}},
+\code{\link[=get_group_members]{get_group_members()}}
 }
 \concept{groups functions}
