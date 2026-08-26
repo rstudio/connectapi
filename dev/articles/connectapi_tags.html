@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="connectapi Tags">
 <meta name="robots" content="noindex">
@@ -124,7 +124,7 @@ tree specified at once.</p>
 <code class="sourceCode R"><span><span class="va">tree_project_1</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect API Client: </span></span>
 <span><span class="co">##   Posit Connect Server: http://localhost:3939</span></span>
-<span><span class="co">##   Posit Connect API Key: ***********CEBY</span></span></code></pre>
+<span><span class="co">##   Posit Connect API Key: ***********gQBJ</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tmp_tags</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">get_tags</a></span><span class="op">(</span><span class="va">client</span><span class="op">)</span></span>
 <span></span>
@@ -136,7 +136,7 @@ tree specified at once.</p>
 <code class="sourceCode R"><span><span class="va">tree_project_2</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect API Client: </span></span>
 <span><span class="co">##   Posit Connect Server: http://localhost:3939</span></span>
-<span><span class="co">##   Posit Connect API Key: ***********CEBY</span></span></code></pre>
+<span><span class="co">##   Posit Connect API Key: ***********gQBJ</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_audience_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tags.html">create_tag_tree</a></span><span class="op">(</span><span class="va">client</span>, <span class="st">"DemoAudience"</span>, <span class="st">"Sales"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect Tag Tree (filtered)</span></span>
@@ -164,11 +164,11 @@ tree specified at once.</p>
 with.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bnd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bundle_static.html">bundle_static</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logo.png"</span>, package <span class="op">=</span> <span class="st">"connectapi"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpG7l86q/bundledir2a05212b1478)</span></span></code></pre>
+<pre><code><span><span class="co">## Bundling directory (/tmp/RtmpgTAViC/bundledir29af64bcbd11)</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">content_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/deploy.html">deploy</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">bnd</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Getting content endpoint</span></span></code></pre>
-<pre><code><span><span class="co">## Found EXISTING content e1244c20-247a-46b1-bedb-47ba45ac5395 with name mwlefoodfieexombwkkeulbfd on http://localhost:3939</span></span></code></pre>
+<pre><code><span><span class="co">## Found EXISTING content 83bde7c9-b895-4598-9083-8e478e244c64 with name mwlefoodfieexombwkkeulbfd on http://localhost:3939</span></span></code></pre>
 <pre><code><span><span class="co">## Uploading bundle</span></span></code></pre>
 <pre><code><span><span class="co">## Deploying bundle</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -190,9 +190,9 @@ let’s set the tags! There are a few ways to do so.</p>
 <span><span class="co">## └── DemoProject</span></span>
 <span><span class="co">##    └── project_1</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: e1244c20-247a-46b1-bedb-47ba45ac5395</span></span>
-<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/e1244c20-247a-46b1-bedb-47ba45ac5395</span></span>
-<span><span class="co">##   Task ID: E3UMM3g8G7yGooq4</span></span></code></pre>
+<span><span class="co">##   Content GUID: 83bde7c9-b895-4598-9083-8e478e244c64</span></span>
+<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/83bde7c9-b895-4598-9083-8e478e244c64</span></span>
+<span><span class="co">##   Task ID: U0fQUptQMxstbTNL</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">set_content_tags</a></span><span class="op">(</span><span class="va">content_1</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect Tag Tree (content)</span></span>
@@ -201,9 +201,9 @@ let’s set the tags! There are a few ways to do so.</p>
 <span><span class="co">## └── DemoAudience</span></span>
 <span><span class="co">##    └── Sales</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: e1244c20-247a-46b1-bedb-47ba45ac5395</span></span>
-<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/e1244c20-247a-46b1-bedb-47ba45ac5395</span></span>
-<span><span class="co">##   Task ID: E3UMM3g8G7yGooq4</span></span></code></pre>
+<span><span class="co">##   Content GUID: 83bde7c9-b895-4598-9083-8e478e244c64</span></span>
+<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/83bde7c9-b895-4598-9083-8e478e244c64</span></span>
+<span><span class="co">##   Task ID: U0fQUptQMxstbTNL</span></span></code></pre>
 <p>Content 2 is for <code>project_2</code> and both Audiences
 (<code>Sales</code> and <code>Finance</code>).</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
@@ -220,9 +220,9 @@ let’s set the tags! There are a few ways to do so.</p>
 <span><span class="co">##    ├── Sales</span></span>
 <span><span class="co">##    └── Finance</span></span></code></pre>
 <pre><code><span><span class="co">## Posit Connect Content Task: </span></span>
-<span><span class="co">##   Content GUID: 30bdcaf4-835f-4ddf-ba09-9c93e0be5003</span></span>
-<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/30bdcaf4-835f-4ddf-ba09-9c93e0be5003</span></span>
-<span><span class="co">##   Task ID: O6YMgj0oxuR0927o</span></span></code></pre>
+<span><span class="co">##   Content GUID: 44f650b2-18c3-4b5c-a027-936035c37d88</span></span>
+<span><span class="co">##   URL: http://localhost:3939/connect/#/apps/44f650b2-18c3-4b5c-a027-936035c37d88</span></span>
+<span><span class="co">##   Task ID: MiBfo94jO4bGhHYg</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="see-the-tags-associated-with-content">See the tags associated with content<a class="anchor" aria-label="anchor" href="#see-the-tags-associated-with-content"></a>
@@ -257,12 +257,12 @@ tags that are associated with a piece of content.</p>
 content associated with a tag.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/content_list.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">$</span><span class="va">Sales</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 52</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 54</span></span></span>
 <span><span class="co">##   guid                 name  title description access_type locked locked_message</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 30bdcaf4-835f-4ddf-… pbcy… pbcy… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> e1244c20-247a-46b1-… mwle… mwle… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 45 more variables: connection_timeout &lt;lgl&gt;, read_timeout &lt;lgl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 44f650b2-18c3-4b5c-… pbcy… pbcy… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 83bde7c9-b895-4598-… mwle… mwle… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 47 more variables: connection_timeout &lt;lgl&gt;, read_timeout &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   init_timeout &lt;lgl&gt;, idle_timeout &lt;lgl&gt;, max_processes &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   min_processes &lt;lgl&gt;, max_conns_per_process &lt;lgl&gt;, load_factor &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   memory_request &lt;lgl&gt;, memory_limit &lt;lgl&gt;, cpu_request &lt;lgl&gt;,</span></span></span>
@@ -271,11 +271,11 @@ content associated with a tag.</p>
 <span><span class="co">## <span style="color: #949494;">#   default_environment_guid &lt;lgl&gt;, created_time &lt;dttm&gt;, …</span></span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/content_list.html">content_list_by_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">all_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">$</span><span class="va">project_1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 52</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 54</span></span></span>
 <span><span class="co">##   guid                 name  title description access_type locked locked_message</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> e1244c20-247a-46b1-… mwle… mwle… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 45 more variables: connection_timeout &lt;lgl&gt;, read_timeout &lt;lgl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 83bde7c9-b895-4598-… mwle… mwle… <span style="color: #949494;">""</span>          acl         FALSE  <span style="color: #949494;">""</span>            </span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 47 more variables: connection_timeout &lt;lgl&gt;, read_timeout &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   init_timeout &lt;lgl&gt;, idle_timeout &lt;lgl&gt;, max_processes &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   min_processes &lt;lgl&gt;, max_conns_per_process &lt;lgl&gt;, load_factor &lt;lgl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   memory_request &lt;lgl&gt;, memory_limit &lt;lgl&gt;, cpu_request &lt;lgl&gt;,</span></span></span>
@@ -300,12 +300,12 @@ content associated with a tag.</p>
 <span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoProject</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect API Client: </span></span>
 <span><span class="co">##   Posit Connect Server: http://localhost:3939</span></span>
-<span><span class="co">##   Posit Connect API Key: ***********CEBY</span></span></code></pre>
+<span><span class="co">##   Posit Connect API Key: ***********gQBJ</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tags.html">delete_tag</a></span><span class="op">(</span><span class="va">client</span>, <span class="va">latest_tags</span><span class="op">$</span><span class="va">DemoAudience</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Posit Connect API Client: </span></span>
 <span><span class="co">##   Posit Connect Server: http://localhost:3939</span></span>
-<span><span class="co">##   Posit Connect API Key: ***********CEBY</span></span></code></pre>
+<span><span class="co">##   Posit Connect API Key: ***********gQBJ</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TODO: delete content</span></span></code></pre></div>
 </div>
@@ -320,7 +320,7 @@ content associated with a tag.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

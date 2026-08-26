@@ -160,7 +160,7 @@ Download the source archive for a content bundle.
 
 - `bundle_id`:
 
-  The bundle identifer.
+  The bundle identifier.
 
 - `filename`:
 
@@ -184,7 +184,7 @@ Delete a content bundle.
 
 - `bundle_id`:
 
-  The bundle identifer.
+  The bundle identifier.
 
 ------------------------------------------------------------------------
 

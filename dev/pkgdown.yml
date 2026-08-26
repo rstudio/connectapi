@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   articles/connectapi_tags: connectapi_tags.html
@@ -7,7 +7,7 @@ articles:
   customize-http: customize-http.html
   getting-started: getting-started.html
   articles/lifecycle-statuses: lifecycle-statuses.html
-last_built: 2026-05-05T18:29Z
+last_built: 2026-08-26T19:03Z
 urls:
   reference: https://posit-dev.github.io/connectapi/reference
   article: https://posit-dev.github.io/connectapi/articles
