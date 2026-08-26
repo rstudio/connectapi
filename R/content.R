@@ -35,7 +35,7 @@ Content <- R6::R6Class(
       self$connect$GET(url)
     },
     #' @description Download the source archive for a content bundle.
-    #' @param bundle_id The bundle identifer.
+    #' @param bundle_id The bundle identifier.
     #' @param filename Where to write the result.
     #' @param overwrite Overwrite an existing filename.
     bundle_download = function(
@@ -58,7 +58,7 @@ Content <- R6::R6Class(
       return(filename)
     },
     #' @description Delete a content bundle.
-    #' @param bundle_id The bundle identifer.
+    #' @param bundle_id The bundle identifier.
     bundle_delete = function(bundle_id) {
       url <- v1_url("content", self$content$guid, "bundles", bundle_id)
       self$connect$DELETE(url)

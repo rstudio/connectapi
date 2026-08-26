@@ -134,7 +134,7 @@ Other R6 classes:
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{bundle_id}}{The bundle identifer.}
+      \item{\code{bundle_id}}{The bundle identifier.}
       \item{\code{filename}}{Where to write the result.}
       \item{\code{overwrite}}{Overwrite an existing filename.}
     }
@@ -155,7 +155,7 @@ Other R6 classes:
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{bundle_id}}{The bundle identifer.}
+      \item{\code{bundle_id}}{The bundle identifier.}
     }
     \if{html}{\out{</div>}}
   }
